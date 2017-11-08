@@ -2,16 +2,20 @@ package gui.welcomescreen;
 
 import java.io.InputStream;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -40,29 +44,45 @@ public class WelcomeScreen {
 	private static final int PLAY_STATIC_WIDTH = 200;
 	private static final int PLAY_STATIC_HEIGHT = 200;
 	private static final String PLAY_PATH = "Play.gif";
-	private static final int PLAY_WIDTH = 200;
-	private static final int PLAY_HEIGHT = 200;
+	private static final int PLAY_WIDTH = 150;
+	private static final int PLAY_HEIGHT = 150;
 	private static final String BUILD_STATIC_PATH = "Build_Static.png";
 	private static final int BUILD_STATIC_WIDTH = 200;
 	private static final int BUILD_STATIC_HEIGHT = 200;
 	private static final String BUILD_PATH = "Build.gif";
-	private static final int BUILD_WIDTH = 200;
-	private static final int BUILD_HEIGHT = 200;
+	private static final int BUILD_WIDTH = 150;
+	private static final int BUILD_HEIGHT = 150;
 	private static final String LEARN_STATIC_PATH = "Learn_Static.png";
 	private static final int LEARN_STATIC_WIDTH = 200;
 	private static final int LEARN_STATIC_HEIGHT = 200;
 	private static final String LEARN_PATH = "Learn.gif";
-	private static final int LEARN_WIDTH = 200;
-	private static final int LEARN_HEIGHT = 200;
+	private static final int LEARN_WIDTH = 150;
+	private static final int LEARN_HEIGHT = 150;
 	private static final String SETTINGS_STATIC_PATH = "Settings_Static.png";
 	private static final int SETTINGS_STATIC_WIDTH = 200;
 	private static final int SETTINGS_STATIC_HEIGHT = 200;
 	private static final String SETTINGS_PATH = "Settings.gif";
-	private static final int SETTINGS_WIDTH = 200;
-	private static final int SETTINGS_HEIGHT = 200;
+	private static final int SETTINGS_WIDTH = 150;
+	private static final int SETTINGS_HEIGHT = 150;
+	private static final int OPTIONS_HORIZONTAL_GAP = 100;
+	private static final int OPTIONS_BOTTOM_PADDING = 50;
+	private static final String OPTIONS_BOX_BORDER_COLOR = "blue";
 
 	private Stage stage;
 	private BorderPane rootPane;
+	
+	private ImageView play;
+	private ImageView build;
+	private ImageView learn;
+	private ImageView settings;
+	private HBox playHBox;
+	private HBox buildHBox;
+	private HBox learnHBox;
+	private HBox settingsHBox;
+	private VBox playVBox;
+	private VBox buildVBox;
+	private VBox learnVBox;
+	private VBox settingsVBox;
 	
 	public WelcomeScreen(Stage currentStage) {
 		
@@ -97,8 +117,7 @@ public class WelcomeScreen {
 	}
 	
 	private HBox createTitle() {
-		Image infinityImage = new Image(WelcomeScreen.class.getClassLoader().getResourceAsStream(INFINITY_PATH), INFINITY_WIDTH, INFINITY_HEIGHT, true, true);
-		ImageView infinity = new ImageView(infinityImage);
+		ImageView infinity = createImageView(INFINITY_PATH, INFINITY_WIDTH, INFINITY_HEIGHT);
 		Label leftTitle = labelGenerator(LEFT_SEGMENT_TITLE, TITLE_FONT, TITLE_COLOR, TITLE_SIZE);
 		Label rightTitle = labelGenerator(RIGHT_SEGMENT_TITLE, TITLE_FONT, TITLE_COLOR, TITLE_SIZE);
 		
@@ -111,6 +130,12 @@ public class WelcomeScreen {
 		titleBox.getChildren().add(titlePane);
 		titleBox.setAlignment(Pos.CENTER);
 		return titleBox;
+	}
+	
+	private ImageView createImageView(String path, int width, int height) {
+		Image image = new Image(WelcomeScreen.class.getClassLoader().getResourceAsStream(path), width, height, true, true);
+		ImageView imageView = new ImageView(image);
+		return imageView;
 	}
 	
 	private Label labelGenerator(String labelText, String font, String color, String size) {
@@ -141,27 +166,87 @@ public class WelcomeScreen {
 	
 	private HBox createWelcomeOptions() {
 		
-		Image playImage = new Image(WelcomeScreen.class.getClassLoader().getResourceAsStream(PLAY_PATH), PLAY_WIDTH, PLAY_HEIGHT, true, true);
-		ImageView play = new ImageView(playImage);
+		createWelcomeImageViews();
 		
-		Image buildImage = new Image(WelcomeScreen.class.getClassLoader().getResourceAsStream(BUILD_PATH), BUILD_WIDTH, BUILD_HEIGHT, true, true);
-		ImageView build = new ImageView(buildImage);
-		
-		Image learnImage = new Image(WelcomeScreen.class.getClassLoader().getResourceAsStream(LEARN_PATH), LEARN_WIDTH, LEARN_HEIGHT, true, true);
-		ImageView learn = new ImageView(learnImage);
-		
-		Image settingsImage = new Image(WelcomeScreen.class.getClassLoader().getResourceAsStream(SETTINGS_PATH), SETTINGS_WIDTH, SETTINGS_HEIGHT, true, true);
-		ImageView settings = new ImageView(settingsImage);
-		
-		HBox optionBox = new HBox(50);
-		optionBox.getChildren().addAll(play, build, learn, settings);
+		HBox optionBox = new HBox(OPTIONS_HORIZONTAL_GAP);
+		optionBox.getChildren().addAll(playVBox, buildVBox, learn, settings);
 		optionBox.setAlignment(Pos.CENTER);
+		optionBox.setPadding(new Insets(0, 0, OPTIONS_BOTTOM_PADDING, 0));
 		return optionBox;
 	}
 	
-	//private VBox optionBoxGenerator() {
+	private void createWelcomeImageViews() {
 		
-	//}
+		play = createImageView(PLAY_PATH, PLAY_WIDTH, PLAY_HEIGHT);
+		build = createImageView(BUILD_PATH, BUILD_WIDTH, BUILD_HEIGHT);
+		learn = createImageView(LEARN_STATIC_PATH, LEARN_WIDTH, LEARN_HEIGHT);
+		settings = createImageView(SETTINGS_PATH, SETTINGS_WIDTH, SETTINGS_HEIGHT);
+		
+		createImageBorders();
+		createWelcomeBoxes();
+		handleHover();
+		
+	}
+	
+	private void createImageBorders() {
+		//Trying to use border generator but won't work with field variables
+		borderGenerator();
+	}
+	private void borderGenerator() {
+		playHBox = new HBox();
+		playHBox.getChildren().add(play);
+		playHBox.setStyle(styleBox(OPTIONS_BOX_BORDER_COLOR));
+		
+		buildHBox = new HBox();
+		buildHBox.getChildren().add(build);
+		buildHBox.setStyle(styleBox(OPTIONS_BOX_BORDER_COLOR));
+	}
+	
+	private void createWelcomeBoxes() {
+		playVBox = optionBoxGenerator();
+		buildVBox = optionBoxGenerator2();
+	}
+	
+	private VBox optionBoxGenerator() {
+		VBox box = new VBox();
+		box.setAlignment(Pos.CENTER);
+		Label playLabel = labelGenerator("Play", MOTTO_FONT, MOTTO_COLOR, MOTTO_SIZE);
+		box.getChildren().addAll(playLabel, playHBox);
+		return box;
+	}
+	
+	private VBox optionBoxGenerator2() {
+		VBox box = new VBox();
+		box.setAlignment(Pos.CENTER);
+		Label playLabel = labelGenerator("Build", MOTTO_FONT, MOTTO_COLOR, MOTTO_SIZE);
+		box.getChildren().addAll(playLabel, buildHBox);
+		return box;
+	}
+	
+	/**
+	 * Sets border color
+	 * @param color
+	 * @return
+	 */
+	private String styleBox(String color) {
+		return "-fx-border-style: solid inside;" + 
+               "-fx-border-width: 2;" + 
+               "-fx-border-radius: 5;" + 
+               "-fx-border-color: " + color + ";";
+	}
+	
+	private void handleHover() {
+		play.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> handleEnter());
+		play.addEventHandler(MouseEvent.MOUSE_EXITED, e -> handleExit());
+	}
+	
+	private void handleEnter() {
+		play = createImageView(PLAY_PATH, PLAY_WIDTH, PLAY_HEIGHT);
+	}
+	
+	private void handleExit() {
+		play = createImageView(PLAY_STATIC_PATH, PLAY_WIDTH, PLAY_HEIGHT);
+	}
 	
 	private void createTransition() {
 		
