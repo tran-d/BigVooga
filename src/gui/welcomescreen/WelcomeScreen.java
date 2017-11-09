@@ -1,26 +1,16 @@
 package gui.welcomescreen;
 
-import java.io.InputStream;
-
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.ObjectBinding;
-import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
+import javafx.animation.SequentialTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class WelcomeScreen {
@@ -71,6 +61,10 @@ public class WelcomeScreen {
 	private Stage stage;
 	private BorderPane rootPane;
 	
+	private VBox titleAndMotto;
+	private HBox options;
+	private SequentialTransition welcomeTransition;
+	
 	private Image playImage;
 	private Image playStaticImage;
 	private ImageView play;
@@ -108,10 +102,10 @@ public class WelcomeScreen {
 	public void createWelcomeScreen() {
 		
 		rootPane.setStyle("-fx-background-color: " + WELCOME_BACKGROUND_COLOR);
-		VBox titleAndMotto = createTitleAndMotto();
+		titleAndMotto = createTitleAndMotto();
 		rootPane.setTop(titleAndMotto);
 		
-		HBox options = createWelcomeOptions();
+		options = createWelcomeOptions();
 		rootPane.setBottom(options);		
 	}
 	
@@ -334,7 +328,6 @@ public class WelcomeScreen {
 	private void settingsMouseExit() {
 		settings.setImage(settingsStaticImage);
 	}
-	
 	
 	private void createTransition() {
 		
