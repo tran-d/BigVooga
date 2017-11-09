@@ -1,6 +1,11 @@
 package gui.welcomescreen;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
 import javafx.animation.SequentialTransition;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,7 +16,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Box;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class WelcomeScreen {
 
@@ -57,13 +64,16 @@ public class WelcomeScreen {
 	private static final String CREATE_CAPTION = "Create";
 	private static final String LEARN_CAPTION = "Learn";
 	private static final String SETTINGS_CAPTION = "Settings";
+	private static final int TITLE_FADE_DURATION_MILLIS = 2500;
+	private static final int OPTIONS_FADE_DURATION_MILLIS = 1500;
+	private static final int TITLE_TRANSITION_DURATION_MILLIS = 1500;
+	private static final int OPTIONS_TRANSITION_DURATION_MILLIS = 500;
 
 	private Stage stage;
 	private BorderPane rootPane;
 	
 	private VBox titleAndMotto;
 	private HBox options;
-	private SequentialTransition welcomeTransition;
 	
 	private Image playImage;
 	private Image playStaticImage;
@@ -86,6 +96,11 @@ public class WelcomeScreen {
 	private VBox learnVBox;
 	private VBox settingsVBox;
 	
+	private Timeline timeline;
+	private FadeTransition titleTransition;
+	private FadeTransition mottoTransition;
+	
+	
 	public WelcomeScreen(Stage currentStage) {
 		
 		stage = currentStage;
@@ -103,10 +118,14 @@ public class WelcomeScreen {
 		
 		rootPane.setStyle("-fx-background-color: " + WELCOME_BACKGROUND_COLOR);
 		titleAndMotto = createTitleAndMotto();
-		rootPane.setTop(titleAndMotto);
 		
 		options = createWelcomeOptions();
-		rootPane.setBottom(options);		
+		rootPane.setBottom(options);
+		
+		animationTimeline();
+		
+		rootPane.setTop(titleAndMotto);
+		
 	}
 	
 	private VBox createTitleAndMotto() {
@@ -329,8 +348,23 @@ public class WelcomeScreen {
 		settings.setImage(settingsStaticImage);
 	}
 	
-	private void createTransition() {
-		
+	private void animationTimeline() {
+		timeline = new Timeline();
+		timeline.getKeyFrames().addAll(
+				new KeyFrame(Duration.millis(0), e -> createTransition(titleAndMotto, TITLE_FADE_DURATION_MILLIS)),
+				new KeyFrame(Duration.millis(TITLE_TRANSITION_DURATION_MILLIS), e -> createTransition(playVBox, OPTIONS_FADE_DURATION_MILLIS)),
+				new KeyFrame(Duration.millis(TITLE_TRANSITION_DURATION_MILLIS + (OPTIONS_TRANSITION_DURATION_MILLIS*1)), e -> createTransition(createVBox, OPTIONS_FADE_DURATION_MILLIS)),
+				new KeyFrame(Duration.millis(TITLE_TRANSITION_DURATION_MILLIS + (OPTIONS_TRANSITION_DURATION_MILLIS*2)), e -> createTransition(learnVBox, OPTIONS_FADE_DURATION_MILLIS)),
+				new KeyFrame(Duration.millis(TITLE_TRANSITION_DURATION_MILLIS + (OPTIONS_TRANSITION_DURATION_MILLIS*3)), e -> createTransition(settingsVBox, OPTIONS_FADE_DURATION_MILLIS))
+				);
+		timeline.play();
+	}
+	
+	private void createTransition(VBox box, int duration) {
+		FadeTransition ft = new FadeTransition(Duration.millis(duration), box);
+		ft.setFromValue(0);
+		ft.setToValue(1);
+		ft.play();
 	}
 	
 }
