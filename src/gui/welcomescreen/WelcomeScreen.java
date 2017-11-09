@@ -33,8 +33,8 @@ public class WelcomeScreen {
 	private static final String INFINITY_PATH = "Infinity.gif";
 	private static final int INFINITY_WIDTH = 400;
 	private static final int INFINITY_HEIGHT = 300;
-	private static final String TITLE_SIZE = INFINITY_HEIGHT-175 + "pt;";
-	private static final int TITLE_POSITION_Y = 25;
+	private static final String TITLE_SIZE = INFINITY_HEIGHT-185 + "pt;";
+	private static final int TITLE_POSITION_Y = 55;
 	private static final int INFINITY_POSITION_X = 25;
 	private static final int INFINITY_BORDER_WIDTH = 75;
 	private static final String MOTTO_TEXT = "The Game Engine with Infinite Possibilities";
@@ -118,6 +118,7 @@ public class WelcomeScreen {
 		
 		rootPane.setStyle("-fx-background-color: " + WELCOME_BACKGROUND_COLOR);
 		titleAndMotto = createTitleAndMotto();
+		titleAndMotto.setOpacity(0);
 		
 		options = createWelcomeOptions();
 		rootPane.setBottom(options);
@@ -256,9 +257,13 @@ public class WelcomeScreen {
 	
 	private void createWelcomeBoxes() {
 		playVBox = playBoxGenerator();
+		playVBox.setOpacity(0);
 		createVBox = createBoxGenerator();
+		createVBox.setOpacity(0);
 		learnVBox = learnBoxGenerator();
+		learnVBox.setOpacity(0);
 		settingsVBox = settingsBoxGenerator();
+		settingsVBox.setOpacity(0);
 	}
 	
 	private VBox playBoxGenerator() {
