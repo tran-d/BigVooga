@@ -35,7 +35,8 @@ public class WelcomeScreen {
 	private static final int INFINITY_HEIGHT = 300;
 	private static final String TITLE_SIZE = INFINITY_HEIGHT-185 + "pt;";
 	private static final int TITLE_POSITION_Y = 55;
-	private static final int INFINITY_POSITION_X = 25;
+	private static final int INFINITY_POSITION_X = 15;
+	private static final int INFINITY_POSITION_Y = 20;
 	private static final int INFINITY_BORDER_WIDTH = 75;
 	private static final String MOTTO_TEXT = "The Game Engine with Infinite Possibilities";
 	private static final String MOTTO_COLOR = TITLE_COLOR;
@@ -181,6 +182,7 @@ public class WelcomeScreen {
 		firstSegment.toFront();
 		firstSegment.setLayoutY(TITLE_POSITION_Y);
 		image.setLayoutX(INFINITY_POSITION_X);
+		image.setLayoutY(INFINITY_POSITION_Y);
 		secondSegment.setLayoutX(INFINITY_POSITION_X + INFINITY_WIDTH - INFINITY_BORDER_WIDTH);
 		secondSegment.setLayoutY(TITLE_POSITION_Y);
 	}
