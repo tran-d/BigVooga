@@ -26,7 +26,7 @@ public class DummyObject implements GameObject {
 		for(Entry<Condition, List<Action>> e : events.entrySet()) {
 			if(e.getKey().isTrue(this)) {
 				for(Action a : e.getValue())
-					a.equals(this);
+					a.execute(this);
 			}
 		}
 	}
