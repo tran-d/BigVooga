@@ -24,9 +24,10 @@ public class WelcomeScreen {
 
 	public static final int WIDTH = 1000;
 	public static final int HEIGHT = 700;
+	public static final String SET_BACKGROUND_COLOR = "-fx-background-color: ";
+	public static final String BACKGROUND_COLOR = "#001E32;";
+	public static final String TEXT_COLOR = "#47BDFF;";
 	private static final String STAGE_TITLE = "VOOGA";
-	private static final String WELCOME_BACKGROUND_COLOR = "#001E32;";
-	private static final String TITLE_COLOR = "#47BDFF;";
 	private static final String TITLE_FONT = "Segoe UI;";
 	private static final String LEFT_SEGMENT_TITLE = "V";
 	private static final String RIGHT_SEGMENT_TITLE = "GA";
@@ -39,7 +40,6 @@ public class WelcomeScreen {
 	private static final int INFINITY_POSITION_Y = 20;
 	private static final int INFINITY_BORDER_WIDTH = 75;
 	private static final String MOTTO_TEXT = "The Game Engine with Infinite Possibilities";
-	private static final String MOTTO_COLOR = TITLE_COLOR;
 	private static final String MOTTO_FONT = TITLE_FONT;
 	private static final String MOTTO_SIZE = 16 + "pt;";
 	private static final String PLAY_STATIC_PATH = "Play_Static.png";
@@ -60,14 +60,16 @@ public class WelcomeScreen {
 	private static final int SETTINGS_HEIGHT = 150;
 	private static final int OPTIONS_HORIZONTAL_GAP = 100;
 	private static final int OPTIONS_BOTTOM_PADDING = 50;
-	private static final String OPTIONS_BOX_BORDER_COLOR = TITLE_COLOR;
+	private static final String OPTIONS_BOX_BORDER_COLOR = TEXT_COLOR;
+	private static final String OPTION_FONT = MOTTO_FONT;
+	private static final String OPTION_SIZE = MOTTO_SIZE;
 	private static final String PLAY_CAPTION = "Play";
 	private static final String CREATE_CAPTION = "Create";
 	private static final String LEARN_CAPTION = "Learn";
 	private static final String SETTINGS_CAPTION = "Settings";
-	private static final int TITLE_FADE_DURATION_MILLIS = 2500;
-	private static final int OPTIONS_FADE_DURATION_MILLIS = 1500;
-	private static final int TITLE_TRANSITION_DURATION_MILLIS = 1500;
+	private static final int TITLE_FADE_DURATION_MILLIS = 2000;
+	private static final int OPTIONS_FADE_DURATION_MILLIS = 1000;
+	private static final int TITLE_TRANSITION_DURATION_MILLIS = 2000;
 	private static final int OPTIONS_TRANSITION_DURATION_MILLIS = 500;
 
 	private Stage stage;
@@ -95,12 +97,7 @@ public class WelcomeScreen {
 	private VBox playVBox;
 	private VBox createVBox;
 	private VBox learnVBox;
-	private VBox settingsVBox;
-	
-	private Timeline timeline;
-	private FadeTransition titleTransition;
-	private FadeTransition mottoTransition;
-	
+	private VBox settingsVBox;	
 	
 	public WelcomeScreen(Stage currentStage) {
 		
@@ -117,16 +114,15 @@ public class WelcomeScreen {
 	
 	public void createWelcomeScreen() {
 		
-		rootPane.setStyle("-fx-background-color: " + WELCOME_BACKGROUND_COLOR);
+		rootPane.setStyle(SET_BACKGROUND_COLOR + BACKGROUND_COLOR);
 		titleAndMotto = createTitleAndMotto();
 		titleAndMotto.setOpacity(0);
+		rootPane.setTop(titleAndMotto);
 		
 		options = createWelcomeOptions();
 		rootPane.setBottom(options);
 		
 		animationTimeline();
-		
-		rootPane.setTop(titleAndMotto);
 		
 	}
 	
@@ -142,8 +138,8 @@ public class WelcomeScreen {
 	private HBox createTitle() {
 		Image infinityImage = createImage(INFINITY_PATH, INFINITY_WIDTH, INFINITY_HEIGHT);
 		ImageView infinity = createImageView(infinityImage);
-		Label leftTitle = labelGenerator(LEFT_SEGMENT_TITLE, TITLE_FONT, TITLE_COLOR, TITLE_SIZE);
-		Label rightTitle = labelGenerator(RIGHT_SEGMENT_TITLE, TITLE_FONT, TITLE_COLOR, TITLE_SIZE);
+		Label leftTitle = labelGenerator(LEFT_SEGMENT_TITLE, TITLE_FONT, TEXT_COLOR, TITLE_SIZE);
+		Label rightTitle = labelGenerator(RIGHT_SEGMENT_TITLE, TITLE_FONT, TEXT_COLOR, TITLE_SIZE);
 		
 		Pane titlePane = new Pane();
 		titlePane.getChildren().addAll(leftTitle, infinity, rightTitle);
@@ -188,7 +184,7 @@ public class WelcomeScreen {
 	}
 	
 	private Label createMotto() {
-		Label motto = labelGenerator(MOTTO_TEXT, MOTTO_FONT, MOTTO_COLOR, MOTTO_SIZE);
+		Label motto = labelGenerator(MOTTO_TEXT, MOTTO_FONT, TEXT_COLOR, MOTTO_SIZE);
 		return motto;
 	}
 	
@@ -210,7 +206,7 @@ public class WelcomeScreen {
 		createImageBorders();
 		createWelcomeBoxes();
 		handleHover();
-		
+				
 	}
 	
 	private void createOptionImages(){
@@ -271,7 +267,7 @@ public class WelcomeScreen {
 	private VBox playBoxGenerator() {
 		VBox box = new VBox();
 		box.setAlignment(Pos.CENTER);
-		Label label = labelGenerator(PLAY_CAPTION, MOTTO_FONT, MOTTO_COLOR, MOTTO_SIZE);
+		Label label = labelGenerator(PLAY_CAPTION, OPTION_FONT, TEXT_COLOR, OPTION_SIZE);
 		box.getChildren().addAll(label, playHBox);
 		return box;
 	}
@@ -279,7 +275,7 @@ public class WelcomeScreen {
 	private VBox createBoxGenerator() {
 		VBox box = new VBox();
 		box.setAlignment(Pos.CENTER);
-		Label label = labelGenerator(CREATE_CAPTION, MOTTO_FONT, MOTTO_COLOR, MOTTO_SIZE);
+		Label label = labelGenerator(CREATE_CAPTION, OPTION_FONT, TEXT_COLOR, OPTION_SIZE);
 		box.getChildren().addAll(label, createHBox);
 		return box;
 	}
@@ -287,7 +283,7 @@ public class WelcomeScreen {
 	private VBox learnBoxGenerator() {
 		VBox box = new VBox();
 		box.setAlignment(Pos.CENTER);
-		Label label = labelGenerator(LEARN_CAPTION, MOTTO_FONT, MOTTO_COLOR, MOTTO_SIZE);
+		Label label = labelGenerator(LEARN_CAPTION, OPTION_FONT, TEXT_COLOR, OPTION_SIZE);
 		box.getChildren().addAll(label, learnHBox);
 		return box;
 	}
@@ -295,7 +291,7 @@ public class WelcomeScreen {
 	private VBox settingsBoxGenerator() {
 		VBox box = new VBox();
 		box.setAlignment(Pos.CENTER);
-		Label label = labelGenerator(SETTINGS_CAPTION, MOTTO_FONT, MOTTO_COLOR, MOTTO_SIZE);
+		Label label = labelGenerator(SETTINGS_CAPTION, OPTION_FONT, TEXT_COLOR, OPTION_SIZE);
 		box.getChildren().addAll(label, settingsHBox);
 		return box;
 	}
@@ -356,7 +352,7 @@ public class WelcomeScreen {
 	}
 	
 	private void animationTimeline() {
-		timeline = new Timeline();
+		Timeline timeline = new Timeline();
 		timeline.getKeyFrames().addAll(
 				new KeyFrame(Duration.millis(0), e -> createTransition(titleAndMotto, TITLE_FADE_DURATION_MILLIS)),
 				new KeyFrame(Duration.millis(TITLE_TRANSITION_DURATION_MILLIS), e -> createTransition(playVBox, OPTIONS_FADE_DURATION_MILLIS)),
@@ -365,6 +361,7 @@ public class WelcomeScreen {
 				new KeyFrame(Duration.millis(TITLE_TRANSITION_DURATION_MILLIS + (OPTIONS_TRANSITION_DURATION_MILLIS*3)), e -> createTransition(settingsVBox, OPTIONS_FADE_DURATION_MILLIS))
 				);
 		timeline.play();
+		timeline.setOnFinished(e -> handleOptionSelection());
 	}
 	
 	private void createTransition(VBox box, int duration) {
@@ -372,6 +369,32 @@ public class WelcomeScreen {
 		ft.setFromValue(0);
 		ft.setToValue(1);
 		ft.play();
+	}
+	
+	private void handleOptionSelection() {
+		playHBox.setOnMouseClicked(e -> handlePlaySelection());
+		createHBox.setOnMouseClicked(e -> handleCreateSelection());
+		learnHBox.setOnMouseClicked(e -> handleLearnSelection());
+		settingsHBox.setOnMouseClicked(e -> handleSettingsSelection());
+		
+	}
+	
+	private void handlePlaySelection() {
+		
+	}
+	
+	private void handleCreateSelection() {
+		
+	}
+	
+	private void handleLearnSelection() {
+		Instructions instructions = new Instructions(stage);
+		instructions.createInstructionsScreen();
+	}
+	
+	private void handleSettingsSelection() {
+		Settings settings = new Settings(stage);
+		settings.createSettingsScreen();
 	}
 	
 }
