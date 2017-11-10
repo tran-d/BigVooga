@@ -20,4 +20,5 @@ public interface GameObject {
 	public String getStringVariable(String name);
 	public void addToObjectList(GameObject o);
 	public void addConditionAction(Condition c, Action a);
+	public void step();
 }
