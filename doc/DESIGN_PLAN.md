@@ -29,7 +29,7 @@ When the program is initially run, a welcome screen will appear and display icon
 
 Game Authoring Environment:
 
-The game authoring environment will consist of a left side tab with menu options and item properties, a top tab with defaultSprites/mySprites tabs and their imageviews below, and a map display (image of UI below). This map display will be a grid of customizable size, with each square being able to be occupied by one or more object. One can view and edit the properties of objects by clicking them. He/she can add them to the gridpane by dragging and dropping them either onto a square, which it will snap into, and can remove them from the gridpane by dragging the object into the trashcan. 
+The game authoring environment will consist of a left side tab with menu options and item properties, a top tab with defaultSprites/mySprites tabs and their imageviews below, and a map display (images of UI in doc folder). This map display will be a grid of customizable size, with each square being able to be occupied by one or more object. One can view and edit the properties of objects by clicking them. He/she can add them to the gridpane by dragging and dropping them either onto a square, which it will snap into, and can remove them from the gridpane by dragging the object into the trashcan. 
 
 
 
