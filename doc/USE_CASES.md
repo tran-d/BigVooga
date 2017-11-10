@@ -62,7 +62,7 @@ create a new instance in the backend with its specified parameters.
     * User selects object and then selects the ‘trashcan.’ ImageView disappears & the Front 
 end calls backend remove(row, col) method which removes object from grid array.
 24.  User starts to edit a spriteObject, but does not click apply
-    *The changes are not saved for that spriteObject, and no further action is done.
+    * The changes are not saved for that spriteObject, and no further action is done.
 25. User places two objects on top of each other
     * Depending on what kind of sprite object it is, the user will could be thrown an error message if he/she places a terrain object on top of a player, NPC, or enemy object. However, placing animate objects on top of terrain and is perfectly legal and encouraged. Each grid square will retain all of the objects on top of it, and the one most recently added will be shown.
 26. User clicks the save configuration button
@@ -92,13 +92,13 @@ end calls backend remove(row, col) method which removes object from grid array.
 
 ## Welcome Screen
 33. Selecting “Play”
-    *Upon selecting play in the Welcome Screen, the main menu will create an instance of the Play Menu. This menu would contain a list of games that have been created, and within each game the option to start a new game or continue if there is an existing game.
+    * Upon selecting play in the Welcome Screen, the main menu will create an instance of the Play Menu. This menu would contain a list of games that have been created, and within each game the option to start a new game or continue if there is an existing game.
 34. Selecting “Create”
-    *Upon selecting create, the main menu will create an instance of the authoring environment.
+    * Upon selecting create, the main menu will create an instance of the authoring environment.
 35. Selecting “Learn”
-    *Upon selecting learn, the main menu will create an instance of the Instructions Screen.
+    * Upon selecting learn, the main menu will create an instance of the Instructions Screen.
 36. Selecting “Settings”
-    *Upon selecting settings, the main menu will create an instance of the Settings Screen, which allows users to set their save/load file directory among other features.
+    * Upon selecting settings, the main menu will create an instance of the Settings Screen, which allows users to set their save/load file directory among other features.
 
 ## Data
 
