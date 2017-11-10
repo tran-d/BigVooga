@@ -7,5 +7,7 @@ ENGINE:
 
 PLAYER:
 
+The player team is David Tran and Samarth Desai. They will both be responsible for keeping the front-end game components updated and accurate with respect to the game engine. They will also be responsible for updating the interface in the welcome screen whenever an icon is clicked. Since the View communicates with the controller which communicates with the EngineController, they will make sure that communication throughout the MVC is functional. Key and mouse inputs are the primary source of user input that needs to be handled. In addition, buttons and other front-end features may need to be created by the View after communicating with the game engine.
+
 DATA:
 

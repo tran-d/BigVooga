@@ -54,7 +54,9 @@ The engine’s structure is divided into the following submodules:
 * Action -- A general representation of any change in the game state
 	*Action is primarily focused on the execution of a single command. Upon creation of the specific action, the needed parameters are passed to it, and it uses those to execute the action.
 
+### Player
 
+The Player essentially takes the role of the View in the MVC design pattern. Thus, the controller will act as a bridge between the EngineController (Model) and the Player (View). The primary inputs from the user that need to be communicated to the controller are key/mouse inputs, buttons, and other front-end components that handle user-triggered events. For example, when a key is pressed, the keycode gets passed to controller and then to model. Model will process that keycode and call any appropriate methods on the controller. This gets communicated to the View which may take in an immutable game object and update the view object accordingly. This would require a "delta" class approach that detects changes of game objects. Also, objects would need to have unique IDs in order to map back-end objects to front-end objects accurately.
 
 ## Example games
 
