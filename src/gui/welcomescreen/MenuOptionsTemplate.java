@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class MenuOptionsTemplate {
@@ -33,26 +34,27 @@ public class MenuOptionsTemplate {
 		stage.setScene(scene);
 	}
 
-	public void createOptionScreen(String titleLogoPath, int titleLogoWidth, int titleLogoHeight) {
+	public void createOptionScreen(String titleLogoPath, int titleLogoWidth, int titleLogoHeight, int topAndBottomPadding) {
 		rootPane.setStyle(WelcomeScreen.SET_BACKGROUND_COLOR + WelcomeScreen.BACKGROUND_COLOR);
-		rootPane.setTop(createHeading(titleLogoPath, titleLogoWidth, titleLogoHeight));
+		rootPane.setTop(createHeading(titleLogoPath, titleLogoWidth, titleLogoHeight, topAndBottomPadding));
+		rootPane.setCenter(createContentBox());
 
 	}
 	
-	private HBox createHeading(String titleLogoPath, int titleLogoWidth, int titleLogoHeight) {
+	private HBox createHeading(String titleLogoPath, int titleLogoWidth, int titleLogoHeight, int topAndBottomPadding) {
 		HBox backButton = createBack(e -> handleBackSelection());
 		HBox titleLogo = createLogo(titleLogoPath, titleLogoWidth, titleLogoHeight);
 		HBox heading = new HBox((WelcomeScreen.WIDTH/2) - titleLogoWidth/2 - BACK_WIDTH);
-		heading.setPadding(new Insets(10, 0, 0, 0));
+		heading.setPadding(new Insets(topAndBottomPadding, 0, topAndBottomPadding, 0));
 		heading.getChildren().addAll(backButton, titleLogo);
 		return heading;
 	}
 	
 	private HBox createBack(EventHandler<? super MouseEvent> handler) {
 		
-		backStaticImage = createImage(BACK_STATIC_PATH, BACK_WIDTH, BACK_HEIGHT);
-		backImage = createImage(BACK_PATH, BACK_WIDTH, BACK_HEIGHT);
-		back = createImageView(backStaticImage);
+		backStaticImage = GUITools.createImage(BACK_STATIC_PATH, BACK_WIDTH, BACK_HEIGHT);
+		backImage = GUITools.createImage(BACK_PATH, BACK_WIDTH, BACK_HEIGHT);
+		back = GUITools.createImageView(backStaticImage);
 		handleHover();
 		
 		HBox backBox = new HBox();
@@ -85,21 +87,20 @@ public class MenuOptionsTemplate {
 
 	private HBox createLogo(String titleLogoPath, int titleLogoWidth, int titleLogoHeight) {
 
-		Image logoImage = createImage(titleLogoPath, titleLogoWidth, titleLogoWidth);
-		ImageView logo = createImageView(logoImage);
+		Image logoImage = GUITools.createImage(titleLogoPath, titleLogoWidth, titleLogoWidth);
+		ImageView logo = GUITools.createImageView(logoImage);
 		
 		HBox logoBox = new HBox();
 		logoBox.getChildren().add(logo);
 		return logoBox;
 
 	}
-
-	private Image createImage(String path, int width, int height) {
-		Image image = new Image(WelcomeScreen.class.getClassLoader().getResourceAsStream(path), width, height, true, true);
-		return image;
-	}
-	private ImageView createImageView(Image image) {
-		ImageView imageView = new ImageView(image);
-		return imageView;
+	
+	private VBox createContentBox() {
+		VBox contentBox = new VBox();
+		contentBox.setPrefWidth(WelcomeScreen.WIDTH);
+		contentBox.setPrefWidth(WelcomeScreen.HEIGHT);
+		contentBox.setStyle(GUITools.styleBox(WelcomeScreen.BORDER_COLOR));
+		return contentBox;
 	}
 }

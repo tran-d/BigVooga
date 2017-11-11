@@ -24,8 +24,9 @@ public class WelcomeScreen {
 	public static final int HEIGHT = 700;
 	public static final String SET_BACKGROUND_COLOR = "-fx-background-color: ";
 	public static final String BACKGROUND_COLOR = "#001E32;";
-	public static final String MAIN_TEXT_COLOR = "#47BDFF;";
+	public static final String MAIN_COLOR = "#47BDFF;";
 	public static final String MAIN_FONT = "Segoe UI;";
+	public static final String BORDER_COLOR = MAIN_COLOR;
 	private static final String STAGE_TITLE = "VOOGA";
 	private static final String LEFT_SEGMENT_TITLE = "V";
 	private static final String RIGHT_SEGMENT_TITLE = "GA";
@@ -63,7 +64,6 @@ public class WelcomeScreen {
 	private static final int SETTINGS_HEIGHT = 150;
 	private static final int OPTIONS_HORIZONTAL_GAP = 100;
 	private static final int OPTIONS_BOTTOM_PADDING = 50;
-	private static final String OPTIONS_BOX_BORDER_COLOR = MAIN_TEXT_COLOR;
 	private static final String OPTION_SIZE = MOTTO_SIZE;
 	private static final String PLAY_CAPTION = "Play";
 	private static final String CREATE_CAPTION = "Create";
@@ -137,10 +137,10 @@ public class WelcomeScreen {
 	
 	private HBox createTitle() {
 		
-		Image infinityImage = createImage(INFINITY_PATH, INFINITY_WIDTH, INFINITY_HEIGHT);
-		ImageView infinity = createImageView(infinityImage);
-		Label leftTitle = labelGenerator(LEFT_SEGMENT_TITLE, MAIN_FONT, MAIN_TEXT_COLOR, TITLE_SIZE);
-		Label rightTitle = labelGenerator(RIGHT_SEGMENT_TITLE, MAIN_FONT, MAIN_TEXT_COLOR, TITLE_SIZE);
+		Image infinityImage = GUITools.createImage(INFINITY_PATH, INFINITY_WIDTH, INFINITY_HEIGHT);
+		ImageView infinity = GUITools.createImageView(infinityImage);
+		Label leftTitle = labelGenerator(LEFT_SEGMENT_TITLE, MAIN_FONT, MAIN_COLOR, TITLE_SIZE);
+		Label rightTitle = labelGenerator(RIGHT_SEGMENT_TITLE, MAIN_FONT, MAIN_COLOR, TITLE_SIZE);
 		
 		Pane titlePane = new Pane();
 		titlePane.getChildren().addAll(leftTitle, infinity, rightTitle);
@@ -151,15 +151,6 @@ public class WelcomeScreen {
 		titleBox.getChildren().add(titlePane);
 		titleBox.setAlignment(Pos.CENTER);
 		return titleBox;
-	}
-	
-	private Image createImage(String path, int width, int height) {
-		Image image = new Image(WelcomeScreen.class.getClassLoader().getResourceAsStream(path), width, height, true, true);
-		return image;
-	}
-	private ImageView createImageView(Image image) {
-		ImageView imageView = new ImageView(image);
-		return imageView;
 	}
 	
 	private Label labelGenerator(String labelText, String font, String color, String size) {
@@ -216,7 +207,7 @@ public class WelcomeScreen {
 	}
 	
 	private Label createMotto() {
-		Label motto = labelGenerator(MOTTO_TEXT, MAIN_FONT, MAIN_TEXT_COLOR, MOTTO_SIZE);
+		Label motto = labelGenerator(MOTTO_TEXT, MAIN_FONT, MAIN_COLOR, MOTTO_SIZE);
 		return motto;
 	}
 	
@@ -242,23 +233,23 @@ public class WelcomeScreen {
 	
 	private void createOptionImages(){
 		
-		playImage = createImage(PLAY_PATH, PLAY_WIDTH, PLAY_HEIGHT);
-		createImage = createImage(CREATE_PATH, CREATE_WIDTH, CREATE_HEIGHT);
-		learnImage = createImage(LEARN_PATH, LEARN_WIDTH, LEARN_HEIGHT);
-		settingsImage = createImage(SETTINGS_PATH, SETTINGS_WIDTH, SETTINGS_HEIGHT);
+		playImage = GUITools.createImage(PLAY_PATH, PLAY_WIDTH, PLAY_HEIGHT);
+		createImage = GUITools.createImage(CREATE_PATH, CREATE_WIDTH, CREATE_HEIGHT);
+		learnImage = GUITools.createImage(LEARN_PATH, LEARN_WIDTH, LEARN_HEIGHT);
+		settingsImage = GUITools.createImage(SETTINGS_PATH, SETTINGS_WIDTH, SETTINGS_HEIGHT);
 		
-		playStaticImage = createImage(PLAY_STATIC_PATH, PLAY_WIDTH, PLAY_HEIGHT);
-		createStaticImage = createImage(CREATE_STATIC_PATH, CREATE_WIDTH, CREATE_HEIGHT);
-		learnStaticImage = createImage(LEARN_STATIC_PATH, LEARN_WIDTH, LEARN_HEIGHT);
-		settingsStaticImage = createImage(SETTINGS_STATIC_PATH, SETTINGS_WIDTH, SETTINGS_HEIGHT);
+		playStaticImage = GUITools.createImage(PLAY_STATIC_PATH, PLAY_WIDTH, PLAY_HEIGHT);
+		createStaticImage = GUITools.createImage(CREATE_STATIC_PATH, CREATE_WIDTH, CREATE_HEIGHT);
+		learnStaticImage = GUITools.createImage(LEARN_STATIC_PATH, LEARN_WIDTH, LEARN_HEIGHT);
+		settingsStaticImage = GUITools.createImage(SETTINGS_STATIC_PATH, SETTINGS_WIDTH, SETTINGS_HEIGHT);
 	}
 	
 	private void initializeOptionImageViews() {
 		
-		play = createImageView(playStaticImage);
-		create = createImageView(createStaticImage);
-		learn = createImageView(learnStaticImage);
-		settings = createImageView(settingsStaticImage);
+		play = GUITools.createImageView(playStaticImage);
+		create = GUITools.createImageView(createStaticImage);
+		learn = GUITools.createImageView(learnStaticImage);
+		settings = GUITools.createImageView(settingsStaticImage);
 	}
 	
 	private void createWelcomeBoxes() {
@@ -282,7 +273,7 @@ public class WelcomeScreen {
 	private HBox borderGenerate(ImageView optionLogo, EventHandler<? super MouseEvent> handler) {
 		HBox optionBox = new HBox();
 		optionBox.getChildren().add(optionLogo);
-		optionBox.setStyle(styleBox(OPTIONS_BOX_BORDER_COLOR));
+		optionBox.setStyle(GUITools.styleBox(BORDER_COLOR));
 		optionBox.setOnMouseClicked(handler);
 		return optionBox;
 	}
@@ -290,22 +281,10 @@ public class WelcomeScreen {
 	private VBox boxGenerator(HBox hbox, String caption) {
 		VBox box = new VBox();
 		box.setAlignment(Pos.CENTER);
-		Label label = labelGenerator(caption, MAIN_FONT, MAIN_TEXT_COLOR, OPTION_SIZE);
+		Label label = labelGenerator(caption, MAIN_FONT, MAIN_COLOR, OPTION_SIZE);
 		box.getChildren().addAll(label, hbox);
 		box.setOpacity(0);
 		return box;
-	}
-	
-	/**
-	 * Sets border color
-	 * @param color
-	 * @return
-	 */
-	private String styleBox(String color) {
-		return "-fx-border-style: solid inside;" + 
-               "-fx-border-width: 2;" + 
-               "-fx-border-radius: 5;" + 
-               "-fx-border-color: " + color + ";";
 	}
 	
 	private void handleHover() {
