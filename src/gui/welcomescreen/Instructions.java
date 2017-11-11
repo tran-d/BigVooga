@@ -6,6 +6,9 @@ import javafx.stage.Stage;
 
 public class Instructions {
 
+	private static final String TITLE = "Using VOOGA";
+	private static final String GLOBE_PATH = "Instructions.gif";
+	
 	private Stage stage;
 	private BorderPane rootPane;
 	
@@ -19,6 +22,8 @@ public class Instructions {
 	
 	public void createInstructionsScreen() {
 		rootPane.setStyle(WelcomeScreen.SET_BACKGROUND_COLOR + WelcomeScreen.BACKGROUND_COLOR);
+		
+		
 	}
 	
 }
