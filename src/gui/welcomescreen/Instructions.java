@@ -1,29 +1,16 @@
 package gui.welcomescreen;
 
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class Instructions {
+public class Instructions extends MenuOptionsTemplate {
 
-	private static final String TITLE = "Using VOOGA";
-	private static final String GLOBE_PATH = "Instructions.gif";
-	
-	private Stage stage;
-	private BorderPane rootPane;
-	
+	private static final int CRYSTAL_WIDTH = 125;
+	private static final int CRYSTAL_HEIGHT = 125;
+	private static final String CRYSTAL_PATH = "Crystal.gif";
+
 	public Instructions(Stage currentStage) {
-		stage = currentStage;
-		rootPane = new BorderPane();
-		Scene scene = new Scene(rootPane, WelcomeScreen.WIDTH, WelcomeScreen.HEIGHT);
-
-		stage.setScene(scene);
-	}
-	
-	public void createInstructionsScreen() {
-		rootPane.setStyle(WelcomeScreen.SET_BACKGROUND_COLOR + WelcomeScreen.BACKGROUND_COLOR);
-		
+		super(currentStage);
+		createOptionScreen(CRYSTAL_PATH, CRYSTAL_WIDTH, CRYSTAL_HEIGHT);
 		
 	}
-	
 }

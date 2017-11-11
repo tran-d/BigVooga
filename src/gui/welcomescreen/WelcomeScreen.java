@@ -25,8 +25,8 @@ public class WelcomeScreen {
 	public static final String SET_BACKGROUND_COLOR = "-fx-background-color: ";
 	public static final String BACKGROUND_COLOR = "#001E32;";
 	public static final String MAIN_TEXT_COLOR = "#47BDFF;";
+	public static final String MAIN_FONT = "Segoe UI;";
 	private static final String STAGE_TITLE = "VOOGA";
-	private static final String TITLE_FONT = "Segoe UI;";
 	private static final String LEFT_SEGMENT_TITLE = "V";
 	private static final String RIGHT_SEGMENT_TITLE = "GA";
 	private static final String INFINITY_PATH = "Infinity.gif";
@@ -44,7 +44,6 @@ public class WelcomeScreen {
 	//private static final int INFINITY_POSITION_Y_MAC = 55;
 	private static final int INFINITY_BORDER_WIDTH = 75;
 	private static final String MOTTO_TEXT = "The Game Engine with Infinite Possibilities";
-	private static final String MOTTO_FONT = TITLE_FONT;
 	private static final String MOTTO_SIZE = 16 + "pt;";
 	private static final String PLAY_STATIC_PATH = "Play_Static.png";
 	private static final String PLAY_PATH = "Play.gif";
@@ -65,7 +64,6 @@ public class WelcomeScreen {
 	private static final int OPTIONS_HORIZONTAL_GAP = 100;
 	private static final int OPTIONS_BOTTOM_PADDING = 50;
 	private static final String OPTIONS_BOX_BORDER_COLOR = MAIN_TEXT_COLOR;
-	private static final String OPTION_FONT = MOTTO_FONT;
 	private static final String OPTION_SIZE = MOTTO_SIZE;
 	private static final String PLAY_CAPTION = "Play";
 	private static final String CREATE_CAPTION = "Create";
@@ -141,8 +139,8 @@ public class WelcomeScreen {
 		
 		Image infinityImage = createImage(INFINITY_PATH, INFINITY_WIDTH, INFINITY_HEIGHT);
 		ImageView infinity = createImageView(infinityImage);
-		Label leftTitle = labelGenerator(LEFT_SEGMENT_TITLE, TITLE_FONT, MAIN_TEXT_COLOR, TITLE_SIZE);
-		Label rightTitle = labelGenerator(RIGHT_SEGMENT_TITLE, TITLE_FONT, MAIN_TEXT_COLOR, TITLE_SIZE);
+		Label leftTitle = labelGenerator(LEFT_SEGMENT_TITLE, MAIN_FONT, MAIN_TEXT_COLOR, TITLE_SIZE);
+		Label rightTitle = labelGenerator(RIGHT_SEGMENT_TITLE, MAIN_FONT, MAIN_TEXT_COLOR, TITLE_SIZE);
 		
 		Pane titlePane = new Pane();
 		titlePane.getChildren().addAll(leftTitle, infinity, rightTitle);
@@ -218,7 +216,7 @@ public class WelcomeScreen {
 	}
 	
 	private Label createMotto() {
-		Label motto = labelGenerator(MOTTO_TEXT, MOTTO_FONT, MAIN_TEXT_COLOR, MOTTO_SIZE);
+		Label motto = labelGenerator(MOTTO_TEXT, MAIN_FONT, MAIN_TEXT_COLOR, MOTTO_SIZE);
 		return motto;
 	}
 	
@@ -263,14 +261,6 @@ public class WelcomeScreen {
 		settings = createImageView(settingsStaticImage);
 	}
 	
-	private HBox borderGenerate(ImageView optionLogo, EventHandler<? super MouseEvent> handler) {
-		HBox optionBox = new HBox();
-		optionBox.getChildren().add(optionLogo);
-		optionBox.setStyle(styleBox(OPTIONS_BOX_BORDER_COLOR));
-		optionBox.setOnMouseClicked(handler);
-		return optionBox;
-	}
-	
 	private void createWelcomeBoxes() {
 		playVBox = boxGenerator(
 				borderGenerate(play, e -> handlePlaySelection()),
@@ -289,10 +279,18 @@ public class WelcomeScreen {
 				);
 	}
 	
+	private HBox borderGenerate(ImageView optionLogo, EventHandler<? super MouseEvent> handler) {
+		HBox optionBox = new HBox();
+		optionBox.getChildren().add(optionLogo);
+		optionBox.setStyle(styleBox(OPTIONS_BOX_BORDER_COLOR));
+		optionBox.setOnMouseClicked(handler);
+		return optionBox;
+	}
+	
 	private VBox boxGenerator(HBox hbox, String caption) {
 		VBox box = new VBox();
 		box.setAlignment(Pos.CENTER);
-		Label label = labelGenerator(caption, OPTION_FONT, MAIN_TEXT_COLOR, OPTION_SIZE);
+		Label label = labelGenerator(caption, MAIN_FONT, MAIN_TEXT_COLOR, OPTION_SIZE);
 		box.getChildren().addAll(label, hbox);
 		box.setOpacity(0);
 		return box;
@@ -386,7 +384,6 @@ public class WelcomeScreen {
 		if (!clickEnabled) { return; }
 		
 		Instructions instructions = new Instructions(stage);
-		instructions.createInstructionsScreen();
 		
 	}
 	
@@ -394,7 +391,6 @@ public class WelcomeScreen {
 		if (!clickEnabled) { return; }
 		
 		Settings settings = new Settings(stage);
-		settings.createSettingsScreen();
 	}
 	
 }
