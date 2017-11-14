@@ -17,6 +17,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import player.GameDisplay;
+import player.GameSelector;
 
 /**
  * 
@@ -344,6 +346,10 @@ public class WelcomeScreen {
 	}
 	
 	private void handlePlaySelection() {
+		if (!clickEnabled) { return; }
+		
+		GameSelector gameSelector = new GameSelector(stage);
+		gameSelector.createGameSelector();
 		
 	}
 	
