@@ -1,8 +1,14 @@
 package gui.welcomescreen;
 
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * 
+ * @author Samarth
+ *
+ */
 public class GUITools {
 
 	public GUITools() {
@@ -17,6 +23,19 @@ public class GUITools {
 	public static ImageView createImageView(Image image) {
 		ImageView imageView = new ImageView(image);
 		return imageView;
+	}
+	
+	public static Label generateLabel(String labelText, String font, String color, String size) {
+		Label label = new Label(labelText);
+		label.setStyle(styleLabel(font, color, size));
+		return label;
+	}
+	
+	public static String styleLabel(String font, String color, String size) {
+		return "-fx-font-family: " + font +
+				"-fx-text-fill: " + color +  
+				"-fx-font-size: " + size  
+				;
 	}
 	
 	/**

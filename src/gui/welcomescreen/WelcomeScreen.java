@@ -18,6 +18,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * 
+ * @author Samarth
+ *
+ */
 public class WelcomeScreen {
 
 	public static final int WIDTH = 1000;
@@ -139,8 +144,8 @@ public class WelcomeScreen {
 		
 		Image infinityImage = GUITools.createImage(INFINITY_PATH, INFINITY_WIDTH, INFINITY_HEIGHT);
 		ImageView infinity = GUITools.createImageView(infinityImage);
-		Label leftTitle = labelGenerator(LEFT_SEGMENT_TITLE, MAIN_FONT, MAIN_COLOR, TITLE_SIZE);
-		Label rightTitle = labelGenerator(RIGHT_SEGMENT_TITLE, MAIN_FONT, MAIN_COLOR, TITLE_SIZE);
+		Label leftTitle = GUITools.generateLabel(LEFT_SEGMENT_TITLE, MAIN_FONT, MAIN_COLOR, TITLE_SIZE);
+		Label rightTitle = GUITools.generateLabel(RIGHT_SEGMENT_TITLE, MAIN_FONT, MAIN_COLOR, TITLE_SIZE);
 		
 		Pane titlePane = new Pane();
 		titlePane.getChildren().addAll(leftTitle, infinity, rightTitle);
@@ -151,19 +156,6 @@ public class WelcomeScreen {
 		titleBox.getChildren().add(titlePane);
 		titleBox.setAlignment(Pos.CENTER);
 		return titleBox;
-	}
-	
-	private Label labelGenerator(String labelText, String font, String color, String size) {
-		Label label = new Label(labelText);
-		label.setStyle(cssGenerator(font, color, size));
-		return label;
-	}
-	
-	private String cssGenerator(String font, String color, String size) {
-		return "-fx-font-family: " + font +
-				"-fx-text-fill: " + color +  
-				"-fx-font-size: " + size  
-				;
 	}
 	
 	private void positionTitle(Label firstSegment, ImageView image, Label secondSegment) {
@@ -207,7 +199,7 @@ public class WelcomeScreen {
 	}
 	
 	private Label createMotto() {
-		Label motto = labelGenerator(MOTTO_TEXT, MAIN_FONT, MAIN_COLOR, MOTTO_SIZE);
+		Label motto = GUITools.generateLabel(MOTTO_TEXT, MAIN_FONT, MAIN_COLOR, MOTTO_SIZE);
 		return motto;
 	}
 	
@@ -281,7 +273,7 @@ public class WelcomeScreen {
 	private VBox boxGenerator(HBox hbox, String caption) {
 		VBox box = new VBox();
 		box.setAlignment(Pos.CENTER);
-		Label label = labelGenerator(caption, MAIN_FONT, MAIN_COLOR, OPTION_SIZE);
+		Label label = GUITools.generateLabel(caption, MAIN_FONT, MAIN_COLOR, OPTION_SIZE);
 		box.getChildren().addAll(label, hbox);
 		box.setOpacity(0);
 		return box;
@@ -363,6 +355,7 @@ public class WelcomeScreen {
 		if (!clickEnabled) { return; }
 		
 		Instructions instructions = new Instructions(stage);
+		instructions.createInstructions();
 		
 	}
 	
@@ -370,6 +363,7 @@ public class WelcomeScreen {
 		if (!clickEnabled) { return; }
 		
 		Settings settings = new Settings(stage);
+		settings.createSettings();
 	}
 	
 }

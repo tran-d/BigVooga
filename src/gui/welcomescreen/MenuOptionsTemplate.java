@@ -4,23 +4,31 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @author Samarth
+ *
+ */
 public class MenuOptionsTemplate {
 
+	protected static final int CONTENT_INSET_SIZE = 10;
 	private static final int BACK_WIDTH = 50;
 	private static final int BACK_HEIGHT = 50;
 	private static final String BACK_STATIC_PATH = "Back_Static.png";
 	private static final String BACK_PATH = "Back.gif";
+	private static final Insets CONTENT_PADDING = new Insets(0, CONTENT_INSET_SIZE, CONTENT_INSET_SIZE, CONTENT_INSET_SIZE);
 	
 	private Stage stage;
 	private BorderPane rootPane;
+	private ScrollPane contentPane;
 	
 	private Image backStaticImage;
 	private Image backImage;
@@ -30,6 +38,7 @@ public class MenuOptionsTemplate {
 		stage = currentStage;
 		rootPane = new BorderPane();
 		Scene scene = new Scene(rootPane, WelcomeScreen.WIDTH, WelcomeScreen.HEIGHT);
+		scene.getStylesheets().add(MenuOptionsTemplate.class.getResource("MenuOptionsStyle.css").toExternalForm());
 
 		stage.setScene(scene);
 	}
@@ -96,11 +105,17 @@ public class MenuOptionsTemplate {
 
 	}
 	
-	private VBox createContentBox() {
-		VBox contentBox = new VBox();
-		contentBox.setPrefWidth(WelcomeScreen.WIDTH);
-		contentBox.setPrefWidth(WelcomeScreen.HEIGHT);
-		contentBox.setStyle(GUITools.styleBox(WelcomeScreen.BORDER_COLOR));
-		return contentBox;
+	private ScrollPane createContentBox() {		
+		contentPane = new ScrollPane();
+		contentPane.setPrefWidth(WelcomeScreen.WIDTH);
+		contentPane.setPrefHeight(WelcomeScreen.HEIGHT);
+		contentPane.setStyle(GUITools.styleBox(WelcomeScreen.BORDER_COLOR));
+		contentPane.setPadding(CONTENT_PADDING);
+		BorderPane.setMargin(contentPane, CONTENT_PADDING);
+		return contentPane;
+	}
+	
+	protected ScrollPane getScrollPane() {
+		return contentPane;
 	}
 }

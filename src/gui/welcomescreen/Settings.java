@@ -2,6 +2,11 @@ package gui.welcomescreen;
 
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @author Samarth
+ *
+ */
 public class Settings extends MenuOptionsTemplate{
 
 	private static final String GEARS_PATH = "Gears.gif";
@@ -12,6 +17,10 @@ public class Settings extends MenuOptionsTemplate{
 	public Settings(Stage currentStage) {
 		super(currentStage);
 		createOptionScreen(GEARS_PATH, GEARS_WIDTH, GEARS_HEIGHT, HEADING_PADDING);
+		
+	}
+	
+	public void createSettings(){
 		
 	}
 	
