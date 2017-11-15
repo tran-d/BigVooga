@@ -18,13 +18,14 @@ public class SpriteParameterSidebarManager {
 	boolean firstTimeThrough = true;
 	SpriteObjectI firstSprite;
 	
-	public ScrollPane getParameters(SpriteObjectI sprite) throws Exception{
-		ArrayList<SpriteObjectI> spriteList = new ArrayList<SpriteObjectI>();
-		spriteList.add(sprite);
-		return getParameters(spriteList);
-	}
+//	public ScrollPane getParameters(SpriteObjectI sprite, SpriteObjectGridManager SOGM) throws Exception{
+//		ArrayList<SpriteObjectI> spriteList = new ArrayList<SpriteObjectI>();
+//		spriteList.add(sprite);
+//		return getParameters(spriteList, SOGM);
+//	}
 
-	public ScrollPane getParameters(ArrayList<SpriteObjectI> sprites) throws Exception {
+	public ScrollPane getParameters(SpriteObjectGridManagerI SOGM) throws Exception {
+		ArrayList<SpriteObjectI> sprites = SOGM.getActiveSpriteObjects();
 		checkActiveCellsMatch(sprites);
 		SP = new ScrollPane();
 		VBox container = new VBox();
@@ -36,12 +37,15 @@ public class SpriteParameterSidebarManager {
 		Button applyChanges = new Button();
 		applyChanges.setText("Apply Changes");
 		applyChanges.setOnAction((event) -> {
+			firstSprite.applyUpdates();
 			int i = 0;
 			for (SpriteObjectI SO: sprites){
 				System.out.println("Loop: "+i);
 				i++;
 				System.out.println(SO.getParameters().get("General").get(0).getName());
-				SO = firstSprite.newCopy();
+//				System.out.println(firstSprite.getParameters().get("General").get(0).getName());
+				SO.applyParameterUpdate(firstSprite.getParameters());
+//				SO = firstSprite.newCopy();
 				System.out.println(SO.getParameters().get("General").get(0).getName());
 			}
 		});
@@ -84,7 +88,7 @@ public class SpriteParameterSidebarManager {
 			initializeMaps(SO);
 			firstTimeThrough = false;
 		} else {
-			boolean matches = SO.equals(firstSprite);
+			boolean matches = SO.isSame(firstSprite);
 			if (!matches){
 				throw new Exception("Sprites are not identical");
 			}

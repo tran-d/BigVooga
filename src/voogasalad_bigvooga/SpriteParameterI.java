@@ -14,6 +14,8 @@ public interface SpriteParameterI{
 	Object getValue();
 	Control getJavaFXNameNode();
 	Pane getJavaFXPane();
-	boolean equals(SpriteParameter other);
+	boolean isSame(SpriteParameterI other);
+	SpriteParameterI getDummy();
+	void becomeDummy();
 	
 }
