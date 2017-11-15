@@ -23,12 +23,12 @@ import javafx.scene.paint.Color;
 
 public class DraggableGrid extends HBox {
 	private ImageView draggingObject;
-	private final DataFormat objectFormat = new DataFormat("MyObject");
+	private DataFormat objectFormat;
 	
-	protected DraggableGrid() {
+	protected DraggableGrid(int mapCount) {
 		createGrid();
 		createTrash();
-       
+		objectFormat = new DataFormat("MyObject" + Integer.toString(mapCount));
 	}
 	
 	private void createGrid() {

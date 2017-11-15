@@ -17,6 +17,7 @@ public class SpriteManager extends TabPane {
 		mySprites = new VBox();
 		createSprites();
         	createSpriteTabs();
+        	this.setPrefWidth(110);
 	}
 	
 	private void createSprites() {

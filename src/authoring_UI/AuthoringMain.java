@@ -2,24 +2,20 @@ package authoring_UI;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class AuthoringMain extends Application {
-	private Menu myMenu;
-	private MapManager myMap;
 	
-	private final static double SCENE_WIDTH = 700;
-	private final static double SCENE_HEIGHT = 600;
+	private final static double SCENE_WIDTH = 650;
+	private final static double SCENE_HEIGHT = 500;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		myMap = new MapManager();
-		myMenu = new Menu(myMap);
-		HBox authoringEnv = new HBox(myMenu, myMap);
-		
-		Scene scene = new Scene(authoringEnv, SCENE_WIDTH, SCENE_HEIGHT);
+		MapManager myMap = new MapManager(SCENE_WIDTH, SCENE_HEIGHT);
 
+		Scene scene = new Scene(myMap, SCENE_WIDTH, SCENE_HEIGHT);
+
+		primaryStage.setTitle("BIG VOOGA");
         primaryStage.setScene(scene);
         primaryStage.show();
 	}
