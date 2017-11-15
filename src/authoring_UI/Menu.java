@@ -5,24 +5,35 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class Menu extends VBox {
-	private HBox buttons;
+	private Button myLoad;
+	private Button mySave;
+	private Button myMap;
+	private MapManager myManager;
 	
 	private final static String LOAD = "Load";
 	private final static String SAVE = "Save";
 	private final static String NEW_MAP = "New Map";
 	
-	public Menu(double width, double height) {
+	protected Menu(double width, double height) {
 		createButtons();
+		buttonInteraction();
 		//createTabs();
-		this.getChildren().add(buttons);
+
 	}
 	
 	private void createButtons() {
-		buttons = new HBox();
-		Button load = new Button(LOAD);
-		Button save = new Button(SAVE);
-		Button map = new Button(NEW_MAP);
-		buttons.getChildren().addAll(load, save, map);
+		HBox myButtons = new HBox();
+		myLoad = new Button(LOAD);
+		mySave = new Button(SAVE);
+		myMap = new Button(NEW_MAP);
+		myManager = new MapManager();
+		myButtons.getChildren().addAll(myLoad, mySave, myMap);
+		
+		this.getChildren().add(myButtons);
+	}
+	
+	private void buttonInteraction() {
+		
 	}
 	
 	private void createTabs() {
