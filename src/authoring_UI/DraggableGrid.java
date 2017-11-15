@@ -49,7 +49,7 @@ public class DraggableGrid extends HBox {
         }
         ScrollPane scrollGrid = new ScrollPane(gp);
         scrollGrid.setPannable(true);
-        this.getChildren().add(1, scrollGrid);
+        this.getChildren().add(scrollGrid);
 	}
 	
 	private void createTrash() {

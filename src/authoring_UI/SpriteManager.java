@@ -1,19 +1,21 @@
 package authoring_UI;
 
+import javafx.geometry.Side;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 public class SpriteManager extends TabPane {
 	private DraggableGrid myGrid;
-	private HBox mySprites;
+	private VBox mySprites;
 	
-	protected SpriteManager() {
+	protected SpriteManager(DraggableGrid grid) {
+		myGrid = grid;
+		mySprites = new VBox();
 		createSprites();
-        	myGrid = new DraggableGrid();
         	createSpriteTabs();
 	}
 	
@@ -40,12 +42,14 @@ public class SpriteManager extends TabPane {
 		Tab defaultSpriteTab = new Tab();
 		defaultSpriteTab.setText("Default Sprites");
 		defaultSpriteTab.setContent(mySprites);
-     
+		defaultSpriteTab.setClosable(false);
+		
 		Tab mySpriteTab = new Tab();
 		mySpriteTab.setText("User Sprites");
+		mySpriteTab.setClosable(false);
      
 		this.getTabs().addAll(defaultSpriteTab, mySpriteTab);
-
+		this.setSide(Side.RIGHT);
     }
 
 }

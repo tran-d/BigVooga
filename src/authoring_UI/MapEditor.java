@@ -33,7 +33,7 @@ import javafx.scene.paint.Color;
 
 public class MapEditor extends Application{
 
-    private final DataFormat objectFormat = new DataFormat("MyObject");
+    private final DataFormat objFormat = new DataFormat("MyObject");
 
     private ImageView draggingObject;
     
@@ -166,7 +166,7 @@ public class MapEditor extends Application{
 
          db.setDragView(b.snapshot(null, null)); 
          ClipboardContent cc = new ClipboardContent();
-         cc.put(objectFormat, " "); 
+         cc.put(objFormat, " "); 
          db.setContent(cc); 
          draggingObject = b;    
          });
@@ -175,7 +175,7 @@ public class MapEditor extends Application{
      private void addDropHandling(StackPane pane) {
          pane.setOnDragOver(e -> {
              Dragboard db = e.getDragboard();
-             if (db.hasContent(objectFormat) && draggingObject != null) {
+             if (db.hasContent(objFormat) && draggingObject != null) {
                  e.acceptTransferModes(TransferMode.MOVE);
 
              }
@@ -184,7 +184,7 @@ public class MapEditor extends Application{
          pane.setOnDragDropped(e -> {
              Dragboard db = e.getDragboard();
 
-             if (db.hasContent(objectFormat)) {
+             if (db.hasContent(objFormat)) {
                  ((Pane)draggingObject.getParent()).getChildren().remove(draggingObject);
                  pane.getChildren().add(draggingObject);
                  e.setDropCompleted(true);
@@ -199,7 +199,7 @@ public class MapEditor extends Application{
     	 
     	 	trash.setOnDragOver(e -> {
              Dragboard db = e.getDragboard();
-             if (db.hasContent(objectFormat) && draggingObject != null) {
+             if (db.hasContent(objFormat) && draggingObject != null) {
                  e.acceptTransferModes(TransferMode.MOVE);
 
              }
@@ -207,7 +207,7 @@ public class MapEditor extends Application{
     	 	
     	 	trash.setOnDragDropped(e -> {
     	 		Dragboard db = e.getDragboard();
-    	 		if (db.hasContent(objectFormat)) {
+    	 		if (db.hasContent(objFormat)) {
     	 			((Pane)draggingObject.getParent()).getChildren().remove(draggingObject);
     	 			e.setDropCompleted(true);
     	 			

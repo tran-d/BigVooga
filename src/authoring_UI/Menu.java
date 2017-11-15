@@ -7,14 +7,15 @@ import javafx.scene.layout.VBox;
 public class Menu extends VBox {
 	private Button myLoad;
 	private Button mySave;
-	private Button myMap;
-	private MapManager myManager;
+	private Button myNewMap;
+	private MapManager myMap;
 	
 	private final static String LOAD = "Load";
 	private final static String SAVE = "Save";
 	private final static String NEW_MAP = "New Map";
 	
-	protected Menu(double width, double height) {
+	protected Menu(MapManager map) {
+		myMap = map;
 		createButtons();
 		buttonInteraction();
 		//createTabs();
@@ -22,12 +23,11 @@ public class Menu extends VBox {
 	}
 	
 	private void createButtons() {
-		HBox myButtons = new HBox();
+		VBox myButtons = new VBox();
 		myLoad = new Button(LOAD);
 		mySave = new Button(SAVE);
-		myMap = new Button(NEW_MAP);
-		myManager = new MapManager();
-		myButtons.getChildren().addAll(myLoad, mySave, myMap);
+		myNewMap = new Button(NEW_MAP);
+		myButtons.getChildren().addAll(myLoad, mySave, myNewMap);
 		
 		this.getChildren().add(myButtons);
 	}
