@@ -42,7 +42,7 @@ public class IntegerSpriteParameter extends SpriteParameter {
 	@Override	
 	protected void setUpVariables(String name, Object in){
 		myValue = (Integer) in;
-		myName = name;
+		updateName(name);
 		
 		myTextArea = new TextArea();
 		myTextArea.setText(myValue.toString());
@@ -75,7 +75,7 @@ public class IntegerSpriteParameter extends SpriteParameter {
 				}
 				else {
 					System.out.println("In else");
-					dummy.updateValue(newValue);
+					updateValue(newValue);
 				}
 
 			} catch (Exception e){

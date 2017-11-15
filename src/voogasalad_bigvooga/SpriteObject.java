@@ -2,20 +2,16 @@ package voogasalad_bigvooga;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import engine.Action;
 
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.VBox;
-
-public class SpriteObject extends Object implements SpriteObjectI{
+public class SpriteObject implements SpriteObjectI{
 	
-	HashMap<String, ArrayList<SpriteParameterI>> categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();
-
+	private HashMap<String, ArrayList<SpriteParameterI>> categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();
+	private HashMap<Boolean,Action> myConditionActions = new HashMap<Boolean,Action>();
 	
-	SpriteObject() {
-		
-	}
+	public SpriteObject() {};
 	
-	SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap) {
+	public SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap) {
 		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(inCategoryMap);
 	}
 	
@@ -55,15 +51,7 @@ public class SpriteObject extends Object implements SpriteObjectI{
 		System.out.println("Using custom equals method for Sprite Object");
 		HashMap<String, ArrayList<SpriteParameterI>> otherMap = otherSO.getParameters();
 		HashMap<String, ArrayList<SpriteParameterI>> thisMap = this.getParameters();
-		for (String category: otherMap.keySet()){
-			if (!thisMap.keySet().contains(category)) { return false;}
-			ArrayList<SpriteParameterI> otherParamList = otherMap.get(category);
-			ArrayList<SpriteParameterI> thisParamList = thisMap.get(category);
-			if (!otherParamList.equals(thisParamList)){
-				return false;
-			}
-		}
-		return true;
+		return thisMap.equals(otherMap);
 	}
 	
 	@Override
@@ -82,6 +70,11 @@ public class SpriteObject extends Object implements SpriteObjectI{
 	@Override
 	public SpriteObject newCopy(){
 		return new SpriteObject(this.categoryMap);
+	}
+
+	@Override
+	public void addConditionAction(Boolean Condition, Action action) {
+		myConditionActions.put(Condition, action);
 	}
 	
 }

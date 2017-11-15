@@ -7,8 +7,8 @@ import javafx.scene.control.TextArea;
 
 public class StringSpriteParameter extends SpriteParameter {
 	
-	String myValue; 
-	TextArea myTextArea;
+	private String myValue; 
+	private TextArea myTextArea;
 	
 	StringSpriteParameter(String name, Object value){
 			super(name, value);	
@@ -35,7 +35,7 @@ public class StringSpriteParameter extends SpriteParameter {
 	@Override
 	protected void setUpVariables(String name, Object value) {
 		myValue = (String) value;
-		myName = name;
+		updateName(name);
 		
 		myTextArea = new TextArea();
 		myTextArea.setText(myValue);	
@@ -62,7 +62,7 @@ public class StringSpriteParameter extends SpriteParameter {
 				}
 				else {
 					System.out.println("In else");
-					dummy.updateValue(newValue);
+					updateValue(newValue);
 				}
 
 			} catch (Exception e){

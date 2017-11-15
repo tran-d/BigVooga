@@ -87,10 +87,10 @@ public class Tester extends Application {
 			myParams.add(SPF.makeParameter("canFight", true));
 			myParams.add(SPF.makeParameter("health", i));
 			myParams.add(SPF.makeParameter("name", s.get(0)));
-//			for (SpriteParameterI SP : myParams) {
-//				System.out.println(SP.getName());
-//				System.out.println(SP.getClass());
-//			}
+			for (SpriteParameterI SP : myParams) {
+				System.out.println(SP.getName());
+				System.out.println(SP.getClass());
+			}
 			for (SpriteParameterI SP: myParams){
 				SO.addParameter(SP);
 			}

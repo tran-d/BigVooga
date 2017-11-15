@@ -10,13 +10,11 @@ import javafx.scene.layout.Pane;
 
 public class BooleanSpriteParameter extends SpriteParameter {
 	
-	CheckBox myCheckBox;
-	Boolean myValue;
-//	String myName;
-//	Boolean myValue; 
-//	BooleanProperty boolProp;
-//	BooleanSpriteParameter dummy;
-//	boolean isDummy;
+	private CheckBox myCheckBox;
+	private String myName;
+	private Boolean myValue; 
+	private BooleanSpriteParameter dummy;
+	private boolean isDummy;
 	
 	BooleanSpriteParameter(String name, Object checkedStatus){
 		super(name, checkedStatus);
@@ -31,8 +29,8 @@ public class BooleanSpriteParameter extends SpriteParameter {
 		myValue = (boolean) in;
 		myName = name;
 		myCheckBox = new CheckBox();
-//		boolProp = new SimpleBooleanProperty();
-//		boolProp.set(checkedStatus);
+		BooleanProperty boolProp = new SimpleBooleanProperty();
+		boolProp.set(myValue);
 		
 		 myCheckBox.setSelected(myValue);
 		 setJavaFXValueNode(myCheckBox);
@@ -48,9 +46,9 @@ public class BooleanSpriteParameter extends SpriteParameter {
 					);
 	}
 	
-//	private void makeClone(){
-//		dummy = new BooleanSpriteParameter(this.myName, this.myValue, true);
-//	}
+	protected void makeClone(){
+		dummy = new BooleanSpriteParameter(this.myName, this.myValue, true);
+	}
 	
 	public void update() {
 		updateName(dummy.getName());

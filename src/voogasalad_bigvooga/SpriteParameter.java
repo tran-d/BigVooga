@@ -11,18 +11,18 @@ import javafx.scene.layout.Pane;
 
 public abstract class SpriteParameter implements SpriteParameterI {
 
-	Control myNameJavaFXNode;
-	String myName;
-	Control myJavaFXNode;
-	Object myValue;
-	SpriteParameterI dummy; 
+	private Control myNameJavaFXNode;
+	private String myName;
+	private Control myJavaFXNode;
+	private Object myValue;
+	private SpriteParameterI dummy; 
 	boolean isDummy;
 	
 	SpriteParameter(){
 		
 	}
 	
-	SpriteParameter(String name, Object value){
+	public SpriteParameter(String name, Object value){
 //		boolean myValue = checkedStatus;
 		setMyValue(myValue);
 		isDummy = false;
@@ -32,7 +32,7 @@ public abstract class SpriteParameter implements SpriteParameterI {
 		setJavaFXNameNode();
 	}
 	
-	SpriteParameter(String name, Object value, Boolean cloneMade){
+	public SpriteParameter(String name, Object value, Boolean cloneMade){
 		isDummy = true;
 		setUpVariables(name, value);
 	}
