@@ -87,12 +87,12 @@ public class DraggableGrid extends HBox {
 	private void addDropToTrash(ImageView trash) {
    	 
 	 	trash.setOnDragOver(e -> {
-         Dragboard db = e.getDragboard();
-         if (db.hasContent(objectFormat) && draggingObject != null) {
-             e.acceptTransferModes(TransferMode.MOVE);
+	 		Dragboard db = e.getDragboard();
+	 		if (db.hasContent(objectFormat) && draggingObject != null) {
+	 			e.acceptTransferModes(TransferMode.MOVE);
 
-         }
-     });
+	 		}
+	 	});
 	 	
 	 	trash.setOnDragDropped(e -> {
 	 		Dragboard db = e.getDragboard();
@@ -107,13 +107,13 @@ public class DraggableGrid extends HBox {
 	
 	protected void addDragObject(ImageView b) {
         b.setOnDragDetected(e -> {
-        Dragboard db = b.startDragAndDrop(TransferMode.MOVE);
+        		Dragboard db = b.startDragAndDrop(TransferMode.MOVE);
 
-        db.setDragView(b.snapshot(null, null)); 
-        ClipboardContent cc = new ClipboardContent();
-        cc.put(objectFormat, " "); 
-        db.setContent(cc); 
-        draggingObject = b;    
+        		db.setDragView(b.snapshot(null, null)); 
+        		ClipboardContent cc = new ClipboardContent();
+        		cc.put(objectFormat, " "); 
+        		db.setContent(cc); 
+        		draggingObject = b;    
         });
 	}
 }
