@@ -71,7 +71,7 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 
 	@Override
 	public void applyParameterUpdate(HashMap<String, ArrayList<SpriteParameterI>> newParams) {
-		categoryMap = newParams;
+		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(newParams);
 	}
 
 	@Override
@@ -122,14 +122,14 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 //	    return hashCode;
 //	}
 	
-	@Override
-	public void applyUpdates() {
-		for (ArrayList<SpriteParameterI> paramList: categoryMap.values()){
-			for (SpriteParameterI SPI: paramList){
-				SPI.becomeDummy();
-			}
-		}
-	}
+//	@Override
+//	public void applyUpdates() {
+//		for (ArrayList<SpriteParameterI> paramList: categoryMap.values()){
+//			for (SpriteParameterI SPI: paramList){
+//				SPI.becomeDummy();
+//			}
+//		}
+//	}
 	
 	@Override
 	public SpriteObject newCopy(){
