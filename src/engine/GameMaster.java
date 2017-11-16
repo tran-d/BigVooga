@@ -11,6 +11,7 @@ public class GameMaster implements EngineController{
 	private World currentWorld;
 	private List<World> madeWorlds;
 	private Timeline gameLoop;
+	private GlobalVariables varContainer;
 
 	public GameMaster(int MILLIS_DELAY) {
 		// TODO Auto-generated constructor stub
@@ -18,6 +19,8 @@ public class GameMaster implements EngineController{
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLIS_DELAY), e -> step());
 		gameLoop.setCycleCount(Timeline.INDEFINITE);
 		gameLoop.getKeyFrames().add(frame);
+		
+		varContainer = new GlobalVariables();
 		
 	}
 
@@ -37,6 +40,7 @@ public class GameMaster implements EngineController{
 	@Override
 	public void addWorld(World w) {
 		// TODO Auto-generated method stub
+		w.addGlobalVars(varContainer);
 		madeWorlds.add(w);
 		
 	}

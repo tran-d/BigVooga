@@ -10,4 +10,6 @@ public interface World extends Iterable<GameObject>{
 	public boolean isNamed(String tag);
 	
 	public void step();
+	
+	public void addGlobalVars(GlobalVariables gv);
 }
