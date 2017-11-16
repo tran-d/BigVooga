@@ -4,7 +4,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 
 public class Menu extends VBox {
 	private Button myLoad;
@@ -27,11 +26,14 @@ public class Menu extends VBox {
 		VBox myButtons = new VBox();
 		myLoad = new Button(LOAD);
 		mySave = new Button(SAVE);
+		
 		//temp button for creating sprites
 		Button newSprite = new Button("Create Sprite");
+		newSprite.setOnAction(e -> new SpriteCreator());
+		
 		createStatePane();
 		
-		myButtons.getChildren().addAll(myLoad, mySave, myStateSP);
+		myButtons.getChildren().addAll(myLoad, mySave, newSprite, myStateSP);
 		
 		this.getChildren().add(myButtons);
 	}
