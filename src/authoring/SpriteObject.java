@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
@@ -19,8 +20,19 @@ public class SpriteObject extends Object implements SpriteObjectI{
 		myImageView = new ImageView();
 	}
 
+	SpriteObject(String fileURL){
+		myImageURL = fileURL;
+		myImageView = new ImageView(new Image(myImageURL));
+	}
+	
 	SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap) {
 		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(inCategoryMap);
+	}
+	
+	SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap, String fileURL) {
+		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(inCategoryMap);
+		myImageURL = fileURL;
+		myImageView = new ImageView(new Image(myImageURL));
 	}
 	
 	@Override
@@ -120,7 +132,7 @@ public class SpriteObject extends Object implements SpriteObjectI{
 	@Override
 	public SpriteObject newCopy(){
 		System.out.println("Making copy");
-		return new SpriteObject(this.categoryMap);
+		return new SpriteObject(this.categoryMap, this.myImageURL);
 	}
 	
 }
