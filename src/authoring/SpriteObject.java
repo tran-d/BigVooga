@@ -1,4 +1,4 @@
-package voogasalad_bigvooga;
+package authoring;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,10 +15,10 @@ public class SpriteObject extends Object implements SpriteObjectI{
 	private String myImageURL;
 
 	
-	SpriteObject() {
+	public SpriteObject() {
 		myImageView = new ImageView();
 	}
-	
+
 	SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap) {
 		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(inCategoryMap);
 	}

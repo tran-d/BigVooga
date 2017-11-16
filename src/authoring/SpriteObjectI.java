@@ -1,11 +1,19 @@
 package authoring;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import javafx.scene.image.ImageView;
 
 public interface SpriteObjectI {
 
-	ArrayList<SpriteParameter> getParameters();
-	void addParameter(SpriteParameter SP);
-	boolean applyParameterUpdate(ArrayList<SpriteParameter> NewParams);
+	HashMap<String, ArrayList<SpriteParameterI>> getParameters();
+	void addParameter(SpriteParameterI SP);
+	void applyParameterUpdate(HashMap<String, ArrayList<SpriteParameterI>> newParams);
+	boolean isSame(SpriteObjectI other);
+	SpriteObjectI newCopy();
+	void applyUpdates();
+	ImageView getImageView();
+	void setImageURL(String fileLocation);
 	
 }

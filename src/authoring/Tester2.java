@@ -1,4 +1,4 @@
-package voogasalad_bigvooga;
+package authoring;
 
 public class Tester2 {
 	

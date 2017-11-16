@@ -1,5 +1,7 @@
 package authoring_UI;
 
+import authoring.AuthoringEnvironmentManager;
+import authoring.SpriteObject;
 import javafx.geometry.Side;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -12,15 +14,17 @@ public class SpriteManager extends TabPane {
 	private DraggableGrid myGrid;
 	private VBox mySprites;
 	
-	protected SpriteManager(DraggableGrid grid) {
+	protected SpriteManager(DraggableGrid grid, AuthoringEnvironmentManager AEM) {
 		myGrid = grid;
 		mySprites = new VBox();
 		createSprites();
         	createSpriteTabs();
         	this.setPrefWidth(110);
+        	AuthoringEnvironmentManager myAEM = AEM;
 	}
 	
 	private void createSprites() {
+		
 		createImageStack("tree.png");
 		createImageStack("brick.png");
 		createImageStack("water.png");

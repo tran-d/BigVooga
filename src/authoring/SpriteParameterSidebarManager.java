@@ -1,4 +1,4 @@
-package voogasalad_bigvooga;
+package authoring;
 
 import java.util.ArrayList;
 import java.util.HashMap;

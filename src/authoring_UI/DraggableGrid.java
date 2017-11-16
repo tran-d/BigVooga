@@ -1,5 +1,7 @@
 package authoring_UI;
 
+import authoring.AuthoringEnvironmentManager;
+import authoring.SpriteObjectGridManagerI;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -25,10 +27,11 @@ public class DraggableGrid extends HBox {
 	private ImageView draggingObject;
 	private DataFormat objectFormat;
 	
-	protected DraggableGrid(int mapCount) {
+	protected DraggableGrid(int mapCount, SpriteObjectGridManagerI SOGM) {
 		createGrid();
 		createTrash();
 		objectFormat = new DataFormat("MyObject" + Integer.toString(mapCount));
+		SpriteObjectGridManagerI mySOGM = SOGM;
 	}
 	
 	private void createGrid() {

@@ -1,5 +1,7 @@
 package authoring_UI;
 
+import authoring.AuthoringEnvironmentManager;
+import authoring.SpriteObjectGridManagerI;
 import javafx.geometry.Side;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
@@ -12,6 +14,8 @@ public class MapManager extends TabPane {
 	private Tab addTab;
 	private double myWidth;
 	private double myHeight;
+	private AuthoringEnvironmentManager myAEM;
+	private SpriteObjectGridManagerI mySOGM;
 	
 	private int myTabCount = 1;
 	private static final String TABTAG = "map ";
@@ -38,8 +42,10 @@ public class MapManager extends TabPane {
 
 	private HBox setupScene() {
 		Menu myMenu = new Menu();
-		DraggableGrid myGrid = new DraggableGrid(myTabCount);
-		SpriteManager mySprites = new SpriteManager(myGrid);
+		myAEM = new AuthoringEnvironmentManager();
+		mySOGM = myAEM.getGridManager();
+		DraggableGrid myGrid = new DraggableGrid(myTabCount, mySOGM);
+		SpriteManager mySprites = new SpriteManager(myGrid, myAEM);
 		HBox authMap = new HBox(myMenu, myGrid, mySprites);
 		authMap.setPrefWidth(myWidth);
 		authMap.setPrefHeight(myHeight);
