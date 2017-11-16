@@ -13,6 +13,8 @@ public interface GameObject {
 	public boolean is(String tag);
 
 	public List<String> getTags();
+	
+	public void setCoords(double x, double y);
 
 	public void setGlobal(String variableName, boolean global);
 
@@ -34,5 +36,5 @@ public interface GameObject {
 
 	public void addConditionAction(Condition c, Action a);
 
-	public void step();
+	public void step(World w);
 }
