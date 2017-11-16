@@ -17,7 +17,7 @@ public class Sprite {
 		currentAnimation = animations.get(name);
 	}
 	
-	public String getNextImage() {
+	public BoundedImage getNextImage() {
 		if(currentAnimation == null)
 			throw new VoogaException("UndefinedAnimation");
 		return currentAnimation.nextImage();

@@ -4,20 +4,20 @@ import java.util.List;
 
 public class AnimationSequence{
 	private int imageIndex = 0;
-	private List<String> imagePaths;
+	private List<BoundedImage> images;
 	private String name;
 	
-	public AnimationSequence(String name, List<String> imagePaths) {
+	public AnimationSequence(String name, List<BoundedImage> images) {
 		this.name = name;
-		this.imagePaths = imagePaths;
+		this.images = images;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public String nextImage() {
+	public BoundedImage nextImage() {
 		imageIndex = Math.max(0, imageIndex+1);
-		return imagePaths.get(imageIndex);
+		return images.get(imageIndex);
 	}
 }
