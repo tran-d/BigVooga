@@ -8,17 +8,11 @@ import javafx.scene.control.TextArea;
 public class StringSpriteParameter extends SpriteParameter {
 	
 	String myValue; 
-//	TextArea myTextArea;
 	
 	StringSpriteParameter(String name, Object value){
 			super(name, value);	
 		}
 	
-
-//	public StringSpriteParameter(String name, Object value, Boolean isDummy) {
-//		super(name, value, isDummy);
-//	}
-
 
 	@Override
 	public void updateValue(Object value) {
@@ -36,10 +30,7 @@ public class StringSpriteParameter extends SpriteParameter {
 	protected void setUpVariables(String name, Object value) {
 		myValue = (String) value;
 		myName = name;
-		
-//		myTextArea = new TextArea();
-//		myTextArea.setText(myValue);	
-//		setJavaFXValueNode(myTextArea);
+	
 	}
 
 
@@ -49,21 +40,6 @@ public class StringSpriteParameter extends SpriteParameter {
 		if(!(value instanceof String)){
 			throw new Exception("The input is not a valid string.");
 		}
-		
-//		String valString = (String) value;
-//		valString = valString.trim();
-//		Double valDouble;
-//		
-//		try{
-//			valDouble = Double.parseDouble(valString);
-//		} catch (Exception e){
-//			throw new Exception(String.format("The input %s is not a valid double.", valString));
-//		}
-//		
-//			String errorMessage = "Please enter a valid input:\n";
-////			if (!newValue.equals(errorMessage)|| newValue.startsWith(errorMessage)){
-			
-	
 		return true;
 	}
 

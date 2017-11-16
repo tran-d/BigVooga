@@ -12,7 +12,6 @@ public interface SpriteObjectI {
 	void applyParameterUpdate(HashMap<String, ArrayList<SpriteParameterI>> newParams);
 	boolean isSame(SpriteObjectI other);
 	SpriteObjectI newCopy();
-//	void applyUpdates();
 	ImageView getImageView();
 	void setImageURL(String fileLocation);
 	
