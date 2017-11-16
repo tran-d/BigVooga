@@ -3,12 +3,17 @@ package engine;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class GenericObject implements GameObject {
 
 	private Set<String> tagSet;
-
+	private List<String> tags;
+	private Map<Condition, List<Action>> events;
+	private Map<String, Integer> intVars;
+	private Map<String, Double> doubleVars;
+	private Map<String, String> StringVars;
 	private double x, y;
 
 	public GenericObject() {
@@ -111,6 +116,15 @@ public class GenericObject implements GameObject {
 		// TODO Auto-generated method stub
 		this.x = x;
 		this.y = y;
+	}
+
+	@Override
+	public Set<Integer> getPriorities() {
+		Set<Integer> priorities = new HashSet<Integer>();
+		for(Condition c : events.keySet()) {
+			priorities.add(c.getPriority());
+		}
+		return priorities;
 	}
 
 }
