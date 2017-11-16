@@ -1,4 +1,4 @@
-package voogasalad_bigvooga;
+package authoring;
 
 import javafx.application.Platform;
 import javafx.scene.control.ButtonBase;

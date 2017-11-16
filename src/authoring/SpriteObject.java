@@ -1,4 +1,4 @@
-package voogasalad_bigvooga;
+package authoring;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,20 +9,22 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
-public class SpriteObject extends Object implements SpriteObjectI{
+public class SpriteObject extends ImageView implements SpriteObjectI{
 	
 	private HashMap<String, ArrayList<SpriteParameterI>> categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();
 	private ImageView myImageView;
 	private String myImageURL;
 
 	
-	SpriteObject() {
-		myImageView = new ImageView();
+	public SpriteObject() {
+		
 	}
-	
-	SpriteObject(String fileURL){
+
+	public SpriteObject(String fileURL){
 		myImageURL = fileURL;
-		myImageView = new ImageView(new Image(myImageURL));
+		this.setImage(new Image(myImageURL));
+		this.setFitWidth(45);
+		this.setFitHeight(45);
 	}
 	
 	SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap) {
@@ -32,7 +34,7 @@ public class SpriteObject extends Object implements SpriteObjectI{
 	SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap, String fileURL) {
 		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(inCategoryMap);
 		myImageURL = fileURL;
-		myImageView = new ImageView(new Image(myImageURL));
+		this.setImage(new Image(myImageURL));
 	}
 	
 	@Override
@@ -132,7 +134,11 @@ public class SpriteObject extends Object implements SpriteObjectI{
 	@Override
 	public SpriteObject newCopy(){
 		System.out.println("Making copy");
+		if(this.myImageURL!=null) {
 		return new SpriteObject(this.categoryMap, this.myImageURL);
+		} else {
+			return new SpriteObject(this.categoryMap);
+		}
 	}
 	
 }
