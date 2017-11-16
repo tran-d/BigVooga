@@ -8,7 +8,7 @@ public class SpriteParameterFactory {
 		} else if (value instanceof Boolean) {
 			return new BooleanSpriteParameter(name, (Boolean) value);
 		} else if (value instanceof Integer){
-			return new IntegerSpriteParameter(name, (Integer) value);
+			return new DoubleSpriteParameter(name, (Integer) value);
 		}
 		return null;
 	}
@@ -19,7 +19,7 @@ public class SpriteParameterFactory {
 		} else if (value instanceof Boolean) {
 			return new BooleanSpriteParameter(name, (Boolean) value, isDummy);
 		} else if (value instanceof Integer){
-			return new IntegerSpriteParameter(name, (Integer) value, isDummy);
+			return new DoubleSpriteParameter(name, (Integer) value, isDummy);
 		}
 		return null;
 	}

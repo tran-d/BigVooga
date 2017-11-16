@@ -17,6 +17,9 @@ public class SpriteParameterSidebarManager {
 	HashMap<String, String> newNameOldName = new HashMap<String, String>();
 	boolean firstTimeThrough = true;
 	SpriteObjectI firstSprite;
+	SpriteObjectGridManagerI mySOGM;
+//	VBox containerVBox = new VBox();
+//	ArrayList<Pane> categoryPanes = new ArrayList<Pane>();
 	
 //	public ScrollPane getParameters(SpriteObjectI sprite, SpriteObjectGridManager SOGM) throws Exception{
 //		ArrayList<SpriteObjectI> spriteList = new ArrayList<SpriteObjectI>();
@@ -24,61 +27,75 @@ public class SpriteParameterSidebarManager {
 //		return getParameters(spriteList, SOGM);
 //	}
 
-	public VBox getParameters(SpriteObjectGridManagerI SOGM) throws Exception {
+	public SpriteObjectI getParameters(SpriteObjectGridManagerI SOGM) throws Exception {
+		mySOGM = SOGM;
 		ArrayList<SpriteObjectI> sprites = SOGM.getActiveSpriteObjects();
 		checkActiveCellsMatch(sprites);
+		return firstSprite;
+		
+		
+		
+		
+		
+		
+	
 //		SP = new ScrollPane();
-		VBox container = new VBox();
+//		VBox container = new VBox();
+//		
+//		for (String category: everyStateParameter.keySet()){
+//			makeIndividualCategoryAndParameters(container, category);
+//		}
+//		
+//		Button applyChanges = new Button();
+//		applyChanges.setText("Apply Changes");
+//		applyChanges.setOnAction((event) -> {
+//			firstSprite.applyUpdates();
+//			int i = 0;
+//			for (SpriteObjectI SO: sprites){
+////				System.out.println("Loop: "+i);
+//				i++;
+////				System.out.println(SO.getParameters().get("General").get(0).getName());
+////				System.out.println(firstSprite.getParameters().get("General").get(0).getName());
+//				SO.applyParameterUpdate(firstSprite.getParameters());
+////				SO = firstSprite.newCopy();
+////				System.out.println(SO.getParameters().get("General").get(0).getName());
+//			}
+//		});
 		
-		for (String category: everyStateParameter.keySet()){
-			makeCategoryAndParameters(container, category);
-		}
-		
-		Button applyChanges = new Button();
-		applyChanges.setText("Apply Changes");
-		applyChanges.setOnAction((event) -> {
-			firstSprite.applyUpdates();
-			int i = 0;
-			for (SpriteObjectI SO: sprites){
-//				System.out.println("Loop: "+i);
-				i++;
-//				System.out.println(SO.getParameters().get("General").get(0).getName());
-//				System.out.println(firstSprite.getParameters().get("General").get(0).getName());
-				SO.applyParameterUpdate(firstSprite.getParameters());
-//				SO = firstSprite.newCopy();
-//				System.out.println(SO.getParameters().get("General").get(0).getName());
-			}
-		});
-		
-		container.getChildren().add(applyChanges);
+//		container.getChildren().add(applyChanges);
 		
 //		SP.setContent(container);
-		return container;
+//		return container;
 
 	}
 
-	private void makeCategoryAndParameters(VBox container, String category) {
-		ArrayList<Pane> PaneList = new ArrayList<Pane>();
-		
-		Text categoryText = new Text();
-		categoryText.setText(category);
-		
-		Button addNewParameterToCategory = new Button();
-		addNewParameterToCategory.setText(String.format("Add Parameter To Category %s", category));
-		
-		HBox categoryHBox = new HBox();
-		categoryHBox.getChildren().add(categoryText);
-		categoryHBox.getChildren().add(addNewParameterToCategory);
-		
-		
-		
-		PaneList.add(categoryHBox);
-		
-		for (SpriteParameterI SP: everyStateParameter.get(category)){
-			PaneList.add(SP.getJavaFXPane());
-		}
-		container.getChildren().addAll(PaneList);
-	}
+//	private void makeIndividualCategoryAndParameters(VBox container, String category) {
+//		Pane categoryPane = new Pane();
+//		ArrayList<Pane> PaneList = new ArrayList<Pane>();
+//		
+//		Text categoryText = new Text();
+//		categoryText.setText(category);
+//		
+//		Button addNewParameterToCategory = new Button();
+//		addNewParameterToCategory.setText(String.format("Add Parameter To Category %s", category));
+//		addNewParameterToCategory.setOnAction((event)->{
+//			categoryPane.
+//		});
+//		
+//		HBox categoryHBox = new HBox();
+//		categoryHBox.getChildren().add(categoryText);
+//		categoryHBox.getChildren().add(addNewParameterToCategory);
+//		
+//		
+//		
+//		PaneList.add(categoryHBox);
+//		
+//		for (SpriteParameterI SP: everyStateParameter.get(category)){
+//			PaneList.add(SP.getJavaFXPane());
+//		}
+//		categoryPane.getChildren().addAll(PaneList);
+//		categoryPanes.add(categoryPane);
+//	}
 	
 	
 
@@ -116,6 +133,10 @@ public class SpriteParameterSidebarManager {
 		firstSprite = SO;
 		everyStateParameter = SO.getParameters();
 		newNameOldName = new HashMap<String, String>();
+	}
+	
+	public void apply() {
+		mySOGM.matchActiveCellsToSprite(firstSprite);
 	}
 
 }

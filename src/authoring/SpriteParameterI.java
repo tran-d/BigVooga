@@ -1,6 +1,7 @@
 package authoring;
 
 import java.util.ArrayList;
+import java.util.Observer;
 
 import javafx.scene.control.Control;
 import javafx.scene.layout.Pane;
@@ -10,12 +11,9 @@ public interface SpriteParameterI{
 	void updateName(String name);
 	String getName();
 	void updateValue(Object value);
-	Control getJavaFXValueNode();
 	Object getValue();
-	Control getJavaFXNameNode();
-	Pane getJavaFXPane();
 	boolean isSame(SpriteParameterI other);
-	SpriteParameterI getDummy();
-	void becomeDummy();
+	void update(String name, Object value);
+	boolean checkError(Object value) throws Exception;
 	
 }
