@@ -16,7 +16,10 @@ import java.util.ResourceBundle;
 import java.util.concurrent.Callable;
 
 public final class DisplayLanguage {
-    /** the current selected Locale. */
+    
+	public static final Locale SPANISH = new Locale("es");
+	
+	/** the current selected Locale. */
     private static final ObjectProperty<Locale> locale;
     static {
         locale = new SimpleObjectProperty<>(getDefaultLocale());

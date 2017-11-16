@@ -78,21 +78,23 @@ public class Settings extends MenuOptionsTemplate{
 	
 	private HBox createLanguageSelection() {
 		
-		RadioButton englishButton = createLanguageButton(ENGLISH_BUTTON);
-		RadioButton spanishButton = createLanguageButton(SPANISH_BUTTON);
+		RadioButton englishButton = createLanguageButton(ENGLISH_BUTTON, Locale.ENGLISH);
+		englishButton.setSelected(true);
+		RadioButton spanishButton = createLanguageButton(SPANISH_BUTTON, DisplayLanguage.SPANISH);
 		
 		HBox languageChoices = new HBox(LANGUAGE_BUTTON_HORIZONTAL_GAP);
 		languageChoices.getChildren().addAll(englishButton, spanishButton);
 		return languageChoices;
 	}
 	
-	private RadioButton createLanguageButton(String languageType) {
+	private RadioButton createLanguageButton(String languageType, Locale language) {
 		RadioButton languageButton = new RadioButton(languageType);
 		languageButton.getStyleClass().remove("radio-button");
 		languageButton.getStyleClass().add("toggle-button");
 		languageButton.getStylesheets().add(Settings.class.getResource("SettingsButtonStyle.css").toExternalForm());
 		languageButton.setToggleGroup(languageGroup);
-		languageButton.setOnAction(e -> DisplayLanguage.setLocale(Locale.ENGLISH));
+		languageButton.textProperty().bind(DisplayLanguage.createStringBinding(languageType));
+		languageButton.setOnAction(e -> DisplayLanguage.setLocale(language));
 		return languageButton;
 	}
 }
