@@ -22,6 +22,7 @@ public class SpriteManager extends TabPane {
 	private AuthoringEnvironmentManager myAEM;
 	private SpriteObjectGridManagerI mySOGM;
 	private SpriteParameterFactory mySPF;
+	private ArrayList<SpriteObject> mySpriteObjs = new ArrayList<SpriteObject>();
 	
 	protected SpriteManager(DraggableGrid grid, AuthoringEnvironmentManager AEM, SpriteObjectGridManagerI SOGM) {
 		mySPF = new SpriteParameterFactory();
@@ -29,38 +30,35 @@ public class SpriteManager extends TabPane {
 	    mySOGM = SOGM;
 		myGrid = grid;
 		mySprites = new VBox();
+		getParams();
 		createSprites();
         	createSpriteTabs();
         	this.setPrefWidth(110);
-        	getParams();
 
 	}
 	
 	private void createSprites() {
-		SpriteObject s1 = new SpriteObject("tree.png");
+		SpriteObject s1 = mySpriteObjs.get(0);
 		System.out.println(s1);
-		SpriteObject s2 = new SpriteObject("brick.png");
-		SpriteObject s3 = new SpriteObject("water.png");
-		SpriteObject s4 = new SpriteObject("pikachu.png");
+		SpriteObject s2 = mySpriteObjs.get(1);
+		SpriteObject s3 = mySpriteObjs.get(2);
+		SpriteObject s4 = mySpriteObjs.get(3);
+		System.out.println("General " + s1.getParameters().get("General"));
 		myAEM.addDefaultSprite(s1);
 		myAEM.addDefaultSprite(s2);
 		myAEM.addDefaultSprite(s3);
 		myAEM.addDefaultSprite(s4);
-		ImageView s1IV = s1.getImageView();
-		ImageView s2IV = s2.getImageView();
-		ImageView s3IV = s3.getImageView();
-		ImageView s4IV = s4.getImageView();
+
 		mySprites.getChildren().addAll(s1, s2, s3, s4);
 		myGrid.addDragObject(s1);
 		myGrid.addDragObject(s2);
 		myGrid.addDragObject(s3);
 		myGrid.addDragObject(s4);
 
-		
-		createImageStack("tree.png");
-		createImageStack("brick.png");
-		createImageStack("water.png");
-		createImageStack("pikachu.png");	    
+//		createImageStack("tree.png");
+//		createImageStack("brick.png");
+//		createImageStack("water.png");
+//		createImageStack("pikachu.png");	    
 	}
 	
 	public void getParams() {
@@ -89,15 +87,16 @@ public class SpriteManager extends TabPane {
 				SO.addParameter(SP);
 			}
 //			mySObjects.add(SO);
-			Integer [] loc1 = new Integer[]{h^2,3*h};
-			Integer [] loc2 = new Integer[]{h^2,5*h};
-			Integer [] loc3 = new Integer[]{h,4*h};
+			Integer [] loc1 = new Integer[]{h,h+1};
+			Integer [] loc2 = new Integer[]{h+1,h+2};
+			Integer [] loc3 = new Integer[]{h+2,h+3};
 			ArrayList<Integer[]> locs = new ArrayList<Integer[]>();
 			locs.add(loc1);
 			locs.add(loc2);
 			locs.add(loc3);
-			//mySOGM.populateCell(SO, locs);
+//			mySOGM.populateCell(SO, locs);
 //			i*=2;
+			mySpriteObjs.add(SO);
 		}
 	}
 	
