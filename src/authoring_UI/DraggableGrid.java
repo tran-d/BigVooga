@@ -1,6 +1,10 @@
 package authoring_UI;
 
+import java.util.ArrayList;
+
 import authoring.AuthoringEnvironmentManager;
+import authoring.SpriteObject;
+import authoring.SpriteObjectGridManager;
 import authoring.SpriteObjectGridManagerI;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
@@ -24,14 +28,17 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 public class DraggableGrid extends HBox {
-	private ImageView draggingObject;
+	private SpriteObject draggingObject;
 	private DataFormat objectFormat;
+	private SpriteObjectGridManagerI mySOGM;
+	private Menu myMenu;
 	
-	protected DraggableGrid(int mapCount, SpriteObjectGridManagerI SOGM) {
+	protected DraggableGrid(int mapCount, Menu menu, SpriteObjectGridManagerI SOGM) {
 		createGrid();
 		createTrash();
 		objectFormat = new DataFormat("MyObject" + Integer.toString(mapCount));
-		SpriteObjectGridManagerI mySOGM = SOGM;
+		mySOGM = SOGM;
+		myMenu = menu;
 	}
 	
 	private void createGrid() {
@@ -75,7 +82,18 @@ public class DraggableGrid extends HBox {
 
         pane.setOnDragDropped(e -> {
             Dragboard db = e.getDragboard();
-
+            int row = ((GridPane)pane.getParent()).getRowIndex(pane);
+            int col = ((GridPane)pane.getParent()).getColumnIndex(pane);
+            
+            Integer [] row_col = new Integer[]{row, col};
+            ArrayList<Integer[]> activeCells = new ArrayList<Integer[]>();
+            activeCells.add(row_col);
+            mySOGM.addActiveCells(activeCells);
+            
+            myMenu.displayParams();
+            
+            System.out.println("row " + row);
+            System.out.println("col " + col);
             if (db.hasContent(objectFormat)) {
                 ((Pane)draggingObject.getParent()).getChildren().remove(draggingObject);
                 pane.getChildren().add(draggingObject);
@@ -108,7 +126,7 @@ public class DraggableGrid extends HBox {
 	 	});
 	}
 	
-	protected void addDragObject(ImageView b) {
+	protected void addDragObject(SpriteObject b) {
         b.setOnDragDetected(e -> {
         		Dragboard db = b.startDragAndDrop(TransferMode.MOVE);
 

@@ -41,11 +41,11 @@ public class MapManager extends TabPane {
 	}
 
 	private HBox setupScene() {
-		Menu myMenu = new Menu();
 		myAEM = new AuthoringEnvironmentManager();
+		Menu myMenu = new Menu(myAEM);
 		mySOGM = myAEM.getGridManager();
-		DraggableGrid myGrid = new DraggableGrid(myTabCount, mySOGM);
-		SpriteManager mySprites = new SpriteManager(myGrid, myAEM);
+		DraggableGrid myGrid = new DraggableGrid(myTabCount, myMenu, mySOGM);
+		SpriteManager mySprites = new SpriteManager(myGrid, myAEM, mySOGM);
 		HBox authMap = new HBox(myMenu, myGrid, mySprites);
 		authMap.setPrefWidth(myWidth);
 		authMap.setPrefHeight(myHeight);

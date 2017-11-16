@@ -3,6 +3,7 @@ package authoring;
 import java.util.ArrayList;
 
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.VBox;
 
 public class AuthoringEnvironmentManager {
 	
@@ -42,7 +43,7 @@ public class AuthoringEnvironmentManager {
 		return defaultEmptySprite;
 	}
 	
-	public ScrollPane getActiveCellParameters() throws Exception{
+	public VBox getActiveCellParameters() throws Exception{
 		return SPSM.getParameters(SOGM);
 	}
 	

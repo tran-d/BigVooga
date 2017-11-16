@@ -12,7 +12,7 @@ import javafx.scene.text.Text;
 
 public class SpriteParameterSidebarManager {
 
-	ScrollPane SP;
+//	ScrollPane SP;
 	HashMap<String, ArrayList<SpriteParameterI>> everyStateParameter = new HashMap<String, ArrayList<SpriteParameterI>>();
 	HashMap<String, String> newNameOldName = new HashMap<String, String>();
 	boolean firstTimeThrough = true;
@@ -24,10 +24,10 @@ public class SpriteParameterSidebarManager {
 //		return getParameters(spriteList, SOGM);
 //	}
 
-	public ScrollPane getParameters(SpriteObjectGridManagerI SOGM) throws Exception {
+	public VBox getParameters(SpriteObjectGridManagerI SOGM) throws Exception {
 		ArrayList<SpriteObjectI> sprites = SOGM.getActiveSpriteObjects();
 		checkActiveCellsMatch(sprites);
-		SP = new ScrollPane();
+//		SP = new ScrollPane();
 		VBox container = new VBox();
 		
 		for (String category: everyStateParameter.keySet()){
@@ -52,8 +52,8 @@ public class SpriteParameterSidebarManager {
 		
 		container.getChildren().add(applyChanges);
 		
-		SP.setContent(container);
-		return SP;
+//		SP.setContent(container);
+		return container;
 
 	}
 

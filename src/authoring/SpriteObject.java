@@ -9,7 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
-public class SpriteObject extends Object implements SpriteObjectI{
+public class SpriteObject extends ImageView implements SpriteObjectI{
 	
 	private HashMap<String, ArrayList<SpriteParameterI>> categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();
 	private ImageView myImageView;
@@ -17,12 +17,14 @@ public class SpriteObject extends Object implements SpriteObjectI{
 
 	
 	public SpriteObject() {
-		myImageView = new ImageView();
+		
 	}
 
 	public SpriteObject(String fileURL){
 		myImageURL = fileURL;
-		myImageView = new ImageView(new Image(myImageURL));
+		this.setImage(new Image(myImageURL));
+		this.setFitWidth(45);
+		this.setFitHeight(45);
 	}
 	
 	SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap) {
@@ -32,7 +34,7 @@ public class SpriteObject extends Object implements SpriteObjectI{
 	SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap, String fileURL) {
 		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(inCategoryMap);
 		myImageURL = fileURL;
-		myImageView = new ImageView(new Image(myImageURL));
+		this.setImage(new Image(myImageURL));
 	}
 	
 	@Override
