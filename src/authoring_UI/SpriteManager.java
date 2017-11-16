@@ -2,6 +2,7 @@ package authoring_UI;
 
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObject;
+import authoring.SpriteObjectI;
 import javafx.geometry.Side;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -13,6 +14,7 @@ import javafx.scene.layout.VBox;
 public class SpriteManager extends TabPane {
 	private DraggableGrid myGrid;
 	private VBox mySprites;
+	private AuthoringEnvironmentManager myAEM;
 	
 	protected SpriteManager(DraggableGrid grid, AuthoringEnvironmentManager AEM) {
 		myGrid = grid;
@@ -20,10 +22,20 @@ public class SpriteManager extends TabPane {
 		createSprites();
         	createSpriteTabs();
         	this.setPrefWidth(110);
-        	AuthoringEnvironmentManager myAEM = AEM;
+        myAEM = AEM;
 	}
 	
 	private void createSprites() {
+		SpriteObject s1 = new SpriteObject("tree.png");
+		System.out.println(s1);
+		SpriteObject s2 = new SpriteObject("brick.png");
+		SpriteObject s3 = new SpriteObject("water.png");
+		SpriteObject s4 = new SpriteObject("pikachu.png");
+		myAEM.addDefaultSprite(s1);
+		myAEM.addDefaultSprite(s2);
+		myAEM.addDefaultSprite(s3);
+		myAEM.addDefaultSprite(s4);
+		mySprites.getChildren().addAll(s1.getImageView(), s2.getImageView(), s3.getImageView(), s4.getImageView());
 		
 		createImageStack("tree.png");
 		createImageStack("brick.png");
@@ -40,7 +52,7 @@ public class SpriteManager extends TabPane {
 			imageStack.getChildren().add(image);
 			myGrid.addDragObject(image);
 		}
-		mySprites.getChildren().add(imageStack);
+		//mySprites.getChildren().add(imageStack);
 	}
 	
     private void createSpriteTabs() {

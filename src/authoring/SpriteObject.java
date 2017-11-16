@@ -20,7 +20,7 @@ public class SpriteObject extends Object implements SpriteObjectI{
 		myImageView = new ImageView();
 	}
 
-	SpriteObject(String fileURL){
+	public SpriteObject(String fileURL){
 		myImageURL = fileURL;
 		myImageView = new ImageView(new Image(myImageURL));
 	}
@@ -132,7 +132,11 @@ public class SpriteObject extends Object implements SpriteObjectI{
 	@Override
 	public SpriteObject newCopy(){
 		System.out.println("Making copy");
+		if(this.myImageURL!=null) {
 		return new SpriteObject(this.categoryMap, this.myImageURL);
+		} else {
+			return new SpriteObject(this.categoryMap);
+		}
 	}
 	
 }
