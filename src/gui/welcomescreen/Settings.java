@@ -1,24 +1,27 @@
 package gui.welcomescreen;
 
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class Settings {
+/**
+ * 
+ * @author Samarth
+ *
+ */
+public class Settings extends MenuOptionsTemplate{
 
-	private Stage stage;
-	private BorderPane rootPane;
-	
+	private static final String GEARS_PATH = "Gears.gif";
+	private static final int GEARS_WIDTH = 125;
+	private static final int GEARS_HEIGHT = 125;
+	private static final int HEADING_PADDING = 10;
+
 	public Settings(Stage currentStage) {
-		stage = currentStage;
-		rootPane = new BorderPane();
-		Scene scene = new Scene(rootPane, WelcomeScreen.WIDTH, WelcomeScreen.HEIGHT);
-
-		stage.setScene(scene);
+		super(currentStage);
+		createOptionScreen(GEARS_PATH, GEARS_WIDTH, GEARS_HEIGHT, HEADING_PADDING);
+		
 	}
 	
-	public void createSettingsScreen() {
-		rootPane.setStyle(WelcomeScreen.SET_BACKGROUND_COLOR + WelcomeScreen.BACKGROUND_COLOR);
+	public void createSettings(){
+		
 	}
 	
 }
