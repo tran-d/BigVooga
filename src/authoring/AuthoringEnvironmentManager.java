@@ -1,8 +1,6 @@
 package authoring;
 
 import java.util.ArrayList;
-
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
 public class AuthoringEnvironmentManager {
@@ -26,7 +24,6 @@ public class AuthoringEnvironmentManager {
 	}
 	
 	public void addDefaultSprite(SpriteObjectI SOI){
-		System.out.println("DefSpriteSize: " + defaultSprites.size());
 		defaultSprites.add(SOI);
 	}
 	

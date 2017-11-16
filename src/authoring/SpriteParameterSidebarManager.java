@@ -40,13 +40,13 @@ public class SpriteParameterSidebarManager {
 			firstSprite.applyUpdates();
 			int i = 0;
 			for (SpriteObjectI SO: sprites){
-				System.out.println("Loop: "+i);
+//				System.out.println("Loop: "+i);
 				i++;
-				System.out.println(SO.getParameters().get("General").get(0).getName());
+//				System.out.println(SO.getParameters().get("General").get(0).getName());
 //				System.out.println(firstSprite.getParameters().get("General").get(0).getName());
 				SO.applyParameterUpdate(firstSprite.getParameters());
 //				SO = firstSprite.newCopy();
-				System.out.println(SO.getParameters().get("General").get(0).getName());
+//				System.out.println(SO.getParameters().get("General").get(0).getName());
 			}
 		});
 		

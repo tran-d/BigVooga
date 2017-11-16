@@ -39,11 +39,9 @@ public class SpriteManager extends TabPane {
 	
 	private void createSprites() {
 		SpriteObject s1 = mySpriteObjs.get(0);
-		System.out.println(s1);
 		SpriteObject s2 = mySpriteObjs.get(1);
 		SpriteObject s3 = mySpriteObjs.get(2);
 		SpriteObject s4 = mySpriteObjs.get(3);
-		System.out.println("General " + s1.getParameters().get("General"));
 		myAEM.addDefaultSprite(s1);
 		myAEM.addDefaultSprite(s2);
 		myAEM.addDefaultSprite(s3);

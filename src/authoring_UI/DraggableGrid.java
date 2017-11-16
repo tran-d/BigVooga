@@ -2,9 +2,7 @@ package authoring_UI;
 
 import java.util.ArrayList;
 
-import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObject;
-import authoring.SpriteObjectGridManager;
 import authoring.SpriteObjectGridManagerI;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
@@ -91,9 +89,7 @@ public class DraggableGrid extends HBox {
             mySOGM.addActiveCells(activeCells);
             
             myMenu.displayParams();
-            
-            System.out.println("row " + row);
-            System.out.println("col " + col);
+
             if (db.hasContent(objectFormat)) {
                 ((Pane)draggingObject.getParent()).getChildren().remove(draggingObject);
                 pane.getChildren().add(draggingObject);
