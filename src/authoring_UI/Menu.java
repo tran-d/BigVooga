@@ -27,6 +27,8 @@ public class Menu extends VBox {
 		VBox myButtons = new VBox();
 		myLoad = new Button(LOAD);
 		mySave = new Button(SAVE);
+		//temp button for creating sprites
+		Button newSprite = new Button("Create Sprite");
 		createStatePane();
 		
 		myButtons.getChildren().addAll(myLoad, mySave, myStateSP);
