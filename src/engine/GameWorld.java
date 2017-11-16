@@ -5,10 +5,19 @@ import java.util.Iterator;
 import java.util.List;
 
 public class GameWorld implements World {
+	
+	private final static String DEFAULT_NAME = "world";
+	private String worldName;
 	private List<GameObject> worldObjects;
 
 	public GameWorld() {
 		// TODO Auto-generated constructor stub
+		this(DEFAULT_NAME);
+	}
+	
+	public GameWorld(String name)
+	{
+		worldName = name;
 		worldObjects = new ArrayList<GameObject>();
 	}
 
@@ -44,6 +53,19 @@ public class GameWorld implements World {
 			}
 		}
 		return null;
+	}
+	
+	public boolean isNamed(String tag)
+	{
+		return worldName.equals(tag);
+	}
+	public void step() {
+		for(GameObject obj: worldObjects)
+		{
+			//GameObjects should do something here
+			
+			System.out.println("World step placeholder");
+		}
 	}
 
 }
