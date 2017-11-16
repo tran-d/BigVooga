@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 
 public class AuthoringMain extends Application {
 	
-	private final static double SCENE_WIDTH = 650;
+	private final static double SCENE_WIDTH = 770;
 	private final static double SCENE_HEIGHT = 500;
 	
 	@Override
