@@ -2,17 +2,35 @@ package voogasalad_bigvooga;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import engine.Action;
+import java.util.Iterator;
 
-public class SpriteObject implements SpriteObjectI{
+import javafx.scene.control.ScrollPane;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+
+public class SpriteObject extends Object implements SpriteObjectI{
 	
 	private HashMap<String, ArrayList<SpriteParameterI>> categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();
-	private HashMap<Boolean,Action> myConditionActions = new HashMap<Boolean,Action>();
+	private ImageView myImageView;
+	private String myImageURL;
+
 	
-	public SpriteObject() {};
+	SpriteObject() {
+		myImageView = new ImageView();
+	}
 	
 	public SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap) {
 		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(inCategoryMap);
+	}
+	
+	@Override
+	public ImageView getImageView(){
+		return myImageView;
+	}
+	
+	@Override 
+	public void setImageURL(String fileLocation){
+		myImageURL = fileLocation;
 	}
 	
 	@Override
@@ -43,7 +61,7 @@ public class SpriteObject implements SpriteObjectI{
 	}
 
 	@Override
-	public boolean equals(SpriteObject other){
+	public boolean isSame(SpriteObjectI other){
 		if (!(other instanceof SpriteObject)) {
 	        return false;
 	    }
@@ -51,30 +69,58 @@ public class SpriteObject implements SpriteObjectI{
 		System.out.println("Using custom equals method for Sprite Object");
 		HashMap<String, ArrayList<SpriteParameterI>> otherMap = otherSO.getParameters();
 		HashMap<String, ArrayList<SpriteParameterI>> thisMap = this.getParameters();
-		return thisMap.equals(otherMap);
+		for (String category: otherMap.keySet()){
+			if (!thisMap.keySet().contains(category)) { return false;}
+			ArrayList<SpriteParameterI> otherParamList = otherMap.get(category);
+			ArrayList<SpriteParameterI> thisParamList = new ArrayList<SpriteParameterI>(thisMap.get(category));
+			if (otherParamList.size() != thisParamList.size()){
+				return false;
+			}
+			Iterator<SpriteParameterI> otherIt = otherParamList.iterator();
+			while (otherIt.hasNext()){
+				SpriteParameterI otherSPI = otherIt.next();
+				Iterator<SpriteParameterI> thisIt = thisParamList.iterator();
+				while (thisIt.hasNext()){
+					SpriteParameterI thisSPI = thisIt.next();
+					if (thisSPI.isSame(otherSPI)) {
+						thisIt.remove();
+						break;
+					}
+				}
+			}
+			if (thisParamList.size()>0){
+				return false;
+			}
+		}
+		return true;
 	}
 	
+//	@Override
+//	public int hashCode() {
+//	    int hashCode = 1;
+//	   
+//	    for (ArrayList<SpriteParameterI> val: getParameters().values()){
+//	    	for (SpriteParameterI SP: val){
+//	    	hashCode = hashCode * 37 + SP.hashCode();
+//	    	}
+//	    }
+//
+//	    return hashCode;
+//	}
+	
 	@Override
-	public int hashCode() {
-	    int hashCode = 1;
-	   
-	    for (ArrayList<SpriteParameterI> val: getParameters().values()){
-	    	for (SpriteParameterI SP: val){
-	    	hashCode = hashCode * 37 + SP.hashCode();
-	    	}
-	    }
-
-	    return hashCode;
+	public void applyUpdates() {
+		for (ArrayList<SpriteParameterI> paramList: categoryMap.values()){
+			for (SpriteParameterI SPI: paramList){
+				SPI.becomeDummy();
+			}
+		}
 	}
 	
 	@Override
 	public SpriteObject newCopy(){
+		System.out.println("Making copy");
 		return new SpriteObject(this.categoryMap);
-	}
-
-	@Override
-	public void addConditionAction(Boolean Condition, Action action) {
-		myConditionActions.put(Condition, action);
 	}
 	
 }

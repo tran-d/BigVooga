@@ -55,18 +55,22 @@ public abstract class SpriteParameter implements SpriteParameterI {
 		TextArea TA = new TextArea();
 		TA.setText(myName);
 		TA.textProperty().addListener((observable, oldValue, newValue) -> {
+			String newText;
 			if (newValue.contains("\t")|| newValue.contains(" ")){
 				System.out.println("ContainsSpace");
 //			String newText = newValue.trim();
 //			System.out.println("newtext: "+newText);
-			String newText = newValue.replaceAll("\\s", "");
+			newText= newValue.replaceAll("\\s", "");
 //			System.out.println("newtext: "+newText);
 			Platform.runLater(() -> { 
 				int currentCaretPosition = TA.getCaretPosition();
 				TA.setText(newText);
 				TA.positionCaret(currentCaretPosition-1);
 	        }); 
+			} else {
+				newText = newValue;
 			}
+			dummy.updateName(newText);
 		});
 		myNameJavaFXNode = TA;
 	}
@@ -102,8 +106,9 @@ public abstract class SpriteParameter implements SpriteParameterI {
 	@Override
 	public abstract Object getValue();
 	
+	
 	@Override 
-	public boolean equals(SpriteParameter other) {
+	public boolean isSame(SpriteParameterI other) {
 		return getName().equals(other.getName()) && getValue().equals(other.getValue());
 	}
 	
@@ -115,6 +120,16 @@ public abstract class SpriteParameter implements SpriteParameterI {
 		hbox.getChildren().add(getJavaFXValueNode());
 	
 		return hbox;
+	}
+	
+	public SpriteParameterI getDummy(){
+		return dummy;
+	}
+	
+	@Override
+	public void becomeDummy() {
+		updateName(dummy.getName());
+		updateValue(dummy.getValue());
 	}
 
 }
