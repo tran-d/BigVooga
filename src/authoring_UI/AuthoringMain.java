@@ -6,8 +6,8 @@ import javafx.stage.Stage;
 
 public class AuthoringMain extends Application {
 	
-	private final static double SCENE_WIDTH = 770;
-	private final static double SCENE_HEIGHT = 500;
+	private final static double SCENE_WIDTH = 1000;
+	private final static double SCENE_HEIGHT = 700;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {

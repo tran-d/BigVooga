@@ -86,6 +86,7 @@ public class DraggableGrid extends HBox {
             Integer [] row_col = new Integer[]{row, col};
             ArrayList<Integer[]> activeCells = new ArrayList<Integer[]>();
             activeCells.add(row_col);
+            mySOGM.populateCell(draggingObject, activeCells);
             mySOGM.addActiveCells(activeCells);
             
             myMenu.displayParams();
@@ -113,6 +114,11 @@ public class DraggableGrid extends HBox {
 	 	
 	 	trash.setOnDragDropped(e -> {
 	 		Dragboard db = e.getDragboard();
+	 		ArrayList<SpriteObject> byeSprites = new ArrayList<SpriteObject>();
+	 		byeSprites.add(draggingObject);
+	 		//clear sprites
+	 		//mySOGM.clearCells(byeSprites);
+	 		
 	 		if (db.hasContent(objectFormat)) {
 	 			((Pane)draggingObject.getParent()).getChildren().remove(draggingObject);
 	 			e.setDropCompleted(true);

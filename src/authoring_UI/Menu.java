@@ -16,8 +16,8 @@ public class Menu extends VBox {
 	
 	private final static String LOAD = "Load";
 	private final static String SAVE = "Save";
-	private final static double MENU_WIDTH = 200;
-	private final static double MENU_HEIGHT = 400;
+	private final static double MENU_WIDTH = 400;
+	private final static double MENU_HEIGHT = 500;
 	
 	protected Menu(AuthoringEnvironmentManager AEM) {
 		myAEM = AEM;
@@ -29,6 +29,8 @@ public class Menu extends VBox {
 	public void displayParams() {
 		try {
 			VBox ret = myAEM.getActiveCellParameters();
+			ret.setPrefHeight(MENU_HEIGHT);
+			ret.setPrefWidth(MENU_WIDTH);
 			System.out.println(ret.getChildren());
 			myStateSP.setContent(ret);
 		} catch (Exception e) {
