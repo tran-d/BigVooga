@@ -109,7 +109,7 @@ public class MenuOptionsTemplate {
 		contentPane = new ScrollPane();
 		contentPane.setPrefWidth(WelcomeScreen.WIDTH);
 		contentPane.setPrefHeight(WelcomeScreen.HEIGHT);
-		contentPane.setStyle(GUITools.styleBox(WelcomeScreen.BORDER_COLOR));
+		contentPane.setStyle(GUITools.styleBox(WelcomeScreen.BORDER_COLOR, WelcomeScreen.BUTTON_BACKGROUND_DEFAULT_COLOR));
 		contentPane.setPadding(CONTENT_PADDING);
 		BorderPane.setMargin(contentPane, CONTENT_PADDING);
 		return contentPane;

@@ -34,6 +34,7 @@ public class WelcomeScreen {
 	public static final String MAIN_COLOR = "#47BDFF;";
 	public static final String MAIN_FONT = "Segoe UI;";
 	public static final String BORDER_COLOR = MAIN_COLOR;
+	public static final String BUTTON_BACKGROUND_DEFAULT_COLOR = "transparent";
 	private static final String STAGE_TITLE = "VOOGA";
 	private static final String LEFT_SEGMENT_TITLE = "V";
 	private static final String RIGHT_SEGMENT_TITLE = "GA";
@@ -43,15 +44,9 @@ public class WelcomeScreen {
 	private static final String TITLE_SIZE = INFINITY_HEIGHT-185 + "pt;";
 	private static final int TITLE_POSITION_Y_WINDOWS = 35;
 	private static final int TITLE_POSITION_Y_MAC = 55;
-	//private static final int TITLE_POSITION_Y = 37;
-	//private static final int TITLE_POSITION_Y = 55;
 	private static final int INFINITY_POSITION_X = 20;
-	//private static final int INFINITY_POSITION_X_WINDOWS = 20;
-	//private static final int INFINITY_POSITION_Y_WINDOWS = 20;
-	//private static final int INFINITY_POSITION_X_MAC = 15;
-	//private static final int INFINITY_POSITION_Y_MAC = 55;
 	private static final int INFINITY_BORDER_WIDTH = 75;
-	private static final String MOTTO_TEXT = "The Game Engine with Infinite Possibilities";
+	private static final String MOTTO_TEXT = "Motto";
 	private static final String MOTTO_SIZE = 16 + "pt;";
 	private static final String PLAY_STATIC_PATH = "Play_Static.png";
 	private static final String PLAY_PATH = "Play.gif";
@@ -162,21 +157,7 @@ public class WelcomeScreen {
 	
 	private void positionTitle(Label firstSegment, ImageView image, Label secondSegment) {
 		firstSegment.toFront();
-		
-		/*int xPos;
-		int yPos;
-		if (isMac()) {
-			xPos = INFINITY_POSITION_X_MAC;
-			yPos = INFINITY_POSITION_Y_MAC;
-		}
-		else {
-			xPos = INFINITY_POSITION_X_WINDOWS;
-			yPos = INFINITY_POSITION_Y_WINDOWS;
-		}*/
-		
 		image.setLayoutX(INFINITY_POSITION_X);
-		//image.setLayoutY(xPos);
-		//image.setLayoutY(yPos);
 		secondSegment.setLayoutX(INFINITY_POSITION_X + INFINITY_WIDTH - INFINITY_BORDER_WIDTH);
 		if (isMac()){
 			firstSegment.setLayoutY(TITLE_POSITION_Y_MAC);
@@ -267,7 +248,7 @@ public class WelcomeScreen {
 	private HBox borderGenerate(ImageView optionLogo, EventHandler<? super MouseEvent> handler) {
 		HBox optionBox = new HBox();
 		optionBox.getChildren().add(optionLogo);
-		optionBox.setStyle(GUITools.styleBox(BORDER_COLOR));
+		optionBox.setStyle(GUITools.styleBox(BORDER_COLOR, BUTTON_BACKGROUND_DEFAULT_COLOR));
 		optionBox.setOnMouseClicked(handler);
 		return optionBox;
 	}

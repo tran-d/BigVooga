@@ -3,6 +3,7 @@ package gui.welcomescreen;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import tools.DisplayLanguage;
 
 /**
  * 
@@ -27,6 +28,7 @@ public class GUITools {
 	
 	public static Label generateLabel(String labelText, String font, String color, String size) {
 		Label label = new Label(labelText);
+		label.textProperty().bind(DisplayLanguage.createStringBinding(labelText));
 		label.setStyle(styleLabel(font, color, size));
 		return label;
 	}
@@ -43,11 +45,12 @@ public class GUITools {
 	 * @param color
 	 * @return
 	 */
-	public static String styleBox(String color) {
+	public static String styleBox(String borderColor, String bgColor) {
 		return "-fx-border-style: solid inside;" + 
                "-fx-border-width: 2;" + 
                "-fx-border-radius: 5;" + 
-               "-fx-border-color: " + color + ";";
+               "-fx-border-color: " + borderColor + ";" +
+               "-fx-background-color: " + bgColor + ";";
 	}
 	
 }
