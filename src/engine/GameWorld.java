@@ -9,6 +9,7 @@ public class GameWorld implements World {
 	private final static String DEFAULT_NAME = "world";
 	private String worldName;
 	private List<GameObject> worldObjects;
+	private GlobalVariables globalVars;
 
 	public GameWorld() {
 		// TODO Auto-generated constructor stub
@@ -63,9 +64,16 @@ public class GameWorld implements World {
 		for(GameObject obj: worldObjects)
 		{
 			//GameObjects should do something here
-			
-			System.out.println("World step placeholder");
+			obj.step(this);
 		}
+	}
+
+	@Override
+	public void addGlobalVars(GlobalVariables gv) {
+		// TODO Auto-generated method stub
+
+		globalVars = gv;
+		
 	}
 
 }

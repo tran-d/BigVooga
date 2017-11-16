@@ -9,9 +9,13 @@ public class GenericObject implements GameObject {
 
 	private Set<String> tagSet;
 
+	private double x, y;
+
 	public GenericObject() {
 		// TODO Auto-generated constructor stub
 		tagSet = new HashSet<String>();
+		x = 0;
+		y = 0;
 	}
 
 	@Override
@@ -93,9 +97,20 @@ public class GenericObject implements GameObject {
 	}
 
 	@Override
-	public void step() {
+	public void step(World w) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	/**
+	 * This is meant for the frontend to use for the purpose of placing a new instance of an object into the world.
+	 * @param x, y
+	 */
+	@Override
+	public void setCoords(double x, double y) {
+		// TODO Auto-generated method stub
+		this.x = x;
+		this.y = y;
 	}
 
 }
