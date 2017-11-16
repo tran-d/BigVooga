@@ -1,4 +1,4 @@
-package voogasalad_bigvooga;
+package authoring;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;

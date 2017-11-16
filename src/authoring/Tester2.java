@@ -1,4 +1,4 @@
-package voogasalad_bigvooga;
+package authoring;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

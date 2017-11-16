@@ -1,5 +1,9 @@
 package authoring_UI;
 
+import java.util.ArrayList;
+
+import authoring.SpriteObject;
+import authoring.SpriteObjectGridManagerI;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -22,13 +26,17 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 public class DraggableGrid extends HBox {
-	private ImageView draggingObject;
+	private SpriteObject draggingObject;
 	private DataFormat objectFormat;
+	private SpriteObjectGridManagerI mySOGM;
+	private Menu myMenu;
 	
-	protected DraggableGrid(int mapCount) {
+	protected DraggableGrid(int mapCount, Menu menu, SpriteObjectGridManagerI SOGM) {
 		createGrid();
 		createTrash();
 		objectFormat = new DataFormat("MyObject" + Integer.toString(mapCount));
+		mySOGM = SOGM;
+		myMenu = menu;
 	}
 	
 	private void createGrid() {
@@ -72,6 +80,16 @@ public class DraggableGrid extends HBox {
 
         pane.setOnDragDropped(e -> {
             Dragboard db = e.getDragboard();
+            int row = ((GridPane)pane.getParent()).getRowIndex(pane);
+            int col = ((GridPane)pane.getParent()).getColumnIndex(pane);
+            
+            Integer [] row_col = new Integer[]{row, col};
+            ArrayList<Integer[]> activeCells = new ArrayList<Integer[]>();
+            activeCells.add(row_col);
+            mySOGM.populateCell(draggingObject, activeCells);
+            mySOGM.addActiveCells(activeCells);
+            
+            myMenu.displayParams();
 
             if (db.hasContent(objectFormat)) {
                 ((Pane)draggingObject.getParent()).getChildren().remove(draggingObject);
@@ -96,6 +114,11 @@ public class DraggableGrid extends HBox {
 	 	
 	 	trash.setOnDragDropped(e -> {
 	 		Dragboard db = e.getDragboard();
+	 		ArrayList<SpriteObject> byeSprites = new ArrayList<SpriteObject>();
+	 		byeSprites.add(draggingObject);
+	 		//clear sprites
+	 		//mySOGM.clearCells(byeSprites);
+	 		
 	 		if (db.hasContent(objectFormat)) {
 	 			((Pane)draggingObject.getParent()).getChildren().remove(draggingObject);
 	 			e.setDropCompleted(true);
@@ -105,7 +128,7 @@ public class DraggableGrid extends HBox {
 	 	});
 	}
 	
-	protected void addDragObject(ImageView b) {
+	protected void addDragObject(SpriteObject b) {
         b.setOnDragDetected(e -> {
         		Dragboard db = b.startDragAndDrop(TransferMode.MOVE);
 
