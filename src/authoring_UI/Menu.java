@@ -28,11 +28,11 @@ public class Menu extends VBox {
 	
 	public void displayParams() {
 		try {
-			VBox ret = myAEM.getActiveCellParameters();
-			ret.setPrefHeight(MENU_HEIGHT);
-			ret.setPrefWidth(MENU_WIDTH);
-			System.out.println(ret.getChildren());
-			myStateSP.setContent(ret);
+			//VBox ret = myAEM.getActiveCellParameters();
+//			ret.setPrefHeight(MENU_HEIGHT);
+//			ret.setPrefWidth(MENU_WIDTH);
+//			System.out.println(ret.getChildren());
+//			myStateSP.setContent(ret);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,12 +1,11 @@
 package authoring_UI;
 
-import authoring.SpriteParameterI;
 import javafx.scene.layout.HBox;
 
 public abstract class FEParameter extends HBox {
 
-	public abstract void handleUserChange();
+	protected abstract void handleValueChange();
 	
-	public abstract void updateParameter();
+	protected abstract void updateParameter();
 	
 }

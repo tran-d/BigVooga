@@ -1,50 +1,65 @@
 package authoring_UI;
 
-import authoring.StringSpriteParameter;
-import javafx.application.Platform;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.HBox;
+import java.util.Optional;
 
-public class FEStringParameter extends HBox {
-	TextArea myName;
+import authoring.SpriteParameterI;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+
+public class FEStringParameter extends FEParameter {
+	SpriteParameterI myParam;
+	FEParameterName myName;
 	TextArea myValue;
 	
-	public FEStringParameter(StringSpriteParameter BEParam) {
-		myName = new TextArea(BEParam.getName());
-		myValue = new TextArea((String) BEParam.getValue());
+	protected FEStringParameter(SpriteParameterI BEParam) {
+		myParam = BEParam;
+		myName = new FEParameterName(myParam.getName());
+		myValue = new TextArea((String) myParam.getValue());
 		this.getChildren().addAll(myName, myValue);
 		this.setPrefHeight(20);
 		
-		handleValue(BEParam);
+		handleValueChange();
 	}
 	
-	private void handleValue(StringSpriteParameter BEParam) {
+	private void handleString() {
 		myValue.textProperty().addListener((observable, oldValue, newValue) -> {
-			
-			
-		
-//			String errorMessage = "Please enter a valid input:\n";
-////			if (!newValue.equals(errorMessage)|| newValue.startsWith(errorMessage)){
-//			try{
-//				if (newValue.startsWith(errorMessage)&&!newValue.equals(errorMessage)){
-//					System.out.println("In if");
-//					String newText = newValue.replace(errorMessage, "").trim();
-//					
-//					
-//					Platform.runLater(() -> { 
-//						myValue.setText(newText);; 
-//			        }); 
-//				}
-//				else {
-//					System.out.println("In else");
-//					BEParam.updateValue(newValue);
-//				}
-//
-//			} catch (Exception e){
-//				myValue.setText(errorMessage);
-//			}
-////			}
-//			System.out.println("End of method");
+			try {
+				myParam.checkError(newValue);
+			} catch (Exception e) {
+				displayErrorDialog(newValue, e);
+				
+			}
+			myValue.setText(newValue);
 		});
+	}
+	
+	private void displayErrorDialog(String value, Exception e) {
+		TextInputDialog dialog = new TextInputDialog(value);
+		dialog.setTitle("Error");
+		dialog.setHeaderText(e.getMessage());
+		dialog.setContentText("Please enter value for: " + myName.getText());
+		
+		ButtonType doneButton = new ButtonType("Done", ButtonData.OK_DONE);
+		dialog.getDialogPane().getButtonTypes().add(doneButton);
+		
+		Optional<String> result = dialog.showAndWait();
+		result.ifPresent(stringInput -> {
+			try {
+				myParam.checkError(stringInput);
+			} catch (Exception e1) {
+				// if error here, do nothing
+			}
+			myValue.setText(stringInput);
+		});
+	}
+	
+	protected void handleValueChange() {
+		handleString();
+	}
+	
+	protected void updateParameter() {
+		myParam.update(myName.getText(), myValue.getText());
 	}
 }

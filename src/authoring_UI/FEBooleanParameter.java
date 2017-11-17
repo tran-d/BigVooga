@@ -1,33 +1,40 @@
 package authoring_UI;
 
-import authoring.BooleanSpriteParameter;
+import authoring.SpriteParameterI;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.HBox;
 
-public class FEBooleanParameter extends HBox {
-	TextArea myName;
+public class FEBooleanParameter extends FEParameter {
+	SpriteParameterI myParam;
+	FEParameterName myName;	
 	CheckBox myCheckBox;
 	Boolean myValue;
 	
-	public FEBooleanParameter(BooleanSpriteParameter BEParam) {
-		myName = new TextArea(BEParam.getName());
+	protected FEBooleanParameter(SpriteParameterI BEParam) {
+		myParam = BEParam;
+		myName = new FEParameterName(myParam.getName());
 		myCheckBox = new CheckBox();
-		myValue = (Boolean) BEParam.getValue();
+		myValue = (Boolean) myParam.getValue();
 		myCheckBox.setSelected(myValue);
 		this.getChildren().addAll(myName, myCheckBox);
 		this.setPrefHeight(20);
 
-		handleCheckBox(BEParam);
+		handleValueChange();
 	}
 	
-	private void handleCheckBox(BooleanSpriteParameter BEParam) {
+	private void handleCheckBox() {
 		myCheckBox.setOnAction((event) -> {
 			boolean isSelected = myCheckBox.isSelected();
 			myCheckBox.setSelected(isSelected);
-			// update when Apply is pressed
-//			BEParam.updateValue(isSelected);
+			myValue = isSelected;
 		});
+	}
+	
+	protected void handleValueChange() {
+		handleCheckBox();
+	}
+	
+	protected void updateParameter() {
+		myParam.update(myName.getText(), myValue);
 	}
 	
 	
