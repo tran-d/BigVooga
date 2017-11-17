@@ -15,7 +15,6 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 	private ImageView myImageView;
 	private String myImageURL;
 	private ActionManager actionManager;
-
 	
 	public SpriteObject() {
 		

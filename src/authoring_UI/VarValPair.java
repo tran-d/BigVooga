@@ -2,6 +2,8 @@ package authoring_UI;
 
 import java.util.List;
 
+import javafx.beans.property.ReadOnlyIntegerProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Control;
@@ -18,11 +20,6 @@ public class VarValPair extends HBox implements VarValPairI{
 	}
 
 	@Override
-	public String passVariable() {
-		return variables.getValue();
-	}
-
-	@Override
 	public ChoiceBox newChoiceBox(ObservableList<String> values, String defaultVariable) {
 		ChoiceBox<String> cb = new ChoiceBox(values);
 		cb.setValue(defaultVariable);
@@ -35,6 +32,12 @@ public class VarValPair extends HBox implements VarValPairI{
 		Spinner spinner = new Spinner(min,max,initialValue,amountToStepBy);
 		addToControlandHBox(spinner);
 		return spinner;
+	}
+
+	@Override
+	public void remove(Control control) {
+		values.remove(control);
+		getChildren().remove(control);
 	}
 	
 	private void addToControlandHBox(Control control) {
