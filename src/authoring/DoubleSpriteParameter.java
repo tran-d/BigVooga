@@ -116,9 +116,10 @@ public class DoubleSpriteParameter extends SpriteParameter {
 		Double valDouble;
 		
 		try{
+			if (!valString.equals(""))
 			valDouble = Double.parseDouble(valString);
 		} catch (Exception e){
-			throw new Exception(String.format("The input %s is not a valid double.", valString));
+			throw new Exception(String.format("The input is not a valid double.", valString));
 		}
 		
 //			String errorMessage = "Please enter a valid input:\n";
