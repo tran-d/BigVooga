@@ -11,9 +11,6 @@ public class ActionConditionManager extends HBox{
 	
 	private VBox conditions;
 	private VBox actions;
-	private List<HBox> conditionRows;
-	private List<HBox> actionRows;
-	private 
 	
 	public ActionConditionManager() {
 		super();
