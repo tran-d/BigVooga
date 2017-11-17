@@ -27,22 +27,13 @@ public abstract class SpriteParameter implements SpriteParameterI {
 	
 	
 	SpriteParameter(String name, Object value){
-//		boolean myValue = checkedStatus;
 		setMyValue(myValue);
 		isDummy = false;
 		setUpVariables(name, value);
-//		makeClone();
-//		setCloneHandlers();
-//		setJavaFXNameNode();
+
 	}
 	
-//	SpriteParameter(String name, Object value, Boolean cloneMade){
-//		isDummy = true;
-//		setUpVariables(name, value);
-//	}
-	
 	protected abstract void setUpVariables(String name, Object value);
-//	protected abstract void setCloneHandlers();
 	
 	@Override
 	public void updateName(String name) {
@@ -79,10 +70,7 @@ public abstract class SpriteParameter implements SpriteParameterI {
 //		myNameJavaFXNode = TA;
 //	}
 	
-//	@Override
-//	public Control getJavaFXNameNode(){
-//		return myNameJavaFXNode;
-//	}
+
 	
 	protected void setMyValue(Object in){
 		myValue = in;
@@ -93,26 +81,10 @@ public abstract class SpriteParameter implements SpriteParameterI {
 		updateName(newName);
 		updateValue(newValue);
 	}
-	
-//	protected void makeClone(){
-//		System.out.println(getValue());
-//		dummy = SpriteParameterFactory.makeParameter(getName(), getValue(), true);
-//		System.out.println("make clone");
-//		System.out.println(dummy.getClass());
-//	}
 
 	@Override
 	public abstract void updateValue(Object value);
 
-//	@Override
-//	public Control getJavaFXValueNode(){
-//		return myJavaFXNode;
-//	}
-	
-//	protected void setJavaFXValueNode(Control control){
-//		myJavaFXNode = control;
-//	}
-	
 	@Override
 	public abstract Object getValue();
 	
@@ -124,26 +96,5 @@ public abstract class SpriteParameter implements SpriteParameterI {
 	
 	@Override 
 	public abstract boolean checkError(Object value) throws Exception;
-	
-	
-//	@Override
-//	public Pane getJavaFXPane() {
-//		HBox hbox = new HBox();
-//		
-//		hbox.getChildren().add(getJavaFXNameNode());
-//		hbox.getChildren().add(getJavaFXValueNode());
-//	
-//		return hbox;
-//	}
-//	
-//	public SpriteParameterI getDummy(){
-//		return dummy;
-//	}
-	
-//	@Override
-//	public void becomeDummy() {
-//		updateName(dummy.getName());
-//		updateValue(dummy.getValue());
-//	}
 
 }
