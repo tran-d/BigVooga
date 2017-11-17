@@ -5,15 +5,14 @@ import java.util.Optional;
 import authoring.SpriteParameterI;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import javafx.stage.StageStyle;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 
 public class FEStringParameter extends FEParameter {
@@ -53,7 +52,7 @@ public class FEStringParameter extends FEParameter {
 		dialog.setTitle("Error");
 		dialog.setHeaderText(e.getMessage());
 		dialog.setContentText("Please enter value for: " + myName.getText());
-
+		dialog.initStyle(StageStyle.UTILITY);
 		
 		Optional<String> result = dialog.showAndWait();
 		result.ifPresent(stringInput -> {

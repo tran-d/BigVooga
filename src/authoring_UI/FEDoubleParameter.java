@@ -4,8 +4,11 @@ import java.util.Optional;
 
 import authoring.SpriteParameterI;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
@@ -13,6 +16,7 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import javafx.stage.StageStyle;
 
 public class FEDoubleParameter extends FEParameter {
 	SpriteParameterI myParam;
@@ -47,21 +51,21 @@ public class FEDoubleParameter extends FEParameter {
 	}
 	
 	private void displayErrorDialog(String value, Exception e) {
-		TextInputDialog dialog = new TextInputDialog(value);
-		dialog.setTitle("Error");
-		dialog.setHeaderText(e.getMessage());
-		dialog.setContentText("Please enter value for: " + myName.getText());
-		
-		
-		Optional<String> result = dialog.showAndWait();
-		result.ifPresent(stringInput -> {
-			try {
-				myParam.checkError(stringInput);
-			} catch (Exception e1) {
-				// if error here, do nothing
-			}
-			myValue.setText(stringInput);
-		});
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText(e.getMessage());
+		alert.setContentText("Please enter value for: " + myName.getText());
+
+		alert.showAndWait();
+//		Optional<String> result = dialog.showAndWait();
+//		result.ifPresent(stringInput -> {
+//			try {
+//				myParam.checkError(stringInput);
+//			} catch (Exception e1) {
+//				// if error here, do nothing
+//			}
+//			myValue.setText(stringInput);
+//		});
 	}
 	
 	protected void handleValueChange() {
