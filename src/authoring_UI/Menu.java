@@ -1,19 +1,26 @@
 package authoring_UI;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import authoring.AuthoringEnvironmentManager;
+import authoring.SpriteParameterI;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 
 public class Menu extends VBox {
 	private Button myLoad;
 	private Button mySave;
 	private AuthoringEnvironmentManager myAEM;
 	private ScrollPane myStateSP;
+	private TabPane myParamTabs;
 
-	
 	private final static String LOAD = "Load";
 	private final static String SAVE = "Save";
 	private final static double MENU_WIDTH = 400;
@@ -21,35 +28,55 @@ public class Menu extends VBox {
 	
 	protected Menu(AuthoringEnvironmentManager AEM) {
 		myAEM = AEM;
-		createButtons();
-		buttonInteraction();
-		//createTabs();
+		setUpMenu();
+
 	}
 	
-	public void displayParams() {
+	protected void displayParams() {
+		Map<String, ArrayList<SpriteParameterI>> paramMap = new HashMap<String, ArrayList<SpriteParameterI>>();
 		try {
-			//VBox ret = myAEM.getActiveCellParameters();
-//			ret.setPrefHeight(MENU_HEIGHT);
-//			ret.setPrefWidth(MENU_WIDTH);
-//			System.out.println(ret.getChildren());
-//			myStateSP.setContent(ret);
-		} catch (Exception e) {
+			paramMap = myAEM.getActiveCellParameters().getParameters();
+		} catch (Exception e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e1.printStackTrace();
 		}
+		for (Map.Entry<String, ArrayList<SpriteParameterI>> entry : paramMap.entrySet()) {
+			String category = entry.getKey();
+			ArrayList<SpriteParameterI> newParams = entry.getValue();
+			FEParameterFactory newFactory = new FEParameterFactory(newParams);
+			myStateSP.setContent(newFactory);
+			createCategoryTab(category);
+		}
+		
 		this.setPrefWidth(MENU_WIDTH);
 	}
 	
+	private void setUpMenu() {
+		createButtons();
+		createStatePane();
+
+	}
+	
 	private void createButtons() {
-		VBox myButtons = new VBox();
+		HBox myButtons = new HBox();
 		myLoad = new Button(LOAD);
 		mySave = new Button(SAVE);
-		createStatePane();
-		
-		myButtons.getChildren().addAll(myLoad, mySave, myStateSP);
+		myButtons.getChildren().addAll(myLoad, mySave);
+		buttonInteraction();
 		
 		this.getChildren().add(myButtons);
+		
 	}
+	
+	private void createCategoryTab(String categoryName) {
+		myParamTabs = new TabPane();
+		Tab newCategory = new Tab(categoryName);
+		newCategory.setContent(myStateSP);
+		
+		myParamTabs.getTabs().add(newCategory);
+		
+	}
+
 
 	private void createStatePane() {
 		myStateSP = new ScrollPane();
@@ -62,14 +89,13 @@ public class Menu extends VBox {
 		temp.setPrefWidth(500);
 		temp.setPrefHeight(500);
 		myStateSP.setContent(temp);
+		
+		this.getChildren().add(myStateSP);
 	}
 	
 	private void buttonInteraction() {
 		
 	}
 	
-	private void createTabs() {
-		
-	}
 
 }
