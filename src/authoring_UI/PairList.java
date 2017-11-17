@@ -7,6 +7,7 @@ public class PairList extends VBox implements PairListI {
 	private List<VarValPair> varValPairs;
 	
 	public PairList(List<VarValPair> variableValuePairs) {
+		super();
 		varValPairs = variableValuePairs;
 	}
 

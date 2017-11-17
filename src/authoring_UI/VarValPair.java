@@ -16,6 +16,7 @@ public class VarValPair extends HBox implements VarValPairI{
 	private List<Control> values;
 	
 	public VarValPair(ObservableList<String> variableOptions, String defaultVariable){
+		super();
 		variables = newChoiceBox(variableOptions,defaultVariable);
 	}
 
