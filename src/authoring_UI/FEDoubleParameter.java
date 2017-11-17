@@ -7,6 +7,12 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 
 public class FEDoubleParameter extends FEParameter {
 	SpriteParameterI myParam;
@@ -15,11 +21,16 @@ public class FEDoubleParameter extends FEParameter {
 	
 	protected FEDoubleParameter(SpriteParameterI BEParam) {
 		myParam = BEParam;
+		BorderStroke border = new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT);
 		myName = new FEParameterName(myParam.getName());
-		myValue = new TextArea((String) myParam.getValue());
+		myName.setBorder(new Border(border));
+		myValue = new TextArea(myParam.getValue().toString());
+		myValue.setPrefWidth(200);
+		myValue.setBorder(new Border(border));
 		this.getChildren().addAll(myName, myValue);
 		this.setPrefHeight(20);
-		
+		this.setSpacing(5);
+
 		handleValueChange();
 	}
 	
@@ -41,8 +52,6 @@ public class FEDoubleParameter extends FEParameter {
 		dialog.setHeaderText(e.getMessage());
 		dialog.setContentText("Please enter value for: " + myName.getText());
 		
-		ButtonType doneButton = new ButtonType("Done", ButtonData.OK_DONE);
-		dialog.getDialogPane().getButtonTypes().add(doneButton);
 		
 		Optional<String> result = dialog.showAndWait();
 		result.ifPresent(stringInput -> {

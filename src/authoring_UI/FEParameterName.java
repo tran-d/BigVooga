@@ -7,6 +7,7 @@ public class FEParameterName extends TextArea {
 	
 	protected FEParameterName(String name) {
 		this.setText(name);
+		this.setPrefWidth(170);
 		handleNameChange();
 	}
 	
@@ -18,7 +19,7 @@ public class FEParameterName extends TextArea {
 				Platform.runLater(() -> { 
 					int currentCaretPosition = this.getCaretPosition();
 					this.setText(newText);
-					this.positionCaret(currentCaretPosition-1);
+					this.positionCaret(currentCaretPosition);
 				}); 
 			} else {
 				newText = newValue;

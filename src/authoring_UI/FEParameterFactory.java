@@ -1,7 +1,6 @@
 package authoring_UI;
 
 import java.util.ArrayList;
-
 import authoring.BooleanSpriteParameter;
 import authoring.DoubleSpriteParameter;
 import authoring.SpriteParameterI;
@@ -14,6 +13,7 @@ public class FEParameterFactory extends VBox {
 		for (SpriteParameterI BEParam : spriteParams) {
 			createFEParameter(BEParam);
 		}
+		this.setSpacing(5);
 	}
 	
 	private void createFEParameter(SpriteParameterI BEParam) {

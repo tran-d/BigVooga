@@ -66,7 +66,7 @@ public class SpriteManager extends TabPane {
 		urls.add("pikachu.png");
 		urls.add("water.png");
 		
-		int i = 10;
+		double i = 10.0;
 		ArrayList<String> s = new ArrayList<String>();
 		s.add("hello");
 		s.add("world");
