@@ -40,7 +40,7 @@ public class AuthoringEnvironmentManager {
 		return defaultEmptySprite;
 	}
 	
-	public VBox getActiveCellParameters() throws Exception{
+	public SpriteObjectI getActiveCellParameters() throws Exception{
 		return SPSM.getParameters(SOGM);
 	}
 	
