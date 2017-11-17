@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteParameterI;
+import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
@@ -13,6 +14,7 @@ import javafx.scene.text.Text;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
 
 public class Menu extends VBox {
 	private Button myLoad;
@@ -20,6 +22,7 @@ public class Menu extends VBox {
 	private AuthoringEnvironmentManager myAEM;
 	private ScrollPane myStateSP;
 	private TabPane myParamTabs;
+	private TabPane mySpriteTabs;
 
 	private final static String LOAD = "Load";
 	private final static String SAVE = "Save";
@@ -45,7 +48,6 @@ public class Menu extends VBox {
 			ArrayList<SpriteParameterI> newParams = entry.getValue();
 			FEParameterFactory newFactory = new FEParameterFactory(newParams);
 			myStateSP.setContent(newFactory);
-			createCategoryTab(category);
 		}
 		
 		this.setPrefWidth(MENU_WIDTH);
@@ -54,7 +56,8 @@ public class Menu extends VBox {
 	private void setUpMenu() {
 		createButtons();
 		createStatePane();
-
+		createCategoryTabs();
+		createSpriteTabs();
 	}
 	
 	private void createButtons() {
@@ -68,20 +71,35 @@ public class Menu extends VBox {
 		
 	}
 	
-	private void createCategoryTab(String categoryName) {
+	private void createSpriteTabs() {
+		mySpriteTabs = new TabPane();
+		Tab parameters = new Tab("Parameters");
+		parameters.setContent(myParamTabs);
+		Tab actions = new Tab("Actions");
+		actions.setContent(new TextArea("actions go here"));
+		Tab dialogue = new Tab("Dialogue");
+		dialogue.setContent(new TextArea("dialogue goes here"));
+		
+		mySpriteTabs.getTabs().addAll(parameters, actions, dialogue);
+		mySpriteTabs.setSide(Side.TOP);
+		this.getChildren().add(mySpriteTabs);
+	}
+	
+	private void createCategoryTabs() {
 		myParamTabs = new TabPane();
-		Tab newCategory = new Tab(categoryName);
+		Tab newCategory = new Tab("Category");
 		newCategory.setContent(myStateSP);
-		
+		newCategory.setClosable(false);
 		myParamTabs.getTabs().add(newCategory);
+		myParamTabs.setSide(Side.RIGHT);
 		
+		this.getChildren().add(myParamTabs);		
 	}
 
 
 	private void createStatePane() {
 		myStateSP = new ScrollPane();
 		myStateSP.setPrefSize(MENU_WIDTH,MENU_HEIGHT);
-		// we should get this vbox from authoring backend
 		myStateSP.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 		myStateSP.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 		VBox temp = new VBox();
