@@ -7,8 +7,8 @@ public class SpriteParameterFactory {
 			return new StringSpriteParameter(name, (String) value);
 		} else if (value instanceof Boolean) {
 			return new BooleanSpriteParameter(name, (Boolean) value);
-		} else if (value instanceof Integer){
-			return new DoubleSpriteParameter(name, (Integer) value);
+		} else if (value instanceof Double){
+			return new DoubleSpriteParameter(name, (Double) value);
 		}
 		return null;
 	}
