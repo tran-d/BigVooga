@@ -1,7 +1,6 @@
 package authoring_UI;
 
 import java.util.ResourceBundle;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -13,7 +12,7 @@ public class ActionTab extends Tab {
 	
 	private static final String TITLE = "Actions";
 	private static final int SPACING = 10;
-	private static final String ACTIONTAB_RESOURCE_PATH = "ActionTabResources.properties";
+	private static final String ACTIONTAB_RESOURCE_PATH = "TextResources/ActionTabResources.properties";
 	
 	private ResourceBundle actionTabResources;
 	private HBox actionConditionManager;
