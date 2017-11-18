@@ -56,7 +56,7 @@ public class Tester extends Application {
 //		GridPane GP = new GridPane();
 //		GP.set
 		
-		VBox ScrollPaneBox = new VBox(); 
+		VBox ScrollPaneBox = new VBox();
 
 		ScrollPane SP = MAN.getParameters(mySObjects);
 
