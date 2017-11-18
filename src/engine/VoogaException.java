@@ -2,6 +2,10 @@ package engine;
 
 import java.util.ResourceBundle;
 
+/**
+ * @author Ian Eldridge-Allegra
+ *
+ */
 public class VoogaException extends RuntimeException {
 	private static final long serialVersionUID = -1967443635275762601L;
 	private static final ResourceBundle ERROR_BUNDLE = ResourceBundle.getBundle("resources.exceptions.exceptions");

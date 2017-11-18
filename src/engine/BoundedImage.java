@@ -2,15 +2,18 @@ package engine;
 
 import java.util.Set;
 
-import engine.utilities.collisions.BoundingGeometry;
 import engine.utilities.collisions.RelativeBoundingGeometry;
 
+/**
+ * @author Ian Eldridge-Allegra
+ *
+ */
 public class BoundedImage {
 
 	private Set<RelativeBoundingGeometry> relativeBounds;
-	private String pathName;
+	private String fileName;
 	
-	public BoundedImage(String pathName) {
-		this.pathName = pathName;
+	public BoundedImage(String fileName) {
+		this.fileName = fileName;
 	}
 }

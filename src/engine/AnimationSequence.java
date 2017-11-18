@@ -2,6 +2,10 @@ package engine;
 
 import java.util.List;
 
+/**
+ * @author Ian Eldridge-Allegra
+ *
+ */
 public class AnimationSequence{
 	private int imageIndex = 0;
 	private List<BoundedImage> images;

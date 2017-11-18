@@ -3,6 +3,10 @@ package engine;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author Ian Eldridge-Allegra
+ *
+ */
 public class Sprite {
 	private Map<String, AnimationSequence> animations = new HashMap<String, AnimationSequence>();
 	private AnimationSequence currentAnimation;

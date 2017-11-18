@@ -3,6 +3,10 @@ package engine.utilities.collisions;
 import javafx.geometry.Point2D;
 import javafx.util.Pair;
 
+/**
+ * @author Ian Eldridge-Allegra
+ *
+ */
 public class BoundingCircle extends BoundingGeometry{
 
 	private Point2D center;
