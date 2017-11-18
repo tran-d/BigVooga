@@ -10,63 +10,74 @@ import javafx.scene.layout.Pane;
 
 public class BooleanSpriteParameter extends SpriteParameter {
 	
-	private CheckBox myCheckBox;
-	private String myName;
-	private Boolean myValue; 
-	private BooleanSpriteParameter dummy;
-	private boolean isDummy;
+//	CheckBox myCheckBox;
+	Boolean myValue;
+//	String myName;
+//	Boolean myValue; 
+//	BooleanProperty boolProp;
+//	BooleanSpriteParameter dummy;
+//	boolean isDummy;
 	
 	BooleanSpriteParameter(String name, Object checkedStatus){
 		super(name, checkedStatus);
 	}
 	
-	BooleanSpriteParameter(String name, Object checkedStatus, Boolean cloneMade){
-		super(name, checkedStatus, cloneMade);
-	}
+//	BooleanSpriteParameter(String name, Object checkedStatus, Boolean cloneMade){
+//		super(name, checkedStatus, cloneMade);
+//	}
 	
 	protected void setUpVariables(String name, Object in){
-
 		myValue = (boolean) in;
 		myName = name;
-		myCheckBox = new CheckBox();
-		BooleanProperty boolProp = new SimpleBooleanProperty();
-		boolProp.set(myValue);
+//		myCheckBox = new CheckBox();
+//		boolProp = new SimpleBooleanProperty();
+//		boolProp.set(checkedStatus);
 		
-		 myCheckBox.setSelected(myValue);
-		 setJavaFXValueNode(myCheckBox);
+//		 myCheckBox.setSelected(myValue);
+//		 setJavaFXValueNode(myCheckBox);
 	}
 	
-	protected void setCloneHandlers() {
-		myCheckBox.setOnAction((event) -> {
-			boolean isSelected = myCheckBox.isSelected();
-			dummy.updateValue(isSelected);
-			System.out.println("I am dummy: "+this.isDummy);
-			System.out.println("New value: "+ myValue);
-			}
-					);
-	}
+//	protected void setCloneHandlers() {
+//		myCheckBox.setOnAction((event) -> {
+//			boolean isSelected = myCheckBox.isSelected();
+//			dummy.updateValue(isSelected);
+//			System.out.println("I am dummy: "+this.isDummy);
+//			System.out.println("New value: "+ myValue);
+//			}
+//					);
+//	}
 	
 	protected void makeClone(){
 		dummy = new BooleanSpriteParameter(this.myName, this.myValue, true);
 	}
 	
-	public void update() {
-		updateName(dummy.getName());
-		updateValue(dummy.getValue());
-	}
+//	public void update(String newName, Object newValue) {
+////		updateName(dummy.getName());
+////		updateValue(dummy.getValue());
+//		updateName
+//		
+//		//NEED NEW CODE
+//	}
 	
 	@Override
 	public void updateValue(Object value) {
 		myValue = (Boolean) value;
-		System.out.println("I am dummy: "+this.isDummy);
-		System.out.println("New value: "+ myValue);
+//		System.out.println("I am dummy: "+this.isDummy);
+//		System.out.println("New value: "+ myValue);
 		
 	}
 
 	@Override
-	public Object getValue() {
-		
+	public Object getValue() {	
 		return myValue;
+	}
+
+	@Override
+	public boolean checkError(Object value) throws Exception {
+		if (!(value instanceof Boolean)){
+			throw new Exception("Boolean Parameters must have Boolean values!!");
+		}
+		return true;
 	}
 
 

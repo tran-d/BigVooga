@@ -104,6 +104,14 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 	private SpriteObjectI getCell(Integer [] loc){
 		return spriteGrid.get(loc[0]).get(loc[1]);
 	}
+
+	@Override
+	public void matchActiveCellsToSprite(SpriteObjectI firstSprite) {
+		for (SpriteObjectI SOI: getActiveSpriteObjects()){
+			SOI.applyParameterUpdate(firstSprite.getParameters());
+		}
+		
+	}
 	
 
 }
