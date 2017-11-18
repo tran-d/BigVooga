@@ -11,5 +11,5 @@ public interface World extends Iterable<GameObject>{
 	
 	public void step();
 	
-	public void addGlobalVars(GlobalVariables gv);
+	public void addGlobalVars(VariableContainer gv);
 }

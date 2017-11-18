@@ -11,7 +11,7 @@ public class GameMaster implements EngineController{
 	private World currentWorld;
 	private List<World> madeWorlds;
 	private Timeline gameLoop;
-	private GlobalVariables varContainer;
+	private VariableContainer varContainer;
 
 	public GameMaster(int MILLIS_DELAY) {
 		// TODO Auto-generated constructor stub
@@ -20,7 +20,7 @@ public class GameMaster implements EngineController{
 		gameLoop.setCycleCount(Timeline.INDEFINITE);
 		gameLoop.getKeyFrames().add(frame);
 		
-		varContainer = new GlobalVariables();
+		varContainer = new VariableContainer();
 		
 	}
 

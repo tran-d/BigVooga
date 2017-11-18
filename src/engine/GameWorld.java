@@ -11,7 +11,7 @@ public class GameWorld implements World {
 	private String worldName;
 	private List<GameObject> worldObjects;
 	private Map<Integer, List<GameObject>> conditionPriorities;
-	private GlobalVariables globalVars;
+	private VariableContainer globalVars;
 
 	public GameWorld() {
 		// TODO Auto-generated constructor stub
@@ -86,7 +86,7 @@ public class GameWorld implements World {
 	}
 
 	@Override
-	public void addGlobalVars(GlobalVariables gv) {
+	public void addGlobalVars(VariableContainer gv) {
 		// TODO Auto-generated method stub
 
 		globalVars = gv;
