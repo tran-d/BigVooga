@@ -70,7 +70,6 @@ public class Menu extends VBox {
 		this.getChildren().add(myButtons);
 		
 	}
-
 	
 	private void createSpriteTabs() {
 		mySpriteTabs = new TabPane();

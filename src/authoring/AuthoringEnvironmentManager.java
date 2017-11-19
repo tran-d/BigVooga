@@ -41,7 +41,7 @@ public class AuthoringEnvironmentManager {
 	}
 	
 	public SpriteObjectI getActiveCellParameters() throws Exception{
-		return (SpriteObjectI) SPSM.getParameters(SOGM);
+		return SPSM.getParameters(SOGM);
 	}
 	
 	public SpriteObjectGridManagerI getGridManager(){
