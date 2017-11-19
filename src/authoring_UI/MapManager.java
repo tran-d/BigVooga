@@ -2,18 +2,26 @@ package authoring_UI;
 
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObjectGridManagerI;
+import default_pkg.SceneController;
+import gui.welcomescreen.WelcomeScreen;
 import javafx.geometry.Side;
+import javafx.scene.Scene;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 public class MapManager extends TabPane {
+	
+	private Stage stage;
+	private Scene scene;
+	private SceneController sceneController;
+	
 	private SingleSelectionModel<Tab> mySelectModel;
 	private Tab currentTab;
 	private Tab addTab;
-	private double myWidth;
-	private double myHeight;
 	private AuthoringEnvironmentManager myAEM;
 	private SpriteObjectGridManagerI mySOGM;
 	
@@ -21,9 +29,12 @@ public class MapManager extends TabPane {
 	private static final String TABTAG = "map ";
 	
 
-	protected MapManager(double width, double height) {
-		myWidth = width;
-		myHeight = height;
+	public MapManager(Stage currentStage, SceneController currentSceneController) {
+		
+		stage = currentStage;
+		sceneController = currentSceneController;
+		scene = new Scene(this, WelcomeScreen.WIDTH, WelcomeScreen.HEIGHT);
+		
 		mySelectModel = this.getSelectionModel();
 		setTab();	
 	}
@@ -47,8 +58,8 @@ public class MapManager extends TabPane {
 		DraggableGrid myGrid = new DraggableGrid(myTabCount, myMenu, mySOGM);
 		SpriteManager mySprites = new SpriteManager(myGrid, myAEM, mySOGM);
 		HBox authMap = new HBox(myMenu, myGrid, mySprites);
-		authMap.setPrefWidth(myWidth);
-		authMap.setPrefHeight(myHeight);
+		authMap.setPrefWidth(WelcomeScreen.WIDTH);
+		authMap.setPrefHeight(WelcomeScreen.HEIGHT);
 		
 		return authMap;
 	}

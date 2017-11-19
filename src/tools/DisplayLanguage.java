@@ -5,7 +5,6 @@ import javafx.beans.binding.StringBinding;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -15,24 +14,28 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.concurrent.Callable;
 
+/**
+ * This class mediates the change of display language in the GUI by providing numerous static classes that create binded labels and buttons,
+ * along with the internal methods that facilitate the change of language among these GUI objects that display text.
+ * @author Samarth Desai
+ *
+ */
 public final class DisplayLanguage {
     
 	public static final Locale SPANISH = new Locale("es");
 	
-	/** the current selected Locale. */
+	/** The current selected Locale. */
     private static final ObjectProperty<Locale> locale;
     static {
         locale = new SimpleObjectProperty<>(getDefaultLocale());
         locale.addListener((observable, oldValue, newValue) -> Locale.setDefault(newValue));
     }
     /**
-     * get the supported Locales.
-     *
-     * @return List of Locale objects.
+     * Populates and gets the list of the supported Locales.
+     * @return The list of Locale objects that have been accounted for.
      */
     public static List<Locale> getSupportedLocales() {
-        //return new ArrayList<>(Arrays.asList(Locale.ENGLISH, new Locale("es")));
-    	return new ArrayList<>(Arrays.asList(Locale.ENGLISH, Locale.GERMAN));
+        return new ArrayList<>(Arrays.asList(Locale.ENGLISH, new Locale("es")));
     }
     /**
      * get the default locale. This is the systems default if contained in the supported locales, english otherwise.
@@ -87,26 +90,13 @@ public final class DisplayLanguage {
     public static StringBinding createStringBinding(Callable<String> func) {
         return Bindings.createStringBinding(func, locale);
     }
+    
     /**
-     * creates a bound Label whose value is computed on language change.
+     * Creates a bound Button for the given ResourceBundle key
      *
-     * @param func
-     *         the function to compute the value
-     * @return Label
-     */
-    public static Label labelForValue(Callable<String> func) {
-        Label label = new Label();
-        label.textProperty().bind(createStringBinding(func));
-        return label;
-    }
-    /**
-     * creates a bound Button for the given resourcebundle key
-     *
-     * @param key
-     *         ResourceBundle key
-     * @param args
-     *         optional arguments for the message
-     * @return Button
+     * @param key - ResourceBundle key
+     * @param args - optional arguments for the Button text
+     * @return the created Button
      */
     public static Button buttonForKey(final String key, final Object... args) {
         Button button = new Button();
@@ -114,13 +104,11 @@ public final class DisplayLanguage {
         return button;
     }
     /**
-     * creates a bound Tooltip for the given resourcebundle key
+     * Creates a bound Tooltip for the given ResourceBundle key
      *
-     * @param key
-     *         ResourceBundle key
-     * @param args
-     *         optional arguments for the message
-     * @return Label
+     * @param key - the ResourceBundle key
+     * @param args - optional arguments for the Tooltip text
+     * @return the created Tooltip
      */
     public static Tooltip tooltipForKey(final String key, final Object... args) {
         Tooltip tooltip = new Tooltip();

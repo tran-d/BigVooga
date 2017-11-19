@@ -2,6 +2,7 @@ package gui.welcomescreen;
 
 import java.util.Locale;
 
+import default_pkg.SceneController;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,7 +17,7 @@ import javafx.stage.Stage;
 import tools.DisplayLanguage;
 
 /**
- * 
+ * Settings page that allows users to modify 
  * @author Samarth
  *
  */
@@ -33,7 +34,6 @@ public class Settings extends MenuOptionsTemplate{
 	private static final String LANGUAGE_HEADING_SIZE = 50 + "pt;";
 	private static final String ENGLISH_BUTTON = "English";
 	private static final String SPANISH_BUTTON = "Spanish";
-	private static final String LANGUAGE_TYPE_SIZE = 30 + "pt;";
 	private static final int LANGUAGE_BUTTON_HORIZONTAL_GAP = 20;
 	private static final int LANGUAGE_BUTTON_VERTICAL_GAP = 20;
 	private static final int SETTINGS_VERTICAL_GAP = 50;
@@ -41,10 +41,9 @@ public class Settings extends MenuOptionsTemplate{
 	private ScrollPane contentPane = new ScrollPane();
 	ToggleGroup languageGroup = new ToggleGroup();
 
-	public Settings(Stage currentStage) {
-		super(currentStage);
+	public Settings(Stage currentStage, SceneController sceneController) {
+		super(currentStage, sceneController);
 		createOptionScreen(GEARS_PATH, GEARS_WIDTH, GEARS_HEIGHT, HEADING_PADDING);
-		
 	}
 	
 	public void createSettings(){

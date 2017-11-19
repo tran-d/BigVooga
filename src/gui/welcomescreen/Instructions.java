@@ -1,5 +1,6 @@
 package gui.welcomescreen;
 
+import default_pkg.SceneController;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
@@ -26,11 +27,10 @@ public class Instructions extends MenuOptionsTemplate {
 	private static final String INSTRUCTIONS_PLAYER_BODY = "PlayerBody";
 	private static final String INSTRUCTIONS_FAQ_HEADING = "FAQHeading";
 	private static final String INSTRUCTIONS_FAQ_BODY = "FAQBody";
-	
-	private ScrollPane contentPane = new ScrollPane();
 
-	public Instructions(Stage currentStage) {
-		super(currentStage);
+	private ScrollPane contentPane = new ScrollPane();
+	public Instructions(Stage currentStage, SceneController sceneController) {
+		super(currentStage, sceneController);
 		createOptionScreen(CRYSTAL_PATH, CRYSTAL_WIDTH, CRYSTAL_HEIGHT, 0);
 	}
 	

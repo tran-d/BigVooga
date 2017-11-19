@@ -1,5 +1,6 @@
 package player;
 
+import default_pkg.SceneController;
 import gui.welcomescreen.MenuOptionsTemplate;
 import javafx.stage.Stage;
 
@@ -10,8 +11,8 @@ public class GameSelector extends MenuOptionsTemplate {
 	private static final int SELECTOR_HEIGHT = 125;
 	private static final int HEADING_PADDING = 0;
 	
-	public GameSelector(Stage currentStage) {
-		super(currentStage);
+	public GameSelector(Stage currentStage, SceneController sceneController) {
+		super(currentStage, sceneController);
 		createOptionScreen(SELECTOR_PATH, SELECTOR_WIDTH, SELECTOR_HEIGHT, HEADING_PADDING);
 	}
 	

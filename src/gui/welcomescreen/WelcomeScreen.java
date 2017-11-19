@@ -1,5 +1,6 @@
 package gui.welcomescreen;
 
+import default_pkg.SceneController;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -17,7 +18,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import player.GameDisplay;
 import player.GameSelector;
 
 /**
@@ -78,6 +78,8 @@ public class WelcomeScreen {
 	private static final String OS = System.getProperty("os.name").toLowerCase();
 
 	private Stage stage;
+	private Scene scene;
+	private SceneController sceneController;
 	private BorderPane rootPane;
 	private boolean clickEnabled = false;
 	
@@ -99,13 +101,14 @@ public class WelcomeScreen {
 	private VBox playVBox;
 	private VBox createVBox;
 	private VBox learnVBox;
-	private VBox settingsVBox;	
+	private VBox settingsVBox;
 	
-	public WelcomeScreen(Stage currentStage) {
+	public WelcomeScreen(Stage currentStage, SceneController currentSceneController) {
 		
 		stage = currentStage;
 		rootPane = new BorderPane();
-		Scene scene = new Scene(rootPane, WIDTH, HEIGHT);
+		scene = new Scene(rootPane, WIDTH, HEIGHT);
+		sceneController = currentSceneController;
 
 		stage.setScene(scene);
 		stage.sizeToScene();
@@ -248,7 +251,7 @@ public class WelcomeScreen {
 	private HBox borderGenerate(ImageView optionLogo, EventHandler<? super MouseEvent> handler) {
 		HBox optionBox = new HBox();
 		optionBox.getChildren().add(optionLogo);
-		optionBox.setStyle(GUITools.styleBox(BORDER_COLOR, BUTTON_BACKGROUND_DEFAULT_COLOR));
+		optionBox.setStyle(GUITools.styleBox(BORDER_COLOR));
 		optionBox.setOnMouseClicked(handler);
 		return optionBox;
 	}
@@ -328,29 +331,26 @@ public class WelcomeScreen {
 	
 	private void handlePlaySelection() {
 		if (!clickEnabled) { return; }
-		
-		GameSelector gameSelector = new GameSelector(stage);
-		gameSelector.createGameSelector();
-		
+		sceneController.switchScene(SceneController.GAME_SELECTOR_KEY);
 	}
 	
 	private void handleCreateSelection() {
-		
+		if (!clickEnabled) { return; }
+		sceneController.switchScene(SceneController.CREATE_KEY);
 	}
 	
 	private void handleLearnSelection() {
 		if (!clickEnabled) { return; }
-		
-		Instructions instructions = new Instructions(stage);
-		instructions.createInstructions();
-		
+		sceneController.switchScene(SceneController.LEARN_KEY);
 	}
 	
 	private void handleSettingsSelection() {
 		if (!clickEnabled) { return; }
-		
-		Settings settings = new Settings(stage);
-		settings.createSettings();
+		sceneController.switchScene(SceneController.SETTINGS_KEY);
+	}
+	
+	public Scene getScene() {
+		return scene;
 	}
 	
 }
