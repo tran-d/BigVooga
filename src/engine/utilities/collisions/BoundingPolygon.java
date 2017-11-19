@@ -32,7 +32,10 @@ public class BoundingPolygon extends BoundingGeometry {
 
 	@Override
 	public Point2D checkCollision(BoundingGeometry geometry) {
-		return geometry.checkPolygonCollision(this).multiply(-1);
+		Point2D result = geometry.checkPolygonCollision(this);
+		if(result == null)
+			return null;
+		return result.multiply(-1);
 	}
 
 	@Override
@@ -62,20 +65,30 @@ public class BoundingPolygon extends BoundingGeometry {
 	public Point2D checkPolygonCollision(BoundingPolygon polygon) {
 		double minOverlap = Integer.MAX_VALUE;
 		Point2D direction = null;
-		for(int i = 0; i < vertices.size(); i++) {
-			Point2D side = vertices.get((i+1)%vertices.size()).subtract(vertices.get(i));
-			Point2D normalToSide = rotateByAngle(side, 90).normalize();
-			Range otherProjection = polygon.dotted(normalToSide);
-			Range thisProjection = dotted(normalToSide);
+		List<Point2D> normals = generateNormals();
+		normals.addAll(polygon.generateNormals());
+		for(Point2D normal : normals){
+			Range otherProjection = polygon.dotted(normal);
+			Range thisProjection = dotted(normal);
 			double overlap = otherProjection.getOverlap(thisProjection);
 			if(overlap == 0)
 				return null;
 			if(overlap < minOverlap) {
 				minOverlap = overlap;
-				direction = normalToSide;
+				direction = normal;
 			}
 		}
 		return direction.multiply(minOverlap);
+	}
+	
+	protected List<Point2D> generateNormals(){
+		List<Point2D> normals = new ArrayList<>();
+		for(int i = 0; i < vertices.size(); i++) {
+			Point2D side = vertices.get((i+1)%vertices.size()).subtract(vertices.get(i));
+			Point2D normalToSide = rotateByAngle(side, 90).normalize();
+			normals.add(normalToSide);
+		}
+		return normals;
 	}
 
 	private static Point2D rotateByAngle(Point2D vector, double angle) {
