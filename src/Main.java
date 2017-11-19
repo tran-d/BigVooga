@@ -9,17 +9,31 @@ import engine.utilities.collisions.BoundingPolygon;
 import engine.utilities.data.GameDataHandler;
 import javafx.application.Application;
 import javafx.geometry.Point2D;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class Main extends Application{
 	public static void main(String[] args) {
-		testCollisions();
-		//launch(args);
+		launch(args);
 	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		testData(stage);
+		testDrawer(stage);
+	}
+	
+	private void testDrawer(Stage stage) {
+		Group g = new Group();
+		Scene scene = new Scene(g);
+		stage.setScene(scene);
+		Pane bpd = new BoundingPolygonDrawer(new Image(new GameDataHandler("Test").chooseFile(new Stage()).toURI().toString()));
+		bpd.setLayoutX(50);
+		bpd.setLayoutY(50);
+		g.getChildren().add(bpd);
+		stage.show();
 	}
 
 	private void testData(Stage stage) throws IOException, FileNotFoundException, URISyntaxException {

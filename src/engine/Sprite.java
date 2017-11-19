@@ -19,11 +19,16 @@ public class Sprite {
 		if(!animations.containsKey(name))
 			throw new VoogaException("AnimationNotFound", name);
 		currentAnimation = animations.get(name);
+		currentAnimation.reset();
 	}
 	
-	public BoundedImage getNextImage() {
+	public void step() {
+		currentAnimation.increment();
+	}
+	
+	public BoundedImage getImage() {
 		if(currentAnimation == null)
 			throw new VoogaException("UndefinedAnimation");
-		return currentAnimation.nextImage();
+		return currentAnimation.getImage();
 	}
 }

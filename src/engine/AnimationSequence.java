@@ -20,8 +20,17 @@ public class AnimationSequence{
 		return name;
 	}
 
-	public BoundedImage nextImage() {
-		imageIndex = Math.max(0, imageIndex+1);
+	public void increment() {
+		imageIndex++;
+		if(imageIndex > images.size())
+			reset();
+	}
+	
+	public void reset() {
+		imageIndex = 0;
+	}
+
+	public BoundedImage getImage() {
 		return images.get(imageIndex);
 	}
 }
