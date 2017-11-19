@@ -7,12 +7,20 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
+ * Creates and populates the Learn page, which contains all the instructions for how to use VOOGA.
  * 
  * @author Samarth
  *
  */
-public class Instructions extends MenuOptionsTemplate {
+public class Learn extends MenuOptionsTemplate {
 
+	/**
+	 *The content inset size times four is subtracted from the screen width because the ScrollPane is the entire width of the screen,
+	 *minus its two insets on the left and two on the right, which are all the same size. Thus, to properly wrap the text, the subtraction of
+	 *the shared inset size times four correctly accounts for all the horizontal padding that exists for the ScrollPane. Then, an additional
+	 *four is subtracted because the border width is two, so for both the left and right border that makes four additional pixels.
+	 */
+	public static final int WRAPPING_WIDTH = WelcomeScreen.WIDTH - CONTENT_INSET_SIZE*4 - 4;
 	private static final String CRYSTAL_PATH = "Crystal.gif";
 	private static final int CRYSTAL_WIDTH = 125;
 	private static final int CRYSTAL_HEIGHT = 125;
@@ -29,12 +37,19 @@ public class Instructions extends MenuOptionsTemplate {
 	private static final String INSTRUCTIONS_FAQ_BODY = "FAQBody";
 
 	private ScrollPane contentPane = new ScrollPane();
-	public Instructions(Stage currentStage, SceneController sceneController) {
+	
+	/**
+	 * Creates the framework by passing the necessary information to 
+	 * 
+	 * @param currentStage
+	 * @param sceneController
+	 */
+	public Learn(Stage currentStage, SceneController sceneController) {
 		super(currentStage, sceneController);
 		createOptionScreen(CRYSTAL_PATH, CRYSTAL_WIDTH, CRYSTAL_HEIGHT, 0);
 	}
 	
-	public void createInstructions() {
+	public void createLearn() {
 		
 		VBox contentBox = consolidateText();
 		
@@ -60,15 +75,9 @@ public class Instructions extends MenuOptionsTemplate {
 		Label headingText = GUITools.generateLabel(heading, WelcomeScreen.MAIN_FONT, WelcomeScreen.MAIN_COLOR, headingSize);
 		Label bodyText = GUITools.generateLabel(body, WelcomeScreen.MAIN_FONT, WelcomeScreen.MAIN_COLOR, INSTRUCTIONS_BODY_SIZE);
 		
-		/**
-		 *The content inset size times four is subtracted from the screen width because the ScrollPane is the entire width of the screen,
-		 *minus its two insets on the left and two on the right, which are all the same size. Thus, to properly wrap the text, the subtraction of
-		 *the shared inset size times four correctly accounts for all the horizontal padding that exists for the ScrollPane. Then, an additional
-		 *four is subtracted because the border width is two, so for both the left and right border that makes four additional pixels.
-		 */
-		bodyText.setPrefWidth(WelcomeScreen.WIDTH - CONTENT_INSET_SIZE*4 - 4);
+		bodyText.setPrefWidth(WRAPPING_WIDTH);
 		bodyText.setWrapText(true);
-		headingText.setPrefWidth(WelcomeScreen.WIDTH - CONTENT_INSET_SIZE*4 - 4);
+		headingText.setPrefWidth(WRAPPING_WIDTH);
 		headingText.setWrapText(true);
 		
 		textBox.getChildren().addAll(headingText, bodyText);

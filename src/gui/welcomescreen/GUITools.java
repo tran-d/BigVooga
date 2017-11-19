@@ -40,6 +40,15 @@ public class GUITools {
 		return imageView;
 	}
 	
+	/**
+	 * Creates a label given the label text specifications
+	 * 
+	 * @param labelText - The text to be displayed
+	 * @param font - The font of the text
+	 * @param color - The color of the text
+	 * @param size - The size of the label
+	 * @return the generated label
+	 */
 	public static Label generateLabel(String labelText, String font, String color, String size) {
 		Label label = new Label(labelText);
 		label.textProperty().bind(DisplayLanguage.createStringBinding(labelText));
@@ -47,6 +56,14 @@ public class GUITools {
 		return label;
 	}
 	
+	/**
+	 * Styles the label with CSS
+	 * 
+	 * @param font - The font of the label text
+	 * @param color - The color of the label text
+	 * @param size - The size of the label text
+	 * @return the CSS properties that will modify the label
+	 */
 	public static String styleLabel(String font, String color, String size) {
 		return "-fx-font-family: " + font +
 				"-fx-text-fill: " + color +  

@@ -22,13 +22,12 @@ public class Main extends Application {
 	}
 	
 	/**
-	 * Calls the first screen, the welcome screen
+	 * Calls the welcome screen which is the first screen
 	 */
 	public void start(Stage stage) {
 		sceneController = new SceneController(stage);
 		sceneController.switchScene(SceneController.WELCOME_SCREEN_KEY);
 		
 	}
-	
 	
 }

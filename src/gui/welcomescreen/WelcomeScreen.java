@@ -22,7 +22,7 @@ import player.GameSelector;
 
 /**
  * 
- * @author Samarth
+ * @author Samarth Desai
  *
  */
 public class WelcomeScreen {

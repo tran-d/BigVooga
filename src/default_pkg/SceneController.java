@@ -4,13 +4,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 import authoring_UI.MapManager;
-import gui.welcomescreen.Instructions;
+import gui.welcomescreen.Learn;
 import gui.welcomescreen.Settings;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import player.GameSelector;
 
+/**
+ * Stores all the scenes in the program, and allows them to be accessible by a map. This ensures that only one instance of each scene is created,
+ * so the states of the scenes can be passed around effectively.
+ * @author Samarth Desai
+ *
+ */
 public class SceneController {
 
 	public static final String WELCOME_SCREEN_KEY = "Welcome Screen";
@@ -23,6 +29,11 @@ public class SceneController {
 	private Stage stage;
 	private Scene scene;
 	
+	/**
+	 * Initializes all the scenes and puts them in the sceneMap.
+	 * 
+	 * @param currentStage - The instance of the stage being passed
+	 */
 	public SceneController(Stage currentStage) {
 		
 		stage = currentStage;
@@ -41,9 +52,9 @@ public class SceneController {
 		scene = mapManager.getScene();
 		sceneMap.put(CREATE_KEY, scene);
 		
-		Instructions instructions = new Instructions(stage, this);
-		instructions.createInstructions();
-		scene = instructions.getScene();
+		Learn learn = new Learn(stage, this);
+		learn.createLearn();
+		scene = learn.getScene();
 		sceneMap.put(LEARN_KEY, scene);
 
 		Settings settings = new Settings(stage, this);
@@ -53,6 +64,11 @@ public class SceneController {
 		
 	}
 	
+	/**
+	 * Changes and sets the scene.
+	 * 
+	 * @param key - The key that extracts the correct scene from the map to use
+	 */
 	public void switchScene (String key) {
 		stage.setScene(sceneMap.get(key));
 		
