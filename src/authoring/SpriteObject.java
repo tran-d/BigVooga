@@ -4,23 +4,35 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 
-public class SpriteObject extends Object implements SpriteObjectI{
+public class SpriteObject extends ImageView implements SpriteObjectI{
 	
 	private HashMap<String, ArrayList<SpriteParameterI>> categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();
 	private ImageView myImageView;
 	private String myImageURL;
 
 	
-	SpriteObject() {
-		myImageView = new ImageView();
+	public SpriteObject() {
+		
+	}
+
+	public SpriteObject(String fileURL){
+		myImageURL = fileURL;
+		this.setImage(new Image(myImageURL));
+		this.setFitWidth(45);
+		this.setFitHeight(45);
 	}
 	
 	SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap) {
 		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(inCategoryMap);
+	}
+	
+	SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap, String fileURL) {
+		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(inCategoryMap);
+		myImageURL = fileURL;
+		this.setImage(new Image(myImageURL));
 	}
 	
 	@Override
@@ -57,7 +69,7 @@ public class SpriteObject extends Object implements SpriteObjectI{
 
 	@Override
 	public void applyParameterUpdate(HashMap<String, ArrayList<SpriteParameterI>> newParams) {
-		categoryMap = newParams;
+		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(newParams);
 	}
 
 	@Override
@@ -95,32 +107,52 @@ public class SpriteObject extends Object implements SpriteObjectI{
 		return true;
 	}
 	
-//	@Override
-//	public int hashCode() {
-//	    int hashCode = 1;
-//	   
-//	    for (ArrayList<SpriteParameterI> val: getParameters().values()){
-//	    	for (SpriteParameterI SP: val){
-//	    	hashCode = hashCode * 37 + SP.hashCode();
-//	    	}
-//	    }
-//
-//	    return hashCode;
-//	}
-	
-	@Override
-	public void applyUpdates() {
-		for (ArrayList<SpriteParameterI> paramList: categoryMap.values()){
-			for (SpriteParameterI SPI: paramList){
-				SPI.becomeDummy();
-			}
-		}
-	}
-	
 	@Override
 	public SpriteObject newCopy(){
 		System.out.println("Making copy");
-		return new SpriteObject(this.categoryMap);
+		if(this.myImageURL!=null) {
+		return new SpriteObject(this.categoryMap, this.myImageURL);
+		} else {
+			return new SpriteObject(this.categoryMap);
+		}
 	}
+	
+	private ArrayList<SpriteParameterI> getParamsMatching(String type) {
+		ArrayList<SpriteParameterI> ret = new ArrayList<SpriteParameterI>();
+		Class desiredClass;
+		switch (type){
+		case "Boolean":
+			desiredClass = BooleanSpriteParameter.class;
+			break;
+		case "Double":
+			desiredClass = DoubleSpriteParameter.class;
+			break;
+		case "String":
+			desiredClass = StringSpriteParameter.class;
+			break;
+		default:
+			desiredClass = SpriteParameter.class;
+			break;
+		}
+		
+		for (SpriteParameterI SPI: getAllParameters()){
+			if (SPI.getClass().equals(desiredClass)){
+				ret.add(SPI);
+			}
+		}
+		return ret;
+	}
+	
+	private ArrayList<SpriteParameterI> getAllParameters() {
+		ArrayList<SpriteParameterI> ret = new ArrayList<SpriteParameterI>();
+		for (ArrayList<SpriteParameterI> SPI_LIST: getParameters().values()){
+			for(SpriteParameterI SPI: SPI_LIST){
+				ret.add(SPI);
+			}
+		}
+		return ret;
+	}
+	
+	
 	
 }

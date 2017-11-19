@@ -58,7 +58,7 @@ public class Tester extends Application {
 		
 		VBox ScrollPaneBox = new VBox(); 
 
-		ScrollPane SP = MAN.getParameters(mySObjects);
+//		ScrollPane SP = MAN.getParameters(mySObjects);
 
 		MAIN_SCENE = new Scene(ScrollPaneBox, SCENE_WIDTH, SCENE_HEIGHT);
 		MAIN_STAGE = primaryStage;
