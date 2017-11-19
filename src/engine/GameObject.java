@@ -30,12 +30,6 @@ public interface GameObject {
 
 	public void setStringVariable(String name, String val);
 
-	public int getIntegerVariable(String name);
-
-	public double getDoubleVariable(String name);
-
-	public String getStringVariable(String name);
-
 	public void addToObjectList(GameObject o);
 
 	public void addConditionAction(Condition c, Action a);

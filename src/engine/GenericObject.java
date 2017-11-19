@@ -6,14 +6,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class GenericObject implements GameObject {
+public class GenericObject extends VariableContainer implements GameObject {
 
 	private Set<String> tagSet;
 	private List<String> tags;
 	private Map<Condition, List<Action>> events;
-	private Map<String, Integer> intVars;
-	private Map<String, Double> doubleVars;
-	private Map<String, String> StringVars;
 	private double x, y;
 
 	public GenericObject() {
@@ -69,24 +66,6 @@ public class GenericObject implements GameObject {
 	public void setStringVariable(String name, String val) {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public int getIntegerVariable(String name) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public double getDoubleVariable(String name) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public String getStringVariable(String name) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
