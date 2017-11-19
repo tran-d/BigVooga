@@ -9,11 +9,13 @@ import javafx.geometry.Point2D;
  */
 public class CollisionEvent {
 
+	private GameObject other;
+
 	public GameObject getGameObject() {
-		return null;
+		return other;
 	}
 	
-	public Point2D getOverlap() {
+	public Point2D getOverlapVector() {
 		return null;
 	}
 }

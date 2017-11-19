@@ -1,20 +1,30 @@
 package engine.utilities.collisions;
 
 import javafx.geometry.Point2D;
-import javafx.util.Pair;
 
 /**
  * @author Ian Eldridge-Allegra
  *
  */
 public abstract class BoundingGeometry {
-	public abstract Pair<Double, Double> dotted(Point2D vectorDirection);
+	public abstract Range dotted(Point2D vectorDirection);
 	
-	public CollisionEvent checkCollision(BoundingGeometry g){
-		return g.checkCollision(this);
-	}
 	
-	public abstract CollisionEvent checkCollision(BoundingCircle circle);
+	/**
+	 * @param g the other geometry
+	 * @return null if no overlap, otherwise gives the motion required on this object to separate them
+	 */
+	public abstract Point2D checkCollision(BoundingGeometry g);
 	
-	public abstract CollisionEvent checkCollision(BoundingRectangle rectangle);
+	/**
+	 * @param polygon the other geometry
+	 * @return null if no overlap, otherwise gives the motion required on this object to separate them
+	 */
+	public abstract Point2D checkPolygonCollision(BoundingPolygon polygon);
+
+	public abstract BoundingGeometry getScaled(double xFactor, double yFactor);
+
+	public abstract BoundingGeometry getRotated(double rotation);
+
+	public abstract BoundingGeometry getTranslated(double xCenter, double yCenter);
 }

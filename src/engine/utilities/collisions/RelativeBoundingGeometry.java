@@ -10,6 +10,11 @@ public class RelativeBoundingGeometry{
 	public RelativeBoundingGeometry(BoundingGeometry geometry) {
 		this.geometry = geometry;
 	}
+
+	public BoundingGeometry getBoundingGeometry(double xCenter, double yCenter, double xSize, double ySize,
+			double rotation) {
+		return geometry.getScaled(xSize, ySize).getRotated(rotation).getTranslated(xCenter, yCenter);
+	}
 	
 	
 }

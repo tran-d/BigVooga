@@ -1,0 +1,86 @@
+package engine.utilities.collisions;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
+
+import javafx.geometry.Point2D;
+
+/**
+ * @author Ian Eldridge-Allegra
+ *
+ */
+public class BoundingPolygon extends BoundingGeometry {
+
+	private List<Point2D> vertices;
+
+	public BoundingPolygon(List<Point2D> vertices) {
+		this.vertices = vertices;
+	}
+
+	@Override
+	public Range dotted(Point2D vectorDirection) {
+		double max = Double.MIN_VALUE;
+		double min = Double.MAX_VALUE;
+		for (Point2D vertex : vertices) {
+			double dot = vertex.dotProduct(vectorDirection);
+			min = Math.min(min, dot);
+			max = Math.max(max, dot);
+		}
+		return new Range(min, max);
+	}
+
+	@Override
+	public Point2D checkCollision(BoundingGeometry geometry) {
+		return geometry.checkPolygonCollision(this).multiply(-1);
+	}
+
+	@Override
+	public BoundingGeometry getScaled(double xFactor, double yFactor) {
+		return getTransformed(p -> new Point2D(p.getX() * xFactor, p.getY() * yFactor));
+	}
+
+	@Override
+	public BoundingGeometry getRotated(double rotation) {
+		return getTransformed(p -> rotateByAngle(p, rotation));
+	}
+
+	@Override
+	public BoundingGeometry getTranslated(double xCenter, double yCenter) {
+		return getTransformed(p->new Point2D(p.getX()+xCenter, p.getY()+yCenter));
+	}
+
+	private BoundingGeometry getTransformed(Function<Point2D, Point2D> function) {
+		List<Point2D> newVertices = new ArrayList<>();
+		for (Point2D vertex : vertices) {
+			newVertices.add(function.apply(vertex));
+		}
+		return new BoundingPolygon(newVertices);
+	}
+
+	@Override
+	public Point2D checkPolygonCollision(BoundingPolygon polygon) {
+		double minOverlap = Integer.MAX_VALUE;
+		Point2D direction = null;
+		for(int i = 0; i < vertices.size(); i++) {
+			Point2D side = vertices.get((i+1)%vertices.size()).subtract(vertices.get(i));
+			Point2D normalToSide = rotateByAngle(side, 90).normalize();
+			Range otherProjection = polygon.dotted(normalToSide);
+			Range thisProjection = dotted(normalToSide);
+			double overlap = otherProjection.getOverlap(thisProjection);
+			if(overlap == 0)
+				return null;
+			if(overlap < minOverlap) {
+				minOverlap = overlap;
+				direction = normalToSide;
+			}
+		}
+		return direction.multiply(minOverlap);
+	}
+
+	private static Point2D rotateByAngle(Point2D vector, double angle) {
+		angle = Math.toRadians(angle);
+		return new Point2D(vector.getX() * Math.cos(angle) - vector.getY() * Math.sin(angle),
+				vector.getX() * Math.sin(angle) + vector.getY() * Math.cos(angle));
+	}
+}
