@@ -9,6 +9,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.ToolBar;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class ActionTab extends Tab {
