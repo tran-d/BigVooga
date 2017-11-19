@@ -18,8 +18,8 @@ public class ActionTab extends Tab {
 	
 	private ResourceBundle actionTabResources;
 	private VBox actionConditionManager;
-	private VBox conditions;
-	private VBox actions;
+	private ActionConditionVBox conditions;
+	private ActionConditionVBox actions;
 	private ToolBar conditionButtons;
 	private ToolBar actionButtons;
 	
@@ -28,39 +28,24 @@ public class ActionTab extends Tab {
 		actionTabResources = ResourceBundle.getBundle(ACTIONTAB_RESOURCE_PATH);
 		actionConditionManager = new VBox();
 		setContent(actionConditionManager);
-		conditionButtons = addTopToolBar("AddConditionButtonLabel","ConditionOptions","ConditionSelectorLabel","RemoveConditionButtonLabel");
-		actionButtons = addTopToolBar("AddActionButtonLabel","ActionOptions","ActionSelectorLabel","RemoveActionButtonLabel");
-		conditions = new VBox();
-		actions = new VBox();
-		Separator separator = makeVerticalSeparator();
+		conditionButtons = addTopToolBar("AddConditionButtonLabel","ConditionOptions","ConditionSelectorLabel","RemoveConditionButtonLabel",true);
+		actionButtons = addTopToolBar("AddActionButtonLabel","ActionOptions","ActionSelectorLabel","RemoveActionButtonLabel",false);
+		conditions = new ActionConditionVBox(true);
+		actions = new ActionConditionVBox(false);
+		Separator separator = ActionTabUtil.makeVerticalSeparator();
 		actionConditionManager.getChildren().addAll(conditionButtons,actionButtons,conditions,separator,actions);
 	}
 	
-	private ToolBar addTopToolBar(String addButtonTitle,String optionsTitle,String selectorLabel,String remove) {
+	private ToolBar addTopToolBar(String addButtonTitle,String optionsTitle,String selectorLabel,String remove,Boolean isCondition) {
 		Button addButton = new Button(actionTabResources.getString(addButtonTitle));
-		ChoiceBox<String> options = new ChoiceBox<String>(convertToObservableList(actionTabResources.getString(optionsTitle)));
-		VBox selectorVBox = LabelforNode.addVBoxwithLabel(actionTabResources.getString(selectorLabel), options);
-		Separator separator = makeVerticalSeparator();
+		ChoiceBox<String> options = new ChoiceBox<String>(ActionTabUtil.convertToObservableList(actionTabResources.getString(optionsTitle)));
+		VBox selectorVBox = ActionTabUtil.addVBoxwithLabel(actionTabResources.getString(selectorLabel), options);
+		Separator separator = ActionTabUtil.makeVerticalSeparator();
 		separator.setOrientation(Orientation.VERTICAL);
 		Button removeButton = new Button(actionTabResources.getString(remove));
 		ChoiceBox<Integer> removeRow = new ChoiceBox<Integer>();
-		VBox removeRowVBox = LabelforNode.addVBoxwithLabel(actionTabResources.getString("RemoverLabel"),removeRow);
+		VBox removeRowVBox = ActionTabUtil.addVBoxwithLabel(actionTabResources.getString("RemoverLabel"),removeRow);
 		return new ToolBar(addButton,selectorVBox,separator,removeButton,removeRowVBox);
-	}
-	
-	private ObservableList<String> convertToObservableList(String options) {
-		String[] optionsSplit = options.split(actionTabResources.getString("Splitter"));
-		ObservableList<String> listOptions = FXCollections.observableArrayList();
-		for(String option : optionsSplit) {
-			listOptions.add(option);
-		}
-		return listOptions;
-	}
-	
-	private Separator makeVerticalSeparator() {
-		Separator separator = new Separator();
-		separator.setOrientation(Orientation.VERTICAL);
-		return separator;
 	}
 
 }
