@@ -117,7 +117,7 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 		}
 	}
 	
-	private ArrayList<SpriteParameterI> getParamsMatching(String type) {
+	private ArrayList<SpriteParameterI> getSpriteParametersMatching(String type) {
 		ArrayList<SpriteParameterI> ret = new ArrayList<SpriteParameterI>();
 		Class desiredClass;
 		switch (type){
@@ -140,6 +140,13 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 				ret.add(SPI);
 			}
 		}
+		return ret;
+	}
+	
+	public ArrayList<String> getParameterNamesMatching(String type) {
+		ArrayList<SpriteParameterI> concreteParameters = getSpriteParametersMatching(type); 
+		ArrayList<String> ret = new ArrayList<String>();
+		concreteParameters.forEach((item) -> {ret.add(item.getName());});
 		return ret;
 	}
 	
