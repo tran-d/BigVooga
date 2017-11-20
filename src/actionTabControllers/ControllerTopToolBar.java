@@ -2,31 +2,48 @@ package actionTabControllers;
 
 import authoring_UI.ActionConditionVBox;
 import authoring_UI.ActionTab;
+import authoring_UI.TopToolBar;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ToolBar;
 
 public class ControllerTopToolBar {
 	
-	private Button addCondition;
-	private Button addAction;
-	private ChoiceBox<String> addConditionChoiceBox;
-	private ChoiceBox<String> addActionChoiceBox;
+	private TopToolBar conditionToolBar;
+	private TopToolBar actionToolBar;
 	private ActionConditionVBox conditionVBox;
 	private ActionConditionVBox actionVBox;
 	
-	public ControllerTopToolBar(Button addCondition,Button addAction,ChoiceBox<String> addActionChoiceBox,ChoiceBox<String> addConditionChoiceBox,
-			ActionConditionVBox conditionVBox,ActionConditionVBox actionVBox) {
-		this.addCondition = addCondition;
-		this.addAction = addAction;
-		this.addActionChoiceBox = addActionChoiceBox;
-		this.addConditionChoiceBox = addConditionChoiceBox;
+	public ControllerTopToolBar(TopToolBar conditionToolBar,TopToolBar actionToolBar,ActionConditionVBox conditionVBox,ActionConditionVBox actionVBox) {
+		this.conditionToolBar = conditionToolBar;
+		this.actionToolBar = actionToolBar;
 		this.conditionVBox = conditionVBox;
 		this.actionVBox = actionVBox;
 		addListeners();
 	}
 	
 	private void addListeners() {
-		addCondition.setOnAction(e -> conditionVBox.addActionCondition(addConditionChoiceBox.getValue()));
-		addAction.setOnAction(e -> actionVBox.addActionCondition(addActionChoiceBox.getValue()));
+		conditionToolBar.addButtonListener(new addListener(conditionToolBar,conditionVBox));
+		conditionToolBar.addRemoveListener();
+		actionToolBar.addButtonListener(new addListener(actionToolBar,actionVBox));
+		actionToolBar.addRemoveListener(e);
+	}
+	
+	private class addListener implements EventHandler<ActionEvent> {
+		
+		private TopToolBar topToolBar;
+		private ActionConditionVBox actionConditionVBox;
+		public addListener(TopToolBar topToolBar, ActionConditionVBox actionConditionVBox) {
+			this.topToolBar = topToolBar;
+			this.actionConditionVBox = actionConditionVBox;
+		}
+
+		@Override
+		public void handle(ActionEvent arg0) {
+			actionConditionVBox.addActionCondition(topToolBar.getOptionsValue());
+		}
+		
 	}
 }

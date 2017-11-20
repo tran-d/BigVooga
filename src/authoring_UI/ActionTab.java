@@ -26,27 +26,18 @@ public class ActionTab extends Tab {
 	
 	public ActionTab() {
 		super(TITLE);
-		actionTabResources = ResourceBundle.getBundle(ACTIONTAB_RESOURCE_PATH);
+		actionTabResources = ResourceBundle.getBundle(ACTIONTAB_RESOURCE_PATH); 
 		actionConditionManager = new VBox();
 		setContent(actionConditionManager);
-		ToolBar conditionButtons = addTopToolBar("AddConditionButtonLabel","ConditionOptions","ConditionSelectorLabel","RemoveConditionButtonLabel",true);
-		ToolBar actionButtons = addTopToolBar("AddActionButtonLabel","ActionOptions","ActionSelectorLabel","RemoveActionButtonLabel",false);
+		setUpActionConditionManager();
+	}
+
+	private void setUpActionConditionManager() {
+		TopToolBar conditionButtons = new TopToolBar(actionTabResources,"AddConditionButtonLabel","ConditionOptions","ConditionSelectorLabel","RemoveConditionButtonLabel");
+		TopToolBar actionButtons = new TopToolBar(actionTabResources,"AddActionButtonLabel","ActionOptions","ActionSelectorLabel","RemoveActionButtonLabel");
 		conditions = new ActionConditionVBox(actionTabResources.getString("ConditionSelectorLabel"));
 		actions = new ActionConditionVBox(actionTabResources.getString("ActionSelectorLabel"));
 		Separator separator = ActionTabUtil.makeVerticalSeparator();
 		actionConditionManager.getChildren().addAll(conditionButtons,actionButtons,conditions,separator,actions);
 	}
-	
-	private ToolBar addTopToolBar(String addButtonTitle,String optionsTitle,String selectorLabel,String remove,Boolean isCondition) {
-		Button addButton = new Button(actionTabResources.getString(addButtonTitle));
-		ChoiceBox<String> options = new ChoiceBox<String>(ActionTabUtil.convertToObservableList(actionTabResources.getString(optionsTitle)));
-		VBox selectorVBox = ActionTabUtil.addVBoxwithLabel(actionTabResources.getString(selectorLabel), options);
-		Separator separator = ActionTabUtil.makeVerticalSeparator();
-		separator.setOrientation(Orientation.VERTICAL);
-		Button removeButton = new Button(actionTabResources.getString(remove));
-		ChoiceBox<Integer> removeRow = new ChoiceBox<Integer>();
-		VBox removeRowVBox = ActionTabUtil.addVBoxwithLabel(actionTabResources.getString("RemoverLabel"),removeRow);
-		return new ToolBar(addButton,selectorVBox,separator,removeButton,removeRowVBox);
-	}
-
 }
