@@ -96,4 +96,8 @@ public class BoundingPolygon extends BoundingGeometry {
 		return new Point2D(vector.getX() * Math.cos(angle) - vector.getY() * Math.sin(angle),
 				vector.getX() * Math.sin(angle) + vector.getY() * Math.cos(angle));
 	}
+	
+	public String toString() {
+		return vertices.toString();
+	}
 }

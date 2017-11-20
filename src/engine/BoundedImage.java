@@ -1,7 +1,7 @@
 package engine;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import engine.utilities.collisions.BoundingGeometry;
 import engine.utilities.collisions.RelativeBoundingGeometry;
@@ -13,7 +13,7 @@ import javafx.geometry.Point2D;
  */
 public class BoundedImage {
 
-	private Set<RelativeBoundingGeometry> relativeBounds;
+	private List<RelativeBoundingGeometry> relativeBounds;
 	private String fileName;
 	private double xCenter;
 	private double yCenter;
@@ -23,6 +23,13 @@ public class BoundedImage {
 	
 	public BoundedImage(String fileName) {
 		this.fileName = fileName;
+		relativeBounds = new ArrayList<>();
+		relativeBounds.add(RelativeBoundingGeometry.DEFAULT);
+	}
+	
+	public BoundedImage(String fileName, List<RelativeBoundingGeometry> bounds) {
+		this.fileName = fileName;
+		relativeBounds = bounds;
 	}
 	
 	public Point2D checkCollision(BoundedImage other) {
@@ -43,8 +50,8 @@ public class BoundedImage {
 		return result;
 	}
 	
-	private Set<BoundingGeometry> getGeometry() {
-		Set<BoundingGeometry> geometry = new HashSet<>();
+	private List<BoundingGeometry> getGeometry() {
+		List<BoundingGeometry> geometry = new ArrayList<>(relativeBounds.size());
 		for(RelativeBoundingGeometry rg : relativeBounds) {
 			geometry.add(rg.getBoundingGeometry(xCenter, yCenter, xSize, ySize, rotation));
 		}
