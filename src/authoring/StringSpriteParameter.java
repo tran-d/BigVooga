@@ -36,8 +36,7 @@ public class StringSpriteParameter extends SpriteParameter {
 
 	@Override
 	public boolean checkError(Object value) throws Exception {
-		
-		if(!(value instanceof String)){
+		if(((String) value).matches(".*\\d+.*")){
 			throw new Exception("The input is not a valid string.");
 		}
 		return true;
