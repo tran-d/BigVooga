@@ -81,7 +81,7 @@ public class SpriteObjectGridToEngineController {
 	}
 	
 	private void addAllGameObjectsToWorld(ArrayList<GameObject> GO_LIST, World world) {
-		for (GameObject GO: GO_LIST){
+		for (GameObject GO: GO_LIST) {
 			world.addGameObject(GO);
 		}
 	}

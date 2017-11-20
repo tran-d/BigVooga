@@ -234,7 +234,7 @@ public class WelcomeScreen {
 	/**
 	 * Creates the four options which users can select in WelcomeScreen.
 	 * 
-	 * @return the 
+	 * @return the set of all buttons to be displayed in WelcomeScreen
 	 */
 	private HBox createWelcomeOptions() {
 		
@@ -247,6 +247,9 @@ public class WelcomeScreen {
 		return optionBox;
 	}
 	
+	/**
+	 * Creates the different components of the options buttons and the appropriate handlers when a mouse hovers or clicks on a button.
+	 */
 	private void createWelcomeImageViews() {
 		
 		createOptionImages();
@@ -256,6 +259,9 @@ public class WelcomeScreen {
 				
 	}
 	
+	/**
+	 * Initializes the images used for the options buttons.
+	 */
 	private void createOptionImages(){
 		
 		playImage = GUITools.createImage(PLAY_PATH, PLAY_WIDTH, PLAY_HEIGHT);
@@ -269,6 +275,9 @@ public class WelcomeScreen {
 		settingsStaticImage = GUITools.createImage(SETTINGS_STATIC_PATH, SETTINGS_WIDTH, SETTINGS_HEIGHT);
 	}
 	
+	/**
+	 * Sets the current button image being displayed from the previously initialized images.
+	 */
 	private void initializeOptionImageViews() {
 		
 		play = GUITools.createImageView(playStaticImage);
@@ -277,6 +286,9 @@ public class WelcomeScreen {
 		settings = GUITools.createImageView(settingsStaticImage);
 	}
 	
+	/**
+	 * Creates the individual buttons and sets the specific event handlers for them.
+	 */
 	private void createWelcomeBoxes() {
 		playVBox = boxGenerator(
 				borderGenerate(play, e -> handlePlaySelection()),
@@ -295,6 +307,13 @@ public class WelcomeScreen {
 				);
 	}
 	
+	/**
+	 * Creates the option button and sets its mouse event handlers.
+	 * 
+	 * @param optionLogo - The title of the button
+	 * @param handler - The event handler for the button
+	 * @return the HBox that acts as a button
+	 */
 	private HBox borderGenerate(ImageView optionLogo, EventHandler<? super MouseEvent> handler) {
 		HBox optionBox = new HBox();
 		optionBox.getChildren().add(optionLogo);
@@ -303,6 +322,13 @@ public class WelcomeScreen {
 		return optionBox;
 	}
 	
+	/**
+	 * Creates the VBox that aligns the button with the button heading.
+	 * 
+	 * @param hbox - The option button
+	 * @param caption - The text for the button header
+	 * @return the VBox containing both the button header and button
+	 */
 	private VBox boxGenerator(HBox hbox, String caption) {
 		VBox box = new VBox();
 		box.setAlignment(Pos.CENTER);
@@ -369,6 +395,12 @@ public class WelcomeScreen {
 		timeline.setOnFinished(e -> clickEnabled = true);
 	}
 	
+	/**
+	 * 
+	 * 
+	 * @param box 
+	 * @param duration
+	 */
 	private void createTransition(VBox box, int duration) {
 		FadeTransition ft = new FadeTransition(Duration.millis(duration), box);
 		ft.setFromValue(0);
@@ -376,21 +408,33 @@ public class WelcomeScreen {
 		ft.play();
 	}
 	
+	/**
+	 * Creates the action that handles the Play button being clicked.
+	 */
 	private void handlePlaySelection() {
 		if (!clickEnabled) { return; }
 		sceneController.switchScene(SceneController.GAME_SELECTOR_KEY);
 	}
 	
+	/**
+	 * Creates the action that handles the Create button being clicked.
+	 */
 	private void handleCreateSelection() {
 		if (!clickEnabled) { return; }
 		sceneController.switchScene(SceneController.CREATE_KEY);
 	}
 	
+	/**
+	 * Creates the action that handles the Learn button being clicked.
+	 */
 	private void handleLearnSelection() {
 		if (!clickEnabled) { return; }
 		sceneController.switchScene(SceneController.LEARN_KEY);
 	}
 	
+	/**
+	 * Creates the action that handles the Settings button being clicked.
+	 */
 	private void handleSettingsSelection() {
 		if (!clickEnabled) { return; }
 		sceneController.switchScene(SceneController.SETTINGS_KEY);
