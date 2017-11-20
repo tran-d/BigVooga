@@ -1,9 +1,14 @@
 package authoring_UI;
 
 import java.io.File;
-import java.net.MalformedURLException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Observable;
+
 import authoring.AuthoringEnvironmentManager;
+import engine.utilities.data.GameDataHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -26,15 +31,19 @@ public class SpriteCreator extends Observable {
 
 	private static final double GRID_WIDTH = 400;
 	private static final double GRID_HEIGHT = 500;
+	public static final String PATH = "resources/";
 
 	private Stage myStage;
 	private AuthoringEnvironmentManager myAEM;
 	private GridPane myGrid;
 	private MapManager myMapManager;
+	private GameDataHandler myGDH;
 
 	protected SpriteCreator(Stage stage, AuthoringEnvironmentManager AEM, MapManager mapManager) {
+
 		myStage = stage;
 		myAEM = AEM;
+		myGDH = new GameDataHandler("User Sprites");
 		myGrid = new GridPane();
 		myMapManager = mapManager;
 		this.addObserver(myMapManager);
@@ -95,7 +104,14 @@ public class SpriteCreator extends Observable {
 		HBox imageChooseBox = new HBox(10);
 		Text chooseImage = new Text("choose image file: ");
 		Button chooseImageButton = new Button("choose image");
-		chooseImageButton.setOnAction(e -> openImage());
+		chooseImageButton.setOnAction(e -> {
+			try {
+				openImage();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 
 		imageChooseBox.getChildren().addAll(chooseImage, chooseImageButton);
 
@@ -103,14 +119,16 @@ public class SpriteCreator extends Observable {
 		myGrid.add(imageChooseBox, 0, 2);
 	}
 
-	private void openImage() {
+	private void openImage() throws IOException {
 		FileChooser imageChooser = new FileChooser();
-		imageChooser.setTitle("YES");
+		imageChooser.setTitle("Open Image");
 		File file = imageChooser.showOpenDialog(myStage);
+		
 		if (file != null) {
+			Files.copy(file.toPath(), Paths.get(PATH+file.getName()), StandardCopyOption.REPLACE_EXISTING);
 			setChanged();
-			System.out.print(file.getPath());
-			notifyObservers(file.getPath());
+//			System.out.print(file.getName());
+			notifyObservers(file.getName());
 			System.out.println("image chosen");
 
 		}

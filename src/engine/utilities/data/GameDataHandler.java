@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 public class GameDataHandler {
 	private static final XStream SERIALIZER = new XStream(new DomDriver());
 	public static final String PATH = "data/UserCreatedGames/";
+//	public static final String IMAGE_PATH = "resources/";
 	private static final String CONTROLLER_FILE = "Engine_Controller_Save_File";
 	private static final String SELECTOR_TITLE = "Open Resource File";
 	private String projectPath;

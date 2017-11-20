@@ -66,7 +66,7 @@ public class SpriteManager extends TabPane {
 		SpriteObject userSprite = new SpriteObject(url);
 		ArrayList<SpriteParameterI> param = new ArrayList<SpriteParameterI>();
 		param.add(mySPF.makeParameter("canFight", false));
-		param.add(mySPF.makeParameter("health", 15.0));
+		param.add(mySPF.makeParameter("health", 17.0));
 		param.add(mySPF.makeParameter("name", "Ryan"));
 
 		for (SpriteParameterI SP : param) {
