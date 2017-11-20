@@ -2,6 +2,7 @@ package engine.Conditions;
 
 import engine.Condition;
 import engine.VariableContainer;
+import engine.World;
 
 public class Not extends Condition {
 
@@ -13,8 +14,8 @@ public class Not extends Condition {
 	}
 	
 	@Override
-	public boolean isTrue(VariableContainer asking) {
-		return !condition.isTrue(asking);
+	public boolean isTrue(VariableContainer asking, World world) {
+		return !condition.isTrue(asking, world);
 	}
 
 }

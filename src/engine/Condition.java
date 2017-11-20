@@ -7,7 +7,7 @@ public abstract class Condition{
 	
 	public int priorityNum;
 	
-	public abstract boolean isTrue(VariableContainer asking);
+	public abstract boolean isTrue(VariableContainer asking, World world);
 	
 	public int getPriority() {
 		return priorityNum;

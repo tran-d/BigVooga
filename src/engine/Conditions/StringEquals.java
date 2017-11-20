@@ -2,6 +2,7 @@ package engine.Conditions;
 
 import engine.Condition;
 import engine.VariableContainer;
+import engine.World;
 
 public class StringEquals extends Condition {
 
@@ -15,7 +16,7 @@ public class StringEquals extends Condition {
 	}
 	
 	@Override
-	public boolean isTrue(VariableContainer asking) {
+	public boolean isTrue(VariableContainer asking, World world) {
 		return asking.getString(varName).equals(check);
 	}
 

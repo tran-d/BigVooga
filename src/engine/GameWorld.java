@@ -12,6 +12,7 @@ public class GameWorld implements World {
 	private List<GameObject> worldObjects;
 	private Map<Integer, List<GameObject>> conditionPriorities;
 	private VariableContainer globalVars;
+	private InputManager input;
 
 	public GameWorld() {
 		// TODO Auto-generated constructor stub
@@ -21,6 +22,7 @@ public class GameWorld implements World {
 	public GameWorld(String name) {
 		worldName = name;
 		worldObjects = new ArrayList<GameObject>();
+		input = new InputManager();					//TODO create InputManager
 	}
 
 	// I don't know what to do with this.
@@ -91,6 +93,11 @@ public class GameWorld implements World {
 
 		globalVars = gv;
 		
+	}
+	
+	@Override
+	public InputManager getInputManager() {
+		return input;
 	}
 
 }

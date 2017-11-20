@@ -2,6 +2,7 @@ package engine.Conditions;
 
 import engine.Condition;
 import engine.VariableContainer;
+import engine.World;
 
 public class Collision extends Condition {
 
@@ -13,7 +14,7 @@ public class Collision extends Condition {
 	}
 	
 	@Override
-	public boolean isTrue(VariableContainer asking) {
+	public boolean isTrue(VariableContainer asking, World world) {
 		// TODO Auto-generated method stub
 		return false;
 	}

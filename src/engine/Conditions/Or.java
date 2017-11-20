@@ -2,6 +2,7 @@ package engine.Conditions;
 
 import engine.Condition;
 import engine.VariableContainer;
+import engine.World;
 
 public class Or extends Condition {
 
@@ -15,8 +16,8 @@ public class Or extends Condition {
 	}
 	
 	@Override
-	public boolean isTrue(VariableContainer asking) {
-		return condition1.isTrue(asking) || condition2.isTrue(asking);
+	public boolean isTrue(VariableContainer asking, World world) {
+		return condition1.isTrue(asking, world) || condition2.isTrue(asking, world);
 	}
 
 }

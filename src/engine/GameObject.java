@@ -19,6 +19,14 @@ public interface GameObject {
 	public List<String> getTags();
 	
 	public void setCoords(double x, double y);
+	
+	public double getX();
+	
+	public double getY();
+	
+	public void setHeading(double newHeading);
+	
+	public double getHeading();
 
 	public void setGlobal(String variableName, boolean global);
 
@@ -32,7 +40,7 @@ public interface GameObject {
 
 	public void addToObjectList(GameObject o);
 
-	public void addConditionAction(Condition c, Action a);
+	public void addConditionAction(Condition c, List<Action> a);
 	
 	// TODO Add to API_CHANGES
 	// Get list of priority numbers of conditions

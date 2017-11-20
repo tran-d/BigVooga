@@ -6,12 +6,12 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 
-public class GameMaster implements EngineController{
+public class GameMaster implements EngineController {
 	
 	private World currentWorld;
 	private List<World> madeWorlds;
 	private Timeline gameLoop;
-	private VariableContainer varContainer;
+	private VariableContainer globalVars;
 
 	public GameMaster(int MILLIS_DELAY) {
 		// TODO Auto-generated constructor stub
@@ -19,9 +19,7 @@ public class GameMaster implements EngineController{
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLIS_DELAY), e -> step());
 		gameLoop.setCycleCount(Timeline.INDEFINITE);
 		gameLoop.getKeyFrames().add(frame);
-		
-		varContainer = new VariableContainer();
-		
+		globalVars = new GlobalVariables();
 	}
 
 	@Override
@@ -40,7 +38,7 @@ public class GameMaster implements EngineController{
 	@Override
 	public void addWorld(World w) {
 		// TODO Auto-generated method stub
-		w.addGlobalVars(varContainer);
+		w.addGlobalVars(globalVars);
 		madeWorlds.add(w);
 		
 	}
@@ -59,9 +57,9 @@ public class GameMaster implements EngineController{
 		//If there is no named world, that's an error.
 		System.out.println("Error Placeholder");
 	}
-	private void step()
-	{
+	
+	private void step() {
+		
 		currentWorld.step();
 	}
-
 }

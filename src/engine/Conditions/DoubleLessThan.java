@@ -2,6 +2,7 @@ package engine.Conditions;
 
 import engine.Condition;
 import engine.VariableContainer;
+import engine.World;
 
 public class DoubleLessThan extends Condition {
 
@@ -15,7 +16,7 @@ public class DoubleLessThan extends Condition {
 	}
 	
 	@Override
-	public boolean isTrue(VariableContainer asking) {
+	public boolean isTrue(VariableContainer asking, World world) {
 		return asking.getDouble(varName) < check;
 	}
 	
