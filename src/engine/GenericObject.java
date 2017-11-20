@@ -120,4 +120,21 @@ public class GenericObject extends VariableContainer implements GameObject {
 		
 	}
 
+	@Override
+	public GameObject clone() {
+		GenericObject copy = new GenericObject(name);
+		copy.setCoords(x, y);
+		copy.setHeading(heading);
+		for(String tag: tagSet)
+			copy.addTag(tag);
+		for(String var : stringVars.keySet())
+			copy.setStringVariable(var, stringVars.get(var));
+		for(String var : doubleVars.keySet())
+			copy.setDoubleVariable(var, doubleVars.get(var));
+		for(String var : booleanVars.keySet())
+			copy.setBooleanVariable(var, booleanVars.get(var));
+		for(Condition c : events.keySet()) 
+			copy.addConditionAction(c, new ArrayList<>(events.get(c)));
+		return copy;
+	}
 }

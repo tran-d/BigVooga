@@ -49,4 +49,6 @@ public interface GameObject {
 	public Set<Integer> getPriorities();
 
 	public void step(World w);
+	
+	public GameObject clone();
 }
