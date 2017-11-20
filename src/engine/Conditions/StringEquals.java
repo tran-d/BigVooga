@@ -4,6 +4,11 @@ import engine.Condition;
 import engine.VariableContainer;
 import engine.World;
 
+/**
+ * 
+ * @author aaronpaskin
+ *
+ */
 public class StringEquals extends Condition {
 
 	private String varName;

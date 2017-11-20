@@ -8,17 +8,22 @@ import java.util.Set;
 
 public class GenericObject extends VariableContainer implements GameObject {
 
+	private String name;
 	private Set<String> tagSet;
-	private List<String> tags;
 	private Map<Condition, List<Action>> events;
 	private double x, y, heading;
 
-	public GenericObject() {
+	public GenericObject(String name) {
 		// TODO Auto-generated constructor stub
+		this.name = name;
 		tagSet = new HashSet<String>();
 		x = 0;
 		y = 0;
 		heading = 0;
+	}
+	
+	public String getName() {
+		return name;
 	}
 
 	@Override

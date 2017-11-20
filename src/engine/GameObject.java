@@ -15,6 +15,8 @@ public interface GameObject {
 	public void addTag(String tag);
 
 	public boolean is(String tag);
+	
+	public String getName();
 
 	public List<String> getTags();
 	

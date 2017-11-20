@@ -5,6 +5,11 @@ import engine.GameObject;
 import engine.VariableContainer;
 import engine.World;
 
+/**
+ * 
+ * @author aaronpaskin
+ *
+ */
 public class BooleanTrue extends Condition {
 
 	private String varName;

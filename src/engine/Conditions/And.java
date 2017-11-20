@@ -4,6 +4,11 @@ import engine.Condition;
 import engine.VariableContainer;
 import engine.World;
 
+/**
+ * 
+ * @author aaronpaskin
+ *
+ */
 public class And extends Condition {
 
 	private Condition condition1;
