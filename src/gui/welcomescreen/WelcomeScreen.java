@@ -18,7 +18,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import player.GameSelector;
 
 /**
  * Creates the opening screen of VOOGA that allows user to select between four options: Play, which lets them select any game they created to play it,
@@ -338,6 +337,9 @@ public class WelcomeScreen {
 		return box;
 	}
 	
+	/**
+	 * Handles all the mouse events for the options buttons.
+	 */
 	private void handleHover() {
 		play.setOnMouseEntered(e -> playMouseEnter());
 		play.setOnMouseExited(e -> playMouseExit());
@@ -349,38 +351,65 @@ public class WelcomeScreen {
 		settings.setOnMouseExited(e -> settingsMouseExit());
 	}
 	
+	/**
+	 * Handles the event when the mouse enters the Play button.
+	 */
 	private void playMouseEnter() {
 		play.setImage(playImage);
 	}
 	
+	/**
+	 * Handles the event when the mouse exits the Play button.
+	 */
 	private void playMouseExit() {
 		play.setImage(playStaticImage);
 	}
 	
+	/**
+	 * Handles the event when the mouse enters the Create button.
+	 */
 	private void createMouseEnter() {
 		create.setImage(createImage);
 	}
 	
+	/**
+	 * Handles the event when the mouse exits the Create button.
+	 */
 	private void createMouseExit() {
 		create.setImage(createStaticImage);
 	}
 	
+	/**
+	 * Handles the event when the mouse enters the Learn button.
+	 */
 	private void learnMouseEnter() {
 		learn.setImage(learnImage);
 	}
 	
+	/**
+	 * Handles the event when the mouse exits the Learn button.
+	 */
 	private void learnMouseExit() {
 		learn.setImage(learnStaticImage);
 	}
 	
+	/**
+	 * Handles the event when the mouse enters the Settings button.
+	 */
 	private void settingsMouseEnter() {
 		settings.setImage(settingsImage);
 	}
 	
+	/**
+	 * Handles the event when the mouse exits the Settings button.
+	 */
 	private void settingsMouseExit() {
 		settings.setImage(settingsStaticImage);
 	}
 	
+	/**
+	 * Creates the fade transition that occurs for the titleAndMotto, and for the options buttons when VOOGA is launched.
+	 */
 	private void animationTimeline() {
 		Timeline timeline = new Timeline();
 		timeline.getKeyFrames().addAll(
@@ -396,10 +425,10 @@ public class WelcomeScreen {
 	}
 	
 	/**
+	 * Creates the fade transition for each option button when the program is first launched.
 	 * 
-	 * 
-	 * @param box 
-	 * @param duration
+	 * @param box - The option button and its heading
+	 * @param duration - The duration of the fade transition
 	 */
 	private void createTransition(VBox box, int duration) {
 		FadeTransition ft = new FadeTransition(Duration.millis(duration), box);
