@@ -27,15 +27,17 @@ public class Menu extends VBox {
 	private GridPane mySpriteCreator;
 	private TabPane myParamTabs;
 	private TabPane mySpriteTabs;
+	private MapManager myMapManager;
 
 	private final static String LOAD = "Load";
 	private final static String SAVE = "Save";
 	private final static double MENU_WIDTH = 400;
 	private final static double MENU_HEIGHT = 500;
 	
-	protected Menu(AuthoringEnvironmentManager AEM, Stage stage) {
+	protected Menu(AuthoringEnvironmentManager AEM, Stage stage, MapManager mapManager) {
 		myAEM = AEM;
 		myStage = stage;
+		myMapManager = mapManager;
 		setUpMenu();
 
 	}
@@ -103,7 +105,7 @@ public class Menu extends VBox {
 	}
 	
 	private void createSpriteCreator() {
-		mySpriteCreator = new SpriteCreator(myStage, myAEM);
+		mySpriteCreator = (new SpriteCreator(myStage, myAEM, myMapManager)).getGrid();
 		this.getChildren().add(mySpriteCreator);
 		System.out.println("sprite creator added");
 	}

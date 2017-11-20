@@ -89,7 +89,7 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 	@Override
 	public void clearCells(ArrayList<Integer[]> cellsToClear){
 		for (Integer[] loc: cellsToClear){
-			setCellAsDefault(loc);
+			setCellAsDefault(loc);	
 		}
 	}
 	

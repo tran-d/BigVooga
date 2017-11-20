@@ -62,14 +62,7 @@ public class SpriteManager extends TabPane {
 		// createImageStack("pikachu.png");
 	}
 
-	private void createUserSprite(SpriteObject sp) {
-		myAEM.addUserSprite(sp);
-		
-		myUserSprites.getChildren().add(sp);
-		myGrid.addDragObject(sp);
-	}
-
-	private void getSpriteParam(String url) {
+	public void getUserSpriteParam(String url) {
 		SpriteObject userSprite = new SpriteObject(url);
 		ArrayList<SpriteParameterI> param = new ArrayList<SpriteParameterI>();
 		param.add(mySPF.makeParameter("canFight", false));
@@ -79,9 +72,23 @@ public class SpriteManager extends TabPane {
 		for (SpriteParameterI SP : param) {
 			userSprite.addParameter(SP);
 		}
-		
+
 		myUserSpriteObjs.add(userSprite);
 		createUserSprite(userSprite);
+	}
+
+	/**
+	 * creates new user sprite
+	 * 
+	 * @author taekwhunchung
+	 * @param sp
+	 */
+
+	private void createUserSprite(SpriteObject sp) {
+		myAEM.addUserSprite(sp);
+
+		myUserSprites.getChildren().add(sp);
+		myGrid.addDragObject(sp);
 	}
 
 	public void getParams() {
