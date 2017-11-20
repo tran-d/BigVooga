@@ -21,6 +21,9 @@ import javafx.util.Duration;
 import player.GameSelector;
 
 /**
+ * Creates the opening screen of VOOGA that allows user to select between four options: Play, which lets them select any game they created to play it,
+ * Create, which brings them to the authoring environment to build a game, Learn, which provides basic VOOGA instructions and a general FAQ section,
+ * and Settings, which allows them to modify any general VOOGA preferences such as the display language.
  * 
  * @author Samarth Desai
  *
@@ -103,6 +106,12 @@ public class WelcomeScreen {
 	private VBox learnVBox;
 	private VBox settingsVBox;
 	
+	/**
+	 * Initializes the opening scene and sets the primary program stage preferences, such as the title of the window and the size of the stage.
+	 * 
+	 * @param currentStage - Stage instance that is being passed
+	 * @param currentSceneController - Allows the correct scene to be applied, which is the settings scene
+	 */
 	public WelcomeScreen(Stage currentStage, SceneController currentSceneController) {
 		
 		stage = currentStage;
@@ -117,6 +126,9 @@ public class WelcomeScreen {
 		stage.show();
 	}
 	
+	/**
+	 * Builds the title, motto, and options for the welcome screen.
+	 */
 	public void createWelcomeScreen() {
 		
 		rootPane.setStyle(SET_BACKGROUND_COLOR + BACKGROUND_COLOR);
@@ -131,6 +143,11 @@ public class WelcomeScreen {
 		
 	}
 	
+	/**
+	 * Creates the VOOGA title and the motto that lies below it.
+	 * 
+	 * @return the main title and the VOOGA motto
+	 */
 	private VBox createTitleAndMotto() {
 		HBox titleBox = createTitle();
 		Label motto = createMotto();
@@ -140,6 +157,11 @@ public class WelcomeScreen {
 		return titleAndMotto;
 	}
 	
+	/**
+	 * Creates the main VOOGA title which is called upon in the createTitleAndMotto function.
+	 * 
+	 * @return the VOOGA title
+	 */
 	private HBox createTitle() {
 		
 		Image infinityImage = GUITools.createImage(INFINITY_PATH, INFINITY_WIDTH, INFINITY_HEIGHT);
@@ -158,6 +180,13 @@ public class WelcomeScreen {
 		return titleBox;
 	}
 	
+	/**
+	 * Positions the three components of the VOOGA title: the initial "V", the infinity symbol which represents the "OO", and the final "GA".
+	 * 
+	 * @param firstSegment - The "V" in the title
+	 * @param image - The infinity that represents the "OO" in the title
+	 * @param secondSegment - The "GA in the title
+	 */
 	private void positionTitle(Label firstSegment, ImageView image, Label secondSegment) {
 		firstSegment.toFront();
 		image.setLayoutX(INFINITY_POSITION_X);
@@ -172,23 +201,41 @@ public class WelcomeScreen {
 		}
 	}
 	
+	/**
+	 * Checks if the machine that VOOGA is running on has Windows OS. This is included because the positioning of some images differs for Windows
+	 * and Mac, so this methods helps determine how to position the title.
+	 * 
+	 * @return whether or not the OS is Windows
+	 */
 	public static boolean isWindows() {
-
 		return (OS.indexOf("win") >= 0);
-
 	}
 
+	/**
+	 * Checks if the machine that VOOGA is running on has Mac OS. This is included because the positioning of some images differs for Windows
+	 * and Mac, so this methods helps determine how to position the title.
+	 * 
+	 * @return whether or not the OS is some form of Mac OS
+	 */
 	public static boolean isMac() {
-
 		return (OS.indexOf("mac") >= 0);
-
 	}
 	
+	/**
+	 * Creates the VOOGA motto which is displayed in between the title and option buttons.
+	 * 
+	 * @return the label containing the motto
+	 */
 	private Label createMotto() {
 		Label motto = GUITools.generateLabel(MOTTO_TEXT, MAIN_FONT, MAIN_COLOR, MOTTO_SIZE);
 		return motto;
 	}
 	
+	/**
+	 * Creates the four options which users can select in WelcomeScreen.
+	 * 
+	 * @return the 
+	 */
 	private HBox createWelcomeOptions() {
 		
 		createWelcomeImageViews();
@@ -349,6 +396,11 @@ public class WelcomeScreen {
 		sceneController.switchScene(SceneController.SETTINGS_KEY);
 	}
 	
+	/**
+	 * Gets the scene for initialization in SceneController.
+	 * 
+	 * @return the WelcomeScreen scene
+	 */
 	public Scene getScene() {
 		return scene;
 	}
