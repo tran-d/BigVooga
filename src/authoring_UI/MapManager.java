@@ -53,7 +53,7 @@ public class MapManager extends TabPane {
 
 	private HBox setupScene() {
 		myAEM = new AuthoringEnvironmentManager();
-		Menu myMenu = new Menu(myAEM);
+		Menu myMenu = new Menu(myAEM,stage);
 		mySOGM = myAEM.getGridManager();
 		DraggableGrid myGrid = new DraggableGrid(myTabCount, myMenu, mySOGM);
 		SpriteManager mySprites = new SpriteManager(myGrid, myAEM, mySOGM);

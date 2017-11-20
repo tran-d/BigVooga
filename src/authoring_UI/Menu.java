@@ -3,24 +3,28 @@ package authoring_UI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteParameterI;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class Menu extends VBox {
+	private Stage myStage;
 	private Button myLoad;
 	private Button mySave;
 	private AuthoringEnvironmentManager myAEM;
 	private ScrollPane myStateSP;
+	private GridPane mySpriteCreator;
 	private TabPane myParamTabs;
 	private TabPane mySpriteTabs;
 
@@ -29,8 +33,9 @@ public class Menu extends VBox {
 	private final static double MENU_WIDTH = 400;
 	private final static double MENU_HEIGHT = 500;
 	
-	protected Menu(AuthoringEnvironmentManager AEM) {
+	protected Menu(AuthoringEnvironmentManager AEM, Stage stage) {
 		myAEM = AEM;
+		myStage = stage;
 		setUpMenu();
 
 	}
@@ -44,7 +49,7 @@ public class Menu extends VBox {
 			e1.printStackTrace();
 		}
 		for (Map.Entry<String, ArrayList<SpriteParameterI>> entry : paramMap.entrySet()) {
-			String category = entry.getKey();
+//			String category = entry.getKey();
 			ArrayList<SpriteParameterI> newParams = entry.getValue();
 			FEParameterFactory newFactory = new FEParameterFactory(newParams);
 			myStateSP.setContent(newFactory);
@@ -58,6 +63,7 @@ public class Menu extends VBox {
 		createStatePane();
 		createCategoryTabs();
 		createSpriteTabs();
+		createSpriteCreator();
 	}
 	
 	private void createButtons() {
@@ -95,16 +101,23 @@ public class Menu extends VBox {
 		
 		this.getChildren().add(myParamTabs);		
 	}
+	
+	private void createSpriteCreator() {
+		mySpriteCreator = new SpriteCreator(myStage, myAEM);
+		this.getChildren().add(mySpriteCreator);
+		System.out.println("sprite creator added");
+	}
 
 
 	private void createStatePane() {
 		myStateSP = new ScrollPane();
 		myStateSP.setPrefSize(MENU_WIDTH,MENU_HEIGHT);
+		myStateSP.setMinSize(MENU_WIDTH, MENU_HEIGHT);
 		myStateSP.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 		myStateSP.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 		VBox temp = new VBox();
 		temp.getChildren().add(new Text("states go here"));
-		temp.setPrefWidth(500);
+		temp.setPrefWidth(400);
 		temp.setPrefHeight(500);
 		myStateSP.setContent(temp);
 		

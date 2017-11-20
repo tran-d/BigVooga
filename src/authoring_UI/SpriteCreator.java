@@ -2,8 +2,8 @@ package authoring_UI;
 
 import java.io.File;
 
+import authoring.AuthoringEnvironmentManager;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
@@ -14,23 +14,23 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class SpriteCreator {
+public class SpriteCreator extends GridPane {
 
-	private static final double SCENE_WIDTH = 500;
-	private static final double SCENE_HEIGHT = 770;
+	private static final double GRID_WIDTH = 400;
+	private static final double GRID_HEIGHT = 500;
 
 	private Stage myStage;
-	private Scene myScene;
-	private GridPane myGrid;
+	private AuthoringEnvironmentManager myAEM;
 
-	protected SpriteCreator() {
-		myStage = new Stage();
-		setScene();
-		myStage.setScene(myScene);
-		myStage.show();
+	protected SpriteCreator(Stage stage, AuthoringEnvironmentManager AEM) {
+		myStage = stage;
+		myAEM = AEM;
+		setGrid();
 	}
 
-	private void setScene() {
+	private void setGrid() {
+//		this.setPrefSize(GRID_WIDTH, GRID_HEIGHT);
+//		this.setMaxSize(GRID_WIDTH, GRID_HEIGHT);
 		// set row,col constraints
 		ColumnConstraints col1 = new ColumnConstraints();
 		col1.setPercentWidth(50);
@@ -43,16 +43,14 @@ public class SpriteCreator {
 		RowConstraints row3 = new RowConstraints();
 		row3.setPercentHeight(5);
 
-		myGrid = new GridPane();
-		myGrid.getColumnConstraints().addAll(col1, col2);
-		myGrid.getRowConstraints().addAll(row1, row2, row3);
-		myGrid.setGridLinesVisible(true);
+		this.getColumnConstraints().addAll(col1, col2);
+		this.getRowConstraints().addAll(row1, row2, row3);
+		this.setGridLinesVisible(true);
 
 		addNameBox();
 		addCreatebutton();
 
 		// myGrid.add(test, 0, 1);
-		myScene = new Scene(myGrid, SCENE_WIDTH, SCENE_HEIGHT);
 
 		// HBox creatorBox = new HBox();
 		//
@@ -61,6 +59,8 @@ public class SpriteCreator {
 		// creatorBox.getChildren().add(nameBox);
 
 	}
+	
+
 
 	private void addCreatebutton() {
 		HBox buttonBox = new HBox(10);
@@ -69,7 +69,7 @@ public class SpriteCreator {
 		Button createSprite = new Button("create sprite");
 		buttonBox.getChildren().add(createSprite);
 
-		myGrid.add(buttonBox, 1, 2);
+		this.add(buttonBox, 1, 2);
 	}
 
 	private void addNameBox() {
@@ -86,8 +86,8 @@ public class SpriteCreator {
 
 		imageChooseBox.getChildren().addAll(chooseImage, chooseImageButton);
 
-		myGrid.add(nameBox, 0, 1);
-		myGrid.add(imageChooseBox, 0, 2);
+		this.add(nameBox, 0, 1);
+		this.add(imageChooseBox, 0, 2);
 	}
 
 	private void openImage() {
@@ -96,6 +96,7 @@ public class SpriteCreator {
 		File file = imageChooser.showOpenDialog(myStage);
 		if (file != null) {
 			System.out.println("image chosen");
+			System.out.println(file.toURI());
 		}
 	}
 
