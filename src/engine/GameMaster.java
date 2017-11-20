@@ -6,13 +6,19 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 
-public class GameMaster implements EngineController {
+public class GameMaster implements EngineController{
+	private static final int DEFAULT_FPS = 60;
+	private static final int DEFAULT_DELAY = 1000/DEFAULT_FPS;
 	
 	private World currentWorld;
 	private List<World> madeWorlds;
 	private Timeline gameLoop;
 	private VariableContainer globalVars;
 
+	public GameMaster() {
+		this(DEFAULT_DELAY);
+	}
+	
 	public GameMaster(int MILLIS_DELAY) {
 		// TODO Auto-generated constructor stub
 		gameLoop = new Timeline();
