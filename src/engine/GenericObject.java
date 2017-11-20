@@ -3,15 +3,21 @@ package engine;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
-public class GenericObject implements GameObject {
+public class GenericObject extends VariableContainer implements GameObject {
 
 	private Set<String> tagSet;
+	private List<String> tags;
+	private Map<Condition, List<Action>> events;
+	private double x, y;
 
 	public GenericObject() {
 		// TODO Auto-generated constructor stub
 		tagSet = new HashSet<String>();
+		x = 0;
+		y = 0;
 	}
 
 	@Override
@@ -63,24 +69,6 @@ public class GenericObject implements GameObject {
 	}
 
 	@Override
-	public int getIntegerVariable(String name) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public double getDoubleVariable(String name) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public String getStringVariable(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void addToObjectList(GameObject o) {
 		// TODO Auto-generated method stub
 
@@ -93,9 +81,34 @@ public class GenericObject implements GameObject {
 	}
 
 	@Override
-	public void step() {
+	public void step(World w) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	/**
+	 * This is meant for the frontend to use for the purpose of placing a new instance of an object into the world.
+	 * @param x, y
+	 */
+	@Override
+	public void setCoords(double x, double y) {
+		// TODO Auto-generated method stub
+		this.x = x;
+		this.y = y;
+	}
+
+	@Override
+	public Set<Integer> getPriorities() {
+		Set<Integer> priorities = new HashSet<Integer>();
+		for(Condition c : events.keySet()) {
+			priorities.add(c.getPriority());
+		}
+		return priorities;
+	}
+
+	public void setBooleanVariable(String name, Boolean value) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
