@@ -13,12 +13,12 @@ public class ActionConditionVBox extends VBox implements ActionConditionVBoxI{
 	private static final String ACTIONCONDITION_RESOURCE_PATH = "TextResources/ActionConditionVBoxResources";
 	
 	private ResourceBundle actionConditionVBoxResources;
+	private String selectorLabel;
 	private List<ToolBar> rows;
-	private Boolean myIsConditionVBox;
 	
-	public ActionConditionVBox(Boolean isConditionVBox) {
+	public ActionConditionVBox(String selectorString) {
 		super();
-		myIsConditionVBox = isConditionVBox;
+		selectorLabel = selectorString;
 		actionConditionVBoxResources = ResourceBundle.getBundle(ACTIONCONDITION_RESOURCE_PATH);
 	}
 
@@ -27,7 +27,7 @@ public class ActionConditionVBox extends VBox implements ActionConditionVBoxI{
 		Label type = new Label(label);
 		ChoiceBox<String> implementationSelector = new ChoiceBox<String>(ActionTabUtil.convertToObservableList(
 				actionConditionVBoxResources.getString(label + actionConditionVBoxResources.getString("OptionsTag"))));
-		VBox implementationSelectorVBox = ActionTabUtil.addVBoxwithLabel(implementationSelectorHeader(), implementationSelector);
+		VBox implementationSelectorVBox = ActionTabUtil.addVBoxwithLabel(selectorLabel, implementationSelector);
 		ToolBar toolBar = new ToolBar(type,implementationSelectorVBox);
 		rows.add(toolBar);
 		getChildren().add(toolBar);
@@ -37,11 +37,6 @@ public class ActionConditionVBox extends VBox implements ActionConditionVBoxI{
 	public void removeActionCondition(int row) {
 		getChildren().remove(rows.get(row));
 		rows.remove(row);
-	}
-	
-	private String implementationSelectorHeader() {
-		if(myIsConditionVBox) return actionConditionVBoxResources.getString("ConditionSelectorLabel");
-		else return actionConditionVBoxResources.getString("ActionSelectorLabel");
 	}
 
 }

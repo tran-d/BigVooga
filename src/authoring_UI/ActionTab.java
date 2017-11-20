@@ -3,6 +3,8 @@ package authoring_UI;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -21,18 +23,16 @@ public class ActionTab extends Tab {
 	private VBox actionConditionManager;
 	private ActionConditionVBox conditions;
 	private ActionConditionVBox actions;
-	private ToolBar conditionButtons;
-	private ToolBar actionButtons;
 	
 	public ActionTab() {
 		super(TITLE);
 		actionTabResources = ResourceBundle.getBundle(ACTIONTAB_RESOURCE_PATH);
 		actionConditionManager = new VBox();
 		setContent(actionConditionManager);
-		conditionButtons = addTopToolBar("AddConditionButtonLabel","ConditionOptions","ConditionSelectorLabel","RemoveConditionButtonLabel",true);
-		actionButtons = addTopToolBar("AddActionButtonLabel","ActionOptions","ActionSelectorLabel","RemoveActionButtonLabel",false);
-		conditions = new ActionConditionVBox(true);
-		actions = new ActionConditionVBox(false);
+		ToolBar conditionButtons = addTopToolBar("AddConditionButtonLabel","ConditionOptions","ConditionSelectorLabel","RemoveConditionButtonLabel",true);
+		ToolBar actionButtons = addTopToolBar("AddActionButtonLabel","ActionOptions","ActionSelectorLabel","RemoveActionButtonLabel",false);
+		conditions = new ActionConditionVBox(actionTabResources.getString("ConditionSelectorLabel"));
+		actions = new ActionConditionVBox(actionTabResources.getString("ActionSelectorLabel"));
 		Separator separator = ActionTabUtil.makeVerticalSeparator();
 		actionConditionManager.getChildren().addAll(conditionButtons,actionButtons,conditions,separator,actions);
 	}
