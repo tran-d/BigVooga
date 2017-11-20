@@ -1,3 +1,4 @@
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -15,10 +16,10 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class Main extends Application {
-	public static void main(String[] args) {
-		launch(args);
-	}
+public class EngineTester extends Application {
+//	public static void main(String[] args) {
+//		launch(args);
+//	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
