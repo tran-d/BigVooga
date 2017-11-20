@@ -12,6 +12,7 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 	private HashMap<String, ArrayList<SpriteParameterI>> categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();
 	private ImageView myImageView;
 	private String myImageURL;
+	private Integer[] myPositionOnGrid;
 
 	
 	public SpriteObject() {
@@ -158,6 +159,12 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 			}
 		}
 		return ret;
+	}
+
+	@Override
+	public Integer[] getPositionOnGrid() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

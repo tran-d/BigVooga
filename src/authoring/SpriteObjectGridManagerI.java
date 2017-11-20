@@ -15,5 +15,6 @@ public interface SpriteObjectGridManagerI {
 	void removeActiveCells(ArrayList<Integer[]> makeInactive);
 	void addActiveCells(ArrayList<Integer[]> makeActive);
 	void matchActiveCellsToSprite(SpriteObjectI firstSprite);
+	ArrayList<SpriteObjectI> getEntireListOfSpriteObjects();
 	
 }

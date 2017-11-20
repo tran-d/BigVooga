@@ -106,4 +106,9 @@ public class GenericObject extends VariableContainer implements GameObject {
 		return priorities;
 	}
 
+	public void setBooleanVariable(String name, Boolean value) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
