@@ -11,6 +11,8 @@ public interface GameObject {
 //	private Map<String, Double> doubleVars;
 //	private Map<String, String> StringVars;
 	
+//TODO add images	
+	
 	public void addTag(String tag);
 
 	public boolean is(String tag);

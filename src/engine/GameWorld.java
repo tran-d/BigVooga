@@ -24,8 +24,11 @@ public class GameWorld implements World {
 	public GameWorld(String name) {
 		worldName = name;
 		worldObjects = new ArrayList<GameObject>();
-		input = new InputManager();					//TODO create InputManager
 		nextWorld = this;
+	}
+	
+	public void addInputManager(InputManager input) {
+		this.input = input;
 	}
 
 	// I don't know what to do with this.
