@@ -1,7 +1,6 @@
 package engine;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public interface GameObject {
@@ -49,4 +48,5 @@ public interface GameObject {
 	public Set<Integer> getPriorities();
 
 	public void step(World w);
+	
 }

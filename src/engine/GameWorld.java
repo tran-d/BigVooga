@@ -12,7 +12,9 @@ public class GameWorld implements World {
 	private List<GameObject> worldObjects;
 	private Map<Integer, List<GameObject>> conditionPriorities;
 	private VariableContainer globalVars;
+	private GameObjectFactory gameObjectFactory;
 	private InputManager input;
+	private World nextWorld;
 
 	public GameWorld() {
 		// TODO Auto-generated constructor stub
@@ -23,6 +25,7 @@ public class GameWorld implements World {
 		worldName = name;
 		worldObjects = new ArrayList<GameObject>();
 		input = new InputManager();					//TODO create InputManager
+		nextWorld = this;
 	}
 
 	// I don't know what to do with this.
@@ -98,6 +101,16 @@ public class GameWorld implements World {
 	@Override
 	public InputManager getInputManager() {
 		return input;
+	}
+	
+	@Override
+	public void setNextWorld(World w) {
+		nextWorld = w;
+	}
+	
+	@Override
+	public World getNextWorld() {
+		return nextWorld;
 	}
 
 }
