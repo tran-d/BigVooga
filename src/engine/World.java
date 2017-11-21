@@ -1,6 +1,8 @@
 package engine;
 import java.util.List;
 
+import player.PlayerManager;
+
 public interface World extends Iterable<GameObject>{
 	
 	public void addGameObject(GameObject obj);
@@ -14,7 +16,7 @@ public interface World extends Iterable<GameObject>{
 	
 	public void addGlobalVars(VariableContainer gv);
 	
-	public InputManager getInputManager();
+	public PlayerManager getInputManager();
 	
 	public void setNextWorld(World w);
 	

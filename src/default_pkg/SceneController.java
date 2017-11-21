@@ -9,7 +9,10 @@ import gui.welcomescreen.Settings;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import player.GameController;
+import player.GameDisplay;
 import player.GameSelector;
+import player.PlayerManager;
 
 /**
  * Stores all the scenes in the program, and allows them to be accessible by a map. This ensures that only one instance of each scene is created,
@@ -28,6 +31,8 @@ public class SceneController {
 	private Map<String, Scene> sceneMap = new HashMap<String, Scene>() ;
 	private Stage stage;
 	private Scene scene;
+	private GameDisplay gameDisplay;
+	private GameController gameController;
 	
 	/**
 	 * Initializes all the scenes and puts them in the sceneMap.
@@ -62,6 +67,13 @@ public class SceneController {
 		scene = settings.getScene();
 		sceneMap.put(SETTINGS_KEY, scene);
 		
+		gameDisplay = new GameDisplay(stage, this);
+		
+		setGameController();
+	}
+	
+	private void setGameController() {
+		gameController = new GameController (stage, gameDisplay);
 	}
 	
 	/**

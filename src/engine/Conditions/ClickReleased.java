@@ -2,10 +2,10 @@ package engine.Conditions;
 
 import engine.Condition;
 import engine.GlobalVariables;
-import engine.InputManager;
 import engine.VariableContainer;
 import engine.World;
 import javafx.scene.input.MouseEvent;
+import player.PlayerManager;
 
 /**
  * 
