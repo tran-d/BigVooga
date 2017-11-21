@@ -14,8 +14,10 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 /**
+ * The superclass that creates the framework for three of the four options in the welcome screen: Play, Learn, and Settings.
+ * Specifically, this sets the color scheme, heading, back button, and ScrollPane of information for these three options.
  * 
- * @author Samarth
+ * @author Samarth Desai
  *
  */
 public class MenuOptionsTemplate {
@@ -37,6 +39,12 @@ public class MenuOptionsTemplate {
 	private Image backImage;
 	private ImageView back;
 
+	/**
+	 * 
+	 * 
+	 * @param currentStage - Stage instance that is being passed
+	 * @param currentSceneController - Allows the correct scene to be applied, which is the settings scene
+	 */
 	public MenuOptionsTemplate(Stage currentStage, SceneController currentSceneController) {
 		stage = currentStage;
 		sceneController = currentSceneController;

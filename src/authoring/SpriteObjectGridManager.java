@@ -43,6 +43,17 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 		}
 		return ret;
 	}
+	
+	@Override 
+	public ArrayList<SpriteObjectI> getEntireListOfSpriteObjects() {
+		ArrayList<SpriteObjectI> ret = new ArrayList<SpriteObjectI>();
+		for (ArrayList<SpriteObjectI> SOI_LIST: spriteGrid){
+			for (SpriteObjectI SOI: SOI_LIST){
+				ret.add(SOI);
+			}
+		}
+		return ret;
+	}
 
 	@Override
 	public ImageView[][] populateCell(SpriteObjectI spriteObject, ArrayList<Integer[]> row_col) {

@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 /**
  * Creates and populates the Learn page, which contains all the instructions for how to use VOOGA.
  * 
- * @author Samarth
+ * @author Samarth Desai
  *
  */
 public class Learn extends MenuOptionsTemplate {
@@ -39,16 +39,19 @@ public class Learn extends MenuOptionsTemplate {
 	private ScrollPane contentPane = new ScrollPane();
 	
 	/**
-	 * Creates the framework by passing the necessary information to 
+	 * Creates the framework of the Learn page by passing the necessary information to the MenuOptionsTemplate superclass.
 	 * 
-	 * @param currentStage
-	 * @param sceneController
+	 * @param currentStage - Stage instance that is being passed
+	 * @param sceneController - Allows the correct scene to be applied, which is the settings scene
 	 */
 	public Learn(Stage currentStage, SceneController sceneController) {
 		super(currentStage, sceneController);
 		createOptionScreen(CRYSTAL_PATH, CRYSTAL_WIDTH, CRYSTAL_HEIGHT, 0);
 	}
 	
+	/**
+	 * Sets all the primary content to the ScrollPane to be displayed.
+	 */
 	public void createLearn() {
 		
 		VBox contentBox = consolidateText();
@@ -57,6 +60,11 @@ public class Learn extends MenuOptionsTemplate {
 		contentPane.setContent(contentBox);
 	}
 	
+	/**
+	 * Combines all the instructions into one VBox.
+	 * 
+	 * @return consolidated instructions to display on the ScrollPane
+	 */
 	private VBox consolidateText() {
 		
 		VBox allText = new VBox();
@@ -69,6 +77,14 @@ public class Learn extends MenuOptionsTemplate {
 		return allText;
 	}
 	
+	/**
+	 * Acts as a factory method to create a heading and the corresponding body text for a section of the instructions.
+	 * 
+	 * @param heading - The heading that states the section of instructions being addressed
+	 * @param headingSize - The size of the heading
+	 * @param body - The body of text that details the relevant information within a section of instructions
+	 * @return the VBox that contains the heading-body text pairing that constitute a complete section of instructions
+	 */
 	private VBox createText(String heading, String headingSize, String body) {
 		
 		VBox textBox = new VBox();

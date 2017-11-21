@@ -1,12 +1,10 @@
 package default_pkg;
 
-import default_pkg.SceneController;
-import gui.welcomescreen.WelcomeScreen;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 /**
- * Launches VOOGA program by calling the initial welcome screen
+ * Launches VOOGA program by calling the initial welcome screen.
  * @author Samarth Desai
  */
 
@@ -14,7 +12,7 @@ public class Main extends Application {
 	
 	private SceneController sceneController;
 	/**
-	 * Launches the program
+	 * Launches the program.
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -22,7 +20,7 @@ public class Main extends Application {
 	}
 	
 	/**
-	 * Calls the welcome screen which is the first screen
+	 * Calls the welcome screen, which is the first screen a user will see and interact with.
 	 */
 	public void start(Stage stage) {
 		sceneController = new SceneController(stage);

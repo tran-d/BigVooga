@@ -124,7 +124,9 @@ public class GenericObject extends VariableContainer implements GameObject {
 	}
 
 	@Override
-	public void setIntegerVariable(String name, int val) {
+	public void setIntegerVariable(String name, int val) {}
+
+	public void setBooleanVariable(String name, Boolean value) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -146,4 +148,5 @@ public class GenericObject extends VariableContainer implements GameObject {
 			copy.addConditionAction(c, new ArrayList<>(events.get(c)));
 		return copy;
 	}
+
 }
