@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import player.PlayerManager;
+
 public class GameWorld implements World {
 	
 	private final static String DEFAULT_NAME = "world";
@@ -13,7 +15,7 @@ public class GameWorld implements World {
 	private Map<Integer, List<GameObject>> conditionPriorities;
 	private VariableContainer globalVars;
 	private GameObjectFactory gameObjectFactory;
-	private InputManager input;
+	private PlayerManager input;
 	private World nextWorld;
 
 	public GameWorld() {
@@ -24,11 +26,8 @@ public class GameWorld implements World {
 	public GameWorld(String name) {
 		worldName = name;
 		worldObjects = new ArrayList<GameObject>();
+		input = new PlayerManager();
 		nextWorld = this;
-	}
-	
-	public void addInputManager(InputManager input) {
-		this.input = input;
 	}
 
 	// I don't know what to do with this.
@@ -102,7 +101,7 @@ public class GameWorld implements World {
 	}
 	
 	@Override
-	public InputManager getInputManager() {
+	public PlayerManager getInputManager() {
 		return input;
 	}
 	

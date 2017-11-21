@@ -5,6 +5,7 @@ import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
+import player.PlayerManager;
 
 public class GameMaster implements EngineController{
 	private static final int DEFAULT_FPS = 60;
@@ -23,6 +24,12 @@ public class GameMaster implements EngineController{
 		// TODO Auto-generated constructor stub
 		gameLoop = new Timeline();
 		KeyFrame frame = new KeyFrame(Duration.millis(delay), e -> step());
+	}
+	
+	public GameMaster(PlayerManager playerManager) {
+		// TODO Auto-generated constructor stub
+		gameLoop = new Timeline();
+		KeyFrame frame = new KeyFrame(Duration.millis(DEFAULT_DELAY), e -> step());
 		gameLoop.setCycleCount(Timeline.INDEFINITE);
 		gameLoop.getKeyFrames().add(frame);
 		globalVars = new GlobalVariables();
