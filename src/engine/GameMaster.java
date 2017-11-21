@@ -14,7 +14,7 @@ public class GameMaster implements EngineController{
 	private List<World> madeWorlds;
 	private Timeline gameLoop;
 	private VariableContainer globalVars;
-
+	
 	public GameMaster() {
 		this(DEFAULT_DELAY);
 	}
@@ -48,7 +48,7 @@ public class GameMaster implements EngineController{
 		madeWorlds.add(w);
 		
 	}
-
+	
 	@Override
 	public void setCurrentWorld(String s) {
 		// TODO Auto-generated method stub
