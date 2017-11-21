@@ -13,12 +13,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class GameSelector extends MenuOptionsTemplate {
@@ -30,6 +30,8 @@ public class GameSelector extends MenuOptionsTemplate {
 	private static final int HEADING_PADDING = 0;
 	private static final String GAME_TITLE_FONT = 50 + "pt;";
 	private static final int ENTRY_SPACING = 100;
+	private static final int TREE_ITEM_WIDTH = 1000;
+	private static final int TREE_ITEM_HEIGHT = 150;
 
 	private ScrollPane contentPane;
 	private VBox entriesBox;
@@ -40,6 +42,7 @@ public class GameSelector extends MenuOptionsTemplate {
 
 		contentPane = getScrollPane();
 		entriesBox = new VBox();
+
 	}
 
 	public void createGameSelector() {
@@ -48,44 +51,34 @@ public class GameSelector extends MenuOptionsTemplate {
 			filePathStream.forEach(filePath -> {
 				if (Files.isRegularFile(filePath)) {
 					System.out.println(filePath.getFileName());
-					HBox entry = createGameEntry(filePath.getFileName().toString().replaceAll("\\.[^.]*$", ""));
-					entriesBox.getChildren().add(entry);
+					TreeView<HBox> tree = createGameEntry(
+							filePath.getFileName().toString().replaceAll("\\.[^.]*$", ""));
+					entriesBox.getChildren().add(tree);
 				}
 			});
-			
+
 			contentPane.setContent(entriesBox);
-			
+
 		} catch (IOException e) {
 			// show error
 			e.printStackTrace();
 		}
 	}
 
-	private HBox createGameEntry(String gameTitle) {
-
-		Label title = GUITools.generateLabel(gameTitle, WelcomeScreen.MAIN_FONT, WelcomeScreen.MAIN_COLOR,
-				GAME_TITLE_FONT);
-		HBox buttonPanel = createButtonPanel();
-		Region spacer = new Region();
-		HBox.setHgrow(spacer, Priority.ALWAYS);
-
-		HBox entry = new HBox();
-		entry.setPrefWidth(contentPane.getPrefWidth());
-		entry.setAlignment(Pos.TOP_LEFT);
-		entry.getChildren().addAll(title, spacer, buttonPanel);
-
-		return entry;
+	public HBox createTitleItem(String gameTitle) {
+		return new HBox(
+				GUITools.generateLabel(gameTitle, WelcomeScreen.MAIN_FONT, WelcomeScreen.MAIN_COLOR, GAME_TITLE_FONT));
 	}
 
 	private HBox createButtonPanel() {
-		
+
 		HBox buttonPanel = new HBox(ENTRY_SPACING);
 		Button newGame = createNewGameButton(e -> handleNewGame());
 		Button continueGame = createContinueGameButton(e -> handleContinueGame());
 
-		buttonPanel.setAlignment(Pos.CENTER_RIGHT);
+		buttonPanel.setAlignment(Pos.CENTER_LEFT);
 		buttonPanel.getChildren().addAll(newGame, continueGame);
-		
+
 		return buttonPanel;
 	}
 
@@ -107,6 +100,22 @@ public class GameSelector extends MenuOptionsTemplate {
 		Button btn = new Button("Continue");
 		btn.setOnAction(handler);
 		return btn;
+	}
+
+	@SuppressWarnings("unchecked")
+	public TreeView<HBox> createGameEntry(String gameTitle) {
+
+		TreeItem<HBox> rootItem = new TreeItem<HBox>(createTitleItem(gameTitle));
+		TreeItem<HBox> buttons = new TreeItem<HBox>(createButtonPanel());
+		rootItem.getChildren().addAll(buttons);
+
+		TreeView<HBox> tree = new TreeView<HBox>(rootItem);
+		tree.setPrefWidth(TREE_ITEM_WIDTH);
+		tree.setPrefHeight(TREE_ITEM_HEIGHT);
+		tree.setStyle(WelcomeScreen.SET_BACKGROUND_COLOR + WelcomeScreen.BACKGROUND_COLOR);
+//		tree.setOnMouseClicked(e -> rootItem.setExpanded(tree.getExpandedItemCount() == 1));
+		
+		return tree;
 	}
 
 }

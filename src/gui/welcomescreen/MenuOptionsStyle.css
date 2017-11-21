@@ -31,3 +31,14 @@
 .scroll-bar:vertical .thumb {
     -fx-background-color: #47BDFF;
 }
+
+.tree-cell{
+    -fx-background-color: #001E32;
+}
+
+.tree-cell > .tree-disclosure-node > .arrow  {
+    -fx-background-color: #47BDFF;
+}
+.tree-cell:expanded > .tree-disclosure-node > .arrow {
+    -fx-background-color: #47BDFF;
+}
