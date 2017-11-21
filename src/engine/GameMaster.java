@@ -16,9 +16,13 @@ public class GameMaster implements EngineController{
 	private VariableContainer globalVars;
 	
 	public GameMaster() {
+		this(DEFAULT_DELAY);
+	}
+	
+	public GameMaster(int delay) {
 		// TODO Auto-generated constructor stub
 		gameLoop = new Timeline();
-		KeyFrame frame = new KeyFrame(Duration.millis(DEFAULT_DELAY), e -> step());
+		KeyFrame frame = new KeyFrame(Duration.millis(delay), e -> step());
 		gameLoop.setCycleCount(Timeline.INDEFINITE);
 		gameLoop.getKeyFrames().add(frame);
 		globalVars = new GlobalVariables();
@@ -44,7 +48,7 @@ public class GameMaster implements EngineController{
 		madeWorlds.add(w);
 		
 	}
-
+	
 	@Override
 	public void setCurrentWorld(String s) {
 		// TODO Auto-generated method stub
