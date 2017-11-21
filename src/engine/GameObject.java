@@ -49,4 +49,5 @@ public interface GameObject {
 
 	public void step(World w);
 	
+	public GameObject clone();
 }
