@@ -5,6 +5,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
+
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
 public class GenericObject extends VariableContainer implements GameObject {
 
@@ -20,6 +24,7 @@ public class GenericObject extends VariableContainer implements GameObject {
 		x = 0;
 		y = 0;
 		heading = 0;
+		events = new TreeMap<>();
 	}
 	
 	public String getName() {
@@ -64,14 +69,18 @@ public class GenericObject extends VariableContainer implements GameObject {
 
 	@Override
 	public void addConditionAction(Condition c, List<Action> a) {
-		// TODO Auto-generated method stub
-
+		events.put(c, a);
 	}
 
 	@Override
 	public void step(World w) {
-		// TODO Auto-generated method stub
-
+		for(Condition c : events.keySet()) {
+			for(Action a : events.get(c)) {
+				if(c.isTrue(this, w)) {
+					a.execute(this, w);
+				}
+			}
+		}
 	}
 	
 	/**
@@ -107,7 +116,7 @@ public class GenericObject extends VariableContainer implements GameObject {
 
 	@Override
 	public Set<Integer> getPriorities() {
-		Set<Integer> priorities = new HashSet<Integer>();
+		Set<Integer> priorities = new TreeSet<Integer>();
 		for(Condition c : events.keySet()) {
 			priorities.add(c.getPriority());
 		}
@@ -115,7 +124,9 @@ public class GenericObject extends VariableContainer implements GameObject {
 	}
 
 	@Override
-	public void setIntegerVariable(String name, int val) {
+	public void setIntegerVariable(String name, int val) {}
+
+	public void setBooleanVariable(String name, Boolean value) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -137,4 +148,5 @@ public class GenericObject extends VariableContainer implements GameObject {
 			copy.addConditionAction(c, new ArrayList<>(events.get(c)));
 		return copy;
 	}
+
 }

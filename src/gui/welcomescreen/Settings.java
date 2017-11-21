@@ -17,8 +17,9 @@ import javafx.stage.Stage;
 import tools.DisplayLanguage;
 
 /**
- * Settings page that allows users to modify 
- * @author Samarth
+ * Settings page that allows users to modify their general VOOGA application preferences.
+ * 
+ * @author Samarth Desai
  *
  */
 public class Settings extends MenuOptionsTemplate{
@@ -39,13 +40,22 @@ public class Settings extends MenuOptionsTemplate{
 	private static final int SETTINGS_VERTICAL_GAP = 50;
 	
 	private ScrollPane contentPane = new ScrollPane();
-	ToggleGroup languageGroup = new ToggleGroup();
+	private ToggleGroup languageGroup = new ToggleGroup();
 
+	/**
+	 * Creates the framework of the Settings page by passing the necessary information to the MenuOptionsTemplate superclass.
+	 * 
+	 * @param currentStage - Stage instance that is being passed
+	 * @param sceneController - Allows the correct scene to be applied, which is the settings scene
+	 */
 	public Settings(Stage currentStage, SceneController sceneController) {
 		super(currentStage, sceneController);
 		createOptionScreen(GEARS_PATH, GEARS_WIDTH, GEARS_HEIGHT, HEADING_PADDING);
 	}
 	
+	/**
+	 * Sets all the primary content to the ScrollPane to be displayed.
+	 */
 	public void createSettings(){
 		VBox contentBox = consolidateText();
 		
@@ -53,16 +63,28 @@ public class Settings extends MenuOptionsTemplate{
 		contentPane.setContent(contentBox);
 	}
 	
+	/**
+	 * Combines all the settings into one VBox.
+	 * 
+	 * @return consolidated settings to display on the ScrollPane
+	 */
 	private VBox consolidateText() {
 		VBox allSettings = new VBox(SETTINGS_VERTICAL_GAP);
-		VBox languageBox = createSetting(LANGUAGE_HEADING, LANGUAGE_HEADING_SIZE);
+		VBox languageBox = createLanguageSetting(LANGUAGE_HEADING, LANGUAGE_HEADING_SIZE);
 		allSettings.getChildren().add(languageBox);
 		return allSettings;
 	}
 	
-	private VBox createSetting(String languageText, String languageSize) {
+	/**
+	 * Creates the language setting that allows users to toggle which language to display.
+	 * 
+	 * @param languageHeadingText - The text contained in the language heading label
+	 * @param languageHeadingSize - The size of the language setting heading
+	 * @return the heading and buttons for the language setting
+	 */
+	private VBox createLanguageSetting(String languageHeadingText, String languageHeadingSize) {
 		
-		Label headingText = GUITools.generateLabel(languageText, WelcomeScreen.MAIN_FONT, WelcomeScreen.MAIN_COLOR, languageSize);
+		Label headingText = GUITools.generateLabel(languageHeadingText, WelcomeScreen.MAIN_FONT, WelcomeScreen.MAIN_COLOR, languageHeadingSize);
 		Image languageImage = GUITools.createImage(LANGUAGE_PATH, LANGUAGE_WIDTH, LANGUAGE_HEIGHT);
 		ImageView language = GUITools.createImageView(languageImage);
 		HBox languageSelection = createLanguageSelection();
@@ -75,6 +97,11 @@ public class Settings extends MenuOptionsTemplate{
 		return settingBox;
 	}
 	
+	/**
+	 * Creates the set of language buttons that the user can select to change display language.
+	 * 
+	 * @return the language buttons aligned horizontally within an HBox
+	 */
 	private HBox createLanguageSelection() {
 		
 		RadioButton englishButton = createLanguageButton(ENGLISH_BUTTON, Locale.ENGLISH);
@@ -86,6 +113,13 @@ public class Settings extends MenuOptionsTemplate{
 		return languageChoices;
 	}
 	
+	/**
+	 * Acts as a factory method to create RadioButtons for each supported display language in VOOGA.
+	 * 
+	 * @param languageType - Name of language to display as the text of the label
+	 * @param language - The language Locale associated with this button during creation
+	 * @return the language button that allows users to select which language to display in VOOGA
+	 */
 	private RadioButton createLanguageButton(String languageType, Locale language) {
 		RadioButton languageButton = new RadioButton(languageType);
 		languageButton.getStyleClass().remove("radio-button");
