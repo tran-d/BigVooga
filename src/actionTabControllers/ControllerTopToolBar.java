@@ -25,24 +25,27 @@ public class ControllerTopToolBar {
 	}
 	
 	private void addListeners() {
-		conditionToolBar.addButtonListener(new addListener(conditionToolBar,conditionVBox));
-		conditionToolBar.addRemoveListener();
-		actionToolBar.addButtonListener(new addListener(actionToolBar,actionVBox));
-		actionToolBar.addRemoveListener(e);
+		conditionToolBar.addButtonListener(new addListener(conditionToolBar,conditionVBox,true));
+		conditionToolBar.addRemoveListener(new addListener(conditionToolBar,conditionVBox,false));
+		actionToolBar.addButtonListener(new addListener(actionToolBar,actionVBox,true));
+		actionToolBar.addRemoveListener(new addListener(actionToolBar,actionVBox,false));
 	}
 	
 	private class addListener implements EventHandler<ActionEvent> {
 		
 		private TopToolBar topToolBar;
 		private ActionConditionVBox actionConditionVBox;
-		public addListener(TopToolBar topToolBar, ActionConditionVBox actionConditionVBox) {
+		private Boolean isAdding;
+		public addListener(TopToolBar topToolBar, ActionConditionVBox actionConditionVBox, Boolean isAdding) {
 			this.topToolBar = topToolBar;
 			this.actionConditionVBox = actionConditionVBox;
+			this.isAdding = isAdding;
 		}
 
 		@Override
 		public void handle(ActionEvent arg0) {
-			actionConditionVBox.addActionCondition(topToolBar.getOptionsValue());
+			if(isAdding) actionConditionVBox.addActionCondition(topToolBar.getOptionsValue());
+			else actionConditionVBox.removeActionCondition(topToolBar.getRemoveValue());
 		}
 		
 	}

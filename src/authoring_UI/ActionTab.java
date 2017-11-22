@@ -8,6 +8,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.ToolBar;
@@ -20,14 +21,14 @@ public class ActionTab extends Tab {
 	private static final String ACTIONTAB_RESOURCE_PATH = "TextResources/ActionTabResources";
 	
 	private ResourceBundle actionTabResources;
-	private VBox actionConditionManager;
+	private ScrollPane actionConditionManager;
 	private ActionConditionVBox conditions;
 	private ActionConditionVBox actions;
 	
 	public ActionTab() {
 		super(TITLE);
 		actionTabResources = ResourceBundle.getBundle(ACTIONTAB_RESOURCE_PATH); 
-		actionConditionManager = new VBox();
+		actionConditionManager = new ScrollPane();
 		setContent(actionConditionManager);
 		setUpActionConditionManager();
 	}
@@ -38,6 +39,6 @@ public class ActionTab extends Tab {
 		conditions = new ActionConditionVBox(actionTabResources.getString("ConditionSelectorLabel"));
 		actions = new ActionConditionVBox(actionTabResources.getString("ActionSelectorLabel"));
 		Separator separator = ActionTabUtil.makeVerticalSeparator();
-		actionConditionManager.getChildren().addAll(conditionButtons,actionButtons,conditions,separator,actions);
+		actionConditionManager.getChild(conditionButtons,actionButtons,conditions,separator,actions);
 	}
 }

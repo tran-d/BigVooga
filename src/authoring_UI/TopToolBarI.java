@@ -10,6 +10,6 @@ public interface TopToolBarI {
 	public void addButtonListener(EventHandler<ActionEvent> e);
 	public void addRemoveListener(EventHandler<ActionEvent> e);
 	public void addRemoveOption();
-	public void removeRemoveOption();
+	public void removeRemoveOption(int row);
 	
 }

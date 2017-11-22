@@ -26,6 +26,7 @@ public class RemoveChoiceBox extends ChoiceBox<Integer> {
 	
 	protected void removeRow(int row) {
 		currentRows.remove(row);
+		for(int i = row; i < currentRows.size(); i++) currentRows.set(i, currentRows.get(i) - 1);
 	}
 	
 }

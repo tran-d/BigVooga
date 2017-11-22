@@ -19,7 +19,7 @@ public class TopToolBar extends ToolBar implements TopToolBarI {
 	private ChoiceBox<String> options;
 	private VBox selectorVBox;
 	private Button removeButton;
-	private ChoiceBox<Integer> removeRow;
+	private RemoveChoiceBox removeRow;
 	private VBox removeRowVBox;
 	
 	public TopToolBar(ResourceBundle resourceBundle,String addButtonTitle,String optionsTitle,String selectorLabel,String remove) {
@@ -31,7 +31,7 @@ public class TopToolBar extends ToolBar implements TopToolBarI {
 		Separator separator = ActionTabUtil.makeVerticalSeparator();
 		separator.setOrientation(Orientation.VERTICAL);
 		removeButton = new Button(actionTabResources.getString(remove));
-		removeRow = new ChoiceBox<Integer>();
+		removeRow = new RemoveChoiceBox();
 		removeRowVBox = ActionTabUtil.addVBoxwithLabel(actionTabResources.getString("RemoverLabel"),removeRow);
 		getItems().addAll(addButton,options,selectorVBox,separator,removeButton,removeRow,removeRowVBox);
 	}
@@ -58,20 +58,12 @@ public class TopToolBar extends ToolBar implements TopToolBarI {
 
 	@Override
 	public void addRemoveOption() {
-		ObservableList<Integer> currentRows = removeRow.getItems();
-		if(currentRows.isEmpty()) {
-			currentRows.add(1);
-		}
-		else {
-			int maxrow = 
-		}
-		removeRow.setItems(currentRows);
+		removeRow.addRow();
 	}
 
 	@Override
-	public void removeRemoveOption() {
-		// TODO Auto-generated method stub
-		
+	public void removeRemoveOption(int row) {
+		removeRow.removeRow(row - 1);
 	}
 	
 }
