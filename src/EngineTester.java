@@ -13,18 +13,19 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class EngineTester extends Application {
-//	public static void main(String[] args) {
-//		launch(args);
-//	}
+	public static void main(String[] args) {
+		launch(args);
+	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
 		//testCollisions();
-		testDrawer(stage);
+		testData(stage);
 	}
 
 	private void testDrawer(Stage stage) {
@@ -43,7 +44,7 @@ public class EngineTester extends Application {
 	private void testData(Stage stage) throws IOException, FileNotFoundException, URISyntaxException {
 		GameDataHandler data = new GameDataHandler("SaverTest3");
 		data.addChosenFileToProject(stage);
-		data.saveGame(new GameMaster(50));
+		data.saveGame(new GameMaster(null));
 		data.loadGame();
 		data.getImage("HexGrid.PNG");
 	}

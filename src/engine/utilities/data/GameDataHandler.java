@@ -1,13 +1,21 @@
 package engine.utilities.data;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 import com.thoughtworks.xstream.XStream;
@@ -23,12 +31,15 @@ import javafx.stage.Stage;
  */
 public class GameDataHandler {
 	private static final XStream SERIALIZER = new XStream(new DomDriver());
+	private static final String KNOWN_PROJECTS = "resources/KnownProjectNames.properties";
 	public static final String PATH = "data/UserCreatedGames/";
 	private static final String CONTROLLER_FILE = "Engine_Controller_Save_File";
 	private static final String SELECTOR_TITLE = "Open Resource File";
 	private String projectPath;
+	private String projectName;
 	
 	public GameDataHandler(String projectName) {
+		this.projectName = projectName;
 		this.projectPath = PATH+projectName + "/";
 		makeDirectory(projectPath);
 	}
@@ -38,8 +49,37 @@ public class GameDataHandler {
 		FileWriter writer = new FileWriter(projectPath+CONTROLLER_FILE);
         writer.write(toSave);
         writer.close();
+        addToKnownProjects();
 	}
 	
+	/**
+	 * Modified from
+	 * https://stackoverflow.com/questions/22370051/how-to-write-values-in-a-properties-file-through-java-code
+	 * Updates a specific properties file to include projectName in its keyset.
+	 * @throws IOException 
+	 */
+	private void addToKnownProjects() throws IOException {
+		Properties prop = new Properties();
+		FileInputStream in = new FileInputStream(KNOWN_PROJECTS);
+		prop.load(in);
+		in.close();
+		prop.put(projectName, "Modified " + LocalDateTime.now());
+		FileOutputStream out = new FileOutputStream(KNOWN_PROJECTS);
+		prop.store(out, null);
+		out.close();
+	}
+	
+	public Map<String, String> knownProjectsWithDateModified(){
+		Map<String, String> result = new HashMap<>();
+		ResourceBundle bundle = ResourceBundle.getBundle(KNOWN_PROJECTS);
+		Enumeration<String> projects = bundle.getKeys();
+		while(projects.hasMoreElements()) {
+			String p = projects.nextElement();
+			result.put(p, bundle.getString(p));
+		}
+		return result;
+	}
+
 	public EngineController loadGame() throws FileNotFoundException {
 		File controllerFile = new File(projectPath+CONTROLLER_FILE);
 		Scanner scanner = new Scanner(controllerFile);

@@ -17,6 +17,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
+/**
+ * @author Ian Eldridge-Allegra
+ *
+ */
 public class BoundingPolygonCreator extends Pane{
 
 	private static final double PHANTOM_OPACITY = .5;
