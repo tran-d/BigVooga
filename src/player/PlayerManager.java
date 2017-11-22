@@ -3,15 +3,17 @@ package player;
 import java.util.ArrayList;
 import java.util.List;
 
+import engine.EngineController;
 import engine.GameMaster;
+import javafx.scene.input.KeyCode;
 
 public class PlayerManager {
 
 	private GameDisplay gameDisplay;
-	private GameMaster gameMaster;
+	private EngineController engineController;
 	
-	private List<String> keysDown;
-	private List<String> prevKeysDown;
+	private List<KeyCode> keysDown;
+	private List<KeyCode> prevKeysDown;
 	
 	private boolean primaryButtonDown;
 	private boolean prevPrimaryButtonDown;
@@ -23,12 +25,28 @@ public class PlayerManager {
 		prevPrimaryButtonDown = false;
 	}
 	
-	public List<String> getKeysDown() {
+	public List<KeyCode> getKeysDown() {
 		return keysDown;
 	}
 	
-	public List<String> getPrevKeysDown() {
+	public List<KeyCode> getPrevKeysDown() {
 		return prevKeysDown;
+	}
+	
+	public void setKeyPressed(KeyCode keyCode) {
+		keysDown.add(keyCode);
+	}
+	
+	public void setKeyReleased(KeyCode keyCode) {
+		keysDown.remove(keyCode);
+	}
+	
+	public void setPrimaryButtonPressed(double x, double y) {
+		//TODO engine
+	}
+	
+	public void setPrimaryButtonReleased(double x, double y) {
+		//TODO engine
 	}
 	
 	public boolean isPrimaryButtonDown() {
@@ -43,8 +61,8 @@ public class PlayerManager {
 		gameDisplay = currentGameDisplay;
 	}
 	
-	public void setEngine(GameMaster currentGameMaster) {
-		gameMaster = currentGameMaster;
+	public void setEngine(EngineController currentEngineController) {
+		engineController = currentEngineController;
 	}
 	
 }

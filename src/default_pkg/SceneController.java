@@ -1,5 +1,6 @@
 package default_pkg;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +28,7 @@ public class SceneController {
 	public static final String CREATE_KEY = "Create";
 	public static final String LEARN_KEY = "Learn";
 	public static final String SETTINGS_KEY = "Settings";
+	public static final String GAME_DISPLAY_KEY = "Game Display";
 	
 	private Map<String, Scene> sceneMap = new HashMap<String, Scene>() ;
 	private Stage stage;
@@ -68,12 +70,21 @@ public class SceneController {
 		sceneMap.put(SETTINGS_KEY, scene);
 		
 		gameDisplay = new GameDisplay(stage, this);
+		gameDisplay.createGameDisplay();
+		scene = gameDisplay.getScene();
+		sceneMap.put(GAME_DISPLAY_KEY, scene);
 		
 		setGameController();
 	}
 	
 	private void setGameController() {
-		gameController = new GameController (stage, gameDisplay);
+		String projectName = null;
+		try {
+			gameController = new GameController (stage, projectName, gameDisplay);
+		} catch (FileNotFoundException e) {
+			//TODO
+			e.printStackTrace();
+		}
 	}
 	
 	/**
