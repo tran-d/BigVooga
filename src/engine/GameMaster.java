@@ -17,16 +17,6 @@ public class GameMaster implements EngineController{
 	private VariableContainer globalVars;
 	private PlayerManager playerManager;
 	
-	public GameMaster() {
-		this(DEFAULT_DELAY);
-	}
-	
-	public GameMaster(int delay) {
-		// TODO Auto-generated constructor stub
-		gameLoop = new Timeline();
-		KeyFrame frame = new KeyFrame(Duration.millis(delay), e -> step());
-	}
-	
 	public GameMaster(PlayerManager playerManager) {
 		// TODO Auto-generated constructor stub
 		gameLoop = new Timeline();
