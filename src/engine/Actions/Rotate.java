@@ -14,7 +14,7 @@ public class Rotate implements Action {
 	}
 	
 	@Override
-	public void execute(VariableContainer asking, World world) {
+	public void execute(GameObject asking, World world) {
 		GameObject obj = (GameObject)asking;
 		obj.setHeading(obj.getHeading() + headingIncrement);
 	}

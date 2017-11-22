@@ -16,8 +16,8 @@ public class MoveTo implements Action {
 	}
 	
 	@Override
-	public void execute(VariableContainer asking, World world) {
-		((GameObject)asking).setCoords(newX, newY);
+	public void execute(GameObject asking, World world) {
+		asking.setCoords(newX, newY);
 	}
 
 }
