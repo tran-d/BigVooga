@@ -15,5 +15,6 @@ public interface SpriteObjectI {
 	ImageView getImageView();
 	void setImageURL(String fileLocation);
 	Integer[] getPositionOnGrid();
+	void setPositionOnGrid(Integer[] pos);
 	
 }

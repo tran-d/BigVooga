@@ -55,8 +55,9 @@ public class MapManager extends TabPane {
 		myAEM = new AuthoringEnvironmentManager();
 		Menu myMenu = new Menu(myAEM);
 		mySOGM = myAEM.getGridManager();
-		DraggableGrid myGrid = new DraggableGrid(myTabCount, myMenu, mySOGM);
-		SpriteManager mySprites = new SpriteManager(myGrid, myAEM, mySOGM);
+		SpriteManager mySprites = new SpriteManager();
+		DraggableGrid myGrid = new DraggableGrid(myTabCount, myMenu, mySOGM, mySprites);
+		mySprites.construct(myGrid, myAEM, mySOGM);
 		HBox authMap = new HBox(myMenu, myGrid, mySprites);
 		authMap.setPrefWidth(WelcomeScreen.WIDTH);
 		authMap.setPrefHeight(WelcomeScreen.HEIGHT);

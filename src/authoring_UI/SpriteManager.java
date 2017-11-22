@@ -24,17 +24,7 @@ public class SpriteManager extends TabPane {
 	private SpriteParameterFactory mySPF;
 	private ArrayList<SpriteObject> mySpriteObjs = new ArrayList<SpriteObject>();
 	
-	protected SpriteManager(DraggableGrid grid, AuthoringEnvironmentManager AEM, SpriteObjectGridManagerI SOGM) {
-		mySPF = new SpriteParameterFactory();
-	    myAEM = AEM;
-	    mySOGM = SOGM;
-		myGrid = grid;
-		mySprites = new VBox();
-		getParams();
-		createSprites();
-        	createSpriteTabs();
-        	this.setPrefWidth(110);
-
+	protected SpriteManager() {
 	}
 	
 	private void createSprites() {
@@ -46,17 +36,55 @@ public class SpriteManager extends TabPane {
 		myAEM.addDefaultSprite(s2);
 		myAEM.addDefaultSprite(s3);
 		myAEM.addDefaultSprite(s4);
-
-		mySprites.getChildren().addAll(s1, s2, s3, s4);
-		myGrid.addDragObject(s1);
-		myGrid.addDragObject(s2);
-		myGrid.addDragObject(s3);
-		myGrid.addDragObject(s4);
+		setupDefaultSprites();
+//		mySprites.getChildren().addAll(s1, s2, s3, s4);
+//		myGrid.addDragObject(s1);
+//		myGrid.addDragObject(s2);
+//		myGrid.addDragObject(s3);
+//		myGrid.addDragObject(s4);
 
 //		createImageStack("tree.png");
 //		createImageStack("brick.png");
 //		createImageStack("water.png");
 //		createImageStack("pikachu.png");	    
+	}
+	
+	public void construct(DraggableGrid grid, AuthoringEnvironmentManager AEM, SpriteObjectGridManagerI SOGM){
+		mySPF = new SpriteParameterFactory();
+	    myAEM = AEM;
+	    mySOGM = SOGM;
+		myGrid = grid;
+		mySprites = new VBox();
+		getParams();
+		createSprites();
+        	createSpriteTabs();
+        	this.setPrefWidth(110);
+	}
+	
+	private void setDefaultSpriteVBox(ArrayList<SpriteObject> defaults) {
+		mySprites.getChildren().clear();
+		defaults.forEach(SO->{
+			mySprites.getChildren().addAll((SpriteObject)SO);
+		});
+		
+	}
+	
+	public void setupDefaultSprites() {
+		ArrayList<SpriteObject> defaults = myAEM.getDefaultGameSprites();
+		setDefaultSpriteVBox(defaults);
+		makeDefaultSpritesDraggable(defaults);
+	}
+	
+	public void addDefaultSprite(SpriteObject SO){
+		mySprites.getChildren().add(SO.newCopy());
+	}
+	
+
+	
+	private void makeDefaultSpritesDraggable(ArrayList<SpriteObject> defaults){
+		defaults.forEach(SO->{
+			myGrid.addDragObject(SO);
+		});
 	}
 	
 	public void getParams() {

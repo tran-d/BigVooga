@@ -8,22 +8,22 @@ public class AuthoringEnvironmentManager {
 	private SpriteObjectI defaultEmptySprite;
 	private SpriteParameterSidebarManager SPSM;
 	private SpriteObjectGridManagerI SOGM;
-	private ArrayList<SpriteObjectI> defaultSprites;
+	private ArrayList<SpriteObject> defaultSprites;
 	private ArrayList<SpriteObjectI> userSprites;
 	
 	public AuthoringEnvironmentManager() {
 		defaultEmptySprite = new SpriteObject();
 		SPSM = new SpriteParameterSidebarManager();
 		SOGM = new SpriteObjectGridManager();
-		defaultSprites = new ArrayList<SpriteObjectI>();
+		defaultSprites = new ArrayList<SpriteObject>();
 		userSprites = new ArrayList<SpriteObjectI>();
 	}
 	
-	public ArrayList<SpriteObjectI> getDefaultGameSprites() {
-		return defaultSprites;
+	public ArrayList<SpriteObject> getDefaultGameSprites() {
+		return new ArrayList<SpriteObject>(defaultSprites);
 	}
 	
-	public void addDefaultSprite(SpriteObjectI SOI){
+	public void addDefaultSprite(SpriteObject SOI){
 		defaultSprites.add(SOI);
 	}
 	
