@@ -1,6 +1,7 @@
 package authoring;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -54,6 +55,14 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 		}
 		return ret;
 	}
+	
+	@Override
+	public ImageView[][] populateCell(SpriteObjectI spriteObject, Integer[] row_col) {
+		
+			setCell(spriteObject.newCopy(), row_col);
+		
+		return getGrid();
+	}
 
 	@Override
 	public ImageView[][] populateCell(SpriteObjectI spriteObject, ArrayList<Integer[]> row_col) {
@@ -74,9 +83,41 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 	}
 	
 	@Override
-	public void addActiveCells(ArrayList<Integer[]> makeActive){
-		activeCells.addAll(makeActive);
+	public boolean switchCellActiveStatus(Integer[] makeActive){
+//		System.out.println(makeActive);
+		return changeCellActiveStatus(makeActive);
 	}
+	
+	@Override
+	public void switchCellActiveStatus(ArrayList<Integer[]> makeActive){
+//		activeCells.addAll(makeActive);
+		makeActive.forEach(pos -> {
+			changeCellActiveStatus(pos);
+		});
+	}
+	
+	
+	private boolean changeCellActiveStatus(Integer [] pos){
+//		System.out.println("ChangingStatus");
+//		Integer[] a = {3,4};
+//		Integer[] b = {3,4};
+//		Integer[] c = {3,5};
+//		System.out.println(Arrays.equals(a, b));
+//		System.out.println(a.equals(c));
+		for (Integer[] currentActive : activeCells){
+			if (Arrays.equals(currentActive, pos)){
+				activeCells.remove(currentActive);
+				return false;
+			}
+		}
+		activeCells.add(pos);
+		return true;	
+	}
+	
+//	@Override 
+//	public void switchCellActiveStatus(SpriteObjectI SOI){
+//		activeCells.add(SOI.getPositionOnGrid());
+//	}
 	
 	@Override
 	public void removeActiveCells(ArrayList<Integer[]> makeInactive){

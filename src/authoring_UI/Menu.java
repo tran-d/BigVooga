@@ -23,6 +23,9 @@ public class Menu extends VBox {
 	private ScrollPane myStateSP;
 	private TabPane myParamTabs;
 	private TabPane mySpriteTabs;
+	private VBox myParamTabVBox;
+	private TextArea myParameterErrorMessage;
+	
 
 	private final static String LOAD = "Load";
 	private final static String SAVE = "Save";
@@ -32,32 +35,47 @@ public class Menu extends VBox {
 	protected Menu(AuthoringEnvironmentManager AEM) {
 		myAEM = AEM;
 		setUpMenu();
-
+		
 	}
 	
-	protected void displayParams() {
-		Map<String, ArrayList<SpriteParameterI>> paramMap = new HashMap<String, ArrayList<SpriteParameterI>>();
-		try {
-			paramMap = myAEM.getActiveCellParameters().getParameters();
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		for (Map.Entry<String, ArrayList<SpriteParameterI>> entry : paramMap.entrySet()) {
-			String category = entry.getKey();
-			ArrayList<SpriteParameterI> newParams = entry.getValue();
-			FEParameterFactory newFactory = new FEParameterFactory(newParams);
-			myStateSP.setContent(newFactory);
-		}
-		
-		this.setPrefWidth(MENU_WIDTH);
+	private void setErrorMessage(){
+		myParameterErrorMessage = new TextArea("Either no active cells or active cells have different parameters");
+//	System.out.println("Making error message");
+	}
+	
+	
+//	protected void displayParams() {
+//		Map<String, ArrayList<SpriteParameterI>> paramMap = new HashMap<String, ArrayList<SpriteParameterI>>();
+//		try {
+//			paramMap = myAEM.getActiveCellParameters().getParameters();
+//			for (Map.Entry<String, ArrayList<SpriteParameterI>> entry : paramMap.entrySet()) {
+//				String category = entry.getKey();
+//				ArrayList<SpriteParameterI> newParams = entry.getValue();
+//				FEParameterFactory newFactory = new FEParameterFactory(newParams);
+//				myStateSP.setContent(newFactory);
+//			}
+//		} catch (Exception e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//			myStateSP.setContent(new TextArea("No params to show"));
+//		}
+//		
+//		
+//		this.setPrefWidth(MENU_WIDTH);
+//	}
+	
+	private HashMap<String, ArrayList<SpriteParameterI>> getParametersOfActiveCells() throws Exception {
+		return myAEM.getActiveCellParameters().getParameters();
 	}
 	
 	private void setUpMenu() {
+		setErrorMessage();
 		createButtons();
-		createStatePane();
 		createCategoryTabs();
 		createSpriteTabs();
+		createStatePane(new VBox());
+//		createCategoryTabs();
+//		createSpriteTabs();
 	}
 	
 	private void createButtons() {
@@ -74,7 +92,9 @@ public class Menu extends VBox {
 	private void createSpriteTabs() {
 		mySpriteTabs = new TabPane();
 		Tab parameters = new Tab("Parameters");
-		parameters.setContent(myParamTabs);
+//		parameters.setOnSelectionChanged(e->{displayParams();});
+//		parameters.setContent(myParamTabs);
+		parameters.setContent(createParameterTab());
 		Tab actions = new Tab("Actions");
 		actions.setContent(new TextArea("actions go here"));
 		Tab dialogue = new Tab("Dialogue");
@@ -85,33 +105,112 @@ public class Menu extends VBox {
 		this.getChildren().add(mySpriteTabs);
 	}
 	
+	private VBox createParameterTab() {
+		myParamTabVBox = new VBox();
+		Button applyButton = new Button();
+		myParamTabVBox.getChildren().addAll(myParamTabs,  applyButton);
+		
+		setDefaultParameterVBox();
+		
+//		theHorizTabs = myParamTabs;
+		
+		applyButton.textProperty().setValue("Apply Button");
+		applyButton.setOnAction(e -> {
+			apply();
+		});
+		
+//		myParamTabVBox.getChildren().addAll(theHorizTabs,  applyButton);
+//		addParameterErrorMessage();
+		return myParamTabVBox;
+	}
+	
 	private void createCategoryTabs() {
 		myParamTabs = new TabPane();
-		Tab newCategory = new Tab("Category");
-		newCategory.setContent(myStateSP);
-		newCategory.setClosable(false);
-		myParamTabs.getTabs().add(newCategory);
 		myParamTabs.setSide(Side.RIGHT);
+//		setDefaultParameterTab();
+//		Tab newCategory = new Tab("Category");
+//		newCategory.setContent(myStateSP);
+//		newCategory.setClosable(false);
+//		myParamTabs.getTabs().add(newCategory);
+//		myParamTabs.setSide(Side.RIGHT);
 		
-		this.getChildren().add(myParamTabs);		
+		
+//		this.getChildren().addAll(myParamTabs);	
+//		return myParamTabs;
+	}
+	
+	private void setDefaultParameterTab() {
+		myParamTabs.getTabs().clear();
+	}
+	
+	private void setDefaultParameterVBox(){
+		setDefaultParameterTab();
+		addParameterErrorMessage();
+	}
+	
+	private void removeParameterErrorMessage(){
+		if (myParamTabVBox.getChildren().contains(myParameterErrorMessage)) {
+			myParamTabVBox.getChildren().remove(myParameterErrorMessage);
+		}
+	}
+	
+	private void addParameterErrorMessage(){
+		if (!myParamTabVBox.getChildren().contains(myParameterErrorMessage)) {
+			System.out.println(myParamTabVBox.getChildren().size());
+			myParamTabVBox.getChildren().add(1, myParameterErrorMessage);
+		}
+	}
+	
+	public void updateParameterTab() {
+		try{
+		HashMap<String, ArrayList<SpriteParameterI>> params = getParametersOfActiveCells();
+		for (Map.Entry<String, ArrayList<SpriteParameterI>> entry : params.entrySet()) {
+			
+			String category = entry.getKey();
+			System.out.println(category);
+			ArrayList<SpriteParameterI> newParams = entry.getValue();
+			FEParameterFactory newFactory = new FEParameterFactory(newParams);
+			
+			Tab newCategory = new Tab(category);
+			newCategory.setContent(createStatePane(newFactory));
+			newCategory.setClosable(false);
+			myParamTabs.getTabs().add(newCategory);
+			
+	}
+		removeParameterErrorMessage();
+		} catch (Exception e){
+			setDefaultParameterTab();
+		}
+		this.setPrefWidth(MENU_WIDTH);
+	}
+	
+	private void formatParametersVBox(VBox in) {
+		in.setPrefWidth(500);
+		in.setPrefHeight(500);
+//		return in;
 	}
 
 
-	private void createStatePane() {
-		myStateSP = new ScrollPane();
-		myStateSP.setPrefSize(MENU_WIDTH,MENU_HEIGHT);
-		myStateSP.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-		myStateSP.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-		VBox temp = new VBox();
-		temp.getChildren().add(new Text("states go here"));
-		temp.setPrefWidth(500);
-		temp.setPrefHeight(500);
-		myStateSP.setContent(temp);
-		
-		this.getChildren().add(myStateSP);
+	private ScrollPane createStatePane(VBox temp) {
+		ScrollPane myStateSP_dummy = new ScrollPane();
+		myStateSP_dummy.setPrefSize(MENU_WIDTH,MENU_HEIGHT);
+		myStateSP_dummy.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+		myStateSP_dummy.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+//		VBox temp = new VBox();
+//		temp.getChildren().add(new Text("states go here"));
+//		temp.setPrefWidth(500);
+//		temp.setPrefHeight(500);
+		formatParametersVBox(temp);
+		myStateSP_dummy.setContent(temp);
+		return myStateSP_dummy;
+//		this.getChildren().add(myStateSP);
 	}
 	
 	private void buttonInteraction() {
+		
+	}
+	
+	private void apply() {
 		
 	}
 	

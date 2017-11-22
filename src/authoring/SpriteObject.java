@@ -20,10 +20,7 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 	}
 
 	public SpriteObject(String fileURL){
-		myImageURL = fileURL;
-		this.setImage(new Image(myImageURL));
-		this.setFitWidth(45);
-		this.setFitHeight(45);
+		setupImageURLAndView(fileURL);
 	}
 	
 	SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap) {
@@ -32,13 +29,29 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 	
 	SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap, String fileURL) {
 		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(inCategoryMap);
+		setupImageURLAndView(fileURL);
+	}
+	
+	private void setupImageURLAndView(String fileURL){
 		myImageURL = fileURL;
 		this.setImage(new Image(myImageURL));
+		this.setFitWidth(45);
+		this.setFitHeight(45);
 	}
 	
 	@Override
 	public ImageView getImageView(){
 		return myImageView;
+	}
+	
+	@Override 
+	public Integer[] getPositionOnGrid(){
+		return myPositionOnGrid;
+	}
+	
+	@Override 
+	public void setPositionOnGrid(Integer[] pos){
+		myPositionOnGrid = pos;
 	}
 	
 	@Override 
@@ -110,7 +123,7 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 	
 	@Override
 	public SpriteObject newCopy(){
-		System.out.println("Making copy");
+//		System.out.println("Making copy");
 		if(this.myImageURL!=null) {
 		return new SpriteObject(this.categoryMap, this.myImageURL);
 		} else {
@@ -159,12 +172,6 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 			}
 		}
 		return ret;
-	}
-
-	@Override
-	public Integer[] getPositionOnGrid() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	
