@@ -1,7 +1,7 @@
 package engine.Conditions;
 
 import engine.Condition;
-import engine.VariableContainer;
+import engine.GameObject;
 import engine.World;
 
 /**
@@ -20,7 +20,8 @@ public class ClickHeld extends Condition {
 	 * Returns true if the primary mouse button is down, regardless of whether or not it was down in the previous step
 	 */
 	@Override
-	public boolean isTrue(VariableContainer asking, World world) {
+	public boolean isTrue(GameObject asking, World world) {
+		//TODO make inputmanager (explicitly or implicitly)
 		return world.getInputManager().isPrimaryButtonDown();
 	}
 	

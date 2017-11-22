@@ -2,7 +2,6 @@ package engine.Conditions;
 
 import engine.Condition;
 import engine.GameObject;
-import engine.VariableContainer;
 import engine.World;
 
 /**
@@ -20,7 +19,7 @@ public class BooleanTrue extends Condition {
 	}
 	
 	@Override
-	public boolean isTrue(VariableContainer asking, World world) {
+	public boolean isTrue(GameObject asking, World world) {
 		return asking.getBoolean(varName);
 	}
 	

@@ -1,7 +1,7 @@
 package engine.Conditions;
 
 import engine.Condition;
-import engine.VariableContainer;
+import engine.GameObject;
 import engine.World;
 
 public class Collision extends Condition {
@@ -14,7 +14,7 @@ public class Collision extends Condition {
 	}
 	
 	@Override
-	public boolean isTrue(VariableContainer asking, World world) {
+	public boolean isTrue(GameObject asking, World world) {
 		// TODO Auto-generated method stub
 		return false;
 	}
