@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import javafx.scene.layout.VBox;
 
 public class AuthoringEnvironmentManager {
-	
+
 	private SpriteObjectI defaultEmptySprite;
 	private SpriteParameterSidebarManager SPSM;
 	private SpriteObjectGridManagerI SOGM;
 	private ArrayList<SpriteObject> defaultSprites;
 	private ArrayList<SpriteObjectI> userSprites;
-	
+
 	public AuthoringEnvironmentManager() {
 		defaultEmptySprite = new SpriteObject();
 		SOGM = new SpriteObjectGridManager();
@@ -18,6 +18,7 @@ public class AuthoringEnvironmentManager {
 		defaultSprites = new ArrayList<SpriteObject>();
 		userSprites = new ArrayList<SpriteObjectI>();
 	}
+
 	
 	public ArrayList<SpriteObject> getDefaultGameSprites() {
 		return new ArrayList<SpriteObject>(defaultSprites);
@@ -26,27 +27,27 @@ public class AuthoringEnvironmentManager {
 	public void addDefaultSprite(SpriteObject SOI){
 		defaultSprites.add(SOI);
 	}
-	
-	public ArrayList<SpriteObjectI> getUserDefinedSprites(){
+
+	public ArrayList<SpriteObjectI> getUserDefinedSprites() {
 		return userSprites;
-		
+
 	}
-	
-	public void addUserSprite(SpriteObjectI SOI){
+
+	public void addUserSprite(SpriteObjectI SOI) {
 		userSprites.add(SOI);
 	}
-	
+
 	public SpriteObjectI getDefaultEmptySprite() {
 		return defaultEmptySprite;
 	}
+
 	
 	public SpriteObjectI getActiveCell() throws Exception{
 		return SPSM.getActiveSprite();
 	}
-	
-	public SpriteObjectGridManagerI getGridManager(){
+
+	public SpriteObjectGridManagerI getGridManager() {
 		return SOGM;
 	}
-	
 
 }

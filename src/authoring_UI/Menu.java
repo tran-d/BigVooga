@@ -3,37 +3,46 @@ package authoring_UI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteParameterI;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class Menu extends VBox {
+	private Stage myStage;
 	private Button myLoad;
 	private Button mySave;
 	private AuthoringEnvironmentManager myAEM;
 	private ScrollPane myStateSP;
+	private GridPane mySpriteCreator;
 	private TabPane myParamTabs;
 	private TabPane mySpriteTabs;
 	private VBox myParamTabVBox;
 	private TextArea myParameterErrorMessage;
 	
 
+	private MapManager myMapManager;
+
+
 	private final static String LOAD = "Load";
 	private final static String SAVE = "Save";
 	private final static double MENU_WIDTH = 400;
 	private final static double MENU_HEIGHT = 500;
 	
-	protected Menu(AuthoringEnvironmentManager AEM) {
+	protected Menu(AuthoringEnvironmentManager AEM, Stage stage, MapManager mapManager) {
 		myAEM = AEM;
+		myStage = stage;
+		myMapManager = mapManager;
 		setUpMenu();
 		
 	}
@@ -73,9 +82,11 @@ public class Menu extends VBox {
 		createButtons();
 		createCategoryTabs();
 		createSpriteTabs();
+
 		createStatePane(new VBox());
 //		createCategoryTabs();
 //		createSpriteTabs();
+		createSpriteCreator();
 	}
 	
 	private void createButtons() {
@@ -195,7 +206,12 @@ public class Menu extends VBox {
 		in.setPrefHeight(500);
 //		return in;
 	}
-
+	
+	private void createSpriteCreator() {
+		mySpriteCreator = (new SpriteCreator(myStage, myAEM, myMapManager)).getGrid();
+		this.getChildren().add(mySpriteCreator);
+		System.out.println("sprite creator added");
+	}
 
 	private ScrollPane createStatePane(VBox temp) {
 		ScrollPane myStateSP_dummy = new ScrollPane();
