@@ -35,6 +35,7 @@ public class GameMaster implements EngineController{
 		gameLoop.play();
 	}
 
+	//Not sure we really need this
 	@Override
 	public void addListener(Runnable listener) {
 		// TODO Auto-generated method stub
