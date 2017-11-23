@@ -44,8 +44,15 @@ public class ControllerTopToolBar {
 
 		@Override
 		public void handle(ActionEvent arg0) {
-			if(isAdding) actionConditionVBox.addActionCondition(topToolBar.getOptionsValue());
-			else actionConditionVBox.removeActionCondition(topToolBar.getRemoveValue());
+			if(isAdding && !(topToolBar.getOptionsValue() == null)) {
+				actionConditionVBox.addActionCondition(topToolBar.getOptionsValue());
+				topToolBar.addRemoveOption();
+			}
+			else if(!isAdding && !(topToolBar.getRemoveValue() == null)) {
+				int rowToBeRemoved = topToolBar.getRemoveValue();
+				actionConditionVBox.removeActionCondition(rowToBeRemoved);
+				topToolBar.removeRemoveOption(rowToBeRemoved - 1);
+			}
 		}
 		
 	}

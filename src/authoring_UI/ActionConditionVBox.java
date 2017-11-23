@@ -1,8 +1,11 @@
 package authoring_UI;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.collections.ListChangeListener;
+import javafx.collections.ListChangeListener.Change;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToolBar;
@@ -20,6 +23,7 @@ public class ActionConditionVBox extends VBox implements ActionConditionVBoxI{
 		super();
 		selectorLabel = selectorString;
 		actionConditionVBoxResources = ResourceBundle.getBundle(ACTIONCONDITION_RESOURCE_PATH);
+		rows = new LinkedList<ToolBar>();
 	}
 
 	@Override

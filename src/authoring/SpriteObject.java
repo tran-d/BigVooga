@@ -108,7 +108,7 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 	
 	@Override
 	public SpriteObject newCopy(){
-		System.out.println("Making copy");
+		System.out.println("");
 		if(this.myImageURL!=null) {
 		return new SpriteObject(this.categoryMap, this.myImageURL);
 		} else {

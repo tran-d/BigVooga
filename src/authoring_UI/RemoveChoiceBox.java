@@ -12,7 +12,10 @@ public class RemoveChoiceBox extends ChoiceBox<Integer> {
 	public RemoveChoiceBox() {
 		super();
 		currentRows = FXCollections.observableArrayList();
-		currentRows.addListener((ListChangeListener<Integer>) c -> setItems(currentRows));
+		currentRows.addListener((ListChangeListener<Integer>) c -> {
+			System.out.println("Hi");
+			setItems(currentRows);
+		});
 	}
 	
 	protected void addRow() {
@@ -22,6 +25,7 @@ public class RemoveChoiceBox extends ChoiceBox<Integer> {
 		else {
 			currentRows.add(currentRows.size() + 1);
 		}
+		System.out.println("Rows should have been added to...");
 	}
 	
 	protected void removeRow(int row) {

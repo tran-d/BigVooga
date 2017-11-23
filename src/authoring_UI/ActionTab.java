@@ -1,6 +1,8 @@
 package authoring_UI;
 
 import java.util.ResourceBundle;
+
+import actionTabControllers.ControllerTopToolBar;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,6 +24,8 @@ public class ActionTab extends Tab {
 	
 	private ResourceBundle actionTabResources;
 	private ScrollPane actionConditionManager;
+	private TopToolBar conditionButtons;
+	private TopToolBar actionButtons;
 	private ActionConditionVBox conditions;
 	private ActionConditionVBox actions;
 	
@@ -31,14 +35,17 @@ public class ActionTab extends Tab {
 		actionConditionManager = new ScrollPane();
 		setContent(actionConditionManager);
 		setUpActionConditionManager();
+		ControllerTopToolBar controllerTopToolBar = new ControllerTopToolBar(conditionButtons,actionButtons,conditions,actions);
 	}
 
 	private void setUpActionConditionManager() {
-		TopToolBar conditionButtons = new TopToolBar(actionTabResources,"AddConditionButtonLabel","ConditionOptions","ConditionSelectorLabel","RemoveConditionButtonLabel");
-		TopToolBar actionButtons = new TopToolBar(actionTabResources,"AddActionButtonLabel","ActionOptions","ActionSelectorLabel","RemoveActionButtonLabel");
+		conditionButtons = new TopToolBar(actionTabResources,"AddConditionButtonLabel","ConditionOptions","ConditionSelectorLabel","RemoveConditionButtonLabel");
+		actionButtons = new TopToolBar(actionTabResources,"AddActionButtonLabel","ActionOptions","ActionSelectorLabel","RemoveActionButtonLabel");
 		conditions = new ActionConditionVBox(actionTabResources.getString("ConditionSelectorLabel"));
 		actions = new ActionConditionVBox(actionTabResources.getString("ActionSelectorLabel"));
 		Separator separator = ActionTabUtil.makeVerticalSeparator();
-		actionConditionManager.getChild(conditionButtons,actionButtons,conditions,separator,actions);
+		VBox mainVBox = new VBox();
+		mainVBox.getChildren().addAll(conditionButtons,actionButtons,conditions,separator,actions);
+		actionConditionManager.setContent(mainVBox);
 	}
 }

@@ -58,6 +58,7 @@ public class TopToolBar extends ToolBar implements TopToolBarI {
 
 	@Override
 	public void addRemoveOption() {
+		System.out.println("TopToolBar shows it's being added");
 		removeRow.addRow();
 	}
 
