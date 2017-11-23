@@ -5,6 +5,8 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import authoring.drawing.BoundingPolygonCreator;
+import authoring.drawing.ImageCanvas;
 import engine.GameMaster;
 import engine.utilities.collisions.BoundingPolygon;
 import engine.utilities.data.GameDataHandler;
@@ -25,7 +27,15 @@ public class EngineTester extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		//testCollisions();
-		testData(stage);
+		//testData(stage);
+		testImageCanvas(stage);
+	}
+
+	private void testImageCanvas(Stage stage) {
+		Group g = new Group();
+		stage.setScene(new Scene(g));
+		g.getChildren().add(new ImageCanvas());
+		stage.show();
 	}
 
 	private void testDrawer(Stage stage) {
@@ -35,8 +45,6 @@ public class EngineTester extends Application {
 		Pane bpd = new BoundingPolygonCreator(
 				new Image(new GameDataHandler("Test").chooseFile(new Stage()).toURI().toString()),
 				"Irrelevant, for now", i -> System.out.println(i));
-		bpd.setLayoutX(50);
-		bpd.setLayoutY(50);
 		g.getChildren().add(bpd);
 		stage.show();
 	}
