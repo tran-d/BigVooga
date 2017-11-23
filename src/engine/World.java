@@ -1,9 +1,14 @@
 package engine;
 import java.util.List;
 
-public interface World extends Iterable<GameObject>{
+import player.PlayerManager;
+
+public interface World extends Iterable<GenericObject>{
+	
 	public void addGameObject(GameObject obj);
+	public void addGameObjects(List<GameObject> obj);
 	public void removeGameObject(GameObject obj);
+	public void removeGameObjects(List<GameObject> obj);
 	public List<GameObject> getWithTag(String tag);
 	
 	//The World should have its own name to make things easily distinguishable.
@@ -11,5 +16,11 @@ public interface World extends Iterable<GameObject>{
 	
 	public void step();
 	
-	public void addGlobalVars(GlobalVariables gv);
+	public void addGlobalVars(VariableContainer gv);
+	
+	public PlayerManager getInputManager();
+	
+	public void setNextWorld(World w);
+	
+	public World getNextWorld();
 }
