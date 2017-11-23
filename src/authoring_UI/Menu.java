@@ -65,7 +65,7 @@ public class Menu extends VBox {
 //	}
 	
 	private HashMap<String, ArrayList<SpriteParameterI>> getParametersOfActiveCells() throws Exception {
-		return myAEM.getActiveCellParameters().getParameters();
+		return myAEM.getActiveCell().getParameters();
 	}
 	
 	private void setUpMenu() {
@@ -139,12 +139,12 @@ public class Menu extends VBox {
 //		return myParamTabs;
 	}
 	
-	private void setDefaultParameterTab() {
+	private void clearParameterTab() {
 		myParamTabs.getTabs().clear();
 	}
 	
 	private void setDefaultParameterVBox(){
-		setDefaultParameterTab();
+		clearParameterTab();
 		addParameterErrorMessage();
 	}
 	
@@ -163,7 +163,13 @@ public class Menu extends VBox {
 	
 	public void updateParameterTab() {
 		try{
+	    clearParameterTab();
+	    removeParameterErrorMessage();
 		HashMap<String, ArrayList<SpriteParameterI>> params = getParametersOfActiveCells();
+		System.out.println("Params size: "+params.size());
+		System.out.println("Params keys: "+params.keySet());
+		System.out.println("Params values: "+params.values());
+//		if (params.size()>0)
 		for (Map.Entry<String, ArrayList<SpriteParameterI>> entry : params.entrySet()) {
 			
 			String category = entry.getKey();
@@ -177,9 +183,9 @@ public class Menu extends VBox {
 			myParamTabs.getTabs().add(newCategory);
 			
 	}
-		removeParameterErrorMessage();
+		
 		} catch (Exception e){
-			setDefaultParameterTab();
+			setDefaultParameterVBox();
 		}
 		this.setPrefWidth(MENU_WIDTH);
 	}

@@ -13,8 +13,8 @@ public class AuthoringEnvironmentManager {
 	
 	public AuthoringEnvironmentManager() {
 		defaultEmptySprite = new SpriteObject();
-		SPSM = new SpriteParameterSidebarManager();
 		SOGM = new SpriteObjectGridManager();
+		SPSM = new SpriteParameterSidebarManager(SOGM);
 		defaultSprites = new ArrayList<SpriteObject>();
 		userSprites = new ArrayList<SpriteObjectI>();
 	}
@@ -40,8 +40,8 @@ public class AuthoringEnvironmentManager {
 		return defaultEmptySprite;
 	}
 	
-	public SpriteObjectI getActiveCellParameters() throws Exception{
-		return SPSM.getParameters(SOGM);
+	public SpriteObjectI getActiveCell() throws Exception{
+		return SPSM.getActiveSprite();
 	}
 	
 	public SpriteObjectGridManagerI getGridManager(){

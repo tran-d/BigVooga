@@ -129,7 +129,7 @@ public class DraggableGrid extends HBox {
                 e.setDropCompleted(true);
 
                 
-                mySpriteManager.addDefaultSprite(draggingObject);
+                mySpriteManager.addNewDefaultSprite(draggingObject);
                 draggingObject = null;
             }  
 //            mySpriteManager.setupDefaultSprites();

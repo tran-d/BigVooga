@@ -75,16 +75,22 @@ public class SpriteManager extends TabPane {
 		makeDefaultSpritesDraggable(defaults);
 	}
 	
-	public void addDefaultSprite(SpriteObject SO){
-		mySprites.getChildren().add(SO.newCopy());
+	public void addNewDefaultSprite(SpriteObject SO){
+		SpriteObject newSO = SO.newCopy();
+		mySprites.getChildren().add(newSO);
+		makeSpriteDraggable(newSO);
 	}
 	
 
 	
 	private void makeDefaultSpritesDraggable(ArrayList<SpriteObject> defaults){
 		defaults.forEach(SO->{
-			myGrid.addDragObject(SO);
+			makeSpriteDraggable(SO);
 		});
+	}
+	
+	private void makeSpriteDraggable(SpriteObject SO){
+		myGrid.addDragObject(SO);
 	}
 	
 	public void getParams() {
