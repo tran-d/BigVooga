@@ -1,8 +1,8 @@
+package engine;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import engine.BoundedImage;
 import engine.utilities.collisions.BoundingGeometry;
 import engine.utilities.collisions.BoundingPolygon;
 import engine.utilities.collisions.RelativeBoundingGeometry;
