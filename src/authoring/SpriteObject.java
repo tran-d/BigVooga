@@ -13,6 +13,7 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 	private ImageView myImageView;
 	private String myImageURL;
 	private Integer[] myPositionOnGrid;
+	private String myName;
 
 	
 	public SpriteObject() {
@@ -21,6 +22,7 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 
 	public SpriteObject(String fileURL){
 		setupImageURLAndView(fileURL);
+		myName = fileURL.split(".")[0];
 	}
 	
 	SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap) {
@@ -172,6 +174,11 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 			}
 		}
 		return ret;
+	}
+
+	@Override
+	public String getName() {
+		return myName;
 	}
 	
 	

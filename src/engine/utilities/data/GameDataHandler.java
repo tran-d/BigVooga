@@ -13,6 +13,7 @@ import java.util.Scanner;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
+import authoring.SpriteObject;
 import engine.EngineController;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
@@ -27,6 +28,7 @@ public class GameDataHandler {
 //	public static final String IMAGE_PATH = "resources/";
 	private static final String CONTROLLER_FILE = "Engine_Controller_Save_File";
 	private static final String SELECTOR_TITLE = "Open Resource File";
+	private static final String SPRITE_PATH = "data/Sprites/";
 	private String projectPath;
 	
 	public GameDataHandler(String projectName) {
@@ -75,5 +77,12 @@ public class GameDataHandler {
 	private static void makeDirectory(String path) {
 		File file = new File(path);
 		file.mkdirs();
+	}
+	
+	public void saveSprite(SpriteObject SO) throws IOException {
+		String toSave = SERIALIZER.toXML(SO);
+		FileWriter writer = new FileWriter(SPRITE_PATH+SO.getName());
+        writer.write(toSave);
+        writer.close();
 	}
 }
