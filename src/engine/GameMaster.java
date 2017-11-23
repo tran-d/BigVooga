@@ -1,5 +1,6 @@
 package engine;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.animation.KeyFrame;
@@ -19,6 +20,8 @@ public class GameMaster implements EngineController{
 	
 	public GameMaster(PlayerManager playerManager) {
 		// TODO Auto-generated constructor stub
+		madeWorlds = new ArrayList<World>();
+		
 		gameLoop = new Timeline();
 		KeyFrame frame = new KeyFrame(Duration.millis(DEFAULT_DELAY), e -> step());
 		gameLoop.setCycleCount(Timeline.INDEFINITE);
@@ -29,7 +32,6 @@ public class GameMaster implements EngineController{
 	@Override
 	public void start() {
 		// TODO Auto-generated method stub
-
 		gameLoop.play();
 	}
 
