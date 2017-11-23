@@ -124,6 +124,18 @@ public abstract class GameObject extends VariableContainer {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
+	/**
+	 * NEEDS COMPLETION
+	 * @return BoundedImage
+	 */
+	
+	public BoundedImage getImage()
+	{
+		//TODO return Object's image
+		return null;
+	}
 
 	public GameObject clone() {
 		GameObject copy = new GenericObject(name);

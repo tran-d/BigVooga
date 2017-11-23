@@ -3,6 +3,7 @@ package player;
 import java.util.ArrayList;
 import java.util.List;
 
+import engine.BoundedImage;
 import engine.EngineController;
 import engine.GameMaster;
 import javafx.scene.input.KeyCode;
@@ -63,6 +64,14 @@ public class PlayerManager {
 	
 	public void setEngine(EngineController currentEngineController) {
 		engineController = currentEngineController;
+	}
+	
+	/**
+	 * INCOMPLETE: for handling the given image data at each step.
+	 * @param images
+	 */
+	public void getImageData(List<BoundedImage> images) {
+		
 	}
 	
 }
