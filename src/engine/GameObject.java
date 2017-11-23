@@ -1,53 +1,133 @@
 package engine;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
-public interface GameObject {
+public abstract class GameObject extends VariableContainer {
 	
-//	private List<String> tags;
-//	private Map<Condition, List<Action>> events;
-//	private Map<String, Integer> intVars;
-//	private Map<String, Double> doubleVars;
-//	private Map<String, String> StringVars;
+	private String name;
+	private Set<String> tagSet;
+	private Map<Condition, List<Action>> events;
+	private double x, y, heading;
+
+	public GameObject(String name) {
+		// TODO Auto-generated constructor stub
+		this.name = name;
+		tagSet = new HashSet<String>();
+		x = 0;
+		y = 0;
+		heading = 0;
+		events = new TreeMap<>();
+	}
 	
-	public void addTag(String tag);
+	public String getName() {
+		return name;
+	}
 
-	public boolean is(String tag);
+	public void addTag(String tag) {
+		// TODO Auto-generated method stub
+		tagSet.add(tag);
+	}
+
+	public boolean is(String tag) {
+		// TODO Auto-generated method stub
+		return tagSet.contains(tag);
+	}
+
+	public List<String> getTags() {
+		// TODO Auto-generated method stub
+		return new ArrayList<String>(tagSet);
+	}
+
+	public void setGlobal(String variableName, boolean global) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void makeAllGlobal() {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void addToObjectList(GameObject o) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void addConditionAction(Condition c, List<Action> a) {
+		events.put(c, a);
+	}
+
+	public void step(World w) {
+		for(Condition c : events.keySet()) {
+			for(Action a : events.get(c)) {
+				if(c.isTrue(this, w)) {
+					a.execute(this, w);
+				}
+			}
+		}
+	}
 	
-	public String getName();
-
-	public List<String> getTags();
+	/**
+	 * This is meant for the frontend to use for the purpose of placing a new instance of an object into the world.
+	 * @param x, y
+	 */
+	public void setCoords(double x, double y) {
+		// TODO Trigger listeners here
+		this.x = x;
+		this.y = y;
+	}
 	
-	public void setCoords(double x, double y);
+	public double getX() {
+		return x;
+	}
 	
-	public double getX();
+	public double getY() {
+		return y;
+	}
 	
-	public double getY();
+	public void setHeading(double newHeading) {
+		heading = newHeading;
+	}
 	
-	public void setHeading(double newHeading);
-	
-	public double getHeading();
+	public double getHeading() {
+		return heading;
+	}
 
-	public void setGlobal(String variableName, boolean global);
+	public Set<Integer> getPriorities() {
+		Set<Integer> priorities = new TreeSet<Integer>();
+		for(Condition c : events.keySet()) {
+			priorities.add(c.getPriority());
+		}
+		return priorities;
+	}
 
-	public void makeAllGlobal();
+	public void setIntegerVariable(String name, int val) {}
 
-	public void setIntegerVariable(String name, int val);
+	public void setBooleanVariable(String name, Boolean value) {
+		// TODO Auto-generated method stub
+		
+	}
 
-	public void setDoubleVariable(String name, double val);
-
-	public void setStringVariable(String name, String val);
-
-	public void addToObjectList(GameObject o);
-
-	public void addConditionAction(Condition c, List<Action> a);
-	
-	// TODO Add to API_CHANGES
-	// Get list of priority numbers of conditions
-	public Set<Integer> getPriorities();
-
-	public void step(World w);
-	
-	public GameObject clone();
+	public GameObject clone() {
+		GameObject copy = new GenericObject(name);
+		copy.setCoords(x, y);
+		copy.setHeading(heading);
+		for(String tag: tagSet)
+			copy.addTag(tag);
+		for(String var : stringVars.keySet())
+			copy.setStringVariable(var, stringVars.get(var));
+		for(String var : doubleVars.keySet())
+			copy.setDoubleVariable(var, doubleVars.get(var));
+		for(String var : booleanVars.keySet())
+			copy.setBooleanVariable(var, booleanVars.get(var));
+		for(Condition c : events.keySet()) 
+			copy.addConditionAction(c, new ArrayList<>(events.get(c)));
+		return copy;
+	}
 }

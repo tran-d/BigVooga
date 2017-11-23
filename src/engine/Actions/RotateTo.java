@@ -14,8 +14,8 @@ public class RotateTo implements Action {
 	}
 	
 	@Override
-	public void execute(VariableContainer asking, World world) {
-		((GameObject)asking).setHeading(newHeading);
+	public void execute(GameObject asking, World world) {
+		asking.setHeading(newHeading);
 	}
 
 }

@@ -16,9 +16,8 @@ public class Move implements Action {
 	}
 	
 	@Override
-	public void execute(VariableContainer asking, World world) {
-		GameObject obj = (GameObject)asking;
-		obj.setCoords(obj.getX() + xIncrement, obj.getY() + yIncrement);
+	public void execute(GameObject asking, World world) {
+		asking.setCoords(asking.getX() + xIncrement, asking.getY() + yIncrement);
 	}
 
 }

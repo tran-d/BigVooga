@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Holds variables of different types with String names. Create an instance of this for GlobalVariables. GameObject extends this.
+ * Holds variables of different types with String names. GameObject and GlobalVariables extend this.
  * 
  * @author aaronpaskin
  *

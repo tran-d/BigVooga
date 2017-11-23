@@ -1,7 +1,7 @@
 package engine.Actions;
 
 import engine.Action;
-import engine.VariableContainer;
+import engine.GameObject;
 import engine.World;
 
 public class ChangeString implements Action {
@@ -15,7 +15,7 @@ public class ChangeString implements Action {
 	}
 	
 	@Override
-	public void execute(VariableContainer asking, World world) {
+	public void execute(GameObject asking, World world) {
 		asking.setStringVariable(varName, newString);
 	}
 	

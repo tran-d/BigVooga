@@ -10,11 +10,13 @@ import player.PlayerManager;
 public class GameWorld implements World {
 	
 	private final static String DEFAULT_NAME = "world";
+	public final static String PLAYER_TAG = "Player";
+	
 	private String worldName;
 	private List<GameObject> worldObjects;
 	private Map<Integer, List<GameObject>> conditionPriorities;
 	private VariableContainer globalVars;
-	private GameObjectFactory gameObjectFactory;
+	private GameObjectFactory GameObjectFactory;
 	private PlayerManager input;
 	private World nextWorld;
 
@@ -25,14 +27,14 @@ public class GameWorld implements World {
 	
 	public GameWorld(String name) {
 		worldName = name;
-		worldObjects = new ArrayList<GameObject>();
-		input = new PlayerManager();					//TODO create InputManager
+		worldObjects = new ArrayList<>();
+		input = new PlayerManager();
 		nextWorld = this;
 	}
 
 	// I don't know what to do with this.
 	@Override
-	public Iterator<GameObject> iterator() {
+	public Iterator<GenericObject> iterator() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -52,6 +54,13 @@ public class GameWorld implements World {
 			}
 		}
 	}
+	
+	@Override
+	public void addGameObjects(List<GameObject> obj) {
+		for(GameObject o : obj) {
+			addGameObject(o);
+		}
+	}
 
 	@Override
 	public void removeGameObject(GameObject obj) {
@@ -64,11 +73,18 @@ public class GameWorld implements World {
 			}
 		}
 	}
+	
+	@Override
+	public void removeGameObjects(List<GameObject> obj) {
+		for(GameObject o : obj) {
+			removeGameObject(o);
+		}
+	}
 
 	@Override
 	public List<GameObject> getWithTag(String tag) {
 		// TODO Auto-generated method stub
-		List<GameObject> tempList = new ArrayList<GameObject>();
+		List<GameObject> tempList = new ArrayList<>();
 		for (GameObject o : worldObjects) {
 			for (String s : o.getTags()) {
 				if (s.equals(tag)) {
