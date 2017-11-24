@@ -9,6 +9,7 @@ import authoring.SpriteObjectI;
 import authoring.SpriteParameterFactory;
 import authoring.SpriteParameterI;
 import javafx.geometry.Side;
+import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
@@ -63,8 +64,10 @@ public class SpriteManager extends TabPane {
 	
 	private void setDefaultSpriteVBox(ArrayList<SpriteObject> defaults) {
 		mySprites.getChildren().clear();
+		mySprites.setPrefWidth(300);
 		defaults.forEach(SO->{
-			mySprites.getChildren().addAll((SpriteObject)SO);
+			StackPane spriteStack = new StackPane((SpriteObject)SO);
+			mySprites.getChildren().addAll(spriteStack);
 		});
 		
 	}

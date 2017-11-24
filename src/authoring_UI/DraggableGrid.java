@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import authoring.SpriteObject;
 import authoring.SpriteObjectGridManagerI;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -128,7 +129,6 @@ public class DraggableGrid extends HBox {
                 pane.getChildren().add(draggingObject);
                 e.setDropCompleted(true);
 
-                
                 mySpriteManager.addDefaultSprite(draggingObject);
                 draggingObject = null;
             }  

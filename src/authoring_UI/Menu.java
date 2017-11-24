@@ -29,7 +29,7 @@ public class Menu extends VBox {
 
 	private final static String LOAD = "Load";
 	private final static String SAVE = "Save";
-	private final static double MENU_WIDTH = 400;
+	private final static double MENU_WIDTH = 300;
 	private final static double MENU_HEIGHT = 500;
 	
 	protected Menu(AuthoringEnvironmentManager AEM) {
@@ -74,6 +74,7 @@ public class Menu extends VBox {
 		createCategoryTabs();
 		createSpriteTabs();
 		createStatePane(new VBox());
+		this.setPrefWidth(400);
 //		createCategoryTabs();
 //		createSpriteTabs();
 	}
@@ -185,7 +186,7 @@ public class Menu extends VBox {
 	}
 	
 	private void formatParametersVBox(VBox in) {
-		in.setPrefWidth(500);
+		in.setPrefWidth(300);
 		in.setPrefHeight(500);
 //		return in;
 	}
