@@ -3,6 +3,7 @@ package player;
 import java.util.ArrayList;
 import java.util.List;
 
+import engine.BoundedImage;
 import engine.EngineController;
 import engine.GameMaster;
 import javafx.event.EventHandler;
@@ -91,6 +92,13 @@ public class PlayerManager {
 		prevPrimaryButtonDown = primaryButtonDown;
 		primaryButtonDown = false;
 		mouseEventHandler.handle(mouseEvent);				//how to get mouseEvent?
+
+	/**
+	 * INCOMPLETE: for handling the given image data at each step.
+	 * @param images
+	 */
+	public void getImageData(List<BoundedImage> images) {
+	
 	}
 	
 }

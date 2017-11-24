@@ -130,5 +130,10 @@ public class GameWorld implements World {
 	public World getNextWorld() {
 		return nextWorld;
 	}
+	
+	public List<GameObject> getAllObjects()
+	{
+		return worldObjects;
+	}
 
 }

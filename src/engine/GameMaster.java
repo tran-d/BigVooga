@@ -1,5 +1,6 @@
 package engine;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.animation.KeyFrame;
@@ -19,6 +20,8 @@ public class GameMaster implements EngineController{
 	
 	public GameMaster(PlayerManager playerManager) {
 		// TODO Auto-generated constructor stub
+		madeWorlds = new ArrayList<World>();
+		
 		gameLoop = new Timeline();
 		KeyFrame frame = new KeyFrame(Duration.millis(DEFAULT_DELAY), e -> step());
 		gameLoop.setCycleCount(Timeline.INDEFINITE);
@@ -29,10 +32,10 @@ public class GameMaster implements EngineController{
 	@Override
 	public void start() {
 		// TODO Auto-generated method stub
-
 		gameLoop.play();
 	}
 
+	//Not sure we really need this
 	@Override
 	public void addListener(Runnable listener) {
 		// TODO Auto-generated method stub
@@ -63,12 +66,30 @@ public class GameMaster implements EngineController{
 	}
 	
 	private void step() {
+		
 		currentWorld = ((GameWorld)currentWorld).getNextWorld();
+		
 		currentWorld.step();
+		imageUpdate();
+		
 	}
 	
 	@Override
 	public void setPlayerManager(PlayerManager currentPlayerManager) {
 		playerManager = currentPlayerManager;
+	}
+	
+	
+	/**
+	 * Passes image data to playermanager.
+	 * Used in step.
+	 */
+	private void imageUpdate()
+	{
+		List<BoundedImage> imageData = new ArrayList<BoundedImage>();
+		for(GameObject o: ((GameWorld)currentWorld).getAllObjects()){
+			imageData.add(o.getImage());
+		}
+		playerManager.getImageData(imageData);
 	}
 }

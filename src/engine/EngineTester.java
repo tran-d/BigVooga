@@ -1,3 +1,4 @@
+package engine;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -5,7 +6,6 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import engine.GameMaster;
 import engine.utilities.collisions.BoundingPolygon;
 import engine.utilities.data.GameDataHandler;
 import javafx.application.Application;
@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import player.PlayerManager;
 
 public class EngineTester extends Application {
 //	public static void main(String[] args) {
@@ -43,7 +44,7 @@ public class EngineTester extends Application {
 	private void testData(Stage stage) throws IOException, FileNotFoundException, URISyntaxException {
 		GameDataHandler data = new GameDataHandler("SaverTest3");
 		data.addChosenFileToProject(stage);
-		data.saveGame(new GameMaster(50));
+		data.saveGame(new GameMaster( new PlayerManager()));
 		data.loadGame();
 		data.getImage("HexGrid.PNG");
 	}
