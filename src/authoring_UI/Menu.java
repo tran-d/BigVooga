@@ -219,14 +219,9 @@ public class Menu extends VBox {
 		myStateSP_dummy.setPrefSize(MENU_WIDTH,MENU_HEIGHT);
 		myStateSP_dummy.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 		myStateSP_dummy.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-//		VBox temp = new VBox();
-//		temp.getChildren().add(new Text("states go here"));
-//		temp.setPrefWidth(500);
-//		temp.setPrefHeight(500);
 		formatParametersVBox(temp);
 		myStateSP_dummy.setContent(temp);
 		return myStateSP_dummy;
-//		this.getChildren().add(myStateSP);
 	}
 	
 	private void buttonInteraction() {
