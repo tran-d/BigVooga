@@ -33,23 +33,20 @@ public class SpriteCreator extends Observable {
 	private static final double GRID_WIDTH = 400;
 	private static final double GRID_HEIGHT = 500;
 	public static final String PATH = "resources/";
-
 	private Stage myStage;
-	private AuthoringEnvironmentManager myAEM;
 	private GridPane myGrid;
-	private MapManager myMapManager;
+	private SpriteManager mySpriteManager;
 	private GameDataHandler myGDH;
 	private TextField myNameInput;
 	private SpriteObject mySpriteObject;
 
-	protected SpriteCreator(Stage stage, AuthoringEnvironmentManager AEM, MapManager mapManager) {
+	protected SpriteCreator(Stage stage, SpriteManager spriteManager) {
 
 		myStage = stage;
-		myAEM = AEM;
 		myGDH = new GameDataHandler("User Sprites");
 		myGrid = new GridPane();
-		myMapManager = mapManager;
-		this.addObserver(myMapManager);
+		mySpriteManager = spriteManager;
+		addObserver(mySpriteManager);
 		setGrid();
 		mySpriteObject = new SpriteObject();
 	}

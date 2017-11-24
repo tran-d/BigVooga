@@ -19,30 +19,21 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Menu extends VBox {
-	private Stage myStage;
 	private Button myLoad;
 	private Button mySave;
 	private AuthoringEnvironmentManager myAEM;
-	private ScrollPane myStateSP;
-	private GridPane mySpriteCreator;
 	private TabPane myParamTabs;
 	private TabPane mySpriteTabs;
 	private VBox myParamTabVBox;
 	private TextArea myParameterErrorMessage;
-	
-
-	private MapManager myMapManager;
-
 
 	private final static String LOAD = "Load";
 	private final static String SAVE = "Save";
 	private final static double MENU_WIDTH = 300;
 	private final static double MENU_HEIGHT = 500;
 	
-	protected Menu(AuthoringEnvironmentManager AEM, Stage stage, MapManager mapManager) {
+	protected Menu(AuthoringEnvironmentManager AEM) {
 		myAEM = AEM;
-		myStage = stage;
-		myMapManager = mapManager;
 		setUpMenu();
 		
 	}
@@ -51,27 +42,7 @@ public class Menu extends VBox {
 		myParameterErrorMessage = new TextArea("Either no active cells or active cells have different parameters");
 //	System.out.println("Making error message");
 	}
-	
-	
-//	protected void displayParams() {
-//		Map<String, ArrayList<SpriteParameterI>> paramMap = new HashMap<String, ArrayList<SpriteParameterI>>();
-//		try {
-//			paramMap = myAEM.getActiveCellParameters().getParameters();
-//			for (Map.Entry<String, ArrayList<SpriteParameterI>> entry : paramMap.entrySet()) {
-//				String category = entry.getKey();
-//				ArrayList<SpriteParameterI> newParams = entry.getValue();
-//				FEParameterFactory newFactory = new FEParameterFactory(newParams);
-//				myStateSP.setContent(newFactory);
-//			}
-//		} catch (Exception e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//			myStateSP.setContent(new TextArea("No params to show"));
-//		}
-//		
-//		
-//		this.setPrefWidth(MENU_WIDTH);
-//	}
+
 	
 	private HashMap<String, ArrayList<SpriteParameterI>> getParametersOfActiveCells() throws Exception {
 		return myAEM.getActiveCell().getParameters();
@@ -85,9 +56,6 @@ public class Menu extends VBox {
 
 		createStatePane(new VBox());
 		this.setPrefWidth(400);
-//		createCategoryTabs();
-//		createSpriteTabs();
-		createSpriteCreator();
 	}
 	
 	private void createButtons() {
@@ -173,7 +141,7 @@ public class Menu extends VBox {
 		}
 	}
 	
-	public void updateParameterTab() {
+	protected void updateParameterTab() {
 		try{
 	    clearParameterTab();
 	    removeParameterErrorMessage();
@@ -208,9 +176,9 @@ public class Menu extends VBox {
 //		return in;
 	}
 	
-	private void createSpriteCreator() {
-		mySpriteCreator = (new SpriteCreator(myStage, myAEM, myMapManager)).getGrid();
-		this.getChildren().add(mySpriteCreator);
+	protected void addSpriteCreator(SpriteCreator spriteCreator) {
+		GridPane spriteCreatorGrid = spriteCreator.getGrid();
+		this.getChildren().add(spriteCreatorGrid);
 		System.out.println("sprite creator added");
 	}
 
