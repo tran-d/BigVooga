@@ -16,5 +16,7 @@ public interface SpriteObjectI {
 	void setImageURL(String fileLocation);
 	Integer[] getPositionOnGrid();
 	void setPositionOnGrid(Integer[] pos);
+	String getName();
+	void setName(String name);
 	
 }

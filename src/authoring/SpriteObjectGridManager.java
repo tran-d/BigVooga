@@ -3,6 +3,7 @@ package authoring;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import javafx.scene.image.ImageView;
@@ -104,9 +105,21 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 //		Integer[] c = {3,5};
 //		System.out.println(Arrays.equals(a, b));
 //		System.out.println(a.equals(c));
+//		Iterator it = activeCells.iterator();
+//		while (it.hasNext()){
+//			it.next();
+//			if (Arrays.equals(,  pos)){
+//				
+//			}
+//		}
+		System.out.println("pos: "+pos);
+		
 		for (Integer[] currentActive : activeCells){
+			System.out.println("curr active: " + currentActive);
 			if (Arrays.equals(currentActive, pos)){
 				activeCells.remove(currentActive);
+				System.out.println("removed");
+				System.out.println("activeCells: " + activeCells);
 				return false;
 			}
 		}
@@ -132,6 +145,7 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 	@Override
 	public ArrayList<SpriteObjectI> getActiveSpriteObjects(){
 		ArrayList<SpriteObjectI> ret = new ArrayList<SpriteObjectI>();
+		System.out.println(activeCells.size());
 		for (Integer[] loc: activeCells){
 			ret.add(getCell(loc));
 		}
@@ -141,7 +155,7 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 	@Override
 	public void clearCells(ArrayList<Integer[]> cellsToClear){
 		for (Integer[] loc: cellsToClear){
-			setCellAsDefault(loc);
+			setCellAsDefault(loc);	
 		}
 	}
 	

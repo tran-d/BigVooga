@@ -3,37 +3,46 @@ package authoring_UI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteParameterI;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class Menu extends VBox {
+	private Stage myStage;
 	private Button myLoad;
 	private Button mySave;
 	private AuthoringEnvironmentManager myAEM;
 	private ScrollPane myStateSP;
+	private GridPane mySpriteCreator;
 	private TabPane myParamTabs;
 	private TabPane mySpriteTabs;
 	private VBox myParamTabVBox;
 	private TextArea myParameterErrorMessage;
 	
 
+	private MapManager myMapManager;
+
+
 	private final static String LOAD = "Load";
 	private final static String SAVE = "Save";
 	private final static double MENU_WIDTH = 300;
 	private final static double MENU_HEIGHT = 500;
 	
-	protected Menu(AuthoringEnvironmentManager AEM) {
+	protected Menu(AuthoringEnvironmentManager AEM, Stage stage, MapManager mapManager) {
 		myAEM = AEM;
+		myStage = stage;
+		myMapManager = mapManager;
 		setUpMenu();
 		
 	}
@@ -65,7 +74,7 @@ public class Menu extends VBox {
 //	}
 	
 	private HashMap<String, ArrayList<SpriteParameterI>> getParametersOfActiveCells() throws Exception {
-		return myAEM.getActiveCellParameters().getParameters();
+		return myAEM.getActiveCell().getParameters();
 	}
 	
 	private void setUpMenu() {
@@ -73,10 +82,12 @@ public class Menu extends VBox {
 		createButtons();
 		createCategoryTabs();
 		createSpriteTabs();
+
 		createStatePane(new VBox());
 		this.setPrefWidth(400);
 //		createCategoryTabs();
 //		createSpriteTabs();
+		createSpriteCreator();
 	}
 	
 	private void createButtons() {
@@ -140,12 +151,12 @@ public class Menu extends VBox {
 //		return myParamTabs;
 	}
 	
-	private void setDefaultParameterTab() {
+	private void clearParameterTab() {
 		myParamTabs.getTabs().clear();
 	}
 	
 	private void setDefaultParameterVBox(){
-		setDefaultParameterTab();
+		clearParameterTab();
 		addParameterErrorMessage();
 	}
 	
@@ -164,7 +175,13 @@ public class Menu extends VBox {
 	
 	public void updateParameterTab() {
 		try{
+	    clearParameterTab();
+	    removeParameterErrorMessage();
 		HashMap<String, ArrayList<SpriteParameterI>> params = getParametersOfActiveCells();
+		System.out.println("Params size: "+params.size());
+		System.out.println("Params keys: "+params.keySet());
+		System.out.println("Params values: "+params.values());
+//		if (params.size()>0)
 		for (Map.Entry<String, ArrayList<SpriteParameterI>> entry : params.entrySet()) {
 			
 			String category = entry.getKey();
@@ -178,9 +195,9 @@ public class Menu extends VBox {
 			myParamTabs.getTabs().add(newCategory);
 			
 	}
-		removeParameterErrorMessage();
+		
 		} catch (Exception e){
-			setDefaultParameterTab();
+			setDefaultParameterVBox();
 		}
 		this.setPrefWidth(MENU_WIDTH);
 	}
@@ -190,7 +207,12 @@ public class Menu extends VBox {
 		in.setPrefHeight(500);
 //		return in;
 	}
-
+	
+	private void createSpriteCreator() {
+		mySpriteCreator = (new SpriteCreator(myStage, myAEM, myMapManager)).getGrid();
+		this.getChildren().add(mySpriteCreator);
+		System.out.println("sprite creator added");
+	}
 
 	private ScrollPane createStatePane(VBox temp) {
 		ScrollPane myStateSP_dummy = new ScrollPane();

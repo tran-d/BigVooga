@@ -128,8 +128,8 @@ public class DraggableGrid extends HBox {
                 ((Pane)draggingObject.getParent()).getChildren().remove(draggingObject);
                 pane.getChildren().add(draggingObject);
                 e.setDropCompleted(true);
-
-                mySpriteManager.addDefaultSprite(draggingObject);
+    
+                mySpriteManager.addNewDefaultSprite(draggingObject);
                 draggingObject = null;
             }  
 //            mySpriteManager.setupDefaultSprites();

@@ -13,6 +13,7 @@ import java.util.Scanner;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
+import authoring.SpriteObject;
 import engine.EngineController;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
@@ -24,8 +25,10 @@ import javafx.stage.Stage;
 public class GameDataHandler {
 	private static final XStream SERIALIZER = new XStream(new DomDriver());
 	public static final String PATH = "data/UserCreatedGames/";
+//	public static final String IMAGE_PATH = "resources/";
 	private static final String CONTROLLER_FILE = "Engine_Controller_Save_File";
 	private static final String SELECTOR_TITLE = "Open Resource File";
+	private static final String SPRITE_PATH = "data/Sprites/";
 	private String projectPath;
 	
 	public GameDataHandler(String projectName) {
@@ -74,5 +77,25 @@ public class GameDataHandler {
 	private static void makeDirectory(String path) {
 		File file = new File(path);
 		file.mkdirs();
+	}
+	
+	public void saveSprite(SpriteObject SO) throws IOException {
+		String toSave = SERIALIZER.toXML(SO);
+		FileWriter writer = new FileWriter(SPRITE_PATH+SO.getName());
+        writer.write(toSave);
+        writer.close();
+	}
+	
+	private SpriteObject loadSprite(File spriteFile) throws FileNotFoundException {
+		Scanner scanner = new Scanner(spriteFile);
+		String fileContents = scanner.useDelimiter("\\Z").next();
+		scanner.close();
+		return (SpriteObject)SERIALIZER.fromXML(fileContents);
+	}
+	
+	public SpriteObject chooseSprite(Stage stage) {
+		FileChooser imageChooser = new FileChooser();
+		imageChooser.setTitle("Open Image");
+		File file = imageChooser.showOpenDialog(stage);
 	}
 }
