@@ -117,7 +117,7 @@ public class GameWorld implements World {
 	}
 	
 	@Override
-	public PlayerManager getInputManager() {
+	public PlayerManager getPlayerManager() {
 		return input;
 	}
 	

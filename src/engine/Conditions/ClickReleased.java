@@ -23,8 +23,7 @@ public class ClickReleased extends Condition{
 	 */
 	@Override
 	public boolean isTrue(GameObject asking, World world) {
-		//TODO make inputmanager (explicitly or implicitly)
-		return world.getInputManager().isPrevPrimaryButtonDown() && !world.getInputManager().isPrimaryButtonDown();
+		return world.getPlayerManager().isPrevPrimaryButtonDown() && !world.getPlayerManager().isPrimaryButtonDown();
 	}
 	
 }

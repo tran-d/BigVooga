@@ -5,12 +5,18 @@ import java.util.List;
 
 import engine.EngineController;
 import engine.GameMaster;
+import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 public class PlayerManager {
 
 	private GameDisplay gameDisplay;
 	private EngineController engineController;
+	
+	private final EventHandler<KeyEvent> keyEventHandler;
+	private final EventHandler<MouseEvent> mouseEventHandler;
 	
 	private List<KeyCode> keysDown;
 	private List<KeyCode> prevKeysDown;
@@ -23,6 +29,18 @@ public class PlayerManager {
 		prevKeysDown = new ArrayList<>();
 		primaryButtonDown = false;
 		prevPrimaryButtonDown = false;
+		
+		keyEventHandler = new EventHandler<KeyEvent>() {
+			public void handle(final KeyEvent keyEvent) {
+				keysDown.add(keyEvent.getCode());
+			}
+		};
+		
+		mouseEventHandler = new EventHandler<MouseEvent>() {
+			public void handle(final MouseEvent mouseEvent) {
+				primaryButtonDown = mouseEvent.isPrimaryButtonDown();
+			}
+		};
 	}
 	
 	public List<KeyCode> getKeysDown() {
@@ -41,11 +59,11 @@ public class PlayerManager {
 		keysDown.remove(keyCode);
 	}
 	
-	public void setPrimaryButtonPressed(double x, double y) {
+	public void setPrimaryButtonDown(double x, double y) {
 		//TODO engine
 	}
 	
-	public void setPrimaryButtonReleased(double x, double y) {
+	public void setPrimaryButtonUp(double x, double y) {
 		//TODO engine
 	}
 	
@@ -63,6 +81,16 @@ public class PlayerManager {
 	
 	public void setEngine(EngineController currentEngineController) {
 		engineController = currentEngineController;
+	}
+	
+	public void step() {
+		prevKeysDown = keysDown;
+		keysDown.clear();
+		keyEventHandler.handle(keyEvent);					//how to get keyEvent?
+		
+		prevPrimaryButtonDown = primaryButtonDown;
+		primaryButtonDown = false;
+		mouseEventHandler.handle(mouseEvent);				//how to get mouseEvent?
 	}
 	
 }
