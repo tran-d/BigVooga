@@ -57,16 +57,6 @@ public class SpriteManager extends TabPane {
 		myAEM.addDefaultSprite(s3);
 		myAEM.addDefaultSprite(s4);
 		setupDefaultSprites();
-//		mySprites.getChildren().addAll(s1, s2, s3, s4);
-//		myGrid.addDragObject(s1);
-//		myGrid.addDragObject(s2);
-//		myGrid.addDragObject(s3);
-//		myGrid.addDragObject(s4);
-
-		// createImageStack("tree.png");
-		// createImageStack("brick.png");
-		// createImageStack("water.png");
-		// createImageStack("pikachu.png");
 	}
 
 	public void getUserSpriteParam(String url) {
@@ -119,8 +109,7 @@ public class SpriteManager extends TabPane {
 		mySprites.getChildren().clear();
 		mySprites.setPrefWidth(300);
 		defaults.forEach(SO->{
-			StackPane spriteStack = new StackPane((SpriteObject)SO);
-			mySprites.getChildren().addAll(spriteStack);
+			mySprites.getChildren().addAll(SO);
 		});
 		
 	}
@@ -131,13 +120,11 @@ public class SpriteManager extends TabPane {
 		makeDefaultSpritesDraggable(defaults);
 	}
 	
-	public void addNewDefaultSprite(SpriteObject SO){
+	public void addNewDefaultSprite(SpriteObject SO, int spriteLocation){
 		SpriteObject newSO = SO.newCopy();
-		mySprites.getChildren().add(newSO);
+		mySprites.getChildren().add(spriteLocation, newSO);
 		makeSpriteDraggable(newSO);
 	}
-	
-
 	
 	private void makeDefaultSpritesDraggable(ArrayList<SpriteObject> defaults){
 		defaults.forEach(SO->{
@@ -167,23 +154,9 @@ public class SpriteManager extends TabPane {
 			myParams.add(mySPF.makeParameter("canFight", true));
 			myParams.add(mySPF.makeParameter("health", i));
 			myParams.add(mySPF.makeParameter("name", s.get(0)));
-			// for (SpriteParameterI SP : myParams) {
-			// System.out.println(SP.getName());
-			// System.out.println(SP.getClass());
-			// }
 			for (SpriteParameterI SP : myParams) {
 				SO.addParameter(SP);
 			}
-			// mySObjects.add(SO);
-			Integer[] loc1 = new Integer[] { h, h + 1 };
-			Integer[] loc2 = new Integer[] { h + 1, h + 2 };
-			Integer[] loc3 = new Integer[] { h + 2, h + 3 };
-			ArrayList<Integer[]> locs = new ArrayList<Integer[]>();
-			locs.add(loc1);
-			locs.add(loc2);
-			locs.add(loc3);
-			// mySOGM.populateCell(SO, locs);
-			// i*=2;
 			mySpriteObjs.add(SO);
 		}
 	}

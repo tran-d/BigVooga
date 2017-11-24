@@ -125,11 +125,13 @@ public class DraggableGrid extends HBox {
             	mySOGM.populateCell(draggingObject, row_col);
             	System.out.println("has object format??");
             	System.out.println("Parent size: "+ ((Pane)draggingObject.getParent()).getChildren().size());
+            		int spriteLocation = ((Pane)draggingObject.getParent()).getChildren().indexOf(draggingObject);
                 ((Pane)draggingObject.getParent()).getChildren().remove(draggingObject);
                 pane.getChildren().add(draggingObject);
                 e.setDropCompleted(true);
+                
+                mySpriteManager.addNewDefaultSprite(draggingObject, spriteLocation);
     
-                mySpriteManager.addNewDefaultSprite(draggingObject);
                 draggingObject = null;
             }  
 //            mySpriteManager.setupDefaultSprites();
