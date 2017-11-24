@@ -10,6 +10,8 @@ import java.util.TreeSet;
 
 public abstract class GameObject extends VariableContainer {
 	
+	
+	private final String DEFAULT_TAG = "unnamed";
 	private String name;
 	private Set<String> tagSet;
 	private Map<Condition, List<Action>> events;
@@ -24,6 +26,15 @@ public abstract class GameObject extends VariableContainer {
 		heading = 0;
 		events = new TreeMap<>();
 	}
+	public GameObject() {
+		name = DEFAULT_TAG;
+		tagSet = new HashSet<String>();
+		x = 0;
+		y = 0;
+		heading = 0;
+		events = new TreeMap<>();
+	}
+	
 	
 	public String getName() {
 		return name;
@@ -112,6 +123,18 @@ public abstract class GameObject extends VariableContainer {
 	public void setBooleanVariable(String name, Boolean value) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	
+	/**
+	 * NEEDS COMPLETION
+	 * @return BoundedImage
+	 */
+	
+	public BoundedImage getImage()
+	{
+		//TODO return Object's image
+		return null;
 	}
 
 	public GameObject clone() {

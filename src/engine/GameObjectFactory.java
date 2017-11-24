@@ -10,7 +10,7 @@ public class GameObjectFactory {
 	Map<String, GameObject> originals;
 	
 	public GameObjectFactory() {
-		originals = new HashMap<>();
+		originals = new HashMap<String, GameObject>();
 	}
 	
 	public void addBlueprint(GameObject obj) {

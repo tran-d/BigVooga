@@ -22,7 +22,7 @@ public class Clicked extends Condition{
 	 */
 	@Override
 	public boolean isTrue(GameObject asking, World world) {
-		return !world.getInputManager().isPrevPrimaryButtonDown() && world.getInputManager().isPrimaryButtonDown();
+		return !world.getPlayerManager().isPrevPrimaryButtonDown() && world.getPlayerManager().isPrimaryButtonDown();
 	}
 
 }

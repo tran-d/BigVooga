@@ -26,8 +26,8 @@ public class GameDisplay {
 	public void createGameDisplay() {
 		scene.setOnKeyPressed(e -> playerManager.setKeyPressed(e.getCode()));
 		scene.setOnKeyReleased(e -> playerManager.setKeyReleased(e.getCode()));
-		scene.setOnMousePressed(e -> playerManager.setPrimaryButtonPressed(e.getX(), e.getY()));
-		scene.setOnMouseReleased(e -> playerManager.setPrimaryButtonReleased(e.getX(), e.getY()));
+		scene.setOnMousePressed(e -> playerManager.setPrimaryButtonDown(e.getX(), e.getY()));
+		scene.setOnMouseReleased(e -> playerManager.setPrimaryButtonUp(e.getX(), e.getY()));
 	}
 	
 	public void setPlayerManager(PlayerManager currentPlayerManager) {
