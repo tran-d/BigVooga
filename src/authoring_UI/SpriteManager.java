@@ -1,15 +1,14 @@
 package authoring_UI;
 
 import java.util.ArrayList;
-
+import java.util.Observable;
+import java.util.Observer;
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObject;
 import authoring.SpriteObjectGridManagerI;
-import authoring.SpriteObjectI;
 import authoring.SpriteParameterFactory;
 import authoring.SpriteParameterI;
 import javafx.geometry.Side;
-import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
@@ -17,33 +16,25 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-public class SpriteManager extends TabPane {
-	private DraggableGrid myGrid;
+public class SpriteManager extends VBox implements Observer {
+	private SpriteGridHandler mySpriteGridHandler;
 	private VBox mySprites;
 	private VBox myUserSprites;
 	private AuthoringEnvironmentManager myAEM;
-	private SpriteObjectGridManagerI mySOGM;
 	private SpriteParameterFactory mySPF;
 	private ArrayList<SpriteObject> mySpriteObjs = new ArrayList<SpriteObject>();
 	private ArrayList<SpriteObject> myUserSpriteObjs = new ArrayList<SpriteObject>();
 
-	
-	protected SpriteManager() {
-
-	myUserSpriteObjs = new ArrayList<SpriteObject>();
-	}
-
-	protected SpriteManager(DraggableGrid grid, AuthoringEnvironmentManager AEM, SpriteObjectGridManagerI SOGM) {
+	protected SpriteManager(SpriteGridHandler spriteGridHandler, AuthoringEnvironmentManager AEM, SpriteObjectGridManagerI SOGM){
+		myUserSpriteObjs = new ArrayList<SpriteObject>();
 		mySPF = new SpriteParameterFactory();
-		myAEM = AEM;
-		mySOGM = SOGM;
-		myGrid = grid;
+	    myAEM = AEM;
+		mySpriteGridHandler = spriteGridHandler;
 		mySprites = new VBox();
 		myUserSprites = new VBox();
 		getParams();
 		createSprites();
-		createSpriteTabs();
-		this.setPrefWidth(110);
+		this.getChildren().addAll(createSpriteTabs(), createTrash());
 
 	}
 
@@ -89,29 +80,26 @@ public class SpriteManager extends TabPane {
 		myAEM.addUserSprite(sp);
 
 		myUserSprites.getChildren().add(sp);
-		myGrid.addDragObject(sp);
-	}
-	
-	public void construct(DraggableGrid grid, AuthoringEnvironmentManager AEM, SpriteObjectGridManagerI SOGM){
-		mySPF = new SpriteParameterFactory();
-	    myAEM = AEM;
-	    mySOGM = SOGM;
-		myGrid = grid;
-		mySprites = new VBox();
-		myUserSprites = new VBox();
-		getParams();
-		createSprites();
-        	createSpriteTabs();
-        	this.setPrefWidth(110);
+		makeSpriteDraggable(sp);
 	}
 	
 	private void setDefaultSpriteVBox(ArrayList<SpriteObject> defaults) {
 		mySprites.getChildren().clear();
 		mySprites.setPrefWidth(300);
 		defaults.forEach(SO->{
-			mySprites.getChildren().addAll(SO);
+			createSpriteStacks(SO);
 		});
 		
+	}
+	
+	private void createSpriteStacks(SpriteObject SO) {
+		StackPane spriteStack = new StackPane();
+		for (int i = 0; i < 10; i++) {
+			SpriteObject newSO = SO.newCopy();
+			spriteStack.getChildren().add(newSO);
+			mySpriteGridHandler.addDragObject(newSO);
+		}
+		mySprites.getChildren().add(spriteStack);
 	}
 	
 	public void setupDefaultSprites() {
@@ -120,11 +108,11 @@ public class SpriteManager extends TabPane {
 		makeDefaultSpritesDraggable(defaults);
 	}
 	
-	public void addNewDefaultSprite(SpriteObject SO, int spriteLocation){
-		SpriteObject newSO = SO.newCopy();
-		mySprites.getChildren().add(spriteLocation, newSO);
-		makeSpriteDraggable(newSO);
-	}
+//	public void addNewDefaultSprite(SpriteObject SO, int spriteLocation){
+//		SpriteObject newSO = SO.newCopy();
+//		mySprites.getChildren().add(spriteLocation, newSO);
+//		makeSpriteDraggable(newSO);
+//	}
 	
 	private void makeDefaultSpritesDraggable(ArrayList<SpriteObject> defaults){
 		defaults.forEach(SO->{
@@ -133,7 +121,7 @@ public class SpriteManager extends TabPane {
 	}
 	
 	private void makeSpriteDraggable(SpriteObject SO){
-		myGrid.addDragObject(SO);
+		mySpriteGridHandler.addDragObject(SO);
 	}
 	
 	public void getParams() {
@@ -161,19 +149,8 @@ public class SpriteManager extends TabPane {
 		}
 	}
 
-	private void createImageStack(String imageName) {
-		StackPane imageStack = new StackPane();
-		for (int k = 0; k < 10; k++) {
-			ImageView image = new ImageView(new Image(imageName));
-			image.setFitWidth(45);
-			image.setFitHeight(45);
-			imageStack.getChildren().add(image);
-			// myGrid.addDragObject(image);
-		}
-		// mySprites.getChildren().add(imageStack);
-	}
-
-	private void createSpriteTabs() {
+	private TabPane createSpriteTabs() {
+		TabPane mySpriteTabs = new TabPane();
 		Tab defaultSpriteTab = new Tab();
 		defaultSpriteTab.setText("Default Sprites");
 		defaultSpriteTab.setContent(mySprites);
@@ -184,8 +161,30 @@ public class SpriteManager extends TabPane {
 		mySpriteTab.setContent(myUserSprites);
 		mySpriteTab.setClosable(false);
 
-		this.getTabs().addAll(defaultSpriteTab, mySpriteTab);
-		this.setSide(Side.RIGHT);
+		mySpriteTabs.getTabs().addAll(defaultSpriteTab, mySpriteTab);
+		mySpriteTabs.setSide(Side.RIGHT);
+		mySpriteTabs.setPrefWidth(110);
+		
+		return mySpriteTabs;
+	}
+	
+	private ImageView createTrash() {
+		ImageView trashCan = new ImageView(new Image("trash.png"));
+		trashCan.setFitWidth(45);
+	    trashCan.setFitHeight(45);
+		mySpriteGridHandler.addDropToTrash(trashCan);
+		this.getChildren().add(trashCan);
+		
+		return trashCan;
+	}
+
+	//adds new user sprites
+	@Override
+	public void update(Observable o, Object arg) {
+		System.out.println(arg);
+		System.out.println("notified observer");
+		System.out.println(mySprites);
+		createUserSprite(arg);
 	}
 
 }
