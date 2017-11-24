@@ -36,6 +36,10 @@ public class GameDataHandler {
 	public GameDataHandler(String projectName) {
 		this.projectPath = PATH+projectName + "/";
 		makeDirectory(projectPath);
+		File file = new File(DEFAULT_SPRITE_PATH);
+		if (!file.exists()){
+			makeDirectory(DEFAULT_SPRITE_PATH);
+		}
 	}
 	
 	public void saveGame(EngineController controller) throws IOException {
@@ -81,11 +85,27 @@ public class GameDataHandler {
 		file.mkdirs();
 	}
 	
-	public void saveSprite(SpriteObject SO) throws IOException {
+	private void saveSprite(SpriteObject SO, String path) throws IOException {
+//		File dir = new File(path);
+//		if (!dir.exists()){
+//			makeDirectory(path);
+//		}
 		String toSave = SERIALIZER.toXML(SO);
-		FileWriter writer = new FileWriter(ALL_SPRITE_PATH+SO.getName());
+		FileWriter writer = new FileWriter(path);
         writer.write(toSave);
         writer.close();
+	}
+	
+	public void saveDefaultSprite(SpriteObject SO) throws IOException{
+		String path = DEFAULT_SPRITE_PATH + SO.getName();
+		saveSprite(SO, path);
+	}
+	
+	public void saveUserCreatedSprite(SpriteObject SO) throws IOException{
+		String allSpritePath = ALL_SPRITE_PATH + SO.getName();
+		String projectSpritePath = projectPath+PROJECT_USER_SPRITE_PATH + SO.getName();
+		saveSprite(SO, allSpritePath);
+		saveSprite(SO, projectSpritePath);
 	}
 	
 	public SpriteObject loadSprite(File spriteFile) throws FileNotFoundException {

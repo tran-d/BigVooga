@@ -22,6 +22,8 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 
 	public SpriteObject(String fileURL){
 		setupImageURLAndView(fileURL);
+		System.out.println(fileURL);
+		myName = fileURL.split("\\.")[0];
 //		myName = fileURL.split(".")[0];
 	}
 	
