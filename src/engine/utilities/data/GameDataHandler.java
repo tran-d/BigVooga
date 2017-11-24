@@ -85,4 +85,17 @@ public class GameDataHandler {
         writer.write(toSave);
         writer.close();
 	}
+	
+	private SpriteObject loadSprite(File spriteFile) throws FileNotFoundException {
+		Scanner scanner = new Scanner(spriteFile);
+		String fileContents = scanner.useDelimiter("\\Z").next();
+		scanner.close();
+		return (SpriteObject)SERIALIZER.fromXML(fileContents);
+	}
+	
+	public SpriteObject chooseSprite(Stage stage) {
+		FileChooser imageChooser = new FileChooser();
+		imageChooser.setTitle("Open Image");
+		File file = imageChooser.showOpenDialog(stage);
+	}
 }

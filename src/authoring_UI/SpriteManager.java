@@ -90,7 +90,11 @@ public class SpriteManager extends TabPane {
 	 * @param sp
 	 */
 
-	private void createUserSprite(SpriteObject sp) {
+	public void createUserSprite(Object spObj) {
+		if (!(spObj instanceof SpriteObject)){
+			throw new RuntimeException("Its not a sprite");
+		}
+		SpriteObject sp = (SpriteObject) spObj;
 		myAEM.addUserSprite(sp);
 
 		myUserSprites.getChildren().add(sp);
@@ -103,6 +107,7 @@ public class SpriteManager extends TabPane {
 	    mySOGM = SOGM;
 		myGrid = grid;
 		mySprites = new VBox();
+		myUserSprites = new VBox();
 		getParams();
 		createSprites();
         	createSpriteTabs();

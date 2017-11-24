@@ -4,6 +4,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import authoring.AuthoringEnvironmentManager;
+import authoring.SpriteObject;
 import authoring.SpriteObjectGridManagerI;
 import default_pkg.SceneController;
 import gui.welcomescreen.WelcomeScreen;
@@ -58,7 +59,7 @@ public class MapManager extends TabPane implements Observer {
 		myAEM = new AuthoringEnvironmentManager();
 		Menu myMenu = new Menu(myAEM,stage,this);
 		mySOGM = myAEM.getGridManager();
-		SpriteManager mySprites = new SpriteManager();
+		mySprites = new SpriteManager();
 		DraggableGrid myGrid = new DraggableGrid(myTabCount, myMenu, mySOGM, mySprites);
 		mySprites.construct(myGrid, myAEM, mySOGM);
 		HBox authMap = new HBox(myMenu, myGrid, mySprites);
@@ -80,8 +81,11 @@ public class MapManager extends TabPane implements Observer {
 	//adds new user sprites
 	@Override
 	public void update(Observable o, Object arg) {
+		System.out.println(arg);
 		System.out.println("notified observer");
-		mySprites.getUserSpriteParam((String) arg);
+		System.out.println(mySprites);
+		mySprites.createUserSprite(arg);
+//		mySprites.getUserSpriteParam((String) arg);
 		
 	}
 }

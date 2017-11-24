@@ -8,6 +8,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.Observable;
 
 import authoring.AuthoringEnvironmentManager;
+import authoring.SpriteObject;
 import engine.utilities.data.GameDataHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -38,6 +39,8 @@ public class SpriteCreator extends Observable {
 	private GridPane myGrid;
 	private MapManager myMapManager;
 	private GameDataHandler myGDH;
+	private TextField myNameInput;
+	private SpriteObject mySpriteObject;
 
 	protected SpriteCreator(Stage stage, AuthoringEnvironmentManager AEM, MapManager mapManager) {
 
@@ -48,6 +51,7 @@ public class SpriteCreator extends Observable {
 		myMapManager = mapManager;
 		this.addObserver(myMapManager);
 		setGrid();
+		mySpriteObject = new SpriteObject();
 	}
 
 	private void setGrid() {
@@ -89,9 +93,21 @@ public class SpriteCreator extends Observable {
 		buttonBox.setAlignment(Pos.BASELINE_RIGHT);
 
 		Button createSprite = new Button("create sprite");
+		createSprite.setOnAction(e-> {
+			System.out.println(getSpriteObject());
+			System.out.println(getSpriteObject().getName());
+			setChanged();
+			notifyObservers(getSpriteObject());
+		});
 		buttonBox.getChildren().add(createSprite);
 
 		myGrid.add(buttonBox, 1, 2);
+	}
+	
+	private SpriteObject getSpriteObject() {
+		System.out.println("Getting sprite object");
+		System.out.println(mySpriteObject);
+		return mySpriteObject;
 	}
 
 	private void addNameBox() {
@@ -99,6 +115,11 @@ public class SpriteCreator extends Observable {
 		HBox nameBox = new HBox(10);
 		Text name = new Text("name: ");
 		TextField nameInput = new TextField("Enter Sprite Name");
+		nameInput.textProperty().addListener((observable, oldValue, newValue)->{
+			System.out.println("oldname: "+oldValue);
+			mySpriteObject.setName(newValue);
+			System.out.println("newname: "+mySpriteObject.getName());
+		});
 		nameBox.getChildren().addAll(name, nameInput);
 
 		HBox imageChooseBox = new HBox(10);
@@ -126,9 +147,12 @@ public class SpriteCreator extends Observable {
 		
 		if (file != null) {
 			Files.copy(file.toPath(), Paths.get(PATH+file.getName()), StandardCopyOption.REPLACE_EXISTING);
-			setChanged();
+			
+			System.out.println(file.getName());
+			mySpriteObject.setImageURL(file.getName());
+//			setChanged();
 //			System.out.print(file.getName());
-			notifyObservers(file.getName());
+//			notifyObservers(file.getName());
 			System.out.println("image chosen");
 
 		}
