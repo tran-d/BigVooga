@@ -28,7 +28,9 @@ public class GameDataHandler {
 //	public static final String IMAGE_PATH = "resources/";
 	private static final String CONTROLLER_FILE = "Engine_Controller_Save_File";
 	private static final String SELECTOR_TITLE = "Open Resource File";
-	private static final String SPRITE_PATH = "data/Sprites/";
+	private static final String PROJECT_USER_SPRITE_PATH = "Sprites/";
+	private static final String DEFAULT_SPRITE_PATH = "data/DefaultSprites/";
+	private static final String ALL_SPRITE_PATH = "data/AllSprites/";
 	private String projectPath;
 	
 	public GameDataHandler(String projectName) {
@@ -81,21 +83,27 @@ public class GameDataHandler {
 	
 	public void saveSprite(SpriteObject SO) throws IOException {
 		String toSave = SERIALIZER.toXML(SO);
-		FileWriter writer = new FileWriter(SPRITE_PATH+SO.getName());
+		FileWriter writer = new FileWriter(ALL_SPRITE_PATH+SO.getName());
         writer.write(toSave);
         writer.close();
 	}
 	
-	private SpriteObject loadSprite(File spriteFile) throws FileNotFoundException {
+	public SpriteObject loadSprite(File spriteFile) throws FileNotFoundException {
 		Scanner scanner = new Scanner(spriteFile);
 		String fileContents = scanner.useDelimiter("\\Z").next();
 		scanner.close();
 		return (SpriteObject)SERIALIZER.fromXML(fileContents);
 	}
 	
-	public SpriteObject chooseSprite(Stage stage) {
+	public File chooseSpriteFile(Stage stage) throws FileNotFoundException {
 		FileChooser imageChooser = new FileChooser();
-		imageChooser.setTitle("Open Image");
+		File startDirectory = new File(ALL_SPRITE_PATH);
+		if (!startDirectory.exists()){
+			makeDirectory(ALL_SPRITE_PATH);
+		}
+		imageChooser.setInitialDirectory(startDirectory);
+		imageChooser.setTitle("Choose Sprite");
 		File file = imageChooser.showOpenDialog(stage);
+		return file;
 	}
 }

@@ -1,6 +1,7 @@
 package authoring_UI;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -41,12 +42,13 @@ public class SpriteCreator extends Observable {
 	private GameDataHandler myGDH;
 	private TextField myNameInput;
 	private SpriteObject mySpriteObject;
+	private File mySpriteFile;
 
 	protected SpriteCreator(Stage stage, AuthoringEnvironmentManager AEM, MapManager mapManager) {
 
 		myStage = stage;
 		myAEM = AEM;
-		myGDH = new GameDataHandler("User Sprites");
+		myGDH = myAEM.getGameDataHandler();
 		myGrid = new GridPane();
 		myMapManager = mapManager;
 		this.addObserver(myMapManager);
@@ -76,6 +78,7 @@ public class SpriteCreator extends Observable {
 
 		addNameBox();
 		addCreatebutton();
+		addLoadSpriteButton();
 
 	}
 
@@ -96,6 +99,7 @@ public class SpriteCreator extends Observable {
 		createSprite.setOnAction(e-> {
 			System.out.println(getSpriteObject());
 			System.out.println(getSpriteObject().getName());
+			copySpriteFileToProject();
 			setChanged();
 			notifyObservers(getSpriteObject());
 		});
@@ -138,6 +142,41 @@ public class SpriteCreator extends Observable {
 
 		myGrid.add(nameBox, 0, 1);
 		myGrid.add(imageChooseBox, 0, 2);
+	}
+	
+	private void addLoadSpriteButton() {
+		HBox spriteChooseBox = new HBox(10);
+		Text chooseSprite = new Text("choose sprite to load from: ");
+		Button chooseSpriteButton = new Button("choose sprite");
+		chooseSpriteButton.setOnAction(e -> {
+			try {
+				chooseSpriteFileandLoadSprite();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+
+		spriteChooseBox.getChildren().addAll(chooseSprite, chooseSpriteButton);
+		myGrid.add(spriteChooseBox, 0, 0);
+	}
+
+	private void chooseSpriteFileandLoadSprite() throws FileNotFoundException {
+		File newChosenSpriteFile = myGDH.chooseSpriteFile(myStage);
+		mySpriteFile = newChosenSpriteFile;
+		mySpriteObject = myGDH.loadSprite(newChosenSpriteFile);
+	}
+	
+	
+	private void copySpriteFileToProject(){
+		if (mySpriteFile!=null) {
+			try {
+				myGDH.addFileToProject(mySpriteFile);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	private void openImage() throws IOException {

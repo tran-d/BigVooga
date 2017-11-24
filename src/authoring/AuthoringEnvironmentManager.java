@@ -1,6 +1,8 @@
 package authoring;
 
 import java.util.ArrayList;
+
+import engine.utilities.data.GameDataHandler;
 import javafx.scene.layout.VBox;
 
 public class AuthoringEnvironmentManager {
@@ -10,13 +12,23 @@ public class AuthoringEnvironmentManager {
 	private SpriteObjectGridManagerI SOGM;
 	private ArrayList<SpriteObject> defaultSprites;
 	private ArrayList<SpriteObjectI> userSprites;
+	private GameDataHandler myGDH;
 
-	public AuthoringEnvironmentManager() {
+	public AuthoringEnvironmentManager(String projectName) {
+		myGDH = new GameDataHandler(projectName);
 		defaultEmptySprite = new SpriteObject();
 		SOGM = new SpriteObjectGridManager();
 		SPSM = new SpriteParameterSidebarManager(SOGM);
 		defaultSprites = new ArrayList<SpriteObject>();
 		userSprites = new ArrayList<SpriteObjectI>();
+	}
+	
+	public AuthoringEnvironmentManager(){
+		this("TestProject");
+	}
+	
+	public GameDataHandler getGameDataHandler(){
+		return myGDH;
 	}
 
 	
