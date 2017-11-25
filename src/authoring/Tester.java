@@ -125,7 +125,7 @@ public class Tester extends Application {
 			}
 //			mySObjects.add(SO);
 			Integer [] loc1 = new Integer[]{h^2,3*h};
-			Integer [] loc2 = new Integer[]{h^2,5*h};
+			Integer [] loc2 = new Integer[]{h,2*h};
 			Integer [] loc3 = new Integer[]{h,4*h};
 			ArrayList<Integer[]> locs = new ArrayList<Integer[]>();
 			locs.add(loc1);

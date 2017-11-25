@@ -13,6 +13,7 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 	private ImageView myImageView;
 	private String myImageURL;
 	private Integer[] myPositionOnGrid;
+	private String myName;
 
 	
 	public SpriteObject() {
@@ -20,10 +21,10 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 	}
 
 	public SpriteObject(String fileURL){
-		myImageURL = fileURL;
-		this.setImage(new Image(myImageURL));
-		this.setFitWidth(45);
-		this.setFitHeight(45);
+		setupImageURLAndView(fileURL);
+		System.out.println(fileURL);
+		myName = fileURL.split("\\.")[0];
+//		myName = fileURL.split(".")[0];
 	}
 	
 	SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap) {
@@ -32,9 +33,16 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 	
 	SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap, String fileURL) {
 		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(inCategoryMap);
+		setupImageURLAndView(fileURL);
+	}
+	
+	private void setupImageURLAndView(String fileURL){
 		myImageURL = fileURL;
 		this.setImage(new Image(myImageURL));
+		this.setFitWidth(45);
+		this.setFitHeight(45);
 	}
+	
 	
 	@Override
 	public ImageView getImageView(){
@@ -42,8 +50,23 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 	}
 	
 	@Override 
+	public Integer[] getPositionOnGrid(){
+		return myPositionOnGrid;
+	}
+	
+	@Override 
+	public void setPositionOnGrid(Integer[] pos){
+		myPositionOnGrid = pos;
+	}
+	
+	@Override 
 	public void setImageURL(String fileLocation){
-		myImageURL = fileLocation;
+		setupImageURLAndView(fileLocation);
+	}
+	
+	@Override
+	public void setName(String name){
+		myName = name;
 	}
 	
 	@Override
@@ -110,7 +133,7 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 	
 	@Override
 	public SpriteObject newCopy(){
-		System.out.println("Making copy");
+//		System.out.println("Making copy");
 		if(this.myImageURL!=null) {
 		return new SpriteObject(this.categoryMap, this.myImageURL);
 		} else {
@@ -162,9 +185,8 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 	}
 
 	@Override
-	public Integer[] getPositionOnGrid() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getName() {
+		return myName;
 	}
 	
 	
