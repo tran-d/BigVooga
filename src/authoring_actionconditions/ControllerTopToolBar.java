@@ -1,8 +1,5 @@
-package actionTabControllers;
+package authoring_actionconditions;
 
-import authoring_UI.ActionConditionVBox;
-import authoring_UI.ActionConditionTab;
-import authoring_UI.TopToolBar;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -11,24 +8,18 @@ import javafx.scene.control.ToolBar;
 
 public class ControllerTopToolBar {
 	
-	private TopToolBar conditionToolBar;
-	private TopToolBar actionToolBar;
-	private ActionConditionVBox conditionVBox;
-	private ActionConditionVBox actionVBox;
+	private TopToolBar topToolBar;
+	private ActionConditionVBox actionConditionVBox;
 	
-	public ControllerTopToolBar(TopToolBar conditionToolBar,TopToolBar actionToolBar,ActionConditionVBox conditionVBox,ActionConditionVBox actionVBox) {
-		this.conditionToolBar = conditionToolBar;
-		this.actionToolBar = actionToolBar;
-		this.conditionVBox = conditionVBox;
-		this.actionVBox = actionVBox;
+	public ControllerTopToolBar(TopToolBar topToolBar,ActionConditionVBox actionConditionVBox) {
+		this.topToolBar = topToolBar;
+		this.actionConditionVBox = actionConditionVBox;
 		addListeners();
 	}
 	
 	private void addListeners() {
-		conditionToolBar.addButtonListener(new addListener(conditionToolBar,conditionVBox,true));
-		conditionToolBar.addRemoveListener(new addListener(conditionToolBar,conditionVBox,false));
-		actionToolBar.addButtonListener(new addListener(actionToolBar,actionVBox,true));
-		actionToolBar.addRemoveListener(new addListener(actionToolBar,actionVBox,false));
+		topToolBar.addButtonListener(new addListener(topToolBar,actionConditionVBox,true));
+		topToolBar.addRemoveListener(new addListener(topToolBar,actionConditionVBox,false));
 	}
 	
 	private class addListener implements EventHandler<ActionEvent> {
@@ -50,7 +41,7 @@ public class ControllerTopToolBar {
 			}
 			else if(!isAdding && !(topToolBar.getRemoveValue() == null)) {
 				int rowToBeRemoved = topToolBar.getRemoveValue();
-				actionConditionVBox.removeActionCondition(rowToBeRemoved);
+				actionConditionVBox.removeActionCondition(rowToBeRemoved - 1);
 				topToolBar.removeRemoveOption(rowToBeRemoved - 1);
 			}
 		}

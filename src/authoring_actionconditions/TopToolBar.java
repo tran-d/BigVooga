@@ -1,11 +1,8 @@
-package authoring_UI;
+package authoring_actionconditions;
 
 import java.util.ResourceBundle;
-
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Separator;
@@ -14,7 +11,7 @@ import javafx.scene.layout.VBox;
 
 public class TopToolBar extends ToolBar implements TopToolBarI {
 	
-	private ResourceBundle actionTabResources;
+	private ResourceBundle tabResources;
 	private Button addButton;
 	private ChoiceBox<String> options;
 	private VBox selectorVBox;
@@ -24,16 +21,15 @@ public class TopToolBar extends ToolBar implements TopToolBarI {
 	
 	public TopToolBar(ResourceBundle resourceBundle,String addButtonTitle,String optionsTitle,String selectorLabel,String remove) {
 		super();
-		actionTabResources = resourceBundle;
-		addButton = new Button(actionTabResources.getString(addButtonTitle));
-		options = new ChoiceBox<String>(ActionConditionTabUtil.convertToObservableList(actionTabResources.getString(optionsTitle)));
-		selectorVBox = ActionConditionTabUtil.addVBoxwithLabel(actionTabResources.getString(selectorLabel), options);
+		tabResources = resourceBundle;
+		addButton = new Button(tabResources.getString(addButtonTitle));
+		options = new ChoiceBox<String>(ActionConditionTabUtil.convertToObservableList(tabResources.getString(optionsTitle)));
+		selectorVBox = ActionConditionTabUtil.addVBoxwithLabel(tabResources.getString(selectorLabel), options);
 		Separator separator = ActionConditionTabUtil.makeVerticalSeparator();
-		separator.setOrientation(Orientation.VERTICAL);
-		removeButton = new Button(actionTabResources.getString(remove));
+		removeButton = new Button(tabResources.getString(remove));
 		removeRow = new RemoveChoiceBox();
-		removeRowVBox = ActionConditionTabUtil.addVBoxwithLabel(actionTabResources.getString("RemoverLabel"),removeRow);
-		getItems().addAll(addButton,options,selectorVBox,separator,removeButton,removeRow,removeRowVBox);
+		removeRowVBox = ActionConditionTabUtil.addVBoxwithLabel(tabResources.getString("RemoverLabel"),removeRow);
+		getItems().addAll(addButton,selectorVBox,separator,removeButton,removeRowVBox);
 	}
 
 	@Override
@@ -58,13 +54,12 @@ public class TopToolBar extends ToolBar implements TopToolBarI {
 
 	@Override
 	public void addRemoveOption() {
-		System.out.println("TopToolBar shows it's being added");
 		removeRow.addRow();
 	}
 
 	@Override
 	public void removeRemoveOption(int row) {
-		removeRow.removeRow(row - 1);
+		removeRow.removeRow(row);
 	}
 	
 }

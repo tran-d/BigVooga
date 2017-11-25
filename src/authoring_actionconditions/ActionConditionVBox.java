@@ -1,11 +1,8 @@
-package authoring_UI;
+package authoring_actionconditions;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import javafx.collections.ListChangeListener;
-import javafx.collections.ListChangeListener.Change;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToolBar;

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteParameterI;
+import authoring_actionconditions.ActionConditionTab;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
