@@ -123,6 +123,7 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 				return false;
 			}
 		}
+		
 		activeCells.add(pos);
 		return true;	
 	}

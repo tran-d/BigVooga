@@ -11,7 +11,7 @@ public class AuthoringEnvironmentManager {
 	private SpriteParameterSidebarManager SPSM;
 	private SpriteObjectGridManagerI SOGM;
 	private ArrayList<SpriteObject> defaultSprites;
-	private ArrayList<SpriteObjectI> userSprites;
+	private ArrayList<SpriteObject> userSprites;
 	private GameDataHandler myGDH;
 
 	public AuthoringEnvironmentManager(String projectName) {
@@ -20,7 +20,7 @@ public class AuthoringEnvironmentManager {
 		SOGM = new SpriteObjectGridManager();
 		SPSM = new SpriteParameterSidebarManager(SOGM);
 		defaultSprites = new ArrayList<SpriteObject>();
-		userSprites = new ArrayList<SpriteObjectI>();
+		userSprites = new ArrayList<SpriteObject>();
 	}
 	
 	public AuthoringEnvironmentManager(){
@@ -29,6 +29,10 @@ public class AuthoringEnvironmentManager {
 	
 	public GameDataHandler getGameDataHandler(){
 		return myGDH;
+	}
+	
+	public SpriteParameterSidebarManager getSpriteParameterSidebarManager() {
+		return SPSM;
 	}
 
 	
@@ -40,12 +44,12 @@ public class AuthoringEnvironmentManager {
 		defaultSprites.add(SOI);
 	}
 
-	public ArrayList<SpriteObjectI> getUserDefinedSprites() {
-		return userSprites;
+	public ArrayList<SpriteObject> getUserDefinedSprites() {
+		return new ArrayList<SpriteObject>(userSprites);
 
 	}
 
-	public void addUserSprite(SpriteObjectI SOI) {
+	public void addUserSprite(SpriteObject SOI) {
 		userSprites.add(SOI);
 	}
 
@@ -61,5 +65,8 @@ public class AuthoringEnvironmentManager {
 	public SpriteObjectGridManagerI getGridManager() {
 		return SOGM;
 	}
+	
+	
+	
 
 }

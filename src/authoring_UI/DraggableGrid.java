@@ -31,7 +31,7 @@ public class DraggableGrid extends HBox {
 	private SpriteObjectGridManagerI mySOGM;
 	private Menu myMenu;
 	private SpriteManager mySpriteManager;
-	
+
 	protected DraggableGrid(int mapCount, Menu menu, SpriteObjectGridManagerI SOGM, SpriteManager SM) {
 		createGrid();
 		createTrash();
@@ -40,138 +40,142 @@ public class DraggableGrid extends HBox {
 		myMenu = menu;
 		mySpriteManager = SM;
 	}
-	
+
 	private void createGrid() {
 		GridPane gp = new GridPane();
-        
-        for(int i = 0; i < 10; i++){
-            for(int j = 0; j < 10; j++){
-                    StackPane sp = new StackPane();
-                    sp.setPrefHeight(50);
-                    sp.setPrefWidth(50);
-                    sp.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-                    BorderStroke border = new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.DOTTED, CornerRadii.EMPTY, BorderWidths.DEFAULT);
-                    sp.setBorder(new Border(border));
 
-                    gp.add(sp, i, j);
-                    addDropHandling(sp);
-                    addMouseClick(sp);
-            }
-        }
-        ScrollPane scrollGrid = new ScrollPane(gp);
-        scrollGrid.setPannable(true);
-        this.getChildren().add(scrollGrid);
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				StackPane sp = new StackPane();
+				sp.setPrefHeight(50);
+				sp.setPrefWidth(50);
+				sp.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+				BorderStroke border = new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.DOTTED, CornerRadii.EMPTY,
+						BorderWidths.DEFAULT);
+				sp.setBorder(new Border(border));
+
+				gp.add(sp, i, j);
+				addDropHandling(sp);
+				addMouseClick(sp);
+			}
+		}
+		ScrollPane scrollGrid = new ScrollPane(gp);
+		scrollGrid.setPannable(true);
+		this.getChildren().add(scrollGrid);
 	}
-	
+
 	private void createTrash() {
 		ImageView trashCan = new ImageView(new Image("trash.png"));
 		trashCan.setFitWidth(45);
-	    trashCan.setFitHeight(45);
+		trashCan.setFitHeight(45);
 		addDropToTrash(trashCan);
 		this.getChildren().add(0, trashCan);
 	}
-	
-	private void addMouseClick(StackPane pane){
+
+	private void addMouseClick(StackPane pane) {
 		pane.setOnMouseClicked(e -> {
-			
+
 			boolean activeStatus;
 			activeStatus = mySOGM.switchCellActiveStatus(getStackPanePositionInGrid(pane));
-			if (activeStatus){
+			if (activeStatus) {
 				pane.setOpacity(.5);
 			} else {
 				pane.setOpacity(1);
 			}
 			myMenu.updateParameterTab();
-			
+
 		});
 	}
-	
-	private Integer[] getStackPanePositionInGrid(StackPane pane){
-		int row = ((GridPane)pane.getParent()).getRowIndex(pane);
-        int col = ((GridPane)pane.getParent()).getColumnIndex(pane);
-        Integer [] row_col = new Integer[]{row, col};
-        return row_col;
+
+	private Integer[] getStackPanePositionInGrid(StackPane pane) {
+		int row = ((GridPane) pane.getParent()).getRowIndex(pane);
+		int col = ((GridPane) pane.getParent()).getColumnIndex(pane);
+		Integer[] row_col = new Integer[] { row, col };
+		return row_col;
 	}
-	
-	private void updateGridPane(){
+
+	private void updateGridPane() {
 		mySOGM.getGrid();
 	}
-	
-	
-    private void addDropHandling(StackPane pane) {
-        pane.setOnDragOver(e -> {
-            Dragboard db = e.getDragboard();
-            if (db.hasContent(objectFormat) && draggingObject != null) {
-                e.acceptTransferModes(TransferMode.MOVE);
 
-            }
-        });
+	private void addDropHandling(StackPane pane) {
+		pane.setOnDragOver(e -> {
+			Dragboard db = e.getDragboard();
+			if (db.hasContent(objectFormat) && draggingObject != null) {
+				e.acceptTransferModes(TransferMode.MOVE);
 
-        pane.setOnDragDropped(e -> {
-            Dragboard db = e.getDragboard();
-            int row = ((GridPane)pane.getParent()).getRowIndex(pane);
-            int col = ((GridPane)pane.getParent()).getColumnIndex(pane);
-//            
-            Integer [] row_col = new Integer[]{row, col};
-//            ArrayList<Integer[]> activeCells = new ArrayList<Integer[]>();
-//            activeCells.add(row_col);
-            
-//            mySOGM.addActiveCells(activeCells);
-            
-//            myMenu.displayParams();
+			}
+		});
 
-            if (db.hasContent(objectFormat)) {
-            	mySOGM.populateCell(draggingObject, row_col);
-            	System.out.println("has object format??");
-            	System.out.println("Parent size: "+ ((Pane)draggingObject.getParent()).getChildren().size());
-                ((Pane)draggingObject.getParent()).getChildren().remove(draggingObject);
-                pane.getChildren().add(draggingObject);
-                e.setDropCompleted(true);
+		pane.setOnDragDropped(e -> {
+			Dragboard db = e.getDragboard();
+			int row = ((GridPane) pane.getParent()).getRowIndex(pane);
+			int col = ((GridPane) pane.getParent()).getColumnIndex(pane);
+			//
+			Integer[] row_col = new Integer[] { row, col };
+			// ArrayList<Integer[]> activeCells = new ArrayList<Integer[]>();
+			// activeCells.add(row_col);
 
-                
-                mySpriteManager.addNewDefaultSprite(draggingObject);
-                draggingObject = null;
-            }  
-//            mySpriteManager.setupDefaultSprites();
-        });
+			// mySOGM.addActiveCells(activeCells);
 
-    }
-	
-	private void addDropToTrash(ImageView trash) {
-   	 
-	 	trash.setOnDragOver(e -> {
-	 		Dragboard db = e.getDragboard();
-	 		if (db.hasContent(objectFormat) && draggingObject != null) {
-	 			e.acceptTransferModes(TransferMode.MOVE);
+			// myMenu.displayParams();
 
-	 		}
-	 	});
-	 	
-	 	trash.setOnDragDropped(e -> {
-	 		Dragboard db = e.getDragboard();
-	 		ArrayList<SpriteObject> byeSprites = new ArrayList<SpriteObject>();
-	 		byeSprites.add(draggingObject);
-	 		//clear sprites
-	 		//mySOGM.clearCells(byeSprites);
-	 		
-	 		if (db.hasContent(objectFormat)) {
-	 			((Pane)draggingObject.getParent()).getChildren().remove(draggingObject);
-	 			e.setDropCompleted(true);
-	 			
-	 			draggingObject = null;
-	 		}
-	 	});
+			if (db.hasContent(objectFormat)) {
+				mySOGM.populateCell(draggingObject, row_col);
+//				System.out.println("has object format??");
+//				System.out.println("Parent size: " + ((Pane) draggingObject.getParent()).getChildren().size());
+//				System.out.println("Parent: " + ((Pane) draggingObject.getParent()));
+				
+
+				if (draggingObject.getParent() instanceof SpriteSelectPanel) {
+					SpriteSelectPanel spritePanel = (SpriteSelectPanel) draggingObject.getParent();
+					spritePanel.addNewDefaultSprite(draggingObject);
+				}
+				
+				((Pane) draggingObject.getParent()).getChildren().remove(draggingObject);
+				pane.getChildren().add(draggingObject);
+				e.setDropCompleted(true);
+				draggingObject = null;
+			}
+		});
+
 	}
-	
-	protected void addDragObject(SpriteObject b) {
-        b.setOnDragDetected(e -> {
-        		Dragboard db = b.startDragAndDrop(TransferMode.MOVE);
 
-        		db.setDragView(b.snapshot(null, null)); 
-        		ClipboardContent cc = new ClipboardContent();
-        		cc.put(objectFormat, " "); 
-        		db.setContent(cc); 
-        		draggingObject = b;    
-        });
+	private void addDropToTrash(ImageView trash) {
+
+		trash.setOnDragOver(e -> {
+			Dragboard db = e.getDragboard();
+			if (db.hasContent(objectFormat) && draggingObject != null) {
+				e.acceptTransferModes(TransferMode.MOVE);
+
+			}
+		});
+
+		trash.setOnDragDropped(e -> {
+			Dragboard db = e.getDragboard();
+			ArrayList<SpriteObject> byeSprites = new ArrayList<SpriteObject>();
+			byeSprites.add(draggingObject);
+			// clear sprites
+			// mySOGM.clearCells(byeSprites);
+
+			if (db.hasContent(objectFormat)) {
+				((Pane) draggingObject.getParent()).getChildren().remove(draggingObject);
+				e.setDropCompleted(true);
+
+				draggingObject = null;
+			}
+		});
+	}
+
+	protected void addDragObject(SpriteObject b) {
+		b.setOnDragDetected(e -> {
+			Dragboard db = b.startDragAndDrop(TransferMode.MOVE);
+
+			db.setDragView(b.snapshot(null, null));
+			ClipboardContent cc = new ClipboardContent();
+			cc.put(objectFormat, " ");
+			db.setContent(cc);
+			draggingObject = b;
+		});
 	}
 }

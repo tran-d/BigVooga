@@ -112,7 +112,8 @@ public class GameDataHandler {
 		Scanner scanner = new Scanner(spriteFile);
 		String fileContents = scanner.useDelimiter("\\Z").next();
 		scanner.close();
-		return (SpriteObject)SERIALIZER.fromXML(fileContents);
+		SpriteObject ret = (SpriteObject)SERIALIZER.fromXML(fileContents);
+		return ret;
 	}
 	
 	public File chooseSpriteFile(Stage stage) throws FileNotFoundException {

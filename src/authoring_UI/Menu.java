@@ -7,6 +7,7 @@ import java.util.Map;
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteParameterI;
 import javafx.geometry.Side;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
@@ -14,6 +15,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -138,6 +140,8 @@ public class Menu extends VBox {
 	private void createCategoryTabs() {
 		myParamTabs = new TabPane();
 		myParamTabs.setSide(Side.RIGHT);
+		myParamTabs.setPrefHeight(500);
+		myParamTabs.setPrefWidth(400);
 //		setDefaultParameterTab();
 //		Tab newCategory = new Tab("Category");
 //		newCategory.setContent(myStateSP);
@@ -228,11 +232,22 @@ public class Menu extends VBox {
 //		this.getChildren().add(myStateSP);
 	}
 	
-	private void buttonInteraction() {
-		
+	private void buttonInteraction(){
+		//TODO
 	}
 	
 	private void apply() {
+		
+		for (Tab t: myParamTabs.getTabs()){
+			ScrollPane SP =  (ScrollPane) t.getContent();
+			VBox paramsVbox = (VBox) SP.getContent();
+			for (Node node: paramsVbox.getChildren()){
+				FEParameter FEP = (FEParameter) node;
+				FEP.updateParameter();
+				myAEM.getSpriteParameterSidebarManager().apply();
+			}
+			
+		}
 		
 	}
 	
