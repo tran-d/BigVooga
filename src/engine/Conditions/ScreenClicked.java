@@ -11,9 +11,9 @@ import engine.World;
  * @author aaronpaskin
  *
  */
-public class Clicked extends Condition{
+public class ScreenClicked extends Condition{
 	
-	public Clicked(int priorityNum) {
+	public ScreenClicked(int priorityNum) {
 		this.priorityNum = priorityNum;
 	}
 	

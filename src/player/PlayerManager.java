@@ -16,32 +16,19 @@ public class PlayerManager {
 	private GameDisplay gameDisplay;
 	private EngineController engineController;
 	
-	private final EventHandler<KeyEvent> keyEventHandler;
-	private final EventHandler<MouseEvent> mouseEventHandler;
-	
 	private List<KeyCode> keysDown;
 	private List<KeyCode> prevKeysDown;
 	
 	private boolean primaryButtonDown;
 	private boolean prevPrimaryButtonDown;
+	private double clickX;
+	private double clickY;
 	
 	public PlayerManager() {
 		keysDown = new ArrayList<>();
 		prevKeysDown = new ArrayList<>();
 		primaryButtonDown = false;
 		prevPrimaryButtonDown = false;
-		
-		keyEventHandler = new EventHandler<KeyEvent>() {
-			public void handle(final KeyEvent keyEvent) {
-				keysDown.add(keyEvent.getCode());
-			}
-		};
-		
-		mouseEventHandler = new EventHandler<MouseEvent>() {
-			public void handle(final MouseEvent mouseEvent) {
-				primaryButtonDown = mouseEvent.isPrimaryButtonDown();
-			}
-		};
 	}
 	
 	public List<KeyCode> getKeysDown() {
@@ -61,11 +48,21 @@ public class PlayerManager {
 	}
 	
 	public void setPrimaryButtonDown(double x, double y) {
-		//TODO engine
+		primaryButtonDown = true;
+		clickX = x;
+		clickY = y;
+	}
+	
+	public double getClickX() {
+		return clickX;
+	}
+	
+	public double getClickY() {
+		return clickY;
 	}
 	
 	public void setPrimaryButtonUp(double x, double y) {
-		//TODO engine
+		primaryButtonDown = false;
 	}
 	
 	public boolean isPrimaryButtonDown() {
@@ -86,13 +83,9 @@ public class PlayerManager {
 	
 	public void step() {
 		prevKeysDown = keysDown;
-		keysDown.clear();
-		keyEventHandler.handle(keyEvent);					//how to get keyEvent?
-		
 		prevPrimaryButtonDown = primaryButtonDown;
-		primaryButtonDown = false;
-		mouseEventHandler.handle(mouseEvent);				//how to get mouseEvent?
-
+	}
+		
 	/**
 	 * INCOMPLETE: for handling the given image data at each step.
 	 * @param images

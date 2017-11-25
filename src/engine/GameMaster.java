@@ -66,12 +66,10 @@ public class GameMaster implements EngineController{
 	}
 	
 	private void step() {
-		
 		currentWorld = ((GameWorld)currentWorld).getNextWorld();
-		
 		currentWorld.step();
 		imageUpdate();
-		
+		playerManager.step();
 	}
 	
 	@Override
