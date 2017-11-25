@@ -26,15 +26,16 @@ public class EngineTester extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		//testCollisions();
-		//testData(stage);
+		// testCollisions();
+		// testData(stage);
 		testImageCanvas(stage);
 	}
 
 	private void testImageCanvas(Stage stage) {
 		Group g = new Group();
 		stage.setScene(new Scene(g));
-		g.getChildren().add(new ImageCanvas());
+		ImageCanvas i = new ImageCanvas(()->GameDataHandler.chooseFileForImageSave(stage));
+		g.getChildren().add(i);
 		stage.show();
 	}
 
@@ -43,7 +44,7 @@ public class EngineTester extends Application {
 		Scene scene = new Scene(g);
 		stage.setScene(scene);
 		Pane bpd = new BoundingPolygonCreator(
-				new Image(new GameDataHandler("Test").chooseFile(new Stage()).toURI().toString()),
+				new Image(GameDataHandler.chooseFile(new Stage()).toURI().toString()),
 				"Irrelevant, for now", i -> System.out.println(i));
 		g.getChildren().add(bpd);
 		stage.show();

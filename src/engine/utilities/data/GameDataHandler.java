@@ -25,6 +25,7 @@ import authoring.SpriteObject;
 import engine.EngineController;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 /**
@@ -114,10 +115,17 @@ public class GameDataHandler {
 	}
 	
 	//See javadocs for FileChooser -- this code is modified from that source
-	public File chooseFile(Stage stage) {
+	public static File chooseFile(Stage stage) {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle(SELECTOR_TITLE);
 		return fileChooser.showOpenDialog(stage);
+	}
+	
+	public static File chooseFileForImageSave(Stage stage) {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle(SELECTOR_TITLE);
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Image Files (.png)","*.png"));
+		return fileChooser.showSaveDialog(stage);
 	}
 	
 	private static void makeDirectory(String path) {
