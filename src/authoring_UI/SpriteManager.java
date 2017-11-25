@@ -173,7 +173,6 @@ public class SpriteManager extends VBox implements Observer {
 		trashCan.setFitWidth(45);
 	    trashCan.setFitHeight(45);
 		mySpriteGridHandler.addDropToTrash(trashCan);
-		this.getChildren().add(trashCan);
 		
 		return trashCan;
 	}
