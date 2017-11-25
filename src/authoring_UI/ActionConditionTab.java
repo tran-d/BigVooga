@@ -17,9 +17,8 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class ActionTab extends Tab {
+public class ActionConditionTab extends Tab {
 	
-	private static final String TITLE = "Actions";
 	private static final String ACTIONTAB_RESOURCE_PATH = "TextResources/ActionTabResources";
 	
 	private ResourceBundle actionTabResources;
@@ -29,8 +28,8 @@ public class ActionTab extends Tab {
 	private ActionConditionVBox conditions;
 	private ActionConditionVBox actions;
 	
-	public ActionTab() {
-		super(TITLE);
+	public ActionConditionTab(String title) {
+		super(title);
 		actionTabResources = ResourceBundle.getBundle(ACTIONTAB_RESOURCE_PATH); 
 		actionConditionManager = new ScrollPane();
 		setContent(actionConditionManager);
@@ -43,7 +42,7 @@ public class ActionTab extends Tab {
 		actionButtons = new TopToolBar(actionTabResources,"AddActionButtonLabel","ActionOptions","ActionSelectorLabel","RemoveActionButtonLabel");
 		conditions = new ActionConditionVBox(actionTabResources.getString("ConditionSelectorLabel"));
 		actions = new ActionConditionVBox(actionTabResources.getString("ActionSelectorLabel"));
-		Separator separator = ActionTabUtil.makeVerticalSeparator();
+		Separator separator = ActionConditionTabUtil.makeVerticalSeparator();
 		VBox mainVBox = new VBox();
 		mainVBox.getChildren().addAll(conditionButtons,actionButtons,conditions,separator,actions);
 		actionConditionManager.setContent(mainVBox);

@@ -29,9 +29,9 @@ public class ActionConditionVBox extends VBox implements ActionConditionVBoxI{
 	@Override
 	public void addActionCondition(String label) {
 		Label type = new Label(label);
-		ChoiceBox<String> implementationSelector = new ChoiceBox<String>(ActionTabUtil.convertToObservableList(
+		ChoiceBox<String> implementationSelector = new ChoiceBox<String>(ActionConditionTabUtil.convertToObservableList(
 				actionConditionVBoxResources.getString(label + actionConditionVBoxResources.getString("OptionsTag"))));
-		VBox implementationSelectorVBox = ActionTabUtil.addVBoxwithLabel(selectorLabel, implementationSelector);
+		VBox implementationSelectorVBox = ActionConditionTabUtil.addVBoxwithLabel(selectorLabel, implementationSelector);
 		ToolBar toolBar = new ToolBar(type,implementationSelectorVBox);
 		rows.add(toolBar);
 		getChildren().add(toolBar);

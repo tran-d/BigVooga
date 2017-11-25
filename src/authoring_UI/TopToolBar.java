@@ -26,13 +26,13 @@ public class TopToolBar extends ToolBar implements TopToolBarI {
 		super();
 		actionTabResources = resourceBundle;
 		addButton = new Button(actionTabResources.getString(addButtonTitle));
-		options = new ChoiceBox<String>(ActionTabUtil.convertToObservableList(actionTabResources.getString(optionsTitle)));
-		selectorVBox = ActionTabUtil.addVBoxwithLabel(actionTabResources.getString(selectorLabel), options);
-		Separator separator = ActionTabUtil.makeVerticalSeparator();
+		options = new ChoiceBox<String>(ActionConditionTabUtil.convertToObservableList(actionTabResources.getString(optionsTitle)));
+		selectorVBox = ActionConditionTabUtil.addVBoxwithLabel(actionTabResources.getString(selectorLabel), options);
+		Separator separator = ActionConditionTabUtil.makeVerticalSeparator();
 		separator.setOrientation(Orientation.VERTICAL);
 		removeButton = new Button(actionTabResources.getString(remove));
 		removeRow = new RemoveChoiceBox();
-		removeRowVBox = ActionTabUtil.addVBoxwithLabel(actionTabResources.getString("RemoverLabel"),removeRow);
+		removeRowVBox = ActionConditionTabUtil.addVBoxwithLabel(actionTabResources.getString("RemoverLabel"),removeRow);
 		getItems().addAll(addButton,options,selectorVBox,separator,removeButton,removeRow,removeRowVBox);
 	}
 

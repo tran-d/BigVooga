@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.VBox;
 
-public class ActionTabUtil {
+public class ActionConditionTabUtil {
 	
 	private static final String SPLITTER = ",";
 	

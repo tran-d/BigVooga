@@ -1,7 +1,7 @@
 package actionTabControllers;
 
 import authoring_UI.ActionConditionVBox;
-import authoring_UI.ActionTab;
+import authoring_UI.ActionConditionTab;
 import authoring_UI.TopToolBar;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

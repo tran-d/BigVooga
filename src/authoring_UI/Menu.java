@@ -26,6 +26,8 @@ public class Menu extends VBox {
 
 	private final static String LOAD = "Load";
 	private final static String SAVE = "Save";
+	private static final String CONDITIONS = "Conditions";
+	private static final String ACTIONS = "Actions";
 	private final static double MENU_WIDTH = 400;
 	private final static double MENU_HEIGHT = 500;
 	
@@ -75,11 +77,12 @@ public class Menu extends VBox {
 		mySpriteTabs = new TabPane();
 		Tab parameters = new Tab("Parameters");
 		parameters.setContent(myParamTabs);
-		Tab actions = new ActionTab();
+		ActionConditionTab conditions = new ActionConditionTab(CONDITIONS);
+		ActionConditionTab actions = new ActionConditionTab(ACTIONS);
 		Tab dialogue = new Tab("Dialogue");
 		dialogue.setContent(new TextArea("dialogue goes here"));
 		
-		mySpriteTabs.getTabs().addAll(parameters, actions, dialogue);
+		mySpriteTabs.getTabs().addAll(parameters,conditions, actions, dialogue);
 		mySpriteTabs.setSide(Side.TOP);
 		this.getChildren().add(mySpriteTabs);
 	}
