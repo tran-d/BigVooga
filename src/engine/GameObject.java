@@ -1,6 +1,7 @@
 package engine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -8,66 +9,75 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+//TODO need to add addToObjectList()? 
+
 public abstract class GameObject extends VariableContainer {
-	
-	
 	private final String DEFAULT_TAG = "unnamed";
 	private String name;
 	private Set<String> tagSet;
 	private Map<Condition, List<Action>> events;
 	private double x, y, heading;
+	private Sprite currentSprite;
+	private Map<String, Double> doubleVars;
+	private Map<String, Boolean> booleanVars;
+	private Map<String, String> stringVars;
 
-	public GameObject(String name) {
-		// TODO Auto-generated constructor stub
-		this.name = name;
-		tagSet = new HashSet<String>();
-		x = 0;
-		y = 0;
-		heading = 0;
-		events = new TreeMap<>();
-	}
 	public GameObject() {
 		name = DEFAULT_TAG;
 		tagSet = new HashSet<String>();
 		x = 0;
 		y = 0;
 		heading = 0;
+		doubleVars = new HashMap<String, Double>();
+		booleanVars = new HashMap<String, Boolean>();
+		stringVars = new HashMap<String, String>();
 		events = new TreeMap<>();
 	}
 	
-	
+	public GameObject(String name) {
+		this();
+		this.name = name;
+	}
+
 	public String getName() {
 		return name;
 	}
 
 	public void addTag(String tag) {
-		// TODO Auto-generated method stub
 		tagSet.add(tag);
 	}
 
 	public boolean is(String tag) {
-		// TODO Auto-generated method stub
 		return tagSet.contains(tag);
 	}
 
 	public List<String> getTags() {
-		// TODO Auto-generated method stub
 		return new ArrayList<String>(tagSet);
 	}
 
-	public void setGlobal(String variableName, boolean global) {
-		// TODO Auto-generated method stub
-
+	public void setGlobal(String variableName, World w) {
+		GlobalVariables currentGlobals = w.getGlobalVars();
+		if (doubleVars.containsKey(variableName)) {
+			currentGlobals.putDouble(variableName, doubleVars.get(variableName));
+		}
+		if (stringVars.containsKey(variableName)) {
+			currentGlobals.putString(variableName, stringVars.get(variableName));
+		}
+		if (booleanVars.containsKey(variableName)) {
+			currentGlobals.putBoolean(variableName, booleanVars.get(variableName));
+		}
 	}
 
-	public void makeAllGlobal() {
-		// TODO Auto-generated method stub
-
+	public void makeAllGlobal(World w) {
+		makeAllGlobalHelper(booleanVars.keySet(), w);
+		makeAllGlobalHelper(doubleVars.keySet(), w);
+		makeAllGlobalHelper(stringVars.keySet(), w);
 	}
-
-	public void addToObjectList(GameObject o) {
-		// TODO Auto-generated method stub
-
+	
+	private void makeAllGlobalHelper(Set<String> s, World w) {
+		for (String key : s) {
+			setGlobal(key, w);
+		}
 	}
 
 	public void addConditionAction(Condition c, List<Action> a) {
@@ -118,23 +128,32 @@ public abstract class GameObject extends VariableContainer {
 		return priorities;
 	}
 
-	public void setIntegerVariable(String name, int val) {}
+	public void setIntegerVariable(String name, double value) {
+		doubleVars.put(name, value);
+	}
 
 	public void setBooleanVariable(String name, Boolean value) {
-		// TODO Auto-generated method stub
-		
+		booleanVars.put(name, value);
 	}
 	
+	public void setStringVariable(String name, String value) {
+		stringVars.put(name, value);
+	}
+	
+	public void setSprite(Sprite set) {
+		currentSprite = set;
+	}
+	
+	public void addParameter(Object o) {
+		// TODO 
+	}
 	
 	/**
-	 * NEEDS COMPLETION
 	 * @return BoundedImage
 	 */
-	
-	public BoundedImage getImage()
-	{
-		//TODO return Object's image
-		return null;
+	public BoundedImage getImage() {
+		currentSprite.step();
+		return currentSprite.getImage();
 	}
 
 	public GameObject clone() {
