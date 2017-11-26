@@ -59,7 +59,7 @@ public class TopToolBar extends ToolBar implements TopToolBarI {
 
 	@Override
 	public void removeRemoveOption(int row) {
-		removeRow.removeRow(row);
+		removeRow.removeOption(row);
 	}
 	
 }
