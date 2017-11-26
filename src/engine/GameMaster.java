@@ -15,7 +15,7 @@ public class GameMaster implements EngineController{
 	private World currentWorld;
 	private List<World> madeWorlds;
 	private Timeline gameLoop;
-	private VariableContainer globalVars;
+	private GlobalVariables globalVars;
 	private PlayerManager playerManager;
 	
 	public GameMaster(PlayerManager playerManager) {

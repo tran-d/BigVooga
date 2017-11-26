@@ -55,20 +55,28 @@ public abstract class GameObject extends VariableContainer {
 		return new ArrayList<String>(tagSet);
 	}
 
-	public void setGlobal(String variableName, boolean global) {
-		// TODO 
-		// why boolean global? 
+	public void setGlobal(String variableName, World w) {
+		GlobalVariables currentGlobals = w.getGlobalVars();
+		if (doubleVars.containsKey(variableName)) {
+			currentGlobals.putDouble(variableName, doubleVars.get(variableName));
+		}
+		if (stringVars.containsKey(variableName)) {
+			currentGlobals.putString(variableName, stringVars.get(variableName));
+		}
+		if (booleanVars.containsKey(variableName)) {
+			currentGlobals.putBoolean(variableName, booleanVars.get(variableName));
+		}
 	}
 
-	public void makeAllGlobal() {
-		for (String key : booleanVars.keySet()) {
-			setGlobal(key, true);
-		}
-		for (String key : stringVars.keySet()) {
-			setGlobal(key, true);
-		}
-		for (String key : doubleVars.keySet()) {
-			setGlobal(key,true);
+	public void makeAllGlobal(World w) {
+		makeAllGlobalHelper(booleanVars.keySet(), w);
+		makeAllGlobalHelper(doubleVars.keySet(), w);
+		makeAllGlobalHelper(stringVars.keySet(), w);
+	}
+	
+	private void makeAllGlobalHelper(Set<String> s, World w) {
+		for (String key : s) {
+			setGlobal(key, w);
 		}
 	}
 
@@ -134,6 +142,10 @@ public abstract class GameObject extends VariableContainer {
 	
 	public void setSprite(Sprite set) {
 		currentSprite = set;
+	}
+	
+	public void addParameter(Object o) {
+		// TODO 
 	}
 	
 	/**
