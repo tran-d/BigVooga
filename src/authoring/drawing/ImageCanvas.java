@@ -25,6 +25,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
 
+/**
+ * @author Ian Eldridge-Allegra
+ *
+ */
 public class ImageCanvas extends BorderPane {
 	private static final int MIN_HEIGHT = 400;
 	private static final int MIN_WIDTH = 400;

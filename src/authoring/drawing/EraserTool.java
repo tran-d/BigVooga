@@ -7,6 +7,10 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 
+/**
+ * @author Ian Eldridge-Allegra
+ *
+ */
 public class EraserTool extends DrawingTool {
 
 	public EraserTool(ImageCanvas canvas) {

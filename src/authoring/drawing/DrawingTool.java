@@ -5,6 +5,10 @@ import java.util.ResourceBundle;
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * @author Ian Eldridge-Allegra
+ *
+ */
 public abstract class DrawingTool {
 	protected ImageCanvas canvas;
 	private ResourceBundle names = ResourceBundle.getBundle("authoring.drawing.drawingTools");
