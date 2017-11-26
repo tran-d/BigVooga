@@ -1,15 +1,16 @@
 package ActionConditionClasses;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
 public abstract class Variable_NewText extends HBox implements ChoiceBoxI<String>, TextFieldI {
+	
+	private static final String ERROR_DIALOG = "ERROR";
 	
 	private ChoiceBox<String> stringVariables;
 	private TextField textField;
@@ -42,7 +43,10 @@ public abstract class Variable_NewText extends HBox implements ChoiceBoxI<String
 	
 	@Override
 	public void displayErrorMessage(String caption,String errorMessage) {
-		JFrame frame = new JFrame(caption);
-		JOptionPane.showMessageDialog(frame, errorMessage);
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle(ERROR_DIALOG);
+		alert.setHeaderText(caption);
+		alert.setContentText(errorMessage);
+		alert.showAndWait();
 	}
 }
