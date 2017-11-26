@@ -18,7 +18,7 @@ public class GameMaster implements EngineController{
 	private GlobalVariables globalVars;
 	private PlayerManager playerManager;
 	
-	public GameMaster(PlayerManager playerManager) {
+	public GameMaster() {
 		// TODO Auto-generated constructor stub
 		madeWorlds = new ArrayList<World>();
 		
