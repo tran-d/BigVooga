@@ -13,11 +13,8 @@ public interface SpriteObjectGridManagerI {
 	void clearCells(ArrayList<Integer[]> cellsToClear);
 	void resetActiveCells();
 	void removeActiveCells(ArrayList<Integer[]> makeInactive);
-	void switchCellActiveStatus(ArrayList<Integer[]> makeActive);
+	void addActiveCells(ArrayList<Integer[]> makeActive);
 	void matchActiveCellsToSprite(SpriteObjectI firstSprite);
 	ArrayList<SpriteObjectI> getEntireListOfSpriteObjects();
-//	void switchCellActiveStatus(SpriteObjectI SOI);
-	boolean switchCellActiveStatus(Integer[] makeActive);
-	ImageView[][] populateCell(SpriteObjectI spriteObject, Integer[] row_col);
 	
 }

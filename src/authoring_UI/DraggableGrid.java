@@ -30,15 +30,13 @@ public class DraggableGrid extends HBox {
 	private DataFormat objectFormat;
 	private SpriteObjectGridManagerI mySOGM;
 	private Menu myMenu;
-	private SpriteManager mySpriteManager;
 	
-	protected DraggableGrid(int mapCount, Menu menu, SpriteObjectGridManagerI SOGM, SpriteManager SM) {
+	protected DraggableGrid(int mapCount, Menu menu, SpriteObjectGridManagerI SOGM) {
 		createGrid();
 		createTrash();
 		objectFormat = new DataFormat("MyObject" + Integer.toString(mapCount));
 		mySOGM = SOGM;
 		myMenu = menu;
-		mySpriteManager = SM;
 	}
 	
 	private void createGrid() {
@@ -55,7 +53,6 @@ public class DraggableGrid extends HBox {
 
                     gp.add(sp, i, j);
                     addDropHandling(sp);
-                    addMouseClick(sp);
             }
         }
         ScrollPane scrollGrid = new ScrollPane(gp);
@@ -69,32 +66,6 @@ public class DraggableGrid extends HBox {
 	    trashCan.setFitHeight(45);
 		addDropToTrash(trashCan);
 		this.getChildren().add(0, trashCan);
-	}
-	
-	private void addMouseClick(StackPane pane){
-		pane.setOnMouseClicked(e -> {
-			
-			boolean activeStatus;
-			activeStatus = mySOGM.switchCellActiveStatus(getStackPanePositionInGrid(pane));
-			if (activeStatus){
-				pane.setOpacity(.5);
-			} else {
-				pane.setOpacity(1);
-			}
-			myMenu.updateParameterTab();
-			
-		});
-	}
-	
-	private Integer[] getStackPanePositionInGrid(StackPane pane){
-		int row = ((GridPane)pane.getParent()).getRowIndex(pane);
-        int col = ((GridPane)pane.getParent()).getColumnIndex(pane);
-        Integer [] row_col = new Integer[]{row, col};
-        return row_col;
-	}
-	
-	private void updateGridPane(){
-		mySOGM.getGrid();
 	}
 	
 	
@@ -111,28 +82,22 @@ public class DraggableGrid extends HBox {
             Dragboard db = e.getDragboard();
             int row = ((GridPane)pane.getParent()).getRowIndex(pane);
             int col = ((GridPane)pane.getParent()).getColumnIndex(pane);
-//            
+            
             Integer [] row_col = new Integer[]{row, col};
-//            ArrayList<Integer[]> activeCells = new ArrayList<Integer[]>();
-//            activeCells.add(row_col);
+            ArrayList<Integer[]> activeCells = new ArrayList<Integer[]>();
+            activeCells.add(row_col);
+            mySOGM.populateCell(draggingObject, activeCells);
+            mySOGM.addActiveCells(activeCells);
             
-//            mySOGM.addActiveCells(activeCells);
-            
-//            myMenu.displayParams();
+            myMenu.displayParams();
 
             if (db.hasContent(objectFormat)) {
-            	mySOGM.populateCell(draggingObject, row_col);
-            	System.out.println("has object format??");
-            	System.out.println("Parent size: "+ ((Pane)draggingObject.getParent()).getChildren().size());
                 ((Pane)draggingObject.getParent()).getChildren().remove(draggingObject);
                 pane.getChildren().add(draggingObject);
                 e.setDropCompleted(true);
 
-                
-                mySpriteManager.addNewDefaultSprite(draggingObject);
                 draggingObject = null;
-            }  
-//            mySpriteManager.setupDefaultSprites();
+            }           
         });
 
     }

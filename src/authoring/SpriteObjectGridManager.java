@@ -1,9 +1,7 @@
 package authoring;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import javafx.scene.image.ImageView;
@@ -56,14 +54,6 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 		}
 		return ret;
 	}
-	
-	@Override
-	public ImageView[][] populateCell(SpriteObjectI spriteObject, Integer[] row_col) {
-		
-			setCell(spriteObject.newCopy(), row_col);
-		
-		return getGrid();
-	}
 
 	@Override
 	public ImageView[][] populateCell(SpriteObjectI spriteObject, ArrayList<Integer[]> row_col) {
@@ -84,53 +74,9 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 	}
 	
 	@Override
-	public boolean switchCellActiveStatus(Integer[] makeActive){
-//		System.out.println(makeActive);
-		return changeCellActiveStatus(makeActive);
+	public void addActiveCells(ArrayList<Integer[]> makeActive){
+		activeCells.addAll(makeActive);
 	}
-	
-	@Override
-	public void switchCellActiveStatus(ArrayList<Integer[]> makeActive){
-//		activeCells.addAll(makeActive);
-		makeActive.forEach(pos -> {
-			changeCellActiveStatus(pos);
-		});
-	}
-	
-	
-	private boolean changeCellActiveStatus(Integer [] pos){
-//		System.out.println("ChangingStatus");
-//		Integer[] a = {3,4};
-//		Integer[] b = {3,4};
-//		Integer[] c = {3,5};
-//		System.out.println(Arrays.equals(a, b));
-//		System.out.println(a.equals(c));
-//		Iterator it = activeCells.iterator();
-//		while (it.hasNext()){
-//			it.next();
-//			if (Arrays.equals(,  pos)){
-//				
-//			}
-//		}
-		System.out.println("pos: "+pos);
-		
-		for (Integer[] currentActive : activeCells){
-			System.out.println("curr active: " + currentActive);
-			if (Arrays.equals(currentActive, pos)){
-				activeCells.remove(currentActive);
-				System.out.println("removed");
-				System.out.println("activeCells: " + activeCells);
-				return false;
-			}
-		}
-		activeCells.add(pos);
-		return true;	
-	}
-	
-//	@Override 
-//	public void switchCellActiveStatus(SpriteObjectI SOI){
-//		activeCells.add(SOI.getPositionOnGrid());
-//	}
 	
 	@Override
 	public void removeActiveCells(ArrayList<Integer[]> makeInactive){
@@ -145,7 +91,6 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 	@Override
 	public ArrayList<SpriteObjectI> getActiveSpriteObjects(){
 		ArrayList<SpriteObjectI> ret = new ArrayList<SpriteObjectI>();
-		System.out.println(activeCells.size());
 		for (Integer[] loc: activeCells){
 			ret.add(getCell(loc));
 		}
@@ -155,7 +100,7 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 	@Override
 	public void clearCells(ArrayList<Integer[]> cellsToClear){
 		for (Integer[] loc: cellsToClear){
-			setCellAsDefault(loc);	
+			setCellAsDefault(loc);
 		}
 	}
 	

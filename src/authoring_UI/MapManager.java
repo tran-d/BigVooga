@@ -1,10 +1,6 @@
 package authoring_UI;
 
-import java.util.Observable;
-import java.util.Observer;
-
 import authoring.AuthoringEnvironmentManager;
-import authoring.SpriteObject;
 import authoring.SpriteObjectGridManagerI;
 import default_pkg.SceneController;
 import gui.welcomescreen.WelcomeScreen;
@@ -13,10 +9,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class MapManager extends TabPane implements Observer {
+public class MapManager extends TabPane {
 	
 	private Stage stage;
 	private Scene scene;
@@ -27,7 +24,6 @@ public class MapManager extends TabPane implements Observer {
 	private Tab addTab;
 	private AuthoringEnvironmentManager myAEM;
 	private SpriteObjectGridManagerI mySOGM;
-	private SpriteManager mySprites;
 	
 	private int myTabCount = 1;
 	private static final String TABTAG = "map ";
@@ -57,11 +53,10 @@ public class MapManager extends TabPane implements Observer {
 
 	private HBox setupScene() {
 		myAEM = new AuthoringEnvironmentManager();
-		Menu myMenu = new Menu(myAEM,stage,this);
+		Menu myMenu = new Menu(myAEM);
 		mySOGM = myAEM.getGridManager();
-		mySprites = new SpriteManager();
-		DraggableGrid myGrid = new DraggableGrid(myTabCount, myMenu, mySOGM, mySprites);
-		mySprites.construct(myGrid, myAEM, mySOGM);
+		DraggableGrid myGrid = new DraggableGrid(myTabCount, myMenu, mySOGM);
+		SpriteManager mySprites = new SpriteManager(myGrid, myAEM, mySOGM);
 		HBox authMap = new HBox(myMenu, myGrid, mySprites);
 		authMap.setPrefWidth(WelcomeScreen.WIDTH);
 		authMap.setPrefHeight(WelcomeScreen.HEIGHT);
@@ -76,16 +71,5 @@ public class MapManager extends TabPane implements Observer {
 		currentTab.setContent(setupScene());
 		this.getTabs().add(this.getTabs().size() - 1, currentTab);
 		myTabCount++;
-	}
-
-	//adds new user sprites
-	@Override
-	public void update(Observable o, Object arg) {
-		System.out.println(arg);
-		System.out.println("notified observer");
-		System.out.println(mySprites);
-		mySprites.createUserSprite(arg);
-//		mySprites.getUserSpriteParam((String) arg);
-		
 	}
 }
