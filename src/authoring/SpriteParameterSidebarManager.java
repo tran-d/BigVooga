@@ -16,23 +16,24 @@ public class SpriteParameterSidebarManager {
 	HashMap<String, ArrayList<SpriteParameterI>> everyStateParameter = new HashMap<String, ArrayList<SpriteParameterI>>();
 	HashMap<String, String> newNameOldName = new HashMap<String, String>();
 	boolean firstTimeThrough = true;
-	SpriteObjectI firstSprite;
+	SpriteObject firstSprite;
 	SpriteObjectGridManagerI mySOGM;
 
 	SpriteParameterSidebarManager(SpriteObjectGridManagerI SOGM) {
 		mySOGM = SOGM;
 	}
 
-	public SpriteObjectI getActiveSprite() throws Exception {
+	public SpriteObject getActiveSprite() throws Exception {
 		// mySOGM = SOGM;
-		ArrayList<SpriteObjectI> sprites = mySOGM.getActiveSpriteObjects();
+		ArrayList<SpriteObject> sprites = mySOGM.getActiveSpriteObjects();
 		checkActiveCellsMatch(sprites);
 		return firstSprite;
 	}
 
-	private void checkActiveCellsMatch(ArrayList<SpriteObjectI> SO_List) throws Exception {
+	private void checkActiveCellsMatch(ArrayList<SpriteObject> SO_List) throws Exception {
 		if (SO_List.size() > 0) {
-			for (SpriteObjectI SO : SO_List) {
+			firstTimeThrough = true;
+			for (SpriteObject SO : SO_List) {
 				if (firstTimeThrough) {
 					initializeMaps(SO);
 					firstTimeThrough = false;
@@ -50,7 +51,7 @@ public class SpriteParameterSidebarManager {
 
 	}
 
-	private void initializeMaps(SpriteObjectI SO) {
+	private void initializeMaps(SpriteObject SO) {
 		firstSprite = SO;
 		everyStateParameter = SO.getParameters();
 		newNameOldName = new HashMap<String, String>();

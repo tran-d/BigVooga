@@ -58,7 +58,7 @@ public class AuthoringEnvironmentManager {
 	}
 
 	
-	public SpriteObjectI getActiveCell() throws Exception{
+	public SpriteObject getActiveCell() throws Exception{
 		return SPSM.getActiveSprite();
 	}
 

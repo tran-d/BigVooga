@@ -7,17 +7,22 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Observable;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObject;
 import engine.utilities.data.GameDataHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -43,17 +48,24 @@ public class SpriteCreator extends Observable {
 	private TextField myNameInput;
 	private SpriteObject mySpriteObject;
 	private File mySpriteFile;
+	private SpriteParameterTabsAndInfo mySPTAI;
+	private TextArea myErrorMessage;
+	Consumer<Button> myConsumer;
 
 	protected SpriteCreator(Stage stage, AuthoringEnvironmentManager AEM, MapManager mapManager) {
 
 		myStage = stage;
+		mySPTAI = new SpriteParameterTabsAndInfo();
 		myAEM = AEM;
 		myGDH = myAEM.getGameDataHandler();
 		myGrid = new GridPane();
 		myMapManager = mapManager;
 		this.addObserver(myMapManager);
 		setGrid();
+		
 		mySpriteObject = new SpriteObject();
+		mySPTAI.setSpriteObject(mySpriteObject);
+		
 	}
 
 	private void setGrid() {
@@ -79,7 +91,26 @@ public class SpriteCreator extends Observable {
 		addNameBox();
 		addCreatebutton();
 		addLoadSpriteButton();
+		addSpriteParametersTabPane();
+		addErrorMessage();
+	}
 
+	
+	private void addSpriteParametersTabPane() {
+		VBox myParamVBox = new VBox();
+		TabPane myParamTabs = mySPTAI.getTabPane();
+		myParamVBox.getChildren().add(myParamTabs);
+		myGrid.add(myParamVBox, 1, 1);
+	}
+	
+	private void addErrorMessage(){
+		 myErrorMessage = new TextArea();
+		 myErrorMessage.setText("");
+		 myGrid.add(myErrorMessage, 1, 0);
+	}
+	
+	private void setErrorMessage(String message){
+		myErrorMessage.setText(message);
 	}
 
 	/**
@@ -99,9 +130,11 @@ public class SpriteCreator extends Observable {
 		createSprite.setOnAction(e-> {
 			System.out.println(getSpriteObject());
 			System.out.println(getSpriteObject().getName());
+			mySPTAI.apply();
 			copySpriteFileToProject();
 			setChanged();
 			notifyObservers(getSpriteObject());
+			myConsumer.accept(null);
 		});
 		buttonBox.getChildren().add(createSprite);
 
@@ -132,9 +165,9 @@ public class SpriteCreator extends Observable {
 		chooseImageButton.setOnAction(e -> {
 			try {
 				openImage();
-			} catch (IOException e1) {
+			} catch (Exception e1) {
 				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				setErrorMessage("Choose a valid image file");
 			}
 		});
 
@@ -151,9 +184,9 @@ public class SpriteCreator extends Observable {
 		chooseSpriteButton.setOnAction(e -> {
 			try {
 				chooseSpriteFileandLoadSprite();
-			} catch (IOException e1) {
+			} catch (Exception e1) {
 				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				setErrorMessage("Choose a valid Sprite");
 			}
 		});
 
@@ -165,6 +198,7 @@ public class SpriteCreator extends Observable {
 		File newChosenSpriteFile = myGDH.chooseSpriteFile(myStage);
 		mySpriteFile = newChosenSpriteFile;
 		mySpriteObject = myGDH.loadSprite(newChosenSpriteFile);
+		mySPTAI.setSpriteObject(mySpriteObject);
 	}
 	
 	
@@ -174,7 +208,7 @@ public class SpriteCreator extends Observable {
 				myGDH.addFileToProject(mySpriteFile);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new RuntimeException();
 			}
 		}
 	}
@@ -195,6 +229,10 @@ public class SpriteCreator extends Observable {
 			System.out.println("image chosen");
 
 		}
+	}
+	
+	public void onCreate(Consumer<Button> button){
+		myConsumer = button;
 	}
 
 }

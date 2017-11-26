@@ -97,7 +97,7 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 	}
 
 	@Override
-	public boolean isSame(SpriteObjectI other){
+	public boolean isSame(SpriteObject other){
 		if (!(other instanceof SpriteObject)) {
 	        return false;
 	    }
@@ -187,6 +187,11 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 	@Override
 	public String getName() {
 		return myName;
+	}
+	
+	@Override
+	public void changeCategoryName(String prev, String next) {
+		getParameters().put(next, getParameters().remove(prev));
 	}
 	
 	

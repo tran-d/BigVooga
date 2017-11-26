@@ -10,7 +10,7 @@ public interface SpriteObjectI {
 	HashMap<String, ArrayList<SpriteParameterI>> getParameters();
 	void addParameter(SpriteParameterI SP);
 	void applyParameterUpdate(HashMap<String, ArrayList<SpriteParameterI>> newParams);
-	boolean isSame(SpriteObjectI other);
+	boolean isSame(SpriteObject other);
 	SpriteObjectI newCopy();
 	ImageView getImageView();
 	void setImageURL(String fileLocation);
@@ -18,5 +18,6 @@ public interface SpriteObjectI {
 	void setPositionOnGrid(Integer[] pos);
 	String getName();
 	void setName(String name);
+	void changeCategoryName(String prev, String next);
 	
 }
