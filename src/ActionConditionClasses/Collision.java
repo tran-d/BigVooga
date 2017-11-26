@@ -1,20 +1,28 @@
 package ActionConditionClasses;
 
-import authoring_actionconditions.IntegerChoiceBox;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.scene.control.ChoiceBox;
 
-public class Collision extends IntegerChoiceBox implements CollisionI {
+public class Collision extends ChoiceBox<Integer> implements ChoiceBoxI {
+	
+	private ObservableList<Integer> collisionSpriteObjects;
 	
 	public Collision() {
 		super();
+		collisionSpriteObjects = FXCollections.observableArrayList();
+		collisionSpriteObjects.addListener((ListChangeListener<Integer>) c -> setOptions(collisionSpriteObjects));
 	}
 
 	@Override
-	public void addListChangeListener(ListChangeListener<Integer> c) {
-		ObservableList<Integer> currentRows = getCurrentOptions();
-		currentRows.addListener(c);
-		setCurrentOptions(currentRows);
+	public void addListChangeListener(ListChangeListener<Object> c) {
+		collisionSpriteObjects.addListener(c);
+	}
+
+	@Override
+	public void setOptions(ObservableList<Object> list) {
+		setOptions(list);
 	}
 	
 }
