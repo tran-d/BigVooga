@@ -26,5 +26,5 @@ public abstract class BoundingGeometry {
 
 	public abstract BoundingGeometry getRotated(double rotation);
 
-	public abstract BoundingGeometry getTranslated(double xCenter, double yCenter);
+	public abstract BoundingGeometry getTranslated(double dx, double dy);
 }
