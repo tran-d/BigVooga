@@ -1,0 +1,47 @@
+/*.tree-cell{
+    -fx-background-color: #001E32;
+    -fx-text-fill: #47BDFF;
+}
+
+.tree-cell > .tree-disclosure-node > .arrow  {
+    -fx-background-color: #001E32;
+}
+.tree-cell:expanded > .tree-disclosure-node > .arrow {
+    -fx-background-color: #001E32;
+}
+
+.tree-cell:expanded {
+    -fx-background-color: #001E32;
+    -fx-text-fill: #47BDFF;
+}
+
+.tree-cell:selected {
+    -fx-background-color: #001E32;
+    -fx-text-fill: #47BDFF;
+}*/
+
+.tree-cell {
+    -fx-background-color: #001E32;
+}
+
+.tree-cell > .tree-disclosure-node > .arrow {
+	-fx-background-color: #001E32;	
+}
+
+.button {
+	-fx-font: Segoe UI;
+	-fx-font-size: 25;
+}
+
+.hbox {
+    -fx-background-color: #001E32;
+}
+
+.label {
+	-fx-text-fill: #47BDFF;
+    -fx-font: Segoe UI;
+    -fx-font-size: 50;
+}
+
+
+

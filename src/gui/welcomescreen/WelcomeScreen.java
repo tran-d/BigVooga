@@ -1,5 +1,6 @@
 package gui.welcomescreen;
 
+import default_pkg.SceneController;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -17,12 +18,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import player.GameDisplay;
-import player.GameSelector;
 
 /**
+ * Creates the opening screen of VOOGA that allows user to select between four options: Play, which lets them select any game they created to play it,
+ * Create, which brings them to the authoring environment to build a game, Learn, which provides basic VOOGA instructions and a general FAQ section,
+ * and Settings, which allows them to modify any general VOOGA preferences such as the display language.
  * 
- * @author Samarth
+ * @author Samarth Desai
  *
  */
 public class WelcomeScreen {
@@ -34,6 +36,7 @@ public class WelcomeScreen {
 	public static final String MAIN_COLOR = "#47BDFF;";
 	public static final String MAIN_FONT = "Segoe UI;";
 	public static final String BORDER_COLOR = MAIN_COLOR;
+	public static final String BUTTON_BACKGROUND_DEFAULT_COLOR = "transparent";
 	private static final String STAGE_TITLE = "VOOGA";
 	private static final String LEFT_SEGMENT_TITLE = "V";
 	private static final String RIGHT_SEGMENT_TITLE = "GA";
@@ -43,15 +46,9 @@ public class WelcomeScreen {
 	private static final String TITLE_SIZE = INFINITY_HEIGHT-185 + "pt;";
 	private static final int TITLE_POSITION_Y_WINDOWS = 35;
 	private static final int TITLE_POSITION_Y_MAC = 55;
-	//private static final int TITLE_POSITION_Y = 37;
-	//private static final int TITLE_POSITION_Y = 55;
 	private static final int INFINITY_POSITION_X = 20;
-	//private static final int INFINITY_POSITION_X_WINDOWS = 20;
-	//private static final int INFINITY_POSITION_Y_WINDOWS = 20;
-	//private static final int INFINITY_POSITION_X_MAC = 15;
-	//private static final int INFINITY_POSITION_Y_MAC = 55;
 	private static final int INFINITY_BORDER_WIDTH = 75;
-	private static final String MOTTO_TEXT = "The Game Engine with Infinite Possibilities";
+	private static final String MOTTO_TEXT = "Motto";
 	private static final String MOTTO_SIZE = 16 + "pt;";
 	private static final String PLAY_STATIC_PATH = "Play_Static.png";
 	private static final String PLAY_PATH = "Play.gif";
@@ -83,6 +80,8 @@ public class WelcomeScreen {
 	private static final String OS = System.getProperty("os.name").toLowerCase();
 
 	private Stage stage;
+	private Scene scene;
+	private SceneController sceneController;
 	private BorderPane rootPane;
 	private boolean clickEnabled = false;
 	
@@ -104,13 +103,20 @@ public class WelcomeScreen {
 	private VBox playVBox;
 	private VBox createVBox;
 	private VBox learnVBox;
-	private VBox settingsVBox;	
+	private VBox settingsVBox;
 	
-	public WelcomeScreen(Stage currentStage) {
+	/**
+	 * Initializes the opening scene and sets the primary program stage preferences, such as the title of the window and the size of the stage.
+	 * 
+	 * @param currentStage - Stage instance that is being passed
+	 * @param currentSceneController - Allows the correct scene to be applied, which is the settings scene
+	 */
+	public WelcomeScreen(Stage currentStage, SceneController currentSceneController) {
 		
 		stage = currentStage;
 		rootPane = new BorderPane();
-		Scene scene = new Scene(rootPane, WIDTH, HEIGHT);
+		scene = new Scene(rootPane, WIDTH, HEIGHT);
+		sceneController = currentSceneController;
 
 		stage.setScene(scene);
 		stage.sizeToScene();
@@ -119,6 +125,9 @@ public class WelcomeScreen {
 		stage.show();
 	}
 	
+	/**
+	 * Builds the title, motto, and options for the welcome screen.
+	 */
 	public void createWelcomeScreen() {
 		
 		rootPane.setStyle(SET_BACKGROUND_COLOR + BACKGROUND_COLOR);
@@ -133,6 +142,11 @@ public class WelcomeScreen {
 		
 	}
 	
+	/**
+	 * Creates the VOOGA title and the motto that lies below it.
+	 * 
+	 * @return the main title and the VOOGA motto
+	 */
 	private VBox createTitleAndMotto() {
 		HBox titleBox = createTitle();
 		Label motto = createMotto();
@@ -142,6 +156,11 @@ public class WelcomeScreen {
 		return titleAndMotto;
 	}
 	
+	/**
+	 * Creates the main VOOGA title which is called upon in the createTitleAndMotto function.
+	 * 
+	 * @return the VOOGA title
+	 */
 	private HBox createTitle() {
 		
 		Image infinityImage = GUITools.createImage(INFINITY_PATH, INFINITY_WIDTH, INFINITY_HEIGHT);
@@ -160,23 +179,16 @@ public class WelcomeScreen {
 		return titleBox;
 	}
 	
+	/**
+	 * Positions the three components of the VOOGA title: the initial "V", the infinity symbol which represents the "OO", and the final "GA".
+	 * 
+	 * @param firstSegment - The "V" in the title
+	 * @param image - The infinity that represents the "OO" in the title
+	 * @param secondSegment - The "GA in the title
+	 */
 	private void positionTitle(Label firstSegment, ImageView image, Label secondSegment) {
 		firstSegment.toFront();
-		
-		/*int xPos;
-		int yPos;
-		if (isMac()) {
-			xPos = INFINITY_POSITION_X_MAC;
-			yPos = INFINITY_POSITION_Y_MAC;
-		}
-		else {
-			xPos = INFINITY_POSITION_X_WINDOWS;
-			yPos = INFINITY_POSITION_Y_WINDOWS;
-		}*/
-		
 		image.setLayoutX(INFINITY_POSITION_X);
-		//image.setLayoutY(xPos);
-		//image.setLayoutY(yPos);
 		secondSegment.setLayoutX(INFINITY_POSITION_X + INFINITY_WIDTH - INFINITY_BORDER_WIDTH);
 		if (isMac()){
 			firstSegment.setLayoutY(TITLE_POSITION_Y_MAC);
@@ -188,23 +200,41 @@ public class WelcomeScreen {
 		}
 	}
 	
+	/**
+	 * Checks if the machine that VOOGA is running on has Windows OS. This is included because the positioning of some images differs for Windows
+	 * and Mac, so this methods helps determine how to position the title.
+	 * 
+	 * @return whether or not the OS is Windows
+	 */
 	public static boolean isWindows() {
-
 		return (OS.indexOf("win") >= 0);
-
 	}
 
+	/**
+	 * Checks if the machine that VOOGA is running on has Mac OS. This is included because the positioning of some images differs for Windows
+	 * and Mac, so this methods helps determine how to position the title.
+	 * 
+	 * @return whether or not the OS is some form of Mac OS
+	 */
 	public static boolean isMac() {
-
 		return (OS.indexOf("mac") >= 0);
-
 	}
 	
+	/**
+	 * Creates the VOOGA motto which is displayed in between the title and option buttons.
+	 * 
+	 * @return the label containing the motto
+	 */
 	private Label createMotto() {
 		Label motto = GUITools.generateLabel(MOTTO_TEXT, MAIN_FONT, MAIN_COLOR, MOTTO_SIZE);
 		return motto;
 	}
 	
+	/**
+	 * Creates the four options which users can select in WelcomeScreen.
+	 * 
+	 * @return the set of all buttons to be displayed in WelcomeScreen
+	 */
 	private HBox createWelcomeOptions() {
 		
 		createWelcomeImageViews();
@@ -216,6 +246,9 @@ public class WelcomeScreen {
 		return optionBox;
 	}
 	
+	/**
+	 * Creates the different components of the options buttons and the appropriate handlers when a mouse hovers or clicks on a button.
+	 */
 	private void createWelcomeImageViews() {
 		
 		createOptionImages();
@@ -225,6 +258,9 @@ public class WelcomeScreen {
 				
 	}
 	
+	/**
+	 * Initializes the images used for the options buttons.
+	 */
 	private void createOptionImages(){
 		
 		playImage = GUITools.createImage(PLAY_PATH, PLAY_WIDTH, PLAY_HEIGHT);
@@ -238,6 +274,9 @@ public class WelcomeScreen {
 		settingsStaticImage = GUITools.createImage(SETTINGS_STATIC_PATH, SETTINGS_WIDTH, SETTINGS_HEIGHT);
 	}
 	
+	/**
+	 * Sets the current button image being displayed from the previously initialized images.
+	 */
 	private void initializeOptionImageViews() {
 		
 		play = GUITools.createImageView(playStaticImage);
@@ -246,6 +285,9 @@ public class WelcomeScreen {
 		settings = GUITools.createImageView(settingsStaticImage);
 	}
 	
+	/**
+	 * Creates the individual buttons and sets the specific event handlers for them.
+	 */
 	private void createWelcomeBoxes() {
 		playVBox = boxGenerator(
 				borderGenerate(play, e -> handlePlaySelection()),
@@ -264,6 +306,13 @@ public class WelcomeScreen {
 				);
 	}
 	
+	/**
+	 * Creates the option button and sets its mouse event handlers.
+	 * 
+	 * @param optionLogo - The title of the button
+	 * @param handler - The event handler for the button
+	 * @return the HBox that acts as a button
+	 */
 	private HBox borderGenerate(ImageView optionLogo, EventHandler<? super MouseEvent> handler) {
 		HBox optionBox = new HBox();
 		optionBox.getChildren().add(optionLogo);
@@ -272,6 +321,13 @@ public class WelcomeScreen {
 		return optionBox;
 	}
 	
+	/**
+	 * Creates the VBox that aligns the button with the button heading.
+	 * 
+	 * @param hbox - The option button
+	 * @param caption - The text for the button header
+	 * @return the VBox containing both the button header and button
+	 */
 	private VBox boxGenerator(HBox hbox, String caption) {
 		VBox box = new VBox();
 		box.setAlignment(Pos.CENTER);
@@ -281,6 +337,9 @@ public class WelcomeScreen {
 		return box;
 	}
 	
+	/**
+	 * Handles all the mouse events for the options buttons.
+	 */
 	private void handleHover() {
 		play.setOnMouseEntered(e -> playMouseEnter());
 		play.setOnMouseExited(e -> playMouseExit());
@@ -292,38 +351,65 @@ public class WelcomeScreen {
 		settings.setOnMouseExited(e -> settingsMouseExit());
 	}
 	
+	/**
+	 * Handles the event when the mouse enters the Play button.
+	 */
 	private void playMouseEnter() {
 		play.setImage(playImage);
 	}
 	
+	/**
+	 * Handles the event when the mouse exits the Play button.
+	 */
 	private void playMouseExit() {
 		play.setImage(playStaticImage);
 	}
 	
+	/**
+	 * Handles the event when the mouse enters the Create button.
+	 */
 	private void createMouseEnter() {
 		create.setImage(createImage);
 	}
 	
+	/**
+	 * Handles the event when the mouse exits the Create button.
+	 */
 	private void createMouseExit() {
 		create.setImage(createStaticImage);
 	}
 	
+	/**
+	 * Handles the event when the mouse enters the Learn button.
+	 */
 	private void learnMouseEnter() {
 		learn.setImage(learnImage);
 	}
 	
+	/**
+	 * Handles the event when the mouse exits the Learn button.
+	 */
 	private void learnMouseExit() {
 		learn.setImage(learnStaticImage);
 	}
 	
+	/**
+	 * Handles the event when the mouse enters the Settings button.
+	 */
 	private void settingsMouseEnter() {
 		settings.setImage(settingsImage);
 	}
 	
+	/**
+	 * Handles the event when the mouse exits the Settings button.
+	 */
 	private void settingsMouseExit() {
 		settings.setImage(settingsStaticImage);
 	}
 	
+	/**
+	 * Creates the fade transition that occurs for the titleAndMotto, and for the options buttons when VOOGA is launched.
+	 */
 	private void animationTimeline() {
 		Timeline timeline = new Timeline();
 		timeline.getKeyFrames().addAll(
@@ -338,6 +424,12 @@ public class WelcomeScreen {
 		timeline.setOnFinished(e -> clickEnabled = true);
 	}
 	
+	/**
+	 * Creates the fade transition for each option button when the program is first launched.
+	 * 
+	 * @param box - The option button and its heading
+	 * @param duration - The duration of the fade transition
+	 */
 	private void createTransition(VBox box, int duration) {
 		FadeTransition ft = new FadeTransition(Duration.millis(duration), box);
 		ft.setFromValue(0);
@@ -345,31 +437,45 @@ public class WelcomeScreen {
 		ft.play();
 	}
 	
+	/**
+	 * Creates the action that handles the Play button being clicked.
+	 */
 	private void handlePlaySelection() {
 		if (!clickEnabled) { return; }
-		
-		GameSelector gameSelector = new GameSelector(stage);
-		gameSelector.createGameSelector();
-		
+		sceneController.switchScene(SceneController.GAME_SELECTOR_KEY);
 	}
 	
+	/**
+	 * Creates the action that handles the Create button being clicked.
+	 */
 	private void handleCreateSelection() {
-		
+		if (!clickEnabled) { return; }
+		sceneController.switchScene(SceneController.CREATE_KEY);
 	}
 	
+	/**
+	 * Creates the action that handles the Learn button being clicked.
+	 */
 	private void handleLearnSelection() {
 		if (!clickEnabled) { return; }
-		
-		Instructions instructions = new Instructions(stage);
-		instructions.createInstructions();
-		
+		sceneController.switchScene(SceneController.LEARN_KEY);
 	}
 	
+	/**
+	 * Creates the action that handles the Settings button being clicked.
+	 */
 	private void handleSettingsSelection() {
 		if (!clickEnabled) { return; }
-		
-		Settings settings = new Settings(stage);
-		settings.createSettings();
+		sceneController.switchScene(SceneController.SETTINGS_KEY);
+	}
+	
+	/**
+	 * Gets the scene for initialization in SceneController.
+	 * 
+	 * @return the WelcomeScreen scene
+	 */
+	public Scene getScene() {
+		return scene;
 	}
 	
 }

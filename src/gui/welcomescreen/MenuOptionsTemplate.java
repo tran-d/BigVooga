@@ -1,5 +1,6 @@
 package gui.welcomescreen;
 
+import default_pkg.SceneController;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,8 +14,10 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 /**
+ * The superclass that creates the framework for three of the four options in the welcome screen: Play, Learn, and Settings.
+ * Specifically, this sets the color scheme, heading, back button, and ScrollPane of information for these three options.
  * 
- * @author Samarth
+ * @author Samarth Desai
  *
  */
 public class MenuOptionsTemplate {
@@ -27,6 +30,8 @@ public class MenuOptionsTemplate {
 	private static final Insets CONTENT_PADDING = new Insets(0, CONTENT_INSET_SIZE, CONTENT_INSET_SIZE, CONTENT_INSET_SIZE);
 	
 	private Stage stage;
+	private Scene scene;
+	private SceneController sceneController;
 	private BorderPane rootPane;
 	private ScrollPane contentPane;
 	
@@ -34,13 +39,18 @@ public class MenuOptionsTemplate {
 	private Image backImage;
 	private ImageView back;
 
-	public MenuOptionsTemplate(Stage currentStage) {
+	/**
+	 * 
+	 * 
+	 * @param currentStage - Stage instance that is being passed
+	 * @param currentSceneController - Allows the correct scene to be applied, which is the settings scene
+	 */
+	public MenuOptionsTemplate(Stage currentStage, SceneController currentSceneController) {
 		stage = currentStage;
+		sceneController = currentSceneController;
 		rootPane = new BorderPane();
-		Scene scene = new Scene(rootPane, WelcomeScreen.WIDTH, WelcomeScreen.HEIGHT);
+		scene = new Scene(rootPane, WelcomeScreen.WIDTH, WelcomeScreen.HEIGHT);
 		scene.getStylesheets().add(MenuOptionsTemplate.class.getResource("MenuOptionsStyle.css").toExternalForm());
-
-		stage.setScene(scene);
 	}
 
 	public void createOptionScreen(String titleLogoPath, int titleLogoWidth, int titleLogoHeight, int topAndBottomPadding) {
@@ -89,8 +99,7 @@ public class MenuOptionsTemplate {
 	
 	private void handleBackSelection() {
 		
-		WelcomeScreen welcome = new WelcomeScreen(stage);
-		welcome.createWelcomeScreen();
+		sceneController.switchScene(SceneController.WELCOME_SCREEN_KEY);
 		
 	}
 
@@ -117,5 +126,9 @@ public class MenuOptionsTemplate {
 	
 	protected ScrollPane getScrollPane() {
 		return contentPane;
+	}
+	
+	public Scene getScene() {
+		return scene;
 	}
 }

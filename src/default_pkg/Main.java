@@ -1,25 +1,31 @@
 package default_pkg;
 
-import gui.welcomescreen.WelcomeScreen;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 /**
- * Launches VOOGASalad program by calling the initial welcome screen and showing the stage
+ * Launches VOOGA program by calling the initial welcome screen.
  * @author Samarth Desai
  */
 
 public class Main extends Application {
 	
+	private SceneController sceneController;
+	/**
+	 * Launches the program.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
 	
 	/**
-	 * start the program
+	 * Calls the welcome screen, which is the first screen a user will see and interact with.
 	 */
 	public void start(Stage stage) {
-		WelcomeScreen welcome = new WelcomeScreen(stage);
-		welcome.createWelcomeScreen();
+		sceneController = new SceneController(stage);
+		sceneController.switchScene(SceneController.WELCOME_SCREEN_KEY);
+		
 	}
+	
 }

@@ -6,19 +6,18 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
-import gui.welcomescreen.GUITools;
+import default_pkg.SceneController;
 import gui.welcomescreen.MenuOptionsTemplate;
-import gui.welcomescreen.WelcomeScreen;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class GameSelector extends MenuOptionsTemplate {
@@ -36,8 +35,8 @@ public class GameSelector extends MenuOptionsTemplate {
 	private ScrollPane contentPane;
 	private VBox entriesBox;
 
-	public GameSelector(Stage currentStage) {
-		super(currentStage);
+	public GameSelector(Stage currentStage, SceneController sceneController) {
+		super(currentStage, sceneController);
 		createOptionScreen(SELECTOR_PATH, SELECTOR_WIDTH, SELECTOR_HEIGHT, HEADING_PADDING);
 
 		contentPane = getScrollPane();
@@ -66,8 +65,11 @@ public class GameSelector extends MenuOptionsTemplate {
 	}
 
 	public HBox createTitleItem(String gameTitle) {
-		return new HBox(
-				GUITools.generateLabel(gameTitle, WelcomeScreen.MAIN_FONT, WelcomeScreen.MAIN_COLOR, GAME_TITLE_FONT));
+		// return new HBox(
+		// GUITools.generateLabel(gameTitle, WelcomeScreen.MAIN_FONT,
+		// WelcomeScreen.MAIN_COLOR, GAME_TITLE_FONT));
+		return new HBox(new Label(gameTitle));
+
 	}
 
 	private HBox createButtonPanel() {
@@ -97,7 +99,7 @@ public class GameSelector extends MenuOptionsTemplate {
 	}
 
 	private Button createContinueGameButton(EventHandler<ActionEvent> handler) {
-		Button btn = new Button("Continue");
+		Button btn = new Button("Continue Game");
 		btn.setOnAction(handler);
 		return btn;
 	}
@@ -112,9 +114,12 @@ public class GameSelector extends MenuOptionsTemplate {
 		TreeView<HBox> tree = new TreeView<HBox>(rootItem);
 		tree.setPrefWidth(TREE_ITEM_WIDTH);
 		tree.setPrefHeight(TREE_ITEM_HEIGHT);
-		tree.setStyle(WelcomeScreen.SET_BACKGROUND_COLOR + WelcomeScreen.BACKGROUND_COLOR);
-//		tree.setOnMouseClicked(e -> rootItem.setExpanded(tree.getExpandedItemCount() == 1));
-		
+		// tree.getStylesheets().add(WelcomeScreen.class.getResource("MenuOptionStyle.css").toExternalForm());
+		tree.getStylesheets().add(GameSelector.class.getResource("GameListStyle.css").toExternalForm());
+
+		// tree.setOnMouseClicked(e -> rootItem.setExpanded(tree.getExpandedItemCount()
+		// == 1));
+
 		return tree;
 	}
 
