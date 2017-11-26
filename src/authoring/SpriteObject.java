@@ -12,6 +12,7 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 	private HashMap<String, ArrayList<SpriteParameterI>> categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();
 	private ImageView myImageView;
 	private String myImageURL;
+	private Integer[] myPositionOnGrid;
 	
 	public SpriteObject() {
 		
@@ -116,7 +117,7 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 		}
 	}
 	
-	private ArrayList<SpriteParameterI> getParamsMatching(String type) {
+	private ArrayList<SpriteParameterI> getSpriteParametersMatching(String type) {
 		ArrayList<SpriteParameterI> ret = new ArrayList<SpriteParameterI>();
 		Class desiredClass;
 		switch (type){
@@ -142,6 +143,13 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 		return ret;
 	}
 	
+	public ArrayList<String> getParameterNamesMatching(String type) {
+		ArrayList<SpriteParameterI> concreteParameters = getSpriteParametersMatching(type); 
+		ArrayList<String> ret = new ArrayList<String>();
+		concreteParameters.forEach((item) -> {ret.add(item.getName());});
+		return ret;
+	}
+	
 	private ArrayList<SpriteParameterI> getAllParameters() {
 		ArrayList<SpriteParameterI> ret = new ArrayList<SpriteParameterI>();
 		for (ArrayList<SpriteParameterI> SPI_LIST: getParameters().values()){
@@ -150,6 +158,12 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 			}
 		}
 		return ret;
+	}
+
+	@Override
+	public Integer[] getPositionOnGrid() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
