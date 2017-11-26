@@ -15,33 +15,20 @@ public class ControllerTopToolBar {
 	}
 	
 	private void addListeners() {
-		topToolBar.addButtonListener(new addListener(topToolBar,actionConditionVBox,true));
-		topToolBar.addRemoveListener(new addListener(topToolBar,actionConditionVBox,false));
+		topToolBar.addButtonListener(e -> handleAddingorRemoving(true));
+		topToolBar.addRemoveListener(e -> handleAddingorRemoving(false));
 	}
 	
-	private class addListener implements EventHandler<ActionEvent> {
-		
-		private TopToolBar topToolBar;
-		private ActionConditionVBox actionConditionVBox;
-		private Boolean isAdding;
-		public addListener(TopToolBar topToolBar, ActionConditionVBox actionConditionVBox, Boolean isAdding) {
-			this.topToolBar = topToolBar;
-			this.actionConditionVBox = actionConditionVBox;
-			this.isAdding = isAdding;
+	private void handleAddingorRemoving(Boolean isAdding) {
+		if(isAdding && !(topToolBar.getOptionsValue() == null)) {
+			actionConditionVBox.addActionCondition(topToolBar.getOptionsValue());
+			topToolBar.addRemoveOption();
 		}
-
-		@Override
-		public void handle(ActionEvent arg0) {
-			if(isAdding && !(topToolBar.getOptionsValue() == null)) {
-				actionConditionVBox.addActionCondition(topToolBar.getOptionsValue());
-				topToolBar.addRemoveOption();
-			}
-			else if(!isAdding && !(topToolBar.getRemoveValue() == null)) {
-				int rowToBeRemoved = topToolBar.getRemoveValue();
-				actionConditionVBox.removeActionCondition(rowToBeRemoved - 1);
-				topToolBar.removeRemoveOption(rowToBeRemoved - 1);
-			}
+		else if(!isAdding && !(topToolBar.getRemoveValue() == null)) {
+			int rowToBeRemoved = topToolBar.getRemoveValue();
+			actionConditionVBox.removeActionCondition(rowToBeRemoved - 1);
+			topToolBar.removeRemoveOption(rowToBeRemoved - 1);
 		}
-		
 	}
+	
 }
