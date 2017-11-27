@@ -70,7 +70,6 @@ public class SpriteCreator extends Observable {
 		myGrid.getColumnConstraints().addAll(col1, col2);
 		myGrid.getRowConstraints().addAll(row1, row2, row3);
 		myGrid.setGridLinesVisible(true);
-		myGrid.setPrefSize(300, 200);
 
 		addNameBox();
 		addCreatebutton();

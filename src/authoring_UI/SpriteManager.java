@@ -94,6 +94,8 @@ public class SpriteManager extends VBox implements Observer {
 	
 	private void createSpriteStacks(SpriteObject SO) {
 		StackPane spriteStack = new StackPane();
+		spriteStack.getChildren().add(SO);
+		mySpriteGridHandler.addDragObject(SO);
 		for (int i = 0; i < 10; i++) {
 			SpriteObject newSO = SO.newCopy();
 			spriteStack.getChildren().add(newSO);
@@ -163,7 +165,7 @@ public class SpriteManager extends VBox implements Observer {
 
 		mySpriteTabs.getTabs().addAll(defaultSpriteTab, mySpriteTab);
 		mySpriteTabs.setSide(Side.RIGHT);
-		mySpriteTabs.setPrefWidth(110);
+		mySpriteTabs.setPrefWidth(90);
 		
 		return mySpriteTabs;
 	}
