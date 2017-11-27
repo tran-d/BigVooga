@@ -1,25 +1,3 @@
-/*.tree-cell{
-    -fx-background-color: #001E32;
-    -fx-text-fill: #47BDFF;
-}
-
-.tree-cell > .tree-disclosure-node > .arrow  {
-    -fx-background-color: #001E32;
-}
-.tree-cell:expanded > .tree-disclosure-node > .arrow {
-    -fx-background-color: #001E32;
-}
-
-.tree-cell:expanded {
-    -fx-background-color: #001E32;
-    -fx-text-fill: #47BDFF;
-}
-
-.tree-cell:selected {
-    -fx-background-color: #001E32;
-    -fx-text-fill: #47BDFF;
-}*/
-
 .tree-view, .hbox, .vbox {
 	-fx-background-color: #001E32;
 }
@@ -35,6 +13,11 @@
 
 .tree-cell > .tree-disclosure-node > .arrow {
 	-fx-background-color: transparent;	
+	-fx-font-size: 60;
+}
+
+.tree-cell:hover > .tree-disclosure-node > .arrow {
+	-fx-background-color: #98A7F1;
 }
 
 .label {

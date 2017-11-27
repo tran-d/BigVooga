@@ -42,6 +42,7 @@ public class GameSelector extends MenuOptionsTemplate {
 
 		contentPane = getScrollPane();
 		entriesBox = new VBox();
+		entriesBox.setAlignment(Pos.TOP_CENTER);
 
 	}
 
@@ -111,14 +112,6 @@ public class GameSelector extends MenuOptionsTemplate {
 		TreeItem<HBox> buttons = new TreeItem<HBox>(createButtonPanel());
 		title.getChildren().addAll(buttons);
 		title.setExpanded(false);
-	
-		// TreeView<HBox> entry = new TreeView<HBox>(title);
-		// entry.setPrefWidth(TREE_ITEM_WIDTH);
-		// entry.setPrefHeight(TREE_ITEM_HEIGHT);
-		// tree.getStylesheets().add(WelcomeScreen.class.getResource("MenuOptionStyle.css").toExternalForm());
-		// entry.getStylesheets().add(GameSelector.class.getResource("GameListStyle.css").toExternalForm());
-		// entry.setOnMouseClicked(e -> title.setExpanded(tree.getExpandedItemCount() ==
-		// 1));
 
 		addGameEntry(title);
 	}
@@ -129,12 +122,11 @@ public class GameSelector extends MenuOptionsTemplate {
 		tree = new TreeView<HBox>(root);
 		tree.setPrefWidth(TREE_WIDTH);
 		tree.setPrefHeight(TREE_HEIGHT);
+
 		tree.getStylesheets().add(GameSelector.class.getResource("GameListStyle.css").toExternalForm());
 	}
 
 	public void addGameEntry(TreeItem<HBox> title) {
-		TreeView<HBox> entry = new TreeView<HBox>(title);
-		entry.setOnMouseClicked(e -> title.setExpanded(tree.getExpandedItemCount() == 1));
 		root.getChildren().add(title);
 
 	}
