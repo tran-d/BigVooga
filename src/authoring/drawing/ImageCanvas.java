@@ -96,6 +96,11 @@ public class ImageCanvas extends BorderPane {
 			tool.use();
 	}
 
+	public void translate(Node n) {
+		n.setTranslateX(-getCenter().getLayoutX());
+		n.setTranslateY(-getCenter().getLayoutY());
+	}
+	
 	public void add(Node n) {
 		((Pane) getCenter()).getChildren().add(n);
 	}
@@ -120,8 +125,7 @@ public class ImageCanvas extends BorderPane {
 	public Line getLine(Point2D loc1, Point2D loc2) {
 		Line line = new Line(loc1.getX(), loc1.getY(), loc2.getX(), loc2.getY());
 		line.setStroke(colorPicker.getValue());
-		line.setTranslateX(getCenter().getLayoutX());
-		line.setTranslateY(-getCenter().getLayoutY());
+		translate(line);
 		line.setStrokeWidth(getStrokeWidth());
 		line.setStrokeLineCap(StrokeLineCap.ROUND);
 		return line;

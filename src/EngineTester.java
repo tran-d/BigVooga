@@ -26,9 +26,9 @@ public class EngineTester extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		testCollisions(stage);
-		// testData(stage);
-		//testImageCanvas(stage);
+		//testCollisions(stage);
+		//testData(stage);
+		testImageCanvas(stage);
 	}
 	
 	private void testImageCanvas(Stage stage) {
