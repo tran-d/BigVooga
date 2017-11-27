@@ -26,7 +26,7 @@ public class KeyReleased extends Condition {
 	@Override
 	public boolean isTrue(GameObject asking, World world) {
 		//TODO make inputmanager (explicitly or implicitly)
-		return !world.getInputManager().getKeysDown().contains(check) && world.getInputManager().getPrevKeysDown().contains(check);
+		return !world.getPlayerManager().getKeysDown().contains(check) && world.getPlayerManager().getPrevKeysDown().contains(check);
 	}
 
 }

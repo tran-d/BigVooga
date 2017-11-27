@@ -16,9 +16,11 @@ public interface World extends Iterable<GenericObject>{
 	
 	public void step();
 	
-	public void addGlobalVars(VariableContainer gv);
+	public void addGlobalVars(GlobalVariables gv);
 	
-	public PlayerManager getInputManager();
+	public GlobalVariables getGlobalVars();
+	
+	public PlayerManager getPlayerManager();
 	
 	public void setNextWorld(World w);
 	

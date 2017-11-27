@@ -6,7 +6,10 @@ import java.util.List;
 import engine.BoundedImage;
 import engine.EngineController;
 import engine.GameMaster;
+import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 public class PlayerManager {
 
@@ -18,6 +21,8 @@ public class PlayerManager {
 	
 	private boolean primaryButtonDown;
 	private boolean prevPrimaryButtonDown;
+	private double clickX;
+	private double clickY;
 	
 	public PlayerManager() {
 		keysDown = new ArrayList<>();
@@ -42,12 +47,22 @@ public class PlayerManager {
 		keysDown.remove(keyCode);
 	}
 	
-	public void setPrimaryButtonPressed(double x, double y) {
-		//TODO engine
+	public void setPrimaryButtonDown(double x, double y) {
+		primaryButtonDown = true;
+		clickX = x;
+		clickY = y;
 	}
 	
-	public void setPrimaryButtonReleased(double x, double y) {
-		//TODO engine
+	public double getClickX() {
+		return clickX;
+	}
+	
+	public double getClickY() {
+		return clickY;
+	}
+	
+	public void setPrimaryButtonUp(double x, double y) {
+		primaryButtonDown = false;
 	}
 	
 	public boolean isPrimaryButtonDown() {
@@ -66,12 +81,17 @@ public class PlayerManager {
 		engineController = currentEngineController;
 	}
 	
+	public void step() {
+		prevKeysDown = keysDown;
+		prevPrimaryButtonDown = primaryButtonDown;
+	}
+		
 	/**
 	 * INCOMPLETE: for handling the given image data at each step.
 	 * @param images
 	 */
 	public void getImageData(List<BoundedImage> images) {
-		
+	
 	}
 	
 }

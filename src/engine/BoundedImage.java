@@ -64,4 +64,21 @@ public class BoundedImage {
 	public String getFileName() {
 		return fileName;
 	}
+	
+	public double getXCenter() {
+		return xCenter;
+	}
+	
+	public double getYCenter() {
+		return yCenter;
+	}
+	
+	public double getXSize() {
+		return xSize;
+	}
+	
+	public double getYSize() {
+		return ySize;
+	}
+	
 }

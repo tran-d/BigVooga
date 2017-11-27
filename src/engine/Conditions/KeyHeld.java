@@ -26,7 +26,7 @@ public class KeyHeld extends Condition {
 	@Override
 	public boolean isTrue(GameObject asking, World world) {
 		//TODO make inputmanager (explicitly or implicitly)
-		return world.getInputManager().getKeysDown().contains(check);
+		return world.getPlayerManager().getKeysDown().contains(check);
 	}
 	
 }

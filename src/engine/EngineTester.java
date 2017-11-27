@@ -44,7 +44,7 @@ public class EngineTester extends Application {
 	private void testData(Stage stage) throws IOException, FileNotFoundException, URISyntaxException {
 		GameDataHandler data = new GameDataHandler("SaverTest3");
 		data.addChosenFileToProject(stage);
-		data.saveGame(new GameMaster( new PlayerManager()));
+		data.saveGame(new GameMaster());
 		data.loadGame();
 		data.getImage("HexGrid.PNG");
 	}

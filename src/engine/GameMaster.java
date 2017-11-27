@@ -15,10 +15,10 @@ public class GameMaster implements EngineController{
 	private World currentWorld;
 	private List<World> madeWorlds;
 	private Timeline gameLoop;
-	private VariableContainer globalVars;
+	private GlobalVariables globalVars;
 	private PlayerManager playerManager;
 	
-	public GameMaster(PlayerManager playerManager) {
+	public GameMaster() {
 		// TODO Auto-generated constructor stub
 		madeWorlds = new ArrayList<World>();
 		
@@ -66,12 +66,10 @@ public class GameMaster implements EngineController{
 	}
 	
 	private void step() {
-		
 		currentWorld = ((GameWorld)currentWorld).getNextWorld();
-		
 		currentWorld.step();
 		imageUpdate();
-		
+		playerManager.step();
 	}
 	
 	@Override
