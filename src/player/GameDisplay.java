@@ -4,7 +4,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 import default_pkg.SceneController;
-import engine.DisplayableImage;
+import engine.sprite.DisplayableImage;
 import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.scene.Scene;

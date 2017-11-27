@@ -30,49 +30,66 @@
             <animations>
               <entry>
                 <string>Animation</string>
-                <engine.AnimationSequence>
+                <engine.sprite.AnimationSequence>
                   <imageIndex>0</imageIndex>
                   <images>
-                    <engine.BoundedImage>
+                    <engine.sprite.BoundedImage>
                       <relativeBounds>
                         <engine.utilities.collisions.RelativeBoundingGeometry>
                           <geometry class="engine.utilities.collisions.BoundingPolygon">
                             <vertices>
                               <javafx.geometry.Point2D>
-                                <x>-0.22249999999999998</x>
-                                <y>-0.15582655826558267</y>
+                                <x>-0.22999999999999998</x>
+                                <y>0.28590785907859073</y>
                                 <hash>0</hash>
                               </javafx.geometry.Point2D>
                               <javafx.geometry.Point2D>
-                                <x>0.14500000000000002</x>
-                                <y>-0.15311653116531165</y>
+                                <x>-0.16749999999999998</x>
+                                <y>-0.3997289972899729</y>
                                 <hash>0</hash>
                               </javafx.geometry.Point2D>
                               <javafx.geometry.Point2D>
-                                <x>0.12250000000000005</x>
-                                <y>0.2588075880758808</y>
+                                <x>0.20999999999999996</x>
+                                <y>-0.2967479674796748</y>
+                                <hash>0</hash>
+                              </javafx.geometry.Point2D>
+                              <javafx.geometry.Point2D>
+                                <x>0.41000000000000003</x>
+                                <y>-0.09078590785907859</y>
+                                <hash>0</hash>
+                              </javafx.geometry.Point2D>
+                              <javafx.geometry.Point2D>
+                                <x>0.44000000000000006</x>
+                                <y>0.19105691056910568</y>
+                                <hash>0</hash>
+                              </javafx.geometry.Point2D>
+                              <javafx.geometry.Point2D>
+                                <x>0.3175</x>
+                                <y>0.30487804878048785</y>
                                 <hash>0</hash>
                               </javafx.geometry.Point2D>
                             </vertices>
                           </geometry>
                         </engine.utilities.collisions.RelativeBoundingGeometry>
                       </relativeBounds>
-                      <fileName>Irrelevant, for now</fileName>
+                      <fileName>testImage.png</fileName>
                       <xCenter>0.0</xCenter>
                       <yCenter>0.0</yCenter>
                       <xSize>0.0</xSize>
                       <ySize>0.0</ySize>
-                      <rotation>0.0</rotation>
-                    </engine.BoundedImage>
+                      <heading>0.0</heading>
+                    </engine.sprite.BoundedImage>
                   </images>
                   <name>Animation</name>
-                </engine.AnimationSequence>
+                </engine.sprite.AnimationSequence>
               </entry>
             </animations>
           </currentSprite>
           <doubleVars/>
           <booleanVars/>
           <stringVars/>
+          <width>0.0</width>
+          <height>0.0</height>
         </engine.GameObject>
       </worldObjects>
       <conditionPriorities>

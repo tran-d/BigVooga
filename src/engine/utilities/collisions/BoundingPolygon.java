@@ -60,22 +60,9 @@ public class BoundingPolygon extends BoundingGeometry {
 
 	@Override
 	public Point2D checkPolygonCollision(BoundingPolygon polygon) {
-		double minOverlap = Integer.MAX_VALUE;
-		Point2D direction = null;
-
 		List<Point2D> normals = generateOutwardNormals();
 		normals.addAll(polygon.generateInwardNormals());
-
-		for (Point2D normal : normals) {
-			double overlap = polygon.dotted(normal).getOverlap(dotted(normal));
-			if (overlap <= 0)
-				return null;
-			if (overlap < minOverlap) {
-				minOverlap = overlap;
-				direction = normal;
-			}
-		}
-		return direction.multiply(minOverlap);
+		return checkCollisions(normals, polygon);
 	}
 
 	protected List<Point2D> generateOutwardNormals() {
