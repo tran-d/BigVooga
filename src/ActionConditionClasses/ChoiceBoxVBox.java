@@ -26,8 +26,10 @@ public class ChoiceBoxVBox<T> extends LabelSelectorVBox implements ChoiceBoxVBox
 
 	@Override
 	public void setNewOptions(List newOptions) {
-		ObservableList<T> tempNewList = FXCollections.observableList(newOptions);
-		choiceBoxOptions = tempNewList;
+		choiceBoxOptions.clear();
+		for(Object option : newOptions) {
+			choiceBoxOptions.add((T) option);
+		}
 	}
 
 	@Override
