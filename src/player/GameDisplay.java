@@ -1,5 +1,6 @@
 package player;
 
+import java.net.URISyntaxException;
 import java.util.List;
 
 import default_pkg.SceneController;
@@ -7,6 +8,7 @@ import engine.DisplayableImage;
 import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -45,6 +47,21 @@ public class GameDisplay {
 	
 	public void setUpdatedImages (List<DisplayableImage> images) {
 		//TODO; takes in new image file name, location, and size for all objects
+		ImageView gameImage = null;
+		for (DisplayableImage image : images) {
+			try {
+				gameImage = new ImageView(gameDataHandler.getImage(image.getFileName()));
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			gameImage.prefWidth(image.getWidth());
+			gameImage.prefHeight(image.getHeight());
+			gameImage.setRotate(image.getHeading());
+			gameImage.setX(image.getX()-image.getWidth()/2);
+			gameImage.setY(image.getY()-image.getHeight()/2);
+			rootPane.getChildren().add(gameImage);
+		}
 	}
 	
 	public Scene getScene() {

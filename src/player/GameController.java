@@ -8,6 +8,11 @@ import engine.GameMaster;
 import engine.utilities.data.GameDataHandler;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @author Samarth and Ian
+ *
+ */
 public class GameController {
 
 	private Stage stage;
@@ -26,7 +31,6 @@ public class GameController {
 		engineController = gameDataHandler.loadGame();
 		engineController.setPlayerManager(playerManager);
 		playerManager.setDisplay(gameDisplay);
-		playerManager.setEngine(engineController);
 		gameDisplay.setPlayerManager(playerManager);
 		gameDisplay.setDataHandler(gameDataHandler);
 		
