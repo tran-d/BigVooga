@@ -78,7 +78,7 @@ public class PlayerManager {
 	}
 	
 	public void step() {
-		prevKeysDown = keysDown;
+		prevKeysDown = new ArrayList<>(keysDown);
 		prevPrimaryButtonDown = primaryButtonDown;
 	}
 		
