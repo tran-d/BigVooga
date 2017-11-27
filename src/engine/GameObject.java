@@ -26,6 +26,8 @@ public class GameObject extends VariableContainer {
 	private Map<String, Boolean> booleanVars;
 	private Map<String, String> stringVars;
 	private CollisionEvent lastCollision;
+	private double width;
+	private double height;
 
 	public GameObject() {
 		name = DEFAULT_TAG;
@@ -90,6 +92,7 @@ public class GameObject extends VariableContainer {
 	}
 
 	public void step(World w) {
+		currentSprite.step();
 		for (Condition c : events.keySet()) {
 			for (Action a : events.get(c)) {
 				if (c.isTrue(this, w)) {
@@ -167,8 +170,12 @@ public class GameObject extends VariableContainer {
 	 * @return BoundedImage
 	 */
 	public BoundedImage getImage() {
-		currentSprite.step();
-		return currentSprite.getImage();
+		//TODO width and height?
+		BoundedImage result = currentSprite.getImage();
+		result.setPosition(x, y);
+		result.setHeading(heading);
+		result.setSize(width, height);
+		return result;
 	}
 
 	public GameObject clone() {

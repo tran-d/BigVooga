@@ -1,6 +1,9 @@
 package player;
 
+import java.util.List;
+
 import default_pkg.SceneController;
+import engine.DisplayableImage;
 import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.scene.Scene;
@@ -40,7 +43,7 @@ public class GameDisplay {
 		
 	}
 	
-	public void setUpdatedObject (Object updatedObject) {
+	public void setUpdatedImages (List<DisplayableImage> images) {
 		//TODO; takes in new image file name, location, and size for all objects
 	}
 	

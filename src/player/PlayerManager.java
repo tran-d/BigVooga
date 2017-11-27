@@ -3,13 +3,9 @@ package player;
 import java.util.ArrayList;
 import java.util.List;
 
-import engine.BoundedImage;
+import engine.DisplayableImage;
 import engine.EngineController;
-import engine.GameMaster;
-import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 
 public class PlayerManager {
 
@@ -87,11 +83,10 @@ public class PlayerManager {
 	}
 		
 	/**
-	 * INCOMPLETE: for handling the given image data at each step.
 	 * @param images
 	 */
-	public void getImageData(List<BoundedImage> images) {
-	
+	public void setImageData(List<DisplayableImage> images) {
+		gameDisplay.setUpdatedImages(images);
 	}
 	
 }

@@ -35,7 +35,12 @@ import javafx.stage.Stage;
  * @author Ian Eldridge-Allegra
  */
 public class GameDataHandler {
-	private static final XStream SERIALIZER = setupXStream();
+	private static final XStream SERIALIZER = setupXStream();	
+	private static final String KNOWN_PROJECTS = "resources/KnownProjectNames.properties";
+	public static final String PATH = "data/UserCreatedGames/";
+	private static final String CONTROLLER_FILE = "Engine_Controller_Save_File";
+	private static final String SELECTOR_TITLE = "Open Resource File";
+	
 	private static XStream setupXStream() {
 		XStream xstream = new XStream(new DomDriver());
 		xstream.addPermission(NoTypePermission.NONE);
@@ -50,10 +55,6 @@ public class GameDataHandler {
 		return xstream;
 	}
 	
-	private static final String KNOWN_PROJECTS = "resources/KnownProjectNames.properties";
-	public static final String PATH = "data/UserCreatedGames/";
-	private static final String CONTROLLER_FILE = "Engine_Controller_Save_File";
-	private static final String SELECTOR_TITLE = "Open Resource File";
 	private String projectPath;
 	private String projectName;
 	
@@ -88,7 +89,7 @@ public class GameDataHandler {
 		out.close();
 	}
 	
-	public Map<String, String> knownProjectsWithDateModified(){
+	public static Map<String, String> knownProjectsWithDateModified(){
 		Map<String, String> result = new HashMap<>();
 		ResourceBundle bundle = ResourceBundle.getBundle(KNOWN_PROJECTS);
 		Enumeration<String> projects = bundle.getKeys();

@@ -22,10 +22,10 @@ public class ObjectClickReleased extends Condition {
 	public boolean isTrue(GameObject asking, World world) {
 		Condition screenClickReleased = new ScreenClicked(0);
 		return screenClickReleased.isTrue(asking, world) && 
-				world.getPlayerManager().getClickX() > asking.getImage().getXCenter() - 0.5 * asking.getImage().getXSize() &&
-				world.getPlayerManager().getClickX() < asking.getImage().getXCenter() + 0.5 * asking.getImage().getXSize() &&
-				world.getPlayerManager().getClickY() > asking.getImage().getYCenter() - 0.5 * asking.getImage().getYSize() &&
-				world.getPlayerManager().getClickY() < asking.getImage().getYCenter() + 0.5 * asking.getImage().getYSize();
+				world.getPlayerManager().getClickX() > asking.getImage().getX() - 0.5 * asking.getImage().getX() &&
+				world.getPlayerManager().getClickX() < asking.getImage().getX() + 0.5 * asking.getImage().getX() &&
+				world.getPlayerManager().getClickY() > asking.getImage().getY() - 0.5 * asking.getImage().getY() &&
+				world.getPlayerManager().getClickY() < asking.getImage().getY() + 0.5 * asking.getImage().getY();
 	}
 
 }

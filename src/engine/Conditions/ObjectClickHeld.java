@@ -20,10 +20,10 @@ public class ObjectClickHeld extends Condition {
 	public boolean isTrue(GameObject asking, World world) {
 		Condition screenClickHeld = new ScreenClickHeld(0);
 		return screenClickHeld.isTrue(asking, world) && 
-				world.getPlayerManager().getClickX() > asking.getImage().getXCenter() - 0.5 * asking.getImage().getXSize() &&
-				world.getPlayerManager().getClickX() < asking.getImage().getXCenter() + 0.5 * asking.getImage().getXSize() &&
-				world.getPlayerManager().getClickY() > asking.getImage().getYCenter() - 0.5 * asking.getImage().getYSize() &&
-				world.getPlayerManager().getClickY() < asking.getImage().getYCenter() + 0.5 * asking.getImage().getYSize();
+				world.getPlayerManager().getClickX() > asking.getImage().getX() - 0.5 * asking.getImage().getWidth() &&
+				world.getPlayerManager().getClickX() < asking.getImage().getX() + 0.5 * asking.getImage().getWidth() &&
+				world.getPlayerManager().getClickY() > asking.getImage().getY() - 0.5 * asking.getImage().getHeight() &&
+				world.getPlayerManager().getClickY() < asking.getImage().getY() + 0.5 * asking.getImage().getHeight();
 	}
 
 }

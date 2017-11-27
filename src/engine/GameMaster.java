@@ -89,10 +89,10 @@ public class GameMaster implements EngineController{
 	 */
 	private void imageUpdate()
 	{
-		List<BoundedImage> imageData = new ArrayList<BoundedImage>();
+		List<DisplayableImage> imageData = new ArrayList<>();
 		for(GameObject o: ((GameWorld)currentWorld).getAllObjects()){
 			imageData.add(o.getImage());
 		}
-		playerManager.getImageData(imageData);
+		playerManager.setImageData(imageData);
 	}
 }
