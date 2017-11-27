@@ -13,6 +13,11 @@ import java.util.TreeSet;
 
 //TODO need to add addToObjectList()? 
 
+/**
+ * 
+ * @author Nikolas Bramblett, ...
+ *
+ */
 public abstract class GameObject extends VariableContainer {
 	private final String DEFAULT_TAG = "unnamed";
 	private String name;
