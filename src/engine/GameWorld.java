@@ -31,10 +31,10 @@ public class GameWorld implements World {
 	}
 	
 	public GameWorld(String name) {
+		nextWorld = this;
 		worldName = name;
 		worldObjects = new ArrayList<>();
 		input = new PlayerManager();
-		nextWorld = this;
 	}
 
 	// I don't know what to do with this.
