@@ -1,12 +1,14 @@
 package authoring_actionconditions;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
-import javafx.scene.control.ChoiceBox;
+import ActionConditionClasses.ChoiceBoxVBox;
+import ActionConditionClasses.LabelSelectorVBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.ToolBar;
-import javafx.scene.layout.VBox;
 
 public class ActionConditionRow extends ToolBar {
 	
@@ -22,11 +24,10 @@ public class ActionConditionRow extends ToolBar {
 		labelInt = ID;
 		IDlabel = new Label(Integer.toString(ID));
 		Separator separator = ActionConditionTabUtil.makeVerticalSeparator();
-		Label type = new Label(label);
-		ChoiceBox<String> implementationSelector = new ChoiceBox<String>(ActionConditionTabUtil.convertToObservableList(
-				actionConditionVBoxResources.getString(label + actionConditionVBoxResources.getString("OptionsTag"))));
-		VBox implementationSelectorVBox = ActionConditionTabUtil.addVBoxwithLabel(selectorLabel, implementationSelector);
-		getItems().addAll(IDlabel,separator,type,implementationSelectorVBox);
+		List<String> actionConditionOptions = ActionConditionTabUtil.convertToList(actionConditionVBoxResources.getString(label 
+				+ actionConditionVBoxResources.getString("OptionsTag"))); 
+		LabelSelectorVBox implementationSelectorVBox = new ChoiceBoxVBox<String>(selectorLabel, actionConditionOptions);
+		getItems().addAll(IDlabel,separator,new Label(label),implementationSelectorVBox);
 	}
 	
 	protected void decreaseLabelID() {

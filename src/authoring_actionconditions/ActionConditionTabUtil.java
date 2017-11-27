@@ -1,23 +1,14 @@
 package authoring_actionconditions;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.util.Arrays;
+import java.util.List;
+
 import javafx.geometry.Orientation;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
-import javafx.scene.layout.VBox;
 
 public class ActionConditionTabUtil {
 	
 	private static final String SPLITTER = ",";
-	
-	public static VBox addVBoxwithLabel(String string,Node node) {
-		VBox vBox = new VBox();
-		Label label = new Label(string);
-		vBox.getChildren().addAll(label,node);
-		return vBox;
-	}
 	
 	protected static Separator makeVerticalSeparator() {
 		Separator separator = new Separator();
@@ -25,12 +16,8 @@ public class ActionConditionTabUtil {
 		return separator;
 	}
 	
-	protected static ObservableList<String> convertToObservableList(String options) {
-		String[] optionsSplit = options.split(SPLITTER);
-		ObservableList<String> listOptions = FXCollections.observableArrayList();
-		for(String option : optionsSplit) {
-			listOptions.add(option);
-		}
-		return listOptions;
+	protected static List<String> convertToList(String resourceString) {
+		String[] optionsSplit = resourceString.split(SPLITTER);
+		return Arrays.asList(optionsSplit);
 	}
 }

@@ -1,6 +1,10 @@
 package authoring_actionconditions;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
+
+import ActionConditionClasses.ChoiceBoxVBox;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -13,33 +17,30 @@ public class TopToolBar extends ToolBar implements TopToolBarI {
 	
 	private ResourceBundle tabResources;
 	private Button addButton;
-	private ChoiceBox<String> options;
-	private VBox selectorVBox;
+	private ChoiceBoxVBox<String> selectorVBox;
 	private Button removeButton;
-	private RemoveChoiceBox removeRow;
-	private VBox removeRowVBox;
+	private RemoveChoiceBoxVBox removeRowVBox;
 	
 	public TopToolBar(ResourceBundle resourceBundle,String addButtonTitle,String optionsTitle,String selectorLabel,String remove) {
 		super();
 		tabResources = resourceBundle;
 		addButton = new Button(tabResources.getString(addButtonTitle));
-		options = new ChoiceBox<String>(ActionConditionTabUtil.convertToObservableList(tabResources.getString(optionsTitle)));
-		selectorVBox = ActionConditionTabUtil.addVBoxwithLabel(tabResources.getString(selectorLabel), options);
+		List<String> additionOptions = ActionConditionTabUtil.convertToList(tabResources.getString(optionsTitle));
+		selectorVBox = new ChoiceBoxVBox<String>(tabResources.getString(selectorLabel), additionOptions);
 		Separator separator = ActionConditionTabUtil.makeVerticalSeparator();
 		removeButton = new Button(tabResources.getString(remove));
-		removeRow = new RemoveChoiceBox();
-		removeRowVBox = ActionConditionTabUtil.addVBoxwithLabel(tabResources.getString("RemoverLabel"),removeRow);
+		removeRowVBox = new RemoveChoiceBoxVBox(tabResources.getString("RemoverLabel"),new LinkedList<Integer>());
 		getItems().addAll(addButton,selectorVBox,separator,removeButton,removeRowVBox);
 	}
 
 	@Override
 	public Integer getRemoveValue() {
-		return removeRow.getValue();
+		return (Integer) removeRowVBox.getCurrentValue();
 	}
 
 	@Override
 	public String getOptionsValue() {
-		return options.getValue();
+		return (String) selectorVBox.getCurrentValue();
 	}
 
 	@Override
@@ -54,12 +55,12 @@ public class TopToolBar extends ToolBar implements TopToolBarI {
 
 	@Override
 	public void addRemoveOption() {
-		removeRow.addRow();
+		removeRowVBox.addRow();
 	}
 
 	@Override
 	public void removeRemoveOption(int row) {
-		removeRow.removeOption(row);
+		removeRowVBox.removeRow();
 	}
 	
 }
