@@ -73,6 +73,7 @@ public class GameSelector extends MenuOptionsTemplate {
 		// WelcomeScreen.MAIN_COLOR, GAME_TITLE_FONT));
 		HBox title = new HBox(new Label(gameTitle));
 		title.setAlignment(Pos.BASELINE_CENTER);
+		title.setId("title");
 		return title;
 
 	}
@@ -110,7 +111,7 @@ public class GameSelector extends MenuOptionsTemplate {
 		TreeItem<HBox> buttons = new TreeItem<HBox>(createButtonPanel());
 		title.getChildren().addAll(buttons);
 		title.setExpanded(false);
-
+	
 		// TreeView<HBox> entry = new TreeView<HBox>(title);
 		// entry.setPrefWidth(TREE_ITEM_WIDTH);
 		// entry.setPrefHeight(TREE_ITEM_HEIGHT);
@@ -132,6 +133,8 @@ public class GameSelector extends MenuOptionsTemplate {
 	}
 
 	public void addGameEntry(TreeItem<HBox> title) {
+		TreeView<HBox> entry = new TreeView<HBox>(title);
+		entry.setOnMouseClicked(e -> title.setExpanded(tree.getExpandedItemCount() == 1));
 		root.getChildren().add(title);
 
 	}

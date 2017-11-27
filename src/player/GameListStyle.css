@@ -60,4 +60,13 @@
         #005187;
 }
 
+#title {
+	-fx-background-color: #001E32;
+	-fx-border-width: 1px;
+}
+
+#title:hover {
+	-fx-background-color: #003D66;
+}
+
 
