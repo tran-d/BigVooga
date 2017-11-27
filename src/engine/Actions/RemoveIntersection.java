@@ -1,11 +1,9 @@
 package engine.Actions;
 
-import java.awt.geom.Point2D;
-
 import engine.Action;
 import engine.GameObject;
 import engine.World;
-import engine.utilities.collisions.CollisionEvent;
+import javafx.geometry.Point2D;
 
 public class RemoveIntersection implements Action {
 	

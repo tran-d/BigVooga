@@ -24,6 +24,7 @@ public class Collision extends Condition {
 				return true;
 			}
 		}
+		return false;
 	}
 
 }

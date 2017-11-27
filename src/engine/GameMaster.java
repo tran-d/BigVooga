@@ -22,17 +22,22 @@ public class GameMaster implements EngineController{
 		// TODO Auto-generated constructor stub
 		madeWorlds = new ArrayList<World>();
 		
-		gameLoop = new Timeline();
-		KeyFrame frame = new KeyFrame(Duration.millis(DEFAULT_DELAY), e -> step());
-		gameLoop.setCycleCount(Timeline.INDEFINITE);
-		gameLoop.getKeyFrames().add(frame);
+		
 		globalVars = new GlobalVariables();
 	}
 
 	@Override
 	public void start() {
-		// TODO Auto-generated method stub
+		gameLoop = new Timeline();
+		KeyFrame frame = new KeyFrame(Duration.millis(DEFAULT_DELAY), e -> step());
+		gameLoop.setCycleCount(Timeline.INDEFINITE);
+		gameLoop.getKeyFrames().add(frame);
 		gameLoop.play();
+	}
+	public void stop() {
+		if(gameLoop != null)
+			gameLoop.stop();
+		gameLoop = null;
 	}
 
 	//Not sure we really need this

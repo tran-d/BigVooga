@@ -1,6 +1,7 @@
 package engine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,7 @@ public class GameWorld implements World {
 	
 	private String worldName;
 	private List<GameObject> worldObjects;
-	private Map<Integer, List<GameObject>> conditionPriorities;
+	private Map<Integer, List<GameObject>> conditionPriorities = new HashMap<>();
 	private GlobalVariables globalVars;
 	private GameObjectFactory GameObjectFactory;
 	private PlayerManager input;

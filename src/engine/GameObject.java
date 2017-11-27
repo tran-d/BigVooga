@@ -11,9 +11,11 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import engine.utilities.collisions.CollisionEvent;
+
 //TODO need to add addToObjectList()? 
 
-public abstract class GameObject extends VariableContainer {
+public class GameObject extends VariableContainer {
 	private final String DEFAULT_TAG = "unnamed";
 	private String name;
 	private Set<String> tagSet;
@@ -23,6 +25,7 @@ public abstract class GameObject extends VariableContainer {
 	private Map<String, Double> doubleVars;
 	private Map<String, Boolean> booleanVars;
 	private Map<String, String> stringVars;
+	private CollisionEvent lastCollision;
 
 	public GameObject() {
 		name = DEFAULT_TAG;
@@ -183,5 +186,13 @@ public abstract class GameObject extends VariableContainer {
 		for (Condition c : events.keySet())
 			copy.addConditionAction(c, new ArrayList<>(events.get(c)));
 		return copy;
+	}
+
+	public CollisionEvent getLastCollisionChecked() {
+		return lastCollision;
+	}
+
+	public void setLastCollisionChecked(CollisionEvent collisionEvent) {
+		lastCollision = collisionEvent;
 	}
 }

@@ -8,6 +8,8 @@ import java.util.List;
 
 import authoring.drawing.BoundingPolygonCreator;
 import authoring.drawing.ImageCanvas;
+import engine.Actions.Move;
+import engine.Conditions.KeyPressed;
 import engine.utilities.collisions.BoundingPolygon;
 import engine.utilities.data.GameDataHandler;
 import javafx.application.Application;
@@ -28,7 +30,38 @@ public class EngineTester extends Application {
 	public void start(Stage stage) throws Exception {
 		//testCollisions(stage);
 		//testData(stage);
-		testImageCanvas(stage);
+		//testImageCanvas(stage);
+		testDrawer(stage);
+	}
+	
+	private void generateGame(BoundedImage i) {
+		GameMaster master = new GameMaster();
+		GameWorld w = new GameWorld("World");
+		GameObject obj = new GameObject();
+		obj.setCoords(200, 200);
+		List<Action> actions = new ArrayList<Action>();
+		actions.add(new Move(-1, 0));
+		obj.addConditionAction(new KeyPressed(1,"LEFT"), actions);
+		Sprite sprite = new Sprite();
+		List<BoundedImage> images = new ArrayList<>();
+		images.add(i);
+		AnimationSequence animation = new AnimationSequence("Animation", images);
+		sprite.addAnimationSequence(animation);
+		obj.setSprite(sprite);
+		
+		w.addGameObject(obj);
+		master.addWorld(w);
+		try {
+			new GameDataHandler("Test1").saveGame(master);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			new GameDataHandler("Test1").loadGame().setCurrentWorld("World");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void testImageCanvas(Stage stage) {
@@ -45,7 +78,7 @@ public class EngineTester extends Application {
 		stage.setScene(scene);
 		Pane bpd = new BoundingPolygonCreator(
 				new Image(GameDataHandler.chooseFile(new Stage()).toURI().toString()),
-				"Irrelevant, for now", i -> System.out.println(i));
+				"Irrelevant, for now", i -> generateGame(i));
 		g.getChildren().add(bpd);
 		stage.show();
 	}
