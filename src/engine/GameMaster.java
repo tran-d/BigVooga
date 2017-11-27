@@ -8,6 +8,11 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 import player.PlayerManager;
 
+/**
+ * 
+ * @author Nikolas Bramblett, ...
+ *
+ */
 public class GameMaster implements EngineController{
 	private static final int DEFAULT_FPS = 60;
 	private static final int DEFAULT_DELAY = 1000/DEFAULT_FPS;
