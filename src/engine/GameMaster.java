@@ -8,6 +8,11 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 import player.PlayerManager;
 
+/**
+ * 
+ * @author Nikolas Bramblett, ...
+ *
+ */
 public class GameMaster implements EngineController{
 	private static final int DEFAULT_FPS = 60;
 	private static final int DEFAULT_DELAY = 1000/DEFAULT_FPS;
@@ -22,17 +27,22 @@ public class GameMaster implements EngineController{
 		// TODO Auto-generated constructor stub
 		madeWorlds = new ArrayList<World>();
 		
-		gameLoop = new Timeline();
-		KeyFrame frame = new KeyFrame(Duration.millis(DEFAULT_DELAY), e -> step());
-		gameLoop.setCycleCount(Timeline.INDEFINITE);
-		gameLoop.getKeyFrames().add(frame);
+		
 		globalVars = new GlobalVariables();
 	}
 
 	@Override
 	public void start() {
-		// TODO Auto-generated method stub
+		gameLoop = new Timeline();
+		KeyFrame frame = new KeyFrame(Duration.millis(DEFAULT_DELAY), e -> step());
+		gameLoop.setCycleCount(Timeline.INDEFINITE);
+		gameLoop.getKeyFrames().add(frame);
 		gameLoop.play();
+	}
+	public void stop() {
+		if(gameLoop != null)
+			gameLoop.stop();
+		gameLoop = null;
 	}
 
 	//Not sure we really need this
@@ -84,10 +94,10 @@ public class GameMaster implements EngineController{
 	 */
 	private void imageUpdate()
 	{
-		List<BoundedImage> imageData = new ArrayList<BoundedImage>();
+		List<DisplayableImage> imageData = new ArrayList<>();
 		for(GameObject o: ((GameWorld)currentWorld).getAllObjects()){
 			imageData.add(o.getImage());
 		}
-		playerManager.getImageData(imageData);
+		playerManager.setImageData(imageData);
 	}
 }

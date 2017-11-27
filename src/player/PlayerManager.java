@@ -3,21 +3,17 @@ package player;
 import java.util.ArrayList;
 import java.util.List;
 
-import engine.BoundedImage;
+import engine.DisplayableImage;
 import engine.EngineController;
-import engine.GameMaster;
-import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 
 public class PlayerManager {
 
 	private GameDisplay gameDisplay;
 	private EngineController engineController;
 	
-	private List<KeyCode> keysDown;
-	private List<KeyCode> prevKeysDown;
+	private List<String> keysDown;
+	private List<String> prevKeysDown;
 	
 	private boolean primaryButtonDown;
 	private boolean prevPrimaryButtonDown;
@@ -31,20 +27,20 @@ public class PlayerManager {
 		prevPrimaryButtonDown = false;
 	}
 	
-	public List<KeyCode> getKeysDown() {
+	public List<String> getKeysDown() {
 		return keysDown;
 	}
 	
-	public List<KeyCode> getPrevKeysDown() {
+	public List<String> getPrevKeysDown() {
 		return prevKeysDown;
 	}
 	
 	public void setKeyPressed(KeyCode keyCode) {
-		keysDown.add(keyCode);
+		keysDown.add(keyCode.getName());
 	}
 	
 	public void setKeyReleased(KeyCode keyCode) {
-		keysDown.remove(keyCode);
+		keysDown.remove(keyCode.getName());
 	}
 	
 	public void setPrimaryButtonDown(double x, double y) {
@@ -82,16 +78,15 @@ public class PlayerManager {
 	}
 	
 	public void step() {
-		prevKeysDown = keysDown;
+		prevKeysDown = new ArrayList<>(keysDown);
 		prevPrimaryButtonDown = primaryButtonDown;
 	}
 		
 	/**
-	 * INCOMPLETE: for handling the given image data at each step.
 	 * @param images
 	 */
-	public void getImageData(List<BoundedImage> images) {
-	
+	public void setImageData(List<DisplayableImage> images) {
+		gameDisplay.setUpdatedImages(images);
 	}
 	
 }

@@ -7,15 +7,29 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import engine.utilities.collisions.CollisionEvent;
 
-public abstract class GameObject extends VariableContainer {
-	
-	
+//TODO need to add addToObjectList()? 
+
+/**
+ * 
+ * @author Nikolas Bramblett, ...
+ *
+ */
+public class GameObject extends VariableContainer {
+
 	private final String DEFAULT_TAG = "unnamed";
 	private String name;
 	private Set<String> tagSet;
 	private Map<Condition, List<Action>> events;
 	private double x, y, heading;
+	private Sprite currentSprite;
+	private Map<String, Double> doubleVars;
+	private Map<String, Boolean> booleanVars;
+	private Map<String, String> stringVars;
+	private CollisionEvent lastCollision;
+	private double width;
+	private double height;
 
 	public GameObject(String name) {
 		// TODO Auto-generated constructor stub
@@ -75,9 +89,10 @@ public abstract class GameObject extends VariableContainer {
 	}
 
 	public void step(World w) {
-		for(Condition c : events.keySet()) {
-			for(Action a : events.get(c)) {
-				if(c.isTrue(this, w)) {
+		currentSprite.step();
+		for (Condition c : events.keySet()) {
+			for (Action a : events.get(c)) {
+				if (c.isTrue(this, w)) {
 					a.execute(this, w);
 				}
 			}
@@ -132,12 +147,16 @@ public abstract class GameObject extends VariableContainer {
 	 * @return BoundedImage
 	 */
 	public BoundedImage getImage() {
-		//TODO return Object's image
-		return null;
+		//TODO width and height?
+		BoundedImage result = currentSprite.getImage();
+		result.setPosition(x, y);
+		result.setHeading(heading);
+		result.setSize(width, height);
+		return result;
 	}
 
 	public GameObject clone() {
-		GameObject copy = new GenericObject(name);
+		GameObject copy = new GameObject(name);
 		copy.setCoords(x, y);
 		copy.setHeading(heading);
 		for(String tag: tagSet)
@@ -151,5 +170,13 @@ public abstract class GameObject extends VariableContainer {
 		for(Condition c : events.keySet()) 
 			copy.addConditionAction(c, new ArrayList<>(events.get(c)));
 		return copy;
+	}
+
+	public CollisionEvent getLastCollisionChecked() {
+		return lastCollision;
+	}
+
+	public void setLastCollisionChecked(CollisionEvent collisionEvent) {
+		lastCollision = collisionEvent;
 	}
 }
