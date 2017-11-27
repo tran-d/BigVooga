@@ -1,6 +1,7 @@
 package engine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +43,7 @@ public class GameWorld implements World {
 	@Override
 	public void addGameObject(GameObject obj) {
 		// TODO Auto-generated method stub
-		worldObjects.add(obj);
+		worldObjects.add(obj);							//TODO what to do if user tries to add object with same name as another object in world?
 		for(Integer i : obj.getPriorities()) {
 			if(conditionPriorities.containsKey(i)) {
 				conditionPriorities.get(i).add(obj);
@@ -96,6 +97,12 @@ public class GameWorld implements World {
 		return null;
 	}
 	
+	@Override
+	public GameObject getWithName(String name) {
+		//TODO
+		return worldObjects.get(0);
+	}
+	
 	public boolean isNamed(String tag) {
 		return worldName.equals(tag);
 	}
@@ -136,8 +143,7 @@ public class GameWorld implements World {
 		return nextWorld;
 	}
 	
-	public List<GameObject> getAllObjects()
-	{
+	public List<GameObject> getAllObjects() {
 		return worldObjects;
 	}
 
