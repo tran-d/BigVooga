@@ -3,8 +3,8 @@ package player;
 import java.util.ArrayList;
 import java.util.List;
 
+import engine.DisplayableImage;
 import engine.EngineController;
-import engine.GameMaster;
 import javafx.scene.input.KeyCode;
 
 public class PlayerManager {
@@ -12,11 +12,13 @@ public class PlayerManager {
 	private GameDisplay gameDisplay;
 	private EngineController engineController;
 	
-	private List<KeyCode> keysDown;
-	private List<KeyCode> prevKeysDown;
+	private List<String> keysDown;
+	private List<String> prevKeysDown;
 	
 	private boolean primaryButtonDown;
 	private boolean prevPrimaryButtonDown;
+	private double clickX;
+	private double clickY;
 	
 	public PlayerManager() {
 		keysDown = new ArrayList<>();
@@ -25,28 +27,38 @@ public class PlayerManager {
 		prevPrimaryButtonDown = false;
 	}
 	
-	public List<KeyCode> getKeysDown() {
+	public List<String> getKeysDown() {
 		return keysDown;
 	}
 	
-	public List<KeyCode> getPrevKeysDown() {
+	public List<String> getPrevKeysDown() {
 		return prevKeysDown;
 	}
 	
 	public void setKeyPressed(KeyCode keyCode) {
-		keysDown.add(keyCode);
+		keysDown.add(keyCode.getName());
 	}
 	
 	public void setKeyReleased(KeyCode keyCode) {
-		keysDown.remove(keyCode);
+		keysDown.remove(keyCode.getName());
 	}
 	
-	public void setPrimaryButtonPressed(double x, double y) {
-		//TODO engine
+	public void setPrimaryButtonDown(double x, double y) {
+		primaryButtonDown = true;
+		clickX = x;
+		clickY = y;
 	}
 	
-	public void setPrimaryButtonReleased(double x, double y) {
-		//TODO engine
+	public double getClickX() {
+		return clickX;
+	}
+	
+	public double getClickY() {
+		return clickY;
+	}
+	
+	public void setPrimaryButtonUp(double x, double y) {
+		primaryButtonDown = false;
 	}
 	
 	public boolean isPrimaryButtonDown() {
@@ -63,6 +75,18 @@ public class PlayerManager {
 	
 	public void setEngine(EngineController currentEngineController) {
 		engineController = currentEngineController;
+	}
+	
+	public void step() {
+		prevKeysDown = new ArrayList<>(keysDown);
+		prevPrimaryButtonDown = primaryButtonDown;
+	}
+		
+	/**
+	 * @param images
+	 */
+	public void setImageData(List<DisplayableImage> images) {
+		gameDisplay.setUpdatedImages(images);
 	}
 	
 }
