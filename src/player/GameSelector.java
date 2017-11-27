@@ -27,13 +27,14 @@ public class GameSelector extends MenuOptionsTemplate {
 	private static final int SELECTOR_WIDTH = 125;
 	private static final int SELECTOR_HEIGHT = 125;
 	private static final int HEADING_PADDING = 0;
-	private static final String GAME_TITLE_FONT = 50 + "pt;";
-	private static final int ENTRY_SPACING = 100;
-	private static final int TREE_ITEM_WIDTH = 1000;
-	private static final int TREE_ITEM_HEIGHT = 150;
+	private static final int ENTRY_SPACING = 25;
+	private static final int TREE_WIDTH = 955;
+	private static final int TREE_HEIGHT = 800;
 
 	private ScrollPane contentPane;
 	private VBox entriesBox;
+	private TreeView<HBox> tree;
+	private TreeItem<HBox> root;
 
 	public GameSelector(Stage currentStage, SceneController sceneController) {
 		super(currentStage, sceneController);
@@ -47,15 +48,17 @@ public class GameSelector extends MenuOptionsTemplate {
 	public void createGameSelector() {
 
 		try (Stream<Path> filePathStream = Files.walk(Paths.get(FILE_PATH))) {
+
+			createGameList();
+
 			filePathStream.forEach(filePath -> {
 				if (Files.isRegularFile(filePath)) {
 					System.out.println(filePath.getFileName());
-					TreeView<HBox> tree = createGameEntry(
-							filePath.getFileName().toString().replaceAll("\\.[^.]*$", ""));
-					entriesBox.getChildren().add(tree);
+
+					createGameEntry(filePath.getFileName().toString().replaceAll("\\.[^.]*$", ""));
 				}
 			});
-
+			entriesBox.getChildren().add(tree);
 			contentPane.setContent(entriesBox);
 
 		} catch (IOException e) {
@@ -68,17 +71,19 @@ public class GameSelector extends MenuOptionsTemplate {
 		// return new HBox(
 		// GUITools.generateLabel(gameTitle, WelcomeScreen.MAIN_FONT,
 		// WelcomeScreen.MAIN_COLOR, GAME_TITLE_FONT));
-		return new HBox(new Label(gameTitle));
+		HBox title = new HBox(new Label(gameTitle));
+		title.setAlignment(Pos.BASELINE_CENTER);
+		return title;
 
 	}
 
 	private HBox createButtonPanel() {
 
 		HBox buttonPanel = new HBox(ENTRY_SPACING);
-		Button newGame = createNewGameButton(e -> handleNewGame());
-		Button continueGame = createContinueGameButton(e -> handleContinueGame());
+		Button newGame = createPlayGameButton("New Game", e -> handleNewGame());
+		Button continueGame = createPlayGameButton("Continue Game", e -> handleContinueGame());
 
-		buttonPanel.setAlignment(Pos.CENTER_LEFT);
+		buttonPanel.setAlignment(Pos.BASELINE_CENTER);
 		buttonPanel.getChildren().addAll(newGame, continueGame);
 
 		return buttonPanel;
@@ -92,35 +97,43 @@ public class GameSelector extends MenuOptionsTemplate {
 		// do stuff
 	}
 
-	private Button createNewGameButton(EventHandler<ActionEvent> handler) {
-		Button btn = new Button("New Game");
-		btn.setOnAction(handler);
-		return btn;
-	}
-
-	private Button createContinueGameButton(EventHandler<ActionEvent> handler) {
-		Button btn = new Button("Continue Game");
+	private Button createPlayGameButton(String label, EventHandler<ActionEvent> handler) {
+		Button btn = new Button(label);
 		btn.setOnAction(handler);
 		return btn;
 	}
 
 	@SuppressWarnings("unchecked")
-	public TreeView<HBox> createGameEntry(String gameTitle) {
+	public void createGameEntry(String gameTitle) {
 
-		TreeItem<HBox> rootItem = new TreeItem<HBox>(createTitleItem(gameTitle));
+		TreeItem<HBox> title = new TreeItem<HBox>(createTitleItem(gameTitle));
 		TreeItem<HBox> buttons = new TreeItem<HBox>(createButtonPanel());
-		rootItem.getChildren().addAll(buttons);
+		title.getChildren().addAll(buttons);
+		title.setExpanded(false);
 
-		TreeView<HBox> tree = new TreeView<HBox>(rootItem);
-		tree.setPrefWidth(TREE_ITEM_WIDTH);
-		tree.setPrefHeight(TREE_ITEM_HEIGHT);
+		// TreeView<HBox> entry = new TreeView<HBox>(title);
+		// entry.setPrefWidth(TREE_ITEM_WIDTH);
+		// entry.setPrefHeight(TREE_ITEM_HEIGHT);
 		// tree.getStylesheets().add(WelcomeScreen.class.getResource("MenuOptionStyle.css").toExternalForm());
+		// entry.getStylesheets().add(GameSelector.class.getResource("GameListStyle.css").toExternalForm());
+		// entry.setOnMouseClicked(e -> title.setExpanded(tree.getExpandedItemCount() ==
+		// 1));
+
+		addGameEntry(title);
+	}
+
+	public void createGameList() {
+		root = new TreeItem<HBox>();
+		root.setExpanded(true);
+		tree = new TreeView<HBox>(root);
+		tree.setPrefWidth(TREE_WIDTH);
+		tree.setPrefHeight(TREE_HEIGHT);
 		tree.getStylesheets().add(GameSelector.class.getResource("GameListStyle.css").toExternalForm());
+	}
 
-		// tree.setOnMouseClicked(e -> rootItem.setExpanded(tree.getExpandedItemCount()
-		// == 1));
+	public void addGameEntry(TreeItem<HBox> title) {
+		root.getChildren().add(title);
 
-		return tree;
 	}
 
 }
