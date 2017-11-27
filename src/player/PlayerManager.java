@@ -3,8 +3,8 @@ package player;
 import java.util.ArrayList;
 import java.util.List;
 
-import engine.DisplayableImage;
 import engine.EngineController;
+import engine.sprite.DisplayableImage;
 import javafx.scene.input.KeyCode;
 
 public class PlayerManager {
