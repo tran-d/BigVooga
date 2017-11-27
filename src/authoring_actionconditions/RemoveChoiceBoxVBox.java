@@ -12,13 +12,24 @@ public class RemoveChoiceBoxVBox extends ChoiceBoxVBox<Integer> {
 	}
 	
 	protected void addRow() {
-		addOption(getOptionsSize() + 1);
+		int newSize = increaseOptionsSize();
+		adjustListtoSize(newSize);
 	}
 	
 	protected void removeRow() {
-		System.out.println("Old size is " + getOptionsSize());
-		int newSize = getOptionsSize() - 1;
-		System.out.println("New size is " + newSize);
+		int newSize = decreaseOptionsSize();
+		adjustListtoSize(newSize);
+	}
+	
+	private int increaseOptionsSize() {
+		return getOptionsSize() + 1;
+	}
+	
+	private int decreaseOptionsSize() {
+		return getOptionsSize() - 1;
+	}
+	
+	private void adjustListtoSize(int newSize) {
 		List<Integer> newOptions = new LinkedList<Integer>();
 		for(int i = 1; i <= newSize; i++) {
 			newOptions.add(i);

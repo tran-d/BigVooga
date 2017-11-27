@@ -1,14 +1,13 @@
 package authoring_actionconditions;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import ActionConditionClasses.ChoiceBoxVBox;
-import ActionConditionClasses.LabelSelectorVBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.ToolBar;
+import javafx.scene.layout.VBox;
 
 public class ActionConditionRow extends ToolBar {
 	
@@ -26,7 +25,7 @@ public class ActionConditionRow extends ToolBar {
 		Separator separator = ActionConditionTabUtil.makeVerticalSeparator();
 		List<String> actionConditionOptions = ActionConditionTabUtil.convertToList(actionConditionVBoxResources.getString(label 
 				+ actionConditionVBoxResources.getString("OptionsTag"))); 
-		LabelSelectorVBox implementationSelectorVBox = new ChoiceBoxVBox<String>(selectorLabel, actionConditionOptions);
+		VBox implementationSelectorVBox = new ChoiceBoxVBox<String>(selectorLabel, actionConditionOptions);
 		getItems().addAll(IDlabel,separator,new Label(label),implementationSelectorVBox);
 	}
 	
