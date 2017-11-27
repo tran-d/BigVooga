@@ -50,10 +50,12 @@ public class EngineTester extends Application {
 		images.add(i);
 		AnimationSequence animation = new AnimationSequence("Animation", images);
 		sprite.addAnimationSequence(animation);
+		sprite.setAnimation("Animation");
 		obj.setSprite(sprite);
 		
 		w.addGameObject(obj);
 		master.addWorld(w);
+		master.setCurrentWorld("World");
 		try {
 			new GameDataHandler("Test1").saveGame(master);
 		} catch (IOException e) {
