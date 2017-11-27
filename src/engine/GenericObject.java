@@ -1,5 +1,6 @@
 package engine;
 
+@Deprecated
 public class GenericObject extends GameObject {
 
 	public GenericObject(String name) {

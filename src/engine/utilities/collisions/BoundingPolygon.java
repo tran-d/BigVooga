@@ -20,16 +20,17 @@ public class BoundingPolygon extends BoundingGeometry {
 
 	@Override
 	public Range dotted(Point2D vectorDirection) {
-		double max = Double.MIN_VALUE;
-		double min = Double.MAX_VALUE;
+		double max = Double.NEGATIVE_INFINITY;
+		double min = Double.POSITIVE_INFINITY;
 		for (Point2D vertex : vertices) {
 			double dot = vertex.dotProduct(vectorDirection);
 			min = Math.min(min, dot);
 			max = Math.max(max, dot);
 		}
+		
 		return new Range(min, max);
 	}
-
+	
 	@Override
 	public Point2D checkCollision(BoundingGeometry geometry) {
 		Point2D result = geometry.checkPolygonCollision(this);
@@ -37,7 +38,7 @@ public class BoundingPolygon extends BoundingGeometry {
 			return null;
 		return result.multiply(-1);
 	}
-
+	
 	@Override
 	public BoundingGeometry getScaled(double xFactor, double yFactor) {
 		return getTransformed(p -> new Point2D(p.getX() * xFactor, p.getY() * yFactor));
@@ -49,8 +50,8 @@ public class BoundingPolygon extends BoundingGeometry {
 	}
 
 	@Override
-	public BoundingGeometry getTranslated(double xCenter, double yCenter) {
-		return getTransformed(p->new Point2D(p.getX()+xCenter, p.getY()+yCenter));
+	public BoundingGeometry getTranslated(double dx, double dy) {
+		return getTransformed(p->new Point2D(p.getX()+dx, p.getY()+dy));
 	}
 
 	private BoundingGeometry getTransformed(Function<Point2D, Point2D> function) {
@@ -65,13 +66,14 @@ public class BoundingPolygon extends BoundingGeometry {
 	public Point2D checkPolygonCollision(BoundingPolygon polygon) {
 		double minOverlap = Integer.MAX_VALUE;
 		Point2D direction = null;
-		List<Point2D> normals = generateNormals();
-		normals.addAll(polygon.generateNormals());
+		List<Point2D> normals = generateOutwardNormals();
+		normals.addAll(polygon.generateInwardNormals());
+		System.out.println(normals);
 		for(Point2D normal : normals){
 			Range otherProjection = polygon.dotted(normal);
 			Range thisProjection = dotted(normal);
 			double overlap = otherProjection.getOverlap(thisProjection);
-			if(overlap == 0)
+			if(overlap <= 0)
 				return null;
 			if(overlap < minOverlap) {
 				minOverlap = overlap;
@@ -81,11 +83,19 @@ public class BoundingPolygon extends BoundingGeometry {
 		return direction.multiply(minOverlap);
 	}
 	
-	protected List<Point2D> generateNormals(){
+	protected List<Point2D> generateOutwardNormals(){
+		return generateNormals(true);
+	}
+	
+	protected List<Point2D> generateInwardNormals(){
+		return generateNormals(false);
+	}
+	
+	private List<Point2D> generateNormals(boolean outward){
 		List<Point2D> normals = new ArrayList<>();
 		for(int i = 0; i < vertices.size(); i++) {
 			Point2D side = vertices.get((i+1)%vertices.size()).subtract(vertices.get(i));
-			Point2D normalToSide = rotateByAngle(side, 90).normalize();
+			Point2D normalToSide = rotateByAngle(side, outward?-90:90).normalize();
 			normals.add(normalToSide);
 		}
 		return normals;
@@ -99,5 +109,9 @@ public class BoundingPolygon extends BoundingGeometry {
 	
 	public String toString() {
 		return vertices.toString();
+	}
+	
+	public List<Point2D> getVertices(){
+		return vertices;
 	}
 }
