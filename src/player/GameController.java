@@ -28,11 +28,12 @@ public class GameController {
 		playerManager = new PlayerManager();
 		gameDisplay = currentGameDisplay;
 		gameDataHandler = new GameDataHandler(projectName);
-		engineController = gameDataHandler.loadGame();
-		engineController.setPlayerManager(playerManager);
 		playerManager.setDisplay(gameDisplay);
 		gameDisplay.setPlayerManager(playerManager);
 		gameDisplay.setDataHandler(gameDataHandler);
+		engineController = gameDataHandler.loadGame();
+		engineController.setPlayerManager(playerManager);
+		engineController.start();
 		
 	}
 	
