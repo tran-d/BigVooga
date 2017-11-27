@@ -33,10 +33,7 @@ public class BoundingPolygon extends BoundingGeometry {
 	
 	@Override
 	public Point2D checkCollision(BoundingGeometry geometry) {
-		Point2D result = geometry.checkPolygonCollision(this);
-		if(result == null)
-			return null;
-		return result.multiply(-1);
+		return negativeOf(geometry.checkPolygonCollision(this));
 	}
 	
 	@Override
@@ -113,5 +110,10 @@ public class BoundingPolygon extends BoundingGeometry {
 	
 	public List<Point2D> getVertices(){
 		return vertices;
+	}
+
+	@Override
+	public Point2D checkPointCollision(BoundingPoint point) {
+		return negativeOf(point.checkPolygonCollision(this));
 	}
 }

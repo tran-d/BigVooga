@@ -3,6 +3,7 @@ package engine.Conditions;
 import engine.Condition;
 import engine.GameObject;
 import engine.World;
+import engine.utilities.collisions.BoundingPoint;
 
 /**
  * Checks if click is released from a click on an object. Note that the cursor 
@@ -21,11 +22,13 @@ public class ObjectClickReleased extends Condition {
 	@Override
 	public boolean isTrue(GameObject asking, World world) {
 		Condition screenClickReleased = new ScreenClicked(0);
-		return screenClickReleased.isTrue(asking, world) && 
-				world.getPlayerManager().getClickX() > asking.getImage().getX() - 0.5 * asking.getImage().getX() &&
-				world.getPlayerManager().getClickX() < asking.getImage().getX() + 0.5 * asking.getImage().getX() &&
-				world.getPlayerManager().getClickY() > asking.getImage().getY() - 0.5 * asking.getImage().getY() &&
-				world.getPlayerManager().getClickY() < asking.getImage().getY() + 0.5 * asking.getImage().getY();
+//		return screenClickReleased.isTrue(asking, world) && 
+//				world.getPlayerManager().getClickX() > asking.getImage().getX() - 0.5 * asking.getImage().getX() &&
+//				world.getPlayerManager().getClickX() < asking.getImage().getX() + 0.5 * asking.getImage().getX() &&
+//				world.getPlayerManager().getClickY() > asking.getImage().getY() - 0.5 * asking.getImage().getY() &&
+//				world.getPlayerManager().getClickY() < asking.getImage().getY() + 0.5 * asking.getImage().getY();
+		return screenClickReleased.isTrue(asking, world) &&
+				asking.getImage().checkCollision(new BoundingPoint(world.getPlayerManager().getClickX(), world.getPlayerManager().getClickY())) != null;
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import engine.utilities.collisions.BoundingGeometry;
+import engine.utilities.collisions.BoundingSet;
 import engine.utilities.collisions.RelativeBoundingGeometry;
 import javafx.geometry.Point2D;
 
@@ -11,7 +12,7 @@ import javafx.geometry.Point2D;
  * @author Ian Eldridge-Allegra
  *
  */
-public class BoundedImage implements DisplayableImage{
+public class BoundedImage extends BoundingSet implements DisplayableImage{
 
 	private List<RelativeBoundingGeometry> relativeBounds;
 	private String fileName;
@@ -32,25 +33,7 @@ public class BoundedImage implements DisplayableImage{
 		relativeBounds = bounds;
 	}
 
-	public Point2D checkCollision(BoundedImage other) {
-		Point2D result = null;
-		double maxMagnitude = 0;
-		for (BoundingGeometry thisGeometry : getGeometry()) {
-			for (BoundingGeometry otherGeometry : other.getGeometry()) {
-				Point2D collision = thisGeometry.checkCollision(otherGeometry);
-				if (collision == null)
-					continue;
-				double magnitude = collision.magnitude();
-				if (magnitude > maxMagnitude) {
-					maxMagnitude = magnitude;
-					result = collision;
-				}
-			}
-		}
-		return result;
-	}
-
-	private List<BoundingGeometry> getGeometry() {
+	protected List<BoundingGeometry> getGeometry() {
 		List<BoundingGeometry> geometry = new ArrayList<>(relativeBounds.size());
 		for (RelativeBoundingGeometry rg : relativeBounds) {
 			geometry.add(rg.getBoundingGeometry(xCenter, yCenter, xSize, ySize, heading));
