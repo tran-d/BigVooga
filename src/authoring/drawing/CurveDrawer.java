@@ -2,6 +2,9 @@ package authoring.drawing;
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * @author Ian Eldridge-Allegra
+ */
 public class CurveDrawer extends DrawingTool {
 	public CurveDrawer(ImageCanvas canvas) {
 		super(canvas);

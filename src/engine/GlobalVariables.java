@@ -1,7 +1,5 @@
 package engine;
 
-import java.util.ArrayList;
-
 public class GlobalVariables extends VariableContainer {
 	
 	public GlobalVariables() {
@@ -14,6 +12,10 @@ public class GlobalVariables extends VariableContainer {
 	
 	public void putBoolean(String key, boolean value) {
 		booleanVars.put(key, value);
+	}
+	
+	public void putDouble(String key, double value) {
+		doubleVars.put(key, value);
 	}
 	
 }

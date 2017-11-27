@@ -4,6 +4,10 @@ import javafx.geometry.Point2D;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Line;
 
+/**
+ * @author Ian Eldridge-Allegra
+ *
+ */
 public class LineDrawer extends DrawingTool{
 	private static final double PHANTOM_OPACITY = .4;
 	private Point2D lastLoc;

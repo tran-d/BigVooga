@@ -3,6 +3,8 @@ package engine.Conditions;
 import engine.Condition;
 import engine.GameObject;
 import engine.World;
+import engine.utilities.collisions.CollisionEvent;
+import javafx.geometry.Point2D;
 
 public class Collision extends Condition {
 
@@ -15,7 +17,13 @@ public class Collision extends Condition {
 	
 	@Override
 	public boolean isTrue(GameObject asking, World world) {
-		// TODO Auto-generated method stub
+		for(GameObject g : world.getWithTag(tag)) {
+			Point2D intersectionVector = g.getImage().checkCollision(asking.getImage());
+			if(intersectionVector != null) {
+				asking.setLastCollisionChecked(new CollisionEvent(g, intersectionVector));
+				return true;
+			}
+		}
 		return false;
 	}
 

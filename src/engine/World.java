@@ -3,7 +3,7 @@ import java.util.List;
 
 import player.PlayerManager;
 
-public interface World extends Iterable<GenericObject>{
+public interface World extends Iterable<GameObject>{
 	
 	public void addGameObject(GameObject obj);
 	public void addGameObjects(List<GameObject> obj);
@@ -16,9 +16,11 @@ public interface World extends Iterable<GenericObject>{
 	
 	public void step();
 	
-	public void addGlobalVars(VariableContainer gv);
+	public void addGlobalVars(GlobalVariables gv);
 	
-	public PlayerManager getInputManager();
+	public GlobalVariables getGlobalVars();
+	
+	public PlayerManager getPlayerManager();
 	
 	public void setNextWorld(World w);
 	
