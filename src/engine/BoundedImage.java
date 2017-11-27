@@ -6,7 +6,6 @@ import java.util.List;
 import engine.utilities.collisions.BoundingGeometry;
 import engine.utilities.collisions.BoundingSet;
 import engine.utilities.collisions.RelativeBoundingGeometry;
-import javafx.geometry.Point2D;
 
 /**
  * @author Ian Eldridge-Allegra

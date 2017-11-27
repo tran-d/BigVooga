@@ -21,7 +21,7 @@ public class GameWorld implements World {
 	private List<GameObject> worldObjects;
 	private Map<Integer, List<GameObject>> conditionPriorities = new HashMap<>();
 	private GlobalVariables globalVars;
-	private GameObjectFactory GameObjectFactory;
+	//private GameObjectFactory GameObjectFactory;
 	private PlayerManager input;
 	private World nextWorld;
 
@@ -39,7 +39,7 @@ public class GameWorld implements World {
 
 	// I don't know what to do with this.
 	@Override
-	public Iterator<GenericObject> iterator() {
+	public Iterator<GameObject> iterator() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -53,7 +53,7 @@ public class GameWorld implements World {
 				conditionPriorities.get(i).add(obj);
 			}
 			else {
-				List<GameObject> objects = new ArrayList();
+				List<GameObject> objects = new ArrayList<>();
 				objects.add(obj);
 				conditionPriorities.put(i, objects);
 			}

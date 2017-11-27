@@ -12,8 +12,8 @@ public class PlayerManager {
 	private GameDisplay gameDisplay;
 	private EngineController engineController;
 	
-	private List<KeyCode> keysDown;
-	private List<KeyCode> prevKeysDown;
+	private List<String> keysDown;
+	private List<String> prevKeysDown;
 	
 	private boolean primaryButtonDown;
 	private boolean prevPrimaryButtonDown;
@@ -27,20 +27,20 @@ public class PlayerManager {
 		prevPrimaryButtonDown = false;
 	}
 	
-	public List<KeyCode> getKeysDown() {
+	public List<String> getKeysDown() {
 		return keysDown;
 	}
 	
-	public List<KeyCode> getPrevKeysDown() {
+	public List<String> getPrevKeysDown() {
 		return prevKeysDown;
 	}
 	
 	public void setKeyPressed(KeyCode keyCode) {
-		keysDown.add(keyCode);
+		keysDown.add(keyCode.getName());
 	}
 	
 	public void setKeyReleased(KeyCode keyCode) {
-		keysDown.remove(keyCode);
+		keysDown.remove(keyCode.getName());
 	}
 	
 	public void setPrimaryButtonDown(double x, double y) {

@@ -184,7 +184,7 @@ public class GameObject extends VariableContainer {
 	}
 
 	public GameObject clone() {
-		GameObject copy = new GenericObject(name);
+		GameObject copy = new GameObject(name);
 		copy.setCoords(x, y);
 		copy.setHeading(heading);
 		for (String tag : tagSet)
