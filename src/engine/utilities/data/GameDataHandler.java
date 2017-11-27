@@ -109,7 +109,7 @@ public class GameDataHandler {
 	}
 	
 	public Image getImage(String fileName) throws URISyntaxException {
-		String path = new File(projectPath+CONTROLLER_FILE).toURI().toString();
+		String path = new File(projectPath + fileName).toURI().toString();
 		return new Image(path);
 	}
 	

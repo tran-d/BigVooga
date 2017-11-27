@@ -105,13 +105,14 @@ public class GameSelector extends MenuOptionsTemplate {
 	}
 
 	private void handleNewGame(String theGame) {
-		GameDisplay gameDisplay = new GameDisplay(stage, sceneController);
+		GameDisplay gameDisplay = sceneController.getDisplay();
 		try {
 			GameController gameController = new GameController (stage, theGame, gameDisplay);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		sceneController.switchScene(SceneController.GAME_DISPLAY_KEY);
 	}
 
 	private void handleContinueGame() {

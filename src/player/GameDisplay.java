@@ -8,8 +8,10 @@ import engine.sprite.DisplayableImage;
 import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class GameDisplay {
@@ -55,11 +57,12 @@ public class GameDisplay {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			gameImage.prefWidth(image.getWidth());
-			gameImage.prefHeight(image.getHeight());
+			gameImage.prefWidth(100);
+			gameImage.prefHeight(100);
 			gameImage.setRotate(image.getHeading());
 			gameImage.setX(image.getX()-image.getWidth()/2);
 			gameImage.setY(image.getY()-image.getHeight()/2);
+			System.out.println(image.getX());
 			rootPane.getChildren().add(gameImage);
 		}
 	}
