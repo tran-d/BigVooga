@@ -2,12 +2,15 @@ package authoring_UI;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteParameterI;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -29,8 +32,8 @@ public class Menu extends VBox {
 
 	private final static String LOAD = "Load";
 	private final static String SAVE = "Save";
-	private final static double MENU_WIDTH = 300;
-	private final static double MENU_HEIGHT = 500;
+	private final static double MENU_WIDTH = 400;
+	private final static double MENU_HEIGHT = 400;
 	
 	protected Menu(AuthoringEnvironmentManager AEM) {
 		myAEM = AEM;
@@ -55,7 +58,6 @@ public class Menu extends VBox {
 		createSpriteTabs();
 
 		createStatePane(new VBox());
-		this.setPrefWidth(400);
 	}
 	
 	private void createButtons() {
@@ -87,21 +89,51 @@ public class Menu extends VBox {
 	
 	private VBox createParameterTab() {
 		myParamTabVBox = new VBox();
-		Button applyButton = new Button();
-		myParamTabVBox.getChildren().addAll(myParamTabs,  applyButton);
+		myParamTabVBox.getChildren().addAll(myParamTabs,  createApplyButton());
 		
 		setDefaultParameterVBox();
+
+		return myParamTabVBox;
+	}
+	
+	private HBox createAddAndApplyButtons() {
+		Button applyButton = new Button();
+		Button addParameterButton = new Button();
 		
-//		theHorizTabs = myParamTabs;
-		
-		applyButton.textProperty().setValue("Apply Button");
+		applyButton.textProperty().setValue("Apply");
 		applyButton.setOnAction(e -> {
 			apply();
 		});
 		
-//		myParamTabVBox.getChildren().addAll(theHorizTabs,  applyButton);
-//		addParameterErrorMessage();
-		return myParamTabVBox;
+		addParameterButton.textProperty().setValue("Add Parameter");
+		addParameterButton.setOnAction(e -> {
+			addParameter();
+		});
+		HBox buttonBox = new HBox(applyButton, addParameterButton);
+		buttonBox.setSpacing(330);
+		return buttonBox;
+	
+	}
+	
+	private Button createAddButton() {
+		Button addParameterButton = new Button();
+		addParameterButton.textProperty().setValue("Add Parameter");
+		addParameterButton.setOnAction(e -> {
+			addParameter();
+		});
+		
+		return addParameterButton;
+				
+	}
+	
+	private Button createApplyButton() {
+		Button applyButton = new Button();
+		applyButton.textProperty().setValue("Apply");
+		applyButton.setOnAction(e -> {
+			apply();
+		});
+		
+		return applyButton;
 	}
 	
 	private void createCategoryTabs() {
@@ -158,7 +190,9 @@ public class Menu extends VBox {
 			FEParameterFactory newFactory = new FEParameterFactory(newParams);
 			
 			Tab newCategory = new Tab(category);
-			newCategory.setContent(createStatePane(newFactory));
+			VBox paramListAndButton = new VBox(createAddButton(), createStatePane(newFactory));
+			paramListAndButton.setMinHeight(500);
+			newCategory.setContent(paramListAndButton);
 			newCategory.setClosable(false);
 			myParamTabs.getTabs().add(newCategory);
 			
@@ -171,9 +205,8 @@ public class Menu extends VBox {
 	}
 	
 	private void formatParametersVBox(VBox in) {
-		in.setPrefWidth(300);
-		in.setPrefHeight(500);
-//		return in;
+		in.setPrefWidth(400);
+		in.setPrefHeight(700);
 	}
 	
 	protected void addSpriteCreator(SpriteCreator spriteCreator) {
@@ -184,8 +217,8 @@ public class Menu extends VBox {
 
 	private ScrollPane createStatePane(VBox temp) {
 		ScrollPane myStateSP_dummy = new ScrollPane();
-		myStateSP_dummy.setPrefSize(MENU_WIDTH,MENU_HEIGHT);
-		myStateSP_dummy.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+		myStateSP_dummy.setMinSize(MENU_WIDTH,MENU_HEIGHT);
+//		myStateSP_dummy.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 		myStateSP_dummy.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 		formatParametersVBox(temp);
 		myStateSP_dummy.setContent(temp);
@@ -200,5 +233,23 @@ public class Menu extends VBox {
 		
 	}
 	
+	private void addParameter() {
+		List<String> choices = new ArrayList<>();
+		choices.add("Boolean");
+		choices.add("String");
+		choices.add("Double");
+
+		ChoiceDialog<String> dialog = new ChoiceDialog<>("Boolean", choices);
+		dialog.setTitle("Add Parameter");
+		dialog.setContentText("Choose parameter type:");
+
+		Optional<String> result = dialog.showAndWait();
+		result.ifPresent(type -> createNewParameter(type));
+	}
+	
+	
+	private void createNewParameter(String type) {
+		
+	}
 
 }
