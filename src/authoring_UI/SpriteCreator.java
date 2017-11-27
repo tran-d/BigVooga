@@ -9,6 +9,8 @@ import java.util.Observable;
 
 import authoring.AuthoringEnvironmentManager;
 import engine.utilities.data.GameDataHandler;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -40,6 +42,7 @@ public class SpriteCreator extends Observable {
 	private GridPane myGrid;
 	private MapManager myMapManager;
 	private GameDataHandler myGDH;
+	private File myFile;
 
 	protected SpriteCreator(AuthoringEnvironmentManager AEM, MapManager mapManager) {
 
@@ -104,6 +107,13 @@ public class SpriteCreator extends Observable {
 		buttonBox.setAlignment(Pos.BASELINE_RIGHT);
 
 		Button createSprite = new Button("create sprite");
+		createSprite.setOnAction(new EventHandler<ActionEvent>() {
+			@Override public void handle(ActionEvent e) {
+				setChanged();
+				notifyObservers(myFile.getName());
+				myStage.close();
+			}
+		});
 		buttonBox.getChildren().add(createSprite);
 
 		myGrid.add(buttonBox, 1, 2);
@@ -137,13 +147,10 @@ public class SpriteCreator extends Observable {
 	private void openImage() throws IOException {
 		FileChooser imageChooser = new FileChooser();
 		imageChooser.setTitle("Open Image");
-		File file = imageChooser.showOpenDialog(myStage);
+		myFile = imageChooser.showOpenDialog(myStage);
 		
-		if (file != null) {
-			Files.copy(file.toPath(), Paths.get(PATH+file.getName()), StandardCopyOption.REPLACE_EXISTING);
-			setChanged();
-//			System.out.print(file.getName());
-			notifyObservers(file.getName());
+		if (myFile != null) {
+			Files.copy(myFile.toPath(), Paths.get(PATH+myFile.getName()), StandardCopyOption.REPLACE_EXISTING);
 			System.out.println("image chosen");
 
 		}
