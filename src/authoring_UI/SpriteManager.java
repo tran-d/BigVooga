@@ -19,23 +19,28 @@ import javafx.scene.layout.VBox;
 public class SpriteManager extends TabPane {
 	private DraggableGrid myGrid;
 	private VBox mySprites;
+	private VBox myUserSprites;
 	private AuthoringEnvironmentManager myAEM;
 	private SpriteObjectGridManagerI mySOGM;
 	private SpriteParameterFactory mySPF;
 	private ArrayList<SpriteObject> mySpriteObjs = new ArrayList<SpriteObject>();
+	private ArrayList<SpriteObject> myUserSpriteObjs = new ArrayList<SpriteObject>();
+
 	
 	protected SpriteManager(DraggableGrid grid, AuthoringEnvironmentManager AEM, SpriteObjectGridManagerI SOGM) {
 		mySPF = new SpriteParameterFactory();
-	    myAEM = AEM;
-	    mySOGM = SOGM;
+		myAEM = AEM;
+		mySOGM = SOGM;
 		myGrid = grid;
 		mySprites = new VBox();
+		myUserSprites = new VBox();
 		getParams();
 		createSprites();
-        	createSpriteTabs();
-        	this.setPrefWidth(110);
+		createSpriteTabs();
+		this.setPrefWidth(110);
 
 	}
+
 	
 	private void createSprites() {
 		SpriteObject s1 = mySpriteObjs.get(0);
@@ -58,6 +63,37 @@ public class SpriteManager extends TabPane {
 //		createImageStack("water.png");
 //		createImageStack("pikachu.png");	    
 	}
+	
+	public void getUserSpriteParam(String url) {
+		SpriteObject userSprite = new SpriteObject(url);
+		ArrayList<SpriteParameterI> param = new ArrayList<SpriteParameterI>();
+		param.add(mySPF.makeParameter("canFight", false));
+		param.add(mySPF.makeParameter("health", 15.0));
+		param.add(mySPF.makeParameter("name", "Ryan"));
+
+		for (SpriteParameterI SP : param) {
+			userSprite.addParameter(SP);
+		}
+
+		myUserSpriteObjs.add(userSprite);
+		createUserSprite(userSprite);
+	}
+	
+	/**
+	 * creates new user sprite
+	 * 
+	 * @author taekwhunchung
+	 * @param sp
+	 */
+
+	private void createUserSprite(SpriteObject sp) {
+		myAEM.addUserSprite(sp);
+
+		myUserSprites.getChildren().add(sp);
+		myGrid.addDragObject(sp);
+	}
+
+
 	
 	public void getParams() {
 		ArrayList<String> urls = new ArrayList<String>();
@@ -118,6 +154,7 @@ public class SpriteManager extends TabPane {
 		
 		Tab mySpriteTab = new Tab();
 		mySpriteTab.setText("User Sprites");
+		mySpriteTab.setContent(myUserSprites);
 		mySpriteTab.setClosable(false);
      
 		this.getTabs().addAll(defaultSpriteTab, mySpriteTab);
