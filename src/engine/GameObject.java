@@ -11,6 +11,8 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import engine.sprite.BoundedImage;
+import engine.sprite.Sprite;
 import engine.utilities.collisions.CollisionEvent;
 
 //TODO need to add addToObjectList()? 

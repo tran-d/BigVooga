@@ -1,4 +1,4 @@
-package engine;
+package engine.sprite;
 
 public interface DisplayableImage {
 	public double getX();
