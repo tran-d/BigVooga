@@ -36,7 +36,7 @@ import javafx.stage.Stage;
  */
 public class GameDataHandler {
 	private static final XStream SERIALIZER = setupXStream();	
-	private static final String KNOWN_PROJECTS = "resources/KnownProjectNames.properties";
+	private static final String KNOWN_PROJECTS = "KnownProjectNames";
 	public static final String PATH = "data/UserCreatedGames/";
 	private static final String CONTROLLER_FILE = "Engine_Controller_Save_File";
 	private static final String SELECTOR_TITLE = "Open Resource File";
@@ -109,7 +109,7 @@ public class GameDataHandler {
 	}
 	
 	public Image getImage(String fileName) throws URISyntaxException {
-		String path = new File(projectPath+CONTROLLER_FILE).toURI().toString();
+		String path = new File(projectPath + fileName).toURI().toString();
 		return new Image(path);
 	}
 	

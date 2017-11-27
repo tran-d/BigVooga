@@ -12,7 +12,7 @@
           <entry>
             <engine.Conditions.KeyPressed>
               <priorityNum>1</priorityNum>
-              <check>LEFT</check>
+              <check>Left</check>
             </engine.Conditions.KeyPressed>
             <list>
               <engine.Actions.Move>
