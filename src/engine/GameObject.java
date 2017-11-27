@@ -15,6 +15,11 @@ import engine.utilities.collisions.CollisionEvent;
 
 //TODO need to add addToObjectList()? 
 
+/**
+ * 
+ * @author Nikolas Bramblett, ...
+ *
+ */
 public class GameObject extends VariableContainer {
 	private final String DEFAULT_TAG = "unnamed";
 	private String name;

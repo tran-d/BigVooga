@@ -7,7 +7,11 @@ import java.util.List;
 import java.util.Map;
 
 import player.PlayerManager;
-
+/**
+ * 
+ * @author Nikolas Bramblett, ...
+ *
+ */
 public class GameWorld implements World {
 	
 	private final static String DEFAULT_NAME = "world";
