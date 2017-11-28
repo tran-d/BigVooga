@@ -10,6 +10,7 @@ public interface World extends Iterable<GameObject>{
 	public void removeGameObject(GameObject obj);
 	public void removeGameObjects(List<GameObject> obj);
 	public List<GameObject> getWithTag(String tag);
+	public GameObject getWithName(String name);
 	
 	//The World should have its own name to make things easily distinguishable.
 	public boolean isNamed(String tag);
