@@ -141,6 +141,13 @@ public class GameObject extends VariableContainer {
 		booleanVars.put(name, value);
 	}
 	
+	public void setStringVariable(String name, String value) {
+		stringVars.put(name, value);
+	}
+	
+	public void setSprite(Sprite set) {
+		currentSprite = set;
+	}
 	
 	/**
 	 * NEEDS COMPLETION
