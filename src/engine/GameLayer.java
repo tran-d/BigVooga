@@ -111,7 +111,9 @@ public class GameLayer implements World {
 			}
 			for(Runnable r : runnables) {
 				r.run();
+			
 			}
+			runnables.clear();
 		}
 	}
 	

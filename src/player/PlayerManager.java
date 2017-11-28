@@ -91,7 +91,6 @@ public class PlayerManager {
 	 * 
 	 */
 	public void step() {
-		System.out.println(keysDown);
 		prevKeysDown = new HashSet<>(keysDown);
 		prevPrimaryButtonDown = primaryButtonDown;
 	}
