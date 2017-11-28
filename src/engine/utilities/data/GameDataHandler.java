@@ -40,6 +40,7 @@ public class GameDataHandler {
 	public static final String PATH = "data/UserCreatedGames/";
 	private static final String CONTROLLER_FILE = "Engine_Controller_Save_File";
 	private static final String SELECTOR_TITLE = "Open Resource File";
+	private Map<String, Image> cache = new HashMap<>();
 	
 	private static XStream setupXStream() {
 		XStream xstream = new XStream(new DomDriver());
@@ -109,8 +110,12 @@ public class GameDataHandler {
 	}
 	
 	public Image getImage(String fileName) throws URISyntaxException {
+		if(cache.containsKey(fileName))
+			return cache.get(fileName);
 		String path = new File(projectPath + fileName).toURI().toString();
-		return new Image(path);
+		Image i = new Image(path);
+		cache.put(fileName, i);
+		return i;
 	}
 	
 	public File addChosenFileToProject(Stage stage) throws IOException {

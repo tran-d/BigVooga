@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeMap;
@@ -102,7 +103,7 @@ public class GameObject extends VariableContainer {
 		currentSprite.step();
 		for (Condition c : events.keySet()) {
 			for (Action a : events.get(c)) {
-				if (c.isTrue(this, w)) {
+				if (c.isTrue(this, w)) { 
 					a.execute(this, w);
 				}
 			}

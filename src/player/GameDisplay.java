@@ -62,7 +62,7 @@ public class GameDisplay {
 			gameImage.setRotate(image.getHeading());
 			gameImage.setX(image.getX()-image.getWidth()/2);
 			gameImage.setY(image.getY()-image.getHeight()/2);
-			System.out.println(image.getX());
+//			System.out.println(image.getX());
 			rootPane.getChildren().add(gameImage);
 		}
 	}
