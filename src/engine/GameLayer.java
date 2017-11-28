@@ -2,7 +2,6 @@ package engine;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -153,5 +152,14 @@ public class GameLayer implements World {
 	public void setPlayerManager(PlayerManager input) {
 		// TODO Auto-generated method stub
 		this.input = input;
+	}
+
+	@Override
+	public GameObject getWithName(String name) {
+		for(GameObject go : worldObjects) {
+			if(go.getName().equals(name))
+				return go;
+		}
+		throw new RuntimeException("None by name "+name);//TODO
 	}
 }
