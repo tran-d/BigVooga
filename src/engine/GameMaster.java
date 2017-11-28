@@ -15,6 +15,7 @@ public class GameMaster implements EngineController{
 	private List<World> madeWorlds;
 	private Timeline gameLoop;
 	private VariableContainer globalVars;
+	private PlayerManager playerManager;
 	
 	public GameMaster(PlayerManager playerManager) {
 		// TODO Auto-generated constructor stub
@@ -64,5 +65,10 @@ public class GameMaster implements EngineController{
 	private void step() {
 		currentWorld = ((GameWorld)currentWorld).getNextWorld();
 		currentWorld.step();
+	}
+	
+	@Override
+	public void setPlayerManager(PlayerManager currentPlayerManager) {
+		playerManager = currentPlayerManager;
 	}
 }

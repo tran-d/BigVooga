@@ -39,11 +39,9 @@ public class SpriteCreator extends Observable {
 	private static final double GRID_WIDTH = 400;
 	private static final double GRID_HEIGHT = 500;
 	public static final String PATH = "resources/";
-
 	private Stage myStage;
-	private AuthoringEnvironmentManager myAEM;
 	private GridPane myGrid;
-	private MapManager myMapManager;
+	private SpriteManager mySpriteManager;
 	private GameDataHandler myGDH;
 	private TextField myNameInput;
 	private SpriteObject mySpriteObject;
@@ -51,16 +49,17 @@ public class SpriteCreator extends Observable {
 	private SpriteParameterTabsAndInfo mySPTAI;
 	private TextArea myErrorMessage;
 	Consumer<Button> myConsumer;
+	private AuthoringEnvironmentManager myAEM;
 
-	protected SpriteCreator(Stage stage, AuthoringEnvironmentManager AEM, MapManager mapManager) {
+	protected SpriteCreator(Stage stage, SpriteManager spriteManager, AuthoringEnvironmentManager AEM) {
 
 		myStage = stage;
 		mySPTAI = new SpriteParameterTabsAndInfo();
 		myAEM = AEM;
 		myGDH = myAEM.getGameDataHandler();
 		myGrid = new GridPane();
-		myMapManager = mapManager;
-		this.addObserver(myMapManager);
+		mySpriteManager = spriteManager;
+		addObserver(mySpriteManager);
 		setGrid();
 		
 		mySpriteObject = new SpriteObject();
@@ -80,7 +79,7 @@ public class SpriteCreator extends Observable {
 		RowConstraints row1 = new RowConstraints();
 		row1.setPercentHeight(15);
 		RowConstraints row2 = new RowConstraints();
-		row2.setPercentHeight(80);
+		row2.setPercentHeight(15);
 		RowConstraints row3 = new RowConstraints();
 		row3.setPercentHeight(5);
 

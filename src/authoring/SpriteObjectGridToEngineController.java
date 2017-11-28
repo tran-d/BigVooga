@@ -36,7 +36,8 @@ public class SpriteObjectGridToEngineController {
 	}
 	
 	private GameObject convertToGameObject(SpriteObjectI SOI){
-		GenericObject GE = new GenericObject();
+		//added null as input to rid error
+		GenericObject GE = new GenericObject(null);
 		addParametersToGameObject(SOI, GE);
 		addConditionsAndActionsToGameObject(SOI, GE);
 		return GE;
@@ -87,7 +88,7 @@ public class SpriteObjectGridToEngineController {
 	}
 	
 	private void createEngine() {
-		myEC = new GameMaster();
+		//myEC = new GameMaster();
 	}
 	
 	private void addWorldToEngine(World newWorld) {

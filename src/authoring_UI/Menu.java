@@ -2,7 +2,9 @@ package authoring_UI;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObject;
@@ -10,6 +12,7 @@ import authoring.SpriteParameterI;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -24,18 +27,14 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Menu extends VBox {
-	private Stage myStage;
 	private Button myLoad;
 	private Button mySave;
 	private AuthoringEnvironmentManager myAEM;
-	private ScrollPane myStateSP;
-	private GridPane mySpriteCreator;
 	private TabPane myParamTabs;
 	private TabPane mySpriteTabs;
 	private VBox myParamTabVBox;
 	private TextArea myParameterErrorMessage;
 	private SpriteParameterTabsAndInfo mySPTAI;
-
 	private MapManager myMapManager;
 
 	private final static String LOAD = "Load";
@@ -43,11 +42,10 @@ public class Menu extends VBox {
 	private final static double MENU_WIDTH = 400;
 	private final static double MENU_HEIGHT = 500;
 
-	protected Menu(AuthoringEnvironmentManager AEM, Stage stage, MapManager mapManager) {
+	protected Menu(AuthoringEnvironmentManager AEM, MapManager myManager) {
 		mySPTAI = new SpriteParameterTabsAndInfo();
 		myAEM = AEM;
-		myStage = stage;
-		myMapManager = mapManager;
+		myMapManager = myManager;
 		setUpMenu();
 
 	}
@@ -93,11 +91,10 @@ public class Menu extends VBox {
 		createButtons();
 		createCategoryTabs();
 		createSpriteTabs();
-
-		// createStatePane(new VBox());
-
-		 createSpriteCreator();
+		createSpriteCreator();
 		this.setPrefSize(MENU_WIDTH, MENU_HEIGHT);
+
+//		createStatePane(new VBox());
 	}
 
 	private void createButtons() {
@@ -222,6 +219,7 @@ public class Menu extends VBox {
 		} catch (Exception e) {
 			// throw new RuntimeException();
 			setDefaultErrorNoSpriteTabPane();
+
 		}
 		this.setPrefWidth(MENU_WIDTH);
 	}
@@ -241,13 +239,12 @@ public class Menu extends VBox {
 		// container.getColumnConstraints().add(cc);
 		// container.getRowConstraints().add(rc);
 
-		
 		Button createSpriteButton = new Button("Create Sprite");
 		
 		createSpriteButton.setOnAction(e -> {
 			System.out.println("Button pressed");
-			SpriteCreator mySpriteCreatorClass = new SpriteCreator(myStage, myAEM, myMapManager);
-			mySpriteCreator = mySpriteCreatorClass.getGrid();
+			SpriteCreator mySpriteCreatorClass = myMapManager.createNewSpriteCreator();
+			GridPane mySpriteCreator = mySpriteCreatorClass.getGrid();
 				this.getChildren().remove(createSpriteButton);
 				this.getChildren().add(mySpriteCreator);
 				mySpriteCreatorClass.onCreate(f -> {
@@ -260,7 +257,6 @@ public class Menu extends VBox {
 //		container.getChildren().add(mySpriteCreator);
 		// this.getChildren().add(mySpriteCreator);
 		this.getChildren().add(createSpriteButton);
-		System.out.println("sprite creator added");
 	}
 
 	private ScrollPane createStatePane(VBox temp) {
@@ -300,6 +296,25 @@ public class Menu extends VBox {
 	private void apply() {
 		mySPTAI.apply();
 		myAEM.getSpriteParameterSidebarManager().apply();
+	}
+	
+	private void addParameter() {
+		List<String> choices = new ArrayList<>();
+		choices.add("Boolean");
+		choices.add("String");
+		choices.add("Double");
+
+		ChoiceDialog<String> dialog = new ChoiceDialog<>("Boolean", choices);
+		dialog.setTitle("Add Parameter");
+		dialog.setContentText("Choose parameter type:");
+
+		Optional<String> result = dialog.showAndWait();
+		result.ifPresent(type -> createNewParameter(type));
+	}
+	
+	
+	private void createNewParameter(String type) {
+		
 	}
 
 }

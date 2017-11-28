@@ -9,13 +9,13 @@ public class SpriteSelectPanel extends VBox {
 
 	private String myName;
 	private SpriteManager mySM;
-	private DraggableGrid myDG;
+	private SpriteGridHandler mySGH;
 
-	SpriteSelectPanel(String name, SpriteManager SM, DraggableGrid DG){
+	SpriteSelectPanel(String name, SpriteManager SM, SpriteGridHandler SGH){
 		super();
 		myName = name;
 		mySM = SM;
-		myDG = DG;
+		mySGH = SGH;
 	}
 	
 	public String getMyName() {
@@ -46,7 +46,7 @@ public class SpriteSelectPanel extends VBox {
 	}
 	
 	private void makeSpriteDraggable(SpriteObject SO) {
-		myDG.addDragObject(SO);
+		mySGH.addDragObject(SO);
 	}
 	
 	public void addNewDefaultSprite(SpriteObject SO) {
