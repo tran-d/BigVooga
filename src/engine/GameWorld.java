@@ -34,7 +34,11 @@ public class GameWorld implements World {
 		nextWorld = this;
 		worldName = name;
 		worldObjects = new ArrayList<>();
-		input = new PlayerManager();
+	}
+	
+	@Override
+	public void setPlayerManager(PlayerManager p) {
+		input = p;
 	}
 
 	// I don't know what to do with this.
