@@ -2,7 +2,7 @@ package engine.Conditions;
 
 import engine.Condition;
 import engine.GameObject;
-import engine.World;
+import engine.Layer;
 
 /**
  * 
@@ -20,7 +20,7 @@ public class ScreenClickHeld extends Condition {
 	 * Returns true if the primary mouse button is down, regardless of whether or not it was down in the previous step
 	 */
 	@Override
-	public boolean isTrue(GameObject asking, World world) {
+	public boolean isTrue(GameObject asking, Layer world) {
 		return world.getPlayerManager().isPrimaryButtonDown();
 	}
 	

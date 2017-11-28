@@ -26,6 +26,8 @@ public class GameMaster implements EngineController{
 	private GlobalVariables globalVars;
 	private PlayerManager playerManager;
 	
+	private GameObjectFactory blueprintManager;
+	
 	public GameMaster() {
 		// TODO Auto-generated constructor stub
 		madeWorlds = new ArrayList<>();
@@ -103,5 +105,11 @@ public class GameMaster implements EngineController{
 		}
 		Collections.sort(imageData);
 		playerManager.setImageData(imageData);
+	}
+
+	@Override
+	public void addBlueprints(GameObjectFactory f) {
+		// TODO Auto-generated method stub
+		blueprintManager = f;
 	}
 }

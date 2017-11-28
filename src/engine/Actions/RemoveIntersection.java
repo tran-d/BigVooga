@@ -2,13 +2,13 @@ package engine.Actions;
 
 import engine.Action;
 import engine.GameObject;
-import engine.World;
+import engine.Layer;
 import javafx.geometry.Point2D;
 
 public class RemoveIntersection implements Action {
 	
 	@Override
-	public void execute(GameObject asking, World world) {
+	public void execute(GameObject asking, Layer world) {
 		Point2D intVect = asking.getLastCollisionChecked().getOverlapVector();
 		asking.setCoords(asking.getX()+intVect.getX(), asking.getY()+intVect.getY());
 	}

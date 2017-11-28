@@ -2,7 +2,7 @@ package engine.Conditions;
 
 import engine.Condition;
 import engine.GameObject;
-import engine.World;
+import engine.Layer;
 
 /**
  * 
@@ -19,7 +19,7 @@ public class BooleanTrue extends Condition {
 	}
 	
 	@Override
-	public boolean isTrue(GameObject asking, World world) {
+	public boolean isTrue(GameObject asking, Layer world) {
 		return asking.getBoolean(varName);
 	}
 	

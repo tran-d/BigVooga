@@ -3,9 +3,11 @@ import java.util.List;
 
 import player.PlayerManager;
 
-public interface World{
+public interface Layer{
 	
 	public void addGameObject(GameObject obj);
+	public void addGameObject(String name, double x, double y, double heading);
+	
 	public void addGameObjects(List<GameObject> obj);
 	public void removeGameObject(GameObject obj);
 	public void removeGameObjects(List<GameObject> obj);
@@ -25,9 +27,7 @@ public interface World{
 	
 	public void setPlayerManager(PlayerManager p);
 	
-	public void setNextWorld(World w);
-	
-	public World getNextWorld();
+	public void setBlueprints(GameObjectFactory f);
 	
 	public List<GameObject> getAllObjects();
 }

@@ -2,7 +2,7 @@ package engine.Actions;
 
 import engine.Action;
 import engine.GameObject;
-import engine.World;
+import engine.Layer;
 
 public class ChangeDouble implements Action {
 
@@ -15,7 +15,7 @@ public class ChangeDouble implements Action {
 	}
 	
 	@Override
-	public void execute(GameObject asking, World world) {
+	public void execute(GameObject asking, Layer world) {
 		asking.setDoubleVariable(varName, newDouble);
 	}
 	

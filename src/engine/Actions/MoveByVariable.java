@@ -2,7 +2,7 @@ package engine.Actions;
 
 import engine.Action;
 import engine.GameObject;
-import engine.World;
+import engine.Layer;
 
 public class MoveByVariable implements Action {
 
@@ -14,7 +14,7 @@ public class MoveByVariable implements Action {
 	}
 
 	@Override
-	public void execute(GameObject asking, World world) {
+	public void execute(GameObject asking, Layer world) {
 		// TODO Auto-generated method stub
 		asking.setCoords(asking.getX() + asking.getDouble(xSpeedVar), asking.getY() + asking.getDouble(ySpeedVar));
 	}
