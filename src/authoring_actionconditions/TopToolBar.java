@@ -8,10 +8,8 @@ import ActionConditionClasses.ChoiceBoxVBox;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Separator;
 import javafx.scene.control.ToolBar;
-import javafx.scene.layout.VBox;
 
 public class TopToolBar extends ToolBar implements TopToolBarI {
 	
