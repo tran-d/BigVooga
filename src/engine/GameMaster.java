@@ -97,7 +97,7 @@ public class GameMaster implements EngineController{
 	 * Used in step.
 	 */
 	private void imageUpdate() {
-		List<DisplayableImage> imageData = new ArrayList<DisplayableImage>();
+		List<DisplayableImage> imageData = new ArrayList<>();
 		for(GameObject o: currentWorld.getAllObjects()){
 			imageData.add(o.getImage());
 		}

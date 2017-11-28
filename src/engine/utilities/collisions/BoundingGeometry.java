@@ -26,9 +26,9 @@ public abstract class BoundingGeometry {
 
 		for (Point2D normal : normalVectors) {
 			double overlap = other.dotted(normal).getOverlap(dotted(normal));
-			if (overlap <= 0)
+			if (overlap == 0)
 				return null;
-			if (overlap < minOverlap) {
+			if (Math.abs(overlap) < Math.abs(minOverlap)) {
 				minOverlap = overlap;
 				direction = normal;
 			}
