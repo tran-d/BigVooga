@@ -1,132 +1,128 @@
 <engine.GameMaster>
-  <currentWorld class="engine.GameWorld">
-    <worldName>World</worldName>
-    <worldObjects>
-      <engine.GameObject>
-        <doubleVars defined-in="engine.VariableContainer"/>
-        <stringVars defined-in="engine.VariableContainer"/>
-        <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-        <name>unnamed</name>
-        <tagSet/>
-        <events class="tree-map">
+  <currentWorld>
+    <worldLayers>
+      <engine.GameLayer>
+        <worldName>Layer</worldName>
+        <worldObjects>
+          <engine.GameObject>
+            <doubleVars defined-in="engine.VariableContainer"/>
+            <stringVars defined-in="engine.VariableContainer"/>
+            <DEFAULT__TAG>unnamed</DEFAULT__TAG>
+            <name>unnamed</name>
+            <tagSet/>
+            <events class="tree-map">
+              <entry>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>1</priorityNum>
+                  <check>Right</check>
+                </engine.Conditions.KeyHeld>
+                <list>
+                  <engine.Actions.Move>
+                    <xIncrement>1.0</xIncrement>
+                    <yIncrement>0.0</yIncrement>
+                  </engine.Actions.Move>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>2</priorityNum>
+                  <check>Left</check>
+                </engine.Conditions.KeyHeld>
+                <list>
+                  <engine.Actions.Move>
+                    <xIncrement>-1.0</xIncrement>
+                    <yIncrement>0.0</yIncrement>
+                  </engine.Actions.Move>
+                </list>
+              </entry>
+            </events>
+            <x>200.0</x>
+            <y>200.0</y>
+            <heading>0.0</heading>
+            <currentSprite>
+              <animations>
+                <entry>
+                  <string>Animation</string>
+                  <engine.sprite.AnimationSequence>
+                    <imageIndex>0</imageIndex>
+                    <images>
+                      <engine.sprite.BoundedImage>
+                        <relativeBounds>
+                          <engine.utilities.collisions.RelativeBoundingGeometry>
+                            <geometry class="engine.utilities.collisions.BoundingPolygon">
+                              <vertices>
+                                <javafx.geometry.Point2D>
+                                  <x>-0.16999999999999998</x>
+                                  <y>0.11246612466124661</y>
+                                  <hash>0</hash>
+                                </javafx.geometry.Point2D>
+                                <javafx.geometry.Point2D>
+                                  <x>0.23750000000000004</x>
+                                  <y>-0.16124661246612465</y>
+                                  <hash>0</hash>
+                                </javafx.geometry.Point2D>
+                                <javafx.geometry.Point2D>
+                                  <x>0.21999999999999997</x>
+                                  <y>0.2100271002710027</y>
+                                  <hash>0</hash>
+                                </javafx.geometry.Point2D>
+                              </vertices>
+                            </geometry>
+                          </engine.utilities.collisions.RelativeBoundingGeometry>
+                        </relativeBounds>
+                        <fileName>testImage.png</fileName>
+                        <xCenter>0.0</xCenter>
+                        <yCenter>0.0</yCenter>
+                        <xSize>0.0</xSize>
+                        <ySize>0.0</ySize>
+                        <heading>0.0</heading>
+                        <depth>10</depth>
+                        <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                      </engine.sprite.BoundedImage>
+                    </images>
+                    <name>Animation</name>
+                  </engine.sprite.AnimationSequence>
+                </entry>
+              </animations>
+              <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+            </currentSprite>
+            <doubleVars/>
+            <booleanVars/>
+            <stringVars/>
+            <width>0.0</width>
+            <height>0.0</height>
+            <uniqueID>0</uniqueID>
+          </engine.GameObject>
+        </worldObjects>
+        <conditionPriorities>
           <entry>
-            <engine.Conditions.KeyHeld>
-              <priorityNum>1</priorityNum>
-              <check>Left</check>
-            </engine.Conditions.KeyHeld>
+            <int>1</int>
             <list>
-              <engine.Actions.Move>
-                <xIncrement>-1.0</xIncrement>
-                <yIncrement>0.0</yIncrement>
-              </engine.Actions.Move>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject"/>
             </list>
           </entry>
-        </events>
-        <x>200.0</x>
-        <y>200.0</y>
-        <heading>0.0</heading>
-        <currentSprite>
-          <animations>
-            <entry>
-              <string>Animation</string>
-              <engine.sprite.AnimationSequence>
-                <imageIndex>0</imageIndex>
-                <images>
-                  <engine.sprite.BoundedImage>
-                    <relativeBounds>
-                      <engine.utilities.collisions.RelativeBoundingGeometry>
-                        <geometry class="engine.utilities.collisions.BoundingPolygon">
-                          <vertices>
-                            <javafx.geometry.Point2D>
-                              <x>-0.12067056602619008</x>
-                              <y>0.25194659477735115</y>
-                              <hash>0</hash>
-                            </javafx.geometry.Point2D>
-                            <javafx.geometry.Point2D>
-                              <x>-0.22049410128245583</x>
-                              <y>0.2221933122501898</y>
-                              <hash>0</hash>
-                            </javafx.geometry.Point2D>
-                            <javafx.geometry.Point2D>
-                              <x>-0.2679102805291821</x>
-                              <y>-0.010423260234890042</y>
-                              <hash>0</hash>
-                            </javafx.geometry.Point2D>
-                            <javafx.geometry.Point2D>
-                              <x>-0.22049410128245583</x>
-                              <y>-0.2051720185944918</y>
-                              <hash>0</hash>
-                            </javafx.geometry.Point2D>
-                            <javafx.geometry.Point2D>
-                              <x>-0.06826321001665059</x>
-                              <y>-0.34311905576587637</y>
-                              <hash>0</hash>
-                            </javafx.geometry.Point2D>
-                            <javafx.geometry.Point2D>
-                              <x>0.2636500447104331</x>
-                              <y>-0.23492530112165316</y>
-                              <hash>0</hash>
-                            </javafx.geometry.Point2D>
-                            <javafx.geometry.Point2D>
-                              <x>0.40839417083201845</x>
-                              <y>-0.04829107436036817</y>
-                              <hash>0</hash>
-                            </javafx.geometry.Point2D>
-                            <javafx.geometry.Point2D>
-                              <x>0.43834123140889814</x>
-                              <y>0.17350612266028942</y>
-                              <hash>0</hash>
-                            </javafx.geometry.Point2D>
-                            <javafx.geometry.Point2D>
-                              <x>0.2786235749988729</x>
-                              <y>0.3033386282333572</y>
-                              <hash>0</hash>
-                            </javafx.geometry.Point2D>
-                          </vertices>
-                        </geometry>
-                      </engine.utilities.collisions.RelativeBoundingGeometry>
-                    </relativeBounds>
-                    <fileName>testImage.png</fileName>
-                    <xCenter>0.0</xCenter>
-                    <yCenter>0.0</yCenter>
-                    <xSize>0.0</xSize>
-                    <ySize>0.0</ySize>
-                    <heading>0.0</heading>
-                  </engine.sprite.BoundedImage>
-                </images>
-                <name>Animation</name>
-              </engine.sprite.AnimationSequence>
-            </entry>
-          </animations>
-          <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-        </currentSprite>
-        <doubleVars/>
-        <booleanVars/>
-        <stringVars/>
-        <width>0.0</width>
-        <height>0.0</height>
-      </engine.GameObject>
-    </worldObjects>
-    <conditionPriorities>
-      <entry>
-        <int>1</int>
-        <list>
-          <engine.GameObject reference="../../../../worldObjects/engine.GameObject"/>
-        </list>
-      </entry>
-    </conditionPriorities>
+          <entry>
+            <int>2</int>
+            <list>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject"/>
+            </list>
+          </entry>
+        </conditionPriorities>
+        <idToGameObject>
+          <entry>
+            <int>0</int>
+            <engine.GameObject reference="../../../worldObjects/engine.GameObject"/>
+          </entry>
+        </idToGameObject>
+        <nextWorld class="engine.GameLayer" reference=".."/>
+      </engine.GameLayer>
+    </worldLayers>
+    <nextWorld reference=".."/>
+    <worldName>World</worldName>
     <globalVars>
       <doubleVars/>
       <stringVars/>
     </globalVars>
-    <input>
-      <keysDown/>
-      <primaryButtonDown>false</primaryButtonDown>
-      <prevPrimaryButtonDown>false</prevPrimaryButtonDown>
-      <clickX>0.0</clickX>
-      <clickY>0.0</clickY>
-    </input>
-    <nextWorld class="engine.GameWorld" reference=".."/>
   </currentWorld>
   <madeWorlds>
     <engine.GameWorld reference="../../currentWorld"/>
