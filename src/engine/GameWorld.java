@@ -16,10 +16,12 @@ public class GameWorld {
 	private String worldName;
 	private GlobalVariables globalVars;
 	//private GameObjectFactory GameObjectFactory;
+	
 	public GameWorld() {
 		// TODO Auto-generated constructor stub
 		this(DEFAULT_NAME);
 	}
+	
 	public GameWorld(String name) {
 		nextWorld = this;
 		worldName = name;
