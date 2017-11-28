@@ -60,7 +60,6 @@ public class GameMaster implements EngineController{
 		// TODO Auto-generated method stub
 		w.addGlobalVars(globalVars);
 		madeWorlds.add(w);
-		
 	}
 	
 	@Override

@@ -23,11 +23,11 @@ public interface World{
 	
 	public PlayerManager getPlayerManager();
 	
+	public void setPlayerManager(PlayerManager p);
+	
 	public void setNextWorld(World w);
 	
 	public World getNextWorld();
 	
 	public List<GameObject> getAllObjects();
-	
-	public void setPlayerManager(PlayerManager input);
 }

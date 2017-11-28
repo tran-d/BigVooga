@@ -47,6 +47,7 @@ public class GameWorld {
 
 	public void setNextWorld(GameWorld w) {
 		nextWorld = w;
+
 	}
 	
 	public GameWorld getNextWorld() {
@@ -64,9 +65,7 @@ public class GameWorld {
 	
 	public void setPlayerManager(PlayerManager input) {
 		for(GameLayer l: worldLayers)
-		{
 			l.setPlayerManager(input);
-		}
 	}
 	
 	public void addLayer(GameLayer layer)
