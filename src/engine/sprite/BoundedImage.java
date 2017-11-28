@@ -107,4 +107,13 @@ public class BoundedImage extends BoundingSet implements DisplayableImage{
 	public int compareTo(DisplayableImage other) {
 		return depth - other.getDrawingPriority();
 	}
+	
+	public BoundedImage clone() {
+		BoundedImage i =  new BoundedImage(fileName, relativeBounds);
+		i.setPosition(xCenter, yCenter);
+		i.setHeading(heading);
+		i.setDrawPriority(depth);
+		i.setSize(xSize, ySize);
+		return i;
+	}
 }
