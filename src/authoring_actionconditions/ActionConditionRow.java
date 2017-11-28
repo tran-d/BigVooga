@@ -1,7 +1,10 @@
 package authoring_actionconditions;
 
 import java.util.ResourceBundle;
+
+import ActionConditionClasses.ActionCheckBoxVBox;
 import ActionConditionClasses.ChoiceBoxVBox;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
@@ -14,6 +17,7 @@ public class ActionConditionRow extends ToolBar {
 	private ResourceBundle actionConditionVBoxResources;
 	private int labelInt;
 	private Label IDlabel;
+	private ActionCheckBoxVBox<Integer> actionCheckBoxVBox;
 	
 	public ActionConditionRow(int ID,String label,String selectorLabel) {
 		super();
@@ -24,7 +28,12 @@ public class ActionConditionRow extends ToolBar {
 		ObservableList<String> actionConditionOptions = ActionConditionTabUtil.convertToObservableList(actionConditionVBoxResources.getString(label 
 				+ actionConditionVBoxResources.getString("OptionsTag"))); 
 		ChoiceBoxVBox<String> implementationSelectorVBox = new ChoiceBoxVBox<String>(selectorLabel, actionConditionOptions);
-		getItems().addAll(IDlabel,separator,new Label(label),implementationSelectorVBox);
+		actionCheckBoxVBox = new ActionCheckBoxVBox(actionConditionVBoxResources.getString("ActionCheckBoxLabel"),FXCollections.observableArrayList());
+		getItems().addAll(IDlabel,separator,new Label(label),implementationSelectorVBox,actionCheckBoxVBox);
+	}
+	
+	protected void setNewActionCheckBoxVBoxOptions(ObservableList<Integer> newOptions) {
+		actionCheckBoxVBox.setNewOptions(newOptions);
 	}
 	
 	protected void decreaseLabelID() {

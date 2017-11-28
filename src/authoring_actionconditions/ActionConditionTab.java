@@ -1,6 +1,9 @@
 package authoring_actionconditions;
 
 import java.util.ResourceBundle;
+
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
@@ -32,7 +35,15 @@ public class ActionConditionTab extends Tab {
 		actionConditionManager.setContent(mainVBox);
 	}
 	
-	protected void addTopToolBarListChangeListener() {
-		
+	protected void addTopToolBarListChangeListener(ListChangeListener<Integer> listChangeListener) {
+		buttons.addRemoveRowVBoxListener(listChangeListener);
+	}
+	
+	protected ObservableList<Integer> getCurrentActions() {
+		return buttons.getRemoveRowVBoxOptions();
+	}
+	
+	protected void setNewActionOptions(ObservableList<Integer> newActionOptions) {
+		actionConditionVBox.setNewActionOptions(newActionOptions);
 	}
 }
