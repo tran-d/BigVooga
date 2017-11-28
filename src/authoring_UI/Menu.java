@@ -28,11 +28,13 @@ public class Menu extends VBox {
 	private TabPane myParamTabs;
 	private TabPane mySpriteTabs;
 
-	private final static String LOAD = "Load";
-	private final static String SAVE = "Save";
-	private final static String NEW_SPRITE = "New Sprite";
-	private final static double MENU_WIDTH = 400;
-	private final static double MENU_HEIGHT = 500;
+	private static final String LOAD = "Load";
+	private static final String SAVE = "Save";
+	private static final String CONDITIONS = "Conditions";
+	private static final String ACTIONS = "Actions";
+	private static final String NEW_SPRITE = "New Sprite";
+	private static final double MENU_WIDTH = 400;
+	private static final double MENU_HEIGHT = 500;
 	
 	protected Menu(AuthoringEnvironmentManager AEM, MapManager MM) {
 		myAEM = AEM;
