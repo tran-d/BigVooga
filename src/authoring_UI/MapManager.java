@@ -1,5 +1,8 @@
 package authoring_UI;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObjectGridManagerI;
 import default_pkg.SceneController;
@@ -13,7 +16,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class MapManager extends TabPane {
+public class MapManager extends TabPane implements Observer {
 	
 	private Stage stage;
 	private Scene scene;
@@ -24,6 +27,7 @@ public class MapManager extends TabPane {
 	private Tab addTab;
 	private AuthoringEnvironmentManager myAEM;
 	private SpriteObjectGridManagerI mySOGM;
+	private SpriteManager mySprites;
 	
 	private int myTabCount = 1;
 	private static final String TABTAG = "map ";
@@ -53,10 +57,10 @@ public class MapManager extends TabPane {
 
 	private HBox setupScene() {
 		myAEM = new AuthoringEnvironmentManager();
-		Menu myMenu = new Menu(myAEM);
+		Menu myMenu = new Menu(myAEM,this);
 		mySOGM = myAEM.getGridManager();
 		DraggableGrid myGrid = new DraggableGrid(myTabCount, myMenu, mySOGM);
-		SpriteManager mySprites = new SpriteManager(myGrid, myAEM, mySOGM);
+		mySprites = new SpriteManager(myGrid, myAEM, mySOGM);
 		HBox authMap = new HBox(myMenu, myGrid, mySprites);
 		authMap.setPrefWidth(WelcomeScreen.WIDTH);
 		authMap.setPrefHeight(WelcomeScreen.HEIGHT);
@@ -71,5 +75,11 @@ public class MapManager extends TabPane {
 		currentTab.setContent(setupScene());
 		this.getTabs().add(this.getTabs().size() - 1, currentTab);
 		myTabCount++;
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		System.out.println("notified observer");
+		mySprites.getUserSpriteParam((String) arg);
 	}
 }

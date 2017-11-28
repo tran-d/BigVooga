@@ -3,7 +3,7 @@ import java.util.List;
 
 import player.PlayerManager;
 
-public interface World extends Iterable<GenericObject>{
+public interface World extends Iterable<GameObject>{
 	
 	public void addGameObject(GameObject obj);
 	public void addGameObjects(List<GameObject> obj);

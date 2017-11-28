@@ -11,7 +11,6 @@ import engine.World;
  */
 public class KeyHeld extends Condition {
 
-	private int priorityNum;
 	private String check;
 	
 	public KeyHeld(int priorityNum, String check) {

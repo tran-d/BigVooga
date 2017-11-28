@@ -1,13 +1,11 @@
 package authoring;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import engine.EngineController;
 import engine.GameMaster;
 import engine.GameObject;
 import engine.GameWorld;
-import engine.GenericObject;
 import engine.World;
 import engine.utilities.data.GameDataHandler;
 
@@ -36,29 +34,29 @@ public class SpriteObjectGridToEngineController {
 	}
 	
 	private GameObject convertToGameObject(SpriteObjectI SOI){
-		GenericObject GE = new GenericObject();
+		GameObject GE = new GameObject();
 		addParametersToGameObject(SOI, GE);
 		addConditionsAndActionsToGameObject(SOI, GE);
 		return GE;
 		
 	}
 
-	private void addParametersToGameObject(SpriteObjectI SOI, GenericObject GE) {
+	private void addParametersToGameObject(SpriteObjectI SOI, GameObject gE) {
 		for (ArrayList<SpriteParameterI> SPI_LIST: SOI.getParameters().values()){
 			for (SpriteParameterI SPI: SPI_LIST){
 				if (SPI instanceof DoubleSpriteParameter){
-					GE.setDoubleVariable(SPI.getName(), (double) SPI.getValue());
+					gE.setDoubleVariable(SPI.getName(), (double) SPI.getValue());
 				} else if(SPI instanceof StringSpriteParameter){
-					GE.setStringVariable(SPI.getName(), (String) SPI.getValue());
+					gE.setStringVariable(SPI.getName(), (String) SPI.getValue());
 				} else if (SPI instanceof BooleanSpriteParameter){
-					GE.setBooleanVariable(SPI.getName(), (Boolean) SPI.getValue());
+					gE.setBooleanVariable(SPI.getName(), (Boolean) SPI.getValue());
 				}	
 			}
 			
 		}
 	}
 	
-	private void addConditionsAndActionsToGameObject(SpriteObjectI SOI, GenericObject GE){
+	private void addConditionsAndActionsToGameObject(SpriteObjectI SOI, GameObject gE){
 		// NEED TO DO
 	}
 	

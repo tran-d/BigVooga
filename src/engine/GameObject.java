@@ -11,6 +11,10 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import engine.sprite.BoundedImage;
+import engine.sprite.Sprite;
+import engine.utilities.collisions.CollisionEvent;
+
 //TODO need to add addToObjectList()? 
 
 /**
@@ -18,7 +22,7 @@ import java.util.TreeSet;
  * @author Nikolas Bramblett, ...
  *
  */
-public abstract class GameObject extends VariableContainer {
+public class GameObject extends VariableContainer {
 	private final String DEFAULT_TAG = "unnamed";
 	private String name;
 	private Set<String> tagSet;
@@ -28,6 +32,9 @@ public abstract class GameObject extends VariableContainer {
 	private Map<String, Double> doubleVars;
 	private Map<String, Boolean> booleanVars;
 	private Map<String, String> stringVars;
+	private CollisionEvent lastCollision;
+	private double width;
+	private double height;
 
 	public GameObject() {
 		name = DEFAULT_TAG;
@@ -91,11 +98,12 @@ public abstract class GameObject extends VariableContainer {
 		events.put(c, a);
 	}
 
-	public void step(World w) {
+	public void step(World w, int priorityNum, List<Runnable> runnables) {
+		currentSprite.step();
 		for (Condition c : events.keySet()) {
-			for (Action a : events.get(c)) {
-				if (c.isTrue(this, w)) {
-					a.execute(this, w);
+			if(c.getPriority() == priorityNum && c.isTrue(this, w)) {
+				for (Action a : events.get(c)) {
+					runnables.add(() -> a.execute(this, w));
 				}
 			}
 		}
@@ -169,12 +177,16 @@ public abstract class GameObject extends VariableContainer {
 	 * @return BoundedImage
 	 */
 	public BoundedImage getImage() {
-		currentSprite.step();
-		return currentSprite.getImage();
+		//TODO width and height?
+		BoundedImage result = currentSprite.getImage();
+		result.setPosition(x, y);
+		result.setHeading(heading);
+		result.setSize(width, height);
+		return result;
 	}
 
 	public GameObject clone() {
-		GameObject copy = new GenericObject(name);
+		GameObject copy = new GameObject(name);
 		copy.setCoords(x, y);
 		copy.setHeading(heading);
 		for (String tag : tagSet)
@@ -188,5 +200,13 @@ public abstract class GameObject extends VariableContainer {
 		for (Condition c : events.keySet())
 			copy.addConditionAction(c, new ArrayList<>(events.get(c)));
 		return copy;
+	}
+
+	public CollisionEvent getLastCollisionChecked() {
+		return lastCollision;
+	}
+
+	public void setLastCollisionChecked(CollisionEvent collisionEvent) {
+		lastCollision = collisionEvent;
 	}
 }

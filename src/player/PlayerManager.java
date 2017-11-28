@@ -3,48 +3,56 @@ package player;
 import java.util.ArrayList;
 import java.util.List;
 
-import engine.BoundedImage;
 import engine.EngineController;
-import engine.GameMaster;
-import javafx.event.EventHandler;
+import engine.sprite.DisplayableImage;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 
+/**
+ * Acts as the intermediary class between the game engine and player.
+ * @author Samarth and Ian
+ *
+ */
 public class PlayerManager {
 
 	private GameDisplay gameDisplay;
-	private EngineController engineController;
 	
-	private List<KeyCode> keysDown;
-	private List<KeyCode> prevKeysDown;
+	private List<String> keysDown = new ArrayList<>();
+	private List<String> prevKeysDown;
 	
-	private boolean primaryButtonDown;
-	private boolean prevPrimaryButtonDown;
+	private boolean primaryButtonDown = false;
+	private boolean prevPrimaryButtonDown = false;
 	private double clickX;
 	private double clickY;
 	
+	/**
+	 * 
+	 */
 	public PlayerManager() {
-		keysDown = new ArrayList<>();
-		prevKeysDown = new ArrayList<>();
-		primaryButtonDown = false;
-		prevPrimaryButtonDown = false;
+		
 	}
 	
-	public List<KeyCode> getKeysDown() {
+	/**
+	 * 
+	 * @return
+	 */
+	public List<String> getKeysDown() {
 		return keysDown;
 	}
 	
-	public List<KeyCode> getPrevKeysDown() {
+	/**
+	 * 
+	 * @return
+	 */
+	public List<String> getPrevKeysDown() {
 		return prevKeysDown;
 	}
 	
 	public void setKeyPressed(KeyCode keyCode) {
-		keysDown.add(keyCode);
+		keysDown.add(keyCode.getName());
 	}
 	
 	public void setKeyReleased(KeyCode keyCode) {
-		keysDown.remove(keyCode);
+		keysDown.remove(keyCode.getName());
 	}
 	
 	public void setPrimaryButtonDown(double x, double y) {
@@ -77,21 +85,20 @@ public class PlayerManager {
 		gameDisplay = currentGameDisplay;
 	}
 	
-	public void setEngine(EngineController currentEngineController) {
-		engineController = currentEngineController;
-	}
-	
+	/**
+	 * 
+	 */
 	public void step() {
-		prevKeysDown = keysDown;
+		prevKeysDown = new ArrayList<>(keysDown);
 		prevPrimaryButtonDown = primaryButtonDown;
 	}
 		
 	/**
-	 * INCOMPLETE: for handling the given image data at each step.
-	 * @param images
+	 * Passes the images added to the game maps in authoring to the Game Display.
+	 * @param images - The list of images to be displayed
 	 */
-	public void getImageData(List<BoundedImage> images) {
-	
+	public void setImageData(List<DisplayableImage> images) {
+		gameDisplay.setUpdatedImages(images);
 	}
 	
 }
