@@ -20,16 +20,22 @@ public class BoundedImage extends BoundingSet implements DisplayableImage{
 	private double xSize;
 	private double ySize;
 	private double heading;
+	private int depth;
+	
+
+	private final int DEFAULT_DEPTH = 10;
 
 	public BoundedImage(String fileName) {
 		this.fileName = fileName;
 		relativeBounds = new ArrayList<>();
 		relativeBounds.add(RelativeBoundingGeometry.DEFAULT);
+		depth = DEFAULT_DEPTH;
 	}
 
 	public BoundedImage(String fileName, List<RelativeBoundingGeometry> bounds) {
 		this.fileName = fileName;
 		relativeBounds = bounds;
+		depth = DEFAULT_DEPTH;
 	}
 
 	protected List<BoundingGeometry> getGeometry() {
@@ -82,5 +88,32 @@ public class BoundedImage extends BoundingSet implements DisplayableImage{
 	@Override
 	public String getFileName() {
 		return fileName;
+	}
+	
+	/**
+	 * Sets drawing priority of sprite. Lower numbers should be drawn first.
+	 * @param priority
+	 */
+	public void setDrawPriority(int priority)
+	{
+		this.depth = priority;
+	}
+
+	@Override
+	public int compareTo(Object other) {
+		// TODO Auto-generated method stub
+		if(!(other.getClass() == BoundedImage.class))
+		{
+			return -1;
+		}
+		if(depth < ((BoundedImage)other).depth)
+		{
+			return -1;
+		}
+		if(depth > ((BoundedImage)other).depth)
+		{
+			return 1;
+		}
+		return 0;
 	}
 }
