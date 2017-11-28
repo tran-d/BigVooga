@@ -20,8 +20,12 @@ import java.util.Scanner;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+import com.thoughtworks.xstream.security.NoTypePermission;
+import com.thoughtworks.xstream.security.NullPermission;
+import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
 import engine.EngineController;
+import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -31,11 +35,26 @@ import javafx.stage.Stage;
  * @author Ian Eldridge-Allegra
  */
 public class GameDataHandler {
-	private static final XStream SERIALIZER = new XStream(new DomDriver());
-	private static final String KNOWN_PROJECTS = "resources/KnownProjectNames.properties";
+	private static final XStream SERIALIZER = setupXStream();	
+	private static final String KNOWN_PROJECTS = "KnownProjectNames";
 	public static final String PATH = "data/UserCreatedGames/";
 	private static final String CONTROLLER_FILE = "Engine_Controller_Save_File";
 	private static final String SELECTOR_TITLE = "Open Resource File";
+	
+	private static XStream setupXStream() {
+		XStream xstream = new XStream(new DomDriver());
+		xstream.addPermission(NoTypePermission.NONE);
+		xstream.addPermission(NullPermission.NULL);
+		xstream.addPermission(PrimitiveTypePermission.PRIMITIVES);
+		xstream.allowTypes(new Class[] {
+				Point2D.class
+		});
+		xstream.allowTypesByWildcard(new String[] {
+		    "engine.**", "java.**"
+		});
+		return xstream;
+	}
+	
 	private String projectPath;
 	private String projectName;
 	
@@ -70,7 +89,7 @@ public class GameDataHandler {
 		out.close();
 	}
 	
-	public Map<String, String> knownProjectsWithDateModified(){
+	public static Map<String, String> knownProjectsWithDateModified(){
 		Map<String, String> result = new HashMap<>();
 		ResourceBundle bundle = ResourceBundle.getBundle(KNOWN_PROJECTS);
 		Enumeration<String> projects = bundle.getKeys();
@@ -90,7 +109,7 @@ public class GameDataHandler {
 	}
 	
 	public Image getImage(String fileName) throws URISyntaxException {
-		String path = new File(projectPath+CONTROLLER_FILE).toURI().toString();
+		String path = new File(projectPath + fileName).toURI().toString();
 		return new Image(path);
 	}
 	

@@ -1,6 +1,5 @@
 package default_pkg;
 
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,10 +9,8 @@ import gui.welcomescreen.Settings;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import player.GameController;
 import player.GameDisplay;
 import player.GameSelector;
-import player.PlayerManager;
 
 /**
  * Stores all the scenes in the program, and allows them to be accessible by a map. This ensures that only one instance of each scene is created,
@@ -25,16 +22,15 @@ public class SceneController {
 
 	public static final String WELCOME_SCREEN_KEY = "Welcome Screen";
 	public static final String GAME_SELECTOR_KEY = "Game Selector";
+	public static final String GAME_DISPLAY_KEY = "Game Display";
 	public static final String CREATE_KEY = "Create";
 	public static final String LEARN_KEY = "Learn";
 	public static final String SETTINGS_KEY = "Settings";
-	public static final String GAME_DISPLAY_KEY = "Game Display";
 	
 	private Map<String, Scene> sceneMap = new HashMap<String, Scene>() ;
 	private Stage stage;
 	private Scene scene;
 	private GameDisplay gameDisplay;
-	private GameController gameController;
 	
 	/**
 	 * Initializes all the scenes and puts them in the sceneMap.
@@ -55,6 +51,10 @@ public class SceneController {
 		scene = gameSelector.getScene();
 		sceneMap.put(GAME_SELECTOR_KEY, scene);
 		
+		gameDisplay = new GameDisplay(stage, this);
+		scene = gameDisplay.getScene();
+		sceneMap.put(GAME_DISPLAY_KEY, scene);
+		
 		MapManager mapManager = new MapManager(stage, this);
 		scene = mapManager.getScene();
 		sceneMap.put(CREATE_KEY, scene);
@@ -69,22 +69,6 @@ public class SceneController {
 		scene = settings.getScene();
 		sceneMap.put(SETTINGS_KEY, scene);
 		
-		gameDisplay = new GameDisplay(stage, this);
-		gameDisplay.createGameDisplay();
-		scene = gameDisplay.getScene();
-		sceneMap.put(GAME_DISPLAY_KEY, scene);
-		
-		setGameController();
-	}
-	
-	private void setGameController() {
-		String projectName = null;
-		try {
-			gameController = new GameController (stage, projectName, gameDisplay);
-		} catch (FileNotFoundException e) {
-			//TODO
-			e.printStackTrace();
-		}
 	}
 	
 	/**
@@ -95,5 +79,9 @@ public class SceneController {
 	public void switchScene (String key) {
 		stage.setScene(sceneMap.get(key));
 		
+	}
+	
+	public GameDisplay getDisplay() {
+		return gameDisplay;
 	}
 }

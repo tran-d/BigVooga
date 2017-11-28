@@ -11,9 +11,9 @@ import engine.World;
  * @author aaronpaskin
  *
  */
-public class Clicked extends Condition{
+public class ScreenClicked extends Condition{
 	
-	public Clicked(int priorityNum) {
+	public ScreenClicked(int priorityNum) {
 		this.priorityNum = priorityNum;
 	}
 	
@@ -22,7 +22,7 @@ public class Clicked extends Condition{
 	 */
 	@Override
 	public boolean isTrue(GameObject asking, World world) {
-		return !world.getInputManager().isPrevPrimaryButtonDown() && world.getInputManager().isPrimaryButtonDown();
+		return !world.getPlayerManager().isPrevPrimaryButtonDown() && world.getPlayerManager().isPrimaryButtonDown();
 	}
 
 }

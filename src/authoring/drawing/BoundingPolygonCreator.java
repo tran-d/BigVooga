@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import engine.BoundedImage;
+import engine.sprite.BoundedImage;
 import engine.utilities.collisions.BoundingGeometry;
 import engine.utilities.collisions.BoundingPolygon;
 import engine.utilities.collisions.RelativeBoundingGeometry;
@@ -43,13 +43,6 @@ public class BoundingPolygonCreator extends Pane{
 	private void setup() {
 		setOnMouseClicked(this::mouseClicked);
 		setOnMouseMoved(this::mouseMoved);
-		setOnKeyPressed(this::keyPressed);
-	}
-	
-	private void keyPressed(KeyEvent event) {
-		System.out.println("pressed");
-		if(event.getCode().equals(KeyCode.S))
-			consumer.accept(new BoundedImage(imageName, geometries));
 	}
 	
 	private void mouseClicked(MouseEvent event) {
@@ -107,8 +100,10 @@ public class BoundingPolygonCreator extends Pane{
 	}
 
 	private void rightClick(MouseEvent event) {
-		if(vertices.isEmpty())
+		if(vertices.isEmpty()) {
+			consumer.accept(new BoundedImage(imageName, geometries));
 			return;
+		}
 		addLine(generateLine(lastPoint(), vertices.get(0)));
 		changePhantomLine(null);
 		

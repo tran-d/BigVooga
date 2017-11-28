@@ -1,10 +1,17 @@
 package player;
 
+import java.net.URISyntaxException;
+import java.util.List;
+
 import default_pkg.SceneController;
+import engine.sprite.DisplayableImage;
 import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class GameDisplay {
@@ -26,8 +33,8 @@ public class GameDisplay {
 	public void createGameDisplay() {
 		scene.setOnKeyPressed(e -> playerManager.setKeyPressed(e.getCode()));
 		scene.setOnKeyReleased(e -> playerManager.setKeyReleased(e.getCode()));
-		scene.setOnMousePressed(e -> playerManager.setPrimaryButtonPressed(e.getX(), e.getY()));
-		scene.setOnMouseReleased(e -> playerManager.setPrimaryButtonReleased(e.getX(), e.getY()));
+		scene.setOnMousePressed(e -> playerManager.setPrimaryButtonDown(e.getX(), e.getY()));
+		scene.setOnMouseReleased(e -> playerManager.setPrimaryButtonUp(e.getX(), e.getY()));
 	}
 	
 	public void setPlayerManager(PlayerManager currentPlayerManager) {
@@ -40,8 +47,24 @@ public class GameDisplay {
 		
 	}
 	
-	public void setUpdatedObject (Object updatedObject) {
+	public void setUpdatedImages (List<DisplayableImage> images) {
 		//TODO; takes in new image file name, location, and size for all objects
+		ImageView gameImage = null;
+		for (DisplayableImage image : images) {
+			try {
+				gameImage = new ImageView(gameDataHandler.getImage(image.getFileName()));
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			gameImage.prefWidth(100);
+			gameImage.prefHeight(100);
+			gameImage.setRotate(image.getHeading());
+			gameImage.setX(image.getX()-image.getWidth()/2);
+			gameImage.setY(image.getY()-image.getHeight()/2);
+			System.out.println(image.getX());
+			rootPane.getChildren().add(gameImage);
+		}
 	}
 	
 	public Scene getScene() {

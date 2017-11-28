@@ -4,49 +4,73 @@ import java.util.ArrayList;
 import java.util.List;
 
 import engine.EngineController;
-import engine.GameMaster;
+import engine.sprite.DisplayableImage;
 import javafx.scene.input.KeyCode;
 
+/**
+ * Acts as the intermediary class between the game engine and player.
+ * @author Samarth and Ian
+ *
+ */
 public class PlayerManager {
 
 	private GameDisplay gameDisplay;
-	private EngineController engineController;
 	
-	private List<KeyCode> keysDown;
-	private List<KeyCode> prevKeysDown;
+	private List<String> keysDown = new ArrayList<>();
+	private List<String> prevKeysDown;
 	
-	private boolean primaryButtonDown;
-	private boolean prevPrimaryButtonDown;
+	private boolean primaryButtonDown = false;
+	private boolean prevPrimaryButtonDown = false;
+	private double clickX;
+	private double clickY;
 	
+	/**
+	 * 
+	 */
 	public PlayerManager() {
-		keysDown = new ArrayList<>();
-		prevKeysDown = new ArrayList<>();
-		primaryButtonDown = false;
-		prevPrimaryButtonDown = false;
+		
 	}
 	
-	public List<KeyCode> getKeysDown() {
+	/**
+	 * 
+	 * @return
+	 */
+	public List<String> getKeysDown() {
 		return keysDown;
 	}
 	
-	public List<KeyCode> getPrevKeysDown() {
+	/**
+	 * 
+	 * @return
+	 */
+	public List<String> getPrevKeysDown() {
 		return prevKeysDown;
 	}
 	
 	public void setKeyPressed(KeyCode keyCode) {
-		keysDown.add(keyCode);
+		keysDown.add(keyCode.getName());
 	}
 	
 	public void setKeyReleased(KeyCode keyCode) {
-		keysDown.remove(keyCode);
+		keysDown.remove(keyCode.getName());
 	}
 	
-	public void setPrimaryButtonPressed(double x, double y) {
-		//TODO engine
+	public void setPrimaryButtonDown(double x, double y) {
+		primaryButtonDown = true;
+		clickX = x;
+		clickY = y;
 	}
 	
-	public void setPrimaryButtonReleased(double x, double y) {
-		//TODO engine
+	public double getClickX() {
+		return clickX;
+	}
+	
+	public double getClickY() {
+		return clickY;
+	}
+	
+	public void setPrimaryButtonUp(double x, double y) {
+		primaryButtonDown = false;
 	}
 	
 	public boolean isPrimaryButtonDown() {
@@ -61,8 +85,20 @@ public class PlayerManager {
 		gameDisplay = currentGameDisplay;
 	}
 	
-	public void setEngine(EngineController currentEngineController) {
-		engineController = currentEngineController;
+	/**
+	 * 
+	 */
+	public void step() {
+		prevKeysDown = new ArrayList<>(keysDown);
+		prevPrimaryButtonDown = primaryButtonDown;
+	}
+		
+	/**
+	 * Passes the images added to the game maps in authoring to the Game Display.
+	 * @param images - The list of images to be displayed
+	 */
+	public void setImageData(List<DisplayableImage> images) {
+		gameDisplay.setUpdatedImages(images);
 	}
 	
 }

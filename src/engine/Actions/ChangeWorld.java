@@ -5,8 +5,6 @@ import java.util.List;
 import engine.Action;
 import engine.GameObject;
 import engine.GameWorld;
-import engine.GenericObject;
-import engine.VariableContainer;
 import engine.World;
 
 public class ChangeWorld implements Action {

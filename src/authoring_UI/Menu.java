@@ -20,20 +20,24 @@ import javafx.scene.control.TextArea;
 public class Menu extends VBox {
 	private Button myLoad;
 	private Button mySave;
+	private Button newSprite;
 	private AuthoringEnvironmentManager myAEM;
+	private SpriteCreator mySpriteCreator;
+	private MapManager myMapManager;
 	private ScrollPane myStateSP;
 	private TabPane myParamTabs;
 	private TabPane mySpriteTabs;
 
 	private final static String LOAD = "Load";
 	private final static String SAVE = "Save";
-	private static final String CONDITIONS = "Conditions";
-	private static final String ACTIONS = "Actions";
+	private final static String NEW_SPRITE = "New Sprite";
 	private final static double MENU_WIDTH = 400;
 	private final static double MENU_HEIGHT = 500;
 	
-	protected Menu(AuthoringEnvironmentManager AEM) {
+	protected Menu(AuthoringEnvironmentManager AEM, MapManager MM) {
 		myAEM = AEM;
+		myMapManager = MM;
+		
 		setUpMenu();
 
 	}
@@ -63,11 +67,13 @@ public class Menu extends VBox {
 		createSpriteTabs();
 	}
 	
+
 	private void createButtons() {
 		HBox myButtons = new HBox();
 		myLoad = new Button(LOAD);
 		mySave = new Button(SAVE);
-		myButtons.getChildren().addAll(myLoad, mySave);
+		newSprite = new Button(NEW_SPRITE);
+		myButtons.getChildren().addAll(myLoad, mySave, newSprite);
 		buttonInteraction();
 		
 		this.getChildren().add(myButtons);
@@ -115,7 +121,8 @@ public class Menu extends VBox {
 	}
 	
 	private void buttonInteraction() {
-		
+		mySpriteCreator = new SpriteCreator(myAEM, myMapManager);
+		newSprite.setOnAction(e -> mySpriteCreator.getStage().show());
 	}
 	
 
