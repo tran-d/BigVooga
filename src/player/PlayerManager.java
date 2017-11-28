@@ -3,34 +3,46 @@ package player;
 import java.util.ArrayList;
 import java.util.List;
 
-import engine.DisplayableImage;
 import engine.EngineController;
+import engine.sprite.DisplayableImage;
 import javafx.scene.input.KeyCode;
 
+/**
+ * Acts as the intermediary class between the game engine and player.
+ * @author Samarth and Ian
+ *
+ */
 public class PlayerManager {
 
 	private GameDisplay gameDisplay;
-	private EngineController engineController;
 	
-	private List<String> keysDown;
+	private List<String> keysDown = new ArrayList<>();
 	private List<String> prevKeysDown;
 	
-	private boolean primaryButtonDown;
-	private boolean prevPrimaryButtonDown;
+	private boolean primaryButtonDown = false;
+	private boolean prevPrimaryButtonDown = false;
 	private double clickX;
 	private double clickY;
 	
+	/**
+	 * 
+	 */
 	public PlayerManager() {
-		keysDown = new ArrayList<>();
-		prevKeysDown = new ArrayList<>();
-		primaryButtonDown = false;
-		prevPrimaryButtonDown = false;
+		
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public List<String> getKeysDown() {
 		return keysDown;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public List<String> getPrevKeysDown() {
 		return prevKeysDown;
 	}
@@ -73,17 +85,17 @@ public class PlayerManager {
 		gameDisplay = currentGameDisplay;
 	}
 	
-	public void setEngine(EngineController currentEngineController) {
-		engineController = currentEngineController;
-	}
-	
+	/**
+	 * 
+	 */
 	public void step() {
 		prevKeysDown = new ArrayList<>(keysDown);
 		prevPrimaryButtonDown = primaryButtonDown;
 	}
 		
 	/**
-	 * @param images
+	 * Passes the images added to the game maps in authoring to the Game Display.
+	 * @param images - The list of images to be displayed
 	 */
 	public void setImageData(List<DisplayableImage> images) {
 		gameDisplay.setUpdatedImages(images);

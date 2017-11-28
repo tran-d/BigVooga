@@ -1,22 +1,27 @@
 package player;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import default_pkg.SceneController;
+import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.MenuOptionsTemplate;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -31,15 +36,20 @@ public class GameSelector extends MenuOptionsTemplate {
 	private static final int TREE_WIDTH = 955;
 	private static final int TREE_HEIGHT = 800;
 
+	private Stage stage;
+	private SceneController sceneController;
 	private ScrollPane contentPane;
 	private VBox entriesBox;
+	private String gameEntry;
 	private TreeView<HBox> tree;
 	private TreeItem<HBox> root;
 
-	public GameSelector(Stage currentStage, SceneController sceneController) {
-		super(currentStage, sceneController);
+	public GameSelector(Stage currentStage, SceneController currentSceneController) {
+		super(currentStage, currentSceneController);
 		createOptionScreen(SELECTOR_PATH, SELECTOR_WIDTH, SELECTOR_HEIGHT, HEADING_PADDING);
 
+		stage = currentStage;
+		sceneController = currentSceneController;
 		contentPane = getScrollPane();
 		entriesBox = new VBox();
 		entriesBox.setAlignment(Pos.TOP_CENTER);
@@ -52,13 +62,17 @@ public class GameSelector extends MenuOptionsTemplate {
 
 			createGameList();
 
-			filePathStream.forEach(filePath -> {
+			Set<String> gameSet = GameDataHandler.knownProjectsWithDateModified().keySet();
+			for (String game : gameSet) {
+				createGameEntry(game);
+			}
+			
+			/*filePathStream.forEach(filePath -> {
 				if (Files.isRegularFile(filePath)) {
 					System.out.println(filePath.getFileName());
-
 					createGameEntry(filePath.getFileName().toString().replaceAll("\\.[^.]*$", ""));
 				}
-			});
+			});*/
 			entriesBox.getChildren().add(tree);
 			contentPane.setContent(entriesBox);
 
@@ -79,10 +93,10 @@ public class GameSelector extends MenuOptionsTemplate {
 
 	}
 
-	private HBox createButtonPanel() {
+	private HBox createButtonPanel(String gameName) {
 
 		HBox buttonPanel = new HBox(ENTRY_SPACING);
-		Button newGame = createPlayGameButton("New Game", e -> handleNewGame());
+		Button newGame = createPlayGameButton("New Game", e -> handleNewGame(gameName));
 		Button continueGame = createPlayGameButton("Continue Game", e -> handleContinueGame());
 
 		buttonPanel.setAlignment(Pos.BASELINE_CENTER);
@@ -91,8 +105,15 @@ public class GameSelector extends MenuOptionsTemplate {
 		return buttonPanel;
 	}
 
-	private void handleNewGame() {
-		// do stuff
+	private void handleNewGame(String theGame) {
+		GameDisplay gameDisplay = sceneController.getDisplay();
+		try {
+			GameController gameController = new GameController (stage, theGame, gameDisplay);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		sceneController.switchScene(SceneController.GAME_DISPLAY_KEY);
 	}
 
 	private void handleContinueGame() {
@@ -109,7 +130,7 @@ public class GameSelector extends MenuOptionsTemplate {
 	public void createGameEntry(String gameTitle) {
 
 		TreeItem<HBox> title = new TreeItem<HBox>(createTitleItem(gameTitle));
-		TreeItem<HBox> buttons = new TreeItem<HBox>(createButtonPanel());
+		TreeItem<HBox> buttons = new TreeItem<HBox>(createButtonPanel(gameTitle));
 		title.getChildren().addAll(buttons);
 		title.setExpanded(false);
 

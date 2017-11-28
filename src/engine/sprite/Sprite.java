@@ -1,7 +1,9 @@
-package engine;
+package engine.sprite;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import engine.VoogaException;
 
 /**
  * @author Ian Eldridge-Allegra
