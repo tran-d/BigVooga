@@ -219,7 +219,6 @@
             <engine.GameObject reference="../../../worldObjects/engine.GameObject[2]"/>
           </entry>
         </idToGameObject>
-        <nextWorld class="engine.GameLayer" reference=".."/>
       </engine.GameLayer>
     </worldLayers>
     <nextWorld reference=".."/>
