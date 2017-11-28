@@ -164,4 +164,6 @@ public class GameLayer implements World {
 		}
 		throw new RuntimeException("None by name "+name);//TODO
 	}
+	
+	
 }
