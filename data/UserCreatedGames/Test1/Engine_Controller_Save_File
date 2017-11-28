@@ -10,10 +10,9 @@
         <tagSet/>
         <events class="tree-map">
           <entry>
-            <engine.Conditions.KeyHeld>
+            <engine.Conditions.ObjectClickHeld>
               <priorityNum>1</priorityNum>
-              <check>Left</check>
-            </engine.Conditions.KeyHeld>
+            </engine.Conditions.ObjectClickHeld>
             <list>
               <engine.Actions.Move>
                 <xIncrement>-1.0</xIncrement>

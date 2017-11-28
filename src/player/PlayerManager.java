@@ -19,7 +19,7 @@ public class PlayerManager {
 	private GameDisplay gameDisplay;
 	
 	private Set<String> keysDown = new HashSet<>();
-	private Set<String> prevKeysDown;
+	private Set<String> prevKeysDown = new HashSet<>();
 	
 	private boolean primaryButtonDown = false;
 	private boolean prevPrimaryButtonDown = false;
@@ -93,7 +93,6 @@ public class PlayerManager {
 	 * 
 	 */
 	public void step() {
-		System.out.println(keysDown);
 		prevKeysDown = new HashSet<>(keysDown);
 		prevPrimaryButtonDown = primaryButtonDown;
 	}
