@@ -1,5 +1,7 @@
 package engine.utilities.collisions;
 
+import java.util.Collection;
+
 import javafx.geometry.Point2D;
 
 /**
@@ -17,6 +19,23 @@ public abstract class BoundingGeometry {
 	public Point2D checkCollision(BoundingSet s) {
 		return negativeOf(s.checkCollision(this));
 	}
+	
+	protected Point2D checkCollisions(Collection<Point2D> normalVectors, BoundingGeometry other) {
+		double minOverlap = Integer.MAX_VALUE;
+		Point2D direction = null;
+
+		for (Point2D normal : normalVectors) {
+			double overlap = other.dotted(normal).getOverlap(dotted(normal));
+			if (overlap <= 0)
+				return null;
+			if (overlap < minOverlap) {
+				minOverlap = overlap;
+				direction = normal;
+			}
+		}
+		return direction.multiply(minOverlap);
+	}
+	
 	protected Point2D negativeOf(Point2D vector) {
 		if(vector == null)
 			return null;

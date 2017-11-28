@@ -31,17 +31,7 @@ public class BoundingPoint extends BoundingGeometry {
 
 	@Override
 	public Point2D checkPolygonCollision(BoundingPolygon polygon) {
-		double minOverlap = Double.POSITIVE_INFINITY;
-		Point2D direction = null;
-		for(Point2D normal : polygon.generateOutwardNormals()) {
-			Range r = polygon.dotted(normal);
-			double d = point.dotProduct(normal);
-			if(r.contains(d)) {
-				minOverlap = r.getMax()-d;
-				direction = normal;
-			}
-		}
-		return direction.multiply(minOverlap);
+		return checkCollisions(polygon.generateOutwardNormals(), polygon);
 	}
 
 	@Override

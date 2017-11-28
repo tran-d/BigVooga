@@ -88,12 +88,12 @@ public class GameObject extends VariableContainer {
 		events.put(c, a);
 	}
 
-	public void step(World w) {
+	public void step(World w, int priorityNum, List<Runnable> runnables) {
 		currentSprite.step();
 		for (Condition c : events.keySet()) {
-			for (Action a : events.get(c)) {
-				if (c.isTrue(this, w)) {
-					a.execute(this, w);
+			if(c.getPriority() == priorityNum && c.isTrue(this, w)) {
+				for (Action a : events.get(c)) {
+					runnables.add(() -> a.execute(this, w));
 				}
 			}
 		}

@@ -31,10 +31,10 @@ public class GameWorld implements World {
 	}
 	
 	public GameWorld(String name) {
+		nextWorld = this;
 		worldName = name;
 		worldObjects = new ArrayList<>();
 		input = new PlayerManager();
-		nextWorld = this;
 	}
 
 	// I don't know what to do with this.
@@ -112,9 +112,13 @@ public class GameWorld implements World {
 	}
 	
 	public void step() {
+		List<Runnable> runnables = new ArrayList<>();
 		for(Integer i: conditionPriorities.keySet()) {
 			for(GameObject obj : conditionPriorities.get(i)) {
-				obj.step(this);
+				obj.step(this, i, runnables);
+			}
+			for(Runnable r : runnables) {
+				r.run();
 			}
 		}
 	}

@@ -1,4 +1,4 @@
-package engine;
+package engine.sprite;
 
 import java.util.ArrayList;
 import java.util.List;

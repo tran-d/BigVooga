@@ -10,6 +10,9 @@ import authoring.drawing.BoundingPolygonCreator;
 import authoring.drawing.ImageCanvas;
 import engine.Actions.Move;
 import engine.Conditions.KeyPressed;
+import engine.sprite.AnimationSequence;
+import engine.sprite.BoundedImage;
+import engine.sprite.Sprite;
 import engine.utilities.collisions.BoundingPolygon;
 import engine.utilities.data.GameDataHandler;
 import javafx.application.Application;
@@ -47,10 +50,12 @@ public class EngineTester extends Application {
 		images.add(i);
 		AnimationSequence animation = new AnimationSequence("Animation", images);
 		sprite.addAnimationSequence(animation);
+		sprite.setAnimation("Animation");
 		obj.setSprite(sprite);
 		
 		w.addGameObject(obj);
 		master.addWorld(w);
+		master.setCurrentWorld("World");
 		try {
 			new GameDataHandler("Test1").saveGame(master);
 		} catch (IOException e) {
@@ -72,13 +77,13 @@ public class EngineTester extends Application {
 		stage.show();
 	}
 
-	private void testDrawer(Stage stage) {
+	private void testDrawer(Stage stage) throws IOException {
 		Group g = new Group();
 		Scene scene = new Scene(g);
 		stage.setScene(scene);
 		Pane bpd = new BoundingPolygonCreator(
-				new Image(GameDataHandler.chooseFile(new Stage()).toURI().toString()),
-				"Irrelevant, for now", i -> generateGame(i));
+				new Image(new GameDataHandler("Test1").addChosenFileToProject(new Stage()).toURI().toString()),
+				"testImage.png", i -> generateGame(i));
 		g.getChildren().add(bpd);
 		stage.show();
 	}
