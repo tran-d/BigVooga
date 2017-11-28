@@ -111,7 +111,9 @@ public class GameLayer implements World {
 			}
 			for(Runnable r : runnables) {
 				r.run();
+			
 			}
+			runnables.clear();
 		}
 	}
 	
@@ -162,4 +164,6 @@ public class GameLayer implements World {
 		}
 		throw new RuntimeException("None by name "+name);//TODO
 	}
+	
+	
 }
