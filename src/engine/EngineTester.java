@@ -5,10 +5,13 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import authoring.drawing.BoundingPolygonCreator;
 import authoring.drawing.ImageCanvas;
 import engine.Actions.Move;
+import engine.Actions.RemoveIntersection;
+import engine.Conditions.Collision;
 import engine.Conditions.KeyHeld;
 import engine.Conditions.ObjectClickHeld;
 import engine.Conditions.ScreenClickHeld;
@@ -22,7 +25,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
@@ -34,35 +36,27 @@ public class EngineTester extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		System.out.println(KeyCode.LEFT.getName());
 		//testCollisions(stage);
 		//testData(stage);
 		//testImageCanvas(stage);
-		testDrawer(stage);
+		//testDrawer(stage);
+		generateGame(new BoundedImage("testImage.png"));
 	}
 	
-	private void generateGame(BoundedImage i) {
-		GameMaster master = new GameMaster();
-		GameLayer layer = new GameLayer("Layer");
-		GameObject obj = new GameObject();
-		obj.setCoords(200, 200);
-		List<Action> actions1 = new ArrayList<Action>();
-		actions1.add(new Move(-1, 0));
-		obj.addConditionAction(new ObjectClickHeld(1), actions1);
-		List<Action> actions2 = new ArrayList<Action>();
-		actions2.add(new Move(1, 0));
-		obj.addConditionAction(new KeyHeld(2,"Right"), actions2);
-		Sprite sprite = new Sprite();
-		List<BoundedImage> images = new ArrayList<>();
-		images.add(i);
-		AnimationSequence animation = new AnimationSequence("Animation", images);
-		sprite.addAnimationSequence(animation);
-		sprite.setAnimation("Animation");
-		obj.setSprite(sprite);
+	private void generateGame(BoundedImage i) {		
+		GameObject obj1 = makeObject("Ob1", i, 200, 200, this::conditionAction1);
+		obj1.addTag("Ob1");
+		GameObject obj2 = makeObject("Ob2", i.clone(), 500, 200, this::conditionAction2);
 		
-		layer.addGameObject(obj);
+		GameLayer layer = new GameLayer("Layer");
+
+		layer.addGameObject(obj1);
+		layer.addGameObject(obj2);
+		
 		GameWorld w = new GameWorld("World");
 		w.addLayer(layer);
+		
+		GameMaster master = new GameMaster();
 		master.addWorld(w);
 		master.setCurrentWorld("World");
 		try {
@@ -76,6 +70,41 @@ public class EngineTester extends Application {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private GameObject makeObject(String name, BoundedImage i, double x, double y, Consumer<GameObject> condActGen) {
+		GameObject obj = new GameObject(name);
+		obj.setCoords(x, y);
+		condActGen.accept(obj);
+		Sprite sprite = new Sprite();
+		List<BoundedImage> images = new ArrayList<>();
+		images.add(i);
+		AnimationSequence animation = new AnimationSequence("Animation", images);
+		sprite.addAnimationSequence(animation);
+		sprite.setAnimation("Animation");
+		obj.setSprite(sprite);
+		return obj;
+	}
+
+	private void conditionAction1(GameObject obj) {
+		List<Action> actions1 = new ArrayList<Action>();
+		actions1.add(new Move(-3, 0));
+		obj.addConditionAction(new KeyHeld(1,"Left"), actions1);
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Move(3, 0));
+		obj.addConditionAction(new KeyHeld(1,"Right"), actions1);
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Move(0, -3));
+		obj.addConditionAction(new KeyHeld(1,"Up"), actions1);
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Move(0, 3));
+		obj.addConditionAction(new KeyHeld(1,"Down"), actions1);
+	}
+	
+	private void conditionAction2(GameObject obj) {
+		List<Action> actions1 = new ArrayList<Action>();
+		actions1.add(new RemoveIntersection());
+		obj.addConditionAction(new Collision(3, "Ob1"), actions1);
 	}
 	
 	private void testImageCanvas(Stage stage) {

@@ -93,7 +93,7 @@ public class GameLayer implements Layer {
 				}
 			}
 		}
-		return null;
+		return tempList;
 	}
 	
 	public GameObject getByID(int id) {
