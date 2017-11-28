@@ -6,8 +6,7 @@ public class GenericObject extends GameObject {
 		super(name);
 	}
 	
-	public GenericObject()
-	{
+	public GenericObject() {
 		super();
 	}
 

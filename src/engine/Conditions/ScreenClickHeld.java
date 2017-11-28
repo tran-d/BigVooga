@@ -10,9 +10,9 @@ import engine.World;
  * @author aaronpaskin
  *
  */
-public class ClickHeld extends Condition {
+public class ScreenClickHeld extends Condition {
 	
-	public ClickHeld(int priorityNum) {
+	public ScreenClickHeld(int priorityNum) {
 		this.priorityNum = priorityNum;
 	}
 	
@@ -21,7 +21,6 @@ public class ClickHeld extends Condition {
 	 */
 	@Override
 	public boolean isTrue(GameObject asking, World world) {
-		//TODO make inputmanager (explicitly or implicitly)
 		return world.getPlayerManager().isPrimaryButtonDown();
 	}
 	

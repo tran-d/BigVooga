@@ -1,17 +1,23 @@
 package engine;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import engine.utilities.collisions.CollisionEvent;
 
 //TODO need to add addToObjectList()? 
 
-public abstract class GameObject extends VariableContainer {
+/**
+ * 
+ * @author Nikolas Bramblett, ...
+ *
+ */
+public class GameObject extends VariableContainer {
+
 	private final String DEFAULT_TAG = "unnamed";
 	private String name;
 	private Set<String> tagSet;
@@ -21,74 +27,73 @@ public abstract class GameObject extends VariableContainer {
 	private Map<String, Double> doubleVars;
 	private Map<String, Boolean> booleanVars;
 	private Map<String, String> stringVars;
+	private CollisionEvent lastCollision;
+	private double width;
+	private double height;
 
+	public GameObject(String name) {
+		// TODO Auto-generated constructor stub
+		this.name = name;
+		tagSet = new HashSet<String>();
+		x = 0;
+		y = 0;
+		heading = 0;
+		events = new TreeMap<>();
+	}
 	public GameObject() {
 		name = DEFAULT_TAG;
 		tagSet = new HashSet<String>();
 		x = 0;
 		y = 0;
 		heading = 0;
-		doubleVars = new HashMap<String, Double>();
-		booleanVars = new HashMap<String, Boolean>();
-		stringVars = new HashMap<String, String>();
 		events = new TreeMap<>();
 	}
 	
-	public GameObject(String name) {
-		this();
-		this.name = name;
-	}
-
+	
 	public String getName() {
 		return name;
 	}
 
 	public void addTag(String tag) {
+		// TODO Auto-generated method stub
 		tagSet.add(tag);
 	}
 
 	public boolean is(String tag) {
+		// TODO Auto-generated method stub
 		return tagSet.contains(tag);
 	}
 
 	public List<String> getTags() {
+		// TODO Auto-generated method stub
 		return new ArrayList<String>(tagSet);
 	}
 
-	public void setGlobal(String variableName, World w) {
-		GlobalVariables currentGlobals = w.getGlobalVars();
-		if (doubleVars.containsKey(variableName)) {
-			currentGlobals.putDouble(variableName, doubleVars.get(variableName));
-		}
-		if (stringVars.containsKey(variableName)) {
-			currentGlobals.putString(variableName, stringVars.get(variableName));
-		}
-		if (booleanVars.containsKey(variableName)) {
-			currentGlobals.putBoolean(variableName, booleanVars.get(variableName));
-		}
+	public void setGlobal(String variableName, boolean global) {
+		// TODO Auto-generated method stub
+
 	}
 
-	public void makeAllGlobal(World w) {
-		makeAllGlobalHelper(booleanVars.keySet(), w);
-		makeAllGlobalHelper(doubleVars.keySet(), w);
-		makeAllGlobalHelper(stringVars.keySet(), w);
+	public void makeAllGlobal() {
+		// TODO Auto-generated method stub
+
 	}
-	
-	private void makeAllGlobalHelper(Set<String> s, World w) {
-		for (String key : s) {
-			setGlobal(key, w);
-		}
+
+	public void addToObjectList(GameObject o) {
+		// TODO Auto-generated method stub
+
 	}
 
 	public void addConditionAction(Condition c, List<Action> a) {
 		events.put(c, a);
 	}
 
-	public void step(World w) {
-		for(Condition c : events.keySet()) {
-			for(Action a : events.get(c)) {
-				if(c.isTrue(this, w)) {
-					a.execute(this, w);
+	public void step(World w, int priorityNum, List<Runnable> runnables) {
+		currentSprite.step();
+		for (Condition c : events.keySet()) {
+			if(c.getPriority() == priorityNum && c.isTrue(this, w)) {
+				for (Action a : events.get(c)) {
+					runnables.add(() -> a.execute(this, w));
 				}
 			}
 		}
@@ -128,8 +133,8 @@ public abstract class GameObject extends VariableContainer {
 		return priorities;
 	}
 
-	public void setIntegerVariable(String name, double value) {
-		doubleVars.put(name, value);
+	public void setIntegerVariable(String name, int val) {
+		
 	}
 
 	public void setBooleanVariable(String name, Boolean value) {
@@ -145,15 +150,20 @@ public abstract class GameObject extends VariableContainer {
 	}
 	
 	/**
+	 * NEEDS COMPLETION
 	 * @return BoundedImage
 	 */
 	public BoundedImage getImage() {
-		currentSprite.step();
-		return currentSprite.getImage();
+		//TODO width and height?
+		BoundedImage result = currentSprite.getImage();
+		result.setPosition(x, y);
+		result.setHeading(heading);
+		result.setSize(width, height);
+		return result;
 	}
 
 	public GameObject clone() {
-		GameObject copy = new GenericObject(name);
+		GameObject copy = new GameObject(name);
 		copy.setCoords(x, y);
 		copy.setHeading(heading);
 		for(String tag: tagSet)
@@ -167,5 +177,13 @@ public abstract class GameObject extends VariableContainer {
 		for(Condition c : events.keySet()) 
 			copy.addConditionAction(c, new ArrayList<>(events.get(c)));
 		return copy;
+	}
+
+	public CollisionEvent getLastCollisionChecked() {
+		return lastCollision;
+	}
+
+	public void setLastCollisionChecked(CollisionEvent collisionEvent) {
+		lastCollision = collisionEvent;
 	}
 }

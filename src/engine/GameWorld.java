@@ -1,12 +1,17 @@
 package engine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import player.PlayerManager;
-
+/**
+ * 
+ * @author Nikolas Bramblett, ...
+ *
+ */
 public class GameWorld implements World {
 	
 	private final static String DEFAULT_NAME = "world";
@@ -14,9 +19,9 @@ public class GameWorld implements World {
 	
 	private String worldName;
 	private List<GameObject> worldObjects;
-	private Map<Integer, List<GameObject>> conditionPriorities;
+	private Map<Integer, List<GameObject>> conditionPriorities = new HashMap<>();
 	private GlobalVariables globalVars;
-	private GameObjectFactory GameObjectFactory;
+	//private GameObjectFactory GameObjectFactory;
 	private PlayerManager input;
 	private World nextWorld;
 
@@ -26,15 +31,15 @@ public class GameWorld implements World {
 	}
 	
 	public GameWorld(String name) {
+		nextWorld = this;
 		worldName = name;
 		worldObjects = new ArrayList<>();
 		input = new PlayerManager();
-		nextWorld = this;
 	}
 
 	// I don't know what to do with this.
 	@Override
-	public Iterator<GenericObject> iterator() {
+	public Iterator<GameObject> iterator() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -42,13 +47,13 @@ public class GameWorld implements World {
 	@Override
 	public void addGameObject(GameObject obj) {
 		// TODO Auto-generated method stub
-		worldObjects.add(obj);
+		worldObjects.add(obj);							//TODO what to do if user tries to add object with same name as another object in world?
 		for(Integer i : obj.getPriorities()) {
 			if(conditionPriorities.containsKey(i)) {
 				conditionPriorities.get(i).add(obj);
 			}
 			else {
-				List<GameObject> objects = new ArrayList();
+				List<GameObject> objects = new ArrayList<>();
 				objects.add(obj);
 				conditionPriorities.put(i, objects);
 			}
@@ -96,14 +101,24 @@ public class GameWorld implements World {
 		return null;
 	}
 	
+	@Override
+	public GameObject getWithName(String name) {
+		//TODO
+		return worldObjects.get(0);
+	}
+	
 	public boolean isNamed(String tag) {
 		return worldName.equals(tag);
 	}
 	
 	public void step() {
+		List<Runnable> runnables = new ArrayList<>();
 		for(Integer i: conditionPriorities.keySet()) {
 			for(GameObject obj : conditionPriorities.get(i)) {
-				obj.step(this);
+				obj.step(this, i, runnables);
+			}
+			for(Runnable r : runnables) {
+				r.run();
 			}
 		}
 	}
@@ -136,8 +151,7 @@ public class GameWorld implements World {
 		return nextWorld;
 	}
 	
-	public List<GameObject> getAllObjects()
-	{
+	public List<GameObject> getAllObjects() {
 		return worldObjects;
 	}
 

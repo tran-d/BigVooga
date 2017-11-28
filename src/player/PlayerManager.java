@@ -3,69 +3,74 @@ package player;
 import java.util.ArrayList;
 import java.util.List;
 
-import engine.BoundedImage;
 import engine.EngineController;
-import engine.GameMaster;
-import javafx.event.EventHandler;
+import engine.sprite.DisplayableImage;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 
+/**
+ * Acts as the intermediary class between the game engine and player.
+ * @author Samarth and Ian
+ *
+ */
 public class PlayerManager {
 
 	private GameDisplay gameDisplay;
-	private EngineController engineController;
 	
-	private final EventHandler<KeyEvent> keyEventHandler;
-	private final EventHandler<MouseEvent> mouseEventHandler;
+	private List<String> keysDown = new ArrayList<>();
+	private List<String> prevKeysDown;
 	
-	private List<KeyCode> keysDown;
-	private List<KeyCode> prevKeysDown;
+	private boolean primaryButtonDown = false;
+	private boolean prevPrimaryButtonDown = false;
+	private double clickX;
+	private double clickY;
 	
-	private boolean primaryButtonDown;
-	private boolean prevPrimaryButtonDown;
-	
+	/**
+	 * 
+	 */
 	public PlayerManager() {
-		keysDown = new ArrayList<>();
-		prevKeysDown = new ArrayList<>();
-		primaryButtonDown = false;
-		prevPrimaryButtonDown = false;
 		
-		keyEventHandler = new EventHandler<KeyEvent>() {
-			public void handle(final KeyEvent keyEvent) {
-				keysDown.add(keyEvent.getCode());
-			}
-		};
-		
-		mouseEventHandler = new EventHandler<MouseEvent>() {
-			public void handle(final MouseEvent mouseEvent) {
-				primaryButtonDown = mouseEvent.isPrimaryButtonDown();
-			}
-		};
 	}
 	
-	public List<KeyCode> getKeysDown() {
+	/**
+	 * 
+	 * @return
+	 */
+	public List<String> getKeysDown() {
 		return keysDown;
 	}
 	
-	public List<KeyCode> getPrevKeysDown() {
+	/**
+	 * 
+	 * @return
+	 */
+	public List<String> getPrevKeysDown() {
 		return prevKeysDown;
 	}
 	
 	public void setKeyPressed(KeyCode keyCode) {
-		keysDown.add(keyCode);
+		keysDown.add(keyCode.getName());
 	}
 	
 	public void setKeyReleased(KeyCode keyCode) {
-		keysDown.remove(keyCode);
+		keysDown.remove(keyCode.getName());
 	}
 	
 	public void setPrimaryButtonDown(double x, double y) {
-		//TODO engine
+		primaryButtonDown = true;
+		clickX = x;
+		clickY = y;
+	}
+	
+	public double getClickX() {
+		return clickX;
+	}
+	
+	public double getClickY() {
+		return clickY;
 	}
 	
 	public void setPrimaryButtonUp(double x, double y) {
-		//TODO engine
+		primaryButtonDown = false;
 	}
 	
 	public boolean isPrimaryButtonDown() {
@@ -80,25 +85,20 @@ public class PlayerManager {
 		gameDisplay = currentGameDisplay;
 	}
 	
-	public void setEngine(EngineController currentEngineController) {
-		engineController = currentEngineController;
-	}
-	
-	public void step() {
-		prevKeysDown = keysDown;
-		keysDown.clear();
-		keyEventHandler.handle(keyEvent);					//how to get keyEvent?
-		
-		prevPrimaryButtonDown = primaryButtonDown;
-		primaryButtonDown = false;
-		mouseEventHandler.handle(mouseEvent);				//how to get mouseEvent?
-
 	/**
-	 * INCOMPLETE: for handling the given image data at each step.
-	 * @param images
+	 * 
 	 */
-	public void getImageData(List<BoundedImage> images) {
-	
+	public void step() {
+		prevKeysDown = new ArrayList<>(keysDown);
+		prevPrimaryButtonDown = primaryButtonDown;
+	}
+		
+	/**
+	 * Passes the images added to the game maps in authoring to the Game Display.
+	 * @param images - The list of images to be displayed
+	 */
+	public void setImageData(List<DisplayableImage> images) {
+		gameDisplay.setUpdatedImages(images);
 	}
 	
 }
