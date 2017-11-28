@@ -36,6 +36,7 @@ public class GameObject extends VariableContainer {
 	private CollisionEvent lastCollision;
 	private double width;
 	private double height;
+	private int uniqueID;
 
 	public GameObject() {
 		name = DEFAULT_TAG;
@@ -209,5 +210,19 @@ public class GameObject extends VariableContainer {
 
 	public void setLastCollisionChecked(CollisionEvent collisionEvent) {
 		lastCollision = collisionEvent;
+	}
+
+	/**
+	 * @return the uniqueID
+	 */
+	public int getUniqueID() {
+		return uniqueID;
+	}
+
+	/**
+	 * @param uniqueID the uniqueID to set
+	 */
+	public void setUniqueID(int uniqueID) {
+		this.uniqueID = uniqueID;
 	}
 }
