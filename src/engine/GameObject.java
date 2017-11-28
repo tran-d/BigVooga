@@ -144,10 +144,6 @@ public abstract class GameObject extends VariableContainer {
 		currentSprite = set;
 	}
 	
-	public void addParameter(Object o) {
-		// TODO 
-	}
-	
 	/**
 	 * @return BoundedImage
 	 */
