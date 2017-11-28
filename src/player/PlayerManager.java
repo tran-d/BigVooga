@@ -19,12 +19,14 @@ public class PlayerManager {
 	private GameDisplay gameDisplay;
 	
 	private Set<String> keysDown = new HashSet<>();
-	private Set<String> prevKeysDown;
+	private Set<String> prevKeysDown = new HashSet<>();
 	
 	private boolean primaryButtonDown = false;
 	private boolean prevPrimaryButtonDown = false;
 	private double clickX;
 	private double clickY;
+	
+	int id;
 	
 	/**
 	 * 
