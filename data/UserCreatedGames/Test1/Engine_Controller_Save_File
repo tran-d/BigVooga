@@ -116,7 +116,13 @@
         </worldObjects>
         <conditionPriorities class="tree-map">
           <entry>
+<<<<<<< HEAD
+            <engine.Conditions.ObjectClickHeld>
+              <priorityNum>1</priorityNum>
+            </engine.Conditions.ObjectClickHeld>
+=======
             <int>1</int>
+>>>>>>> eeddd2b419adf335344fb1ffdf7f254ea143416e
             <list>
               <engine.GameObject reference="../../../../worldObjects/engine.GameObject"/>
             </list>
