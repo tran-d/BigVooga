@@ -59,6 +59,7 @@ public class GameMaster implements EngineController{
 	public void addWorld(World w) {
 		// TODO Auto-generated method stub
 		w.addGlobalVars(globalVars);
+		w.setPlayerManager(playerManager);
 		madeWorlds.add(w);
 		
 	}
@@ -78,7 +79,7 @@ public class GameMaster implements EngineController{
 	}
 	
 	private void step() {
-		currentWorld = ((GameWorld)currentWorld).getNextWorld();
+		currentWorld = ((GameLayer)currentWorld).getNextWorld();
 		currentWorld.step();
 		imageUpdate();
 		playerManager.step();
@@ -96,7 +97,7 @@ public class GameMaster implements EngineController{
 	 */
 	private void imageUpdate() {
 		List<DisplayableImage> imageData = new ArrayList<DisplayableImage>();
-		for(GameObject o: ((GameWorld)currentWorld).getAllObjects()){
+		for(GameObject o: currentWorld.getAllObjects()){
 			imageData.add(o.getImage());
 		}
 		Collections.sort(imageData);

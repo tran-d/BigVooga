@@ -9,7 +9,7 @@ import java.util.List;
 import authoring.drawing.BoundingPolygonCreator;
 import authoring.drawing.ImageCanvas;
 import engine.Actions.Move;
-import engine.Conditions.KeyPressed;
+import engine.Conditions.KeyHeld;
 import engine.sprite.AnimationSequence;
 import engine.sprite.BoundedImage;
 import engine.sprite.Sprite;
@@ -20,6 +20,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
@@ -31,20 +32,21 @@ public class EngineTester extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
+		System.out.println(KeyCode.LEFT.getName());
 		//testCollisions(stage);
 		//testData(stage);
-		//testImageCanvas(stage);
-		testDrawer(stage);
+		testImageCanvas(stage);
+		//testDrawer(stage);
 	}
 	
 	private void generateGame(BoundedImage i) {
 		GameMaster master = new GameMaster();
-		GameWorld w = new GameWorld("World");
+		GameLayer w = new GameLayer("World");
 		GameObject obj = new GameObject();
 		obj.setCoords(200, 200);
 		List<Action> actions = new ArrayList<Action>();
 		actions.add(new Move(-1, 0));
-		obj.addConditionAction(new KeyPressed(1,"LEFT"), actions);
+		obj.addConditionAction(new KeyHeld(1,"Left"), actions);
 		Sprite sprite = new Sprite();
 		List<BoundedImage> images = new ArrayList<>();
 		images.add(i);

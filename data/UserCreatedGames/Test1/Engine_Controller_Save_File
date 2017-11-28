@@ -10,10 +10,10 @@
         <tagSet/>
         <events class="tree-map">
           <entry>
-            <engine.Conditions.KeyPressed>
+            <engine.Conditions.KeyHeld>
               <priorityNum>1</priorityNum>
               <check>Left</check>
-            </engine.Conditions.KeyPressed>
+            </engine.Conditions.KeyHeld>
             <list>
               <engine.Actions.Move>
                 <xIncrement>-1.0</xIncrement>
@@ -38,43 +38,48 @@
                         <geometry class="engine.utilities.collisions.BoundingPolygon">
                           <vertices>
                             <javafx.geometry.Point2D>
-                              <x>-0.2</x>
-                              <y>0.23441734417344173</y>
+                              <x>-0.12067056602619008</x>
+                              <y>0.25194659477735115</y>
                               <hash>0</hash>
                             </javafx.geometry.Point2D>
                             <javafx.geometry.Point2D>
-                              <x>-0.265</x>
-                              <y>-0.07994579945799457</y>
+                              <x>-0.22049410128245583</x>
+                              <y>0.2221933122501898</y>
                               <hash>0</hash>
                             </javafx.geometry.Point2D>
                             <javafx.geometry.Point2D>
-                              <x>-0.15999999999999998</x>
-                              <y>-0.2859078590785908</y>
+                              <x>-0.2679102805291821</x>
+                              <y>-0.010423260234890042</y>
                               <hash>0</hash>
                             </javafx.geometry.Point2D>
                             <javafx.geometry.Point2D>
-                              <x>0.08999999999999997</x>
-                              <y>-0.3319783197831978</y>
+                              <x>-0.22049410128245583</x>
+                              <y>-0.2051720185944918</y>
                               <hash>0</hash>
                             </javafx.geometry.Point2D>
                             <javafx.geometry.Point2D>
-                              <x>0.31000000000000005</x>
-                              <y>-0.1937669376693767</y>
+                              <x>-0.06826321001665059</x>
+                              <y>-0.34311905576587637</y>
                               <hash>0</hash>
                             </javafx.geometry.Point2D>
                             <javafx.geometry.Point2D>
-                              <x>0.4375</x>
-                              <y>0.06368563685636852</y>
+                              <x>0.2636500447104331</x>
+                              <y>-0.23492530112165316</y>
                               <hash>0</hash>
                             </javafx.geometry.Point2D>
                             <javafx.geometry.Point2D>
-                              <x>0.40249999999999997</x>
-                              <y>0.2506775067750677</y>
+                              <x>0.40839417083201845</x>
+                              <y>-0.04829107436036817</y>
                               <hash>0</hash>
                             </javafx.geometry.Point2D>
                             <javafx.geometry.Point2D>
-                              <x>0.13750000000000007</x>
-                              <y>0.30487804878048785</y>
+                              <x>0.43834123140889814</x>
+                              <y>0.17350612266028942</y>
+                              <hash>0</hash>
+                            </javafx.geometry.Point2D>
+                            <javafx.geometry.Point2D>
+                              <x>0.2786235749988729</x>
+                              <y>0.3033386282333572</y>
                               <hash>0</hash>
                             </javafx.geometry.Point2D>
                           </vertices>
@@ -116,7 +121,6 @@
     </globalVars>
     <input>
       <keysDown/>
-      <prevKeysDown/>
       <primaryButtonDown>false</primaryButtonDown>
       <prevPrimaryButtonDown>false</prevPrimaryButtonDown>
       <clickX>0.0</clickX>
