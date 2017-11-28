@@ -10,6 +10,8 @@ import authoring.drawing.BoundingPolygonCreator;
 import authoring.drawing.ImageCanvas;
 import engine.Actions.Move;
 import engine.Conditions.KeyHeld;
+import engine.Conditions.ObjectClickHeld;
+import engine.Conditions.ScreenClickHeld;
 import engine.sprite.AnimationSequence;
 import engine.sprite.BoundedImage;
 import engine.sprite.Sprite;
@@ -46,7 +48,7 @@ public class EngineTester extends Application {
 		obj.setCoords(200, 200);
 		List<Action> actions1 = new ArrayList<Action>();
 		actions1.add(new Move(-1, 0));
-		obj.addConditionAction(new KeyHeld(1,"Left"), actions1);
+		obj.addConditionAction(new ObjectClickHeld(1), actions1);
 		List<Action> actions2 = new ArrayList<Action>();
 		actions2.add(new Move(1, 0));
 		obj.addConditionAction(new KeyHeld(2,"Right"), actions2);
