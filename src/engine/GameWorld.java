@@ -37,7 +37,17 @@ public class GameWorld implements World {
 	@Override
 	public void addGameObject(GameObject obj) {
 		// TODO Auto-generated method stub
-
+		worldObjects.add(obj);	//TODO what to do if user tries to add object with same name as another object in world?
+		for(Integer i : obj.getPriorities()) {
+			if(conditionPriorities.containsKey(i)) {
+				conditionPriorities.get(i).add(obj);
+			}
+			else {
+				List<GameObject> objects = new ArrayList<>();
+				objects.add(obj);
+				conditionPriorities.put(i, objects);
+			}
+		}
 	}
 
 	@Override
@@ -63,8 +73,13 @@ public class GameWorld implements World {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
+	public GameObject getWithName(String name) {
+		//TODO
+		return worldObjects.get(0);
+	}
+	
 	public boolean isNamed(String tag) {
 		// TODO Auto-generated method stub
 		return false;
