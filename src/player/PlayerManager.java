@@ -26,6 +26,8 @@ public class PlayerManager {
 	private double clickX;
 	private double clickY;
 	
+	int id;
+	
 	/**
 	 * 
 	 */
