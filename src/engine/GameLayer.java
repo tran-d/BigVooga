@@ -20,6 +20,7 @@ public class GameLayer implements World {
 	private String worldName;
 	private List<GameObject> worldObjects;
 	private Map<Integer, List<GameObject>> conditionPriorities = new HashMap<>();
+	private Map<Integer, GameObject> idToGameObject = new HashMap<>();
 	private GlobalVariables globalVars;
 	//private GameObjectFactory GameObjectFactory;
 	private PlayerManager input;
@@ -40,6 +41,7 @@ public class GameLayer implements World {
 	public void addGameObject(GameObject obj) {
 		// TODO Auto-generated method stub
 		worldObjects.add(obj);
+		idToGameObject.put(obj.getUniqueID(), obj);
 		for(Integer i : obj.getPriorities()) {
 			if(conditionPriorities.containsKey(i)) {
 				conditionPriorities.get(i).add(obj);
@@ -63,6 +65,7 @@ public class GameLayer implements World {
 	public void removeGameObject(GameObject obj) {
 		// TODO Auto-generated method stub
 		worldObjects.remove(obj);
+		idToGameObject.remove(obj.getUniqueID());
 		for(Integer i : obj.getPriorities()) {
 			conditionPriorities.get(i).remove(obj);
 			if(conditionPriorities.get(i).isEmpty()) {
@@ -91,6 +94,10 @@ public class GameLayer implements World {
 			}
 		}
 		return null;
+	}
+	
+	public GameObject getByID(int id) {
+		return idToGameObject.get(id);
 	}
 	
 	public boolean isNamed(String tag) {
@@ -147,5 +154,4 @@ public class GameLayer implements World {
 		// TODO Auto-generated method stub
 		this.input = input;
 	}
-
 }

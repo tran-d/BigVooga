@@ -49,6 +49,7 @@ public class PlayerManager {
 	
 	public void setKeyPressed(KeyCode keyCode) {
 		keysDown.add(keyCode.getName());
+		System.out.println(keyCode.getName());
 	}
 	
 	public void setKeyReleased(KeyCode keyCode) {

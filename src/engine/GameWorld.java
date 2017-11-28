@@ -59,7 +59,6 @@ public class GameWorld implements World {
 	@Override
 	public void removeGameObject(GameObject obj) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
