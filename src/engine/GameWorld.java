@@ -47,7 +47,7 @@ public class GameWorld implements World {
 	@Override
 	public void addGameObject(GameObject obj) {
 		// TODO Auto-generated method stub
-		worldObjects.add(obj);							//TODO what to do if user tries to add object with same name as another object in world?
+		worldObjects.add(obj);	//TODO what to do if user tries to add object with same name as another object in world?
 		for(Integer i : obj.getPriorities()) {
 			if(conditionPriorities.containsKey(i)) {
 				conditionPriorities.get(i).add(obj);
