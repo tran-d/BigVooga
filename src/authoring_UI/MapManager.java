@@ -1,5 +1,7 @@
 package authoring_UI;
 
+import java.util.ArrayList;
+
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObjectGridManagerI;
 import default_pkg.SceneController;
@@ -23,7 +25,8 @@ public class MapManager extends TabPane {
 	private AuthoringEnvironmentManager myAEM;
 	private SpriteObjectGridManagerI mySOGM;
 	private SpriteManager mySprites;
-	private HBox authMap;
+	private AuthoringMapEnvironment authMap;
+	private final String addTabString = "+";
 	
 	private int myTabCount = 1;
 	private static final String TABTAG = "map ";
@@ -43,7 +46,7 @@ public class MapManager extends TabPane {
 		this.setSide(Side.TOP);
 		addTab = new Tab();
 		addTab.setClosable(false);
-		addTab.setText("+");
+		addTab.setText(addTabString);
 		addTab.setOnSelectionChanged(e -> {
 			createTab(myTabCount);
 			mySelectModel.select(currentTab);
@@ -52,7 +55,7 @@ public class MapManager extends TabPane {
 	}
 
 	private HBox setupScene() {
-		authMap = new HBox();
+		authMap = new AuthoringMapEnvironment();
 		setupBEAuthClasses();
 		setupFEAuthClasses();
 
@@ -72,7 +75,10 @@ public class MapManager extends TabPane {
 		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, myMenu, mySOGM);
 		DraggableGrid myGrid = new DraggableGrid(mySpriteGridHandler);
 		mySprites = new SpriteManager(mySpriteGridHandler, myAEM, mySOGM);
-		authMap.getChildren().addAll(myMenu, myGrid, mySprites);
+		authMap.setMenu(myMenu);
+		authMap.setGrid(myGrid);
+		authMap.setSpriteManager(mySprites);
+//		authMap.getChildren().addAll(myMenu, myGrid, mySprites);
 	}
 	
 	protected SpriteCreator createNewSpriteCreator() {
@@ -88,4 +94,16 @@ public class MapManager extends TabPane {
 		this.getTabs().add(this.getTabs().size() - 1, currentTab);
 		myTabCount++;
 	}
+	
+	private ArrayList<AuthoringMapEnvironment> getAllMapEnvironments(){
+		ArrayList<AuthoringMapEnvironment> allMaps = new ArrayList<AuthoringMapEnvironment>();
+		for (Tab t: this.getTabs()) {
+			if (!t.getText().equals(addTabString)){
+				AuthoringMapEnvironment AME = (AuthoringMapEnvironment) t.getContent();
+				allMaps.add(AME);
+			}
+		}
+		return allMaps;
+	}
+	
 }
