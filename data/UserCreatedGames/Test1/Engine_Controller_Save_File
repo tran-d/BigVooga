@@ -8,9 +8,21 @@
             <doubleVars defined-in="engine.VariableContainer"/>
             <stringVars defined-in="engine.VariableContainer"/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>unnamed</name>
+            <name>Ob1</name>
             <tagSet/>
             <events>
+              <entry>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>1</priorityNum>
+                  <check>Down</check>
+                </engine.Conditions.KeyHeld>
+                <list>
+                  <engine.Actions.Move>
+                    <xIncrement>0.0</xIncrement>
+                    <yIncrement>1.0</yIncrement>
+                  </engine.Actions.Move>
+                </list>
+              </entry>
               <entry>
                 <engine.Conditions.KeyHeld>
                   <priorityNum>2</priorityNum>
@@ -35,6 +47,30 @@
                   </engine.Actions.Move>
                 </list>
               </entry>
+              <entry>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>1</priorityNum>
+                  <check>Right</check>
+                </engine.Conditions.KeyHeld>
+                <list>
+                  <engine.Actions.Move>
+                    <xIncrement>1.0</xIncrement>
+                    <yIncrement>0.0</yIncrement>
+                  </engine.Actions.Move>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>1</priorityNum>
+                  <check>Up</check>
+                </engine.Conditions.KeyHeld>
+                <list>
+                  <engine.Actions.Move>
+                    <xIncrement>0.0</xIncrement>
+                    <yIncrement>-1.0</yIncrement>
+                  </engine.Actions.Move>
+                </list>
+              </entry>
             </events>
             <x>200.0</x>
             <y>200.0</y>
@@ -52,38 +88,23 @@
                             <geometry class="engine.utilities.collisions.BoundingPolygon">
                               <vertices>
                                 <javafx.geometry.Point2D>
-                                  <x>-0.2279808664266758</x>
-                                  <y>0.20596424905355637</y>
+                                  <x>-0.4825</x>
+                                  <y>0.47289972899728994</y>
                                   <hash>0</hash>
                                 </javafx.geometry.Point2D>
                                 <javafx.geometry.Point2D>
-                                  <x>-0.24544998509652233</x>
-                                  <y>-0.1429606096740635</y>
+                                  <x>-0.4775</x>
+                                  <y>-0.46747967479674796</y>
                                   <hash>0</hash>
                                 </javafx.geometry.Point2D>
                                 <javafx.geometry.Point2D>
-                                  <x>-0.05079409134680407</x>
-                                  <y>-0.33770936803366525</y>
+                                  <x>0.47250000000000003</x>
+                                  <y>-0.47560975609756095</y>
                                   <hash>0</hash>
                                 </javafx.geometry.Point2D>
                                 <javafx.geometry.Point2D>
-                                  <x>0.32603975424559917</x>
-                                  <y>-0.17541873606733044</y>
-                                  <hash>0</hash>
-                                </javafx.geometry.Point2D>
-                                <javafx.geometry.Point2D>
-                                  <x>0.4258632895018649</x>
-                                  <y>0.13022862080260011</y>
-                                  <hash>0</hash>
-                                </javafx.geometry.Point2D>
-                                <javafx.geometry.Point2D>
-                                  <x>0.28111916338027965</x>
-                                  <y>0.2871095650367237</y>
-                                  <hash>0</hash>
-                                </javafx.geometry.Point2D>
-                                <javafx.geometry.Point2D>
-                                  <x>-0.14562644984025652</x>
-                                  <y>0.2654708141078791</y>
+                                  <x>0.49250000000000005</x>
+                                  <y>0.49186991869918695</y>
                                   <hash>0</hash>
                                 </javafx.geometry.Point2D>
                               </vertices>
@@ -113,16 +134,52 @@
             <height>0.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
+          <engine.GameObject>
+            <doubleVars defined-in="engine.VariableContainer"/>
+            <stringVars defined-in="engine.VariableContainer"/>
+            <DEFAULT__TAG>unnamed</DEFAULT__TAG>
+            <name>Ob2</name>
+            <tagSet/>
+            <events>
+              <entry>
+                <engine.Conditions.Collision>
+                  <priorityNum>3</priorityNum>
+                  <tag>Ob1</tag>
+                </engine.Conditions.Collision>
+                <list>
+                  <engine.Actions.RemoveIntersection/>
+                </list>
+              </entry>
+            </events>
+            <x>500.0</x>
+            <y>200.0</y>
+            <heading>0.0</heading>
+            <currentSprite>
+              <animations>
+                <entry>
+                  <string>Animation</string>
+                  <engine.sprite.AnimationSequence>
+                    <imageIndex>0</imageIndex>
+                    <images>
+                      <engine.sprite.BoundedImage reference="../../../../../../../engine.GameObject/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage"/>
+                    </images>
+                    <name>Animation</name>
+                  </engine.sprite.AnimationSequence>
+                </entry>
+              </animations>
+              <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+            </currentSprite>
+            <doubleVars/>
+            <booleanVars/>
+            <stringVars/>
+            <width>0.0</width>
+            <height>0.0</height>
+            <uniqueID>0</uniqueID>
+          </engine.GameObject>
         </worldObjects>
         <conditionPriorities class="tree-map">
           <entry>
-<<<<<<< HEAD
-            <engine.Conditions.ObjectClickHeld>
-              <priorityNum>1</priorityNum>
-            </engine.Conditions.ObjectClickHeld>
-=======
             <int>1</int>
->>>>>>> eeddd2b419adf335344fb1ffdf7f254ea143416e
             <list>
               <engine.GameObject reference="../../../../worldObjects/engine.GameObject"/>
             </list>
@@ -133,11 +190,17 @@
               <engine.GameObject reference="../../../../worldObjects/engine.GameObject"/>
             </list>
           </entry>
+          <entry>
+            <int>3</int>
+            <list>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[2]"/>
+            </list>
+          </entry>
         </conditionPriorities>
         <idToGameObject>
           <entry>
             <int>0</int>
-            <engine.GameObject reference="../../../worldObjects/engine.GameObject"/>
+            <engine.GameObject reference="../../../worldObjects/engine.GameObject[2]"/>
           </entry>
         </idToGameObject>
         <nextWorld class="engine.GameLayer" reference=".."/>
