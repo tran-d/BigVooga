@@ -1,11 +1,9 @@
 package player;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import engine.EngineController;
 import engine.sprite.DisplayableImage;
 import javafx.scene.input.KeyCode;
 

@@ -1,25 +1,3 @@
-/*.tree-cell{
-    -fx-background-color: #001E32;
-    -fx-text-fill: #47BDFF;
-}
-
-.tree-cell > .tree-disclosure-node > .arrow  {
-    -fx-background-color: #001E32;
-}
-.tree-cell:expanded > .tree-disclosure-node > .arrow {
-    -fx-background-color: #001E32;
-}
-
-.tree-cell:expanded {
-    -fx-background-color: #001E32;
-    -fx-text-fill: #47BDFF;
-}
-
-.tree-cell:selected {
-    -fx-background-color: #001E32;
-    -fx-text-fill: #47BDFF;
-}*/
-
 .tree-view, .hbox, .vbox {
 	-fx-background-color: #001E32;
 }
@@ -35,10 +13,11 @@
 
 .tree-cell > .tree-disclosure-node > .arrow {
 	-fx-background-color: transparent;	
+	-fx-font-size: 60;
 }
 
 .label {
-	-fx-text-fill: #98A7F1;
+	-fx-text-fill: #47BDFF;
     -fx-font-family: "Segoe UI";
     -fx-font-size: 60;
 }
@@ -47,17 +26,17 @@
 .button {
 	-fx-font-size: 20px;
 	-fx-font-family: Segoe UI;
-	-fx-text-fill: #47BDFF;
+	-fx-text-fill: #ea7f4b;
 	-fx-border-style: solid inside;
     -fx-border-width: 2;
-    -fx-border-color: #47BDFF;
+    -fx-border-color: #ea7f4b;
     -fx-background-insets: 1px;
     -fx-background-color: transparent;
 }
 
 .button:hover {
     -fx-background-color: 
-        #005187;
+        #64290c;
 }
 
 #title {
