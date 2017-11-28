@@ -11,6 +11,7 @@ import authoring.drawing.BoundingPolygonCreator;
 import authoring.drawing.ImageCanvas;
 import engine.Actions.Move;
 import engine.Actions.RemoveIntersection;
+import engine.Actions.Rotate;
 import engine.Conditions.Collision;
 import engine.Conditions.KeyHeld;
 import engine.Conditions.ObjectClickHeld;
@@ -99,6 +100,12 @@ public class EngineTester extends Application {
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Move(0, 3));
 		obj.addConditionAction(new KeyHeld(1,"Down"), actions1);
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Rotate(1));
+		obj.addConditionAction(new KeyHeld(1,"X"), actions1);
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Rotate(-1));
+		obj.addConditionAction(new KeyHeld(1,"Z"), actions1);
 	}
 	
 	private void conditionAction2(GameObject obj) {
