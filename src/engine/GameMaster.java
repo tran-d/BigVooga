@@ -1,8 +1,10 @@
 package engine;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import engine.sprite.BoundedImage;
 import engine.sprite.DisplayableImage;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -93,10 +95,12 @@ public class GameMaster implements EngineController{
 	 * Used in step.
 	 */
 	private void imageUpdate() {
-		List<DisplayableImage> imageData = new ArrayList<>();
+		List<DisplayableImage> imageData = new ArrayList<DisplayableImage>();
 		for(GameObject o: ((GameWorld)currentWorld).getAllObjects()){
 			imageData.add(o.getImage());
 		}
+		Collections.sort(imageData);
+		
 		playerManager.setImageData(imageData);
 	}
 }
