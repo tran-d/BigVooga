@@ -32,8 +32,8 @@ public class GameObject extends VariableContainer {
 	private Map<String, Boolean> booleanVars;
 	private Map<String, String> stringVars;
 	private CollisionEvent lastCollision;
-	private double width;
-	private double height;
+	private double width = 200; //TODO Sizes
+	private double height = 200; //TODO Sizes
 	private int uniqueID;
 
 	public GameObject() {
