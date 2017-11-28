@@ -39,10 +39,5 @@ public abstract class VBoxList<T> extends VBox implements VBoxListI<T> {
 	public ObservableList<T> getOptions() {
 		return boxOptions;
 	}
-	
-	@Override
-	public void addListChangeListener(ListChangeListener<T> listChangeListener) {
-		boxOptions.addListener(listChangeListener);
-	}
 
 }

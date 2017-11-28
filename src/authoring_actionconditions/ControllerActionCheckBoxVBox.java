@@ -5,12 +5,12 @@ import javafx.collections.ObservableList;
 
 public class ControllerActionCheckBoxVBox {
 	
-	private ActionCheckBoxVBox<Integer> actionCheckBoxVBox;
-	private RemoveChoiceBoxVBox removeChoiceBoxVBox;
+	private ActionConditionTab conditionTab;
+	private ActionConditionTab actionTab;
 	
-	public ControllerActionCheckBoxVBox(ActionCheckBoxVBox<Integer> actionCheckBoxVBox,RemoveChoiceBoxVBox removeChoiceBoxVBox) {
-		this.actionCheckBoxVBox = actionCheckBoxVBox;
-		this.removeChoiceBoxVBox = removeChoiceBoxVBox;
+	public ControllerActionCheckBoxVBox(ActionConditionTab conditionTab,ActionConditionTab actionTab) {
+		this.conditionTab = conditionTab;
+		this.actionTab = actionTab;
 		this.removeChoiceBoxVBox.addListChangeListener(c -> updateActionCheckBoxVBox(removeChoiceBoxVBox.getOptions()));
 	}
 	

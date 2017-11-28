@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import ActionConditionClasses.ChoiceBoxVBox;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -31,6 +32,14 @@ public class TopToolBar extends ToolBar implements TopToolBarI {
 		removeButton = new Button(tabResources.getString(remove));
 		removeRowVBox = new RemoveChoiceBoxVBox(tabResources.getString("RemoverLabel"),FXCollections.observableList(new LinkedList<Integer>()));
 		getItems().addAll(addButton,selectorVBox,separator,removeButton,removeRowVBox);
+	}
+	
+	protected ObservableList<Integer> getRemoveRowVBoxOptions() {
+		return removeRowVBox.getOptions();
+	}
+	
+	protected void addRemoveRowVBoxListener(ListChangeListener<Integer> listChangeListener) {
+		removeRowVBox.addListChangeListener(listChangeListener);
 	}
 
 	@Override

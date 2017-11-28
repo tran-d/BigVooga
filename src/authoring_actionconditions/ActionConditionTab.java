@@ -1,19 +1,8 @@
 package authoring_actionconditions;
 
 import java.util.ResourceBundle;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Orientation;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
-import javafx.scene.control.ToolBar;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class ActionConditionTab extends Tab {
@@ -41,5 +30,9 @@ public class ActionConditionTab extends Tab {
 		VBox mainVBox = new VBox(SPACING);
 		mainVBox.getChildren().addAll(buttons,actionConditionVBox);
 		actionConditionManager.setContent(mainVBox);
+	}
+	
+	protected void addTopToolBarListChangeListener() {
+		
 	}
 }
