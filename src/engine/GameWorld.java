@@ -19,6 +19,7 @@ public class GameWorld implements World {
 	
 	private String worldName;
 	private List<GameObject> worldObjects;
+	private Map<Integer, GameObject> idToGameObject = new HashMap<>();
 	private Map<Integer, List<GameObject>> conditionPriorities = new HashMap<>();
 	private GlobalVariables globalVars;
 	//private GameObjectFactory GameObjectFactory;
@@ -34,7 +35,11 @@ public class GameWorld implements World {
 		nextWorld = this;
 		worldName = name;
 		worldObjects = new ArrayList<>();
-		input = new PlayerManager();
+	}
+	
+	@Override
+	public void setPlayerManager(PlayerManager p) {
+		input = p;
 	}
 
 	// I don't know what to do with this.
@@ -99,6 +104,10 @@ public class GameWorld implements World {
 			}
 		}
 		return null;
+	}
+	
+	public GameObject getByID(int id) {
+		return idToGameObject.get(id);
 	}
 	
 	@Override
