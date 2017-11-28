@@ -202,7 +202,7 @@ public class GameObject extends VariableContainer {
 			copy.addConditionAction(c, new ArrayList<>(events.get(c)));
 		return copy;
 	}
-
+	
 	public CollisionEvent getLastCollisionChecked() {
 		return lastCollision;
 	}
