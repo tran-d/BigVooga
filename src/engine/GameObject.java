@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeMap;
@@ -201,7 +202,7 @@ public class GameObject extends VariableContainer {
 			copy.addConditionAction(c, new ArrayList<>(events.get(c)));
 		return copy;
 	}
-
+	
 	public CollisionEvent getLastCollisionChecked() {
 		return lastCollision;
 	}

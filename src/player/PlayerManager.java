@@ -50,6 +50,7 @@ public class PlayerManager {
 	public void setKeyPressed(KeyCode keyCode) {
 		System.out.println(keyCode + " pressed");
 		keysDown.add(keyCode.getName());
+		System.out.println(keyCode.getName());
 	}
 	
 	public void setKeyReleased(KeyCode keyCode) {
