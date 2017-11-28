@@ -16,23 +16,11 @@
               <entry>
                 <engine.Conditions.KeyHeld>
                   <priorityNum>1</priorityNum>
-                  <check>Down</check>
+                  <check>Left</check>
                 </engine.Conditions.KeyHeld>
                 <list>
                   <engine.Actions.Move>
-                    <xIncrement>0.0</xIncrement>
-                    <yIncrement>3.0</yIncrement>
-                  </engine.Actions.Move>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.KeyHeld>
-                  <priorityNum>1</priorityNum>
-                  <check>Right</check>
-                </engine.Conditions.KeyHeld>
-                <list>
-                  <engine.Actions.Move>
-                    <xIncrement>3.0</xIncrement>
+                    <xIncrement>-3.0</xIncrement>
                     <yIncrement>0.0</yIncrement>
                   </engine.Actions.Move>
                 </list>
@@ -52,12 +40,24 @@
               <entry>
                 <engine.Conditions.KeyHeld>
                   <priorityNum>1</priorityNum>
-                  <check>Left</check>
+                  <check>Right</check>
                 </engine.Conditions.KeyHeld>
                 <list>
                   <engine.Actions.Move>
-                    <xIncrement>-3.0</xIncrement>
+                    <xIncrement>3.0</xIncrement>
                     <yIncrement>0.0</yIncrement>
+                  </engine.Actions.Move>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>1</priorityNum>
+                  <check>Down</check>
+                </engine.Conditions.KeyHeld>
+                <list>
+                  <engine.Actions.Move>
+                    <xIncrement>0.0</xIncrement>
+                    <yIncrement>3.0</yIncrement>
                   </engine.Actions.Move>
                 </list>
               </entry>
