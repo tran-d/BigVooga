@@ -64,8 +64,7 @@ public class GameMaster implements EngineController{
 	@Override
 	public void setCurrentWorld(String s) {
 		// TODO Auto-generated method stub
-		for(World w: madeWorlds)
-		{
+		for(World w : madeWorlds) {
 			if(w.isNamed(s)) {
 				currentWorld = w;
 				return;
@@ -93,8 +92,7 @@ public class GameMaster implements EngineController{
 	 * Passes image data to playermanager.
 	 * Used in step.
 	 */
-	private void imageUpdate()
-	{
+	private void imageUpdate() {
 		List<DisplayableImage> imageData = new ArrayList<>();
 		for(GameObject o: ((GameWorld)currentWorld).getAllObjects()){
 			imageData.add(o.getImage());
