@@ -9,6 +9,7 @@ import engine.World;
  * @param <T> Type of parameter to get
  */
 public abstract class ParameterGetter<T> {
+	
 	private GameObjectGetter gameObject;
 	private String parameterName;
 	
