@@ -35,7 +35,11 @@ public class GameWorld implements World {
 		nextWorld = this;
 		worldName = name;
 		worldObjects = new ArrayList<>();
-		input = new PlayerManager();
+	}
+	
+	@Override
+	public void setPlayerManager(PlayerManager p) {
+		input = p;
 	}
 
 	// I don't know what to do with this.
@@ -49,7 +53,6 @@ public class GameWorld implements World {
 	public void addGameObject(GameObject obj) {
 		// TODO Auto-generated method stub
 		worldObjects.add(obj);							//TODO what to do if user tries to add object with same name as another object in world?
-		idToGameObject.put(obj.getUniqueID(), obj);
 		for(Integer i : obj.getPriorities()) {
 			if(conditionPriorities.containsKey(i)) {
 				conditionPriorities.get(i).add(obj);
@@ -73,7 +76,6 @@ public class GameWorld implements World {
 	public void removeGameObject(GameObject obj) {
 		// TODO Auto-generated method stub
 		worldObjects.remove(obj);
-		idToGameObject.remove(obj.getUniqueID());
 		for(Integer i : obj.getPriorities()) {
 			conditionPriorities.get(i).remove(obj);
 			if(conditionPriorities.get(i).isEmpty()) {

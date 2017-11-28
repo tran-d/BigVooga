@@ -49,6 +49,7 @@ public class GameDisplay {
 	
 	public void setUpdatedImages (List<DisplayableImage> images) {
 		//TODO; takes in new image file name, location, and size for all objects
+		rootPane.getChildren().clear();
 		ImageView gameImage = null;
 		for (DisplayableImage image : images) {
 			try {
@@ -62,7 +63,7 @@ public class GameDisplay {
 			gameImage.setRotate(image.getHeading());
 			gameImage.setX(image.getX()-image.getWidth()/2);
 			gameImage.setY(image.getY()-image.getHeight()/2);
-//			System.out.println(image.getX());
+			//System.out.println(image.getX());
 			rootPane.getChildren().add(gameImage);
 		}
 	}

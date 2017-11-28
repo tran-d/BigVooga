@@ -23,7 +23,11 @@ public interface World extends Iterable<GameObject>{
 	
 	public PlayerManager getPlayerManager();
 	
+	public void setPlayerManager(PlayerManager p);
+	
 	public void setNextWorld(World w);
 	
 	public World getNextWorld();
+	
+	
 }

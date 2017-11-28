@@ -16,8 +16,6 @@ import engine.sprite.BoundedImage;
 import engine.sprite.Sprite;
 import engine.utilities.collisions.CollisionEvent;
 
-//TODO need to add addToObjectList()? 
-
 /**
  * 
  * @author Nikolas Bramblett, ...
@@ -115,8 +113,7 @@ public class GameObject extends VariableContainer {
 	 * This is meant for the frontend to use for the purpose of placing a new
 	 * instance of an object into the world.
 	 * 
-	 * @param x,
-	 *            y
+	 * @param x, y
 	 */
 	public void setCoords(double x, double y) {
 		// TODO Trigger listeners here
@@ -210,19 +207,5 @@ public class GameObject extends VariableContainer {
 
 	public void setLastCollisionChecked(CollisionEvent collisionEvent) {
 		lastCollision = collisionEvent;
-	}
-
-	/**
-	 * @return the uniqueID
-	 */
-	public int getUniqueID() {
-		return uniqueID;
-	}
-
-	/**
-	 * @param uniqueID the uniqueID to set
-	 */
-	public void setUniqueID(int uniqueID) {
-		this.uniqueID = uniqueID;
 	}
 }
