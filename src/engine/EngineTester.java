@@ -35,18 +35,21 @@ public class EngineTester extends Application {
 		System.out.println(KeyCode.LEFT.getName());
 		//testCollisions(stage);
 		//testData(stage);
-		testImageCanvas(stage);
-		//testDrawer(stage);
+		//testImageCanvas(stage);
+		testDrawer(stage);
 	}
 	
 	private void generateGame(BoundedImage i) {
 		GameMaster master = new GameMaster();
-		GameWorld w = new GameWorld("World");
+		GameLayer layer = new GameLayer("Layer");
 		GameObject obj = new GameObject();
 		obj.setCoords(200, 200);
-		List<Action> actions = new ArrayList<Action>();
-		actions.add(new Move(-1, 0));
-		obj.addConditionAction(new KeyHeld(1,"Left"), actions);
+		List<Action> actions1 = new ArrayList<Action>();
+		actions1.add(new Move(-1, 0));
+		obj.addConditionAction(new KeyHeld(1,"Left"), actions1);
+		List<Action> actions2 = new ArrayList<Action>();
+		actions2.add(new Move(1, 0));
+		obj.addConditionAction(new KeyHeld(1,"Right"), actions2);
 		Sprite sprite = new Sprite();
 		List<BoundedImage> images = new ArrayList<>();
 		images.add(i);
@@ -55,7 +58,9 @@ public class EngineTester extends Application {
 		sprite.setAnimation("Animation");
 		obj.setSprite(sprite);
 		
-		w.addGameObject(obj);
+		layer.addGameObject(obj);
+		GameWorld w = new GameWorld("World");
+		w.addLayer(layer);
 		master.addWorld(w);
 		master.setCurrentWorld("World");
 		try {

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import engine.EngineController;
 import engine.GameMaster;
 import engine.GameObject;
-import engine.GameWorld;
+import engine.GameLayer;
 import engine.World;
 import engine.utilities.data.GameDataHandler;
 
@@ -74,7 +74,7 @@ public class SpriteObjectGridToEngineController {
 	}
 	
 	private World createWorld() {
-		World thisWorld = new GameWorld();
+		World thisWorld = new GameLayer();
 		return thisWorld;
 	}
 	
