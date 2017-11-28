@@ -39,7 +39,7 @@ public class EngineTester extends Application {
 	
 	private void generateGame(BoundedImage i) {
 		GameMaster master = new GameMaster();
-		GameWorld w = new GameWorld("World");
+		GameLayer w = new GameLayer("World");
 		GameObject obj = new GameObject();
 		obj.setCoords(200, 200);
 		List<Action> actions = new ArrayList<Action>();
