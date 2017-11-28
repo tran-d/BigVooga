@@ -12,9 +12,9 @@ import player.PlayerManager;
  * @author Nikolas Bramblett, ...
  *
  */
-public class GameWorld implements World {
+public class GameLayer implements World {
 	
-	private final static String DEFAULT_NAME = "world";
+	private final static String DEFAULT_NAME = "llayer";
 	public final static String PLAYER_TAG = "Player";
 	
 	private String worldName;
@@ -25,23 +25,15 @@ public class GameWorld implements World {
 	private PlayerManager input;
 	private World nextWorld;
 
-	public GameWorld() {
+	public GameLayer() {
 		// TODO Auto-generated constructor stub
 		this(DEFAULT_NAME);
 	}
 	
-	public GameWorld(String name) {
+	public GameLayer(String name) {
 		nextWorld = this;
 		worldName = name;
 		worldObjects = new ArrayList<>();
-		input = new PlayerManager();
-	}
-
-	// I don't know what to do with this.
-	@Override
-	public Iterator<GameObject> iterator() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -148,6 +140,12 @@ public class GameWorld implements World {
 	public List<GameObject> getAllObjects()
 	{
 		return worldObjects;
+	}
+
+	@Override
+	public void setPlayerManager(PlayerManager input) {
+		// TODO Auto-generated method stub
+		this.input = input;
 	}
 
 }
