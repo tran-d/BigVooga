@@ -19,6 +19,7 @@ public class GameWorld implements World {
 	
 	private String worldName;
 	private List<GameObject> worldObjects;
+	private Map<Integer, GameObject> idToGameObject = new HashMap<>();
 	private Map<Integer, List<GameObject>> conditionPriorities = new HashMap<>();
 	private GlobalVariables globalVars;
 	//private GameObjectFactory GameObjectFactory;
@@ -51,7 +52,7 @@ public class GameWorld implements World {
 	@Override
 	public void addGameObject(GameObject obj) {
 		// TODO Auto-generated method stub
-		worldObjects.add(obj);	//TODO what to do if user tries to add object with same name as another object in world?
+		worldObjects.add(obj);							//TODO what to do if user tries to add object with same name as another object in world?
 		for(Integer i : obj.getPriorities()) {
 			if(conditionPriorities.containsKey(i)) {
 				conditionPriorities.get(i).add(obj);
@@ -103,6 +104,10 @@ public class GameWorld implements World {
 			}
 		}
 		return null;
+	}
+	
+	public GameObject getByID(int id) {
+		return idToGameObject.get(id);
 	}
 	
 	@Override

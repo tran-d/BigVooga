@@ -34,6 +34,7 @@ public class GameObject extends VariableContainer {
 	private CollisionEvent lastCollision;
 	private double width;
 	private double height;
+	private int uniqueID;
 
 	public GameObject() {
 		name = DEFAULT_TAG;

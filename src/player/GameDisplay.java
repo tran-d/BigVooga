@@ -49,6 +49,7 @@ public class GameDisplay {
 	
 	public void setUpdatedImages (List<DisplayableImage> images) {
 		//TODO; takes in new image file name, location, and size for all objects
+		rootPane.getChildren().clear();
 		ImageView gameImage = null;
 		for (DisplayableImage image : images) {
 			try {

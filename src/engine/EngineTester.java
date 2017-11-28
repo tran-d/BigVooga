@@ -35,8 +35,8 @@ public class EngineTester extends Application {
 		System.out.println(KeyCode.LEFT.getName());
 		//testCollisions(stage);
 		//testData(stage);
-		//testImageCanvas(stage);
-		testDrawer(stage);
+		testImageCanvas(stage);
+		//testDrawer(stage);
 	}
 	
 	private void generateGame(BoundedImage i) {
