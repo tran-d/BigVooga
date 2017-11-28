@@ -81,7 +81,7 @@ public class GameDataHandler {
 	 */
 	private void addToKnownProjects() throws IOException {
 		Properties prop = new Properties();
-		FileInputStream in = new FileInputStream(KNOWN_PROJECTS);
+		FileInputStream in = new FileInputStream("src/resources/"+KNOWN_PROJECTS+".properties");
 		prop.load(in);
 		in.close();
 		prop.put(projectName, "Modified " + LocalDateTime.now());
