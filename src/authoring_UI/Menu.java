@@ -92,9 +92,10 @@ public class Menu extends VBox {
 		createCategoryTabs();
 		createSpriteTabs();
 		createSpriteCreator();
+		createOverviewWindow();
 		this.setPrefSize(MENU_WIDTH, MENU_HEIGHT);
 
-//		createStatePane(new VBox());
+		// createStatePane(new VBox());
 	}
 
 	private void createButtons() {
@@ -230,6 +231,16 @@ public class Menu extends VBox {
 		// return in;
 	}
 
+	private void createOverviewWindow() {
+		Button openOverView = new Button("Open Overview");
+		openOverView.setOnAction(e -> {
+			System.out.println("Overview button pressed");
+			OverviewWindow overviewWindow = new OverviewWindow();
+			overviewWindow.getStage().show();
+		});
+		this.getChildren().add(openOverView);
+	}
+
 	private void createSpriteCreator() {
 		// GridPane container = new GridPane();
 		// ColumnConstraints cc = new ColumnConstraints();
@@ -240,21 +251,21 @@ public class Menu extends VBox {
 		// container.getRowConstraints().add(rc);
 
 		Button createSpriteButton = new Button("Create Sprite");
-		
+
 		createSpriteButton.setOnAction(e -> {
 			System.out.println("Button pressed");
 			SpriteCreator mySpriteCreatorClass = myMapManager.createNewSpriteCreator();
 			GridPane mySpriteCreator = mySpriteCreatorClass.getGrid();
-				this.getChildren().remove(createSpriteButton);
-				this.getChildren().add(mySpriteCreator);
-				mySpriteCreatorClass.onCreate(f -> {
-					this.getChildren().remove(mySpriteCreator);
-					this.getChildren().add(createSpriteButton);
-				});
-			
+			this.getChildren().remove(createSpriteButton);
+			this.getChildren().add(mySpriteCreator);
+			mySpriteCreatorClass.onCreate(f -> {
+				this.getChildren().remove(mySpriteCreator);
+				this.getChildren().add(createSpriteButton);
+			});
+
 		});
 
-//		container.getChildren().add(mySpriteCreator);
+		// container.getChildren().add(mySpriteCreator);
 		// this.getChildren().add(mySpriteCreator);
 		this.getChildren().add(createSpriteButton);
 	}
@@ -297,7 +308,7 @@ public class Menu extends VBox {
 		mySPTAI.apply();
 		myAEM.getSpriteParameterSidebarManager().apply();
 	}
-	
+
 	private void addParameter() {
 		List<String> choices = new ArrayList<>();
 		choices.add("Boolean");
@@ -311,10 +322,9 @@ public class Menu extends VBox {
 		Optional<String> result = dialog.showAndWait();
 		result.ifPresent(type -> createNewParameter(type));
 	}
-	
-	
+
 	private void createNewParameter(String type) {
-		
+
 	}
 
 }

@@ -79,6 +79,7 @@ public class MapManager extends TabPane {
 		SpriteCreator mySpriteCreator = new SpriteCreator(stage, mySprites, myAEM);
 		return mySpriteCreator;
 	}
+	
 
 	private void createTab(int tabCount) {
 		currentTab = new Tab();
