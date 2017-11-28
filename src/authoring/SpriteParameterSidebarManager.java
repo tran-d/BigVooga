@@ -12,43 +12,58 @@ import javafx.scene.text.Text;
 
 public class SpriteParameterSidebarManager {
 
-//	ScrollPane SP;
+	// ScrollPane SP;
 	HashMap<String, ArrayList<SpriteParameterI>> everyStateParameter = new HashMap<String, ArrayList<SpriteParameterI>>();
 	HashMap<String, String> newNameOldName = new HashMap<String, String>();
 	boolean firstTimeThrough = true;
-	SpriteObjectI firstSprite;
+	SpriteObject firstSprite;
 	SpriteObjectGridManagerI mySOGM;
 
-	public SpriteObjectI getParameters(SpriteObjectGridManagerI SOGM) throws Exception {
+	SpriteParameterSidebarManager(SpriteObjectGridManagerI SOGM) {
 		mySOGM = SOGM;
-		ArrayList<SpriteObjectI> sprites = SOGM.getActiveSpriteObjects();
+	}
+
+	public SpriteObject getActiveSprite() throws Exception {
+		// mySOGM = SOGM;
+		ArrayList<SpriteObject> sprites = mySOGM.getActiveSpriteObjects();
 		checkActiveCellsMatch(sprites);
 		return firstSprite;
 	}
-	
-	
 
-	private void checkActiveCellsMatch(ArrayList<SpriteObjectI> SO_List) throws Exception {
-		for (SpriteObjectI SO: SO_List){
-		if (firstTimeThrough) {
-			initializeMaps(SO);
-			firstTimeThrough = false;
-		} else {
-			boolean matches = SO.isSame(firstSprite);
-			if (!matches){
-				throw new Exception("Sprites are not identical");
+	private void checkActiveCellsMatch(ArrayList<SpriteObject> SO_List) throws Exception {
+		if (SO_List.size() > 0) {
+			firstTimeThrough = true;
+			for (SpriteObject SO : SO_List) {
+				if (firstTimeThrough) {
+					initializeMaps(SO);
+					firstTimeThrough = false;
+				} else {
+					boolean matches = SO.isSame(firstSprite);
+					if (!matches) {
+						throw new Exception("Sprites are not identical");
+					}
+				}
 			}
+		} else {
+			setNoCellsActive();
+			System.out.println("No cells active");
 		}
-		}
-	
+
 	}
 
-	private void initializeMaps(SpriteObjectI SO) {
+	private void initializeMaps(SpriteObject SO) {
 		firstSprite = SO;
 		everyStateParameter = SO.getParameters();
 		newNameOldName = new HashMap<String, String>();
 	}
 	
+	public void setNoCellsActive() {
+		firstTimeThrough = true;
+		firstSprite = null;
+		everyStateParameter = null;
+		newNameOldName = null;
+	}
+
 	public void apply() {
 		mySOGM.matchActiveCellsToSprite(firstSprite);
 	}
