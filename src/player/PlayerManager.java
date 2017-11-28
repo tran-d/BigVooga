@@ -24,31 +24,21 @@ public class PlayerManager {
 	private double clickX;
 	private double clickY;
 	
-	/**
-	 * 
-	 */
 	public PlayerManager() {
 		
 	}
 	
-	/**
-	 * 
-	 * @return
-	 */
 	public List<String> getKeysDown() {
 		return keysDown;
 	}
 	
-	/**
-	 * 
-	 * @return
-	 */
 	public List<String> getPrevKeysDown() {
 		return prevKeysDown;
 	}
 	
 	public void setKeyPressed(KeyCode keyCode) {
 		keysDown.add(keyCode.getName());
+		System.out.println("por que no working");
 	}
 	
 	public void setKeyReleased(KeyCode keyCode) {
@@ -85,9 +75,6 @@ public class PlayerManager {
 		gameDisplay = currentGameDisplay;
 	}
 	
-	/**
-	 * 
-	 */
 	public void step() {
 		prevKeysDown = new ArrayList<>(keysDown);
 		prevPrimaryButtonDown = primaryButtonDown;

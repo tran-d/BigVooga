@@ -7,6 +7,7 @@ import default_pkg.SceneController;
 import engine.sprite.DisplayableImage;
 import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.WelcomeScreen;
+import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -22,12 +23,14 @@ public class GameDisplay {
 	private SceneController sceneController;
 	private PlayerManager playerManager;
 	private GameDataHandler gameDataHandler;
+	private ParallelCamera camera;
 	
 	public GameDisplay(Stage currentStage, SceneController currentSceneController) {
 		stage = currentStage;
 		rootPane = new Pane();
 		sceneController = currentSceneController;
 		scene = new Scene(rootPane, WelcomeScreen.WIDTH, WelcomeScreen.HEIGHT);
+		camera = new ParallelCamera();
 	}
 	
 	public void createGameDisplay() {
@@ -35,6 +38,9 @@ public class GameDisplay {
 		scene.setOnKeyReleased(e -> playerManager.setKeyReleased(e.getCode()));
 		scene.setOnMousePressed(e -> playerManager.setPrimaryButtonDown(e.getX(), e.getY()));
 		scene.setOnMouseReleased(e -> playerManager.setPrimaryButtonUp(e.getX(), e.getY()));
+		
+		camera.setFarClip(25);
+		scene.setCamera(camera);
 	}
 	
 	public void setPlayerManager(PlayerManager currentPlayerManager) {
