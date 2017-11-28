@@ -120,6 +120,7 @@ public class GameSelector extends MenuOptionsTemplate {
 		} else {
 			title.setExpanded(false);
 			entry.setPrefHeight(COLLAPSED_TREE_HEIGHT);
+			
 		}
 	}
 }
