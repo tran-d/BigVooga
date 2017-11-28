@@ -86,8 +86,9 @@ public class GameMaster implements EngineController{
 	@Override
 	public void setPlayerManager(PlayerManager currentPlayerManager) {
 		playerManager = currentPlayerManager;
-		for(GameWorld w : madeWorlds)
+		for(GameWorld w : madeWorlds) {
 			w.setPlayerManager(playerManager);
+		}
 	}
 	
 	
