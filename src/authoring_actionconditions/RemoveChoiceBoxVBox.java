@@ -1,13 +1,12 @@
 package authoring_actionconditions;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import ActionConditionClasses.ChoiceBoxVBox;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class RemoveChoiceBoxVBox extends ChoiceBoxVBox<Integer> {
 	
-	public RemoveChoiceBoxVBox(String label,List<Integer> removalOptions) {
+	public RemoveChoiceBoxVBox(String label,ObservableList<Integer> removalOptions) {
 		super(label,removalOptions);
 	}
 	
@@ -30,7 +29,7 @@ public class RemoveChoiceBoxVBox extends ChoiceBoxVBox<Integer> {
 	}
 	
 	private void adjustListtoSize(int newSize) {
-		List<Integer> newOptions = new LinkedList<Integer>();
+		ObservableList<Integer> newOptions = FXCollections.observableArrayList();
 		for(int i = 1; i <= newSize; i++) {
 			newOptions.add(i);
 		}

@@ -9,12 +9,12 @@ import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
 import javafx.scene.control.CheckBox;
 
-public class CheckBoxVBox<T> extends VBoxList<T> {
+public class ActionCheckBoxVBox<T> extends VBoxList<T> {
 	
 	private ObservableList<CheckBox> checkBoxes;
 	
-	public CheckBoxVBox(List<T> options) {
-		super(options);
+	public ActionCheckBoxVBox(String label,ObservableList<T> options) {
+		super(label,options);
 		checkBoxes = FXCollections.observableList(new LinkedList<CheckBox>());
 		checkBoxes.addListener((ListChangeListener<CheckBox>) c -> iterateThroughChanges(c));
 	}

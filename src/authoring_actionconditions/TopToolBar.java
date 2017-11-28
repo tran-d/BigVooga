@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import ActionConditionClasses.ChoiceBoxVBox;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -23,11 +25,11 @@ public class TopToolBar extends ToolBar implements TopToolBarI {
 		super();
 		tabResources = resourceBundle;
 		addButton = new Button(tabResources.getString(addButtonTitle));
-		List<String> additionOptions = ActionConditionTabUtil.convertToList(tabResources.getString(optionsTitle));
+		ObservableList<String> additionOptions = ActionConditionTabUtil.convertToObservableList(tabResources.getString(optionsTitle));
 		selectorVBox = new ChoiceBoxVBox<String>(tabResources.getString(selectorLabel), additionOptions);
 		Separator separator = ActionConditionTabUtil.makeVerticalSeparator();
 		removeButton = new Button(tabResources.getString(remove));
-		removeRowVBox = new RemoveChoiceBoxVBox(tabResources.getString("RemoverLabel"),new LinkedList<Integer>());
+		removeRowVBox = new RemoveChoiceBoxVBox(tabResources.getString("RemoverLabel"),FXCollections.observableList(new LinkedList<Integer>()));
 		getItems().addAll(addButton,selectorVBox,separator,removeButton,removeRowVBox);
 	}
 

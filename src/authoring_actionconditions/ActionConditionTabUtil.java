@@ -1,8 +1,8 @@
 package authoring_actionconditions;
 
 import java.util.Arrays;
-import java.util.List;
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Separator;
 
@@ -16,8 +16,8 @@ public class ActionConditionTabUtil {
 		return separator;
 	}
 	
-	protected static List<String> convertToList(String resourceString) {
+	protected static ObservableList<String> convertToObservableList(String resourceString) {
 		String[] optionsSplit = resourceString.split(SPLITTER);
-		return Arrays.asList(optionsSplit);
+		return FXCollections.observableList(Arrays.asList(optionsSplit));
 	}
 }
