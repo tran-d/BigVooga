@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeMap;
@@ -14,8 +15,6 @@ import java.util.TreeSet;
 import engine.sprite.BoundedImage;
 import engine.sprite.Sprite;
 import engine.utilities.collisions.CollisionEvent;
-
-//TODO need to add addToObjectList()? 
 
 /**
  * 
@@ -35,6 +34,7 @@ public class GameObject extends VariableContainer {
 	private CollisionEvent lastCollision;
 	private double width;
 	private double height;
+	private int uniqueID;
 
 	public GameObject() {
 		name = DEFAULT_TAG;
@@ -45,7 +45,7 @@ public class GameObject extends VariableContainer {
 		doubleVars = new HashMap<String, Double>();
 		booleanVars = new HashMap<String, Boolean>();
 		stringVars = new HashMap<String, String>();
-		events = new TreeMap<>();
+		events = new HashMap<>();
 	}
 
 	public GameObject(String name) {
@@ -98,12 +98,12 @@ public class GameObject extends VariableContainer {
 		events.put(c, a);
 	}
 
-	public void step(World w) {
+	public void step(World w, int priorityNum, List<Runnable> runnables) {
 		currentSprite.step();
 		for (Condition c : events.keySet()) {
-			for (Action a : events.get(c)) {
-				if (c.isTrue(this, w)) {
-					a.execute(this, w);
+			if(c.getPriority() == priorityNum && c.isTrue(this, w)) {
+				for (Action a : events.get(c)) {
+					runnables.add(() -> a.execute(this, w));
 				}
 			}
 		}
@@ -113,8 +113,7 @@ public class GameObject extends VariableContainer {
 	 * This is meant for the frontend to use for the purpose of placing a new
 	 * instance of an object into the world.
 	 * 
-	 * @param x,
-	 *            y
+	 * @param x, y
 	 */
 	public void setCoords(double x, double y) {
 		// TODO Trigger listeners here
@@ -201,12 +200,26 @@ public class GameObject extends VariableContainer {
 			copy.addConditionAction(c, new ArrayList<>(events.get(c)));
 		return copy;
 	}
-
+	
 	public CollisionEvent getLastCollisionChecked() {
 		return lastCollision;
 	}
 
 	public void setLastCollisionChecked(CollisionEvent collisionEvent) {
 		lastCollision = collisionEvent;
+	}
+
+	/**
+	 * @return the uniqueID
+	 */
+	public int getUniqueID() {
+		return uniqueID;
+	}
+
+	/**
+	 * @param uniqueID the uniqueID to set
+	 */
+	public void setUniqueID(int uniqueID) {
+		this.uniqueID = uniqueID;
 	}
 }

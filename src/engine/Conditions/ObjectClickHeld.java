@@ -24,7 +24,7 @@ public class ObjectClickHeld extends Condition {
 //				world.getPlayerManager().getClickX() > asking.getImage().getX() - 0.5 * asking.getImage().getWidth() &&
 //				world.getPlayerManager().getClickX() < asking.getImage().getX() + 0.5 * asking.getImage().getWidth() &&
 //				world.getPlayerManager().getClickY() > asking.getImage().getY() - 0.5 * asking.getImage().getHeight() &&
-//				world.getPlayerManager().getClickY() < asking.getImage().getY() + 0.5 * asking.getImage().getHeight();
+//				world.getPlayerManager().getClickY() < asking.getImage().getY() + 0.5 * asking.getImage().getHeight() &&
 				asking.getImage().checkCollision(new BoundingPoint(world.getPlayerManager().getClickX(), world.getPlayerManager().getClickY())) != null;
 	}
 
