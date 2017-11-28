@@ -57,8 +57,6 @@ public class GameSelector extends MenuOptionsTemplate {
 
 	public void createGameSelector() {
 
-		try (Stream<Path> filePathStream = Files.walk(Paths.get(FILE_PATH))) {
-
 			createGameList();
 
 			Set<String> gameSet = GameDataHandler.knownProjectsWithDateModified().keySet();
@@ -66,19 +64,8 @@ public class GameSelector extends MenuOptionsTemplate {
 				createGameEntry(game);
 			}
 			
-			/*filePathStream.forEach(filePath -> {
-				if (Files.isRegularFile(filePath)) {
-					System.out.println(filePath.getFileName());
-					createGameEntry(filePath.getFileName().toString().replaceAll("\\.[^.]*$", ""));
-				}
-			});*/
 			entriesBox.getChildren().add(tree);
 			contentPane.setContent(entriesBox);
-
-		} catch (IOException e) {
-			// show error
-			e.printStackTrace();
-		}
 	}
 
 	public HBox createTitleItem(String gameTitle) {

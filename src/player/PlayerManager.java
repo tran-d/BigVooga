@@ -1,7 +1,9 @@
 package player;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import engine.EngineController;
 import engine.sprite.DisplayableImage;
@@ -16,8 +18,8 @@ public class PlayerManager {
 
 	private GameDisplay gameDisplay;
 	
-	private List<String> keysDown = new ArrayList<>();
-	private List<String> prevKeysDown;
+	private Set<String> keysDown = new HashSet<>();
+	private Set<String> prevKeysDown;
 	
 	private boolean primaryButtonDown = false;
 	private boolean prevPrimaryButtonDown = false;
@@ -28,11 +30,19 @@ public class PlayerManager {
 		
 	}
 	
-	public List<String> getKeysDown() {
+	/**
+	 * 
+	 * @return
+	 */
+	public Set<String> getKeysDown() {
 		return keysDown;
 	}
 	
-	public List<String> getPrevKeysDown() {
+	/**
+	 * 
+	 * @return
+	 */
+	public Set<String> getPrevKeysDown() {
 		return prevKeysDown;
 	}
 	
@@ -76,7 +86,7 @@ public class PlayerManager {
 	}
 	
 	public void step() {
-		prevKeysDown = new ArrayList<>(keysDown);
+		prevKeysDown = new HashSet<>(keysDown);
 		prevPrimaryButtonDown = primaryButtonDown;
 	}
 		
