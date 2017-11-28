@@ -16,24 +16,23 @@
               <entry>
                 <engine.Conditions.KeyHeld>
                   <priorityNum>1</priorityNum>
+                  <check>X</check>
+                </engine.Conditions.KeyHeld>
+                <list>
+                  <engine.Actions.Rotate>
+                    <headingIncrement>1.0</headingIncrement>
+                  </engine.Actions.Rotate>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>1</priorityNum>
                   <check>Down</check>
                 </engine.Conditions.KeyHeld>
                 <list>
                   <engine.Actions.Move>
                     <xIncrement>0.0</xIncrement>
                     <yIncrement>3.0</yIncrement>
-                  </engine.Actions.Move>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.KeyHeld>
-                  <priorityNum>1</priorityNum>
-                  <check>Left</check>
-                </engine.Conditions.KeyHeld>
-                <list>
-                  <engine.Actions.Move>
-                    <xIncrement>-3.0</xIncrement>
-                    <yIncrement>0.0</yIncrement>
                   </engine.Actions.Move>
                 </list>
               </entry>
@@ -58,6 +57,29 @@
                   <engine.Actions.Move>
                     <xIncrement>0.0</xIncrement>
                     <yIncrement>-3.0</yIncrement>
+                  </engine.Actions.Move>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>1</priorityNum>
+                  <check>Z</check>
+                </engine.Conditions.KeyHeld>
+                <list>
+                  <engine.Actions.Rotate>
+                    <headingIncrement>-1.0</headingIncrement>
+                  </engine.Actions.Rotate>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>1</priorityNum>
+                  <check>Left</check>
+                </engine.Conditions.KeyHeld>
+                <list>
+                  <engine.Actions.Move>
+                    <xIncrement>-3.0</xIncrement>
+                    <yIncrement>0.0</yIncrement>
                   </engine.Actions.Move>
                 </list>
               </entry>
