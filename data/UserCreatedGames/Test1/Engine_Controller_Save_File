@@ -10,7 +10,19 @@
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
             <name>unnamed</name>
             <tagSet/>
-            <events class="tree-map">
+            <events>
+              <entry>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>2</priorityNum>
+                  <check>Right</check>
+                </engine.Conditions.KeyHeld>
+                <list>
+                  <engine.Actions.Move>
+                    <xIncrement>1.0</xIncrement>
+                    <yIncrement>0.0</yIncrement>
+                  </engine.Actions.Move>
+                </list>
+              </entry>
               <entry>
                 <engine.Conditions.KeyHeld>
                   <priorityNum>1</priorityNum>
@@ -18,7 +30,7 @@
                 </engine.Conditions.KeyHeld>
                 <list>
                   <engine.Actions.Move>
-                    <xIncrement>1.0</xIncrement>
+                    <xIncrement>-1.0</xIncrement>
                     <yIncrement>0.0</yIncrement>
                   </engine.Actions.Move>
                 </list>
@@ -40,53 +52,38 @@
                             <geometry class="engine.utilities.collisions.BoundingPolygon">
                               <vertices>
                                 <javafx.geometry.Point2D>
-                                  <x>-0.21499999999999997</x>
-                                  <y>0.2452574525745257</y>
+                                  <x>-0.2279808664266758</x>
+                                  <y>0.20596424905355637</y>
                                   <hash>0</hash>
                                 </javafx.geometry.Point2D>
                                 <javafx.geometry.Point2D>
-                                  <x>-0.27249999999999996</x>
-                                  <y>-0.05826558265582654</y>
+                                  <x>-0.24544998509652233</x>
+                                  <y>-0.1429606096740635</y>
                                   <hash>0</hash>
                                 </javafx.geometry.Point2D>
                                 <javafx.geometry.Point2D>
-                                  <x>-0.2025</x>
-                                  <y>-0.26964769647696474</y>
+                                  <x>-0.05079409134680407</x>
+                                  <y>-0.33770936803366525</y>
                                   <hash>0</hash>
                                 </javafx.geometry.Point2D>
                                 <javafx.geometry.Point2D>
-                                  <x>-0.04999999999999999</x>
-                                  <y>-0.3346883468834688</y>
+                                  <x>0.32603975424559917</x>
+                                  <y>-0.17541873606733044</y>
                                   <hash>0</hash>
                                 </javafx.geometry.Point2D>
                                 <javafx.geometry.Point2D>
-                                  <x>0.17500000000000004</x>
-                                  <y>-0.29132791327913277</y>
+                                  <x>0.4258632895018649</x>
+                                  <y>0.13022862080260011</y>
                                   <hash>0</hash>
                                 </javafx.geometry.Point2D>
                                 <javafx.geometry.Point2D>
-                                  <x>0.345</x>
-                                  <y>-0.15853658536585363</y>
+                                  <x>0.28111916338027965</x>
+                                  <y>0.2871095650367237</y>
                                   <hash>0</hash>
                                 </javafx.geometry.Point2D>
                                 <javafx.geometry.Point2D>
-                                  <x>0.44500000000000006</x>
-                                  <y>0.10433604336043356</y>
-                                  <hash>0</hash>
-                                </javafx.geometry.Point2D>
-                                <javafx.geometry.Point2D>
-                                  <x>0.385</x>
-                                  <y>0.26964769647696474</y>
-                                  <hash>0</hash>
-                                </javafx.geometry.Point2D>
-                                <javafx.geometry.Point2D>
-                                  <x>0.21999999999999997</x>
-                                  <y>0.30758807588075876</y>
-                                  <hash>0</hash>
-                                </javafx.geometry.Point2D>
-                                <javafx.geometry.Point2D>
-                                  <x>-0.09499999999999997</x>
-                                  <y>0.2831978319783198</y>
+                                  <x>-0.14562644984025652</x>
+                                  <y>0.2654708141078791</y>
                                   <hash>0</hash>
                                 </javafx.geometry.Point2D>
                               </vertices>
@@ -117,7 +114,7 @@
             <uniqueID>0</uniqueID>
           </engine.GameObject>
         </worldObjects>
-        <conditionPriorities>
+        <conditionPriorities class="tree-map">
           <entry>
 <<<<<<< HEAD
             <engine.Conditions.ObjectClickHeld>
@@ -126,6 +123,12 @@
 =======
             <int>1</int>
 >>>>>>> eeddd2b419adf335344fb1ffdf7f254ea143416e
+            <list>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject"/>
+            </list>
+          </entry>
+          <entry>
+            <int>2</int>
             <list>
               <engine.GameObject reference="../../../../worldObjects/engine.GameObject"/>
             </list>
