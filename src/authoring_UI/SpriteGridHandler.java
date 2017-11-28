@@ -75,16 +75,13 @@ public class SpriteGridHandler {
 
 			if (db.hasContent(objectFormat)) {
 				mySOGM.populateCell(draggingObject, row_col);
-//				System.out.println("has object format??");
-//				System.out.println("Parent size: " + ((Pane) draggingObject.getParent()).getChildren().size());
-//				System.out.println("Parent: " + ((Pane) draggingObject.getParent()));
+				// gets locations of sprite in pane
+				int spriteLocation = ((Pane)draggingObject.getParent()).getChildren().indexOf(draggingObject);
 				
-
 				if (draggingObject.getParent() instanceof SpriteSelectPanel) {
 					SpriteSelectPanel spritePanel = (SpriteSelectPanel) draggingObject.getParent();
-					spritePanel.addNewDefaultSprite(draggingObject);
+					spritePanel.addNewDefaultSprite(draggingObject, spriteLocation);
 				}
-				
 				((Pane) draggingObject.getParent()).getChildren().remove(draggingObject);
 				pane.getChildren().add(draggingObject);
 				e.setDropCompleted(true);

@@ -49,9 +49,9 @@ public class SpriteSelectPanel extends VBox {
 		mySGH.addDragObject(SO);
 	}
 	
-	public void addNewDefaultSprite(SpriteObject SO) {
+	public void addNewDefaultSprite(SpriteObject SO, int spriteLocation) {
 		SpriteObject newSO = SO.newCopy();
-		this.getChildren().add(newSO);
+		this.getChildren().add(spriteLocation, newSO);
 		makeSpriteDraggable(newSO);
 	}
 	
