@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import player.PlayerManager;
 /**
@@ -18,7 +19,7 @@ public class GameLayer implements World {
 	
 	private String worldName;
 	private List<GameObject> worldObjects;
-	private Map<Integer, List<GameObject>> conditionPriorities = new HashMap<>();
+	private Map<Integer, List<GameObject>> conditionPriorities = new TreeMap<>();
 	private Map<Integer, GameObject> idToGameObject = new HashMap<>();
 	private GlobalVariables globalVars;
 	//private GameObjectFactory GameObjectFactory;
@@ -111,7 +112,6 @@ public class GameLayer implements World {
 			}
 			for(Runnable r : runnables) {
 				r.run();
-			
 			}
 			runnables.clear();
 		}
