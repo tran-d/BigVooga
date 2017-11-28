@@ -49,7 +49,7 @@ public class EngineTester extends Application {
 		obj.addConditionAction(new KeyHeld(1,"Left"), actions1);
 		List<Action> actions2 = new ArrayList<Action>();
 		actions2.add(new Move(1, 0));
-		obj.addConditionAction(new KeyHeld(1,"Right"), actions2);
+		obj.addConditionAction(new KeyHeld(2,"Right"), actions2);
 		Sprite sprite = new Sprite();
 		List<BoundedImage> images = new ArrayList<>();
 		images.add(i);

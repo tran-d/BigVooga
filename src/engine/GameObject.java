@@ -45,7 +45,7 @@ public class GameObject extends VariableContainer {
 		doubleVars = new HashMap<String, Double>();
 		booleanVars = new HashMap<String, Boolean>();
 		stringVars = new HashMap<String, String>();
-		events = new TreeMap<>();
+		events = new HashMap<>();
 	}
 
 	public GameObject(String name) {
