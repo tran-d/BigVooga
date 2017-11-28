@@ -68,5 +68,24 @@ public class GameWorld {
 			l.setPlayerManager(input);
 		}
 	}
+	
+	public void addLayer(GameLayer layer)
+	{
+		worldLayers.add(layer);
+	}
+	
+	public void removeLayer(String layerName)
+	{
+		for(GameLayer l: worldLayers)
+		{
+			if(l.isNamed(layerName))
+			{
+				worldLayers.remove(l);
+				return;
+			}
+		}
+		//Placeholder for error I guess?
+		System.out.println("No such world");
+	}
 
 }
