@@ -6,7 +6,7 @@ import engine.EngineController;
 import engine.GameMaster;
 import engine.GameObject;
 import engine.GameLayer;
-import engine.World;
+import engine.Layer;
 import engine.utilities.data.GameDataHandler;
 
 public class SpriteObjectGridToEngineController {
@@ -19,7 +19,7 @@ public class SpriteObjectGridToEngineController {
 	}
 	
 	public void createWorldAndAddToEngine(SpriteObjectGridManagerI SOGMI) {
-		World thisWorld = createWorld();
+		Layer thisWorld = createWorld();
 		ArrayList<GameObject> GO_LIST = convertSpriteObjectGridToListOfGameObjects(SOGMI);
 		addAllGameObjectsToWorld(GO_LIST, thisWorld);
 		addWorldToEngine(thisWorld);
@@ -73,12 +73,12 @@ public class SpriteObjectGridToEngineController {
 		return GO_LIST;
 	}
 	
-	private World createWorld() {
-		World thisWorld = new GameLayer();
+	private Layer createWorld() {
+		Layer thisWorld = new GameLayer();
 		return thisWorld;
 	}
 	
-	private void addAllGameObjectsToWorld(ArrayList<GameObject> GO_LIST, World world) {
+	private void addAllGameObjectsToWorld(ArrayList<GameObject> GO_LIST, Layer world) {
 		for (GameObject GO: GO_LIST) {
 			world.addGameObject(GO);
 		}
@@ -88,7 +88,7 @@ public class SpriteObjectGridToEngineController {
 		myEC = new GameMaster();
 	}
 	
-	private void addWorldToEngine(World newWorld) {
+	private void addWorldToEngine(Layer newWorld) {
 		myEC.addWorld(newWorld);
 	}
 	

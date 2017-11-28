@@ -8,7 +8,7 @@ public abstract class Condition implements Comparable<Condition> {
 	
 	public int priorityNum;
 	
-	public abstract boolean isTrue(GameObject asking, World world);
+	public abstract boolean isTrue(GameObject asking, Layer world);
 	
 	public int getPriority() {
 		return priorityNum;
