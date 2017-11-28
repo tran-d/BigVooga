@@ -52,6 +52,7 @@ public class SceneController {
 		sceneMap.put(GAME_SELECTOR_KEY, scene);
 		
 		gameDisplay = new GameDisplay(stage, this);
+		gameDisplay.createGameDisplay();
 		scene = gameDisplay.getScene();
 		sceneMap.put(GAME_DISPLAY_KEY, scene);
 		
