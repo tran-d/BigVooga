@@ -8,7 +8,7 @@ import engine.GameMaster;
 import engine.GameObject;
 import engine.GameWorld;
 import engine.GameLayer;
-import engine.World;
+import engine.Layer;
 import engine.utilities.data.GameDataHandler;
 
 public class SpriteObjectGridToEngineController {
