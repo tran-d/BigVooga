@@ -26,17 +26,17 @@
 .button {
 	-fx-font-size: 20px;
 	-fx-font-family: Segoe UI;
-	-fx-text-fill: #ea7f4b;
+	-fx-text-fill: #47BDFF;
 	-fx-border-style: solid inside;
     -fx-border-width: 2;
-    -fx-border-color: #ea7f4b;
+    -fx-border-color: #47BDFF;
     -fx-background-insets: 1px;
     -fx-background-color: transparent;
 }
 
 .button:hover {
     -fx-background-color: 
-        #64290c;
+        #ea7f4b;
 }
 
 #title {
