@@ -4,7 +4,7 @@ import java.util.List;
 
 import engine.Action;
 import engine.GameObject;
-import engine.GameWorld;
+import engine.GameLayer;
 import engine.World;
 
 public class ChangeWorld implements Action {
@@ -21,7 +21,7 @@ public class ChangeWorld implements Action {
 	
 	@Override
 	public void execute(GameObject asking, World world) {
-		List<GameObject> players = world.getWithTag(GameWorld.PLAYER_TAG);
+		List<GameObject> players = world.getWithTag(GameLayer.PLAYER_TAG);
 		world.removeGameObjects(players);
 		MoveTo moveTo = new MoveTo(newPlayerX, newPlayerY);
 		for(GameObject player : players) {
