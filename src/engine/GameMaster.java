@@ -59,7 +59,6 @@ public class GameMaster implements EngineController{
 	public void addWorld(World w) {
 		// TODO Auto-generated method stub
 		w.addGlobalVars(globalVars);
-		w.setPlayerManager(playerManager);
 		madeWorlds.add(w);
 		
 	}
@@ -88,6 +87,10 @@ public class GameMaster implements EngineController{
 	@Override
 	public void setPlayerManager(PlayerManager currentPlayerManager) {
 		playerManager = currentPlayerManager;
+		for(World w : madeWorlds)
+		{
+			w.setPlayerManager(playerManager);
+		}
 	}
 	
 	
