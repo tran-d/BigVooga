@@ -1,8 +1,5 @@
 package ActionConditionClasses;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -18,7 +15,8 @@ public abstract class VBoxList<T> extends VBox implements VBoxListI<T> {
 		super();
 		topLabel = new Label(label);
 		getChildren().add(topLabel);
-		boxOptions = options;
+		boxOptions = FXCollections.observableArrayList();
+		setNewOptions(options);
 		boxOptions.addListener((ListChangeListener<T>) c -> realizeNewOptions(boxOptions));
 	}
 	
@@ -29,7 +27,7 @@ public abstract class VBoxList<T> extends VBox implements VBoxListI<T> {
 	
 	@Override
 	public void setNewOptions(ObservableList<T> newOptions) {
-		boxOptions.setAll(FXCollections.observableArrayList(newOptions.subList(0, newOptions.size())));
+		boxOptions.setAll(newOptions);
 	}
 	
 	@Override
@@ -40,6 +38,11 @@ public abstract class VBoxList<T> extends VBox implements VBoxListI<T> {
 	@Override
 	public ObservableList<T> getOptions() {
 		return boxOptions;
+	}
+	
+	@Override
+	public void addListChangeListener(ListChangeListener<T> listChangeListener) {
+		boxOptions.addListener(listChangeListener);
 	}
 
 }
