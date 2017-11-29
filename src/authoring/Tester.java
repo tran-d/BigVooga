@@ -24,7 +24,7 @@ public class Tester extends Application {
 	private int FRAMESPEED = 1000 / 60;
 	Timeline TIMELINE;
 	SpriteParameterFactory SPF = new SpriteParameterFactory();
-	SpriteParameterSidebarManager MAN = new SpriteParameterSidebarManager();
+//	SpriteParameterSidebarManager MAN = new SpriteParameterSidebarManager();
 
 	ArrayList<SpriteParameterI> myParams;
 	ArrayList<SpriteObjectI> mySObjects = new ArrayList<SpriteObjectI>();

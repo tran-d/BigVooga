@@ -1,7 +1,6 @@
 package authoring_UI;
 
-import java.util.Observable;
-import java.util.Observer;
+import java.util.ArrayList;
 
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObjectGridManagerI;
@@ -16,18 +15,19 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class MapManager extends TabPane implements Observer {
+public class MapManager extends TabPane {
 	
 	private Stage stage;
 	private Scene scene;
 	private SceneController sceneController;
-	
 	private SingleSelectionModel<Tab> mySelectModel;
 	private Tab currentTab;
 	private Tab addTab;
 	private AuthoringEnvironmentManager myAEM;
 	private SpriteObjectGridManagerI mySOGM;
 	private SpriteManager mySprites;
+	private AuthoringMapEnvironment authMap;
+	private final String addTabString = "+";
 	
 	private int myTabCount = 1;
 	private static final String TABTAG = "map ";
@@ -47,7 +47,7 @@ public class MapManager extends TabPane implements Observer {
 		this.setSide(Side.TOP);
 		addTab = new Tab();
 		addTab.setClosable(false);
-		addTab.setText("+");
+		addTab.setText(addTabString);
 		addTab.setOnSelectionChanged(e -> {
 			createTab(myTabCount);
 			mySelectModel.select(currentTab);
@@ -56,17 +56,44 @@ public class MapManager extends TabPane implements Observer {
 	}
 
 	private HBox setupScene() {
-		myAEM = new AuthoringEnvironmentManager();
-		Menu myMenu = new Menu(myAEM,this);
-		mySOGM = myAEM.getGridManager();
-		DraggableGrid myGrid = new DraggableGrid(myTabCount, myMenu, mySOGM);
-		mySprites = new SpriteManager(myGrid, myAEM, mySOGM);
-		HBox authMap = new HBox(myMenu, myGrid, mySprites);
+
+		authMap = new AuthoringMapEnvironment();
+		setupBEAuthClasses();
+		setupFEAuthClasses();
+
 		authMap.setPrefWidth(WelcomeScreen.WIDTH);
 		authMap.setPrefHeight(WelcomeScreen.HEIGHT);
 		
 		return authMap;
 	}
+	
+	private void setupBEAuthClasses() {
+		myAEM = new AuthoringEnvironmentManager();
+		mySOGM = myAEM.getGridManager();
+	}
+	
+	private void setupFEAuthClasses() {
+		Menu myMenu = new Menu(myAEM, this);
+		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, myMenu, mySOGM);
+		DraggableGrid myGrid = new DraggableGrid(mySpriteGridHandler);
+		mySprites = new SpriteManager(mySpriteGridHandler, myAEM, mySOGM);
+		mySpriteGridHandler.addKeyPress(scene);
+//
+//<<<<<<< HEAD
+//		authMap.getChildren().addAll(myMenu, myGrid, mySprites);
+//		mySpriteGridHandler.addKeyPress(scene);
+//=======
+		authMap.setMenu(myMenu);
+		authMap.setGrid(myGrid);
+		authMap.setSpriteManager(mySprites);
+//		authMap.getChildren().addAll(myMenu, myGrid, mySprites);
+	}
+	
+	protected SpriteCreator createNewSpriteCreator() {
+		SpriteCreator mySpriteCreator = new SpriteCreator(stage, mySprites, myAEM);
+		return mySpriteCreator;
+	}
+	
 
 	private void createTab(int tabCount) {
 		currentTab = new Tab();
@@ -76,10 +103,17 @@ public class MapManager extends TabPane implements Observer {
 		this.getTabs().add(this.getTabs().size() - 1, currentTab);
 		myTabCount++;
 	}
+	
+	private ArrayList<AuthoringMapEnvironment> getAllMapEnvironments(){
+		ArrayList<AuthoringMapEnvironment> allMaps = new ArrayList<AuthoringMapEnvironment>();
+		for (Tab t: this.getTabs()) {
+			if (!t.getText().equals(addTabString)){
+				AuthoringMapEnvironment AME = (AuthoringMapEnvironment) t.getContent();
+				allMaps.add(AME);
+			}
+		}
+		return allMaps;
 
-	@Override
-	public void update(Observable o, Object arg) {
-		System.out.println("notified observer");
-		mySprites.getUserSpriteParam((String) arg);
+	
 	}
 }

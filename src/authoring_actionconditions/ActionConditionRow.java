@@ -37,6 +37,14 @@ public class ActionConditionRow extends ToolBar {
 		actionCheckBoxVBox.setNewOptions(newOptions);
 	}
 	
+	protected void addActionOption() {
+		actionCheckBoxVBox.addAction();
+	}
+	
+	protected void removeActionOption(Integer action) {
+		actionCheckBoxVBox.removeAction(action);
+	}
+	
 	protected void decreaseLabelID() {
 		labelInt --;
 		IDlabel.setText(Integer.toString(labelInt));

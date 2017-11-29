@@ -9,7 +9,7 @@ import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
 import javafx.scene.control.CheckBox;
 
-public class ActionCheckBoxVBox<T> extends VBoxList<T> {
+public class ActionCheckBoxVBox<T> extends VBoxList<T> implements ActionCheckBoxVBoxI {
 
 	private ObservableList<CheckBox> checkBoxes;
 
@@ -42,6 +42,17 @@ public class ActionCheckBoxVBox<T> extends VBoxList<T> {
 			for(CheckBox checkBox : c.getRemoved()) getChildren().remove(checkBox);
 			for(CheckBox checkBox : c.getAddedSubList()) getChildren().add(checkBox);
 		}
+	}
+
+	@Override
+	public void addAction() {
+		checkBoxes.add(new CheckBox(Integer.toString(checkBoxes.size() + 1)));
+	}
+
+	@Override
+	public void removeAction(Integer action) {
+		checkBoxes.remove(action);
+		for(int i = action; i < checkBoxes.size(); i++) checkBoxes.get(i).setText(Integer.toString(action));
 	}
 
 }

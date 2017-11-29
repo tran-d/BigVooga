@@ -9,6 +9,8 @@ public class ControllerActionCheckBoxVBox {
 		this.conditionTab = conditionTab;
 		this.actionTab = actionTab;
 		this.actionTab.addTopToolBarListChangeListener(c -> this.conditionTab.setNewActionOptions(this.actionTab.getCurrentActions()));
+		//this.actionTab.addButtonListener(e -> this.conditionTab.addActionOption());
+		//this.actionTab.addRemoveListener(e -> this.conditionTab.removeActionOption(actionTab.getRemoveValue()));
 	}
 
 }

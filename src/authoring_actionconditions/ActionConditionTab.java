@@ -5,11 +5,13 @@ import java.util.ResourceBundle;
 import authoring_UI.Menu;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
 
-public class ActionConditionTab extends Tab {
+public class ActionConditionTab extends Tab implements ActionConditionTabI {
 	
 	private static final double SPACING = 10;
 	
@@ -53,5 +55,30 @@ public class ActionConditionTab extends Tab {
 	private void determineTabType(String title) {
 		if(title.equals(Menu.conditionActionTitles.getString("ConditionsTabTitle"))) isConditionTab = true;
 		else isConditionTab = false;
+	}
+
+	@Override
+	public Integer getRemoveValue() {
+		return buttons.getRemoveValue();
+	}
+
+	@Override
+	public void addButtonListener(EventHandler<ActionEvent> e) {
+		buttons.addButtonListener(e);
+	}
+
+	@Override
+	public void addRemoveListener(EventHandler<ActionEvent> e) {
+		buttons.addRemoveListener(e);
+	}
+
+	@Override
+	public void addActionOption() {
+		actionConditionVBox.addActionOption();
+	}
+
+	@Override
+	public void removeActionOption(Integer action) {
+		actionConditionVBox.removeActionOption(action);
 	}
 }

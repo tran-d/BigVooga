@@ -15,7 +15,7 @@ public class FEParameterFactory extends VBox {
 		}
 		this.setSpacing(5);
 	}
-	
+
 	private void createFEParameter(SpriteParameterI BEParam) {
 		if (BEParam instanceof BooleanSpriteParameter) {
 			FEBooleanParameter newBoolean = new FEBooleanParameter(BEParam);
@@ -28,7 +28,16 @@ public class FEParameterFactory extends VBox {
 			this.getChildren().add(newDouble);
 		}
 	}
-	
-	
-	
+
+	public static FEParameter makeFEParameter(SpriteParameterI SPI) {
+		FEParameter ret = null;
+		if (SPI instanceof BooleanSpriteParameter) {
+			ret = new FEBooleanParameter(SPI);
+		} else if (SPI instanceof StringSpriteParameter) {
+			ret = new FEStringParameter(SPI);
+		} else if (SPI instanceof DoubleSpriteParameter) {
+			ret = new FEDoubleParameter(SPI);
+		}
+		return ret;
+	}
 }

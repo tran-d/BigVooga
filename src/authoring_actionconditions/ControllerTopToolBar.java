@@ -16,8 +16,10 @@ public class ControllerTopToolBar {
 		topToolBar.addRemoveListener(e -> handleAddingorRemoving(false));
 	}
 	
-	private void handleAddingorRemoving(Boolean isAdding) {
+	private void handleAddingorRemoving(boolean isAdding) {
+		System.out.println("I should see this 4 times");
 		if(isAdding && !(topToolBar.getOptionsValue() == null)) {
+			System.out.println("actions should be adding");
 			actionConditionVBox.addActionCondition(topToolBar.getOptionsValue());
 			topToolBar.addRemoveOption();
 		}
