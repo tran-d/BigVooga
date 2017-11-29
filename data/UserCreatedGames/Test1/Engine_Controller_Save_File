@@ -36,77 +36,6 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.KeyHeld>
-                  <priorityNum>1</priorityNum>
-                  <check>Z</check>
-                </engine.Conditions.KeyHeld>
-                <list>
-                  <engine.Actions.Rotate>
-                    <headingIncrement>-1.0</headingIncrement>
-                  </engine.Actions.Rotate>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.ObjectClickHeld>
-                  <priorityNum>1</priorityNum>
-                </engine.Conditions.ObjectClickHeld>
-                <list>
-                  <engine.Actions.Rotate>
-                    <headingIncrement>1.0</headingIncrement>
-                  </engine.Actions.Rotate>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.DoubleGreaterThan>
-                  <priorityNum>1</priorityNum>
-                  <varName>xCor</varName>
-                  <check>300.0</check>
-                </engine.Conditions.DoubleGreaterThan>
-                <list>
-                  <engine.Actions.RotateTo>
-                    <newHeading>25.0</newHeading>
-                  </engine.Actions.RotateTo>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.KeyHeld>
-                  <priorityNum>1</priorityNum>
-                  <check>Up</check>
-                </engine.Conditions.KeyHeld>
-                <list>
-                  <engine.Actions.Move>
-                    <xIncrement>0.0</xIncrement>
-                    <yIncrement>-3.0</yIncrement>
-                  </engine.Actions.Move>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.KeyPressed>
-                  <priorityNum>1</priorityNum>
-                  <check>C</check>
-                </engine.Conditions.KeyPressed>
-                <list>
-                  <engine.Actions.Create>
-                    <name>Ob2</name>
-                    <x>500.0</x>
-                    <y>500.0</y>
-                    <heading>20.0</heading>
-                  </engine.Actions.Create>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.KeyHeld>
-                  <priorityNum>1</priorityNum>
-                  <check>Right</check>
-                </engine.Conditions.KeyHeld>
-                <list>
-                  <engine.Actions.Move>
-                    <xIncrement>3.0</xIncrement>
-                    <yIncrement>0.0</yIncrement>
-                  </engine.Actions.Move>
-                </list>
-              </entry>
-              <entry>
                 <engine.Conditions.Or>
                   <priorityNum>1</priorityNum>
                   <condition1 class="engine.Conditions.KeyReleased">
@@ -122,6 +51,7 @@
                   <engine.Actions.ChangeDouble>
                     <varName>xSpeed</varName>
                     <newDouble>-3.0</newDouble>
+                    <relative>false</relative>
                   </engine.Actions.ChangeDouble>
                 </list>
               </entry>
@@ -135,6 +65,30 @@
                     <xSpeedVar>xSpeed</xSpeedVar>
                     <ySpeedVar>ySpeed</ySpeedVar>
                   </engine.Actions.MoveByVariable>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>1</priorityNum>
+                  <check>Right</check>
+                </engine.Conditions.KeyHeld>
+                <list>
+                  <engine.Actions.Move>
+                    <xIncrement>3.0</xIncrement>
+                    <yIncrement>0.0</yIncrement>
+                  </engine.Actions.Move>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.DoubleGreaterThan>
+                  <priorityNum>1</priorityNum>
+                  <varName>xCor</varName>
+                  <check>300.0</check>
+                </engine.Conditions.DoubleGreaterThan>
+                <list>
+                  <engine.Actions.RotateTo>
+                    <newHeading>25.0</newHeading>
+                  </engine.Actions.RotateTo>
                 </list>
               </entry>
               <entry>
@@ -153,7 +107,20 @@
                   <engine.Actions.ChangeDouble>
                     <varName>xSpeed</varName>
                     <newDouble>-10.0</newDouble>
+                    <relative>false</relative>
                   </engine.Actions.ChangeDouble>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>1</priorityNum>
+                  <check>Up</check>
+                </engine.Conditions.KeyHeld>
+                <list>
+                  <engine.Actions.Move>
+                    <xIncrement>0.0</xIncrement>
+                    <yIncrement>-3.0</yIncrement>
+                  </engine.Actions.Move>
                 </list>
               </entry>
               <entry>
@@ -166,6 +133,41 @@
                     <xIncrement>0.0</xIncrement>
                     <yIncrement>3.0</yIncrement>
                   </engine.Actions.Move>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.KeyPressed>
+                  <priorityNum>1</priorityNum>
+                  <check>C</check>
+                </engine.Conditions.KeyPressed>
+                <list>
+                  <engine.Actions.Create>
+                    <name>Ob2</name>
+                    <x>500.0</x>
+                    <y>500.0</y>
+                    <heading>20.0</heading>
+                  </engine.Actions.Create>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.ObjectClickHeld>
+                  <priorityNum>1</priorityNum>
+                </engine.Conditions.ObjectClickHeld>
+                <list>
+                  <engine.Actions.Rotate>
+                    <headingIncrement>1.0</headingIncrement>
+                  </engine.Actions.Rotate>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>1</priorityNum>
+                  <check>Z</check>
+                </engine.Conditions.KeyHeld>
+                <list>
+                  <engine.Actions.Rotate>
+                    <headingIncrement>-1.0</headingIncrement>
+                  </engine.Actions.Rotate>
                 </list>
               </entry>
             </events>
@@ -424,33 +426,33 @@
                 </tagSet>
                 <events>
                   <entry>
-                    <engine.Conditions.KeyHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry/engine.Conditions.KeyHeld"/>
+                    <engine.Conditions.Or reference="../../../../../../../worldObjects/engine.GameObject/events/entry/engine.Conditions.Or"/>
                     <list>
-                      <engine.Actions.Rotate reference="../../../../../../../../worldObjects/engine.GameObject/events/entry/list/engine.Actions.Rotate"/>
+                      <engine.Actions.ChangeDouble reference="../../../../../../../../worldObjects/engine.GameObject/events/entry/list/engine.Actions.ChangeDouble"/>
                     </list>
                   </entry>
                   <entry>
-                    <engine.Conditions.ObjectClickHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[2]/engine.Conditions.ObjectClickHeld"/>
+                    <engine.Conditions.KeyHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[2]/engine.Conditions.KeyHeld"/>
                     <list>
-                      <engine.Actions.Rotate reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[2]/list/engine.Actions.Rotate"/>
+                      <engine.Actions.MoveByVariable reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[2]/list/engine.Actions.MoveByVariable"/>
                     </list>
                   </entry>
                   <entry>
-                    <engine.Conditions.DoubleGreaterThan reference="../../../../../../../worldObjects/engine.GameObject/events/entry[3]/engine.Conditions.DoubleGreaterThan"/>
+                    <engine.Conditions.KeyHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[3]/engine.Conditions.KeyHeld"/>
                     <list>
-                      <engine.Actions.RotateTo reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[3]/list/engine.Actions.RotateTo"/>
+                      <engine.Actions.Move reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[3]/list/engine.Actions.Move"/>
                     </list>
                   </entry>
                   <entry>
-                    <engine.Conditions.KeyHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[4]/engine.Conditions.KeyHeld"/>
+                    <engine.Conditions.DoubleGreaterThan reference="../../../../../../../worldObjects/engine.GameObject/events/entry[4]/engine.Conditions.DoubleGreaterThan"/>
                     <list>
-                      <engine.Actions.Move reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[4]/list/engine.Actions.Move"/>
+                      <engine.Actions.RotateTo reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[4]/list/engine.Actions.RotateTo"/>
                     </list>
                   </entry>
                   <entry>
-                    <engine.Conditions.KeyPressed reference="../../../../../../../worldObjects/engine.GameObject/events/entry[5]/engine.Conditions.KeyPressed"/>
+                    <engine.Conditions.And reference="../../../../../../../worldObjects/engine.GameObject/events/entry[5]/engine.Conditions.And"/>
                     <list>
-                      <engine.Actions.Create reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[5]/list/engine.Actions.Create"/>
+                      <engine.Actions.ChangeDouble reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[5]/list/engine.Actions.ChangeDouble"/>
                     </list>
                   </entry>
                   <entry>
@@ -460,27 +462,27 @@
                     </list>
                   </entry>
                   <entry>
-                    <engine.Conditions.Or reference="../../../../../../../worldObjects/engine.GameObject/events/entry[7]/engine.Conditions.Or"/>
+                    <engine.Conditions.KeyHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[7]/engine.Conditions.KeyHeld"/>
                     <list>
-                      <engine.Actions.ChangeDouble reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[7]/list/engine.Actions.ChangeDouble"/>
+                      <engine.Actions.Move reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[7]/list/engine.Actions.Move"/>
                     </list>
                   </entry>
                   <entry>
-                    <engine.Conditions.KeyHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[8]/engine.Conditions.KeyHeld"/>
+                    <engine.Conditions.KeyPressed reference="../../../../../../../worldObjects/engine.GameObject/events/entry[8]/engine.Conditions.KeyPressed"/>
                     <list>
-                      <engine.Actions.MoveByVariable reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[8]/list/engine.Actions.MoveByVariable"/>
+                      <engine.Actions.Create reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[8]/list/engine.Actions.Create"/>
                     </list>
                   </entry>
                   <entry>
-                    <engine.Conditions.And reference="../../../../../../../worldObjects/engine.GameObject/events/entry[9]/engine.Conditions.And"/>
+                    <engine.Conditions.ObjectClickHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[9]/engine.Conditions.ObjectClickHeld"/>
                     <list>
-                      <engine.Actions.ChangeDouble reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[9]/list/engine.Actions.ChangeDouble"/>
+                      <engine.Actions.Rotate reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[9]/list/engine.Actions.Rotate"/>
                     </list>
                   </entry>
                   <entry>
                     <engine.Conditions.KeyHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[10]/engine.Conditions.KeyHeld"/>
                     <list>
-                      <engine.Actions.Move reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[10]/list/engine.Actions.Move"/>
+                      <engine.Actions.Rotate reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[10]/list/engine.Actions.Rotate"/>
                     </list>
                   </entry>
                 </events>

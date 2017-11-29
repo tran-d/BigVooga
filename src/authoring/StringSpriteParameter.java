@@ -9,7 +9,7 @@ public class StringSpriteParameter extends SpriteParameter {
 	
 	String myValue; 
 	
-	StringSpriteParameter(String name, Object value){
+	public StringSpriteParameter(String name, Object value){
 			super(name, value);	
 		}
 	

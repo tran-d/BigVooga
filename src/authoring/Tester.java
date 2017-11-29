@@ -24,7 +24,7 @@ public class Tester extends Application {
 	private int FRAMESPEED = 1000 / 60;
 	Timeline TIMELINE;
 	SpriteParameterFactory SPF = new SpriteParameterFactory();
-	SpriteParameterSidebarManager MAN = new SpriteParameterSidebarManager();
+//	SpriteParameterSidebarManager MAN = new SpriteParameterSidebarManager();
 
 	ArrayList<SpriteParameterI> myParams;
 	ArrayList<SpriteObjectI> mySObjects = new ArrayList<SpriteObjectI>();
@@ -116,10 +116,10 @@ public class Tester extends Application {
 			myParams.add(SPF.makeParameter("canFight", true));
 			myParams.add(SPF.makeParameter("health", i));
 			myParams.add(SPF.makeParameter("name", s.get(0)));
-//			for (SpriteParameterI SP : myParams) {
-//				System.out.println(SP.getName());
-//				System.out.println(SP.getClass());
-//			}
+			for (SpriteParameterI SP : myParams) {
+				System.out.println(SP.getName());
+				System.out.println(SP.getClass());
+			}
 			for (SpriteParameterI SP: myParams){
 				SO.addParameter(SP);
 			}
