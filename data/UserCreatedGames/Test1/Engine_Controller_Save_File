@@ -5,7 +5,16 @@
         <worldName>Layer</worldName>
         <worldObjects>
           <engine.GameObject>
-            <doubleVars defined-in="engine.VariableContainer"/>
+            <doubleVars defined-in="engine.VariableContainer">
+              <entry>
+                <string>xSpeed</string>
+                <double>-3.0</double>
+              </entry>
+              <entry>
+                <string>ySpeed</string>
+                <double>0.0</double>
+              </entry>
+            </doubleVars>
             <stringVars defined-in="engine.VariableContainer"/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
             <name>Ob1</name>
@@ -14,16 +23,13 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.ObjectClickHeld>
-                  <priorityNum>1</priorityNum>
-                </engine.Conditions.ObjectClickHeld>
                 <engine.Conditions.KeyHeld>
                   <priorityNum>1</priorityNum>
-                  <check>X</check>
+                  <check>Z</check>
                 </engine.Conditions.KeyHeld>
                 <list>
                   <engine.Actions.Rotate>
-                    <headingIncrement>1.0</headingIncrement>
+                    <headingIncrement>-1.0</headingIncrement>
                   </engine.Actions.Rotate>
                 </list>
               </entry>
@@ -42,6 +48,36 @@
               <entry>
                 <engine.Conditions.KeyHeld>
                   <priorityNum>1</priorityNum>
+                  <check>X</check>
+                </engine.Conditions.KeyHeld>
+                <list>
+                  <engine.Actions.Rotate>
+                    <headingIncrement>1.0</headingIncrement>
+                  </engine.Actions.Rotate>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.And>
+                  <priorityNum>1</priorityNum>
+                  <condition1 class="engine.Conditions.KeyHeld">
+                    <priorityNum>1</priorityNum>
+                    <check>Q</check>
+                  </condition1>
+                  <condition2 class="engine.Conditions.KeyHeld">
+                    <priorityNum>1</priorityNum>
+                    <check>Space</check>
+                  </condition2>
+                </engine.Conditions.And>
+                <list>
+                  <engine.Actions.ChangeDouble>
+                    <varName>xSpeed</varName>
+                    <newDouble>-10.0</newDouble>
+                  </engine.Actions.ChangeDouble>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>1</priorityNum>
                   <check>Right</check>
                 </engine.Conditions.KeyHeld>
                 <list>
@@ -54,35 +90,43 @@
               <entry>
                 <engine.Conditions.KeyHeld>
                   <priorityNum>1</priorityNum>
+                  <check>Left</check>
+                </engine.Conditions.KeyHeld>
+                <list>
+                  <engine.Actions.MoveByVariable>
+                    <xSpeedVar>xSpeed</xSpeedVar>
+                    <ySpeedVar>ySpeed</ySpeedVar>
+                  </engine.Actions.MoveByVariable>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.Or>
+                  <priorityNum>1</priorityNum>
+                  <condition1 class="engine.Conditions.KeyReleased">
+                    <priorityNum>1</priorityNum>
+                    <check>Q</check>
+                  </condition1>
+                  <condition2 class="engine.Conditions.KeyReleased">
+                    <priorityNum>1</priorityNum>
+                    <check>Space</check>
+                  </condition2>
+                </engine.Conditions.Or>
+                <list>
+                  <engine.Actions.ChangeDouble>
+                    <varName>xSpeed</varName>
+                    <newDouble>-3.0</newDouble>
+                  </engine.Actions.ChangeDouble>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>1</priorityNum>
                   <check>Up</check>
                 </engine.Conditions.KeyHeld>
                 <list>
                   <engine.Actions.Move>
                     <xIncrement>0.0</xIncrement>
                     <yIncrement>-3.0</yIncrement>
-                  </engine.Actions.Move>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.KeyHeld>
-                  <priorityNum>1</priorityNum>
-                  <check>Z</check>
-                </engine.Conditions.KeyHeld>
-                <list>
-                  <engine.Actions.Rotate>
-                    <headingIncrement>-1.0</headingIncrement>
-                  </engine.Actions.Rotate>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.KeyHeld>
-                  <priorityNum>1</priorityNum>
-                  <check>Left</check>
-                </engine.Conditions.KeyHeld>
-                <list>
-                  <engine.Actions.Move>
-                    <xIncrement>-3.0</xIncrement>
-                    <yIncrement>0.0</yIncrement>
                   </engine.Actions.Move>
                 </list>
               </entry>
@@ -104,28 +148,6 @@
                             <geometry class="engine.utilities.collisions.BoundingPolygon">
                               <vertices>
                                 <javafx.geometry.Point2D>
-                                  <x>-0.2179985129010492</x>
-                                  <y>0.20596424905355637</y>
-                                  <hash>0</hash>
-                                </javafx.geometry.Point2D>
-                                <javafx.geometry.Point2D>
-                                  <x>-0.2803882224362153</x>
-                                  <y>-0.27820280297934247</y>
-                                  <hash>0</hash>
-                                </javafx.geometry.Point2D>
-                                <javafx.geometry.Point2D>
-                                  <x>0.19876474679386036</x>
-                                  <y>-0.42696921561514933</y>
-                                  <hash>0</hash>
-                                </javafx.geometry.Point2D>
-                                <javafx.geometry.Point2D>
-                                  <x>0.4558103500787447</x>
-                                  <y>0.10588502600764982</y>
-                                  <hash>0</hash>
-                                </javafx.geometry.Point2D>
-                                <javafx.geometry.Point2D>
-                                  <x>0.4009074056877985</x>
-                                  <y>0.29522409663504046</y>
                                   <x>-0.5</x>
                                   <y>-0.5</y>
                                   <hash>0</hash>

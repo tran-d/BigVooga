@@ -26,7 +26,6 @@ public class GameObject extends VariableContainer {
 	private String name;
 	private Set<String> tagSet;
 	private Map<Condition, List<Action>> events;
-	private double x, y, heading;
 	private Sprite currentSprite;
 	private Map<String, Double> doubleVars;
 	private Map<String, Boolean> booleanVars;
@@ -36,13 +35,17 @@ public class GameObject extends VariableContainer {
 	private double height = 200; //TODO Sizes
 	private int uniqueID;
 
+	public static final String X_COR = "xCor";
+	public static final String Y_COR = "yCor";
+	public static final String HEADING = "heading";
+	
 	public GameObject() {
 		name = DEFAULT_TAG;
 		tagSet = new HashSet<String>();
-		x = 0;
-		y = 0;
-		heading = 0;
 		doubleVars = new HashMap<String, Double>();
+		doubleVars.put(X_COR, 0.0);
+		doubleVars.put(Y_COR, 0.0);
+		doubleVars.put(HEADING, 0.0);
 		booleanVars = new HashMap<String, Boolean>();
 		stringVars = new HashMap<String, String>();
 		events = new HashMap<>();
@@ -117,24 +120,24 @@ public class GameObject extends VariableContainer {
 	 */
 	public void setCoords(double x, double y) {
 		// TODO Trigger listeners here
-		this.x = x;
-		this.y = y;
+		doubleVars.put(X_COR, x);
+		doubleVars.put(Y_COR, y);
 	}
 
 	public double getX() {
-		return x;
+		return doubleVars.get(X_COR);
 	}
 
 	public double getY() {
-		return y;
+		return doubleVars.get(Y_COR);
 	}
 
 	public void setHeading(double newHeading) {
-		heading = newHeading;
+		doubleVars.put(HEADING, newHeading);
 	}
 
 	public double getHeading() {
-		return heading;
+		return doubleVars.get(HEADING);
 	}
 
 	public Set<Integer> getPriorities() {
@@ -178,16 +181,16 @@ public class GameObject extends VariableContainer {
 	public BoundedImage getImage() {
 		//TODO width and height?
 		BoundedImage result = currentSprite.getImage();
-		result.setPosition(x, y);
-		result.setHeading(heading);
+		result.setPosition(doubleVars.get(X_COR), doubleVars.get(Y_COR));
+		result.setHeading(doubleVars.get(HEADING));
 		result.setSize(width, height);
 		return result;
 	}
 
 	public GameObject clone() {
 		GameObject copy = new GameObject(name);
-		copy.setCoords(x, y);
-		copy.setHeading(heading);
+		copy.setCoords(doubleVars.get(X_COR), doubleVars.get(Y_COR));
+		copy.setHeading(doubleVars.get(HEADING));
 		for (String tag : tagSet)
 			copy.addTag(tag);
 		for (String var : stringVars.keySet())
