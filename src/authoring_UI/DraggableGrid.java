@@ -27,73 +27,79 @@ public class DraggableGrid extends VBox {
 	private GridPane myGrid;
 	
 	protected DraggableGrid(SpriteGridHandler spriteGridHandler) {
-		myGrids = new StackPane();
-		terrainImage = new ImageView(new Image("square.png"));
-		createTerrainGrid();
+//		myGrids = new StackPane();
+//		terrainImage = new ImageView(new Image("square.png"));
+//		createTerrainGrid();
 		createGrid(spriteGridHandler);
-		ScrollPane scrollGrid = new ScrollPane(myGrids);
-		scrollGrid.setPannable(true);
-		this.getChildren().addAll(createTerrainButton(), scrollGrid);
+//		ScrollPane scrollGrid = new ScrollPane(myGrids);
+//		scrollGrid.setPannable(true);
+//		scrollGrid.setMaxWidth(600);
+		//createTerrainGrid();
 	}
 	
 	private void createGrid(SpriteGridHandler spriteGridHandler) {
-		myGrid = new GridPane();
+		GridPane gp = new GridPane();
         
-        for(int i = 0; i < 10; i++){
-            for(int j = 0; j < 10; j++){
+        for(int i = 0; i < 15; i++){
+            for(int j = 0; j < 15; j++){
                     StackPane sp = new StackPane();
                     sp.setPrefHeight(50);
                     sp.setPrefWidth(50);
-//                    sp.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+                    sp.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
                     BorderStroke border = new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.DOTTED, CornerRadii.EMPTY, BorderWidths.DEFAULT);
                     sp.setBorder(new Border(border));
-                    myGrid.add(sp, i, j);
+                    gp.add(sp, i, j);
                     spriteGridHandler.addDropHandling(sp);
                     spriteGridHandler.addGridMouseClick(sp);
             }
         }
-        spriteGridHandler.addGrid(myGrid);
-        myGrids.getChildren().add(myGrid);
+		ScrollPane scrollGrid = new ScrollPane(gp);
+		scrollGrid.setPannable(true);
+		scrollGrid.setMaxWidth(600);
+		
+        spriteGridHandler.addGrid(gp);
+        
+        this.getChildren().add(scrollGrid);
 	}
 	
-	private void createTerrainGrid() {
-		terrainGrid = new GridPane();
-		 for(int i = 0; i < 10; i++){
-	            for(int j = 0; j < 10; j++){
-	                    StackPane sp = new StackPane();
-	                    sp.setPrefHeight(50);
-	                    sp.setPrefWidth(50);
-	                    sp.getChildren().add(terrainImage);
-	                    terrainGrid.add(sp, i, j);
-	            }
-	        }
-	}
+//	private void createTerrainGrid() {
+//		terrainGrid = new GridPane();
+//		 for(int i = 0; i < 10; i++){
+//	            for(int j = 0; j < 10; j++){
+//	                    StackPane sp = new StackPane();
+//	                    sp.setPrefHeight(50);
+//	                    sp.setPrefWidth(50);
+//	                    sp.getChildren().add(terrainImage);
+//	                    terrainGrid.add(sp, i, j);
+//	            }
+//	        }
+//	}
 	
-	private HBox createTerrainButton() {
-		myTerrain = new ComboBox<String>();
-		myTerrain.getItems().addAll("Grass", "Desert", "Rock");
-		myTerrain.getSelectionModel().selectFirst();
-		Label terrainLabel = new Label("Choose Terrain"); 
-		HBox terrainBox = new HBox(terrainLabel, myTerrain);
-		terrainBox.setPadding(new Insets(5));
-	    terrainBox.setSpacing(5);
-	    
-	    myTerrain.setOnAction(e -> changeTerrain());
-	    
-	    return terrainBox;
-	}
-	
-	private void changeTerrain() {
-		terrainImage = new ImageView(new Image(myTerrain.getValue().toLowerCase() + ".png"));
-		terrainImage.setFitWidth(50);
-		terrainImage.setFitHeight(50);
-		myGrid.getChildren().forEach(cell -> {
-			System.out.println("cell " + cell);
-			StackPane sp = (StackPane) cell;
-			System.out.println("sp " + sp);
-			sp.getChildren().clear();
-			sp.getChildren().add(terrainImage);
-		});
+//	private HBox createTerrainButton() {
+//		myTerrain = new ComboBox<String>();
+//		myTerrain.getItems().addAll("Grass", "Desert", "Rock");
+//		myTerrain.getSelectionModel().selectFirst();
+//		Label terrainLabel = new Label("Choose Terrain"); 
+//		HBox terrainBox = new HBox(terrainLabel, myTerrain);
+//		terrainBox.setPadding(new Insets(5));
+//	    terrainBox.setSpacing(5);
+//	    
+//	    myTerrain.setOnAction(e -> changeTerrain());
+//	    
+//	    return terrainBox;
+//	}
+//	
+//	private void changeTerrain() {
+//		terrainImage = new ImageView(new Image(myTerrain.getValue().toLowerCase() + ".png"));
+//		terrainImage.setFitWidth(50);
+//		terrainImage.setFitHeight(50);
+//		myGrid.getChildren().forEach(cell -> {
+//			System.out.println("cell " + cell);
+//			StackPane sp = (StackPane) cell;
+//			System.out.println("sp " + sp);
+//			sp.getChildren().clear();
+//			sp.getChildren().add(terrainImage);
+//		});
 //		for(int col = 0; col < 10; col++){
 //            for(int row = 0; row < 10; row++){
 //            		int index = (row * (col+1)) + col;
@@ -101,6 +107,6 @@ public class DraggableGrid extends VBox {
 //                 sp.getChildren().add(terrainImage);
 //            }
 //        }
-	}
+//	}
 	
 }
