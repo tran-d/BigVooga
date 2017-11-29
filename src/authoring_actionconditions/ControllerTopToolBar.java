@@ -1,5 +1,7 @@
 package authoring_actionconditions;
 
+import javafx.collections.ObservableList;
+
 public class ControllerTopToolBar {
 	
 	private TopToolBar topToolBar;
@@ -8,7 +10,7 @@ public class ControllerTopToolBar {
 	public ControllerTopToolBar(TopToolBar topToolBar,ActionConditionVBox actionConditionVBox) {
 		this.topToolBar = topToolBar;
 		this.actionConditionVBox = actionConditionVBox;
-		addListeners();
+		addListeners(); 
 	}
 	
 	private void addListeners() {
