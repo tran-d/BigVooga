@@ -4,29 +4,32 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.Optional;
-
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObject;
 import authoring.SpriteParameterI;
+import authoring_actionconditions.ActionConditionTab;
+import authoring_actionconditions.ControllerActionCheckBoxVBox;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Menu extends VBox {
+	
 	private Button myLoad;
 	private Button mySave;
 	private AuthoringEnvironmentManager myAEM;
@@ -36,12 +39,14 @@ public class Menu extends VBox {
 	private TextArea myParameterErrorMessage;
 	private SpriteParameterTabsAndInfo mySPTAI;
 	private MapManager myMapManager;
-
-	private final static String LOAD = "Load";
-	private final static String SAVE = "Save";
-	private final static double MENU_WIDTH = 400;
-	private final static double MENU_HEIGHT = 500;
-
+	private static final String LOAD = "Load";
+	private static final String SAVE = "Save";
+	private static final String ACTIONCONDITIONTITLES_PATH = "TextResources/ConditionActionTitles";
+	private static final double MENU_WIDTH = 400;
+	private static final double MENU_HEIGHT = 500;
+	
+	public static final ResourceBundle conditionActionTitles = ResourceBundle.getBundle(ACTIONCONDITIONTITLES_PATH);
+	
 	protected Menu(AuthoringEnvironmentManager AEM, MapManager myManager) {
 		mySPTAI = new SpriteParameterTabsAndInfo();
 		myAEM = AEM;
@@ -108,6 +113,13 @@ public class Menu extends VBox {
 		this.getChildren().add(myButtons);
 
 	}
+	
+	private void createActionConditionTabs() {
+		ActionConditionTab conditions = new ActionConditionTab(conditionActionTitles.getString("ConditionsTabTitle"));
+		ActionConditionTab actions = new ActionConditionTab(conditionActionTitles.getString("ActionsTabTitle"));
+		ControllerActionCheckBoxVBox controllerActionCheckBoxVBox= new ControllerActionCheckBoxVBox(conditions,actions);
+		mySpriteTabs.getTabs().addAll(conditions,actions);
+	}
 
 	private void createSpriteTabs() {
 		mySpriteTabs = new TabPane();
@@ -115,14 +127,13 @@ public class Menu extends VBox {
 		// .setOnSelectionChanged(e->{displayParams();});
 		// parameters.setContent(myParamTabs);
 		parameters.setContent(createParameterTab());
-		Tab actions = new Tab("Actions");
-		actions.setContent(new TextArea("actions go here"));
 		Tab dialogue = new Tab("Dialogue");
 		dialogue.setContent(new TextArea("dialogue goes here"));
-
-		mySpriteTabs.getTabs().addAll(parameters, actions, dialogue);
+		
+		mySpriteTabs.getTabs().addAll(parameters, dialogue);
 		mySpriteTabs.setSide(Side.TOP);
-		// this.getChildren().add(mySpriteTabs);
+		createActionConditionTabs();
+		this.getChildren().add(mySpriteTabs);
 	}
 
 	private VBox createParameterTab() {

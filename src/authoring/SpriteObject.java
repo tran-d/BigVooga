@@ -14,7 +14,6 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 	private String myImageURL;
 	private Integer[] myPositionOnGrid;
 	private String myName;
-
 	
 	public SpriteObject() {
 		
@@ -27,7 +26,7 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 //		myName = fileURL.split(".")[0];
 	}
 	
-	SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap) {
+	public SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap) {
 		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(inCategoryMap);
 	}
 	
