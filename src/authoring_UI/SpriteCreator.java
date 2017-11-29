@@ -66,7 +66,6 @@ public class SpriteCreator extends Observable {
 		myGDH = myAEM.getGameDataHandler();
 		myCreateSpriteBox = new VBox();
 		myCreateSpriteBox.setSpacing(5);
-		myCreateSpriteBox.setBackground(new Background(new BackgroundFill(Color.ALICEBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
 //		myGrid = new GridPane();
 		mySpriteManager = spriteManager;
 		addObserver(mySpriteManager);
