@@ -51,7 +51,7 @@ public class EngineTester2 extends Application {
 		//testData(stage);
 		//testImageCanvas(stage);
 		//testDrawer(stage);
-		generateGame(new BoundedImage("Crystal.gif"));
+		generateGame(new BoundedImage("Smiley.png"));
 	}
 	
 	private void generateGame(BoundedImage i) {		
@@ -63,6 +63,9 @@ public class EngineTester2 extends Application {
 		
 		obj1.setDoubleVariable("xSpeed", 0);
 		obj1.setDoubleVariable("ySpeed", 0);
+		obj1.setSize(64, 64);
+		System.out.println(obj1.getImage().getWidth());
+		
 		blueprints.addBlueprint(obj1);
 		obj2.addTag("Pillar");
 		blueprints.addBlueprint(obj2);
@@ -112,7 +115,7 @@ public class EngineTester2 extends Application {
 		obj.addConditionAction(new BeginStep(), actions1);
 		actions1 = new ArrayList<Action>();
 		
-		actions1.add(new ChangeDouble("ySpeed", -4, false));
+		actions1.add(new ChangeDouble("ySpeed", -5, false));
 		obj.addConditionAction(new KeyPressed(-1, "Up"), actions1);
 		actions1 = new ArrayList<Action>();
 	}

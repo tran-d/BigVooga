@@ -30,7 +30,7 @@
                 <list>
                   <engine.Actions.ChangeDouble>
                     <varName>ySpeed</varName>
-                    <newDouble>-4.0</newDouble>
+                    <newDouble>-5.0</newDouble>
                     <relative>false</relative>
                   </engine.Actions.ChangeDouble>
                 </list>
@@ -89,11 +89,11 @@
                             </geometry>
                           </engine.utilities.collisions.RelativeBoundingGeometry>
                         </relativeBounds>
-                        <fileName>Crystal.gif</fileName>
-                        <xCenter>0.0</xCenter>
-                        <yCenter>0.0</yCenter>
-                        <xSize>0.0</xSize>
-                        <ySize>0.0</ySize>
+                        <fileName>Smiley.png</fileName>
+                        <xCenter>400.0</xCenter>
+                        <yCenter>200.0</yCenter>
+                        <xSize>64.0</xSize>
+                        <ySize>64.0</ySize>
                         <heading>0.0</heading>
                         <depth>10</depth>
                       </engine.sprite.BoundedImage>
@@ -120,8 +120,8 @@
             </doubleVars>
             <booleanVars/>
             <stringVars/>
-            <width>200.0</width>
-            <height>200.0</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
@@ -134,17 +134,6 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep>
-                  <priorityNum>0</priorityNum>
-                </engine.Conditions.BeginStep>
-                <list>
-                  <engine.Actions.Move>
-                    <xIncrement>-1.0</xIncrement>
-                    <yIncrement>0.0</yIncrement>
-                  </engine.Actions.Move>
-                </list>
-              </entry>
-              <entry>
                 <engine.Conditions.Collision>
                   <priorityNum>3</priorityNum>
                   <tag>Player</tag>
@@ -153,6 +142,17 @@
                   <engine.Actions.Destroy>
                     <objectToDestroy>Birb</objectToDestroy>
                   </engine.Actions.Destroy>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.BeginStep>
+                  <priorityNum>0</priorityNum>
+                </engine.Conditions.BeginStep>
+                <list>
+                  <engine.Actions.Move>
+                    <xIncrement>-1.0</xIncrement>
+                    <yIncrement>0.0</yIncrement>
+                  </engine.Actions.Move>
                 </list>
               </entry>
             </events>
@@ -213,15 +213,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -280,15 +280,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -347,15 +347,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -414,15 +414,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -481,15 +481,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -548,15 +548,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -615,15 +615,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -682,15 +682,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -749,15 +749,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -816,15 +816,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -883,15 +883,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -950,15 +950,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1017,15 +1017,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1084,15 +1084,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1151,15 +1151,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1218,15 +1218,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1285,15 +1285,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1352,15 +1352,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1419,15 +1419,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1486,15 +1486,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1553,15 +1553,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1620,15 +1620,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1687,15 +1687,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1754,15 +1754,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1821,15 +1821,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1888,15 +1888,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1955,15 +1955,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2022,15 +2022,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2089,15 +2089,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2156,15 +2156,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2223,15 +2223,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2290,15 +2290,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2357,15 +2357,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2424,15 +2424,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2491,15 +2491,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2558,15 +2558,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2625,15 +2625,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2692,15 +2692,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2759,15 +2759,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2826,15 +2826,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2893,15 +2893,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2960,15 +2960,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -3027,15 +3027,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -3094,15 +3094,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -3161,15 +3161,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -3228,15 +3228,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -3295,15 +3295,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -3362,15 +3362,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -3429,15 +3429,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -3625,15 +3625,15 @@
                 </tagSet>
                 <events>
                   <entry>
-                    <engine.Conditions.BeginStep reference="../../../../../../../worldObjects/engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                    <engine.Conditions.Collision reference="../../../../../../../worldObjects/engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                     <list>
-                      <engine.Actions.Move reference="../../../../../../../../worldObjects/engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                      <engine.Actions.Destroy reference="../../../../../../../../worldObjects/engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                     </list>
                   </entry>
                   <entry>
-                    <engine.Conditions.Collision reference="../../../../../../../worldObjects/engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                    <engine.Conditions.BeginStep reference="../../../../../../../worldObjects/engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                     <list>
-                      <engine.Actions.Destroy reference="../../../../../../../../worldObjects/engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                      <engine.Actions.Move reference="../../../../../../../../worldObjects/engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                     </list>
                   </entry>
                 </events>
@@ -3718,11 +3718,11 @@
                           <engine.sprite.BoundedImage>
                             <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                             <relativeBounds reference="../../../../../../../../../../../worldObjects/engine.GameObject/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                            <fileName>Crystal.gif</fileName>
-                            <xCenter>0.0</xCenter>
-                            <yCenter>0.0</yCenter>
-                            <xSize>0.0</xSize>
-                            <ySize>0.0</ySize>
+                            <fileName>Smiley.png</fileName>
+                            <xCenter>400.0</xCenter>
+                            <yCenter>200.0</yCenter>
+                            <xSize>64.0</xSize>
+                            <ySize>64.0</ySize>
                             <heading>0.0</heading>
                             <depth>10</depth>
                           </engine.sprite.BoundedImage>

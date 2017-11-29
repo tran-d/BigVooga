@@ -224,4 +224,10 @@ public class GameObject extends VariableContainer {
 	public void setUniqueID(int uniqueID) {
 		this.uniqueID = uniqueID;
 	}
+
+	public void setSize(int width, int height) {
+		// TODO Auto-generated method stub
+		this.width = width;
+		this.height = height;
+	}
 }
