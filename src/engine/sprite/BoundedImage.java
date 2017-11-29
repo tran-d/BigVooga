@@ -13,6 +13,8 @@ import engine.utilities.collisions.RelativeBoundingGeometry;
  */
 public class BoundedImage extends BoundingSet implements DisplayableImage{
 
+	private final int DEFAULT_DEPTH = 10;
+	
 	private List<RelativeBoundingGeometry> relativeBounds;
 	private String fileName;
 	private double xCenter;
@@ -21,9 +23,6 @@ public class BoundedImage extends BoundingSet implements DisplayableImage{
 	private double ySize;
 	private double heading;
 	private int depth;
-	
-
-	private final int DEFAULT_DEPTH = 10;
 
 	public BoundedImage(String fileName) {
 		this.fileName = fileName;
@@ -37,7 +36,7 @@ public class BoundedImage extends BoundingSet implements DisplayableImage{
 		relativeBounds = bounds;
 		depth = DEFAULT_DEPTH;
 	}
-
+	
 	protected List<BoundingGeometry> getGeometry() {
 		List<BoundingGeometry> geometry = new ArrayList<>(relativeBounds.size());
 		for (RelativeBoundingGeometry rg : relativeBounds) {
@@ -98,22 +97,23 @@ public class BoundedImage extends BoundingSet implements DisplayableImage{
 	{
 		this.depth = priority;
 	}
+	
+	@Override
+	public int getDrawingPriority() {
+		return depth;
+	}
 
 	@Override
-	public int compareTo(Object other) {
-		// TODO Auto-generated method stub
-		if(!(other.getClass() == BoundedImage.class))
-		{
-			return -1;
-		}
-		if(depth < ((BoundedImage)other).depth)
-		{
-			return -1;
-		}
-		if(depth > ((BoundedImage)other).depth)
-		{
-			return 1;
-		}
-		return 0;
+	public int compareTo(DisplayableImage other) {
+		return depth - other.getDrawingPriority();
+	}
+	
+	public BoundedImage clone() {
+		BoundedImage i =  new BoundedImage(fileName, relativeBounds);
+		i.setPosition(xCenter, yCenter);
+		i.setHeading(heading);
+		i.setDrawPriority(depth);
+		i.setSize(xSize, ySize);
+		return i;
 	}
 }

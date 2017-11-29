@@ -1,7 +1,7 @@
 package engine.parameterGetters.gameObjectGetters;
 
 import engine.GameObject;
-import engine.World;
+import engine.Layer;
 import engine.parameterGetters.GameObjectGetter;
 
 public class Farthest implements GameObjectGetter {
@@ -13,7 +13,7 @@ public class Farthest implements GameObjectGetter {
 	}
 	
 	@Override
-	public GameObject get(GameObject asking, World world) {
+	public GameObject get(GameObject asking, Layer world) {
 		GameObject farthest = null;
 		double maxDistanceSquared = Double.NEGATIVE_INFINITY;
 		for(GameObject go : world.getWithTag(tag)) {

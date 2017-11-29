@@ -1,7 +1,7 @@
 package engine.parameterGetters.gameObjectGetters;
 
 import engine.GameObject;
-import engine.World;
+import engine.Layer;
 import engine.parameterGetters.GameObjectGetter;
 
 /**
@@ -17,7 +17,7 @@ public class Nearest implements GameObjectGetter {
 	}
 	
 	@Override
-	public GameObject get(GameObject asking, World world) {
+	public GameObject get(GameObject asking, Layer world) {
 		double minDistanceSquared = Double.POSITIVE_INFINITY;
 		GameObject nearest = null;
 		for(GameObject go : world.getWithTag(tag)) {

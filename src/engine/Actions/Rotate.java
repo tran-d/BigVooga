@@ -2,7 +2,7 @@ package engine.Actions;
 
 import engine.Action;
 import engine.GameObject;
-import engine.World;
+import engine.Layer;
 
 public class Rotate implements Action {
 
@@ -13,7 +13,7 @@ public class Rotate implements Action {
 	}
 	
 	@Override
-	public void execute(GameObject asking, World world) {
+	public void execute(GameObject asking, Layer world) {
 		GameObject obj = (GameObject)asking;
 		obj.setHeading(obj.getHeading() + headingIncrement);
 	}
