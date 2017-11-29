@@ -64,35 +64,19 @@ public class EngineTester3 extends Application {
 	private void generateGame(BoundedImage i) {		
 		
 		GameObjectFactory blueprints = new GameObjectFactory();
-		GameObject obj1 = makeObject("Ob1", i, 200, 200, this::conditionAction1);
-		obj1.addTag("Ob1");
-		GameObject obj2 = makeObject("Ob2", i.clone(), 500, 200, this::conditionAction2);
+		GameObject obj1 = makeObject("Player", i, 200, 200, this::conditionAction1);
+		obj1.addTag("Player");
 		
-		obj1.setDoubleVariable("xSpeed", -3);
+		
+		
+		obj1.setDoubleVariable("xSpeed", 0);
 		obj1.setDoubleVariable("ySpeed", 0);
 		blueprints.addBlueprint(obj1);
-		obj2.addTag("Ob2");
-		blueprints.addBlueprint(obj2);
+		
+		
 		GameLayer layer = new GameLayer("Layer");
-		GameObject obj = new GameObject();
-		obj.setDoubleVariable("speed", 50);
-		obj.setCoords(200, 200);
-		List<Action> actions1 = new ArrayList<Action>();
-		actions1.add(new Move(-1, 0));
-		obj.addConditionAction(new ObjectClickHeld(1), actions1);
-		List<Action> actions2 = new ArrayList<Action>();
-		actions2.add(new Move(1, 0));
-		obj.addConditionAction(new KeyHeld(2,"Right"), actions2);
-		Sprite sprite = new Sprite();
-		List<BoundedImage> images = new ArrayList<>();
-		images.add(i);
-		AnimationSequence animation = new AnimationSequence("Animation", images);
-		sprite.addAnimationSequence(animation);
-		sprite.setAnimation("Animation");
-		obj.setSprite(sprite);
 
 		layer.addGameObject(obj1);
-		layer.addGameObject(obj2);
 		layer.setBlueprints(blueprints);
 		
 		GameWorld w = new GameWorld("World");
