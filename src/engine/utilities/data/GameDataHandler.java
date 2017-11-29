@@ -49,10 +49,12 @@ public class GameDataHandler {
 	private static final String DEFAULT_SPRITE_FOLDER = "DefaultSprites/";
 	private static final String CUSTOM_SPRITE_FOLDER = "CustomSprites/";
 	private Map<String, Image> cache = new HashMap<>();
+	private String projectPath;
+	private String projectName;
 	
 	private static XStream setupXStream() {
 		XStream xstream = new XStream(new DomDriver());
-		xstream.addPermission(NoTypePermission.NONE);
+//		xstream.addPermission(NoTypePermission.NONE);
 		xstream.addPermission(NullPermission.NULL);
 		xstream.addPermission(PrimitiveTypePermission.PRIMITIVES);
 		xstream.allowTypes(new Class[] {
@@ -63,9 +65,6 @@ public class GameDataHandler {
 		});
 		return xstream;
 	}
-	
-	private String projectPath;
-	private String projectName;
 	
 	public GameDataHandler(String projectName) {
 		this.projectName = projectName;
@@ -243,9 +242,11 @@ public class GameDataHandler {
 		return ret;
 	}
 
+
 	public String getCustomSpriteDirectoryPath() {
 		String ret = projectPath + PROJECT_USER_SPRITE_PATH + CUSTOM_SPRITE_FOLDER;
 //		System.out.println("custom path: "+ret);
+
 		return ret;
 	}
 	
@@ -267,6 +268,7 @@ public class GameDataHandler {
 		}
 		return ret;
 	}
+
 	
 	private ArrayList<SpriteObject> loadSpritesFromDirectoryName(String filePath) throws Exception {
 		File directory = new File(filePath);

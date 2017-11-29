@@ -48,7 +48,7 @@ public class BooleanSpriteParameter extends SpriteParameter {
 //					);
 //	}
 	
-//	private void makeClone(){
+//	protected void makeClone(){
 //		dummy = new BooleanSpriteParameter(this.myName, this.myValue, true);
 //	}
 	
