@@ -37,6 +37,7 @@ public class SpriteSelectPanel extends VBox {
 	public void setupDefaultSprites(ArrayList<SpriteObject> defaults) {
 		setDefaultSpriteVBox(defaults);
 		makeDefaultSpritesDraggable(defaults);
+		makeDefaultSpritesClickable(defaults);
 	}
 	
 	private void makeDefaultSpritesDraggable(ArrayList<SpriteObject> defaults) {
@@ -49,10 +50,21 @@ public class SpriteSelectPanel extends VBox {
 		mySGH.addDragObject(SO);
 	}
 	
+	private void makeDefaultSpritesClickable(ArrayList<SpriteObject> defaults) {
+		defaults.forEach(SO -> {
+			makeSpriteClickable(SO);
+		});
+	}
+	
+	private void makeSpriteClickable(SpriteObject SO) {
+        mySGH.addMouseClick(SO);
+	}
+	
 	public void addNewDefaultSprite(SpriteObject SO, int spriteLocation) {
 		SpriteObject newSO = SO.newCopy();
 		this.getChildren().add(spriteLocation, newSO);
 		makeSpriteDraggable(newSO);
+		makeSpriteClickable(newSO);
 	}
 	
 

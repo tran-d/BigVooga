@@ -25,17 +25,19 @@ public class SpriteGridHandler {
 	}
 	
 
-	void addMouseClick(StackPane pane) {
-		pane.setOnMouseClicked(e -> {
-
+	void addMouseClick(SpriteObject s) {
+		s.setOnMouseClicked(e -> {
+			
 			boolean activeStatus;
-			activeStatus = mySOGM.switchCellActiveStatus(getStackPanePositionInGrid(pane));
-			if (activeStatus) {
-				pane.setOpacity(.5);
-			} else {
-				pane.setOpacity(1);
+			if (s.getPositionOnGrid() != null) {
+				activeStatus = mySOGM.switchCellActiveStatus(s.getPositionOnGrid());
+				if (activeStatus) {
+					s.setOpacity(.5);
+				} else {
+					s.setOpacity(1);
+				}
+				myMenu.updateParameterTab();
 			}
-			myMenu.updateParameterTab();
 
 		});
 	}
@@ -75,6 +77,7 @@ public class SpriteGridHandler {
 
 			if (db.hasContent(objectFormat)) {
 				mySOGM.populateCell(draggingObject, row_col);
+				draggingObject.setPositionOnGrid(row_col);
 				// gets locations of sprite in pane
 				int spriteLocation = ((Pane)draggingObject.getParent()).getChildren().indexOf(draggingObject);
 				
@@ -117,15 +120,15 @@ public class SpriteGridHandler {
 		});
 	}
 
-	protected void addDragObject(SpriteObject b) {
-		b.setOnDragDetected(e -> {
-			Dragboard db = b.startDragAndDrop(TransferMode.MOVE);
+	protected void addDragObject(SpriteObject s) {
+		s.setOnDragDetected(e -> {
+			Dragboard db = s.startDragAndDrop(TransferMode.MOVE);
 
-			db.setDragView(b.snapshot(null, null));
+			db.setDragView(s.snapshot(null, null));
 			ClipboardContent cc = new ClipboardContent();
 			cc.put(objectFormat, " ");
 			db.setContent(cc);
-			draggingObject = b;
+			draggingObject = s;
 		});
 	}
 }

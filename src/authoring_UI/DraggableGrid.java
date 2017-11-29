@@ -34,7 +34,6 @@ public class DraggableGrid extends HBox {
 
                     gp.add(sp, i, j);
                     spriteGridHandler.addDropHandling(sp);
-                    spriteGridHandler.addMouseClick(sp);
             }
         }
         ScrollPane scrollGrid = new ScrollPane(gp);

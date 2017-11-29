@@ -94,7 +94,6 @@ public class SpriteManager extends TabPane implements Observer {
 		addNewUserDefinedSprite(sp, myUserSprites.getChildren().size());
 	}
 
-
 	
 //	private void addNewDefaultSprite(SpriteObject sp) {
 //		mySprites.addNewDefaultSprite(sp);
