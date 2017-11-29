@@ -13,7 +13,7 @@ public class AuthoringMapEnvironment extends HBox{
 	}
 	
 	AuthoringMapEnvironment(Menu menu, DraggableGrid DG, SpriteManager SM){
-		super();
+		this();
 		setMenu(menu);
 		setGrid(DG);
 		setSpriteManager(SM);

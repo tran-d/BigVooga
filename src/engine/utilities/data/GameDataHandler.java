@@ -54,7 +54,7 @@ public class GameDataHandler {
 	
 	private static XStream setupXStream() {
 		XStream xstream = new XStream(new DomDriver());
-		xstream.addPermission(NoTypePermission.NONE);
+//		xstream.addPermission(NoTypePermission.NONE);
 		xstream.addPermission(NullPermission.NULL);
 		xstream.addPermission(PrimitiveTypePermission.PRIMITIVES);
 		xstream.allowTypes(new Class[] {
@@ -70,6 +70,7 @@ public class GameDataHandler {
 		this.projectName = projectName;
 		this.projectPath = PATH+projectName + "/";
 		makeDirectory(projectPath);
+		makeSpriteDirectories();
 	}
 
 	public void saveGame(EngineController controller) throws IOException {
@@ -177,6 +178,19 @@ public class GameDataHandler {
 		writer.write(toSave);
 		writer.close();
 	}
+	
+	public void saveSpriteToDirectory(SpriteObject SO, String directory) throws Exception{
+		if (!directoryExists(directory)){
+			makeDirectory(directory);
+		}
+		String spriteName = directory+SO.getName();
+		
+		try{
+			saveSprite(SO, spriteName);
+		} catch (Exception e){
+			throw new Exception("Could not save sprite");
+		}
+	}
 
 	public void saveDefaultSprite(SpriteObject SO) throws IOException {
 		String path = makeValidFileName(getDefaultSpriteDirectoryPath() + SO.getName());
@@ -190,6 +204,10 @@ public class GameDataHandler {
 			counter++;
 		}
 		return path;
+	}
+	
+	public String getProjectPath(){
+		return this.projectPath;
 	}
 
 	public void saveUserCreatedSprite(SpriteObject SO) throws IOException {
@@ -213,18 +231,74 @@ public class GameDataHandler {
 		File file = imageChooser.showOpenDialog(stage);
 		return file;
 	}
+	
+	private boolean isValidDirectory(File directory){
+		return directory.isDirectory()&&!directory.getName().startsWith(".");
+	}
 
-	private String getDefaultSpriteDirectoryPath() {
+	public String getDefaultSpriteDirectoryPath() {
 		String ret = projectPath + PROJECT_USER_SPRITE_PATH + DEFAULT_SPRITE_FOLDER;
-		System.out.println("default path: "+ret);
+//		System.out.println("default path: "+ret);
 		return ret;
 	}
 
-	private String getCustomSpriteDirectoryPath() {
+
+	public String getCustomSpriteDirectoryPath() {
 		String ret = projectPath + PROJECT_USER_SPRITE_PATH + CUSTOM_SPRITE_FOLDER;
-		System.out.println("custom path: "+ret);
+//		System.out.println("custom path: "+ret);
+
 		return ret;
 	}
+	
+	private ArrayList<SpriteObject> loadSpritesFromDirectory(File directory) throws Exception{
+		System.out.println("Directory in loadSpritesFromDirectory: "+ directory);
+		if (!isValidDirectory(directory)) {
+			throw new Exception("Not a directory");
+		}
+		File[] files = directory.listFiles();
+		ArrayList<SpriteObject> ret = new ArrayList<SpriteObject>();
+		for (File f : files) {
+			try {
+				SpriteObject dummy = loadSprite(f);
+				ret.add(dummy);
+
+			} catch (Exception e) {
+				// do nothing
+			}
+		}
+		return ret;
+	}
+
+	
+	private ArrayList<SpriteObject> loadSpritesFromDirectoryName(String filePath) throws Exception {
+		File directory = new File(filePath);
+		return loadSpritesFromDirectory(directory);
+	}
+	
+	public Map<String, ArrayList<SpriteObject>> loadSpritesFromNestedDirectories(String rootDirectory) {
+		File file  = new File(rootDirectory);
+		if (!isValidDirectory(file)){
+			return null;
+		}
+		System.out.println("Still going");
+		Map<String, ArrayList<SpriteObject>> ret = new HashMap<String, ArrayList<SpriteObject>>();
+		
+		File[] files = file.listFiles();
+		for (File f: files){
+			try{
+				ArrayList<SpriteObject> val = loadSpritesFromDirectory(f);
+				String name = f.getName();
+				ret.put(name, val);
+			} catch (Exception e){
+				e.printStackTrace();
+				//Do nothing
+			}
+			
+		}
+		return ret;		
+	}
+	
+	
 
 	private void makeSpriteDirectories() {
 		ArrayList<String> pathsToMake = new ArrayList<String>();
