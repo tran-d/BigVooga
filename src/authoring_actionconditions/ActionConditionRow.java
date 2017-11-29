@@ -28,12 +28,12 @@ public class ActionConditionRow extends ToolBar {
 		ObservableList<String> actionConditionOptions = ActionConditionTabUtil.convertToObservableList(actionConditionVBoxResources.getString(label 
 				+ actionConditionVBoxResources.getString("OptionsTag"))); 
 		ChoiceBoxVBox<String> implementationSelectorVBox = new ChoiceBoxVBox<String>(selectorLabel, actionConditionOptions);
-		if(isConditionRow) addActionCheckBox();
 		getItems().addAll(IDlabel,separator,new Label(label),implementationSelectorVBox);
+		if(isConditionRow) addActionCheckBox();
 	}
 	
 	protected void setNewActionCheckBoxVBoxOptions(ObservableList<Integer> newOptions) {
-		if(!(actionCheckBoxVBox == null)) actionCheckBoxVBox.setNewOptions(newOptions);
+		actionCheckBoxVBox.setNewOptions(newOptions);
 	}
 	
 	protected void decreaseLabelID() {
