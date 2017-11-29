@@ -12,22 +12,9 @@
             <tagSet/>
             <events>
               <entry>
-                <engine.Conditions.KeyHeld>
-                  <priorityNum>2</priorityNum>
-                  <check>Right</check>
-                </engine.Conditions.KeyHeld>
-                <list>
-                  <engine.Actions.Move>
-                    <xIncrement>1.0</xIncrement>
-                    <yIncrement>0.0</yIncrement>
-                  </engine.Actions.Move>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.KeyHeld>
+                <engine.Conditions.ObjectClickHeld>
                   <priorityNum>1</priorityNum>
-                  <check>Left</check>
-                </engine.Conditions.KeyHeld>
+                </engine.Conditions.ObjectClickHeld>
                 <list>
                   <engine.Actions.Move>
                     <xIncrement>-1.0</xIncrement>
@@ -52,38 +39,28 @@
                             <geometry class="engine.utilities.collisions.BoundingPolygon">
                               <vertices>
                                 <javafx.geometry.Point2D>
-                                  <x>-0.2279808664266758</x>
+                                  <x>-0.2179985129010492</x>
                                   <y>0.20596424905355637</y>
                                   <hash>0</hash>
                                 </javafx.geometry.Point2D>
                                 <javafx.geometry.Point2D>
-                                  <x>-0.24544998509652233</x>
-                                  <y>-0.1429606096740635</y>
+                                  <x>-0.2803882224362153</x>
+                                  <y>-0.27820280297934247</y>
                                   <hash>0</hash>
                                 </javafx.geometry.Point2D>
                                 <javafx.geometry.Point2D>
-                                  <x>-0.05079409134680407</x>
-                                  <y>-0.33770936803366525</y>
+                                  <x>0.19876474679386036</x>
+                                  <y>-0.42696921561514933</y>
                                   <hash>0</hash>
                                 </javafx.geometry.Point2D>
                                 <javafx.geometry.Point2D>
-                                  <x>0.32603975424559917</x>
-                                  <y>-0.17541873606733044</y>
+                                  <x>0.4558103500787447</x>
+                                  <y>0.10588502600764982</y>
                                   <hash>0</hash>
                                 </javafx.geometry.Point2D>
                                 <javafx.geometry.Point2D>
-                                  <x>0.4258632895018649</x>
-                                  <y>0.13022862080260011</y>
-                                  <hash>0</hash>
-                                </javafx.geometry.Point2D>
-                                <javafx.geometry.Point2D>
-                                  <x>0.28111916338027965</x>
-                                  <y>0.2871095650367237</y>
-                                  <hash>0</hash>
-                                </javafx.geometry.Point2D>
-                                <javafx.geometry.Point2D>
-                                  <x>-0.14562644984025652</x>
-                                  <y>0.2654708141078791</y>
+                                  <x>0.4009074056877985</x>
+                                  <y>0.29522409663504046</y>
                                   <hash>0</hash>
                                 </javafx.geometry.Point2D>
                               </vertices>
@@ -116,19 +93,7 @@
         </worldObjects>
         <conditionPriorities class="tree-map">
           <entry>
-<<<<<<< HEAD
-            <engine.Conditions.ObjectClickHeld>
-              <priorityNum>1</priorityNum>
-            </engine.Conditions.ObjectClickHeld>
-=======
             <int>1</int>
->>>>>>> eeddd2b419adf335344fb1ffdf7f254ea143416e
-            <list>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject"/>
-            </list>
-          </entry>
-          <entry>
-            <int>2</int>
             <list>
               <engine.GameObject reference="../../../../worldObjects/engine.GameObject"/>
             </list>
