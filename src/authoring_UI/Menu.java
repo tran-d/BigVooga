@@ -159,7 +159,7 @@ public class Menu extends VBox {
 		myParamTabs.getTabs().clear();
 	}
 
-	private void removeParameterTab() {
+	protected void removeParameterTab() {
 		if (this.getChildren().contains(mySpriteTabs)) {
 			this.getChildren().remove(mySpriteTabs);
 		}
@@ -191,7 +191,7 @@ public class Menu extends VBox {
 		}
 	}
 
-	public void updateParameterTab() {
+	protected void updateParameterTab() {
 
 		System.out.println("Updating....");
 		try {
@@ -242,20 +242,13 @@ public class Menu extends VBox {
 	}
 
 	private void createSpriteCreator() {
-		// GridPane container = new GridPane();
-		// ColumnConstraints cc = new ColumnConstraints();
-		// cc.setPercentWidth(100);
-		// RowConstraints rc = new RowConstraints();
-		// rc.setPercentHeight(50);
-		// container.getColumnConstraints().add(cc);
-		// container.getRowConstraints().add(rc);
 
 		Button createSpriteButton = new Button("Create Sprite");
 
 		createSpriteButton.setOnAction(e -> {
 			System.out.println("Button pressed");
 			SpriteCreator mySpriteCreatorClass = myMapManager.createNewSpriteCreator();
-			GridPane mySpriteCreator = mySpriteCreatorClass.getGrid();
+			VBox mySpriteCreator = mySpriteCreatorClass.getVBox();
 			this.getChildren().remove(createSpriteButton);
 			this.getChildren().add(mySpriteCreator);
 			mySpriteCreatorClass.onCreate(f -> {
