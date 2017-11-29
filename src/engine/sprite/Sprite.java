@@ -36,6 +36,17 @@ public class Sprite{
 			throw new VoogaException("UndefinedAnimation");
 		return currentAnimation.getImage();
 	}
+	
+	public Sprite clone()
+	{
+		Sprite clone = new Sprite();
+		for(String s: animations.keySet())
+		{
+			clone.addAnimationSequence(animations.get(s).clone());
+		}
+		clone.setAnimation(currentAnimation.getName());
+		return clone;
+	}
 
 	
 }

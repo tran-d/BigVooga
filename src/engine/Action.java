@@ -4,6 +4,6 @@ package engine;
 */
 public interface Action{
 	
-	public void execute(GameObject asking, World world);
+	public void execute(GameObject asking, Layer world);
 	
 }

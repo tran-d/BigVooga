@@ -2,7 +2,7 @@ package engine.Conditions;
 
 import engine.Condition;
 import engine.GameObject;
-import engine.World;
+import engine.Layer;
 
 /**
  * 
@@ -23,7 +23,7 @@ public class KeyHeld extends Condition {
 	 * Returns true when the key named "check" is down
 	 */
 	@Override
-	public boolean isTrue(GameObject asking, World world) {
+	public boolean isTrue(GameObject asking, Layer world) {
 		//TODO make inputmanager (explicitly or implicitly)
 		return world.getPlayerManager().getKeysDown().contains(check);
 	}
