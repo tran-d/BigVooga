@@ -9,14 +9,20 @@ import java.util.function.Consumer;
 
 import authoring.drawing.BoundingPolygonCreator;
 import authoring.drawing.ImageCanvas;
+import engine.Actions.ChangeDouble;
 import engine.Actions.Create;
 import engine.Actions.Move;
+import engine.Actions.MoveByVariable;
 import engine.Actions.RemoveIntersection;
 import engine.Actions.Rotate;
+import engine.Conditions.And;
 import engine.Conditions.Collision;
 import engine.Conditions.KeyHeld;
 import engine.Conditions.KeyPressed;
+import engine.Conditions.KeyReleased;
+import engine.Conditions.Not;
 import engine.Conditions.ObjectClickHeld;
+import engine.Conditions.Or;
 import engine.Conditions.ScreenClickHeld;
 import engine.sprite.AnimationSequence;
 import engine.sprite.BoundedImage;
@@ -51,8 +57,11 @@ public class EngineTester extends Application {
 		GameObjectFactory blueprints = new GameObjectFactory();
 		GameObject obj1 = makeObject("Ob1", i, 200, 200, this::conditionAction1);
 		obj1.addTag("Ob1");
+		GameObject obj2 = makeObject("Ob2", i.clone(), 500, 200, this::conditionAction2);
+		
+		obj1.setDoubleVariable("xSpeed", -3);
+		obj1.setDoubleVariable("ySpeed", 0);
 		blueprints.addBlueprint(obj1);
-		GameObject obj2 = makeObject("Ob2", i.clone(), 200, 500, this::conditionAction2);
 		obj2.addTag("Ob2");
 		blueprints.addBlueprint(obj2);
 		GameLayer layer = new GameLayer("Layer");
@@ -112,7 +121,7 @@ public class EngineTester extends Application {
 
 	private void conditionAction1(GameObject obj) {
 		List<Action> actions1 = new ArrayList<Action>();
-		actions1.add(new Move(-3, 0));
+		actions1.add(new MoveByVariable("xSpeed", "ySpeed"));
 		obj.addConditionAction(new KeyHeld(1,"Left"), actions1);
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Move(3, 0));
@@ -129,7 +138,15 @@ public class EngineTester extends Application {
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Rotate(-1));
 		obj.addConditionAction(new KeyHeld(1,"Z"), actions1);
-		
+		actions1 = new ArrayList<Action>();
+		actions1.add(new ChangeDouble("xSpeed", -10));
+		obj.addConditionAction(new And(1, new KeyHeld(1, "Q"), new KeyHeld(1, "Space")), actions1);
+		actions1 = new ArrayList<Action>();
+		actions1.add(new ChangeDouble("xSpeed", -3));
+		obj.addConditionAction(new Or(1, new KeyReleased(1, "Q"), new KeyReleased(1, "Space")), actions1);
+		actions1 = new ArrayList<Action>();
+		actions1.add(new ChangeDouble("heading", 45));
+		obj.addConditionAction(new Not(1, new ScreenClickHeld(1)), actions1);
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Create("Ob2", 500, 500, 20));
 		obj.addConditionAction(new KeyPressed(1,"C"), actions1);
