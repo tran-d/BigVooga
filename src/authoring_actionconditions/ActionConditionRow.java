@@ -4,7 +4,6 @@ import java.util.ResourceBundle;
 
 import ActionConditionClasses.ActionCheckBoxVBox;
 import ActionConditionClasses.ChoiceBoxVBox;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
@@ -18,8 +17,9 @@ public class ActionConditionRow extends ToolBar {
 	private int labelInt;
 	private Label IDlabel;
 	private ActionCheckBoxVBox<Integer> actionCheckBoxVBox;
+	private ObservableList<Integer> currentActions;
 	
-	public ActionConditionRow(int ID,String label,String selectorLabel,boolean isConditionRow) {
+	public ActionConditionRow(int ID,String label,String selectorLabel,boolean isConditionRow, ObservableList<Integer> currentActions) {
 		super();
 		actionConditionVBoxResources = ResourceBundle.getBundle(ACTIONCONDITION_RESOURCE_PATH);
 		labelInt = ID;
@@ -29,6 +29,7 @@ public class ActionConditionRow extends ToolBar {
 				+ actionConditionVBoxResources.getString("OptionsTag"))); 
 		ChoiceBoxVBox<String> implementationSelectorVBox = new ChoiceBoxVBox<String>(selectorLabel, actionConditionOptions);
 		getItems().addAll(IDlabel,separator,new Label(label),implementationSelectorVBox);
+		this.currentActions = currentActions;
 		if(isConditionRow) addActionCheckBox();
 	}
 	
@@ -42,7 +43,7 @@ public class ActionConditionRow extends ToolBar {
 	}
 	
 	private void addActionCheckBox() {
-		actionCheckBoxVBox = new ActionCheckBoxVBox<Integer>(actionConditionVBoxResources.getString("ActionCheckBoxLabel"),FXCollections.observableArrayList());
+		actionCheckBoxVBox = new ActionCheckBoxVBox<Integer>(actionConditionVBoxResources.getString("ActionCheckBoxLabel"),currentActions);
 		getItems().add(actionCheckBoxVBox);
 	}
 	

@@ -24,8 +24,8 @@ public class ActionConditionVBox extends VBox implements ActionConditionVBoxI{
 	}
 
 	@Override
-	public void addActionCondition(String label) {
-		ActionConditionRow actionConditionRow = new ActionConditionRow(rows.size() + 1,label,selectorLabel,isConditionVBox);
+	public void addActionCondition(String label,ObservableList<Integer> currentActions) {
+		ActionConditionRow actionConditionRow = new ActionConditionRow(rows.size() + 1,label,selectorLabel,isConditionVBox,currentActions);
 		rows.add(actionConditionRow);
 		getChildren().add(actionConditionRow);
 	}

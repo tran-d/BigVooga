@@ -1,10 +1,10 @@
 package authoring_actionconditions;
 
-import javafx.scene.control.ToolBar;
+import javafx.collections.ObservableList;
 
 public interface ActionConditionVBoxI {
 	
-	public void addActionCondition(String label);
+	public void addActionCondition(String label,ObservableList<Integer> currentActions);
 	public void removeActionCondition(int row);
 	
 }
