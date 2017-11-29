@@ -45,7 +45,12 @@ public class GameDataHandler {
 	public static final String PATH = "data/UserCreatedGames/";
 	private static final String CONTROLLER_FILE = "Engine_Controller_Save_File";
 	private static final String SELECTOR_TITLE = "Open Resource File";
+	private static final String PROJECT_USER_SPRITE_PATH = "Sprites/";
+	private static final String DEFAULT_SPRITE_FOLDER = "DefaultSprites/";
+	private static final String CUSTOM_SPRITE_FOLDER = "CustomSprites/";
 	private Map<String, Image> cache = new HashMap<>();
+	private String projectPath;
+	private String projectName;
 	
 	private static XStream setupXStream() {
 		XStream xstream = new XStream(new DomDriver());
@@ -60,9 +65,6 @@ public class GameDataHandler {
 		});
 		return xstream;
 	}
-	
-	private String projectPath;
-	private String projectName;
 	
 	public GameDataHandler(String projectName) {
 		this.projectName = projectName;
@@ -213,13 +215,15 @@ public class GameDataHandler {
 	}
 
 	private String getDefaultSpriteDirectoryPath() {
-		return null;
-//		return projectPath + PROJECT_USER_SPRITE_PATH + DEFAULT_SPRITE_FOLDER;
+		String ret = projectPath + PROJECT_USER_SPRITE_PATH + DEFAULT_SPRITE_FOLDER;
+		System.out.println("default path: "+ret);
+		return ret;
 	}
 
 	private String getCustomSpriteDirectoryPath() {
-		return null;
-//		return projectPath + PROJECT_USER_SPRITE_PATH + CUSTOM_SPRITE_FOLDER;
+		String ret = projectPath + PROJECT_USER_SPRITE_PATH + CUSTOM_SPRITE_FOLDER;
+		System.out.println("custom path: "+ret);
+		return ret;
 	}
 
 	private void makeSpriteDirectories() {
