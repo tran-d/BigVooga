@@ -6,15 +6,14 @@ import engine.World;
 
 public class Destroy implements Action {
 
-	private GameObject objectToDestroy;
+	private String objectToDestroy;
 	
-	public Destroy(GameObject objectToDestroy) {
+	public Destroy(String objectToDestroy) {
 		this.objectToDestroy = objectToDestroy;
 	}
 	
 	@Override
 	public void execute(GameObject asking, World world) {
-		world.removeGameObject(objectToDestroy);
+		world.removeGameObject(world.getWithName(objectToDestroy));
 	}
-
 }
