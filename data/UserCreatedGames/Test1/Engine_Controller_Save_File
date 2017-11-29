@@ -47,10 +47,9 @@
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.KeyHeld>
+                <engine.Conditions.ObjectClickHeld>
                   <priorityNum>1</priorityNum>
-                  <check>X</check>
-                </engine.Conditions.KeyHeld>
+                </engine.Conditions.ObjectClickHeld>
                 <list>
                   <engine.Actions.Rotate>
                     <headingIncrement>1.0</headingIncrement>
@@ -431,7 +430,7 @@
                     </list>
                   </entry>
                   <entry>
-                    <engine.Conditions.KeyHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[2]/engine.Conditions.KeyHeld"/>
+                    <engine.Conditions.ObjectClickHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[2]/engine.Conditions.ObjectClickHeld"/>
                     <list>
                       <engine.Actions.Rotate reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[2]/list/engine.Actions.Rotate"/>
                     </list>

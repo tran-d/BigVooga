@@ -137,7 +137,7 @@ public class EngineTester extends Application {
 		obj.addConditionAction(new KeyHeld(1,"Down"), actions1);
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Rotate(1));
-		obj.addConditionAction(new KeyHeld(1,"X"), actions1);
+		obj.addConditionAction(new ObjectClickHeld(1), actions1);
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Rotate(-1));
 		obj.addConditionAction(new KeyHeld(1,"Z"), actions1);

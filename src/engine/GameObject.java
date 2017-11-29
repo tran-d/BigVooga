@@ -115,10 +115,7 @@ public class GameObject extends VariableContainer {
 	 */
 	public void setCoords(double x, double y) {
 		// TODO Trigger listeners here
-		System.out.println("Enter SetCoords");
-		System.out.println("Set x to " + x);
 		doubleVars.put(X_COR, x);
-		System.out.println("x = " + doubleVars.get(X_COR));
 		doubleVars.put(Y_COR, y);
 	}
 
