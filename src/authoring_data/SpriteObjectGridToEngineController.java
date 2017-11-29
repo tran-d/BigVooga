@@ -30,7 +30,7 @@ public class SpriteObjectGridToEngineController {
 	public void createWorldAndAddToEngine(SpriteObjectGridManagerI SOGMI) {
 
 		GameWorld thisWorld = createWorld();
-		ArrayList<GameObject> GO_LIST = convertSpriteObjectGridToListOfGameObjects(SOGMI);
+		List<GameObject> GO_LIST = convertSpriteObjectGridToListOfGameObjects(SOGMI);
 		addAllGameObjectsToWorld(GO_LIST, thisWorld);
 		addWorldToEngine(thisWorld);
 	}
@@ -91,9 +91,9 @@ public class SpriteObjectGridToEngineController {
 		return thisWorld;
 	}
 	
-	private void addAllGameObjectsToWorld(ArrayList<GameObject> GO_LIST, GameWorld world) {
+	private void addAllGameObjectsToWorld(List<GameObject> gO_LIST, GameWorld world) {
 		GameLayer GL = createGameLayer();
-		for (GameObject GO: GO_LIST) {
+		for (GameObject GO: gO_LIST) {
 			GL.addGameObject(GO);
 		}
 		world.addLayer(GL);
