@@ -13,7 +13,7 @@ public class Destroy implements Action {
 	}
 	
 	@Override
-	public void execute(GameObject asking, World world) {
+	public void execute(GameObject asking, Layer world) {
 		world.removeGameObject(world.getWithName(objectToDestroy));
 	}
 }
