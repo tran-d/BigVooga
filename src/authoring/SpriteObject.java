@@ -193,6 +193,10 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 	public void changeCategoryName(String prev, String next) {
 		getParameters().put(next, getParameters().remove(prev));
 	}
+
+	public String getImageURL() {
+		return myImageURL;
+	}
 	
 	
 	

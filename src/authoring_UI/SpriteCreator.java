@@ -15,9 +15,12 @@ import authoring.SpriteObject;
 import engine.utilities.data.GameDataHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -50,6 +53,8 @@ public class SpriteCreator extends Observable {
 	private TextArea myErrorMessage;
 	Consumer<Button> myConsumer;
 	private AuthoringEnvironmentManager myAEM;
+	private TextField nameInput;
+	private VBox imageChooseBox;
 
 	protected SpriteCreator(Stage stage, SpriteManager spriteManager, AuthoringEnvironmentManager AEM) {
 
@@ -73,21 +78,22 @@ public class SpriteCreator extends Observable {
 
 		// set row,col constraints
 		ColumnConstraints col1 = new ColumnConstraints();
-		col1.setPercentWidth(50);
+		col1.setPercentWidth(40);
 		ColumnConstraints col2 = new ColumnConstraints();
-		col2.setPercentWidth(50);
+		col2.setPercentWidth(60);
 		RowConstraints row1 = new RowConstraints();
-		row1.setPercentHeight(15);
+		row1.setPercentHeight(10);
 		RowConstraints row2 = new RowConstraints();
-		row2.setPercentHeight(15);
+		row2.setPercentHeight(60);
 		RowConstraints row3 = new RowConstraints();
-		row3.setPercentHeight(5);
+		row3.setPercentHeight(30);
 
 		myGrid.getColumnConstraints().addAll(col1, col2);
 		myGrid.getRowConstraints().addAll(row1, row2, row3);
 		myGrid.setGridLinesVisible(true);
 
 		addNameBox();
+		addImageBox();
 		addCreatebutton();
 		addLoadSpriteButton();
 		addSpriteParametersTabPane();
@@ -118,7 +124,16 @@ public class SpriteCreator extends Observable {
 	 * @return GridPane
 	 */
 	public GridPane getGrid() {
+//		ScrollPane SP = new ScrollPane();
+//		SP.setContent(myGrid);
+//		return SP;
 		return myGrid;
+	}
+	
+	public ScrollPane getScrollPane(){
+		ScrollPane SP = new ScrollPane();
+		SP.setContent(getGrid());
+		return SP;
 	}
 
 	private void addCreatebutton() {
@@ -137,7 +152,7 @@ public class SpriteCreator extends Observable {
 		});
 		buttonBox.getChildren().add(createSprite);
 
-		myGrid.add(buttonBox, 1, 2);
+		myGrid.add(buttonBox, 1, 0);
 	}
 	
 	private SpriteObject getSpriteObject() {
@@ -158,22 +173,41 @@ public class SpriteCreator extends Observable {
 		});
 		nameBox.getChildren().addAll(name, nameInput);
 
-		HBox imageChooseBox = new HBox(10);
+		
+	
+
+		myGrid.add(nameBox, 0, 1);
+		
+	}
+	
+	private void addImageBox(){
+		imageChooseBox = new VBox(10);
 		Text chooseImage = new Text("choose image file: ");
 		Button chooseImageButton = new Button("choose image");
+//		ImageView im = new ImageView(new Image("pikachu.png"));
+//		im.setFitWidth(45);
+//		im.setFitHeight(45);
 		chooseImageButton.setOnAction(e -> {
 			try {
 				openImage();
+				addSpriteImage();
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				setErrorMessage("Choose a valid image file");
 			}
 		});
-
 		imageChooseBox.getChildren().addAll(chooseImage, chooseImageButton);
-
-		myGrid.add(nameBox, 0, 1);
 		myGrid.add(imageChooseBox, 0, 2);
+	}
+	
+	private void addSpriteImage(){
+		ImageView img = new ImageView(new Image(mySpriteObject.getImageURL()));
+		img.setFitWidth(70);
+		img.setFitHeight(70);
+		if (imageChooseBox.getChildren().get(1) instanceof ImageView){
+			imageChooseBox.getChildren().remove(1);
+		}
+		imageChooseBox.getChildren().add(1, img);
 	}
 	
 	private void addLoadSpriteButton() {
@@ -183,6 +217,7 @@ public class SpriteCreator extends Observable {
 		chooseSpriteButton.setOnAction(e -> {
 			try {
 				chooseSpriteFileandLoadSprite();
+				addSpriteImage();
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				setErrorMessage("Choose a valid Sprite");
@@ -198,6 +233,7 @@ public class SpriteCreator extends Observable {
 		mySpriteFile = newChosenSpriteFile;
 		mySpriteObject = myGDH.loadSprite(newChosenSpriteFile);
 		mySPTAI.setSpriteObject(mySpriteObject);
+		nameInput.setText(mySpriteObject.getName());
 	}
 	
 	
