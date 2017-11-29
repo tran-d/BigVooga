@@ -7,7 +7,7 @@ import java.util.Iterator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class SpriteObject extends ImageView implements SpriteObjectI {
+public class SpriteObject2 extends ImageView implements SpriteObjectI {
 
 	private HashMap<String, ArrayList<SpriteParameterI>> categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();
 //	private ImageView myImageView;
@@ -18,12 +18,12 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 	private double myNumCellsHeight;
 	private int myUniqueID;
 
-	public SpriteObject() {
+	public SpriteObject2() {
 		super();
 		setUniqueID();
 	}
 
-	public SpriteObject(String fileURL) {
+	public SpriteObject2(String fileURL) {
 		this();
 		setupImageURLAndView(fileURL);
 		System.out.println(fileURL);
@@ -31,12 +31,12 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 		// myName = fileURL.split(".")[0];
 	}
 
-	SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap) {
+	SpriteObject2(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap) {
 		this();
 		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(inCategoryMap);
 	}
 
-	SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap, String fileURL) {
+	SpriteObject2(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap, String fileURL) {
 		this();
 		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(inCategoryMap);
 		setupImageURLAndView(fileURL);
@@ -163,11 +163,11 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 	}
 
 	@Override
-	public boolean isSame(SpriteObject other) {
-		if (!(other instanceof SpriteObject)) {
+	public boolean isSame(SpriteObject2 other) {
+		if (!(other instanceof SpriteObject2)) {
 			return false;
 		}
-		SpriteObject otherSO = (SpriteObject) other;
+		SpriteObject2 otherSO = (SpriteObject2) other;
 		System.out.println("Using custom equals method for Sprite Object");
 		HashMap<String, ArrayList<SpriteParameterI>> otherMap = otherSO.getParameters();
 		HashMap<String, ArrayList<SpriteParameterI>> thisMap = this.getParameters();
@@ -200,9 +200,9 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 	}
 
 	@Override
-	public SpriteObject newCopy() {
+	public SpriteObject2 newCopy() {
 		// System.out.println("Making copy");
-		SpriteObject ret = new SpriteObject();
+		SpriteObject2 ret = new SpriteObject2();
 		if (this.myImageURL != null) {
 			ret.setupImageURLAndView(this.myImageURL);
 		}
