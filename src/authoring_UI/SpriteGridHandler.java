@@ -3,6 +3,7 @@ package authoring_UI;
 import java.util.ArrayList;
 import authoring.SpriteObject;
 import authoring.SpriteObjectGridManagerI;
+import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Effect;
 import javafx.scene.effect.Glow;
@@ -10,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -30,13 +32,36 @@ public class SpriteGridHandler {
 		activeGridCells = new ArrayList<StackPane>();
 	}
 	
+	protected void addKeyPress(Scene scene) {
+		scene.setOnKeyPressed(e -> { 
+			if (e.getCode().equals(KeyCode.DELETE)) {
+				deleteSelectedSprites();
+				System.out.println("delete pressed");
+			}
+		});
+	}
+	
+	private void deleteSelectedSprites() {
+		System.out.println("trying to delete");
+		ArrayList<Integer[]> cellsToDelete = new ArrayList<Integer[]>();
+		mySOGM.getActiveSpriteObjects().forEach(s -> {
+			((Pane) s.getParent()).getChildren().remove(s);
+			int row = ((GridPane) s.getParent()).getRowIndex(s);
+			int col = ((GridPane) s.getParent()).getColumnIndex(s);
+			Integer[] row_col = new Integer[] { row, col };
+			cellsToDelete.add(row_col);
+		});
+		mySOGM.clearCells(cellsToDelete);
+
+	}
+	
 	protected void addGridMouseClick(StackPane pane) {
 		pane.setOnMouseClicked(e -> {
-			if (pane.getChildren().size() == 0) changeCellActiveStatus(pane);
+			if (pane.getChildren().size() == 0) changeCellStatus(pane);
 		});		
 	}
 	
-	private void changeCellActiveStatus(StackPane pane) {
+	private void changeCellStatus(StackPane pane) {
 		if(pane.getOpacity() == 1) {
 			makeCellActive(pane);
 		} else {
@@ -71,7 +96,6 @@ public class SpriteGridHandler {
 				populateGridCells(s);
 				removeActiveCells();
 			}
-
 		});
 	}
 	
