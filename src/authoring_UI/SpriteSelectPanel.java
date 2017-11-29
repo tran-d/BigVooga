@@ -57,7 +57,7 @@ public class SpriteSelectPanel extends VBox {
 	}
 	
 	private void makeSpriteClickable(SpriteObject SO) {
-        mySGH.addMouseClick(SO);
+        mySGH.addSpriteMouseClick(SO);
 	}
 	
 	public void addNewDefaultSprite(SpriteObject SO, int spriteLocation) {

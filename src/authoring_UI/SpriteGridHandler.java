@@ -3,6 +3,9 @@ package authoring_UI;
 import java.util.ArrayList;
 import authoring.SpriteObject;
 import authoring.SpriteObjectGridManagerI;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Effect;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DataFormat;
@@ -11,34 +14,91 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 
 public class SpriteGridHandler {
 	private SpriteObject draggingObject;
 	private DataFormat objectFormat;
 	private SpriteObjectGridManagerI mySOGM;
 	private Menu myMenu;
+	private ArrayList<StackPane> activeGridCells;
 	
 	protected SpriteGridHandler(int mapCount, Menu menu, SpriteObjectGridManagerI SOGM) {
 		objectFormat = new DataFormat("MyObject" + Integer.toString(mapCount));
 		mySOGM = SOGM;
 		myMenu = menu;
+		activeGridCells = new ArrayList<StackPane>();
+	}
+	
+	protected void addGridMouseClick(StackPane pane) {
+		pane.setOnMouseClicked(e -> {
+			if (pane.getChildren().size() == 0) changeCellActiveStatus(pane);
+		});		
+	}
+	
+	private void changeCellActiveStatus(StackPane pane) {
+		if(pane.getOpacity() == 1) {
+			makeCellActive(pane);
+		} else {
+			makeCellInactive(pane);
+		}
+	}
+	
+	private void makeCellActive(StackPane pane) {
+		activeGridCells.add(pane);
+		pane.setOpacity(0.5);
+	}
+	
+	private void makeCellInactive(StackPane pane) {
+		activeGridCells.remove(pane);
+		pane.setOpacity(1);
 	}
 	
 
-	void addMouseClick(SpriteObject s) {
+	protected void addSpriteMouseClick(SpriteObject s) {
 		s.setOnMouseClicked(e -> {
 			
 			boolean activeStatus;
 			if (s.getPositionOnGrid() != null) {
 				activeStatus = mySOGM.switchCellActiveStatus(s.getPositionOnGrid());
 				if (activeStatus) {
-					s.setOpacity(.5);
+					s.setEffect(makeSpriteEffect());
 				} else {
-					s.setOpacity(1);
+					s.setEffect(null);
 				}
 				myMenu.updateParameterTab();
+			} else {
+				populateGridCells(s);
+				removeActiveCells();
 			}
 
+		});
+	}
+	
+	private Effect makeSpriteEffect() {
+		DropShadow dropShadow = new DropShadow();
+        dropShadow.setRadius(5.0);
+        dropShadow.setOffsetX(5.0);
+        dropShadow.setOffsetY(5.0);
+        dropShadow.setColor(Color.GREY);
+		Glow glow = new Glow(0.5);
+		
+		return glow;
+	}
+	
+	private void removeActiveCells() {
+		activeGridCells.clear();
+	}
+	
+	private void populateGridCells(SpriteObject s) {
+		activeGridCells.forEach(cell -> {
+			SpriteObject SO = s.newCopy();
+			cell.setOpacity(1);
+			cell.getChildren().add(SO);
+			Integer[] cellPos = getStackPanePositionInGrid(cell);
+			mySOGM.populateCell(SO, cellPos);
+			SO.setPositionOnGrid(cellPos);
+			addSpriteMouseClick(SO);
 		});
 	}
 
@@ -66,14 +126,7 @@ public class SpriteGridHandler {
 			Dragboard db = e.getDragboard();
 			int row = ((GridPane) pane.getParent()).getRowIndex(pane);
 			int col = ((GridPane) pane.getParent()).getColumnIndex(pane);
-			//
 			Integer[] row_col = new Integer[] { row, col };
-			// ArrayList<Integer[]> activeCells = new ArrayList<Integer[]>();
-			// activeCells.add(row_col);
-
-			// mySOGM.addActiveCells(activeCells);
-
-			// myMenu.displayParams();
 
 			if (db.hasContent(objectFormat)) {
 				mySOGM.populateCell(draggingObject, row_col);
