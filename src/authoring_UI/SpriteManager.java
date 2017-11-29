@@ -167,14 +167,14 @@ public class SpriteManager extends TabPane implements Observer {
 //		return mySpriteTabs;
 	}
 	
-	private ImageView createTrash() {
-		ImageView trashCan = new ImageView(new Image("trash.png"));
-		trashCan.setFitWidth(45);
-	    trashCan.setFitHeight(45);
-		mySpriteGridHandler.addDropToTrash(trashCan);
-		
-		return trashCan;
-	}
+//	private ImageView createTrash() {
+//		ImageView trashCan = new ImageView(new Image("trash.png"));
+//		trashCan.setFitWidth(45);
+//	    trashCan.setFitHeight(45);
+//		mySpriteGridHandler.addDropToTrash(trashCan);
+//		
+//		return trashCan;
+//	}
 
 	//adds new user sprites
 	@Override
