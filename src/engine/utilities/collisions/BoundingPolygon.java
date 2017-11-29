@@ -60,8 +60,8 @@ public class BoundingPolygon extends BoundingGeometry {
 
 	@Override
 	public Point2D checkPolygonCollision(BoundingPolygon polygon) {
-		List<Point2D> normals = generateOutwardNormals();
-		normals.addAll(polygon.generateInwardNormals());
+		List<Point2D> normals = generateInwardNormals();
+		normals.addAll(polygon.generateOutwardNormals());
 		return checkCollisions(normals, polygon);
 	}
 

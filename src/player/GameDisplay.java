@@ -63,12 +63,11 @@ public class GameDisplay {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			gameImage.prefWidth(100);
-			gameImage.prefHeight(100);
+			gameImage.setFitWidth(image.getWidth());
+			gameImage.setFitHeight(image.getHeight());
 			gameImage.setRotate(image.getHeading());
 			gameImage.setX(image.getX()-image.getWidth()/2);
 			gameImage.setY(image.getY()-image.getHeight()/2);
-			//System.out.println(image.getX());
 			rootPane.getChildren().add(gameImage);
 		}
 	}

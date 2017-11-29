@@ -17,6 +17,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import tools.DisplayLanguage;
 
 public class GameSelector extends MenuOptionsTemplate {
 
@@ -28,6 +29,8 @@ public class GameSelector extends MenuOptionsTemplate {
 	private static final int TREE_WIDTH = 890;
 	private static final int EXPANDED_TREE_HEIGHT = 150;
 	private static final int COLLAPSED_TREE_HEIGHT = 90;
+	private static final String NEW_GAME_TEXT = "NewGame";
+	private static final String CONTINUE_GAME_TEXT = "ContinueGame";
 
 	private Stage stage;
 	private SceneController sceneController;
@@ -66,8 +69,8 @@ public class GameSelector extends MenuOptionsTemplate {
 	private HBox createButtonPanel(String gameName) {
 
 		HBox buttonPanel = new HBox(ENTRY_SPACING);
-		Button newGame = createPlayGameButton("New Game", e -> handleNewGame(gameName));
-		Button continueGame = createPlayGameButton("Continue Game", e -> handleContinueGame());
+		Button newGame = createPlayGameButton(NEW_GAME_TEXT, e -> handleNewGame(gameName));
+		Button continueGame = createPlayGameButton(CONTINUE_GAME_TEXT, e -> handleContinueGame());
 
 		buttonPanel.setAlignment(Pos.BASELINE_CENTER);
 		buttonPanel.getChildren().addAll(newGame, continueGame);
@@ -90,8 +93,9 @@ public class GameSelector extends MenuOptionsTemplate {
 		// do stuff
 	}
 
-	private Button createPlayGameButton(String label, EventHandler<ActionEvent> handler) {
-		Button btn = new Button(label);
+	private Button createPlayGameButton(String text, EventHandler<ActionEvent> handler) {
+		Button btn = new Button();
+		btn.textProperty().bind(DisplayLanguage.createStringBinding(text));
 		btn.setOnAction(handler);
 		return btn;
 	}
@@ -106,11 +110,23 @@ public class GameSelector extends MenuOptionsTemplate {
 
 		TreeView<HBox> entry = new TreeView<HBox>(title);
 		entry.setOnMouseClicked(e -> resizeTree(title, entry));
+//		entry.setOnMouseEntered(e -> expandTree(title, entry));
+//		entry.setOnMouseExited(e -> collapseTree(title, entry));
 		entry.setPrefWidth(TREE_WIDTH);
 		entry.setPrefHeight(COLLAPSED_TREE_HEIGHT);
 		entry.getStylesheets().add(GameSelector.class.getResource("GameListStyle.css").toExternalForm());
 
 		entriesBox.getChildren().add(entry);
+	}
+
+	public void expandTree(TreeItem<HBox> title, TreeView<HBox> entry) {
+		title.setExpanded(true);
+		entry.setPrefHeight(EXPANDED_TREE_HEIGHT);
+	}
+	
+	public void collapseTree(TreeItem<HBox> title, TreeView<HBox> entry) {
+		title.setExpanded(false);
+		entry.setPrefHeight(COLLAPSED_TREE_HEIGHT);
 	}
 
 	public void resizeTree(TreeItem<HBox> title, TreeView<HBox> entry) {
@@ -120,7 +136,7 @@ public class GameSelector extends MenuOptionsTemplate {
 		} else {
 			title.setExpanded(false);
 			entry.setPrefHeight(COLLAPSED_TREE_HEIGHT);
-			
+
 		}
 	}
 }
