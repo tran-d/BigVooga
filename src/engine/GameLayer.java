@@ -1,10 +1,11 @@
 package engine;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 import player.PlayerManager;
 /**
@@ -19,7 +20,7 @@ public class GameLayer implements Layer {
 	
 	private String worldName;
 	private List<GameObject> worldObjects;
-	private Map<Integer, List<GameObject>> conditionPriorities = new TreeMap<>();
+	private Map<Integer, List<GameObject>> conditionPriorities = new ConcurrentSkipListMap<>();
 	private Map<Integer, GameObject> idToGameObject = new HashMap<>();
 	private GlobalVariables globalVars;
 	//private GameObjectFactory GameObjectFactory;
@@ -63,7 +64,6 @@ public class GameLayer implements Layer {
 
 	@Override
 	public void removeGameObject(GameObject obj) {
-		// TODO Auto-generated method stub
 		worldObjects.remove(obj);
 		idToGameObject.remove(obj.getUniqueID());
 		for(Integer i : obj.getPriorities()) {
@@ -83,7 +83,6 @@ public class GameLayer implements Layer {
 
 	@Override
 	public List<GameObject> getWithTag(String tag) {
-		// TODO Auto-generated method stub
 		List<GameObject> tempList = new ArrayList<>();
 		for (GameObject o : worldObjects) {
 			for (String s : o.getTags()) {
@@ -106,14 +105,19 @@ public class GameLayer implements Layer {
 	
 	public void step() {
 		List<Runnable> runnables = new ArrayList<>();
-		for(Integer i: conditionPriorities.keySet()) {
-			for(GameObject obj : conditionPriorities.get(i)) {
-				obj.step(this, i, runnables);
+		try {
+			for(Integer i: conditionPriorities.keySet()) {
+				for(GameObject obj : conditionPriorities.get(i)) {
+					obj.step(this, i, runnables);
+				}
+				for(Runnable r : runnables) {
+					r.run();
+				}
+				runnables.clear();
 			}
-			for(Runnable r : runnables) {
-				r.run();
-			}
-			runnables.clear();
+		}
+		catch (ConcurrentModificationException e) {
+			// do nothing
 		}
 	}
 	
