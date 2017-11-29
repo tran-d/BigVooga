@@ -25,9 +25,6 @@ public class GameObject extends VariableContainer {
 	private Set<String> tagSet;
 	private Map<Condition, List<Action>> events;
 	private Sprite currentSprite;
-	private Map<String, Double> doubleVars;
-	private Map<String, Boolean> booleanVars;
-	private Map<String, String> stringVars;
 	private CollisionEvent lastCollision;
 	private double width = 200; //TODO Sizes
 	private double height = 200; //TODO Sizes

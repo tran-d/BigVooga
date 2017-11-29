@@ -31,6 +31,7 @@ public abstract class VariableContainer {
 	}
 	
 	public double getDouble(String key) {
+		System.out.println("Has X_COR: " + doubleVars.containsKey(GameObject.X_COR));
 		if(doubleVars.containsKey(key))
 			return doubleVars.get(key);
 		return DEFAULT_DOUBLE;
