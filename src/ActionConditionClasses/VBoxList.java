@@ -16,7 +16,6 @@ public abstract class VBoxList<T> extends VBox implements VBoxListI<T> {
 		topLabel = new Label(label);
 		getChildren().add(topLabel);
 		boxOptions = FXCollections.observableArrayList();
-		setNewOptions(options);
 		boxOptions.addListener((ListChangeListener<T>) c -> realizeNewOptions(boxOptions));
 	}
 	

@@ -17,6 +17,7 @@ public class ActionCheckBoxVBox<T> extends VBoxList<T> {
 		super(label,options);
 		checkBoxes = FXCollections.observableList(new LinkedList<CheckBox>());
 		checkBoxes.addListener((ListChangeListener<CheckBox>) c -> iterateThroughChanges(c));
+		setNewOptions(options);
 	}
 
 	@Override
