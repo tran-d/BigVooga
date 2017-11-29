@@ -30,10 +30,7 @@ public class SpriteManager extends TabPane implements Observer {
 	private ArrayList<SpriteObject> myUserSpriteObjs = new ArrayList<SpriteObject>();
 	private GameDataHandler myGDH;
 	private SpriteObjectGridManagerI mySOGM;
-	private SpriteGridHandler mySpriteGridHandler;
-
-	
-	
+	private SpriteGridHandler mySpriteGridHandler;	
 
 	protected SpriteManager(SpriteGridHandler spriteGridHandler, AuthoringEnvironmentManager AEM, SpriteObjectGridManagerI SOGM){
 		mySPF = new SpriteParameterFactory();
@@ -94,45 +91,18 @@ public class SpriteManager extends TabPane implements Observer {
 			throw new RuntimeException("Its not a sprite");
 		}
 		SpriteObject sp = (SpriteObject) spObj;
-		addNewUserDefinedSprite(sp);
-	}
-
-
-	
-	private void addNewDefaultSprite(SpriteObject sp) {
-		mySprites.addNewDefaultSprite(sp);
-	}
-	
-	private void addNewUserDefinedSprite(SpriteObject sp) {
-		myUserSprites.addNewDefaultSprite(sp);
+		addNewUserDefinedSprite(sp, myUserSprites.getChildren().size());
 	}
 
 	
-//	private void setDefaultSpriteVBox(ArrayList<SpriteObject> defaults) {
-//		mySprites.getChildren().clear();
-//		mySprites.setPrefWidth(300);
-//		defaults.forEach(SO->{
-//			createSpriteStacks(SO);
-//		});
-//>>>>>>> d3e44caa424a95e3838730be0b1dc66b6b25e31b
-		
+//	private void addNewDefaultSprite(SpriteObject sp) {
+//		mySprites.addNewDefaultSprite(sp);
 //	}
-
-
 	
-//	private void createSpriteStacks(SpriteObject SO) {
-//		StackPane spriteStack = new StackPane();
-//		spriteStack.getChildren().add(SO);
-//		mySpriteGridHandler.addDragObject(SO);
-//		for (int i = 0; i < 10; i++) {
-//			SpriteObject newSO = SO.newCopy();
-//			spriteStack.getChildren().add(newSO);
-//			mySpriteGridHandler.addDragObject(newSO);
-//		}
-//		mySprites.getChildren().add(spriteStack);
-//	}
-//	
-//>>>>>>> d3e44caa424a95e3838730be0b1dc66b6b25e31b
+	private void addNewUserDefinedSprite(SpriteObject sp, int spLocation) {
+		myUserSprites.addNewDefaultSprite(sp, spLocation);
+	}
+
 	public void setupDefaultSprites() {
 		ArrayList<SpriteObject> defaults = myAEM.getDefaultGameSprites();
 		mySprites.setupDefaultSprites(defaults);
@@ -143,13 +113,6 @@ public class SpriteManager extends TabPane implements Observer {
 		myUserSprites.setupDefaultSprites(defaults);
 	}
 
-
-//	public void addNewDefaultSprite(SpriteObject SO, int spriteLocation){
-//		SpriteObject newSO = SO.newCopy();
-//		mySprites.getChildren().add(spriteLocation, newSO);
-//		makeSpriteDraggable(newSO);
-//	}
-	
 	public void getParams() {
 		ArrayList<String> urls = new ArrayList<String>();
 		urls.add("tree.png");
@@ -204,14 +167,14 @@ public class SpriteManager extends TabPane implements Observer {
 //		return mySpriteTabs;
 	}
 	
-	private ImageView createTrash() {
-		ImageView trashCan = new ImageView(new Image("trash.png"));
-		trashCan.setFitWidth(45);
-	    trashCan.setFitHeight(45);
-		mySpriteGridHandler.addDropToTrash(trashCan);
-		
-		return trashCan;
-	}
+//	private ImageView createTrash() {
+//		ImageView trashCan = new ImageView(new Image("trash.png"));
+//		trashCan.setFitWidth(45);
+//	    trashCan.setFitHeight(45);
+//		mySpriteGridHandler.addDropToTrash(trashCan);
+//		
+//		return trashCan;
+//	}
 
 	//adds new user sprites
 	@Override

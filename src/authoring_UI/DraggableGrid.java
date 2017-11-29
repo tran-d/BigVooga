@@ -1,5 +1,6 @@
 package authoring_UI;
 
+import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Background;
@@ -34,7 +35,7 @@ public class DraggableGrid extends HBox {
 
                     gp.add(sp, i, j);
                     spriteGridHandler.addDropHandling(sp);
-                    spriteGridHandler.addMouseClick(sp);
+                    spriteGridHandler.addGridMouseClick(sp);
             }
         }
         ScrollPane scrollGrid = new ScrollPane(gp);

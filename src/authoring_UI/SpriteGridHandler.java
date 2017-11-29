@@ -3,40 +3,126 @@ package authoring_UI;
 import java.util.ArrayList;
 import authoring.SpriteObject;
 import authoring.SpriteObjectGridManagerI;
+import javafx.scene.Scene;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Effect;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 
 public class SpriteGridHandler {
 	private SpriteObject draggingObject;
 	private DataFormat objectFormat;
 	private SpriteObjectGridManagerI mySOGM;
 	private Menu myMenu;
+	private ArrayList<StackPane> activeGridCells;
 	
 	protected SpriteGridHandler(int mapCount, Menu menu, SpriteObjectGridManagerI SOGM) {
 		objectFormat = new DataFormat("MyObject" + Integer.toString(mapCount));
 		mySOGM = SOGM;
 		myMenu = menu;
+		activeGridCells = new ArrayList<StackPane>();
+	}
+	
+	protected void addKeyPress(Scene scene) {
+		scene.setOnKeyPressed(e -> { 
+			if (e.getCode().equals(KeyCode.DELETE)) {
+				deleteSelectedSprites();
+				System.out.println("delete pressed");
+			}
+		});
+	}
+	
+	private void deleteSelectedSprites() {
+		System.out.println("trying to delete");
+		ArrayList<Integer[]> cellsToDelete = new ArrayList<Integer[]>();
+		mySOGM.getActiveSpriteObjects().forEach(s -> {
+			((Pane) s.getParent()).getChildren().remove(s);
+			int row = ((GridPane) s.getParent()).getRowIndex(s);
+			int col = ((GridPane) s.getParent()).getColumnIndex(s);
+			Integer[] row_col = new Integer[] { row, col };
+			cellsToDelete.add(row_col);
+		});
+		mySOGM.clearCells(cellsToDelete);
+
+	}
+	
+	protected void addGridMouseClick(StackPane pane) {
+		pane.setOnMouseClicked(e -> {
+			if (pane.getChildren().size() == 0) changeCellStatus(pane);
+		});		
+	}
+	
+	private void changeCellStatus(StackPane pane) {
+		if(pane.getOpacity() == 1) {
+			makeCellActive(pane);
+		} else {
+			makeCellInactive(pane);
+		}
+	}
+	
+	private void makeCellActive(StackPane pane) {
+		activeGridCells.add(pane);
+		pane.setOpacity(0.5);
+	}
+	
+	private void makeCellInactive(StackPane pane) {
+		activeGridCells.remove(pane);
+		pane.setOpacity(1);
 	}
 	
 
-	void addMouseClick(StackPane pane) {
-		pane.setOnMouseClicked(e -> {
-
+	protected void addSpriteMouseClick(SpriteObject s) {
+		s.setOnMouseClicked(e -> {
+			
 			boolean activeStatus;
-			activeStatus = mySOGM.switchCellActiveStatus(getStackPanePositionInGrid(pane));
-			if (activeStatus) {
-				pane.setOpacity(.5);
+			if (s.getPositionOnGrid() != null) {
+				activeStatus = mySOGM.switchCellActiveStatus(s.getPositionOnGrid());
+				if (activeStatus) {
+					s.setEffect(makeSpriteEffect());
+				} else {
+					s.setEffect(null);
+				}
+				myMenu.updateParameterTab();
 			} else {
-				pane.setOpacity(1);
+				populateGridCells(s);
+				removeActiveCells();
 			}
-			myMenu.updateParameterTab();
-
+		});
+	}
+	
+	private Effect makeSpriteEffect() {
+		DropShadow dropShadow = new DropShadow();
+        dropShadow.setRadius(5.0);
+        dropShadow.setOffsetX(5.0);
+        dropShadow.setOffsetY(5.0);
+        dropShadow.setColor(Color.GREY);
+		Glow glow = new Glow(0.5);
+		
+		return glow;
+	}
+	
+	private void removeActiveCells() {
+		activeGridCells.clear();
+	}
+	
+	private void populateGridCells(SpriteObject s) {
+		activeGridCells.forEach(cell -> {
+			SpriteObject SO = s.newCopy();
+			cell.setOpacity(1);
+			cell.getChildren().add(SO);
+			Integer[] cellPos = getStackPanePositionInGrid(cell);
+			mySOGM.populateCell(SO, cellPos);
+			SO.setPositionOnGrid(cellPos);
+			addSpriteMouseClick(SO);
 		});
 	}
 
@@ -64,27 +150,18 @@ public class SpriteGridHandler {
 			Dragboard db = e.getDragboard();
 			int row = ((GridPane) pane.getParent()).getRowIndex(pane);
 			int col = ((GridPane) pane.getParent()).getColumnIndex(pane);
-			//
 			Integer[] row_col = new Integer[] { row, col };
-			// ArrayList<Integer[]> activeCells = new ArrayList<Integer[]>();
-			// activeCells.add(row_col);
-
-			// mySOGM.addActiveCells(activeCells);
-
-			// myMenu.displayParams();
 
 			if (db.hasContent(objectFormat)) {
 				mySOGM.populateCell(draggingObject, row_col);
-//				System.out.println("has object format??");
-//				System.out.println("Parent size: " + ((Pane) draggingObject.getParent()).getChildren().size());
-//				System.out.println("Parent: " + ((Pane) draggingObject.getParent()));
+				draggingObject.setPositionOnGrid(row_col);
+				// gets locations of sprite in pane
+				int spriteLocation = ((Pane)draggingObject.getParent()).getChildren().indexOf(draggingObject);
 				
-
 				if (draggingObject.getParent() instanceof SpriteSelectPanel) {
 					SpriteSelectPanel spritePanel = (SpriteSelectPanel) draggingObject.getParent();
-					spritePanel.addNewDefaultSprite(draggingObject);
+					spritePanel.addNewDefaultSprite(draggingObject, spriteLocation);
 				}
-				
 				((Pane) draggingObject.getParent()).getChildren().remove(draggingObject);
 				pane.getChildren().add(draggingObject);
 				e.setDropCompleted(true);
@@ -120,15 +197,15 @@ public class SpriteGridHandler {
 		});
 	}
 
-	protected void addDragObject(SpriteObject b) {
-		b.setOnDragDetected(e -> {
-			Dragboard db = b.startDragAndDrop(TransferMode.MOVE);
+	protected void addDragObject(SpriteObject s) {
+		s.setOnDragDetected(e -> {
+			Dragboard db = s.startDragAndDrop(TransferMode.MOVE);
 
-			db.setDragView(b.snapshot(null, null));
+			db.setDragView(s.snapshot(null, null));
 			ClipboardContent cc = new ClipboardContent();
 			cc.put(objectFormat, " ");
 			db.setContent(cc);
-			draggingObject = b;
+			draggingObject = s;
 		});
 	}
 }

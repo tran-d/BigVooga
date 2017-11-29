@@ -13,6 +13,7 @@ import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
@@ -29,12 +30,17 @@ public class SpriteParameterTabsAndInfo {
 	private HashMap<String, Integer> counters;
 	private SpriteObject mySO;
 	private HashMap<String, String> catNames;
+	private SingleSelectionModel<Tab> mySelectModel;
+	private Tab currentTab;
+	
 
 	SpriteParameterTabsAndInfo() {
 		setupCounters();
 		setupCategoryNamesMap();
 		createCategoryTabPane();
 		mySO = new SpriteObject();
+		
+		mySelectModel = myTabPane.getSelectionModel();
 	}
 
 	SpriteParameterTabsAndInfo(SpriteObject SO) {
@@ -104,12 +110,12 @@ public class SpriteParameterTabsAndInfo {
 
 	private void addEmptyCategoryTab() {
 		String category = String.format("Category%d", categoryCounter++);
-		Tab newCategory = new Tab(category);
-		newCategory.setContent(createEmptyCategoryVBox(category, newCategory));
-		newCategory.setClosable(false);
+		currentTab = new Tab(category);
+		currentTab.setContent(createEmptyCategoryVBox(category, currentTab));
+		currentTab.setClosable(false);
 		int numtabs = myTabPane.getTabs().size();
 		// numtabs-1 to make sure the 'add tab' tab is the last tab
-		myTabPane.getTabs().add(numtabs - 1, newCategory);
+		myTabPane.getTabs().add(numtabs - 1, currentTab);
 	}
 
 	private void addCategoryTab(String category, VBox vbox) {
@@ -238,14 +244,14 @@ public class SpriteParameterTabsAndInfo {
 	}
 
 	private void addCreateCategoryTab() {
-		Button addtab = new Button("Add Tab");
-		addtab.setOnAction(e -> {
-			addEmptyCategoryTab();
-		});
-
 		Tab newCategory = new Tab();
-		newCategory.setGraphic(addtab);
+		newCategory.setText("Add Category");
 		newCategory.setClosable(false);
+		newCategory.setOnSelectionChanged(e -> {
+			addEmptyCategoryTab();
+			mySelectModel.select(currentTab);
+		});
+		
 		myTabPane.getTabs().add(newCategory);
 	}
 

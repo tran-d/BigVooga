@@ -75,6 +75,12 @@ public class MapManager extends TabPane {
 		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, myMenu, mySOGM);
 		DraggableGrid myGrid = new DraggableGrid(mySpriteGridHandler);
 		mySprites = new SpriteManager(mySpriteGridHandler, myAEM, mySOGM);
+		mySpriteGridHandler.addKeyPress(scene);
+//
+//<<<<<<< HEAD
+//		authMap.getChildren().addAll(myMenu, myGrid, mySprites);
+//		mySpriteGridHandler.addKeyPress(scene);
+//=======
 		authMap.setMenu(myMenu);
 		authMap.setGrid(myGrid);
 		authMap.setSpriteManager(mySprites);
