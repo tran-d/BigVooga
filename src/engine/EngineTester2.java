@@ -76,7 +76,11 @@ public class EngineTester2 extends Application {
 		
 		for(int j = 0; j < 50; j++)
 		{
-			layer.addGameObject("Pillar", 200+200*j, 600*(j%2), 0);
+			GameObject temp = blueprints.getInstanceOf("Pillar");
+			temp.setSize(temp.getWidth(), temp.getHeight()*(Math.random()+.5)*2);
+			temp.setCoords(1000+(400*j), 400*(j%2)+temp.getHeight()/2);
+			temp.setHeading(0);
+			layer.addGameObject(temp);
 		}
 		
 		GameWorld w = new GameWorld("World");
@@ -126,7 +130,7 @@ public class EngineTester2 extends Application {
 		obj.addConditionAction(new Collision(3, "Player"), actions1);
 		actions1 = new ArrayList<Action>();
 		
-		actions1.add(new Move(-1, 0));
+		actions1.add(new Move(-2, 0));
 		obj.addConditionAction(new BeginStep(), actions1);
 		actions1 = new ArrayList<Action>();
 		
