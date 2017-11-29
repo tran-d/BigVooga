@@ -24,6 +24,7 @@ public class SpriteGridHandler {
 	private SpriteObjectGridManagerI mySOGM;
 	private Menu myMenu;
 	private ArrayList<StackPane> activeGridCells;
+	private ArrayList<StackPane> activeSpriteGridCells;
 	private GridPane myGrid;
 	
 	protected SpriteGridHandler(int mapCount, Menu menu, SpriteObjectGridManagerI SOGM) {
@@ -31,6 +32,7 @@ public class SpriteGridHandler {
 		mySOGM = SOGM;
 		myMenu = menu;
 		activeGridCells = new ArrayList<StackPane>();
+		activeSpriteGridCells = new ArrayList<StackPane>();
 	}
 	
 	protected void addGrid(GridPane grid) {
@@ -41,29 +43,27 @@ public class SpriteGridHandler {
 		scene.setOnKeyPressed(e -> { 
 			if (e.getCode().equals(KeyCode.BACK_SPACE)) {
 				deleteSelectedSprites();
-				System.out.println("delete pressed");
 			}
 		});
 	}
 	
 	private void deleteSelectedSprites() {
-		System.out.println("trying to delete");
 		ArrayList<Integer[]> cellsToDelete = new ArrayList<Integer[]>();
 		mySOGM.getActiveSpriteObjects().forEach(s -> {
 			Integer[] row_col = s.getPositionOnGrid();
-			removeSpriteFromGrid(row_col);
 			cellsToDelete.add(row_col);
+			removeSpritesFromGrid();
 		});
-		mySOGM.clearCells(cellsToDelete);
+		mySOGM.removeActiveCells(cellsToDelete);
 
 	}
 	
-	private void removeSpriteFromGrid(Integer[] row_col) {
-		myGrid.getChildren().forEach(cell -> {
-			if (myGrid.getRowIndex(cell) == row_col[0] && myGrid.getColumnIndex(cell) == row_col[1]) {
-				((Pane) cell).getChildren().clear();
-			}
+	private void removeSpritesFromGrid() {
+		activeSpriteGridCells.forEach(spriteCell -> {
+			spriteCell.getChildren().clear();
 		});
+		activeSpriteGridCells.clear();
+		myMenu.removeParameterTab();
 	}
 	
 	protected void addGridMouseClick(StackPane pane) {
@@ -99,8 +99,11 @@ public class SpriteGridHandler {
 				activeStatus = mySOGM.switchCellActiveStatus(s.getPositionOnGrid());
 				if (activeStatus) {
 					s.setEffect(makeSpriteEffect());
+					activeSpriteGridCells.add((StackPane) s.getParent());
 				} else {
 					s.setEffect(null);
+					activeSpriteGridCells.remove((StackPane) s.getParent());
+					myMenu.removeParameterTab();
 				}
 				myMenu.updateParameterTab();
 			} else {
