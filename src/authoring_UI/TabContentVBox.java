@@ -10,6 +10,7 @@ public class TabContentVBox extends VBox{
 	TabContentVBox(String category){
 		super();
 		myCategory = category;
+		setSpacing(10);
 	}
 	
 	public String getMyCategory() {
