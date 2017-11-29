@@ -58,14 +58,16 @@ public class EngineTester extends Application {
 	private void generateGame(BoundedImage i) {		
 		
 		GameObjectFactory blueprints = new GameObjectFactory();
-		GameObject obj1 = makeObject("Ob1", i, 200, 200, this::conditionAction1);
+		GameObject obj1 = makeObject("Ob1", i, 120, 150, this::conditionAction1);
 		obj1.addTag("Ob1");
-		GameObject obj2 = makeObject("Ob2", i.clone(), 500, 200, this::conditionAction2);
+		GameObject obj2 = makeObject("Ob2", i.clone(), 350, 150, this::conditionAction2);
+		obj2.addTag("Ob2");
+		GameObject obj3 = makeObject("Ob3", i.clone(), 750, 500, this::conditionAction3);
 		
 		obj1.setDoubleVariable("xSpeed", -3);
 		obj1.setDoubleVariable("ySpeed", 0);
 		blueprints.addBlueprint(obj1);
-		obj2.addTag("Ob2");
+		
 		blueprints.addBlueprint(obj2);
 		GameLayer layer = new GameLayer("Layer");
 		GameObject obj = new GameObject();
@@ -87,6 +89,7 @@ public class EngineTester extends Application {
 
 		layer.addGameObject(obj1);
 		layer.addGameObject(obj2);
+		layer.addGameObject(obj3);
 		layer.setBlueprints(blueprints);
 		
 		GameWorld w = new GameWorld("World");
@@ -147,19 +150,9 @@ public class EngineTester extends Application {
 		actions1 = new ArrayList<Action>();
 		actions1.add(new ChangeDouble("xSpeed", -3));
 		obj.addConditionAction(new Or(1, new KeyReleased(1, "Q"), new KeyReleased(1, "Space")), actions1);
-//		actions1 = new ArrayList<Action>();
-//		actions1.add(new RotateTo(45.0));
-//		obj.addConditionAction(new Not(1, new ScreenClickHeld(1)), actions1);
-//		actions1 = new ArrayList<Action>();
-//		actions1.add(new RotateTo(0));
-//		obj.addConditionAction(new ScreenClickHeld(1), actions1);
-		actions1 = new ArrayList<Action>();
-		actions1.add(new RotateTo(25));
-		obj.addConditionAction(new DoubleGreaterThan(1, GameObject.X_COR, 300), actions1);
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Create("Ob2", 500, 500, 20));
 		obj.addConditionAction(new KeyPressed(1,"C"), actions1);
-
 	}
 	
 	private void conditionAction2(GameObject obj) {
@@ -167,6 +160,15 @@ public class EngineTester extends Application {
 		actions1.add(new RemoveIntersection());
 		obj.addConditionAction(new Collision(3, "Ob1"), actions1);
 		obj.addConditionAction(new Collision(4, "Ob2"), actions1);
+		obj.addConditionAction(new Collision(5, "Ob3"), actions1);
+	}
+	
+	private void conditionAction3(GameObject obj) {
+		List<Action> actions1 = new ArrayList<Action>();
+		actions1.add(new RemoveIntersection());
+		obj.addConditionAction(new Collision(3, "Ob1"), actions1);
+		obj.addConditionAction(new Collision(4, "Ob2"), actions1);
+		obj.addConditionAction(new Collision(5, "Ob3"), actions1);
 	}
 	
 	private void testImageCanvas(Stage stage) {
