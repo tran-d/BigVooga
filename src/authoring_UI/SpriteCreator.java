@@ -20,6 +20,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.ColumnConstraints;
@@ -54,7 +55,7 @@ public class SpriteCreator extends Observable {
 	private SpriteObject mySpriteObject;
 	private File mySpriteFile;
 	private SpriteParameterTabsAndInfo mySPTAI;
-	private Dialog myErrorMessage;
+	private Alert myErrorMessage;
 	Consumer<Button> myConsumer;
 	private AuthoringEnvironmentManager myAEM;
 
@@ -110,14 +111,15 @@ public class SpriteCreator extends Observable {
 	}
 	
 	private void addErrorMessage(){
-		 myErrorMessage = new Dialog();
+		 myErrorMessage = new Alert(AlertType.ERROR);
+		 myErrorMessage.setTitle("Error");
 		 myErrorMessage.setContentText("");
 //		 myGrid.add(myErrorMessage, 1, 2);
 	}
 	
 	private void setErrorMessage(String message){
 		myErrorMessage.setContentText(message);
-		myErrorMessage.show();
+		myErrorMessage.showAndWait();
 	}
 
 	protected VBox getVBox() {

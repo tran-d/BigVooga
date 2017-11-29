@@ -42,7 +42,7 @@ public class Menu extends VBox {
 	private static final String LOAD = "Load";
 	private static final String SAVE = "Save";
 	private static final String ACTIONCONDITIONTITLES_PATH = "TextResources/ConditionActionTitles";
-	private static final double MENU_WIDTH = 400;
+	private static final double MENU_WIDTH = 435;
 	private static final double MENU_HEIGHT = 500;
 	
 	public static final ResourceBundle conditionActionTitles = ResourceBundle.getBundle(ACTIONCONDITIONTITLES_PATH);
@@ -133,7 +133,7 @@ public class Menu extends VBox {
 		mySpriteTabs.getTabs().addAll(parameters, dialogue);
 		mySpriteTabs.setSide(Side.TOP);
 		createActionConditionTabs();
-		this.getChildren().add(mySpriteTabs);
+//		this.getChildren().add(mySpriteTabs);
 	}
 
 	private VBox createParameterTab() {
@@ -167,7 +167,8 @@ public class Menu extends VBox {
 	}
 
 	private void clearParameterTab() {
-		myParamTabs.getTabs().clear();
+//		myParamTabs.getTabs().clear();
+		mySPTAI.clearTabPane();
 	}
 
 	protected void removeParameterTab() {
