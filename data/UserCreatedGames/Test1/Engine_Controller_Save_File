@@ -5,8 +5,30 @@
         <worldName>Layer</worldName>
         <worldObjects>
           <engine.GameObject>
-            <doubleVars defined-in="engine.VariableContainer"/>
-            <stringVars defined-in="engine.VariableContainer"/>
+            <doubleVars>
+              <entry>
+                <string>xSpeed</string>
+                <double>-3.0</double>
+              </entry>
+              <entry>
+                <string>yCor</string>
+                <double>200.0</double>
+              </entry>
+              <entry>
+                <string>heading</string>
+                <double>0.0</double>
+              </entry>
+              <entry>
+                <string>xCor</string>
+                <double>200.0</double>
+              </entry>
+              <entry>
+                <string>ySpeed</string>
+                <double>0.0</double>
+              </entry>
+            </doubleVars>
+            <stringVars/>
+            <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
             <name>Ob1</name>
             <tagSet>
@@ -26,27 +48,53 @@
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.KeyHeld>
+                <engine.Conditions.ObjectClickHeld>
                   <priorityNum>1</priorityNum>
-                  <check>Left</check>
-                </engine.Conditions.KeyHeld>
+                </engine.Conditions.ObjectClickHeld>
                 <list>
-                  <engine.Actions.Move>
-                    <xIncrement>-3.0</xIncrement>
-                    <yIncrement>0.0</yIncrement>
-                  </engine.Actions.Move>
+                  <engine.Actions.Rotate>
+                    <headingIncrement>1.0</headingIncrement>
+                  </engine.Actions.Rotate>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.KeyHeld>
+                <engine.Conditions.And>
                   <priorityNum>1</priorityNum>
-                  <check>Right</check>
-                </engine.Conditions.KeyHeld>
+                  <condition1 class="engine.Conditions.KeyHeld">
+                    <priorityNum>1</priorityNum>
+                    <check>Q</check>
+                  </condition1>
+                  <condition2 class="engine.Conditions.KeyHeld">
+                    <priorityNum>1</priorityNum>
+                    <check>Space</check>
+                  </condition2>
+                </engine.Conditions.And>
                 <list>
-                  <engine.Actions.Move>
-                    <xIncrement>3.0</xIncrement>
-                    <yIncrement>0.0</yIncrement>
-                  </engine.Actions.Move>
+                  <engine.Actions.ChangeDouble>
+                    <varName>xSpeed</varName>
+                    <newDouble>-10.0</newDouble>
+                    <relative>false</relative>
+                  </engine.Actions.ChangeDouble>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.Or>
+                  <priorityNum>1</priorityNum>
+                  <condition1 class="engine.Conditions.KeyReleased">
+                    <priorityNum>1</priorityNum>
+                    <check>Q</check>
+                  </condition1>
+                  <condition2 class="engine.Conditions.KeyReleased">
+                    <priorityNum>1</priorityNum>
+                    <check>Space</check>
+                  </condition2>
+                </engine.Conditions.Or>
+                <list>
+                  <engine.Actions.ChangeDouble>
+                    <varName>xSpeed</varName>
+                    <newDouble>-3.0</newDouble>
+                    <relative>false</relative>
+                  </engine.Actions.ChangeDouble>
                 </list>
               </entry>
               <entry>
@@ -61,10 +109,67 @@
                   </engine.Actions.Move>
                 </list>
               </entry>
+              <entry>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>1</priorityNum>
+                  <check>Left</check>
+                </engine.Conditions.KeyHeld>
+                <list>
+                  <engine.Actions.MoveByVariable>
+                    <xSpeedVar>xSpeed</xSpeedVar>
+                    <ySpeedVar>ySpeed</ySpeedVar>
+                  </engine.Actions.MoveByVariable>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>1</priorityNum>
+                  <check>Z</check>
+                </engine.Conditions.KeyHeld>
+                <list>
+                  <engine.Actions.Rotate>
+                    <headingIncrement>-1.0</headingIncrement>
+                  </engine.Actions.Rotate>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.KeyPressed>
+                  <priorityNum>1</priorityNum>
+                  <check>C</check>
+                </engine.Conditions.KeyPressed>
+                <list>
+                  <engine.Actions.Create>
+                    <name>Ob2</name>
+                    <x>500.0</x>
+                    <y>500.0</y>
+                    <heading>20.0</heading>
+                  </engine.Actions.Create>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>1</priorityNum>
+                  <check>X</check>
+                </engine.Conditions.KeyHeld>
+                <list>
+                  <engine.Actions.Rotate>
+                    <headingIncrement>1.0</headingIncrement>
+                  </engine.Actions.Rotate>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>1</priorityNum>
+                  <check>Right</check>
+                </engine.Conditions.KeyHeld>
+                <list>
+                  <engine.Actions.Move>
+                    <xIncrement>3.0</xIncrement>
+                    <yIncrement>0.0</yIncrement>
+                  </engine.Actions.Move>
+                </list>
+              </entry>
             </events>
-            <x>200.0</x>
-            <y>200.0</y>
-            <heading>0.0</heading>
             <currentSprite>
               <animations>
                 <entry>
@@ -117,33 +222,50 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <doubleVars/>
-            <booleanVars/>
-            <stringVars/>
             <width>200.0</width>
             <height>200.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
-            <doubleVars defined-in="engine.VariableContainer"/>
-            <stringVars defined-in="engine.VariableContainer"/>
+            <doubleVars>
+              <entry>
+                <string>yCor</string>
+                <double>200.0</double>
+              </entry>
+              <entry>
+                <string>heading</string>
+                <double>0.0</double>
+              </entry>
+              <entry>
+                <string>xCor</string>
+                <double>500.0</double>
+              </entry>
+            </doubleVars>
+            <stringVars/>
+            <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
             <name>Ob2</name>
-            <tagSet/>
+            <tagSet>
+              <string>Ob2</string>
+            </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision>
-                  <priorityNum>3</priorityNum>
-                  <tag>Ob1</tag>
+                  <priorityNum>4</priorityNum>
+                  <tag>Ob2</tag>
                 </engine.Conditions.Collision>
                 <list>
                   <engine.Actions.RemoveIntersection/>
                 </list>
               </entry>
+              <entry>
+                <engine.Conditions.Collision>
+                  <priorityNum>3</priorityNum>
+                  <tag>Ob1</tag>
+                </engine.Conditions.Collision>
+                <list reference="../../entry/list"/>
+              </entry>
             </events>
-            <x>500.0</x>
-            <y>200.0</y>
-            <heading>0.0</heading>
             <currentSprite>
               <animations>
                 <entry>
@@ -169,27 +291,29 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <doubleVars/>
-            <booleanVars/>
-            <stringVars/>
             <width>200.0</width>
             <height>200.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
         </worldObjects>
-        <conditionPriorities class="tree-map">
-          <entry>
+        <conditionPriorities class="java.util.concurrent.ConcurrentSkipListMap" serialization="custom">
+          <unserializable-parents/>
+          <java.util.concurrent.ConcurrentSkipListMap>
+            <default/>
             <int>1</int>
             <list>
               <engine.GameObject reference="../../../../worldObjects/engine.GameObject"/>
             </list>
-          </entry>
-          <entry>
             <int>3</int>
             <list>
               <engine.GameObject reference="../../../../worldObjects/engine.GameObject[2]"/>
             </list>
-          </entry>
+            <int>4</int>
+            <list>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[2]"/>
+            </list>
+            <null/>
+          </java.util.concurrent.ConcurrentSkipListMap>
         </conditionPriorities>
         <idToGameObject>
           <entry>
@@ -197,7 +321,202 @@
             <engine.GameObject reference="../../../worldObjects/engine.GameObject[2]"/>
           </entry>
         </idToGameObject>
-        <nextWorld class="engine.GameLayer" reference=".."/>
+        <blueprints>
+          <originals>
+            <entry>
+              <string>Ob2</string>
+              <engine.GameObject>
+                <doubleVars>
+                  <entry>
+                    <string>yCor</string>
+                    <double>200.0</double>
+                  </entry>
+                  <entry>
+                    <string>heading</string>
+                    <double>0.0</double>
+                  </entry>
+                  <entry>
+                    <string>xCor</string>
+                    <double>500.0</double>
+                  </entry>
+                </doubleVars>
+                <stringVars/>
+                <booleanVars/>
+                <DEFAULT__TAG>unnamed</DEFAULT__TAG>
+                <name>Ob2</name>
+                <tagSet>
+                  <string>Ob2</string>
+                </tagSet>
+                <events>
+                  <entry>
+                    <engine.Conditions.Collision reference="../../../../../../../worldObjects/engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
+                    <list>
+                      <engine.Actions.RemoveIntersection reference="../../../../../../../../worldObjects/engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
+                    </list>
+                  </entry>
+                  <entry>
+                    <engine.Conditions.Collision reference="../../../../../../../worldObjects/engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                    <list>
+                      <engine.Actions.RemoveIntersection reference="../../../../../../../../worldObjects/engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
+                    </list>
+                  </entry>
+                </events>
+                <currentSprite>
+                  <animations>
+                    <entry>
+                      <string>Animation</string>
+                      <engine.sprite.AnimationSequence>
+                        <imageIndex>0</imageIndex>
+                        <images>
+                          <engine.sprite.BoundedImage>
+                            <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                            <relativeBounds reference="../../../../../../../../../../../worldObjects/engine.GameObject/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                            <fileName>testImage.png</fileName>
+                            <xCenter>0.0</xCenter>
+                            <yCenter>0.0</yCenter>
+                            <xSize>0.0</xSize>
+                            <ySize>0.0</ySize>
+                            <heading>0.0</heading>
+                            <depth>10</depth>
+                          </engine.sprite.BoundedImage>
+                        </images>
+                        <name>Animation</name>
+                      </engine.sprite.AnimationSequence>
+                    </entry>
+                  </animations>
+                  <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+                </currentSprite>
+                <width>200.0</width>
+                <height>200.0</height>
+                <uniqueID>0</uniqueID>
+              </engine.GameObject>
+            </entry>
+            <entry>
+              <string>Ob1</string>
+              <engine.GameObject>
+                <doubleVars>
+                  <entry>
+                    <string>xSpeed</string>
+                    <double>-3.0</double>
+                  </entry>
+                  <entry>
+                    <string>yCor</string>
+                    <double>200.0</double>
+                  </entry>
+                  <entry>
+                    <string>heading</string>
+                    <double>0.0</double>
+                  </entry>
+                  <entry>
+                    <string>xCor</string>
+                    <double>200.0</double>
+                  </entry>
+                  <entry>
+                    <string>ySpeed</string>
+                    <double>0.0</double>
+                  </entry>
+                </doubleVars>
+                <stringVars/>
+                <booleanVars/>
+                <DEFAULT__TAG>unnamed</DEFAULT__TAG>
+                <name>Ob1</name>
+                <tagSet>
+                  <string>Ob1</string>
+                </tagSet>
+                <events>
+                  <entry>
+                    <engine.Conditions.KeyHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry/engine.Conditions.KeyHeld"/>
+                    <list>
+                      <engine.Actions.Move reference="../../../../../../../../worldObjects/engine.GameObject/events/entry/list/engine.Actions.Move"/>
+                    </list>
+                  </entry>
+                  <entry>
+                    <engine.Conditions.ObjectClickHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[2]/engine.Conditions.ObjectClickHeld"/>
+                    <list>
+                      <engine.Actions.Rotate reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[2]/list/engine.Actions.Rotate"/>
+                    </list>
+                  </entry>
+                  <entry>
+                    <engine.Conditions.And reference="../../../../../../../worldObjects/engine.GameObject/events/entry[3]/engine.Conditions.And"/>
+                    <list>
+                      <engine.Actions.ChangeDouble reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[3]/list/engine.Actions.ChangeDouble"/>
+                    </list>
+                  </entry>
+                  <entry>
+                    <engine.Conditions.Or reference="../../../../../../../worldObjects/engine.GameObject/events/entry[4]/engine.Conditions.Or"/>
+                    <list>
+                      <engine.Actions.ChangeDouble reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[4]/list/engine.Actions.ChangeDouble"/>
+                    </list>
+                  </entry>
+                  <entry>
+                    <engine.Conditions.KeyHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[5]/engine.Conditions.KeyHeld"/>
+                    <list>
+                      <engine.Actions.Move reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[5]/list/engine.Actions.Move"/>
+                    </list>
+                  </entry>
+                  <entry>
+                    <engine.Conditions.KeyHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[6]/engine.Conditions.KeyHeld"/>
+                    <list>
+                      <engine.Actions.MoveByVariable reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[6]/list/engine.Actions.MoveByVariable"/>
+                    </list>
+                  </entry>
+                  <entry>
+                    <engine.Conditions.KeyHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[7]/engine.Conditions.KeyHeld"/>
+                    <list>
+                      <engine.Actions.Rotate reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[7]/list/engine.Actions.Rotate"/>
+                    </list>
+                  </entry>
+                  <entry>
+                    <engine.Conditions.KeyPressed reference="../../../../../../../worldObjects/engine.GameObject/events/entry[8]/engine.Conditions.KeyPressed"/>
+                    <list>
+                      <engine.Actions.Create reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[8]/list/engine.Actions.Create"/>
+                    </list>
+                  </entry>
+                  <entry>
+                    <engine.Conditions.KeyHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[9]/engine.Conditions.KeyHeld"/>
+                    <list>
+                      <engine.Actions.Rotate reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[9]/list/engine.Actions.Rotate"/>
+                    </list>
+                  </entry>
+                  <entry>
+                    <engine.Conditions.KeyHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[10]/engine.Conditions.KeyHeld"/>
+                    <list>
+                      <engine.Actions.Move reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[10]/list/engine.Actions.Move"/>
+                    </list>
+                  </entry>
+                </events>
+                <currentSprite>
+                  <animations>
+                    <entry>
+                      <string>Animation</string>
+                      <engine.sprite.AnimationSequence>
+                        <imageIndex>0</imageIndex>
+                        <images>
+                          <engine.sprite.BoundedImage>
+                            <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                            <relativeBounds reference="../../../../../../../../../../../worldObjects/engine.GameObject/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                            <fileName>testImage.png</fileName>
+                            <xCenter>0.0</xCenter>
+                            <yCenter>0.0</yCenter>
+                            <xSize>0.0</xSize>
+                            <ySize>0.0</ySize>
+                            <heading>0.0</heading>
+                            <depth>10</depth>
+                          </engine.sprite.BoundedImage>
+                        </images>
+                        <name>Animation</name>
+                      </engine.sprite.AnimationSequence>
+                    </entry>
+                  </animations>
+                  <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+                </currentSprite>
+                <width>200.0</width>
+                <height>200.0</height>
+                <uniqueID>0</uniqueID>
+              </engine.GameObject>
+            </entry>
+          </originals>
+        </blueprints>
       </engine.GameLayer>
     </worldLayers>
     <nextWorld reference=".."/>

@@ -1,12 +1,12 @@
 package engine.parameterGetters;
 
 import engine.GameObject;
-import engine.World;
+import engine.Layer;
 
 /**
  * @author Ian Eldridge-Allegra
  *
  */
 public interface GameObjectGetter {	
-	public GameObject get(GameObject asking, World world);
+	public GameObject get(GameObject asking, Layer world);
 }
