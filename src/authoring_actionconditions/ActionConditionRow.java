@@ -17,10 +17,11 @@ public class ActionConditionRow extends ToolBar {
 	private int labelInt;
 	private Label IDlabel;
 	private ActionCheckBoxVBox<Integer> actionCheckBoxVBox;
-	private ObservableList<Integer> currentActions;
+	private ObservableList<Integer> newActionOptions;
 	
-	public ActionConditionRow(int ID,String label,String selectorLabel,boolean isConditionRow, ObservableList<Integer> currentActions) {
+	public ActionConditionRow(int ID,String label,String selectorLabel,boolean isConditionRow, ObservableList<Integer> newActionOptions) {
 		super();
+		this.newActionOptions= newActionOptions;
 		actionConditionVBoxResources = ResourceBundle.getBundle(ACTIONCONDITION_RESOURCE_PATH);
 		labelInt = ID;
 		IDlabel = new Label(Integer.toString(ID));
@@ -29,7 +30,6 @@ public class ActionConditionRow extends ToolBar {
 				+ actionConditionVBoxResources.getString("OptionsTag"))); 
 		ChoiceBoxVBox<String> implementationSelectorVBox = new ChoiceBoxVBox<String>(selectorLabel, actionConditionOptions);
 		getItems().addAll(IDlabel,separator,new Label(label),implementationSelectorVBox);
-		this.currentActions = currentActions;
 		if(isConditionRow) addActionCheckBox();
 	}
 	
@@ -43,7 +43,7 @@ public class ActionConditionRow extends ToolBar {
 	}
 	
 	private void addActionCheckBox() {
-		actionCheckBoxVBox = new ActionCheckBoxVBox<Integer>(actionConditionVBoxResources.getString("ActionCheckBoxLabel"),currentActions);
+		actionCheckBoxVBox = new ActionCheckBoxVBox<Integer>(actionConditionVBoxResources.getString("ActionCheckBoxLabel"),newActionOptions);
 		getItems().add(actionCheckBoxVBox);
 	}
 	

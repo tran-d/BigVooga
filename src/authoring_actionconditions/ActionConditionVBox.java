@@ -11,6 +11,7 @@ public class ActionConditionVBox extends VBox implements ActionConditionVBoxI{
 	private String selectorLabel;
 	private List<ActionConditionRow> rows;
 	private boolean isConditionVBox;
+	private ObservableList<Integer> newActionOptions;
 	
 	public ActionConditionVBox(String selectorString,boolean isConditionVBox) {
 		super();
@@ -21,11 +22,12 @@ public class ActionConditionVBox extends VBox implements ActionConditionVBoxI{
 	
 	protected void setNewActionOptions(ObservableList<Integer> newActionOptions) {
 		rows.forEach(row -> row.setNewActionCheckBoxVBoxOptions(newActionOptions));
+		this.newActionOptions = newActionOptions;
 	}
 
 	@Override
-	public void addActionCondition(String label,ObservableList<Integer> currentActions) {
-		ActionConditionRow actionConditionRow = new ActionConditionRow(rows.size() + 1,label,selectorLabel,isConditionVBox,currentActions);
+	public void addActionCondition(String label) {
+		ActionConditionRow actionConditionRow = new ActionConditionRow(rows.size() + 1,label,selectorLabel,isConditionVBox, newActionOptions);
 		rows.add(actionConditionRow);
 		getChildren().add(actionConditionRow);
 	}
@@ -35,6 +37,10 @@ public class ActionConditionVBox extends VBox implements ActionConditionVBoxI{
 		getChildren().remove(rows.get(row));
 		rows.remove(row);
 		for(int i = row; i < rows.size(); i++) rows.get(i).decreaseLabelID();
+	}
+	
+	public ObservableList<Integer> getNewActionOptions() {
+		return newActionOptions;
 	}
 
 }
