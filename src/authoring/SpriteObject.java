@@ -13,7 +13,6 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 	private ImageView myImageView;
 	private String myImageURL;
 	private Integer[] myPositionOnGrid;
-
 	
 	public SpriteObject() {
 		
@@ -26,7 +25,7 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 		this.setFitHeight(45);
 	}
 	
-	SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap) {
+	public SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap) {
 		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(inCategoryMap);
 	}
 	
@@ -110,7 +109,7 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 	
 	@Override
 	public SpriteObject newCopy(){
-		System.out.println("Making copy");
+		System.out.println("");
 		if(this.myImageURL!=null) {
 		return new SpriteObject(this.categoryMap, this.myImageURL);
 		} else {
