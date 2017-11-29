@@ -14,12 +14,17 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 	private String myImageURL;
 	private Integer[] myPositionOnGrid;
 	private String myName;
+	private double myNumCellsWidth;
+	private double myNumCellsHeight;
+	private int myUniqueID;
 	
 	public SpriteObject() {
-		
+		super();
+		setUniqueID();
 	}
 
 	public SpriteObject(String fileURL){
+		this();
 		setupImageURLAndView(fileURL);
 		System.out.println(fileURL);
 		myName = fileURL.split("\\.")[0];
@@ -27,10 +32,12 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 	}
 	
 	public SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap) {
+		this();
 		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(inCategoryMap);
 	}
 	
 	SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap, String fileURL) {
+		this();
 		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(inCategoryMap);
 		setupImageURLAndView(fileURL);
 	}
@@ -40,6 +47,48 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 		this.setImage(new Image(myImageURL));
 		this.setFitWidth(45);
 		this.setFitHeight(45);
+	}
+	
+	private void setUniqueID() {
+		if (myUniqueID <= 0) {
+			myUniqueID = SpriteIDGenerator.getInstance().getUniqueID();
+		}
+	}
+	
+	private double getNumCellsWidth() {
+		return myNumCellsWidth;
+	}
+
+	private void setNumCellsWidth(double in) {
+		myNumCellsWidth = in;
+	}
+
+	private double getNumCellsHeight() {
+		return myNumCellsHeight;
+	}
+
+	private void setNumCellsHeight(double in) {
+		myNumCellsHeight = in;
+	}
+
+	private double[] getCenterCoordinates() {
+		return new double[] { getXCenterCoordinate(), getYCenterCoordinate() };
+	}
+
+
+	public double getYCenterCoordinate() {
+		double height = getNumCellsHeight();
+		double ypos = getRowOnGrid();
+		double centery = ypos + height / 2;
+		return centery;
+	}
+
+
+	public double getXCenterCoordinate() {
+		double width = getNumCellsWidth();
+		double xpos = getColumnOnGrid();
+		double centerx = xpos + width / 2;
+		return centerx;
 	}
 	
 	
@@ -56,6 +105,14 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 	@Override 
 	public void setPositionOnGrid(Integer[] pos){
 		myPositionOnGrid = pos;
+	}
+	
+	public int getRowOnGrid() {
+		return getPositionOnGrid()[0];
+	}
+
+	public int getColumnOnGrid() {
+		return getPositionOnGrid()[1];
 	}
 	
 	@Override 
@@ -130,14 +187,25 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 		return true;
 	}
 	
+	private void replaceCategoryMap(HashMap<String, ArrayList<SpriteParameterI>> newParams) {
+		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(newParams);
+	}
+	
 	@Override
 	public SpriteObject newCopy(){
 //		System.out.println("Making copy");
-		if(this.myImageURL!=null) {
-		return new SpriteObject(this.categoryMap, this.myImageURL);
-		} else {
-			return new SpriteObject(this.categoryMap);
+		SpriteObject ret = new SpriteObject();
+		ret.setName(this.getName());
+		ret.replaceCategoryMap(this.categoryMap);
+		if (this.myImageURL != null) {
+			ret.setupImageURLAndView(this.myImageURL);
 		}
+//		if(this.myImageURL!=null) {
+//		return new SpriteObject(this.categoryMap, this.myImageURL);
+//		} else {
+//			return new SpriteObject(this.categoryMap);
+//		}
+		return ret;
 	}
 	
 	private ArrayList<SpriteParameterI> getSpriteParametersMatching(String type) {
@@ -191,6 +259,10 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 	@Override
 	public void changeCategoryName(String prev, String next) {
 		getParameters().put(next, getParameters().remove(prev));
+	}
+
+	public String getImageURL() {
+		return myImageURL;
 	}
 	
 	

@@ -42,10 +42,15 @@ public class SpriteObjectGridToEngineController {
 	private GameObject convertToGameObject(SpriteObjectI SOI){
 		//added null as input to rid error
 		GameObject GE = new GameObject(null);
+		setPositionOfGameObject(SOI, GE);
 		addParametersToGameObject(SOI, GE);
 		addConditionsAndActionsToGameObject(SOI, GE);
 		return GE;
 		
+	}
+	
+	private void setPositionOfGameObject(SpriteObjectI SOI, GameObject GO){
+		GO.setCoords(SOI.getXCenterCoordinate(), SOI.getYCenterCoordinate());
 	}
 
 	private void addParametersToGameObject(SpriteObjectI SOI, GameObject GE) {
