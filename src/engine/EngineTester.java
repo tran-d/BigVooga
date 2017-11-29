@@ -10,6 +10,7 @@ import java.util.function.Consumer;
 import authoring.drawing.BoundingPolygonCreator;
 import authoring.drawing.ImageCanvas;
 import engine.Actions.ChangeDouble;
+import engine.Actions.Create;
 import engine.Actions.Move;
 import engine.Actions.MoveByVariable;
 import engine.Actions.RemoveIntersection;
@@ -52,13 +53,17 @@ public class EngineTester extends Application {
 	}
 	
 	private void generateGame(BoundedImage i) {		
+		
+		GameObjectFactory blueprints = new GameObjectFactory();
 		GameObject obj1 = makeObject("Ob1", i, 200, 200, this::conditionAction1);
 		obj1.addTag("Ob1");
 		GameObject obj2 = makeObject("Ob2", i.clone(), 500, 200, this::conditionAction2);
 		
 		obj1.setDoubleVariable("xSpeed", -3);
 		obj1.setDoubleVariable("ySpeed", 0);
-		
+		blueprints.addBlueprint(obj1);
+		obj2.addTag("Ob2");
+		blueprints.addBlueprint(obj2);
 		GameLayer layer = new GameLayer("Layer");
 		GameObject obj = new GameObject();
 		obj.setDoubleVariable("speed", 50);
@@ -79,6 +84,7 @@ public class EngineTester extends Application {
 
 		layer.addGameObject(obj1);
 		layer.addGameObject(obj2);
+		layer.setBlueprints(blueprints);
 		
 		GameWorld w = new GameWorld("World");
 		w.addLayer(layer);
@@ -141,12 +147,16 @@ public class EngineTester extends Application {
 		actions1 = new ArrayList<Action>();
 		actions1.add(new ChangeDouble("heading", 45));
 		obj.addConditionAction(new Not(1, new ScreenClickHeld(1)), actions1);
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Create("Ob2", 500, 500, 20));
+		obj.addConditionAction(new KeyPressed(1,"C"), actions1);
 	}
 	
 	private void conditionAction2(GameObject obj) {
 		List<Action> actions1 = new ArrayList<Action>();
 		actions1.add(new RemoveIntersection());
 		obj.addConditionAction(new Collision(3, "Ob1"), actions1);
+		obj.addConditionAction(new Collision(4, "Ob2"), actions1);
 	}
 	
 	private void testImageCanvas(Stage stage) {

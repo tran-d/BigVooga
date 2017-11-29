@@ -9,9 +9,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.TreeSet;
-
 import engine.sprite.BoundedImage;
 import engine.sprite.Sprite;
 import engine.utilities.collisions.CollisionEvent;
@@ -191,6 +189,7 @@ public class GameObject extends VariableContainer {
 		GameObject copy = new GameObject(name);
 		copy.setCoords(doubleVars.get(X_COR), doubleVars.get(Y_COR));
 		copy.setHeading(doubleVars.get(HEADING));
+		copy.currentSprite = currentSprite.clone();
 		for (String tag : tagSet)
 			copy.addTag(tag);
 		for (String var : stringVars.keySet())
