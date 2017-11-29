@@ -2,6 +2,7 @@ package authoring_actionconditions;
 
 import java.util.ResourceBundle;
 
+import authoring_UI.Menu;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ScrollPane;
@@ -16,9 +17,11 @@ public class ActionConditionTab extends Tab {
 	private ScrollPane actionConditionManager;
 	private TopToolBar buttons;
 	private ActionConditionVBox actionConditionVBox;
+	private Boolean isConditionTab;
 	
 	public ActionConditionTab(String title) {
 		super(title);
+		determineTabType(title);
 		String resourcePath = "TextResources/" + title.substring(0,title.length() - 1) + "TabResources";
 		actionTabResources = ResourceBundle.getBundle(resourcePath); 
 		actionConditionManager = new ScrollPane();
@@ -29,7 +32,7 @@ public class ActionConditionTab extends Tab {
 
 	private void setUpActionConditionManager() {
 		buttons = new TopToolBar(actionTabResources,"AddButtonLabel","Options","SelectorLabel","RemoveButtonLabel");
-		actionConditionVBox = new ActionConditionVBox(actionTabResources.getString("SelectorLabel"));
+		actionConditionVBox = new ActionConditionVBox(actionTabResources.getString("SelectorLabel"),isConditionTab);
 		VBox mainVBox = new VBox(SPACING);
 		mainVBox.getChildren().addAll(buttons,actionConditionVBox);
 		actionConditionManager.setContent(mainVBox);
@@ -45,5 +48,10 @@ public class ActionConditionTab extends Tab {
 	
 	protected void setNewActionOptions(ObservableList<Integer> newActionOptions) {
 		actionConditionVBox.setNewActionOptions(newActionOptions);
+	}
+	
+	private void determineTabType(String title) {
+		if(title.equals(Menu.conditionActionTitles.getString("ConditionsTabTitle"))) isConditionTab = true;
+		else isConditionTab = false;
 	}
 }

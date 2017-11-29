@@ -1,8 +1,5 @@
 package authoring_actionconditions;
 
-import ActionConditionClasses.ActionCheckBoxVBox;
-import javafx.collections.ObservableList;
-
 public class ControllerActionCheckBoxVBox {
 	
 	private ActionConditionTab conditionTab;
@@ -11,11 +8,7 @@ public class ControllerActionCheckBoxVBox {
 	public ControllerActionCheckBoxVBox(ActionConditionTab conditionTab,ActionConditionTab actionTab) {
 		this.conditionTab = conditionTab;
 		this.actionTab = actionTab;
-		this.removeChoiceBoxVBox.addListChangeListener(c -> updateActionCheckBoxVBox(removeChoiceBoxVBox.getOptions()));
-	}
-	
-	private void updateActionCheckBoxVBox(ObservableList<Integer> newOptions) {
-		actionCheckBoxVBox.setNewOptions(newOptions);
+		this.conditionTab.addTopToolBarListChangeListener(c -> this.conditionTab.setNewActionOptions(this.actionTab.getCurrentActions()));
 	}
 
 }

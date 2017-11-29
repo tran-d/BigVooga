@@ -3,21 +3,24 @@ package authoring_UI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
+
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteParameterI;
 import authoring_actionconditions.ActionConditionTab;
+import authoring_actionconditions.ControllerActionCheckBoxVBox;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 
 public class Menu extends VBox {
+	
 	private Button myLoad;
 	private Button mySave;
 	private Button newSprite;
@@ -30,11 +33,12 @@ public class Menu extends VBox {
 
 	private static final String LOAD = "Load";
 	private static final String SAVE = "Save";
-	private static final String CONDITIONS = "Conditions";
-	private static final String ACTIONS = "Actions";
 	private static final String NEW_SPRITE = "New Sprite";
+	private static final String ACTIONCONDITIONTITLES_PATH = "TextResources/ConditionActionTitles";
 	private static final double MENU_WIDTH = 400;
 	private static final double MENU_HEIGHT = 500;
+	
+	public static final ResourceBundle conditionActionTitles = ResourceBundle.getBundle(ACTIONCONDITIONTITLES_PATH);
 	
 	protected Menu(AuthoringEnvironmentManager AEM, MapManager MM) {
 		myAEM = AEM;
@@ -82,17 +86,23 @@ public class Menu extends VBox {
 		
 	}
 	
+	private void createActionConditionTabs() {
+		ActionConditionTab conditions = new ActionConditionTab(conditionActionTitles.getString("ConditionsTabTitle"));
+		ActionConditionTab actions = new ActionConditionTab(conditionActionTitles.getString("ActionsTabTitle"));
+		ControllerActionCheckBoxVBox controllerActionCheckBoxVBox= new ControllerActionCheckBoxVBox(conditions,actions);
+		mySpriteTabs.getTabs().addAll(conditions,actions);
+	}
+	
 	private void createSpriteTabs() {
 		mySpriteTabs = new TabPane();
 		Tab parameters = new Tab("Parameters");
 		parameters.setContent(myParamTabs);
-		ActionConditionTab conditions = new ActionConditionTab(CONDITIONS);
-		ActionConditionTab actions = new ActionConditionTab(ACTIONS);
 		Tab dialogue = new Tab("Dialogue");
 		dialogue.setContent(new TextArea("dialogue goes here"));
 		
-		mySpriteTabs.getTabs().addAll(parameters,conditions, actions, dialogue);
+		mySpriteTabs.getTabs().addAll(parameters,dialogue);
 		mySpriteTabs.setSide(Side.TOP);
+		createActionConditionTabs();
 		this.getChildren().add(mySpriteTabs);
 	}
 	
