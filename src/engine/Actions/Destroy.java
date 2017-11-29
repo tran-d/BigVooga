@@ -2,7 +2,6 @@ package engine.Actions;
 
 import engine.Action;
 import engine.GameObject;
-import engine.VariableContainer;
 import engine.World;
 
 public class Destroy implements Action {
@@ -14,7 +13,7 @@ public class Destroy implements Action {
 	}
 	
 	@Override
-	public void execute(VariableContainer asking, World world) {
+	public void execute(GameObject asking, World world) {
 		world.removeGameObject(objectToDestroy);
 	}
 

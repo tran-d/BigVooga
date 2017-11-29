@@ -16,7 +16,7 @@ public interface View {
 	 *
 	 * @ par changedObjects is a list of objects whose changes need to be displayed.
 	 */
-	public void update(List<GameObject> changedObjects);
+	public void update(List<VariableContainer> changedObjects);
 	
 	/**
 	 * Called when the Player simulation is started.

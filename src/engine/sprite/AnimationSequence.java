@@ -1,4 +1,4 @@
-package engine;
+package engine.sprite;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class AnimationSequence{
 
 	public void increment() {
 		imageIndex++;
-		if(imageIndex > images.size())
+		if(imageIndex >= images.size())
 			reset();
 	}
 	

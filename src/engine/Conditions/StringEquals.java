@@ -1,7 +1,7 @@
 package engine.Conditions;
 
 import engine.Condition;
-import engine.VariableContainer;
+import engine.GameObject;
 import engine.World;
 
 /**
@@ -21,7 +21,7 @@ public class StringEquals extends Condition {
 	}
 	
 	@Override
-	public boolean isTrue(VariableContainer asking, World world) {
+	public boolean isTrue(GameObject asking, World world) {
 		return asking.getString(varName).equals(check);
 	}
 

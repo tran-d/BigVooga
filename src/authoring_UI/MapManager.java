@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -55,6 +56,7 @@ public class MapManager extends TabPane {
 	}
 
 	private HBox setupScene() {
+
 		authMap = new AuthoringMapEnvironment();
 		setupBEAuthClasses();
 		setupFEAuthClasses();
@@ -111,6 +113,7 @@ public class MapManager extends TabPane {
 			}
 		}
 		return allMaps;
-	}
+
 	
+	}
 }

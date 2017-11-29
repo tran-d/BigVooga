@@ -3,7 +3,7 @@ package engine.Actions;
 import java.util.List;
 
 import engine.Action;
-import engine.VariableContainer;
+import engine.GameObject;
 import engine.World;
 
 public class ChangeStringList implements Action {
@@ -17,7 +17,7 @@ public class ChangeStringList implements Action {
 	}
 	
 	@Override
-	public void execute(VariableContainer asking, World world) {
+	public void execute(GameObject asking, World world) {
 		asking.setStringListVariable(varName, newStringList);
 	}
 	
