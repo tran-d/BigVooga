@@ -19,7 +19,7 @@ public class ActionConditionRow extends ToolBar {
 	private Label IDlabel;
 	private ActionCheckBoxVBox<Integer> actionCheckBoxVBox;
 	
-	public ActionConditionRow(int ID,String label,String selectorLabel,Boolean isConditionRow) {
+	public ActionConditionRow(int ID,String label,String selectorLabel,boolean isConditionRow) {
 		super();
 		actionConditionVBoxResources = ResourceBundle.getBundle(ACTIONCONDITION_RESOURCE_PATH);
 		labelInt = ID;
@@ -33,7 +33,7 @@ public class ActionConditionRow extends ToolBar {
 	}
 	
 	protected void setNewActionCheckBoxVBoxOptions(ObservableList<Integer> newOptions) {
-		actionCheckBoxVBox.setNewOptions(newOptions);
+		if(!(actionCheckBoxVBox == null)) actionCheckBoxVBox.setNewOptions(newOptions);
 	}
 	
 	protected void decreaseLabelID() {

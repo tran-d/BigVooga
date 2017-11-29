@@ -17,7 +17,7 @@ public class ActionConditionTab extends Tab {
 	private ScrollPane actionConditionManager;
 	private TopToolBar buttons;
 	private ActionConditionVBox actionConditionVBox;
-	private Boolean isConditionTab;
+	private boolean isConditionTab;
 	
 	public ActionConditionTab(String title) {
 		super(title);
