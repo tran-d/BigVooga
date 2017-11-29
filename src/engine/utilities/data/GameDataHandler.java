@@ -213,11 +213,13 @@ public class GameDataHandler {
 	}
 
 	private String getDefaultSpriteDirectoryPath() {
-		return projectPath + PROJECT_USER_SPRITE_PATH + DEFAULT_SPRITE_FOLDER;
+		return null;
+//		return projectPath + PROJECT_USER_SPRITE_PATH + DEFAULT_SPRITE_FOLDER;
 	}
 
 	private String getCustomSpriteDirectoryPath() {
-		return projectPath + PROJECT_USER_SPRITE_PATH + CUSTOM_SPRITE_FOLDER;
+		return null;
+//		return projectPath + PROJECT_USER_SPRITE_PATH + CUSTOM_SPRITE_FOLDER;
 	}
 
 	private void makeSpriteDirectories() {

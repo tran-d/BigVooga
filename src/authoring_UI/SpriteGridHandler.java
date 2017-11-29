@@ -24,6 +24,7 @@ public class SpriteGridHandler {
 	private SpriteObjectGridManagerI mySOGM;
 	private Menu myMenu;
 	private ArrayList<StackPane> activeGridCells;
+	private GridPane myGrid;
 	
 	protected SpriteGridHandler(int mapCount, Menu menu, SpriteObjectGridManagerI SOGM) {
 		objectFormat = new DataFormat("MyObject" + Integer.toString(mapCount));
@@ -32,9 +33,13 @@ public class SpriteGridHandler {
 		activeGridCells = new ArrayList<StackPane>();
 	}
 	
+	protected void addGrid(GridPane grid) {
+		myGrid = grid;
+	}
+	
 	protected void addKeyPress(Scene scene) {
 		scene.setOnKeyPressed(e -> { 
-			if (e.getCode().equals(KeyCode.DELETE)) {
+			if (e.getCode().equals(KeyCode.BACK_SPACE)) {
 				deleteSelectedSprites();
 				System.out.println("delete pressed");
 			}
@@ -45,14 +50,20 @@ public class SpriteGridHandler {
 		System.out.println("trying to delete");
 		ArrayList<Integer[]> cellsToDelete = new ArrayList<Integer[]>();
 		mySOGM.getActiveSpriteObjects().forEach(s -> {
-			((Pane) s.getParent()).getChildren().remove(s);
-			int row = ((GridPane) s.getParent()).getRowIndex(s);
-			int col = ((GridPane) s.getParent()).getColumnIndex(s);
-			Integer[] row_col = new Integer[] { row, col };
+			Integer[] row_col = s.getPositionOnGrid();
+			removeSpriteFromGrid(row_col);
 			cellsToDelete.add(row_col);
 		});
 		mySOGM.clearCells(cellsToDelete);
 
+	}
+	
+	private void removeSpriteFromGrid(Integer[] row_col) {
+		myGrid.getChildren().forEach(cell -> {
+			if (myGrid.getRowIndex(cell) == row_col[0] && myGrid.getColumnIndex(cell) == row_col[1]) {
+				((Pane) cell).getChildren().clear();
+			}
+		});
 	}
 	
 	protected void addGridMouseClick(StackPane pane) {
