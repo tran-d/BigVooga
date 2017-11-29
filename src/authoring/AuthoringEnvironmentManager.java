@@ -64,9 +64,6 @@ public class AuthoringEnvironmentManager {
 
 	public SpriteObjectGridManagerI getGridManager() {
 		return SOGM;
-	}
-	
-	
-	
+	}	
 
 }

@@ -1,15 +1,20 @@
-package engine;
+package engine.sprite;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import engine.VoogaException;
 
 /**
  * @author Ian Eldridge-Allegra
  *
  */
-public class Sprite {
+public class Sprite{
 	private Map<String, AnimationSequence> animations = new HashMap<String, AnimationSequence>();
 	private AnimationSequence currentAnimation;
+	
+	
+	
 	
 	public void addAnimationSequence(AnimationSequence animation) {
 		animations.put(animation.getName(), animation);
@@ -31,4 +36,6 @@ public class Sprite {
 			throw new VoogaException("UndefinedAnimation");
 		return currentAnimation.getImage();
 	}
+
+	
 }

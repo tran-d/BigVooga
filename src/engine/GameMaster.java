@@ -1,38 +1,54 @@
 package engine;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import engine.sprite.BoundedImage;
+import engine.sprite.DisplayableImage;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 import player.PlayerManager;
 
+/**
+ * 
+ * @author Nikolas Bramblett, ...
+ *
+ */
 public class GameMaster implements EngineController{
 	private static final int DEFAULT_FPS = 60;
 	private static final int DEFAULT_DELAY = 1000/DEFAULT_FPS;
 	
-	private World currentWorld;
-	private List<World> madeWorlds;
+	private GameWorld currentWorld;
+	private List<GameWorld> madeWorlds;
 	private Timeline gameLoop;
-	private VariableContainer globalVars;
+	private GlobalVariables globalVars;
 	private PlayerManager playerManager;
 	
-	public GameMaster(PlayerManager playerManager) {
+	public GameMaster() {
 		// TODO Auto-generated constructor stub
-		gameLoop = new Timeline();
-		KeyFrame frame = new KeyFrame(Duration.millis(DEFAULT_DELAY), e -> step());
-		gameLoop.setCycleCount(Timeline.INDEFINITE);
-		gameLoop.getKeyFrames().add(frame);
+		madeWorlds = new ArrayList<>();
+		
+		
 		globalVars = new GlobalVariables();
 	}
 
 	@Override
 	public void start() {
-		// TODO Auto-generated method stub
-
+		gameLoop = new Timeline();
+		KeyFrame frame = new KeyFrame(Duration.millis(DEFAULT_DELAY), e -> step());
+		gameLoop.setCycleCount(Timeline.INDEFINITE);
+		gameLoop.getKeyFrames().add(frame);
 		gameLoop.play();
 	}
+	public void stop() {
+		if(gameLoop != null)
+			gameLoop.stop();
+		gameLoop = null;
+	}
 
+	//Not sure we really need this
 	@Override
 	public void addListener(Runnable listener) {
 		// TODO Auto-generated method stub
@@ -40,18 +56,16 @@ public class GameMaster implements EngineController{
 	}
 
 	@Override
-	public void addWorld(World w) {
+	public void addWorld(GameWorld w) {
 		// TODO Auto-generated method stub
 		w.addGlobalVars(globalVars);
 		madeWorlds.add(w);
-		
 	}
-
+	
 	@Override
 	public void setCurrentWorld(String s) {
 		// TODO Auto-generated method stub
-		for(World w: madeWorlds)
-		{
+		for(GameWorld w : madeWorlds) {
 			if(w.isNamed(s)) {
 				currentWorld = w;
 				return;
@@ -63,12 +77,31 @@ public class GameMaster implements EngineController{
 	}
 	
 	private void step() {
-		currentWorld = ((GameWorld)currentWorld).getNextWorld();
+		currentWorld = currentWorld.getNextWorld();
 		currentWorld.step();
+		imageUpdate();
+		playerManager.step();
 	}
 	
 	@Override
 	public void setPlayerManager(PlayerManager currentPlayerManager) {
 		playerManager = currentPlayerManager;
+		for(GameWorld w : madeWorlds) {
+			w.setPlayerManager(playerManager);
+		}
+	}
+	
+	
+	/**
+	 * Passes image data to playermanager.
+	 * Used in step.
+	 */
+	private void imageUpdate() {
+		List<DisplayableImage> imageData = new ArrayList<>();
+		for(GameObject o: currentWorld.getAllObjects()){
+			imageData.add(o.getImage());
+		}
+		Collections.sort(imageData);
+		playerManager.setImageData(imageData);
 	}
 }

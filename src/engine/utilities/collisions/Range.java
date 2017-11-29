@@ -33,8 +33,11 @@ public class Range {
 	public double getOverlap(Range other) {
 		if (!intersects(other))
 			return 0;
-		return (getDifference() + other.getDifference()
-				- (Math.abs(min - other.getMin()) + Math.abs(max - other.getMax()))) / 2;
+
+		if(Math.abs(max - other.getMin()) < Math.abs(min - other.getMax()))
+			return other.getMin()-max;
+		else
+			return other.getMax()-min;
 	}
 
 	public boolean intersects(Range other) {

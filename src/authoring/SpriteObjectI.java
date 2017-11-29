@@ -21,3 +21,4 @@ public interface SpriteObjectI {
 	void changeCategoryName(String prev, String next);
 	
 }
+

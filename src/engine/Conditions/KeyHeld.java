@@ -1,7 +1,7 @@
 package engine.Conditions;
 
 import engine.Condition;
-import engine.VariableContainer;
+import engine.GameObject;
 import engine.World;
 
 /**
@@ -11,7 +11,6 @@ import engine.World;
  */
 public class KeyHeld extends Condition {
 
-	private int priorityNum;
 	private String check;
 	
 	public KeyHeld(int priorityNum, String check) {
@@ -24,8 +23,9 @@ public class KeyHeld extends Condition {
 	 * Returns true when the key named "check" is down
 	 */
 	@Override
-	public boolean isTrue(VariableContainer asking, World world) {
-		return world.getInputManager().getKeysDown().contains(check);
+	public boolean isTrue(GameObject asking, World world) {
+		//TODO make inputmanager (explicitly or implicitly)
+		return world.getPlayerManager().getKeysDown().contains(check);
 	}
 	
 }

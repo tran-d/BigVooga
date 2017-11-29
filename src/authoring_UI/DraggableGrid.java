@@ -16,7 +16,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 public class DraggableGrid extends HBox {
-	
+
 	protected DraggableGrid(SpriteGridHandler spriteGridHandler) {
 		createGrid(spriteGridHandler);
 	}
@@ -32,12 +32,12 @@ public class DraggableGrid extends HBox {
                     sp.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
                     BorderStroke border = new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.DOTTED, CornerRadii.EMPTY, BorderWidths.DEFAULT);
                     sp.setBorder(new Border(border));
-
                     gp.add(sp, i, j);
                     spriteGridHandler.addDropHandling(sp);
                     spriteGridHandler.addGridMouseClick(sp);
             }
         }
+        spriteGridHandler.addGrid(gp);
         ScrollPane scrollGrid = new ScrollPane(gp);
         scrollGrid.setPannable(true);
         this.getChildren().add(scrollGrid);
