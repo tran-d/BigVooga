@@ -9,11 +9,13 @@ import java.util.function.Consumer;
 
 import authoring.drawing.BoundingPolygonCreator;
 import authoring.drawing.ImageCanvas;
+import engine.Actions.Create;
 import engine.Actions.Move;
 import engine.Actions.RemoveIntersection;
 import engine.Actions.Rotate;
 import engine.Conditions.Collision;
 import engine.Conditions.KeyHeld;
+import engine.Conditions.KeyPressed;
 import engine.Conditions.ObjectClickHeld;
 import engine.Conditions.ScreenClickHeld;
 import engine.sprite.AnimationSequence;
@@ -45,10 +47,14 @@ public class EngineTester extends Application {
 	}
 	
 	private void generateGame(BoundedImage i) {		
+		
+		GameObjectFactory blueprints = new GameObjectFactory();
 		GameObject obj1 = makeObject("Ob1", i, 200, 200, this::conditionAction1);
 		obj1.addTag("Ob1");
-		GameObject obj2 = makeObject("Ob2", i.clone(), 500, 200, this::conditionAction2);
-		
+		blueprints.addBlueprint(obj1);
+		GameObject obj2 = makeObject("Ob2", i.clone(), 200, 500, this::conditionAction2);
+		obj2.addTag("Ob2");
+		blueprints.addBlueprint(obj2);
 		GameLayer layer = new GameLayer("Layer");
 		GameObject obj = new GameObject();
 		obj.setDoubleVariable("speed", 50);
@@ -69,6 +75,7 @@ public class EngineTester extends Application {
 
 		layer.addGameObject(obj1);
 		layer.addGameObject(obj2);
+		layer.setBlueprints(blueprints);
 		
 		GameWorld w = new GameWorld("World");
 		w.addLayer(layer);
@@ -122,12 +129,17 @@ public class EngineTester extends Application {
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Rotate(-1));
 		obj.addConditionAction(new KeyHeld(1,"Z"), actions1);
+		
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Create("Ob2", 500, 500, 20));
+		obj.addConditionAction(new KeyPressed(1,"C"), actions1);
 	}
 	
 	private void conditionAction2(GameObject obj) {
 		List<Action> actions1 = new ArrayList<Action>();
 		actions1.add(new RemoveIntersection());
 		obj.addConditionAction(new Collision(3, "Ob1"), actions1);
+		obj.addConditionAction(new Collision(4, "Ob2"), actions1);
 	}
 	
 	private void testImageCanvas(Stage stage) {

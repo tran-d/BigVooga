@@ -188,6 +188,7 @@ public class GameObject extends VariableContainer {
 		GameObject copy = new GameObject(name);
 		copy.setCoords(x, y);
 		copy.setHeading(heading);
+		copy.currentSprite = currentSprite.clone();
 		for (String tag : tagSet)
 			copy.addTag(tag);
 		for (String var : stringVars.keySet())

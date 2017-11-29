@@ -1,5 +1,6 @@
 package engine.sprite;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,5 +33,15 @@ public class AnimationSequence{
 
 	public BoundedImage getImage() {
 		return images.get(imageIndex);
+	}
+	
+	public AnimationSequence clone()
+	{
+		List<BoundedImage> clones = new ArrayList();
+		for(BoundedImage i : images)
+		{
+			clones.add(i.clone());
+		}
+		return new AnimationSequence(name, clones);
 	}
 }

@@ -19,36 +19,12 @@
                 </engine.Conditions.ObjectClickHeld>
                 <engine.Conditions.KeyHeld>
                   <priorityNum>1</priorityNum>
-                  <check>X</check>
+                  <check>Z</check>
                 </engine.Conditions.KeyHeld>
                 <list>
                   <engine.Actions.Rotate>
-                    <headingIncrement>1.0</headingIncrement>
+                    <headingIncrement>-1.0</headingIncrement>
                   </engine.Actions.Rotate>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.KeyHeld>
-                  <priorityNum>1</priorityNum>
-                  <check>Down</check>
-                </engine.Conditions.KeyHeld>
-                <list>
-                  <engine.Actions.Move>
-                    <xIncrement>0.0</xIncrement>
-                    <yIncrement>3.0</yIncrement>
-                  </engine.Actions.Move>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.KeyHeld>
-                  <priorityNum>1</priorityNum>
-                  <check>Right</check>
-                </engine.Conditions.KeyHeld>
-                <list>
-                  <engine.Actions.Move>
-                    <xIncrement>3.0</xIncrement>
-                    <yIncrement>0.0</yIncrement>
-                  </engine.Actions.Move>
                 </list>
               </entry>
               <entry>
@@ -66,12 +42,50 @@
               <entry>
                 <engine.Conditions.KeyHeld>
                   <priorityNum>1</priorityNum>
-                  <check>Z</check>
+                  <check>Down</check>
+                </engine.Conditions.KeyHeld>
+                <list>
+                  <engine.Actions.Move>
+                    <xIncrement>0.0</xIncrement>
+                    <yIncrement>3.0</yIncrement>
+                  </engine.Actions.Move>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>1</priorityNum>
+                  <check>X</check>
                 </engine.Conditions.KeyHeld>
                 <list>
                   <engine.Actions.Rotate>
-                    <headingIncrement>-1.0</headingIncrement>
+                    <headingIncrement>1.0</headingIncrement>
                   </engine.Actions.Rotate>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>1</priorityNum>
+                  <check>Right</check>
+                </engine.Conditions.KeyHeld>
+                <list>
+                  <engine.Actions.Move>
+                    <xIncrement>3.0</xIncrement>
+                    <yIncrement>0.0</yIncrement>
+                  </engine.Actions.Move>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.KeyPressed>
+                  <priorityNum>1</priorityNum>
+                  <check>C</check>
+                </engine.Conditions.KeyPressed>
+                <list>
+                  <engine.Actions.Create>
+                    <name>Ob2</name>
+                    <x>500.0</x>
+                    <y>500.0</y>
+                    <heading>20.0</heading>
+                  </engine.Actions.Create>
                 </list>
               </entry>
               <entry>
@@ -176,7 +190,9 @@
             <stringVars defined-in="engine.VariableContainer"/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
             <name>Ob2</name>
-            <tagSet/>
+            <tagSet>
+              <string>Ob2</string>
+            </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision>
@@ -187,9 +203,16 @@
                   <engine.Actions.RemoveIntersection/>
                 </list>
               </entry>
+              <entry>
+                <engine.Conditions.Collision>
+                  <priorityNum>4</priorityNum>
+                  <tag>Ob2</tag>
+                </engine.Conditions.Collision>
+                <list reference="../../entry/list"/>
+              </entry>
             </events>
-            <x>500.0</x>
-            <y>200.0</y>
+            <x>200.0</x>
+            <y>500.0</y>
             <heading>0.0</heading>
             <currentSprite>
               <animations>
@@ -233,6 +256,12 @@
           </entry>
           <entry>
             <int>3</int>
+            <list>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[2]"/>
+            </list>
+          </entry>
+          <entry>
+            <int>4</int>
             <list>
               <engine.GameObject reference="../../../../worldObjects/engine.GameObject[2]"/>
             </list>

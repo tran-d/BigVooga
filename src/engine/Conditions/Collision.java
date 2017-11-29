@@ -18,6 +18,10 @@ public class Collision extends Condition {
 	@Override
 	public boolean isTrue(GameObject asking, Layer world) {
 		for(GameObject g : world.getWithTag(tag)) {
+			//Ignore collision with self
+			if(g == asking)
+				continue;
+			
 			Point2D intersectionVector = g.getImage().checkCollision(asking.getImage());
 			if(intersectionVector != null) {
 				asking.setLastCollisionChecked(new CollisionEvent(g, intersectionVector));
