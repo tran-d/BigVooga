@@ -16,7 +16,7 @@ public class ActionCheckBoxVBox<T> extends VBoxList<T> {
 	public ActionCheckBoxVBox(String label, ObservableList<T> options) {
 		super(label, options);
 		checkBoxes = FXCollections.observableList(new LinkedList<CheckBox>());
-		checkBoxes.addListener((ListChangeListener<CheckBox>) c -> iterateThroughChanges(c));
+		checkBoxes.addListener((ListChangeListener<CheckBox>) c -> addOrRemoveCheckBoxes(c));
 		setNewOptions(options);
 	}
 
@@ -38,25 +38,13 @@ public class ActionCheckBoxVBox<T> extends VBoxList<T> {
 			newCheckBoxes.add(new CheckBox(newOption.toString()));
 			System.out.println(newOption.toString());
 		});
-//		System.out.println("NEWCHECKBOXES: " + newCheckBoxes);
 		checkBoxes.setAll(newCheckBoxes);
 	}
 
-	private void iterateThroughChanges(Change<? extends CheckBox> c) {
+	private void addOrRemoveCheckBoxes(Change<? extends CheckBox> c) {
 		getChildren().clear();
-		System.out.println(c);
-		while (c.next()) {
-			c.getAddedSubList().forEach(checkBox -> addOrRemoveFromVBox(c.wasAdded(), c.wasRemoved(), checkBox));
-		}
-	}
-
-	private void addOrRemoveFromVBox(Boolean wasAdded, Boolean wasRemoved, CheckBox checkBox) {
-		if (wasAdded)
-			getChildren().add(checkBox);
-		else if (wasRemoved)
-			getChildren().remove(checkBox);
-		System.out.println(checkBox);
-		
+		addLabel();
+		getChildren().addAll(checkBoxes);
 	}
 
 }

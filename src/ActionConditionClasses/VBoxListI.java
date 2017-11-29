@@ -12,5 +12,6 @@ public interface VBoxListI<T> {
 	public void realizeNewOptions(ObservableList<T> newOptions);
 	public ObservableList<T> getOptions();
 	public void addListChangeListener(ListChangeListener<T> listChangeListener);
+	public void addLabel();
 
 }
