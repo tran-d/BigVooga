@@ -13,7 +13,7 @@ import player.PlayerManager;
  * @author Nikolas Bramblett, ...
  *
  */
-public class GameLayer implements World {
+public class GameLayer implements Layer {
 	
 	private final static String DEFAULT_NAME = "llayer";
 	public final static String PLAYER_TAG = "Player";
@@ -25,7 +25,8 @@ public class GameLayer implements World {
 	private GlobalVariables globalVars;
 	//private GameObjectFactory GameObjectFactory;
 	private PlayerManager input;
-	private World nextWorld;
+	
+	private GameObjectFactory blueprints;
 
 	public GameLayer() {
 		// TODO Auto-generated constructor stub
@@ -33,7 +34,6 @@ public class GameLayer implements World {
 	}
 	
 	public GameLayer(String name) {
-		nextWorld = this;
 		worldName = name;
 		worldObjects = new ArrayList<>();
 	}
@@ -92,7 +92,7 @@ public class GameLayer implements World {
 				}
 			}
 		}
-		return null;
+		return tempList;
 	}
 	
 	public GameObject getByID(int id) {
@@ -139,16 +139,6 @@ public class GameLayer implements World {
 		return input;
 	}
 	
-	@Override
-	public void setNextWorld(World w) {
-		nextWorld = w;
-	}
-	
-	@Override
-	public World getNextWorld() {
-		return nextWorld;
-	}
-	
 	public List<GameObject> getAllObjects()
 	{
 		return worldObjects;
@@ -168,6 +158,23 @@ public class GameLayer implements World {
 		}
 		throw new RuntimeException("None by name "+name);//TODO
 	}
+
+	@Override
+	public void setBlueprints(GameObjectFactory f) {
+		// TODO Auto-generated method stub
+		blueprints = f;
+	}
+
+	@Override
+	public void addGameObject(String name, double x, double y, double heading) {
+		// TODO Auto-generated method stub
+		GameObject temp = blueprints.getInstanceOf(name);
+		temp.setCoords(x, y);
+		temp.setHeading(heading);
+		addGameObject(temp);
+	}
+	
+	
 	
 	
 }

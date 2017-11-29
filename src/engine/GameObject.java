@@ -30,8 +30,8 @@ public class GameObject extends VariableContainer {
 	private Map<String, Boolean> booleanVars;
 	private Map<String, String> stringVars;
 	private CollisionEvent lastCollision;
-	private double width;
-	private double height;
+	private double width = 200; //TODO Sizes
+	private double height = 200; //TODO Sizes
 	private int uniqueID;
 
 	public GameObject() {
@@ -67,7 +67,7 @@ public class GameObject extends VariableContainer {
 		return new ArrayList<String>(tagSet);
 	}
 
-	public void setGlobal(String variableName, World w) {
+	public void setGlobal(String variableName, Layer w) {
 		GlobalVariables currentGlobals = w.getGlobalVars();
 		if (doubleVars.containsKey(variableName)) {
 			currentGlobals.putDouble(variableName, doubleVars.get(variableName));
@@ -80,13 +80,13 @@ public class GameObject extends VariableContainer {
 		}
 	}
 
-	public void makeAllGlobal(World w) {
+	public void makeAllGlobal(Layer w) {
 		makeAllGlobalHelper(booleanVars.keySet(), w);
 		makeAllGlobalHelper(doubleVars.keySet(), w);
 		makeAllGlobalHelper(stringVars.keySet(), w);
 	}
 
-	private void makeAllGlobalHelper(Set<String> s, World w) {
+	private void makeAllGlobalHelper(Set<String> s, Layer w) {
 		for (String key : s) {
 			setGlobal(key, w);
 		}
@@ -96,7 +96,7 @@ public class GameObject extends VariableContainer {
 		events.put(c, a);
 	}
 
-	public void step(World w, int priorityNum, List<Runnable> runnables) {
+	public void step(Layer w, int priorityNum, List<Runnable> runnables) {
 		currentSprite.step();
 		for (Condition c : events.keySet()) {
 			if(c.getPriority() == priorityNum && c.isTrue(this, w)) {
@@ -186,6 +186,7 @@ public class GameObject extends VariableContainer {
 		GameObject copy = new GameObject(name);
 		copy.setCoords(x, y);
 		copy.setHeading(heading);
+		copy.currentSprite = currentSprite.clone();
 		for (String tag : tagSet)
 			copy.addTag(tag);
 		for (String var : stringVars.keySet())
