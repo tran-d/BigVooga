@@ -14,7 +14,7 @@ public abstract class VBoxList<T> extends VBox implements VBoxListI<T> {
 	public VBoxList(String label, ObservableList<T> options) {
 		super();
 		topLabel = new Label(label);
-		addLabel();
+		getChildren().add(topLabel);
 		boxOptions = FXCollections.observableArrayList();
 		boxOptions.addListener((ListChangeListener<T>) c -> realizeNewOptions(boxOptions));
 	}
@@ -43,11 +43,6 @@ public abstract class VBoxList<T> extends VBox implements VBoxListI<T> {
 	@Override
 	public void addListChangeListener(ListChangeListener<T> listChangeListener) {
 		boxOptions.addListener(listChangeListener);
-	}
-
-	@Override
-	public void addLabel() {
-		getChildren().add(topLabel);
 	}
 
 }

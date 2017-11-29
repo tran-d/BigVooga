@@ -33,18 +33,15 @@ public class ActionCheckBoxVBox<T> extends VBoxList<T> {
 	@Override
 	public void realizeNewOptions(ObservableList<T> newOptions) {
 		ObservableList<CheckBox> newCheckBoxes = FXCollections.observableArrayList();
-		System.out.println("NEW ROW");
-		newOptions.forEach(newOption -> {
-			newCheckBoxes.add(new CheckBox(newOption.toString()));
-			System.out.println(newOption.toString());
-		});
+		newOptions.forEach(newOption -> newCheckBoxes.add(new CheckBox(newOption.toString())));
 		checkBoxes.setAll(newCheckBoxes);
 	}
 
 	private void addOrRemoveCheckBoxes(Change<? extends CheckBox> c) {
-		getChildren().clear();
-		addLabel();
-		getChildren().addAll(checkBoxes);
+		while(c.next()) {
+			for(CheckBox checkBox : c.getRemoved()) getChildren().remove(checkBox);
+			for(CheckBox checkBox : c.getAddedSubList()) getChildren().add(checkBox);
+		}
 	}
 
 }
