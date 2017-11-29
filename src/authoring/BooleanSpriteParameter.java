@@ -18,6 +18,7 @@ public class BooleanSpriteParameter extends SpriteParameter {
 //	BooleanSpriteParameter dummy;
 //	boolean isDummy;
 	
+	
 	BooleanSpriteParameter(String name, Object checkedStatus){
 		super(name, checkedStatus);
 	}

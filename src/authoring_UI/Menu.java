@@ -2,127 +2,329 @@ package authoring_UI;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
 import authoring.AuthoringEnvironmentManager;
+import authoring.SpriteObject;
 import authoring.SpriteParameterI;
 import javafx.geometry.Side;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class Menu extends VBox {
 	private Button myLoad;
 	private Button mySave;
-	private Button newSprite;
 	private AuthoringEnvironmentManager myAEM;
-	private SpriteCreator mySpriteCreator;
-	private MapManager myMapManager;
-	private ScrollPane myStateSP;
 	private TabPane myParamTabs;
 	private TabPane mySpriteTabs;
+	private VBox myParamTabVBox;
+	private TextArea myParameterErrorMessage;
+	private SpriteParameterTabsAndInfo mySPTAI;
+	private MapManager myMapManager;
 
 	private final static String LOAD = "Load";
 	private final static String SAVE = "Save";
-	private final static String NEW_SPRITE = "New Sprite";
 	private final static double MENU_WIDTH = 400;
 	private final static double MENU_HEIGHT = 500;
-	
-	protected Menu(AuthoringEnvironmentManager AEM, MapManager MM) {
+
+	protected Menu(AuthoringEnvironmentManager AEM, MapManager myManager) {
+		mySPTAI = new SpriteParameterTabsAndInfo();
 		myAEM = AEM;
-		myMapManager = MM;
-		
+		myMapManager = myManager;
 		setUpMenu();
 
 	}
-	
-	protected void displayParams() {
-		Map<String, ArrayList<SpriteParameterI>> paramMap = new HashMap<String, ArrayList<SpriteParameterI>>();
-		try {
-			paramMap = myAEM.getActiveCellParameters().getParameters();
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		for (Map.Entry<String, ArrayList<SpriteParameterI>> entry : paramMap.entrySet()) {
-			String category = entry.getKey();
-			ArrayList<SpriteParameterI> newParams = entry.getValue();
-			FEParameterFactory newFactory = new FEParameterFactory(newParams);
-			myStateSP.setContent(newFactory);
-		}
-		
-		this.setPrefWidth(MENU_WIDTH);
+
+	private void setErrorMessage() {
+		myParameterErrorMessage = new TextArea("Either no active cells or active cells have different parameters");
+		// System.out.println("Making error message");
 	}
-	
+
+	// protected void displayParams() {
+	// Map<String, ArrayList<SpriteParameterI>> paramMap = new HashMap<String,
+	// ArrayList<SpriteParameterI>>();
+	// try {
+	// paramMap = myAEM.getActiveCellParameters().getParameters();
+	// for (Map.Entry<String, ArrayList<SpriteParameterI>> entry :
+	// paramMap.entrySet()) {
+	// String category = entry.getKey();
+	// ArrayList<SpriteParameterI> newParams = entry.getValue();
+	// FEParameterFactory newFactory = new FEParameterFactory(newParams);
+	// myStateSP.setContent(newFactory);
+	// }
+	// } catch (Exception e1) {
+	// // TODO Auto-generated catch block
+	// e1.printStackTrace();
+	// myStateSP.setContent(new TextArea("No params to show"));
+	// }
+	//
+	//
+	// this.setPrefWidth(MENU_WIDTH);
+	// }
+
+	private HashMap<String, ArrayList<SpriteParameterI>> getParametersOfActiveCells() throws Exception {
+		return myAEM.getActiveCell().getParameters();
+	}
+
+	private SpriteObject getActiveCell() throws Exception {
+		System.out.println("MYAEMACTIVE: " + myAEM.getActiveCell());
+		return myAEM.getActiveCell();
+	}
+
 	private void setUpMenu() {
+		setErrorMessage();
 		createButtons();
-		createStatePane();
 		createCategoryTabs();
 		createSpriteTabs();
+		createSpriteCreator();
+		createOverviewWindow();
+		this.setPrefSize(MENU_WIDTH, MENU_HEIGHT);
+
+		// createStatePane(new VBox());
 	}
-	
 
 	private void createButtons() {
 		HBox myButtons = new HBox();
 		myLoad = new Button(LOAD);
 		mySave = new Button(SAVE);
-		newSprite = new Button(NEW_SPRITE);
-		myButtons.getChildren().addAll(myLoad, mySave, newSprite);
+		myButtons.getChildren().addAll(myLoad, mySave);
 		buttonInteraction();
-		
+
 		this.getChildren().add(myButtons);
-		
+
 	}
-	
+
 	private void createSpriteTabs() {
 		mySpriteTabs = new TabPane();
 		Tab parameters = new Tab("Parameters");
-		parameters.setContent(myParamTabs);
+		// .setOnSelectionChanged(e->{displayParams();});
+		// parameters.setContent(myParamTabs);
+		parameters.setContent(createParameterTab());
 		Tab actions = new Tab("Actions");
 		actions.setContent(new TextArea("actions go here"));
 		Tab dialogue = new Tab("Dialogue");
 		dialogue.setContent(new TextArea("dialogue goes here"));
-		
+
 		mySpriteTabs.getTabs().addAll(parameters, actions, dialogue);
 		mySpriteTabs.setSide(Side.TOP);
-		this.getChildren().add(mySpriteTabs);
+		// this.getChildren().add(mySpriteTabs);
 	}
-	
+
+	private VBox createParameterTab() {
+		myParamTabVBox = new VBox();
+		Button applyButton = new Button();
+		myParamTabVBox.getChildren().addAll(myParamTabs, applyButton);
+
+		setDefaultErrorNoSpriteTabPane();
+
+		// theHorizTabs = myParamTabs;
+
+		applyButton.textProperty().setValue("Apply Button");
+		applyButton.setOnAction(e -> {
+			apply();
+		});
+
+		// myParamTabVBox.getChildren().addAll(theHorizTabs, applyButton);
+		// addParameterErrorMessage();
+		return myParamTabVBox;
+	}
+
 	private void createCategoryTabs() {
-		myParamTabs = new TabPane();
-		Tab newCategory = new Tab("Category");
-		newCategory.setContent(myStateSP);
-		newCategory.setClosable(false);
-		myParamTabs.getTabs().add(newCategory);
-		myParamTabs.setSide(Side.RIGHT);
-		
-		this.getChildren().add(myParamTabs);		
+		// mySPTAI.createCategoryTabs();
+		myParamTabs = mySPTAI.getTabPane();
+
+		// myParamTabs = new TabPane();
+		// myParamTabs.setSide(Side.RIGHT);
+		// myParamTabs.setPrefHeight(500);
+		// myParamTabs.setPrefWidth(400);
+
 	}
 
-
-	private void createStatePane() {
-		myStateSP = new ScrollPane();
-		myStateSP.setPrefSize(MENU_WIDTH,MENU_HEIGHT);
-		myStateSP.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-		myStateSP.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-		VBox temp = new VBox();
-		temp.getChildren().add(new Text("states go here"));
-		temp.setPrefWidth(500);
-		temp.setPrefHeight(500);
-		myStateSP.setContent(temp);
-		
-		this.getChildren().add(myStateSP);
+	private void clearParameterTab() {
+		myParamTabs.getTabs().clear();
 	}
-	
+
+	private void removeParameterTab() {
+		if (this.getChildren().contains(mySpriteTabs)) {
+			this.getChildren().remove(mySpriteTabs);
+		}
+	}
+
+	private void addParameterTab() {
+		if (!this.getChildren().contains(mySpriteTabs)) {
+			this.getChildren().add(mySpriteTabs);
+		}
+	}
+
+	private void setDefaultErrorNoSpriteTabPane() {
+		clearParameterTab();
+		removeParameterTab();
+		addParameterErrorMessage();
+	}
+
+	private void removeParameterErrorMessage() {
+		if (this.getChildren().contains(myParameterErrorMessage)) {
+			this.getChildren().remove(myParameterErrorMessage);
+		}
+	}
+
+	private void addParameterErrorMessage() {
+		if (!this.getChildren().contains(myParameterErrorMessage)) {
+			// System.out.println(myParamTabVBox.getChildren().size());
+			int numChildren = this.getChildren().size();
+			this.getChildren().add(numChildren - 1, myParameterErrorMessage);
+		}
+	}
+
+	public void updateParameterTab() {
+
+		System.out.println("Updating....");
+		try {
+			clearParameterTab();
+			removeParameterErrorMessage();
+			mySPTAI.create(getActiveCell());
+			// HashMap<String, ArrayList<SpriteParameterI>> params =
+			// getParametersOfActiveCells();
+			//
+			// for (Map.Entry<String, ArrayList<SpriteParameterI>> entry :
+			// params.entrySet()) {
+			//
+			// String category = entry.getKey();
+			// System.out.println(category);
+			// ArrayList<SpriteParameterI> newParams = entry.getValue();
+			// FEParameterFactory newFactory = new
+			// FEParameterFactory(newParams);
+			//
+			// Tab newCategory = new Tab(category);
+			// newCategory.setContent(createStatePane(newFactory));
+			// newCategory.setClosable(false);
+			// myParamTabs.getTabs().add(newCategory);
+
+			// }
+			addParameterTab();
+		} catch (Exception e) {
+			// throw new RuntimeException();
+			setDefaultErrorNoSpriteTabPane();
+
+		}
+		this.setPrefWidth(MENU_WIDTH);
+	}
+
+	private void formatParametersVBox(VBox in) {
+		in.setPrefWidth(500);
+		in.setPrefHeight(500);
+		// return in;
+	}
+
+	private void createOverviewWindow() {
+		Button openOverView = new Button("Open Overview");
+		openOverView.setOnAction(e -> {
+			System.out.println("Overview button pressed");
+			OverviewWindow overviewWindow = new OverviewWindow();
+			overviewWindow.getStage().show();
+		});
+		this.getChildren().add(openOverView);
+	}
+
+	private void createSpriteCreator() {
+		// GridPane container = new GridPane();
+		// ColumnConstraints cc = new ColumnConstraints();
+		// cc.setPercentWidth(100);
+		// RowConstraints rc = new RowConstraints();
+		// rc.setPercentHeight(50);
+		// container.getColumnConstraints().add(cc);
+		// container.getRowConstraints().add(rc);
+
+		Button createSpriteButton = new Button("Create Sprite");
+
+		createSpriteButton.setOnAction(e -> {
+			System.out.println("Button pressed");
+			SpriteCreator mySpriteCreatorClass = myMapManager.createNewSpriteCreator();
+			GridPane mySpriteCreator = mySpriteCreatorClass.getGrid();
+			this.getChildren().remove(createSpriteButton);
+			this.getChildren().add(mySpriteCreator);
+			mySpriteCreatorClass.onCreate(f -> {
+				this.getChildren().remove(mySpriteCreator);
+				this.getChildren().add(createSpriteButton);
+			});
+
+		});
+
+		// container.getChildren().add(mySpriteCreator);
+		// this.getChildren().add(mySpriteCreator);
+		this.getChildren().add(createSpriteButton);
+	}
+
+	private ScrollPane createStatePane(VBox temp) {
+		ScrollPane myStateSP_dummy = new ScrollPane();
+		myStateSP_dummy.setPrefSize(MENU_WIDTH, MENU_HEIGHT);
+		myStateSP_dummy.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+		myStateSP_dummy.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+		// VBox temp = new VBox();
+		// temp.getChildren().add(new Text("states go here"));
+		// temp.setPrefWidth(500);
+		// temp.setPrefHeight(500);
+		formatParametersVBox(temp);
+		myStateSP_dummy.setContent(temp);
+		return myStateSP_dummy;
+		// this.getChildren().add(myStateSP);
+	}
+
 	private void buttonInteraction() {
-		mySpriteCreator = new SpriteCreator(myAEM, myMapManager);
-		newSprite.setOnAction(e -> mySpriteCreator.getStage().show());
+		// TODO
 	}
-	
+
+	// private void apply() {
+	//
+	// for (Tab t: myParamTabs.getTabs()){
+	// ScrollPane SP = (ScrollPane) t.getContent();
+	// VBox paramsVbox = (VBox) SP.getContent();
+	// for (Node node: paramsVbox.getChildren()){
+	// FEParameter FEP = (FEParameter) node;
+	// FEP.updateParameter();
+	// myAEM.getSpriteParameterSidebarManager().apply();
+	// }
+	//
+	// }
+	//
+	// }
+
+	private void apply() {
+		mySPTAI.apply();
+		myAEM.getSpriteParameterSidebarManager().apply();
+	}
+
+	private void addParameter() {
+		List<String> choices = new ArrayList<>();
+		choices.add("Boolean");
+		choices.add("String");
+		choices.add("Double");
+
+		ChoiceDialog<String> dialog = new ChoiceDialog<>("Boolean", choices);
+		dialog.setTitle("Add Parameter");
+		dialog.setContentText("Choose parameter type:");
+
+		Optional<String> result = dialog.showAndWait();
+		result.ifPresent(type -> createNewParameter(type));
+	}
+
+	private void createNewParameter(String type) {
+
+	}
 
 }
