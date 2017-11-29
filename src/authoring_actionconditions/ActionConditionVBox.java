@@ -15,6 +15,7 @@ public class ActionConditionVBox extends VBox implements ActionConditionVBoxI{
 	public ActionConditionVBox(String selectorString,boolean isConditionVBox) {
 		super();
 		selectorLabel = selectorString;
+		this.isConditionVBox = isConditionVBox;
 		rows = new LinkedList<ActionConditionRow>();
 	}
 	
@@ -24,7 +25,6 @@ public class ActionConditionVBox extends VBox implements ActionConditionVBoxI{
 
 	@Override
 	public void addActionCondition(String label) {
-		System.out.println(isConditionVBox);
 		ActionConditionRow actionConditionRow = new ActionConditionRow(rows.size() + 1,label,selectorLabel,isConditionVBox);
 		rows.add(actionConditionRow);
 		getChildren().add(actionConditionRow);

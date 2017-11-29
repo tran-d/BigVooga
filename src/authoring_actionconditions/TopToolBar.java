@@ -1,7 +1,6 @@
 package authoring_actionconditions;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import ActionConditionClasses.ChoiceBoxVBox;
