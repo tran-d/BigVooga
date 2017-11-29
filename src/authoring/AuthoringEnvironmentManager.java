@@ -1,52 +1,69 @@
 package authoring;
 
 import java.util.ArrayList;
+
+import engine.utilities.data.GameDataHandler;
 import javafx.scene.layout.VBox;
 
 public class AuthoringEnvironmentManager {
-	
+
 	private SpriteObjectI defaultEmptySprite;
 	private SpriteParameterSidebarManager SPSM;
 	private SpriteObjectGridManagerI SOGM;
-	private ArrayList<SpriteObjectI> defaultSprites;
-	private ArrayList<SpriteObjectI> userSprites;
-	
-	public AuthoringEnvironmentManager() {
+	private ArrayList<SpriteObject> defaultSprites;
+	private ArrayList<SpriteObject> userSprites;
+	private GameDataHandler myGDH;
+
+	public AuthoringEnvironmentManager(String projectName) {
+		myGDH = new GameDataHandler(projectName);
 		defaultEmptySprite = new SpriteObject();
-		SPSM = new SpriteParameterSidebarManager();
 		SOGM = new SpriteObjectGridManager();
-		defaultSprites = new ArrayList<SpriteObjectI>();
-		userSprites = new ArrayList<SpriteObjectI>();
+		SPSM = new SpriteParameterSidebarManager(SOGM);
+		defaultSprites = new ArrayList<SpriteObject>();
+		userSprites = new ArrayList<SpriteObject>();
 	}
 	
-	public ArrayList<SpriteObjectI> getDefaultGameSprites() {
-		return defaultSprites;
+	public AuthoringEnvironmentManager(){
+		this("TestProject");
 	}
 	
-	public void addDefaultSprite(SpriteObjectI SOI){
+	public GameDataHandler getGameDataHandler(){
+		return myGDH;
+	}
+	
+	public SpriteParameterSidebarManager getSpriteParameterSidebarManager() {
+		return SPSM;
+	}
+
+	
+	public ArrayList<SpriteObject> getDefaultGameSprites() {
+		return new ArrayList<SpriteObject>(defaultSprites);
+	}
+	
+	public void addDefaultSprite(SpriteObject SOI){
 		defaultSprites.add(SOI);
 	}
-	
-	public ArrayList<SpriteObjectI> getUserDefinedSprites(){
-		return userSprites;
-		
+
+	public ArrayList<SpriteObject> getUserDefinedSprites() {
+		return new ArrayList<SpriteObject>(userSprites);
+
 	}
-	
-	public void addUserSprite(SpriteObjectI SOI){
+
+	public void addUserSprite(SpriteObject SOI) {
 		userSprites.add(SOI);
 	}
-	
+
 	public SpriteObjectI getDefaultEmptySprite() {
 		return defaultEmptySprite;
 	}
+
 	
-	public SpriteObjectI getActiveCellParameters() throws Exception{
-		return SPSM.getParameters(SOGM);
+	public SpriteObject getActiveCell() throws Exception{
+		return SPSM.getActiveSprite();
 	}
-	
-	public SpriteObjectGridManagerI getGridManager(){
+
+	public SpriteObjectGridManagerI getGridManager() {
 		return SOGM;
-	}
-	
+	}	
 
 }
