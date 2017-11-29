@@ -18,6 +18,7 @@ public class BooleanSpriteParameter extends SpriteParameter {
 //	BooleanSpriteParameter dummy;
 //	boolean isDummy;
 	
+	
 	BooleanSpriteParameter(String name, Object checkedStatus){
 		super(name, checkedStatus);
 	}
@@ -47,9 +48,9 @@ public class BooleanSpriteParameter extends SpriteParameter {
 //					);
 //	}
 	
-	protected void makeClone(){
-		dummy = new BooleanSpriteParameter(this.myName, this.myValue, true);
-	}
+//	protected void makeClone(){
+//		dummy = new BooleanSpriteParameter(this.myName, this.myValue, true);
+//	}
 	
 //	public void update(String newName, Object newValue) {
 ////		updateName(dummy.getName());

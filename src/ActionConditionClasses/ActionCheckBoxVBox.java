@@ -9,21 +9,23 @@ import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
 import javafx.scene.control.CheckBox;
 
-public class ActionCheckBoxVBox<T> extends VBoxList<T> {
-	
+public class ActionCheckBoxVBox<T> extends VBoxList<T> implements ActionCheckBoxVBoxI {
+
 	private ObservableList<CheckBox> checkBoxes;
-	
-	public ActionCheckBoxVBox(String label,ObservableList<T> options) {
-		super(label,options);
+
+	public ActionCheckBoxVBox(String label, ObservableList<T> options) {
+		super(label, options);
 		checkBoxes = FXCollections.observableList(new LinkedList<CheckBox>());
-		checkBoxes.addListener((ListChangeListener<CheckBox>) c -> iterateThroughChanges(c));
+		checkBoxes.addListener((ListChangeListener<CheckBox>) c -> addOrRemoveCheckBoxes(c));
+		setNewOptions(options);
 	}
 
 	@Override
 	public Object getCurrentValue() {
 		List<T> checkedBoxValues = new LinkedList<T>();
-		for(CheckBox checkBox : checkBoxes) {
-			if(checkBox.isSelected()) checkedBoxValues.add((T) checkBox.getText());
+		for (CheckBox checkBox : checkBoxes) {
+			if (checkBox.isSelected())
+				checkedBoxValues.add((T) checkBox.getText());
 		}
 		return checkedBoxValues;
 	}
@@ -34,16 +36,23 @@ public class ActionCheckBoxVBox<T> extends VBoxList<T> {
 		newOptions.forEach(newOption -> newCheckBoxes.add(new CheckBox(newOption.toString())));
 		checkBoxes.setAll(newCheckBoxes);
 	}
-	
-	private void iterateThroughChanges(Change<? extends CheckBox> c) {
-		while (c.next()) {
-			c.getAddedSubList().forEach(checkBox -> addOrRemoveFromVBox(c.wasAdded(),c.wasRemoved(),checkBox));
+
+	private void addOrRemoveCheckBoxes(Change<? extends CheckBox> c) {
+		while(c.next()) {
+			for(CheckBox checkBox : c.getRemoved()) getChildren().remove(checkBox);
+			for(CheckBox checkBox : c.getAddedSubList()) getChildren().add(checkBox);
 		}
 	}
-	
-	private void addOrRemoveFromVBox(Boolean wasAdded, Boolean wasRemoved, CheckBox checkBox) {
-		if(wasAdded) getChildren().add(checkBox);
-		else if(wasRemoved) getChildren().remove(checkBox);
+
+	@Override
+	public void addAction() {
+		checkBoxes.add(new CheckBox(Integer.toString(checkBoxes.size() + 1)));
+	}
+
+	@Override
+	public void removeAction(Integer action) {
+		checkBoxes.remove(action);
+		for(int i = action; i < checkBoxes.size(); i++) checkBoxes.get(i).setText(Integer.toString(action));
 	}
 
 }

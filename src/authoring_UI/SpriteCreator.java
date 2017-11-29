@@ -1,24 +1,35 @@
 package authoring_UI;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Observable;
-
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 import authoring.AuthoringEnvironmentManager;
+import authoring.SpriteObject;
 import engine.utilities.data.GameDataHandler;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -35,125 +46,252 @@ public class SpriteCreator extends Observable {
 	private static final double GRID_WIDTH = 400;
 	private static final double GRID_HEIGHT = 500;
 	public static final String PATH = "resources/";
-
 	private Stage myStage;
-	private Scene myScene;
-	private AuthoringEnvironmentManager myAEM;
+	private VBox myCreateSpriteBox;
 	private GridPane myGrid;
-	private MapManager myMapManager;
+	private SpriteManager mySpriteManager;
 	private GameDataHandler myGDH;
-	private File myFile;
+	private SpriteObject mySpriteObject;
+	private File mySpriteFile;
+	private SpriteParameterTabsAndInfo mySPTAI;
+	private Alert myErrorMessage;
+	Consumer<Button> myConsumer;
+	private AuthoringEnvironmentManager myAEM;
+	private TextField nameInput;
+	private VBox imageChooseBox;
 
-	protected SpriteCreator(AuthoringEnvironmentManager AEM, MapManager mapManager) {
+	protected SpriteCreator(Stage stage, SpriteManager spriteManager, AuthoringEnvironmentManager AEM) {
 
-		myStage = new Stage();
-		myGrid = new GridPane();
-		myScene = new Scene(myGrid);
-		myStage.setScene(myScene);
-		
+		myStage = stage;
+		mySPTAI = new SpriteParameterTabsAndInfo();
 		myAEM = AEM;
-		myGDH = new GameDataHandler("User Sprites");
-
-		myMapManager = mapManager;
-		this.addObserver(myMapManager);
+		myGDH = myAEM.getGameDataHandler();
+		myCreateSpriteBox = new VBox();
+		myCreateSpriteBox.setSpacing(5);
+//		myGrid = new GridPane();
+		mySpriteManager = spriteManager;
+		addObserver(mySpriteManager);
 		setGrid();
+		
+		mySpriteObject = new SpriteObject();
+		mySPTAI.setSpriteObject(mySpriteObject);
+		
 	}
 
 	private void setGrid() {
-		// this.setPrefSize(GRID_WIDTH, GRID_HEIGHT);
-		// this.setMaxSize(GRID_WIDTH, GRID_HEIGHT);
-
 		// set row,col constraints
 		ColumnConstraints col1 = new ColumnConstraints();
-		col1.setPercentWidth(50);
+		col1.setPercentWidth(40);
 		ColumnConstraints col2 = new ColumnConstraints();
-		col2.setPercentWidth(50);
+		col2.setPercentWidth(60);
 		RowConstraints row1 = new RowConstraints();
-		row1.setPercentHeight(15);
+		row1.setPercentHeight(10);
 		RowConstraints row2 = new RowConstraints();
-		row2.setPercentHeight(80);
+		row2.setPercentHeight(60);
 		RowConstraints row3 = new RowConstraints();
-		row3.setPercentHeight(5);
+		row3.setPercentHeight(30);
 
-		myGrid.getColumnConstraints().addAll(col1, col2);
-		myGrid.getRowConstraints().addAll(row1, row2, row3);
-		myGrid.setGridLinesVisible(true);
-
+//		myGrid.getColumnConstraints().addAll(col1, col2);
+//		myGrid.getRowConstraints().addAll(row1, row2, row3);
+//		myGrid.setGridLinesVisible(true);
+		
 		addNameBox();
+		addImageBox();
+		addLoadSpriteButton();
+		addSpriteParametersTabPane();
+		addErrorMessage();
 		addCreatebutton();
+	}
 
+	
+	private void addSpriteParametersTabPane() {
+		VBox myParamVBox = new VBox();
+		TabPane myParamTabs = mySPTAI.getTabPane();
+		myParamVBox.getChildren().add(myParamTabs);
+		myCreateSpriteBox.getChildren().add(myParamVBox);
+//		myGrid.add(myParamVBox, 0, 3);
 	}
 	
-	/**
-	 * Returns Stage
-	 * 
-	 * @return
-	 */
-	public Stage getStage() {
-		return myStage;
+	private void addErrorMessage(){
+		 myErrorMessage = new Alert(AlertType.ERROR);
+		 myErrorMessage.setTitle("Error");
+		 myErrorMessage.setContentText("");
+//		 myGrid.add(myErrorMessage, 1, 2);
+	}
+	
+	private void setErrorMessage(String message){
+		myErrorMessage.setContentText(message);
+		myErrorMessage.showAndWait();
 	}
 
+	protected VBox getVBox() {
+		return myCreateSpriteBox;
+	}
 	/**
 	 * Returns GridPane
 	 * 
 	 * @return GridPane
 	 */
 	public GridPane getGrid() {
+//		ScrollPane SP = new ScrollPane();
+//		SP.setContent(myGrid);
+//		return SP;
 		return myGrid;
+	}
+	
+	public ScrollPane getScrollPane(){
+		ScrollPane SP = new ScrollPane();
+		SP.setContent(getGrid());
+		return SP;
 	}
 
 	private void addCreatebutton() {
 		HBox buttonBox = new HBox(10);
 		buttonBox.setAlignment(Pos.BASELINE_RIGHT);
 
-		Button createSprite = new Button("create sprite");
-		createSprite.setOnAction(new EventHandler<ActionEvent>() {
-			@Override public void handle(ActionEvent e) {
-				setChanged();
-				notifyObservers(myFile.getName());
-				myStage.close();
-			}
+		Button createSprite = new Button("Finish Creating");
+		createSprite.setOnAction(e-> {
+			System.out.println(getSpriteObject());
+			System.out.println(getSpriteObject().getName());
+			mySPTAI.apply();
+			copySpriteFileToProject();
+			setChanged();
+			notifyObservers(getSpriteObject());
+			myConsumer.accept(null);
 		});
 		buttonBox.getChildren().add(createSprite);
 
-		myGrid.add(buttonBox, 1, 2);
+
+//		myGrid.add(buttonBox, 1, 0);
+
+		
+		myCreateSpriteBox.getChildren().add(buttonBox);
+//		myGrid.add(buttonBox, 0, 0);
+	}
+	
+	private SpriteObject getSpriteObject() {
+		System.out.println("Getting sprite object");
+		System.out.println(mySpriteObject);
+		return mySpriteObject;
 	}
 
 	private void addNameBox() {
 
 		HBox nameBox = new HBox(10);
 		Text name = new Text("name: ");
-		TextField nameInput = new TextField("Enter Sprite Name");
+		nameInput = new TextField("Enter Sprite Name");
+		nameInput.textProperty().addListener((observable, oldValue, newValue)->{
+			System.out.println("oldname: "+oldValue);
+			mySpriteObject.setName(newValue);
+			System.out.println("newname: "+mySpriteObject.getName());
+		});
 		nameBox.getChildren().addAll(name, nameInput);
 
-		HBox imageChooseBox = new HBox(10);
+		
+	
+		myCreateSpriteBox.getChildren().add(nameBox);
+//		myGrid.add(nameBox, 0, 1);
+		
+	}
+	
+	private void addImageBox(){
+		imageChooseBox = new VBox(10);
 		Text chooseImage = new Text("choose image file: ");
 		Button chooseImageButton = new Button("choose image");
+//		ImageView im = new ImageView(new Image("pikachu.png"));
+//		im.setFitWidth(45);
+//		im.setFitHeight(45);
 		chooseImageButton.setOnAction(e -> {
 			try {
 				openImage();
-			} catch (IOException e1) {
+				addSpriteImage();
+			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
+				setErrorMessage("Choose a valid image file");
+			}
+		});
+		imageChooseBox.getChildren().addAll(chooseImage, chooseImageButton);
+
+//		myGrid.add(imageChooseBox, 0, 2);
+
+//		myGrid.add(nameBox, 0, 1);
+//		myGrid.add(imageChooseBox, 0, 2);
+		
+		myCreateSpriteBox.getChildren().add(imageChooseBox);
+		
+	}
+	
+	private void addSpriteImage(){
+		ImageView img = new ImageView(new Image(mySpriteObject.getImageURL()));
+		img.setFitWidth(70);
+		img.setFitHeight(70);
+		if (imageChooseBox.getChildren().get(1) instanceof ImageView){
+			imageChooseBox.getChildren().remove(1);
+		}
+		imageChooseBox.getChildren().add(1, img);
+	}
+	
+	private void addLoadSpriteButton() {
+		HBox spriteChooseBox = new HBox(10);
+		Text chooseSprite = new Text("choose sprite to load from: ");
+		Button chooseSpriteButton = new Button("choose sprite");
+		chooseSpriteButton.setOnAction(e -> {
+			try {
+				chooseSpriteFileandLoadSprite();
+				addSpriteImage();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				setErrorMessage("Choose a valid Sprite");
 			}
 		});
 
-		imageChooseBox.getChildren().addAll(chooseImage, chooseImageButton);
+		spriteChooseBox.getChildren().addAll(chooseSprite, chooseSpriteButton);
+		myCreateSpriteBox.getChildren().add(spriteChooseBox);
+//		myGrid.add(spriteChooseBox, 0, 0);
+	}
 
-		myGrid.add(nameBox, 0, 1);
-		myGrid.add(imageChooseBox, 0, 2);
+	private void chooseSpriteFileandLoadSprite() throws FileNotFoundException {
+		File newChosenSpriteFile = myGDH.chooseSpriteFile(myStage);
+		mySpriteFile = newChosenSpriteFile;
+		mySpriteObject = myGDH.loadSprite(newChosenSpriteFile);
+		mySPTAI.setSpriteObject(mySpriteObject);
+		nameInput.setText(mySpriteObject.getName());
+	}
+	
+	
+	private void copySpriteFileToProject(){
+		if (mySpriteFile!=null) {
+			try {
+				myGDH.addFileToProject(mySpriteFile);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				throw new RuntimeException();
+			}
+		}
 	}
 
 	private void openImage() throws IOException {
 		FileChooser imageChooser = new FileChooser();
 		imageChooser.setTitle("Open Image");
-		myFile = imageChooser.showOpenDialog(myStage);
+		File file = imageChooser.showOpenDialog(myStage);
 		
-		if (myFile != null) {
-			Files.copy(myFile.toPath(), Paths.get(PATH+myFile.getName()), StandardCopyOption.REPLACE_EXISTING);
+		if (file != null) {
+			Files.copy(file.toPath(), Paths.get(PATH+file.getName()), StandardCopyOption.REPLACE_EXISTING);
+			
+			System.out.println(file.getName());
+			mySpriteObject.setImageURL(file.getName());
+//			setChanged();
+//			System.out.print(file.getName());
+//			notifyObservers(file.getName());
 			System.out.println("image chosen");
 
 		}
+	}
+	
+	public void onCreate(Consumer<Button> button){
+		myConsumer = button;
 	}
 
 }
