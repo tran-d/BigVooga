@@ -47,7 +47,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 
-public class EngineTester3 extends Application {
+public class RPGDemo extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
