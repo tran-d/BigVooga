@@ -36,6 +36,19 @@
             </tagSet>
             <events>
               <entry>
+                <engine.Conditions.KeyPressed>
+                  <priorityNum>-1</priorityNum>
+                  <check>Up</check>
+                </engine.Conditions.KeyPressed>
+                <list>
+                  <engine.Actions.ChangeDouble>
+                    <varName>ySpeed</varName>
+                    <newDouble>-5.0</newDouble>
+                    <relative>false</relative>
+                  </engine.Actions.ChangeDouble>
+                </list>
+              </entry>
+              <entry>
                 <engine.Conditions.BeginStep>
                   <priorityNum>0</priorityNum>
                 </engine.Conditions.BeginStep>
@@ -48,19 +61,6 @@
                     <varName>ySpeed</varName>
                     <newDouble>0.2</newDouble>
                     <relative>true</relative>
-                  </engine.Actions.ChangeDouble>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.KeyPressed>
-                  <priorityNum>-1</priorityNum>
-                  <check>Up</check>
-                </engine.Conditions.KeyPressed>
-                <list>
-                  <engine.Actions.ChangeDouble>
-                    <varName>ySpeed</varName>
-                    <newDouble>-5.0</newDouble>
-                    <relative>false</relative>
                   </engine.Actions.ChangeDouble>
                 </list>
               </entry>
@@ -125,7 +125,7 @@
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>112.65586090996496</double>
+                <double>100.36494350375978</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -195,14 +195,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>225.31172181992991</height>
+            <height>200.72988700751955</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>514.2431843195276</double>
+                <double>580.5302141629606</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -260,14 +260,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>228.48636863905512</height>
+            <height>361.0604283259214</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>287.07196283196146</double>
+                <double>283.5204217768889</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -325,14 +325,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>574.1439256639229</height>
+            <height>567.0408435537778</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>538.2710202682997</double>
+                <double>659.7117267076815</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -390,14 +390,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>276.54204053659936</height>
+            <height>519.4234534153628</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>183.5429834059618</double>
+                <double>206.50822245924508</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -455,14 +455,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>367.0859668119236</height>
+            <height>413.01644491849015</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>523.5277896322921</double>
+                <double>679.0481248103761</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -520,14 +520,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>247.05557926458405</height>
+            <height>558.0962496207521</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>114.48978629813342</double>
+                <double>149.59780334514392</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -585,14 +585,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>228.97957259626685</height>
+            <height>299.19560669028783</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>517.8090511582125</double>
+                <double>691.4696158568231</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -650,14 +650,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>235.61810231642505</height>
+            <height>582.9392317136463</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>199.89541256436567</double>
+                <double>264.49185035295255</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -715,14 +715,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>399.79082512873134</height>
+            <height>528.9837007059051</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>644.6789603314905</double>
+                <double>675.3799305449377</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -780,14 +780,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>489.3579206629811</height>
+            <height>550.7598610898755</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>236.69011532392642</double>
+                <double>250.29154943860848</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -845,14 +845,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>473.38023064785284</height>
+            <height>500.58309887721697</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>606.3153770778447</double>
+                <double>558.2981607170572</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -910,14 +910,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>412.63075415568943</height>
+            <height>316.5963214341144</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>119.51080367654173</double>
+                <double>256.97904676679457</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -975,14 +975,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>239.02160735308345</height>
+            <height>513.9580935335891</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>568.0467628143697</double>
+                <double>692.5316730091072</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1040,14 +1040,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>336.0935256287395</height>
+            <height>585.0633460182145</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>189.0919885341239</double>
+                <double>120.57058195699923</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1105,14 +1105,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>378.1839770682478</height>
+            <height>241.14116391399847</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>649.460557177148</double>
+                <double>651.9311835585202</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1170,14 +1170,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>498.921114354296</height>
+            <height>503.8623671170404</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>112.16430385268856</double>
+                <double>250.92801793129223</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1235,14 +1235,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>224.32860770537712</height>
+            <height>501.85603586258446</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>652.0534877043826</double>
+                <double>682.0793253525485</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1300,14 +1300,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>504.10697540876515</height>
+            <height>564.158650705097</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>264.504932703037</double>
+                <double>188.5786700863749</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1365,14 +1365,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>529.009865406074</height>
+            <height>377.1573401727498</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>555.3728031653899</double>
+                <double>676.2367451750612</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1430,14 +1430,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>310.74560633077976</height>
+            <height>552.4734903501223</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>160.95896605137335</double>
+                <double>274.10340777363774</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1495,14 +1495,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>321.9179321027467</height>
+            <height>548.2068155472755</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>559.5330864186407</double>
+                <double>664.6476136524125</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1560,14 +1560,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>319.0661728372813</height>
+            <height>529.2952273048248</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>295.21524356136683</double>
+                <double>289.1569194106337</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1625,14 +1625,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>590.4304871227337</height>
+            <height>578.3138388212674</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>592.0820887116304</double>
+                <double>522.1473515642169</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1690,14 +1690,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>384.16417742326064</height>
+            <height>244.29470312843392</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>288.3818489974107</double>
+                <double>241.551274663487</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1755,14 +1755,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>576.7636979948214</height>
+            <height>483.102549326974</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>534.7507037319083</double>
+                <double>523.3019041914564</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1820,14 +1820,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>269.5014074638166</height>
+            <height>246.60380838291277</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>247.59841894446924</double>
+                <double>290.76061038426315</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1885,14 +1885,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>495.1968378889385</height>
+            <height>581.5212207685263</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>667.1025275448808</double>
+                <double>538.5482850745261</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1950,14 +1950,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>534.2050550897615</height>
+            <height>277.09657014905235</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>180.80239830076144</double>
+                <double>110.51060955112028</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2015,14 +2015,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>361.6047966015229</height>
+            <height>221.02121910224056</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>529.0674695169156</double>
+                <double>580.1327387345164</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2080,14 +2080,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>258.1349390338312</height>
+            <height>360.26547746903276</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>256.2169057115897</double>
+                <double>130.74720453189988</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2145,14 +2145,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>512.4338114231793</height>
+            <height>261.49440906379976</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>635.4969665003073</double>
+                <double>512.3137684177495</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2210,14 +2210,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>470.99393300061445</height>
+            <height>224.62753683549917</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>118.15746291293101</double>
+                <double>114.30445183081281</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2275,14 +2275,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>236.31492582586202</height>
+            <height>228.60890366162562</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>649.0358535961562</double>
+                <double>653.6953713870796</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2340,14 +2340,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>498.07170719231254</height>
+            <height>507.3907427741591</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>135.4952910286454</double>
+                <double>129.20763726403055</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2405,14 +2405,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>270.9905820572908</height>
+            <height>258.4152745280611</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>551.713165730763</double>
+                <double>566.1884900483944</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2470,14 +2470,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>303.42633146152605</height>
+            <height>332.376980096789</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>254.82518328139702</double>
+                <double>254.07428598176728</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2535,14 +2535,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>509.65036656279403</height>
+            <height>508.14857196353455</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>522.7813760584381</double>
+                <double>668.599431783532</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2600,14 +2600,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>245.56275211687634</height>
+            <height>537.1988635670641</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>124.44771860589393</double>
+                <double>182.95830824690432</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2665,14 +2665,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>248.89543721178785</height>
+            <height>365.91661649380865</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>605.6761173822467</double>
+                <double>684.9697662226858</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2730,14 +2730,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>411.35223476449346</height>
+            <height>569.9395324453718</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>243.1977160252809</double>
+                <double>211.79144658872193</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2795,14 +2795,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>486.3954320505618</height>
+            <height>423.58289317744385</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>558.8466458231817</double>
+                <double>568.4267473277744</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2860,14 +2860,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>317.6932916463635</height>
+            <height>336.8534946555486</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>243.56524630348778</double>
+                <double>129.0065562256291</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2925,14 +2925,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>487.13049260697557</height>
+            <height>258.0131124512582</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>665.0664898768252</double>
+                <double>688.4535448637571</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2990,14 +2990,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>530.1329797536505</height>
+            <height>576.9070897275142</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>143.22067142305838</double>
+                <double>288.7997260626352</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -3055,14 +3055,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>286.44134284611675</height>
+            <height>577.5994521252704</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>506.2441031581539</double>
+                <double>669.2880711895182</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -3120,14 +3120,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>212.48820631630784</height>
+            <height>538.5761423790362</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>172.85357950322663</double>
+                <double>210.74761473298196</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -3185,14 +3185,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>345.70715900645325</height>
+            <height>421.4952294659639</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>683.4104245618388</double>
+                <double>583.8651221445122</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -3250,14 +3250,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>566.8208491236776</height>
+            <height>367.73024428902437</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>119.17482320351174</double>
+                <double>271.2136483803537</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -3315,14 +3315,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>238.34964640702347</height>
+            <height>542.4272967607073</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>615.2840917627154</double>
+                <double>683.7123403735811</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -3380,7 +3380,7 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>430.5681835254308</height>
+            <height>567.4246807471624</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
         </worldObjects>
@@ -3612,15 +3612,15 @@
                 </tagSet>
                 <events>
                   <entry>
-                    <engine.Conditions.BeginStep reference="../../../../../../../worldObjects/engine.GameObject/events/entry/engine.Conditions.BeginStep"/>
+                    <engine.Conditions.KeyPressed reference="../../../../../../../worldObjects/engine.GameObject/events/entry/engine.Conditions.KeyPressed"/>
                     <list>
-                      <engine.Actions.MoveByVariable reference="../../../../../../../../worldObjects/engine.GameObject/events/entry/list/engine.Actions.MoveByVariable"/>
                       <engine.Actions.ChangeDouble reference="../../../../../../../../worldObjects/engine.GameObject/events/entry/list/engine.Actions.ChangeDouble"/>
                     </list>
                   </entry>
                   <entry>
-                    <engine.Conditions.KeyPressed reference="../../../../../../../worldObjects/engine.GameObject/events/entry[2]/engine.Conditions.KeyPressed"/>
+                    <engine.Conditions.BeginStep reference="../../../../../../../worldObjects/engine.GameObject/events/entry[2]/engine.Conditions.BeginStep"/>
                     <list>
+                      <engine.Actions.MoveByVariable reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[2]/list/engine.Actions.MoveByVariable"/>
                       <engine.Actions.ChangeDouble reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[2]/list/engine.Actions.ChangeDouble"/>
                     </list>
                   </entry>

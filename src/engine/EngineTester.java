@@ -52,8 +52,8 @@ public class EngineTester extends Application {
 		//testCollisions(stage);
 		//testData(stage);
 		//testImageCanvas(stage);
-		testDrawer(stage);
-		//generateGame();
+		//testDrawer(stage);
+		generateGame();
 	}
 	
 	public void generateGame() {	
