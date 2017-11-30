@@ -52,6 +52,26 @@ public class ActionConditionTab extends Tab implements ActionConditionTabI {
 		actionConditionVBox.setNewActionOptions(newActionOptions);
 	}
 	
+	protected String getActionCondition() {
+		return buttons.getOptionsValue();
+	}
+	
+	protected void addActionCondition(String label) {
+		actionConditionVBox.addActionCondition(label);
+	}
+	
+	protected void addRemoveOption() {
+		buttons.addRemoveOption();
+	}
+	
+	protected void removeActionCondtion(Integer row) {
+		actionConditionVBox.removeActionCondition(row);
+	}
+	
+	protected void removeRowOption(Integer row) {
+		buttons.removeRemoveOption(row);
+	}
+	
 	private void determineTabType(String title) {
 		if(title.equals(Menu.conditionActionTitles.getString("ConditionsTabTitle"))) isConditionTab = true;
 		else isConditionTab = false;
@@ -81,4 +101,5 @@ public class ActionConditionTab extends Tab implements ActionConditionTabI {
 	public void removeActionOption(Integer action) {
 		actionConditionVBox.removeActionOption(action);
 	}
+	
 }
