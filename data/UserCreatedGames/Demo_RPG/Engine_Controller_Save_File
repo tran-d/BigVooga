@@ -20,7 +20,7 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>400.0</double>
+                <double>200.0</double>
               </entry>
               <entry>
                 <string>ySpeed</string>
@@ -28,40 +28,146 @@
               </entry>
             </doubleVars>
             <stringVars/>
-            <booleanVars/>
+            <booleanVars>
+              <entry>
+                <string>isDialogue</string>
+                <boolean>true</boolean>
+              </entry>
+            </booleanVars>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Birb</name>
+            <name>Player</name>
             <tagSet>
               <string>Player</string>
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.KeyPressed>
-                  <priorityNum>-1</priorityNum>
-                  <check>Up</check>
-                </engine.Conditions.KeyPressed>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>0</priorityNum>
+                  <check>Right</check>
+                </engine.Conditions.KeyHeld>
                 <list>
-                  <engine.Actions.ChangeDouble>
-                    <varName>ySpeed</varName>
-                    <newDouble>-5.0</newDouble>
-                    <relative>false</relative>
-                  </engine.Actions.ChangeDouble>
+                  <engine.Actions.Move>
+                    <xIncrement>3.0</xIncrement>
+                    <yIncrement>0.0</yIncrement>
+                  </engine.Actions.Move>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep>
+                <engine.Conditions.KeyHeld>
                   <priorityNum>0</priorityNum>
-                </engine.Conditions.BeginStep>
+                  <check>Left</check>
+                </engine.Conditions.KeyHeld>
                 <list>
-                  <engine.Actions.MoveByVariable>
-                    <xSpeedVar>xSpeed</xSpeedVar>
-                    <ySpeedVar>ySpeed</ySpeedVar>
-                  </engine.Actions.MoveByVariable>
-                  <engine.Actions.ChangeDouble>
-                    <varName>ySpeed</varName>
-                    <newDouble>0.2</newDouble>
-                    <relative>true</relative>
-                  </engine.Actions.ChangeDouble>
+                  <engine.Actions.Move>
+                    <xIncrement>-3.0</xIncrement>
+                    <yIncrement>0.0</yIncrement>
+                  </engine.Actions.Move>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.And>
+                  <priorityNum>1</priorityNum>
+                  <condition1 class="engine.Conditions.KeyPressed">
+                    <priorityNum>1</priorityNum>
+                    <check>Space</check>
+                  </condition1>
+                  <condition2 class="engine.Conditions.Not">
+                    <priorityNum>1</priorityNum>
+                    <condition class="engine.Conditions.Collision">
+                      <priorityNum>1</priorityNum>
+                      <tag>Solid</tag>
+                    </condition>
+                  </condition2>
+                </engine.Conditions.And>
+                <list>
+                  <engine.Actions.Create>
+                    <name>Empty</name>
+                    <x>272.0</x>
+                    <y>640.0</y>
+                    <heading>0.0</heading>
+                  </engine.Actions.Create>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>0</priorityNum>
+                  <check>Down</check>
+                </engine.Conditions.KeyHeld>
+                <list>
+                  <engine.Actions.Move>
+                    <xIncrement>0.0</xIncrement>
+                    <yIncrement>3.0</yIncrement>
+                  </engine.Actions.Move>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>0</priorityNum>
+                  <check>Up</check>
+                </engine.Conditions.KeyHeld>
+                <list>
+                  <engine.Actions.Move>
+                    <xIncrement>0.0</xIncrement>
+                    <yIncrement>-3.0</yIncrement>
+                  </engine.Actions.Move>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.ObjectClickHeld>
+                  <priorityNum>1</priorityNum>
+                </engine.Conditions.ObjectClickHeld>
+                <list>
+                  <engine.Actions.Rotate>
+                    <headingIncrement>1.0</headingIncrement>
+                  </engine.Actions.Rotate>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.Collision>
+                  <priorityNum>2</priorityNum>
+                  <tag>Solid</tag>
+                </engine.Conditions.Collision>
+                <list>
+                  <engine.Actions.RemoveIntersection/>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.Collision>
+                  <priorityNum>3</priorityNum>
+                  <tag>Solid</tag>
+                </engine.Conditions.Collision>
+                <list>
+                  <engine.Actions.RemoveIntersection/>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.Collision>
+                  <priorityNum>4</priorityNum>
+                  <tag>Solid</tag>
+                </engine.Conditions.Collision>
+                <list>
+                  <engine.Actions.RemoveIntersection/>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.And>
+                  <priorityNum>1</priorityNum>
+                  <condition1 class="engine.Conditions.KeyPressed">
+                    <priorityNum>1</priorityNum>
+                    <check>Space</check>
+                  </condition1>
+                  <condition2 class="engine.Conditions.Collision">
+                    <priorityNum>1</priorityNum>
+                    <tag>Solid</tag>
+                  </condition2>
+                </engine.Conditions.And>
+                <list>
+                  <engine.Actions.Create>
+                    <name>Brick</name>
+                    <x>272.0</x>
+                    <y>640.0</y>
+                    <heading>0.0</heading>
+                  </engine.Actions.Create>
                 </list>
               </entry>
             </events>
@@ -102,11 +208,11 @@
                             </geometry>
                           </engine.utilities.collisions.RelativeBoundingGeometry>
                         </relativeBounds>
-                        <fileName>Smiley.png</fileName>
-                        <xCenter>400.0</xCenter>
-                        <yCenter>200.0</yCenter>
-                        <xSize>64.0</xSize>
-                        <ySize>64.0</ySize>
+                        <fileName>skeptical.jpg</fileName>
+                        <xCenter>0.0</xCenter>
+                        <yCenter>0.0</yCenter>
+                        <xSize>0.0</xSize>
+                        <ySize>0.0</ySize>
                         <heading>0.0</heading>
                         <depth>10</depth>
                       </engine.sprite.BoundedImage>
@@ -125,7 +231,7 @@
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>236.62504246183627</double>
+                <double>32.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -133,37 +239,33 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>1000.0</double>
+                <double>32.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision>
                   <priorityNum>3</priorityNum>
-                  <tag>Player</tag>
+                  <tag>Ob1</tag>
                 </engine.Conditions.Collision>
                 <list>
-                  <engine.Actions.Destroy>
-                    <objectToDestroy>Birb</objectToDestroy>
-                  </engine.Actions.Destroy>
+                  <engine.Actions.RemoveIntersection/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep>
-                  <priorityNum>0</priorityNum>
-                </engine.Conditions.BeginStep>
+                <engine.Conditions.Collision>
+                  <priorityNum>4</priorityNum>
+                  <tag>Ob2</tag>
+                </engine.Conditions.Collision>
                 <list>
-                  <engine.Actions.Move>
-                    <xIncrement>-2.0</xIncrement>
-                    <yIncrement>0.0</yIncrement>
-                  </engine.Actions.Move>
+                  <engine.Actions.RemoveIntersection reference="../../../entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -179,7 +281,7 @@
                         <relativeBounds>
                           <engine.utilities.collisions.RelativeBoundingGeometry reference="../../../../../../../../../engine.GameObject/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingGeometry"/>
                         </relativeBounds>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -194,15 +296,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>473.25008492367255</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>657.6883064963463</double>
+                <double>32.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -210,27 +312,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>1400.0</double>
+                <double>32.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -244,7 +346,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -259,15 +361,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>515.3766129926925</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>297.3117809705128</double>
+                <double>544.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -275,27 +377,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>1800.0</double>
+                <double>32.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -309,7 +411,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -324,15 +426,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>594.6235619410256</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>629.7838648324064</double>
+                <double>32.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -340,27 +442,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>2200.0</double>
+                <double>544.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -374,7 +476,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -389,15 +491,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>459.5677296648129</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>296.76142443751064</double>
+                <double>96.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -405,27 +507,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>2600.0</double>
+                <double>32.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -439,7 +541,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -454,15 +556,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>593.5228488750213</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>633.2611338741931</double>
+                <double>32.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -470,27 +572,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>3000.0</double>
+                <double>96.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -504,7 +606,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -519,15 +621,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>466.52226774838607</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>189.38019533845505</double>
+                <double>544.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -535,27 +637,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>3400.0</double>
+                <double>96.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -569,7 +671,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -584,15 +686,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>378.7603906769101</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>646.2570851342206</double>
+                <double>96.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -600,27 +702,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>3800.0</double>
+                <double>544.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -634,7 +736,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -649,15 +751,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>492.5141702684412</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>137.3417754107685</double>
+                <double>160.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -665,27 +767,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>4200.0</double>
+                <double>32.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -699,7 +801,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -714,15 +816,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>274.683550821537</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>624.433714024823</double>
+                <double>32.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -730,27 +832,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>4600.0</double>
+                <double>160.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -764,7 +866,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -779,15 +881,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>448.86742804964587</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>202.7939583396782</double>
+                <double>544.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -795,27 +897,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>5000.0</double>
+                <double>160.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -829,7 +931,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -844,15 +946,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>405.5879166793564</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>698.4645113531303</double>
+                <double>160.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -860,27 +962,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>5400.0</double>
+                <double>544.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -894,7 +996,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -909,15 +1011,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>596.9290227062606</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>262.97924472773497</double>
+                <double>224.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -925,27 +1027,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>5800.0</double>
+                <double>32.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -959,7 +1061,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -974,15 +1076,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>525.9584894554699</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>605.9733436787993</double>
+                <double>32.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -990,27 +1092,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>6200.0</double>
+                <double>224.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -1024,7 +1126,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -1039,15 +1141,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>411.9466873575986</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>259.73450642080576</double>
+                <double>544.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1055,27 +1157,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>6600.0</double>
+                <double>224.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -1089,7 +1191,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -1104,15 +1206,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>519.4690128416115</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>512.4713332676905</double>
+                <double>224.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1120,27 +1222,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>7000.0</double>
+                <double>544.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -1154,7 +1256,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -1169,15 +1271,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>224.94266653538097</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>147.502888740244</double>
+                <double>288.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1185,27 +1287,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>7400.0</double>
+                <double>32.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -1219,7 +1321,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -1234,15 +1336,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>295.005777480488</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>536.0555031666104</double>
+                <double>32.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1250,27 +1352,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>7800.0</double>
+                <double>288.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -1284,7 +1386,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -1299,15 +1401,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>272.1110063332207</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>285.0891452118505</double>
+                <double>544.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1315,27 +1417,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>8200.0</double>
+                <double>288.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -1349,7 +1451,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -1364,15 +1466,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>570.178290423701</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>517.2692980246485</double>
+                <double>288.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1380,27 +1482,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>8600.0</double>
+                <double>544.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -1414,7 +1516,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -1429,15 +1531,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>234.53859604929704</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>202.67599866458664</double>
+                <double>352.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1445,27 +1547,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>9000.0</double>
+                <double>32.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -1479,7 +1581,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -1494,15 +1596,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>405.3519973291733</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>628.1505285511868</double>
+                <double>32.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1510,27 +1612,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>9400.0</double>
+                <double>352.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -1544,7 +1646,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -1559,15 +1661,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>456.30105710237353</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>121.97581475137989</double>
+                <double>544.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1575,27 +1677,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>9800.0</double>
+                <double>352.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -1609,7 +1711,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -1624,15 +1726,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>243.95162950275977</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>555.8015085544014</double>
+                <double>352.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1640,27 +1742,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>10200.0</double>
+                <double>544.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -1674,7 +1776,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -1689,15 +1791,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>311.6030171088029</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>196.82767210174043</double>
+                <double>416.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1705,27 +1807,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>10600.0</double>
+                <double>32.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -1739,7 +1841,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -1754,15 +1856,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>393.65534420348087</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>641.6299838107707</double>
+                <double>32.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1770,27 +1872,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>11000.0</double>
+                <double>416.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -1804,7 +1906,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -1819,15 +1921,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>483.2599676215414</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>135.19682623444757</double>
+                <double>544.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1835,27 +1937,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>11400.0</double>
+                <double>416.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -1869,7 +1971,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -1884,15 +1986,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>270.39365246889514</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>526.6728816896939</double>
+                <double>416.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1900,27 +2002,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>11800.0</double>
+                <double>544.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -1934,7 +2036,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -1949,15 +2051,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>253.3457633793879</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>150.64976558001837</double>
+                <double>480.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1965,27 +2067,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>12200.0</double>
+                <double>32.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -1999,7 +2101,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -2014,15 +2116,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>301.29953116003674</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>618.1984033290152</double>
+                <double>32.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2030,27 +2132,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>12600.0</double>
+                <double>480.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -2064,7 +2166,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -2079,15 +2181,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>436.3968066580303</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>139.34643813955518</double>
+                <double>544.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2095,27 +2197,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>13000.0</double>
+                <double>480.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -2129,7 +2231,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -2144,15 +2246,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>278.69287627911035</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>628.2807801263823</double>
+                <double>480.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2160,27 +2262,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>13400.0</double>
+                <double>544.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -2194,7 +2296,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -2209,15 +2311,15 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>456.5615602527645</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>282.9193174611826</double>
+                <double>544.0</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2225,27 +2327,27 @@
               </entry>
               <entry>
                 <string>xCor</string>
-                <double>13800.0</double>
+                <double>544.0</double>
               </entry>
             </doubleVars>
             <stringVars/>
             <booleanVars/>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
+            <name>Wall</name>
             <tagSet>
-              <string>Pillar</string>
+              <string>Solid</string>
             </tagSet>
             <events>
               <entry>
                 <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
+                  <engine.Actions.RemoveIntersection reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
                 </list>
               </entry>
             </events>
@@ -2259,7 +2361,7 @@
                       <engine.sprite.BoundedImage>
                         <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                         <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
+                        <fileName>brick.png</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>
@@ -2274,1113 +2376,8 @@
               </animations>
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
-            <width>200.0</width>
-            <height>565.8386349223651</height>
-            <uniqueID>0</uniqueID>
-          </engine.GameObject>
-          <engine.GameObject>
-            <doubleVars>
-              <entry>
-                <string>yCor</string>
-                <double>669.5764520742475</double>
-              </entry>
-              <entry>
-                <string>heading</string>
-                <double>0.0</double>
-              </entry>
-              <entry>
-                <string>xCor</string>
-                <double>14200.0</double>
-              </entry>
-            </doubleVars>
-            <stringVars/>
-            <booleanVars/>
-            <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
-            <tagSet>
-              <string>Pillar</string>
-            </tagSet>
-            <events>
-              <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
-                <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
-                <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
-                </list>
-              </entry>
-            </events>
-            <currentSprite>
-              <animations>
-                <entry>
-                  <string>Animation</string>
-                  <engine.sprite.AnimationSequence>
-                    <imageIndex>0</imageIndex>
-                    <images>
-                      <engine.sprite.BoundedImage>
-                        <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
-                        <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
-                        <xCenter>0.0</xCenter>
-                        <yCenter>0.0</yCenter>
-                        <xSize>0.0</xSize>
-                        <ySize>0.0</ySize>
-                        <heading>0.0</heading>
-                        <depth>10</depth>
-                      </engine.sprite.BoundedImage>
-                    </images>
-                    <name>Animation</name>
-                  </engine.sprite.AnimationSequence>
-                </entry>
-              </animations>
-              <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-            </currentSprite>
-            <width>200.0</width>
-            <height>539.1529041484949</height>
-            <uniqueID>0</uniqueID>
-          </engine.GameObject>
-          <engine.GameObject>
-            <doubleVars>
-              <entry>
-                <string>yCor</string>
-                <double>111.92985785561609</double>
-              </entry>
-              <entry>
-                <string>heading</string>
-                <double>0.0</double>
-              </entry>
-              <entry>
-                <string>xCor</string>
-                <double>14600.0</double>
-              </entry>
-            </doubleVars>
-            <stringVars/>
-            <booleanVars/>
-            <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
-            <tagSet>
-              <string>Pillar</string>
-            </tagSet>
-            <events>
-              <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
-                <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
-                <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
-                </list>
-              </entry>
-            </events>
-            <currentSprite>
-              <animations>
-                <entry>
-                  <string>Animation</string>
-                  <engine.sprite.AnimationSequence>
-                    <imageIndex>0</imageIndex>
-                    <images>
-                      <engine.sprite.BoundedImage>
-                        <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
-                        <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
-                        <xCenter>0.0</xCenter>
-                        <yCenter>0.0</yCenter>
-                        <xSize>0.0</xSize>
-                        <ySize>0.0</ySize>
-                        <heading>0.0</heading>
-                        <depth>10</depth>
-                      </engine.sprite.BoundedImage>
-                    </images>
-                    <name>Animation</name>
-                  </engine.sprite.AnimationSequence>
-                </entry>
-              </animations>
-              <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-            </currentSprite>
-            <width>200.0</width>
-            <height>223.85971571123218</height>
-            <uniqueID>0</uniqueID>
-          </engine.GameObject>
-          <engine.GameObject>
-            <doubleVars>
-              <entry>
-                <string>yCor</string>
-                <double>658.5458754983931</double>
-              </entry>
-              <entry>
-                <string>heading</string>
-                <double>0.0</double>
-              </entry>
-              <entry>
-                <string>xCor</string>
-                <double>15000.0</double>
-              </entry>
-            </doubleVars>
-            <stringVars/>
-            <booleanVars/>
-            <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
-            <tagSet>
-              <string>Pillar</string>
-            </tagSet>
-            <events>
-              <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
-                <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
-                <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
-                </list>
-              </entry>
-            </events>
-            <currentSprite>
-              <animations>
-                <entry>
-                  <string>Animation</string>
-                  <engine.sprite.AnimationSequence>
-                    <imageIndex>0</imageIndex>
-                    <images>
-                      <engine.sprite.BoundedImage>
-                        <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
-                        <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
-                        <xCenter>0.0</xCenter>
-                        <yCenter>0.0</yCenter>
-                        <xSize>0.0</xSize>
-                        <ySize>0.0</ySize>
-                        <heading>0.0</heading>
-                        <depth>10</depth>
-                      </engine.sprite.BoundedImage>
-                    </images>
-                    <name>Animation</name>
-                  </engine.sprite.AnimationSequence>
-                </entry>
-              </animations>
-              <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-            </currentSprite>
-            <width>200.0</width>
-            <height>517.0917509967863</height>
-            <uniqueID>0</uniqueID>
-          </engine.GameObject>
-          <engine.GameObject>
-            <doubleVars>
-              <entry>
-                <string>yCor</string>
-                <double>130.66415591634896</double>
-              </entry>
-              <entry>
-                <string>heading</string>
-                <double>0.0</double>
-              </entry>
-              <entry>
-                <string>xCor</string>
-                <double>15400.0</double>
-              </entry>
-            </doubleVars>
-            <stringVars/>
-            <booleanVars/>
-            <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
-            <tagSet>
-              <string>Pillar</string>
-            </tagSet>
-            <events>
-              <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
-                <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
-                <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
-                </list>
-              </entry>
-            </events>
-            <currentSprite>
-              <animations>
-                <entry>
-                  <string>Animation</string>
-                  <engine.sprite.AnimationSequence>
-                    <imageIndex>0</imageIndex>
-                    <images>
-                      <engine.sprite.BoundedImage>
-                        <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
-                        <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
-                        <xCenter>0.0</xCenter>
-                        <yCenter>0.0</yCenter>
-                        <xSize>0.0</xSize>
-                        <ySize>0.0</ySize>
-                        <heading>0.0</heading>
-                        <depth>10</depth>
-                      </engine.sprite.BoundedImage>
-                    </images>
-                    <name>Animation</name>
-                  </engine.sprite.AnimationSequence>
-                </entry>
-              </animations>
-              <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-            </currentSprite>
-            <width>200.0</width>
-            <height>261.3283118326979</height>
-            <uniqueID>0</uniqueID>
-          </engine.GameObject>
-          <engine.GameObject>
-            <doubleVars>
-              <entry>
-                <string>yCor</string>
-                <double>656.4318345632325</double>
-              </entry>
-              <entry>
-                <string>heading</string>
-                <double>0.0</double>
-              </entry>
-              <entry>
-                <string>xCor</string>
-                <double>15800.0</double>
-              </entry>
-            </doubleVars>
-            <stringVars/>
-            <booleanVars/>
-            <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
-            <tagSet>
-              <string>Pillar</string>
-            </tagSet>
-            <events>
-              <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
-                <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
-                <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
-                </list>
-              </entry>
-            </events>
-            <currentSprite>
-              <animations>
-                <entry>
-                  <string>Animation</string>
-                  <engine.sprite.AnimationSequence>
-                    <imageIndex>0</imageIndex>
-                    <images>
-                      <engine.sprite.BoundedImage>
-                        <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
-                        <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
-                        <xCenter>0.0</xCenter>
-                        <yCenter>0.0</yCenter>
-                        <xSize>0.0</xSize>
-                        <ySize>0.0</ySize>
-                        <heading>0.0</heading>
-                        <depth>10</depth>
-                      </engine.sprite.BoundedImage>
-                    </images>
-                    <name>Animation</name>
-                  </engine.sprite.AnimationSequence>
-                </entry>
-              </animations>
-              <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-            </currentSprite>
-            <width>200.0</width>
-            <height>512.863669126465</height>
-            <uniqueID>0</uniqueID>
-          </engine.GameObject>
-          <engine.GameObject>
-            <doubleVars>
-              <entry>
-                <string>yCor</string>
-                <double>281.73427093842804</double>
-              </entry>
-              <entry>
-                <string>heading</string>
-                <double>0.0</double>
-              </entry>
-              <entry>
-                <string>xCor</string>
-                <double>16200.0</double>
-              </entry>
-            </doubleVars>
-            <stringVars/>
-            <booleanVars/>
-            <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
-            <tagSet>
-              <string>Pillar</string>
-            </tagSet>
-            <events>
-              <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
-                <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
-                <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
-                </list>
-              </entry>
-            </events>
-            <currentSprite>
-              <animations>
-                <entry>
-                  <string>Animation</string>
-                  <engine.sprite.AnimationSequence>
-                    <imageIndex>0</imageIndex>
-                    <images>
-                      <engine.sprite.BoundedImage>
-                        <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
-                        <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
-                        <xCenter>0.0</xCenter>
-                        <yCenter>0.0</yCenter>
-                        <xSize>0.0</xSize>
-                        <ySize>0.0</ySize>
-                        <heading>0.0</heading>
-                        <depth>10</depth>
-                      </engine.sprite.BoundedImage>
-                    </images>
-                    <name>Animation</name>
-                  </engine.sprite.AnimationSequence>
-                </entry>
-              </animations>
-              <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-            </currentSprite>
-            <width>200.0</width>
-            <height>563.4685418768561</height>
-            <uniqueID>0</uniqueID>
-          </engine.GameObject>
-          <engine.GameObject>
-            <doubleVars>
-              <entry>
-                <string>yCor</string>
-                <double>561.1183695810475</double>
-              </entry>
-              <entry>
-                <string>heading</string>
-                <double>0.0</double>
-              </entry>
-              <entry>
-                <string>xCor</string>
-                <double>16600.0</double>
-              </entry>
-            </doubleVars>
-            <stringVars/>
-            <booleanVars/>
-            <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
-            <tagSet>
-              <string>Pillar</string>
-            </tagSet>
-            <events>
-              <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
-                <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
-                <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
-                </list>
-              </entry>
-            </events>
-            <currentSprite>
-              <animations>
-                <entry>
-                  <string>Animation</string>
-                  <engine.sprite.AnimationSequence>
-                    <imageIndex>0</imageIndex>
-                    <images>
-                      <engine.sprite.BoundedImage>
-                        <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
-                        <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
-                        <xCenter>0.0</xCenter>
-                        <yCenter>0.0</yCenter>
-                        <xSize>0.0</xSize>
-                        <ySize>0.0</ySize>
-                        <heading>0.0</heading>
-                        <depth>10</depth>
-                      </engine.sprite.BoundedImage>
-                    </images>
-                    <name>Animation</name>
-                  </engine.sprite.AnimationSequence>
-                </entry>
-              </animations>
-              <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-            </currentSprite>
-            <width>200.0</width>
-            <height>322.2367391620952</height>
-            <uniqueID>0</uniqueID>
-          </engine.GameObject>
-          <engine.GameObject>
-            <doubleVars>
-              <entry>
-                <string>yCor</string>
-                <double>126.29744750628906</double>
-              </entry>
-              <entry>
-                <string>heading</string>
-                <double>0.0</double>
-              </entry>
-              <entry>
-                <string>xCor</string>
-                <double>17000.0</double>
-              </entry>
-            </doubleVars>
-            <stringVars/>
-            <booleanVars/>
-            <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
-            <tagSet>
-              <string>Pillar</string>
-            </tagSet>
-            <events>
-              <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
-                <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
-                <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
-                </list>
-              </entry>
-            </events>
-            <currentSprite>
-              <animations>
-                <entry>
-                  <string>Animation</string>
-                  <engine.sprite.AnimationSequence>
-                    <imageIndex>0</imageIndex>
-                    <images>
-                      <engine.sprite.BoundedImage>
-                        <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
-                        <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
-                        <xCenter>0.0</xCenter>
-                        <yCenter>0.0</yCenter>
-                        <xSize>0.0</xSize>
-                        <ySize>0.0</ySize>
-                        <heading>0.0</heading>
-                        <depth>10</depth>
-                      </engine.sprite.BoundedImage>
-                    </images>
-                    <name>Animation</name>
-                  </engine.sprite.AnimationSequence>
-                </entry>
-              </animations>
-              <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-            </currentSprite>
-            <width>200.0</width>
-            <height>252.59489501257812</height>
-            <uniqueID>0</uniqueID>
-          </engine.GameObject>
-          <engine.GameObject>
-            <doubleVars>
-              <entry>
-                <string>yCor</string>
-                <double>689.3746051367361</double>
-              </entry>
-              <entry>
-                <string>heading</string>
-                <double>0.0</double>
-              </entry>
-              <entry>
-                <string>xCor</string>
-                <double>17400.0</double>
-              </entry>
-            </doubleVars>
-            <stringVars/>
-            <booleanVars/>
-            <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
-            <tagSet>
-              <string>Pillar</string>
-            </tagSet>
-            <events>
-              <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
-                <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
-                <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
-                </list>
-              </entry>
-            </events>
-            <currentSprite>
-              <animations>
-                <entry>
-                  <string>Animation</string>
-                  <engine.sprite.AnimationSequence>
-                    <imageIndex>0</imageIndex>
-                    <images>
-                      <engine.sprite.BoundedImage>
-                        <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
-                        <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
-                        <xCenter>0.0</xCenter>
-                        <yCenter>0.0</yCenter>
-                        <xSize>0.0</xSize>
-                        <ySize>0.0</ySize>
-                        <heading>0.0</heading>
-                        <depth>10</depth>
-                      </engine.sprite.BoundedImage>
-                    </images>
-                    <name>Animation</name>
-                  </engine.sprite.AnimationSequence>
-                </entry>
-              </animations>
-              <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-            </currentSprite>
-            <width>200.0</width>
-            <height>578.7492102734723</height>
-            <uniqueID>0</uniqueID>
-          </engine.GameObject>
-          <engine.GameObject>
-            <doubleVars>
-              <entry>
-                <string>yCor</string>
-                <double>218.82506584023065</double>
-              </entry>
-              <entry>
-                <string>heading</string>
-                <double>0.0</double>
-              </entry>
-              <entry>
-                <string>xCor</string>
-                <double>17800.0</double>
-              </entry>
-            </doubleVars>
-            <stringVars/>
-            <booleanVars/>
-            <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
-            <tagSet>
-              <string>Pillar</string>
-            </tagSet>
-            <events>
-              <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
-                <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
-                <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
-                </list>
-              </entry>
-            </events>
-            <currentSprite>
-              <animations>
-                <entry>
-                  <string>Animation</string>
-                  <engine.sprite.AnimationSequence>
-                    <imageIndex>0</imageIndex>
-                    <images>
-                      <engine.sprite.BoundedImage>
-                        <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
-                        <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
-                        <xCenter>0.0</xCenter>
-                        <yCenter>0.0</yCenter>
-                        <xSize>0.0</xSize>
-                        <ySize>0.0</ySize>
-                        <heading>0.0</heading>
-                        <depth>10</depth>
-                      </engine.sprite.BoundedImage>
-                    </images>
-                    <name>Animation</name>
-                  </engine.sprite.AnimationSequence>
-                </entry>
-              </animations>
-              <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-            </currentSprite>
-            <width>200.0</width>
-            <height>437.6501316804613</height>
-            <uniqueID>0</uniqueID>
-          </engine.GameObject>
-          <engine.GameObject>
-            <doubleVars>
-              <entry>
-                <string>yCor</string>
-                <double>502.8802029782937</double>
-              </entry>
-              <entry>
-                <string>heading</string>
-                <double>0.0</double>
-              </entry>
-              <entry>
-                <string>xCor</string>
-                <double>18200.0</double>
-              </entry>
-            </doubleVars>
-            <stringVars/>
-            <booleanVars/>
-            <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
-            <tagSet>
-              <string>Pillar</string>
-            </tagSet>
-            <events>
-              <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
-                <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
-                <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
-                </list>
-              </entry>
-            </events>
-            <currentSprite>
-              <animations>
-                <entry>
-                  <string>Animation</string>
-                  <engine.sprite.AnimationSequence>
-                    <imageIndex>0</imageIndex>
-                    <images>
-                      <engine.sprite.BoundedImage>
-                        <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
-                        <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
-                        <xCenter>0.0</xCenter>
-                        <yCenter>0.0</yCenter>
-                        <xSize>0.0</xSize>
-                        <ySize>0.0</ySize>
-                        <heading>0.0</heading>
-                        <depth>10</depth>
-                      </engine.sprite.BoundedImage>
-                    </images>
-                    <name>Animation</name>
-                  </engine.sprite.AnimationSequence>
-                </entry>
-              </animations>
-              <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-            </currentSprite>
-            <width>200.0</width>
-            <height>205.76040595658736</height>
-            <uniqueID>0</uniqueID>
-          </engine.GameObject>
-          <engine.GameObject>
-            <doubleVars>
-              <entry>
-                <string>yCor</string>
-                <double>278.5045339246697</double>
-              </entry>
-              <entry>
-                <string>heading</string>
-                <double>0.0</double>
-              </entry>
-              <entry>
-                <string>xCor</string>
-                <double>18600.0</double>
-              </entry>
-            </doubleVars>
-            <stringVars/>
-            <booleanVars/>
-            <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
-            <tagSet>
-              <string>Pillar</string>
-            </tagSet>
-            <events>
-              <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
-                <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
-                <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
-                </list>
-              </entry>
-            </events>
-            <currentSprite>
-              <animations>
-                <entry>
-                  <string>Animation</string>
-                  <engine.sprite.AnimationSequence>
-                    <imageIndex>0</imageIndex>
-                    <images>
-                      <engine.sprite.BoundedImage>
-                        <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
-                        <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
-                        <xCenter>0.0</xCenter>
-                        <yCenter>0.0</yCenter>
-                        <xSize>0.0</xSize>
-                        <ySize>0.0</ySize>
-                        <heading>0.0</heading>
-                        <depth>10</depth>
-                      </engine.sprite.BoundedImage>
-                    </images>
-                    <name>Animation</name>
-                  </engine.sprite.AnimationSequence>
-                </entry>
-              </animations>
-              <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-            </currentSprite>
-            <width>200.0</width>
-            <height>557.0090678493394</height>
-            <uniqueID>0</uniqueID>
-          </engine.GameObject>
-          <engine.GameObject>
-            <doubleVars>
-              <entry>
-                <string>yCor</string>
-                <double>529.9038375805397</double>
-              </entry>
-              <entry>
-                <string>heading</string>
-                <double>0.0</double>
-              </entry>
-              <entry>
-                <string>xCor</string>
-                <double>19000.0</double>
-              </entry>
-            </doubleVars>
-            <stringVars/>
-            <booleanVars/>
-            <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
-            <tagSet>
-              <string>Pillar</string>
-            </tagSet>
-            <events>
-              <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
-                <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
-                <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
-                </list>
-              </entry>
-            </events>
-            <currentSprite>
-              <animations>
-                <entry>
-                  <string>Animation</string>
-                  <engine.sprite.AnimationSequence>
-                    <imageIndex>0</imageIndex>
-                    <images>
-                      <engine.sprite.BoundedImage>
-                        <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
-                        <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
-                        <xCenter>0.0</xCenter>
-                        <yCenter>0.0</yCenter>
-                        <xSize>0.0</xSize>
-                        <ySize>0.0</ySize>
-                        <heading>0.0</heading>
-                        <depth>10</depth>
-                      </engine.sprite.BoundedImage>
-                    </images>
-                    <name>Animation</name>
-                  </engine.sprite.AnimationSequence>
-                </entry>
-              </animations>
-              <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-            </currentSprite>
-            <width>200.0</width>
-            <height>259.80767516107943</height>
-            <uniqueID>0</uniqueID>
-          </engine.GameObject>
-          <engine.GameObject>
-            <doubleVars>
-              <entry>
-                <string>yCor</string>
-                <double>294.923446346361</double>
-              </entry>
-              <entry>
-                <string>heading</string>
-                <double>0.0</double>
-              </entry>
-              <entry>
-                <string>xCor</string>
-                <double>19400.0</double>
-              </entry>
-            </doubleVars>
-            <stringVars/>
-            <booleanVars/>
-            <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
-            <tagSet>
-              <string>Pillar</string>
-            </tagSet>
-            <events>
-              <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
-                <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
-                <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
-                </list>
-              </entry>
-            </events>
-            <currentSprite>
-              <animations>
-                <entry>
-                  <string>Animation</string>
-                  <engine.sprite.AnimationSequence>
-                    <imageIndex>0</imageIndex>
-                    <images>
-                      <engine.sprite.BoundedImage>
-                        <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
-                        <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
-                        <xCenter>0.0</xCenter>
-                        <yCenter>0.0</yCenter>
-                        <xSize>0.0</xSize>
-                        <ySize>0.0</ySize>
-                        <heading>0.0</heading>
-                        <depth>10</depth>
-                      </engine.sprite.BoundedImage>
-                    </images>
-                    <name>Animation</name>
-                  </engine.sprite.AnimationSequence>
-                </entry>
-              </animations>
-              <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-            </currentSprite>
-            <width>200.0</width>
-            <height>589.846892692722</height>
-            <uniqueID>0</uniqueID>
-          </engine.GameObject>
-          <engine.GameObject>
-            <doubleVars>
-              <entry>
-                <string>yCor</string>
-                <double>617.7591152355296</double>
-              </entry>
-              <entry>
-                <string>heading</string>
-                <double>0.0</double>
-              </entry>
-              <entry>
-                <string>xCor</string>
-                <double>19800.0</double>
-              </entry>
-            </doubleVars>
-            <stringVars/>
-            <booleanVars/>
-            <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
-            <tagSet>
-              <string>Pillar</string>
-            </tagSet>
-            <events>
-              <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
-                <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
-                <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
-                </list>
-              </entry>
-            </events>
-            <currentSprite>
-              <animations>
-                <entry>
-                  <string>Animation</string>
-                  <engine.sprite.AnimationSequence>
-                    <imageIndex>0</imageIndex>
-                    <images>
-                      <engine.sprite.BoundedImage>
-                        <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
-                        <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
-                        <xCenter>0.0</xCenter>
-                        <yCenter>0.0</yCenter>
-                        <xSize>0.0</xSize>
-                        <ySize>0.0</ySize>
-                        <heading>0.0</heading>
-                        <depth>10</depth>
-                      </engine.sprite.BoundedImage>
-                    </images>
-                    <name>Animation</name>
-                  </engine.sprite.AnimationSequence>
-                </entry>
-              </animations>
-              <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-            </currentSprite>
-            <width>200.0</width>
-            <height>435.5182304710594</height>
-            <uniqueID>0</uniqueID>
-          </engine.GameObject>
-          <engine.GameObject>
-            <doubleVars>
-              <entry>
-                <string>yCor</string>
-                <double>174.17335532528912</double>
-              </entry>
-              <entry>
-                <string>heading</string>
-                <double>0.0</double>
-              </entry>
-              <entry>
-                <string>xCor</string>
-                <double>20200.0</double>
-              </entry>
-            </doubleVars>
-            <stringVars/>
-            <booleanVars/>
-            <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
-            <tagSet>
-              <string>Pillar</string>
-            </tagSet>
-            <events>
-              <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
-                <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
-                <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
-                </list>
-              </entry>
-            </events>
-            <currentSprite>
-              <animations>
-                <entry>
-                  <string>Animation</string>
-                  <engine.sprite.AnimationSequence>
-                    <imageIndex>0</imageIndex>
-                    <images>
-                      <engine.sprite.BoundedImage>
-                        <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
-                        <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
-                        <xCenter>0.0</xCenter>
-                        <yCenter>0.0</yCenter>
-                        <xSize>0.0</xSize>
-                        <ySize>0.0</ySize>
-                        <heading>0.0</heading>
-                        <depth>10</depth>
-                      </engine.sprite.BoundedImage>
-                    </images>
-                    <name>Animation</name>
-                  </engine.sprite.AnimationSequence>
-                </entry>
-              </animations>
-              <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-            </currentSprite>
-            <width>200.0</width>
-            <height>348.34671065057825</height>
-            <uniqueID>0</uniqueID>
-          </engine.GameObject>
-          <engine.GameObject>
-            <doubleVars>
-              <entry>
-                <string>yCor</string>
-                <double>572.5129255481472</double>
-              </entry>
-              <entry>
-                <string>heading</string>
-                <double>0.0</double>
-              </entry>
-              <entry>
-                <string>xCor</string>
-                <double>20600.0</double>
-              </entry>
-            </doubleVars>
-            <stringVars/>
-            <booleanVars/>
-            <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-            <name>Pillar</name>
-            <tagSet>
-              <string>Pillar</string>
-            </tagSet>
-            <events>
-              <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
-                <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
-                <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
-                </list>
-              </entry>
-            </events>
-            <currentSprite>
-              <animations>
-                <entry>
-                  <string>Animation</string>
-                  <engine.sprite.AnimationSequence>
-                    <imageIndex>0</imageIndex>
-                    <images>
-                      <engine.sprite.BoundedImage>
-                        <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
-                        <relativeBounds reference="../../../../../../../../engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                        <fileName>trash.png</fileName>
-                        <xCenter>0.0</xCenter>
-                        <yCenter>0.0</yCenter>
-                        <xSize>0.0</xSize>
-                        <ySize>0.0</ySize>
-                        <heading>0.0</heading>
-                        <depth>10</depth>
-                      </engine.sprite.BoundedImage>
-                    </images>
-                    <name>Animation</name>
-                  </engine.sprite.AnimationSequence>
-                </entry>
-              </animations>
-              <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-            </currentSprite>
-            <width>200.0</width>
-            <height>345.02585109629456</height>
+            <width>64.0</width>
+            <height>64.0</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
         </worldObjects>
@@ -3388,66 +2385,21 @@
           <unserializable-parents/>
           <java.util.concurrent.ConcurrentSkipListMap>
             <default/>
-            <int>-1</int>
-            <list>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject"/>
-            </list>
             <int>0</int>
             <list>
               <engine.GameObject reference="../../../../worldObjects/engine.GameObject"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[2]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[3]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[4]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[5]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[6]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[7]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[8]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[9]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[10]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[11]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[12]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[13]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[14]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[15]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[16]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[17]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[18]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[19]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[20]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[21]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[22]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[23]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[24]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[25]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[26]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[27]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[28]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[29]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[30]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[31]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[32]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[33]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[34]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[35]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[36]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[37]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[38]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[39]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[40]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[41]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[42]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[43]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[44]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[45]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[46]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[47]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[48]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[49]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[50]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[51]"/>
+            </list>
+            <int>1</int>
+            <list>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject"/>
+            </list>
+            <int>2</int>
+            <list>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject"/>
             </list>
             <int>3</int>
             <list>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject"/>
               <engine.GameObject reference="../../../../worldObjects/engine.GameObject[2]"/>
               <engine.GameObject reference="../../../../worldObjects/engine.GameObject[3]"/>
               <engine.GameObject reference="../../../../worldObjects/engine.GameObject[4]"/>
@@ -3481,23 +2433,43 @@
               <engine.GameObject reference="../../../../worldObjects/engine.GameObject[32]"/>
               <engine.GameObject reference="../../../../worldObjects/engine.GameObject[33]"/>
               <engine.GameObject reference="../../../../worldObjects/engine.GameObject[34]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[35]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[36]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[37]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[38]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[39]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[40]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[41]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[42]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[43]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[44]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[45]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[46]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[47]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[48]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[49]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[50]"/>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[51]"/>
+            </list>
+            <int>4</int>
+            <list>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[2]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[3]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[4]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[5]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[6]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[7]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[8]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[9]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[10]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[11]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[12]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[13]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[14]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[15]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[16]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[17]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[18]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[19]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[20]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[21]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[22]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[23]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[24]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[25]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[26]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[27]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[28]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[29]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[30]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[31]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[32]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[33]"/>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject[34]"/>
             </list>
             <null/>
           </java.util.concurrent.ConcurrentSkipListMap>
@@ -3505,81 +2477,13 @@
         <idToGameObject>
           <entry>
             <int>0</int>
-            <engine.GameObject reference="../../../worldObjects/engine.GameObject[51]"/>
+            <engine.GameObject reference="../../../worldObjects/engine.GameObject[34]"/>
           </entry>
         </idToGameObject>
         <blueprints>
           <originals>
             <entry>
-              <string>Pillar</string>
-              <engine.GameObject>
-                <doubleVars>
-                  <entry>
-                    <string>yCor</string>
-                    <double>200.0</double>
-                  </entry>
-                  <entry>
-                    <string>heading</string>
-                    <double>0.0</double>
-                  </entry>
-                  <entry>
-                    <string>xCor</string>
-                    <double>500.0</double>
-                  </entry>
-                </doubleVars>
-                <stringVars/>
-                <booleanVars/>
-                <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-                <name>Pillar</name>
-                <tagSet>
-                  <string>Pillar</string>
-                </tagSet>
-                <events>
-                  <entry>
-                    <engine.Conditions.Collision reference="../../../../../../../worldObjects/engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
-                    <list>
-                      <engine.Actions.Destroy reference="../../../../../../../../worldObjects/engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
-                    </list>
-                  </entry>
-                  <entry>
-                    <engine.Conditions.BeginStep reference="../../../../../../../worldObjects/engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
-                    <list>
-                      <engine.Actions.Move reference="../../../../../../../../worldObjects/engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
-                    </list>
-                  </entry>
-                </events>
-                <currentSprite>
-                  <animations>
-                    <entry>
-                      <string>Animation</string>
-                      <engine.sprite.AnimationSequence>
-                        <imageIndex>0</imageIndex>
-                        <images>
-                          <engine.sprite.BoundedImage>
-                            <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
-                            <relativeBounds reference="../../../../../../../../../../../worldObjects/engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                            <fileName>trash.png</fileName>
-                            <xCenter>0.0</xCenter>
-                            <yCenter>0.0</yCenter>
-                            <xSize>0.0</xSize>
-                            <ySize>0.0</ySize>
-                            <heading>0.0</heading>
-                            <depth>10</depth>
-                          </engine.sprite.BoundedImage>
-                        </images>
-                        <name>Animation</name>
-                      </engine.sprite.AnimationSequence>
-                    </entry>
-                  </animations>
-                  <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-                </currentSprite>
-                <width>200.0</width>
-                <height>200.0</height>
-                <uniqueID>0</uniqueID>
-              </engine.GameObject>
-            </entry>
-            <entry>
-              <string>Birb</string>
+              <string>Player</string>
               <engine.GameObject>
                 <doubleVars>
                   <entry>
@@ -3596,7 +2500,7 @@
                   </entry>
                   <entry>
                     <string>xCor</string>
-                    <double>400.0</double>
+                    <double>200.0</double>
                   </entry>
                   <entry>
                     <string>ySpeed</string>
@@ -3604,24 +2508,76 @@
                   </entry>
                 </doubleVars>
                 <stringVars/>
-                <booleanVars/>
+                <booleanVars>
+                  <entry>
+                    <string>isDialogue</string>
+                    <boolean>true</boolean>
+                  </entry>
+                </booleanVars>
                 <DEFAULT__TAG>unnamed</DEFAULT__TAG>
-                <name>Birb</name>
+                <name>Player</name>
                 <tagSet>
                   <string>Player</string>
                 </tagSet>
                 <events>
                   <entry>
-                    <engine.Conditions.KeyPressed reference="../../../../../../../worldObjects/engine.GameObject/events/entry/engine.Conditions.KeyPressed"/>
+                    <engine.Conditions.KeyHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry/engine.Conditions.KeyHeld"/>
                     <list>
-                      <engine.Actions.ChangeDouble reference="../../../../../../../../worldObjects/engine.GameObject/events/entry/list/engine.Actions.ChangeDouble"/>
+                      <engine.Actions.Move reference="../../../../../../../../worldObjects/engine.GameObject/events/entry/list/engine.Actions.Move"/>
                     </list>
                   </entry>
                   <entry>
-                    <engine.Conditions.BeginStep reference="../../../../../../../worldObjects/engine.GameObject/events/entry[2]/engine.Conditions.BeginStep"/>
+                    <engine.Conditions.KeyHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[2]/engine.Conditions.KeyHeld"/>
                     <list>
-                      <engine.Actions.MoveByVariable reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[2]/list/engine.Actions.MoveByVariable"/>
-                      <engine.Actions.ChangeDouble reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[2]/list/engine.Actions.ChangeDouble"/>
+                      <engine.Actions.Move reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[2]/list/engine.Actions.Move"/>
+                    </list>
+                  </entry>
+                  <entry>
+                    <engine.Conditions.And reference="../../../../../../../worldObjects/engine.GameObject/events/entry[3]/engine.Conditions.And"/>
+                    <list>
+                      <engine.Actions.Create reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[3]/list/engine.Actions.Create"/>
+                    </list>
+                  </entry>
+                  <entry>
+                    <engine.Conditions.KeyHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[4]/engine.Conditions.KeyHeld"/>
+                    <list>
+                      <engine.Actions.Move reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[4]/list/engine.Actions.Move"/>
+                    </list>
+                  </entry>
+                  <entry>
+                    <engine.Conditions.KeyHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[5]/engine.Conditions.KeyHeld"/>
+                    <list>
+                      <engine.Actions.Move reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[5]/list/engine.Actions.Move"/>
+                    </list>
+                  </entry>
+                  <entry>
+                    <engine.Conditions.ObjectClickHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[6]/engine.Conditions.ObjectClickHeld"/>
+                    <list>
+                      <engine.Actions.Rotate reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[6]/list/engine.Actions.Rotate"/>
+                    </list>
+                  </entry>
+                  <entry>
+                    <engine.Conditions.Collision reference="../../../../../../../worldObjects/engine.GameObject/events/entry[7]/engine.Conditions.Collision"/>
+                    <list>
+                      <engine.Actions.RemoveIntersection reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[7]/list/engine.Actions.RemoveIntersection"/>
+                    </list>
+                  </entry>
+                  <entry>
+                    <engine.Conditions.Collision reference="../../../../../../../worldObjects/engine.GameObject/events/entry[8]/engine.Conditions.Collision"/>
+                    <list>
+                      <engine.Actions.RemoveIntersection reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[8]/list/engine.Actions.RemoveIntersection"/>
+                    </list>
+                  </entry>
+                  <entry>
+                    <engine.Conditions.Collision reference="../../../../../../../worldObjects/engine.GameObject/events/entry[9]/engine.Conditions.Collision"/>
+                    <list>
+                      <engine.Actions.RemoveIntersection reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[9]/list/engine.Actions.RemoveIntersection"/>
+                    </list>
+                  </entry>
+                  <entry>
+                    <engine.Conditions.And reference="../../../../../../../worldObjects/engine.GameObject/events/entry[10]/engine.Conditions.And"/>
+                    <list>
+                      <engine.Actions.Create reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[10]/list/engine.Actions.Create"/>
                     </list>
                   </entry>
                 </events>
@@ -3635,11 +2591,11 @@
                           <engine.sprite.BoundedImage>
                             <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
                             <relativeBounds reference="../../../../../../../../../../../worldObjects/engine.GameObject/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
-                            <fileName>Smiley.png</fileName>
-                            <xCenter>400.0</xCenter>
-                            <yCenter>200.0</yCenter>
-                            <xSize>64.0</xSize>
-                            <ySize>64.0</ySize>
+                            <fileName>skeptical.jpg</fileName>
+                            <xCenter>0.0</xCenter>
+                            <yCenter>0.0</yCenter>
+                            <xSize>0.0</xSize>
+                            <ySize>0.0</ySize>
                             <heading>0.0</heading>
                             <depth>10</depth>
                           </engine.sprite.BoundedImage>
@@ -3652,6 +2608,208 @@
                 </currentSprite>
                 <width>64.0</width>
                 <height>64.0</height>
+                <uniqueID>0</uniqueID>
+              </engine.GameObject>
+            </entry>
+            <entry>
+              <string>Empty</string>
+              <engine.GameObject>
+                <doubleVars>
+                  <entry>
+                    <string>yCor</string>
+                    <double>0.0</double>
+                  </entry>
+                  <entry>
+                    <string>heading</string>
+                    <double>0.0</double>
+                  </entry>
+                  <entry>
+                    <string>xCor</string>
+                    <double>0.0</double>
+                  </entry>
+                </doubleVars>
+                <stringVars/>
+                <booleanVars/>
+                <DEFAULT__TAG>unnamed</DEFAULT__TAG>
+                <name>Empty</name>
+                <tagSet/>
+                <events>
+                  <entry>
+                    <engine.Conditions.KeyPressed>
+                      <priorityNum>1</priorityNum>
+                      <check>A</check>
+                    </engine.Conditions.KeyPressed>
+                    <list>
+                      <engine.Actions.Destroy>
+                        <objectToDestroy>Empty</objectToDestroy>
+                      </engine.Actions.Destroy>
+                    </list>
+                  </entry>
+                </events>
+                <currentSprite>
+                  <animations>
+                    <entry>
+                      <string>Animation</string>
+                      <engine.sprite.AnimationSequence>
+                        <imageIndex>0</imageIndex>
+                        <images>
+                          <engine.sprite.BoundedImage>
+                            <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                            <relativeBounds>
+                              <engine.utilities.collisions.RelativeBoundingGeometry reference="../../../../../../../../../../../../worldObjects/engine.GameObject/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingGeometry"/>
+                            </relativeBounds>
+                            <fileName>Empty.png</fileName>
+                            <xCenter>0.0</xCenter>
+                            <yCenter>0.0</yCenter>
+                            <xSize>0.0</xSize>
+                            <ySize>0.0</ySize>
+                            <heading>0.0</heading>
+                            <depth>10</depth>
+                          </engine.sprite.BoundedImage>
+                        </images>
+                        <name>Animation</name>
+                      </engine.sprite.AnimationSequence>
+                    </entry>
+                  </animations>
+                  <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+                </currentSprite>
+                <width>544.0</width>
+                <height>128.0</height>
+                <uniqueID>0</uniqueID>
+              </engine.GameObject>
+            </entry>
+            <entry>
+              <string>Wall</string>
+              <engine.GameObject>
+                <doubleVars>
+                  <entry>
+                    <string>yCor</string>
+                    <double>0.0</double>
+                  </entry>
+                  <entry>
+                    <string>heading</string>
+                    <double>0.0</double>
+                  </entry>
+                  <entry>
+                    <string>xCor</string>
+                    <double>0.0</double>
+                  </entry>
+                </doubleVars>
+                <stringVars/>
+                <booleanVars/>
+                <DEFAULT__TAG>unnamed</DEFAULT__TAG>
+                <name>Wall</name>
+                <tagSet>
+                  <string>Solid</string>
+                </tagSet>
+                <events>
+                  <entry>
+                    <engine.Conditions.Collision reference="../../../../../../../worldObjects/engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
+                    <list>
+                      <engine.Actions.RemoveIntersection reference="../../../../../../../../worldObjects/engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
+                    </list>
+                  </entry>
+                  <entry>
+                    <engine.Conditions.Collision reference="../../../../../../../worldObjects/engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                    <list>
+                      <engine.Actions.RemoveIntersection reference="../../../../../../../../worldObjects/engine.GameObject[2]/events/entry/list/engine.Actions.RemoveIntersection"/>
+                    </list>
+                  </entry>
+                </events>
+                <currentSprite>
+                  <animations>
+                    <entry>
+                      <string>Animation</string>
+                      <engine.sprite.AnimationSequence>
+                        <imageIndex>0</imageIndex>
+                        <images>
+                          <engine.sprite.BoundedImage>
+                            <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                            <relativeBounds reference="../../../../../../../../../../../worldObjects/engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                            <fileName>brick.png</fileName>
+                            <xCenter>0.0</xCenter>
+                            <yCenter>0.0</yCenter>
+                            <xSize>0.0</xSize>
+                            <ySize>0.0</ySize>
+                            <heading>0.0</heading>
+                            <depth>10</depth>
+                          </engine.sprite.BoundedImage>
+                        </images>
+                        <name>Animation</name>
+                      </engine.sprite.AnimationSequence>
+                    </entry>
+                  </animations>
+                  <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+                </currentSprite>
+                <width>64.0</width>
+                <height>64.0</height>
+                <uniqueID>0</uniqueID>
+              </engine.GameObject>
+            </entry>
+            <entry>
+              <string>Brick</string>
+              <engine.GameObject>
+                <doubleVars>
+                  <entry>
+                    <string>yCor</string>
+                    <double>0.0</double>
+                  </entry>
+                  <entry>
+                    <string>heading</string>
+                    <double>0.0</double>
+                  </entry>
+                  <entry>
+                    <string>xCor</string>
+                    <double>0.0</double>
+                  </entry>
+                </doubleVars>
+                <stringVars/>
+                <booleanVars/>
+                <DEFAULT__TAG>unnamed</DEFAULT__TAG>
+                <name>Brick</name>
+                <tagSet/>
+                <events>
+                  <entry>
+                    <engine.Conditions.KeyPressed>
+                      <priorityNum>1</priorityNum>
+                      <check>A</check>
+                    </engine.Conditions.KeyPressed>
+                    <list>
+                      <engine.Actions.Destroy>
+                        <objectToDestroy>Brick</objectToDestroy>
+                      </engine.Actions.Destroy>
+                    </list>
+                  </entry>
+                </events>
+                <currentSprite>
+                  <animations>
+                    <entry>
+                      <string>Animation</string>
+                      <engine.sprite.AnimationSequence>
+                        <imageIndex>0</imageIndex>
+                        <images>
+                          <engine.sprite.BoundedImage>
+                            <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                            <relativeBounds>
+                              <engine.utilities.collisions.RelativeBoundingGeometry reference="../../../../../../../../../../../../worldObjects/engine.GameObject/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingGeometry"/>
+                            </relativeBounds>
+                            <fileName>BrickWall.png</fileName>
+                            <xCenter>0.0</xCenter>
+                            <yCenter>0.0</yCenter>
+                            <xSize>0.0</xSize>
+                            <ySize>0.0</ySize>
+                            <heading>0.0</heading>
+                            <depth>10</depth>
+                          </engine.sprite.BoundedImage>
+                        </images>
+                        <name>Animation</name>
+                      </engine.sprite.AnimationSequence>
+                    </entry>
+                  </animations>
+                  <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+                </currentSprite>
+                <width>544.0</width>
+                <height>128.0</height>
                 <uniqueID>0</uniqueID>
               </engine.GameObject>
             </entry>
