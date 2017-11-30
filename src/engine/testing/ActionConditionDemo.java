@@ -15,19 +15,27 @@ import engine.GameMaster;
 import engine.GameObject;
 import engine.GameObjectFactory;
 import engine.GameWorld;
-import engine.Actions.ChangeBoolean;
+import engine.Actions.ChangeDouble;
 import engine.Actions.Create;
 import engine.Actions.Destroy;
 import engine.Actions.Move;
+import engine.Actions.MoveByVariable;
+import engine.Actions.MoveTo;
 import engine.Actions.RemoveIntersection;
 import engine.Actions.Rotate;
+import engine.Actions.RotateTo;
 import engine.Conditions.And;
-import engine.Conditions.BooleanTrue;
+import engine.Conditions.BeginStep;
 import engine.Conditions.Collision;
+import engine.Conditions.DoubleGreaterThan;
 import engine.Conditions.KeyHeld;
 import engine.Conditions.KeyPressed;
+import engine.Conditions.KeyReleased;
 import engine.Conditions.Not;
 import engine.Conditions.ObjectClickHeld;
+import engine.Conditions.ObjectClicked;
+import engine.Conditions.Or;
+import engine.Conditions.ScreenClickHeld;
 import engine.sprite.AnimationSequence;
 import engine.sprite.BoundedImage;
 import engine.sprite.Sprite;
@@ -42,7 +50,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 
-public class RPGDemo extends Application {
+public class ActionConditionDemo extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -53,50 +61,40 @@ public class RPGDemo extends Application {
 		//testData(stage);
 		//testImageCanvas(stage);
 		//testDrawer(stage);
-		generateGame(new BoundedImage("skeptical.jpg"));
+		generateGame(new BoundedImage("testImage.png"));
 	}
 	
 	public void generateGame() {
-		generateGame(new BoundedImage("skeptical.jpg"));
+		generateGame(new BoundedImage("testImage.png"));
 	}
 	
 	private void generateGame(BoundedImage i) {		
 		
 		GameObjectFactory blueprints = new GameObjectFactory();
-		GameObject obj1 = makeObject("Player", i, 200, 200, this::conditionAction1);
-		obj1.addTag("Player");
-		obj1.setSize(64, 64);
-		obj1.setDoubleVariable("xSpeed", 0);
+		GameObject obj1 = makeObject("Ob1", i, 120, 150, this::conditionAction1);
+		obj1.addTag("Ob1");
+		GameObject obj2 = makeObject("Ob2", i.clone(), 350, 150, this::conditionAction2);
+		obj2.addTag("Ob2");
+		GameObject obj3 = makeObject("Ob3", i.clone(), 750, 500, this::conditionAction3);
+		obj3.addTag("Ob3");
+		
+		obj1.setDoubleVariable("xSpeed", -3);
 		obj1.setDoubleVariable("ySpeed", 0);
-		obj1.setBooleanVariable("isDialogue", true);
 		blueprints.addBlueprint(obj1);
 		
-		GameObject wall = makeObject("Wall", new BoundedImage("brick.png"), 0, 0, this::conditionAction2);
-		wall.addTag("Solid");
-		wall.setSize(64, 64);
-		blueprints.addBlueprint(wall);
-		
-		GameObject empty = makeObject("Empty", new BoundedImage("Empty.png"), 0, 0, this::conditionAction3);
-		empty.setSize(544, 128);
-		blueprints.addBlueprint(empty);
-		
-		GameObject brick = makeObject("Brick", new BoundedImage("BrickWall.png"), 0, 0, this::conditionAction4);
-		brick.setSize(544, 128);
-		blueprints.addBlueprint(brick);
-		
+		blueprints.addBlueprint(obj2);
 		GameLayer layer = new GameLayer("Layer");
-		layer.setBlueprints(blueprints);
-		layer.addGameObject(obj1);
-		for(int j = 0; j < 8; j++)
-		{
-			layer.addGameObject("Wall", 32, 32+64*j, 0);
-			layer.addGameObject("Wall", 32+64*j, 32, 0);
-			layer.addGameObject("Wall", 32+64*j, 544, 0);
-			layer.addGameObject("Wall", 544, 32+64*j, 0);
-		}
+		Sprite sprite = new Sprite();
+		List<BoundedImage> images = new ArrayList<>();
+		images.add(i);
+		AnimationSequence animation = new AnimationSequence("Animation", images);
+		sprite.addAnimationSequence(animation);
+		sprite.setAnimation("Animation");
 
-		layer.addGameObject("Wall", 544, 544, 0);
-		
+		layer.addGameObject(obj1);
+		layer.addGameObject(obj2);
+		layer.addGameObject(obj3);
+		layer.setBlueprints(blueprints);
 		
 		GameWorld w = new GameWorld("World");
 		w.addLayer(layer);
@@ -105,8 +103,14 @@ public class RPGDemo extends Application {
 		master.addWorld(w);
 		master.setCurrentWorld("World");
 		try {
-			new GameDataHandler("Demo_RPG").saveGame(master);
+			new GameDataHandler("Actions Conditions Demo").saveGame(master);
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			new GameDataHandler("Actions Conditions Demo").loadGame().setCurrentWorld("World");
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
@@ -127,46 +131,47 @@ public class RPGDemo extends Application {
 
 	private void conditionAction1(GameObject obj) {
 		List<Action> actions1 = new ArrayList<Action>();
-		actions1.add(new Move(-3, 0));
-		obj.addConditionAction(new KeyHeld(0,"Left"), actions1);
-		
+		actions1.add(new MoveByVariable("xSpeed", "ySpeed"));
+		obj.addConditionAction(new KeyHeld(1,"Left"), actions1);
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Move(3, 0));
-		obj.addConditionAction(new KeyHeld(0,"Right"), actions1);
-		
+		obj.addConditionAction(new KeyHeld(1,"Right"), actions1);
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Move(0, -3));
-		obj.addConditionAction(new KeyHeld(0,"Up"), actions1);
-		
+		obj.addConditionAction(new KeyHeld(1,"Up"), actions1);
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Move(0, 3));
-		obj.addConditionAction(new KeyHeld(0,"Down"), actions1);
-		
+		obj.addConditionAction(new KeyHeld(1,"Down"), actions1);
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Rotate(15));
+		obj.addConditionAction(new KeyPressed(1, "R"), actions1);
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Rotate(5));
+		obj.addConditionAction(new KeyHeld(1, "T"), actions1);
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Rotate(15));
+		obj.addConditionAction(new KeyReleased(1, "Y"), actions1);
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Rotate(1));
 		obj.addConditionAction(new ObjectClickHeld(1), actions1);
-		
-		
 		actions1 = new ArrayList<Action>();
-		actions1.add(new RemoveIntersection());
-		obj.addConditionAction(new Collision(2, "Solid"), actions1);
+		actions1.add(new ChangeDouble("xSpeed", -10, false));
+		obj.addConditionAction(new And(1, new KeyHeld(1, "Q"), new KeyHeld(1, "Space")), actions1);
 		actions1 = new ArrayList<Action>();
-		actions1.add(new RemoveIntersection());
-		obj.addConditionAction(new Collision(3, "Solid"), actions1);
+		actions1.add(new ChangeDouble("xSpeed", -3, false));
+		obj.addConditionAction(new Or(1, new KeyReleased(1, "Q"), new KeyReleased(1, "Space")), actions1);
 		actions1 = new ArrayList<Action>();
-		actions1.add(new RemoveIntersection());
-		obj.addConditionAction(new Collision(4, "Solid"), actions1);
-		
-		
+		actions1.add(new Create("Ob2", 500, 500, 20));
+		obj.addConditionAction(new KeyPressed(1,"C"), actions1);
 		actions1 = new ArrayList<Action>();
-		actions1.add(new Create("Brick", 272, 640, 0));
-		obj.addConditionAction(new And(1, new KeyPressed(1, "Space"), new Collision(1,"Solid")), actions1);
-		
+		actions1.add(new MoveTo(0, 0));
+		obj.addConditionAction(new KeyPressed(1, "0"), actions1);
 		actions1 = new ArrayList<Action>();
-		actions1.add(new Create("Empty", 272, 640, 0));
-		obj.addConditionAction(new And(1, new KeyPressed(1, "Space"), new Not(1, new Collision(1,"Solid"))), actions1);
-		
-
+		actions1.add(new RotateTo(45));
+		obj.addConditionAction(new And(1, new KeyHeld(1, "Shift"), new KeyPressed(1, "R")), actions1);
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Rotate(-1));
+		obj.addConditionAction(new DoubleGreaterThan(1, GameObject.X_COR, 750), actions1);
 	}
 	
 	private void conditionAction2(GameObject obj) {
@@ -174,20 +179,18 @@ public class RPGDemo extends Application {
 		actions1.add(new RemoveIntersection());
 		obj.addConditionAction(new Collision(3, "Ob1"), actions1);
 		obj.addConditionAction(new Collision(4, "Ob2"), actions1);
+		obj.addConditionAction(new Collision(5, "Ob3"), actions1);
 	}
 	
-	private void conditionAction3(GameObject obj)
-	{
-		ArrayList<Action> actions1 = new ArrayList<Action>();
-
-		actions1.add(new Destroy("Empty"));
-		obj.addConditionAction(new KeyPressed(1,"A"), actions1);
-	}
-	private void conditionAction4(GameObject obj)
-	{
-		ArrayList<Action> actions1 = new ArrayList<Action>();
-		actions1.add(new Destroy("Brick"));
-		obj.addConditionAction(new KeyPressed(1,"A"), actions1);
+	private void conditionAction3(GameObject obj) {
+		List<Action> actions1 = new ArrayList<Action>();
+		actions1.add(new RemoveIntersection());
+		obj.addConditionAction(new Collision(3, "Ob1"), actions1);
+		obj.addConditionAction(new Collision(4, "Ob2"), actions1);
+		obj.addConditionAction(new Collision(5, "Ob3"), actions1);
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Destroy("Ob3"));
+		obj.addConditionAction(new ObjectClicked(1), actions1);
 	}
 	
 	private void testImageCanvas(Stage stage) {
