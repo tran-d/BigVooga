@@ -146,7 +146,6 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 	@Override
 	public ArrayList<SpriteObject> getActiveSpriteObjects(){
 		ArrayList<SpriteObject> ret = new ArrayList<SpriteObject>();
-		System.out.println(activeCells.size());
 		for (Integer[] loc: activeCells){
 			ret.add(getCell(loc));
 		}

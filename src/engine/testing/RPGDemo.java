@@ -58,7 +58,7 @@ public class RPGDemo extends Application {
 		//testData(stage);
 		//testImageCanvas(stage);
 		//testDrawer(stage);
-		generateGame(new BoundedImage("testImage.png"));
+		generateGame(new BoundedImage("skeptical.jpg"));
 	}
 	
 	private void generateGame(BoundedImage i) {		
@@ -66,18 +66,31 @@ public class RPGDemo extends Application {
 		GameObjectFactory blueprints = new GameObjectFactory();
 		GameObject obj1 = makeObject("Player", i, 200, 200, this::conditionAction1);
 		obj1.addTag("Player");
-		
-		
-		
+		obj1.setSize(64, 64);
 		obj1.setDoubleVariable("xSpeed", 0);
 		obj1.setDoubleVariable("ySpeed", 0);
 		blueprints.addBlueprint(obj1);
 		
+		GameObject wall = makeObject("Wall", new BoundedImage("brick.png"), 0, 0, this::conditionAction2);
+		wall.addTag("Solid");
+		wall.setSize(64, 64);
+		blueprints.addBlueprint(wall);
+		
+		
 		
 		GameLayer layer = new GameLayer("Layer");
-
-		layer.addGameObject(obj1);
 		layer.setBlueprints(blueprints);
+		layer.addGameObject(obj1);
+		for(int j = 0; j < 8; j++)
+		{
+			layer.addGameObject("Wall", 32, 32+64*j, 0);
+			layer.addGameObject("Wall", 32+64*j, 32, 0);
+			layer.addGameObject("Wall", 32+64*j, 544, 0);
+			layer.addGameObject("Wall", 544, 32+64*j, 0);
+		}
+
+		layer.addGameObject("Wall", 544, 544, 0);
+		
 		
 		GameWorld w = new GameWorld("World");
 		w.addLayer(layer);
@@ -86,14 +99,8 @@ public class RPGDemo extends Application {
 		master.addWorld(w);
 		master.setCurrentWorld("World");
 		try {
-			new GameDataHandler("Test1").saveGame(master);
+			new GameDataHandler("Demo_RPG").saveGame(master);
 		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		try {
-			new GameDataHandler("Test1").loadGame().setCurrentWorld("World");
-		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
@@ -114,41 +121,35 @@ public class RPGDemo extends Application {
 
 	private void conditionAction1(GameObject obj) {
 		List<Action> actions1 = new ArrayList<Action>();
-		actions1.add(new MoveByVariable("xSpeed", "ySpeed"));
+		actions1.add(new Move(-3, 0));
 		obj.addConditionAction(new KeyHeld(1,"Left"), actions1);
+		
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Move(3, 0));
 		obj.addConditionAction(new KeyHeld(1,"Right"), actions1);
+		
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Move(0, -3));
 		obj.addConditionAction(new KeyHeld(1,"Up"), actions1);
+		
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Move(0, 3));
 		obj.addConditionAction(new KeyHeld(1,"Down"), actions1);
+		
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Rotate(1));
 		obj.addConditionAction(new ObjectClickHeld(1), actions1);
+		
+		
 		actions1 = new ArrayList<Action>();
-		actions1.add(new Rotate(-1));
-		obj.addConditionAction(new KeyHeld(1,"Z"), actions1);
+		actions1.add(new RemoveIntersection());
+		obj.addConditionAction(new Collision(2, "Solid"), actions1);
 		actions1 = new ArrayList<Action>();
-		actions1.add(new ChangeDouble("xSpeed", -10, false));
-		obj.addConditionAction(new And(1, new KeyHeld(1, "Q"), new KeyHeld(1, "Space")), actions1);
+		actions1.add(new RemoveIntersection());
+		obj.addConditionAction(new Collision(3, "Solid"), actions1);
 		actions1 = new ArrayList<Action>();
-		actions1.add(new ChangeDouble("xSpeed", -3, false));
-		obj.addConditionAction(new Or(1, new KeyReleased(1, "Q"), new KeyReleased(1, "Space")), actions1);
-//		actions1 = new ArrayList<Action>();
-//		actions1.add(new RotateTo(45.0));
-//		obj.addConditionAction(new Not(1, new ScreenClickHeld(1)), actions1);
-//		actions1 = new ArrayList<Action>();
-//		actions1.add(new RotateTo(0));
-//		obj.addConditionAction(new ScreenClickHeld(1), actions1);
-		actions1 = new ArrayList<Action>();
-		actions1.add(new RotateTo(25));
-		obj.addConditionAction(new DoubleGreaterThan(1, GameObject.X_COR, 300), actions1);
-		actions1 = new ArrayList<Action>();
-		actions1.add(new Create("Ob2", 500, 500, 20));
-		obj.addConditionAction(new KeyPressed(1,"C"), actions1);
+		actions1.add(new RemoveIntersection());
+		obj.addConditionAction(new Collision(4, "Solid"), actions1);
 
 	}
 	
