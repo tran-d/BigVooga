@@ -52,10 +52,10 @@ public class SpriteGridHandler {
 		mySOGM.getActiveSpriteObjects().forEach(s -> {
 			Integer[] row_col = s.getPositionOnGrid();
 			cellsToDelete.add(row_col);
-			removeSpritesFromGrid();
 		});
+		removeSpritesFromGrid();
+		myMenu.removeParameterTab();
 		mySOGM.removeActiveCells(cellsToDelete);
-
 	}
 	
 	private void removeSpritesFromGrid() {
@@ -63,7 +63,6 @@ public class SpriteGridHandler {
 			spriteCell.getChildren().clear();
 		});
 		activeSpriteGridCells.clear();
-		myMenu.removeParameterTab();
 	}
 	
 	protected void addGridMouseClick(StackPane pane) {
@@ -105,7 +104,11 @@ public class SpriteGridHandler {
 					activeSpriteGridCells.remove((StackPane) s.getParent());
 					myMenu.removeParameterTab();
 				}
-				myMenu.updateParameterTab();
+				if (mySOGM.getActiveSpriteObjects().size() == 0) {
+					myMenu.removeParameterTab();
+				} else {
+					myMenu.updateParameterTab();
+				}
 			} else {
 				populateGridCells(s);
 				removeActiveCells();
@@ -126,6 +129,7 @@ public class SpriteGridHandler {
 	
 	private void removeActiveCells() {
 		activeGridCells.clear();
+		myMenu.removeParameterTab();
 	}
 	
 	private void populateGridCells(SpriteObject s) {
@@ -185,31 +189,31 @@ public class SpriteGridHandler {
 
 	}
 
-	protected void addDropToTrash(ImageView trash) {
-
-		trash.setOnDragOver(e -> {
-			Dragboard db = e.getDragboard();
-			if (db.hasContent(objectFormat) && draggingObject != null) {
-				e.acceptTransferModes(TransferMode.MOVE);
-
-			}
-		});
-
-		trash.setOnDragDropped(e -> {
-			Dragboard db = e.getDragboard();
-			ArrayList<SpriteObject> byeSprites = new ArrayList<SpriteObject>();
-			byeSprites.add(draggingObject);
-			// clear sprites
-			// mySOGM.clearCells(byeSprites);
-
-			if (db.hasContent(objectFormat)) {
-				((Pane) draggingObject.getParent()).getChildren().remove(draggingObject);
-				e.setDropCompleted(true);
-
-				draggingObject = null;
-			}
-		});
-	}
+//	protected void addDropToTrash(ImageView trash) {
+//
+//		trash.setOnDragOver(e -> {
+//			Dragboard db = e.getDragboard();
+//			if (db.hasContent(objectFormat) && draggingObject != null) {
+//				e.acceptTransferModes(TransferMode.MOVE);
+//
+//			}
+//		});
+//
+//		trash.setOnDragDropped(e -> {
+//			Dragboard db = e.getDragboard();
+//			ArrayList<SpriteObject> byeSprites = new ArrayList<SpriteObject>();
+//			byeSprites.add(draggingObject);
+//			// clear sprites
+//			// mySOGM.clearCells(byeSprites);
+//
+//			if (db.hasContent(objectFormat)) {
+//				((Pane) draggingObject.getParent()).getChildren().remove(draggingObject);
+//				e.setDropCompleted(true);
+//
+//				draggingObject = null;
+//			}
+//		});
+//	}
 
 	protected void addDragObject(SpriteObject s) {
 		s.setOnDragDetected(e -> {

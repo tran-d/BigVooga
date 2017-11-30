@@ -11,10 +11,10 @@ import javafx.scene.image.ImageView;
 public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 	
 	private ArrayList<ArrayList<SpriteObject>> spriteGrid;
-	private int MAX_ROWS = 10;
-	private int MAX_COLS = 10;
-	private int CURR_ROWS = 10;
-	private int CURR_COLS = 10;
+	private int MAX_ROWS = 15;
+	private int MAX_COLS = 15;
+	private int CURR_ROWS = 15;
+	private int CURR_COLS = 15;
 	private SpriteObject defaultEmptySprite;
 	private Set<Integer []> activeCells;
 	
@@ -146,7 +146,6 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 	@Override
 	public ArrayList<SpriteObject> getActiveSpriteObjects(){
 		ArrayList<SpriteObject> ret = new ArrayList<SpriteObject>();
-		System.out.println(activeCells.size());
 		for (Integer[] loc: activeCells){
 			ret.add(getCell(loc));
 		}
