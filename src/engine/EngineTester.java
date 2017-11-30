@@ -1,5 +1,6 @@
 package engine;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -51,15 +52,15 @@ public class EngineTester extends Application {
 		//testCollisions(stage);
 		//testData(stage);
 		//testImageCanvas(stage);
-		//testDrawer(stage);
-		generateGame();
+		testDrawer(stage);
+		//generateGame();
 	}
 	
 	public void generateGame() {	
-		generateGame(new BoundedImage("testImage.png"));
+		generateGame("Test1", new BoundedImage("testImage.png"));
 	}
 	
-	private void generateGame(BoundedImage i) {		
+	public void generateGame(String name, BoundedImage i) {		
 		GameObjectFactory blueprints = new GameObjectFactory();
 		GameObject obj1 = makeObject("Ob1", i, 200, 200, this::conditionAction1);
 		obj1.addTag("Ob1");
@@ -99,13 +100,13 @@ public class EngineTester extends Application {
 		master.addWorld(w);
 		master.setCurrentWorld("World");
 		try {
-			new GameDataHandler("Test1").saveGame(master);
+			new GameDataHandler(name).saveGame(master);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
 		try {
-			new GameDataHandler("Test1").loadGame().setCurrentWorld("World");
+			new GameDataHandler(name).loadGame().setCurrentWorld("World");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -187,9 +188,11 @@ public class EngineTester extends Application {
 		Group g = new Group();
 		Scene scene = new Scene(g);
 		stage.setScene(scene);
+		File f = new GameDataHandler("Bounds Test").addChosenFileToProject(new Stage());
+		System.out.println(f.getName());
 		Pane bpd = new BoundingPolygonCreator(
-				new Image(new GameDataHandler("Test1").addChosenFileToProject(new Stage()).toURI().toString()),
-				"testImage.png", i -> generateGame(i));
+				new Image(f.toURI().toString()),
+				f.getName(), i -> generateGame("Bounds Test",i));
 		g.getChildren().add(bpd);
 		stage.show();
 	}
