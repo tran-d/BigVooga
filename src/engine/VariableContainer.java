@@ -12,6 +12,10 @@ import java.util.Map;
  */
 public abstract class VariableContainer {
 	
+	private static final boolean DEFAULT_BOOLEAN = false;
+	private static final String DEFAULT_STRING = "";
+	private static final int DEFAULT_DOUBLE = 0;
+	
 	protected Map<String, Double> doubleVars;
 	protected Map<String, List<Double>> doubleListVars;
 	
@@ -27,7 +31,9 @@ public abstract class VariableContainer {
 	}
 	
 	public double getDouble(String key) {
-		return doubleVars.get(key);
+		if(doubleVars.containsKey(key))
+			return doubleVars.get(key);
+		return DEFAULT_DOUBLE;
 	}
 	
 	public List<Double> getDoubleList(String key) {
@@ -35,7 +41,9 @@ public abstract class VariableContainer {
 	}
 	
 	public String getString(String key) {
-		return stringVars.get(key);
+		if(stringVars.containsKey(key))
+			return stringVars.get(key);
+		return DEFAULT_STRING;
 	}
 	
 	public List<String> getStringList(String key) {
@@ -43,7 +51,9 @@ public abstract class VariableContainer {
 	}
 	
 	public boolean getBoolean(String key) {
-		return booleanVars.get(key);
+		if(booleanVars.containsKey(key))
+			return booleanVars.get(key);
+		return DEFAULT_BOOLEAN;
 	}
 
 	public void setDoubleVariable(String name, double val) {

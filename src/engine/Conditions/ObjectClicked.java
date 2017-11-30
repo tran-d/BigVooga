@@ -2,7 +2,7 @@ package engine.Conditions;
 
 import engine.Condition;
 import engine.GameObject;
-import engine.World;
+import engine.Layer;
 
 /**
  * Checks if an object is initially clicked (thus, can not return true
@@ -18,7 +18,7 @@ public class ObjectClicked extends Condition {
 	}
 	
 	@Override
-	public boolean isTrue(GameObject asking, World world) {
+	public boolean isTrue(GameObject asking, Layer world) {
 		Condition screenClicked = new ScreenClicked(0);
 		Condition objectClickHeld = new ObjectClickHeld(0);
 		Condition and = new And(0, screenClicked, objectClickHeld);

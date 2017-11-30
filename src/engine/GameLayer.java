@@ -1,10 +1,11 @@
 package engine;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 import player.PlayerManager;
 /**
@@ -12,19 +13,20 @@ import player.PlayerManager;
  * @author Nikolas Bramblett, ...
  *
  */
-public class GameLayer implements World {
+public class GameLayer implements Layer {
 	
 	private final static String DEFAULT_NAME = "llayer";
 	public final static String PLAYER_TAG = "Player";
 	
 	private String worldName;
 	private List<GameObject> worldObjects;
-	private Map<Integer, List<GameObject>> conditionPriorities = new TreeMap<>();
+	private Map<Integer, List<GameObject>> conditionPriorities = new ConcurrentSkipListMap<>();
 	private Map<Integer, GameObject> idToGameObject = new HashMap<>();
 	private GlobalVariables globalVars;
 	//private GameObjectFactory GameObjectFactory;
 	private PlayerManager input;
-	private World nextWorld;
+	
+	private GameObjectFactory blueprints;
 
 	public GameLayer() {
 		// TODO Auto-generated constructor stub
@@ -32,7 +34,6 @@ public class GameLayer implements World {
 	}
 	
 	public GameLayer(String name) {
-		nextWorld = this;
 		worldName = name;
 		worldObjects = new ArrayList<>();
 	}
@@ -63,7 +64,6 @@ public class GameLayer implements World {
 
 	@Override
 	public void removeGameObject(GameObject obj) {
-		// TODO Auto-generated method stub
 		worldObjects.remove(obj);
 		idToGameObject.remove(obj.getUniqueID());
 		for(Integer i : obj.getPriorities()) {
@@ -83,7 +83,6 @@ public class GameLayer implements World {
 
 	@Override
 	public List<GameObject> getWithTag(String tag) {
-		// TODO Auto-generated method stub
 		List<GameObject> tempList = new ArrayList<>();
 		for (GameObject o : worldObjects) {
 			for (String s : o.getTags()) {
@@ -106,14 +105,19 @@ public class GameLayer implements World {
 	
 	public void step() {
 		List<Runnable> runnables = new ArrayList<>();
-		for(Integer i: conditionPriorities.keySet()) {
-			for(GameObject obj : conditionPriorities.get(i)) {
-				obj.step(this, i, runnables);
+		try {
+			for(Integer i: conditionPriorities.keySet()) {
+				for(GameObject obj : conditionPriorities.get(i)) {
+					obj.step(this, i, runnables);
+				}
+				for(Runnable r : runnables) {
+					r.run();
+				}
+				runnables.clear();
 			}
-			for(Runnable r : runnables) {
-				r.run();
-			}
-			runnables.clear();
+		}
+		catch (ConcurrentModificationException e) {
+			// do nothing
 		}
 	}
 	
@@ -135,16 +139,6 @@ public class GameLayer implements World {
 		return input;
 	}
 	
-	@Override
-	public void setNextWorld(World w) {
-		nextWorld = w;
-	}
-	
-	@Override
-	public World getNextWorld() {
-		return nextWorld;
-	}
-	
 	public List<GameObject> getAllObjects()
 	{
 		return worldObjects;
@@ -164,6 +158,23 @@ public class GameLayer implements World {
 		}
 		throw new RuntimeException("None by name "+name);//TODO
 	}
+
+	@Override
+	public void setBlueprints(GameObjectFactory f) {
+		// TODO Auto-generated method stub
+		blueprints = f;
+	}
+
+	@Override
+	public void addGameObject(String name, double x, double y, double heading) {
+		// TODO Auto-generated method stub
+		GameObject temp = blueprints.getInstanceOf(name);
+		temp.setCoords(x, y);
+		temp.setHeading(heading);
+		addGameObject(temp);
+	}
+	
+	
 	
 	
 }
