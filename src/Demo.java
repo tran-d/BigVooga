@@ -1,10 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import default_pkg.Main;
-import engine.EngineTester;
-import engine.EngineTester2;
 import engine.sprite.BoundedImage;
+import engine.testing.EngineTester;
+import engine.testing.EngineTester2;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
