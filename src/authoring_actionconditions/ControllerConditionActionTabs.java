@@ -8,21 +8,28 @@ public class ControllerConditionActionTabs {
 	public ControllerConditionActionTabs(ActionConditionTab conditionTab,ActionConditionTab actionTab) {
 		this.conditionTab = conditionTab;
 		this.actionTab = actionTab;
-		this.conditionTab.addButtonListener(e -> addConditionActionRow(this.conditionTab));
+		this.conditionTab.addButtonListener(e -> addConditionRow());
 		this.actionTab.addButtonListener(e -> {
-			addConditionActionRow(this.actionTab);
+			addActionRow(this.actionTab);
 			addActionOption();
 		});
 		this.conditionTab.addRemoveListener(e -> removeConditionActionRow(this.conditionTab));
-		this.conditionTab.addRemoveListener(e -> {
-			removeConditionActionRow(this.conditionTab);
+		this.actionTab.addRemoveListener(e -> {
 			removeActionOption();
+			removeConditionActionRow(this.actionTab);
 		});
 	}
 	
-	private void addConditionActionRow(ActionConditionTab actionConditionTab) {
+	private void addConditionRow() {
+		if(!(conditionTab.getActionCondition() == null)) {
+			conditionTab.addCondition(conditionTab.getActionCondition(),actionTab.getCurrentActions());
+			conditionTab.addRemoveOption();
+		}
+	}
+	
+	private void addActionRow(ActionConditionTab actionConditionTab) {
 		if(!(actionConditionTab.getActionCondition() == null)) {
-			actionConditionTab.addActionCondition(actionConditionTab.getActionCondition());
+			actionConditionTab.addAction(actionConditionTab.getActionCondition());
 			actionConditionTab.addRemoveOption();
 		}
 	}
@@ -40,7 +47,9 @@ public class ControllerConditionActionTabs {
 	}
 	
 	private void removeActionOption() {
-		conditionTab.removeActionOption(actionTab.getRemoveValue() - 1);
+		if(!(actionTab.getRemoveValue() == null)) {
+			conditionTab.removeActionOption(actionTab.getRemoveValue() - 1);
+		}
 	}
 
 }

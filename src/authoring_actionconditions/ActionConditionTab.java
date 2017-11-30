@@ -29,7 +29,7 @@ public class ActionConditionTab extends Tab implements ActionConditionTabI {
 		actionConditionManager = new ScrollPane();
 		setContent(actionConditionManager);
 		setUpActionConditionManager();
-		ControllerTopToolBar controllerTopToolBar = new ControllerTopToolBar(buttons,actionConditionVBox);
+		//ControllerTopToolBar controllerTopToolBar = new ControllerTopToolBar(buttons,actionConditionVBox);
 	}
 
 	private void setUpActionConditionManager() {
@@ -56,8 +56,12 @@ public class ActionConditionTab extends Tab implements ActionConditionTabI {
 		return buttons.getOptionsValue();
 	}
 	
-	protected void addActionCondition(String label) {
-		actionConditionVBox.addActionCondition(label);
+	protected void addCondition(String label,ObservableList<Integer> currentActions) {
+		actionConditionVBox.addConditionAction(label,currentActions);
+	}
+	
+	protected void addAction(String label) {
+		actionConditionVBox.addAction(label);
 	}
 	
 	protected void addRemoveOption() {

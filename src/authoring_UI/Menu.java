@@ -11,6 +11,7 @@ import authoring.SpriteObject;
 import authoring.SpriteParameterI;
 import authoring_actionconditions.ActionConditionTab;
 import authoring_actionconditions.ControllerActionCheckBoxVBox;
+import authoring_actionconditions.ControllerConditionActionTabs;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -117,7 +118,7 @@ public class Menu extends VBox {
 	private void createActionConditionTabs() {
 		ActionConditionTab conditions = new ActionConditionTab(conditionActionTitles.getString("ConditionsTabTitle"));
 		ActionConditionTab actions = new ActionConditionTab(conditionActionTitles.getString("ActionsTabTitle"));
-		ControllerActionCheckBoxVBox controllerActionCheckBoxVBox= new ControllerActionCheckBoxVBox(conditions,actions);
+		ControllerConditionActionTabs controllerConditionActionTabs = new ControllerConditionActionTabs(conditions,actions);
 		mySpriteTabs.getTabs().addAll(conditions,actions);
 	}
 
