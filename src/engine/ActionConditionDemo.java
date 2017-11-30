@@ -1,6 +1,5 @@
-package engine.testing;
+package engine;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -10,16 +9,12 @@ import java.util.function.Consumer;
 
 import authoring.drawing.BoundingPolygonCreator;
 import authoring.drawing.ImageCanvas;
-import engine.Action;
-import engine.GameLayer;
-import engine.GameMaster;
-import engine.GameObject;
-import engine.GameObjectFactory;
-import engine.GameWorld;
 import engine.Actions.ChangeDouble;
 import engine.Actions.Create;
+import engine.Actions.Destroy;
 import engine.Actions.Move;
 import engine.Actions.MoveByVariable;
+import engine.Actions.MoveTo;
 import engine.Actions.RemoveIntersection;
 import engine.Actions.Rotate;
 import engine.Actions.RotateTo;
@@ -32,6 +27,7 @@ import engine.Conditions.KeyPressed;
 import engine.Conditions.KeyReleased;
 import engine.Conditions.Not;
 import engine.Conditions.ObjectClickHeld;
+import engine.Conditions.ObjectClicked;
 import engine.Conditions.Or;
 import engine.Conditions.ScreenClickHeld;
 import engine.sprite.AnimationSequence;
@@ -48,7 +44,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 
-public class EngineTester extends Application {
+public class ActionConditionDemo extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -59,20 +55,18 @@ public class EngineTester extends Application {
 		//testData(stage);
 		//testImageCanvas(stage);
 		//testDrawer(stage);
-		generateGame();
+		generateGame(new BoundedImage("testImage.png"));
 	}
 	
-	public void generateGame() {	
-		generateGame("Test1", new BoundedImage("testImage.png"));
-	}
-	
-	public void generateGame(String name, BoundedImage i) {		
+	private void generateGame(BoundedImage i) {		
+		
 		GameObjectFactory blueprints = new GameObjectFactory();
 		GameObject obj1 = makeObject("Ob1", i, 120, 150, this::conditionAction1);
 		obj1.addTag("Ob1");
 		GameObject obj2 = makeObject("Ob2", i.clone(), 350, 150, this::conditionAction2);
 		obj2.addTag("Ob2");
 		GameObject obj3 = makeObject("Ob3", i.clone(), 750, 500, this::conditionAction3);
+		obj3.addTag("Ob3");
 		
 		obj1.setDoubleVariable("xSpeed", -3);
 		obj1.setDoubleVariable("ySpeed", 0);
@@ -80,22 +74,12 @@ public class EngineTester extends Application {
 		
 		blueprints.addBlueprint(obj2);
 		GameLayer layer = new GameLayer("Layer");
-		GameObject obj = new GameObject();
-		obj.setDoubleVariable("speed", 50);
-		obj.setCoords(200, 200);
-		List<Action> actions1 = new ArrayList<Action>();
-		actions1.add(new Move(-1, 0));
-		obj.addConditionAction(new ObjectClickHeld(1), actions1);
-		List<Action> actions2 = new ArrayList<Action>();
-		actions2.add(new Move(1, 0));
-		obj.addConditionAction(new KeyHeld(2,"Right"), actions2);
 		Sprite sprite = new Sprite();
 		List<BoundedImage> images = new ArrayList<>();
 		images.add(i);
 		AnimationSequence animation = new AnimationSequence("Animation", images);
 		sprite.addAnimationSequence(animation);
 		sprite.setAnimation("Animation");
-		obj.setSprite(sprite);
 
 		layer.addGameObject(obj1);
 		layer.addGameObject(obj2);
@@ -109,13 +93,13 @@ public class EngineTester extends Application {
 		master.addWorld(w);
 		master.setCurrentWorld("World");
 		try {
-			new GameDataHandler(name).saveGame(master);
+			new GameDataHandler("Actions Conditions Demo").saveGame(master);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
 		try {
-			new GameDataHandler(name).loadGame().setCurrentWorld("World");
+			new GameDataHandler("Actions Conditions Demo").loadGame().setCurrentWorld("World");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -149,32 +133,35 @@ public class EngineTester extends Application {
 		actions1.add(new Move(0, 3));
 		obj.addConditionAction(new KeyHeld(1,"Down"), actions1);
 		actions1 = new ArrayList<Action>();
+		actions1.add(new Rotate(15));
+		obj.addConditionAction(new KeyPressed(1, "R"), actions1);
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Rotate(5));
+		obj.addConditionAction(new KeyHeld(1, "T"), actions1);
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Rotate(15));
+		obj.addConditionAction(new KeyReleased(1, "Y"), actions1);
+		actions1 = new ArrayList<Action>();
 		actions1.add(new Rotate(1));
 		obj.addConditionAction(new ObjectClickHeld(1), actions1);
-		actions1 = new ArrayList<Action>();
-		actions1.add(new Rotate(-1));
-		obj.addConditionAction(new KeyHeld(1,"Z"), actions1);
-		actions1 = new ArrayList<Action>();
-		actions1.add(new Rotate(1));
-		obj.addConditionAction(new KeyHeld(1,"X"), actions1);
 		actions1 = new ArrayList<Action>();
 		actions1.add(new ChangeDouble("xSpeed", -10, false));
 		obj.addConditionAction(new And(1, new KeyHeld(1, "Q"), new KeyHeld(1, "Space")), actions1);
 		actions1 = new ArrayList<Action>();
 		actions1.add(new ChangeDouble("xSpeed", -3, false));
 		obj.addConditionAction(new Or(1, new KeyReleased(1, "Q"), new KeyReleased(1, "Space")), actions1);
-//		actions1 = new ArrayList<Action>();
-//		actions1.add(new RotateTo(45.0));
-//		obj.addConditionAction(new Not(1, new ScreenClickHeld(1)), actions1);
-//		actions1 = new ArrayList<Action>();
-//		actions1.add(new RotateTo(0));
-//		obj.addConditionAction(new ScreenClickHeld(1), actions1);
-//		actions1 = new ArrayList<Action>();
-//		actions1.add(new RotateTo(25));
-//		obj.addConditionAction(new DoubleGreaterThan(1, GameObject.X_COR, 300), actions1);
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Create("Ob2", 500, 500, 20));
 		obj.addConditionAction(new KeyPressed(1,"C"), actions1);
+		actions1 = new ArrayList<Action>();
+		actions1.add(new MoveTo(0, 0));
+		obj.addConditionAction(new KeyPressed(1, "0"), actions1);
+		actions1 = new ArrayList<Action>();
+		actions1.add(new RotateTo(45));
+		obj.addConditionAction(new And(1, new KeyHeld(1, "Shift"), new KeyPressed(1, "R")), actions1);
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Rotate(-1));
+		obj.addConditionAction(new DoubleGreaterThan(1, GameObject.X_COR, 750), actions1);
 	}
 	
 	private void conditionAction2(GameObject obj) {
@@ -191,9 +178,12 @@ public class EngineTester extends Application {
 		obj.addConditionAction(new Collision(3, "Ob1"), actions1);
 		obj.addConditionAction(new Collision(4, "Ob2"), actions1);
 		obj.addConditionAction(new Collision(5, "Ob3"), actions1);
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Destroy("Ob3"));
+		obj.addConditionAction(new ObjectClicked(1), actions1);
 	}
 	
-	public void testImageCanvas(Stage stage) {
+	private void testImageCanvas(Stage stage) {
 		Group g = new Group();
 		stage.setScene(new Scene(g));
 		ImageCanvas i = new ImageCanvas(()->GameDataHandler.chooseFileForImageSave(stage));
@@ -205,11 +195,9 @@ public class EngineTester extends Application {
 		Group g = new Group();
 		Scene scene = new Scene(g);
 		stage.setScene(scene);
-		File f = new GameDataHandler("Bounds Test").addChosenFileToProject(new Stage());
-		System.out.println(f.getName());
 		Pane bpd = new BoundingPolygonCreator(
-				new Image(f.toURI().toString()),
-				f.getName(), i -> generateGame("Bounds Test",i));
+				new Image(new GameDataHandler("Test1").addChosenFileToProject(new Stage()).toURI().toString()),
+				"testImage.png", i -> generateGame(i));
 		g.getChildren().add(bpd);
 		stage.show();
 	}
