@@ -3,31 +3,24 @@ package authoring_UI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.Optional;
+import java.util.ResourceBundle;
+
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObject;
 import authoring.SpriteParameterI;
 import authoring_actionconditions.ActionConditionTab;
-import authoring_actionconditions.ControllerActionCheckBoxVBox;
+import authoring_actionconditions.ControllerConditionActionTabs;
 import default_pkg.SceneController;
 import javafx.geometry.Side;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.RowConstraints;
-import javafx.stage.Stage;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class Menu extends VBox {
 	
@@ -128,7 +121,7 @@ public class Menu extends VBox {
 	private void createActionConditionTabs() {
 		ActionConditionTab conditions = new ActionConditionTab(conditionActionTitles.getString("ConditionsTabTitle"));
 		ActionConditionTab actions = new ActionConditionTab(conditionActionTitles.getString("ActionsTabTitle"));
-		ControllerActionCheckBoxVBox controllerActionCheckBoxVBox= new ControllerActionCheckBoxVBox(conditions,actions);
+		ControllerConditionActionTabs controllerConditionActionTabs = new ControllerConditionActionTabs(conditions,actions);
 		mySpriteTabs.getTabs().addAll(conditions,actions);
 	}
 

@@ -2,7 +2,7 @@ package engine.Actions;
 
 import engine.Action;
 import engine.GameObject;
-import engine.World;
+import engine.Layer;
 
 public class Move implements Action {
 
@@ -15,7 +15,7 @@ public class Move implements Action {
 	}
 	
 	@Override
-	public void execute(GameObject asking, World world) {
+	public void execute(GameObject asking, Layer world) {
 		asking.setCoords(asking.getX() + xIncrement, asking.getY() + yIncrement);
 	}
 

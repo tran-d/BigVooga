@@ -9,4 +9,6 @@ public interface EngineController {
 	public void setCurrentWorld(String s);
 	public void setPlayerManager(PlayerManager currentPlayerManager);
 	public void addWorld(GameWorld w);
+	
+	public void addBlueprints(GameObjectFactory f);
 }

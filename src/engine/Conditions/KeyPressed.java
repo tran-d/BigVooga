@@ -2,7 +2,7 @@ package engine.Conditions;
 
 import engine.Condition;
 import engine.GameObject;
-import engine.World;
+import engine.Layer;
 
 /**
  * 
@@ -24,7 +24,7 @@ public class KeyPressed extends Condition {
 	 * Returns true when the key named "check" is down but was not down in the previous step, i.e. when it is pressed/tapped
 	 */
 	@Override
-	public boolean isTrue(GameObject asking, World world) {
+	public boolean isTrue(GameObject asking, Layer world) {
 		return world.getPlayerManager().getKeysDown().contains(check) && !world.getPlayerManager().getPrevKeysDown().contains(check);
 	}
 	

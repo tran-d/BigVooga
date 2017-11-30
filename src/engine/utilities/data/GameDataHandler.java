@@ -45,6 +45,7 @@ public class GameDataHandler {
 	public static final String PATH = "data/UserCreatedGames/";
 	private static final String CONTROLLER_FILE = "Engine_Controller_Save_File";
 	private static final String SELECTOR_TITLE = "Open Resource File";
+	private static final String KNOWN_PROJECTS_PATH = "resources/"+KNOWN_PROJECTS+".properties";
 	private static final String PROJECT_USER_SPRITE_PATH = "Sprites/";
 	private static final String DEFAULT_SPRITE_FOLDER = "DefaultSprites/";
 	private static final String CUSTOM_SPRITE_FOLDER = "CustomSprites/";
@@ -90,11 +91,11 @@ public class GameDataHandler {
 	 */
 	private void addToKnownProjects() throws IOException {
 		Properties prop = new Properties();
-		FileInputStream in = new FileInputStream("resources/"+KNOWN_PROJECTS+".properties");
+		FileInputStream in = new FileInputStream(KNOWN_PROJECTS_PATH);
 		prop.load(in);
 		in.close();
 		prop.put(projectName, "Modified " + LocalDateTime.now());
-		FileOutputStream out = new FileOutputStream(KNOWN_PROJECTS);
+		FileOutputStream out = new FileOutputStream(KNOWN_PROJECTS_PATH);
 		prop.store(out, null);
 		out.close();
 	}

@@ -2,7 +2,7 @@ package engine.Conditions;
 
 import engine.Condition;
 import engine.GameObject;
-import engine.World;
+import engine.Layer;
 import engine.utilities.collisions.BoundingPoint;
 
 /**
@@ -18,13 +18,9 @@ public class ObjectClickHeld extends Condition {
 	}
 	
 	@Override
-	public boolean isTrue(GameObject asking, World world) {
+	public boolean isTrue(GameObject asking, Layer world) {
 		Condition screenClickHeld = new ScreenClickHeld(0);
 		return screenClickHeld.isTrue(asking, world) && 
-//				world.getPlayerManager().getClickX() > asking.getImage().getX() - 0.5 * asking.getImage().getWidth() &&
-//				world.getPlayerManager().getClickX() < asking.getImage().getX() + 0.5 * asking.getImage().getWidth() &&
-//				world.getPlayerManager().getClickY() > asking.getImage().getY() - 0.5 * asking.getImage().getHeight() &&
-//				world.getPlayerManager().getClickY() < asking.getImage().getY() + 0.5 * asking.getImage().getHeight() &&
 				asking.getImage().checkCollision(new BoundingPoint(world.getPlayerManager().getClickX(), world.getPlayerManager().getClickY())) != null;
 	}
 

@@ -14,7 +14,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -34,6 +37,7 @@ public class GameDisplay {
 		rootPane = new BorderPane();
 		gamePane = new Pane();
 		rootPane.setCenter(gamePane);
+		rootPane.setBackground(new Background(new BackgroundFill[] {new BackgroundFill(Color.WHITE, null, null)}));
 		sceneController = currentSceneController;
 		scene = new Scene(rootPane, WelcomeScreen.WIDTH, WelcomeScreen.HEIGHT);
 		camera = new ParallelCamera();
