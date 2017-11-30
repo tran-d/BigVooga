@@ -33,6 +33,7 @@ public class GameController {
 		gameDisplay.setDataHandler(gameDataHandler);
 		engineController = gameDataHandler.loadGame();
 		engineController.setPlayerManager(playerManager);
+		playerManager.setEngineController(engineController);
 		engineController.start();
 		
 	}

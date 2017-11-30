@@ -11,6 +11,7 @@ import authoring.SpriteObject;
 import authoring.SpriteParameterI;
 import authoring_actionconditions.ActionConditionTab;
 import authoring_actionconditions.ControllerActionCheckBoxVBox;
+import default_pkg.SceneController;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -30,6 +31,8 @@ import javafx.stage.Stage;
 
 public class Menu extends VBox {
 	
+	private SceneController sceneController;
+	private Button myBack;
 	private Button myLoad;
 	private Button mySave;
 	private AuthoringEnvironmentManager myAEM;
@@ -47,10 +50,11 @@ public class Menu extends VBox {
 	
 	public static final ResourceBundle conditionActionTitles = ResourceBundle.getBundle(ACTIONCONDITIONTITLES_PATH);
 	
-	protected Menu(AuthoringEnvironmentManager AEM, MapManager myManager) {
+	protected Menu(AuthoringEnvironmentManager AEM, MapManager myManager, SceneController currentSceneController) {
 		mySPTAI = new SpriteParameterTabsAndInfo();
 		myAEM = AEM;
 		myMapManager = myManager;
+		sceneController = currentSceneController;
 		setUpMenu();
 
 	}
@@ -105,13 +109,20 @@ public class Menu extends VBox {
 
 	private void createButtons() {
 		HBox myButtons = new HBox();
+		myBack = createBack();
 		myLoad = new Button(LOAD);
 		mySave = new Button(SAVE);
-		myButtons.getChildren().addAll(myLoad, mySave);
+		myButtons.getChildren().addAll(myBack, myLoad, mySave);
 		buttonInteraction();
 
 		this.getChildren().add(myButtons);
 
+	}
+	
+	private Button createBack() {
+		Button back = new Button("Back");
+		back.setOnMouseClicked(e -> sceneController.switchScene(SceneController.WELCOME_SCREEN_KEY));
+		return back;
 	}
 	
 	private void createActionConditionTabs() {
@@ -133,7 +144,7 @@ public class Menu extends VBox {
 		mySpriteTabs.getTabs().addAll(parameters, dialogue);
 		mySpriteTabs.setSide(Side.TOP);
 		createActionConditionTabs();
-//		this.getChildren().add(mySpriteTabs);
+		this.getChildren().add(mySpriteTabs);
 	}
 
 	private VBox createParameterTab() {

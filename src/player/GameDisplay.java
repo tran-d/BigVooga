@@ -4,13 +4,16 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 import default_pkg.SceneController;
+import engine.GameMaster;
 import engine.sprite.DisplayableImage;
 import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -19,7 +22,8 @@ public class GameDisplay {
 	
 	private Stage stage;
 	private Scene scene;
-	private Pane rootPane;
+	private BorderPane rootPane;
+	private Pane gamePane;
 	private SceneController sceneController;
 	private PlayerManager playerManager;
 	private GameDataHandler gameDataHandler;
@@ -27,7 +31,9 @@ public class GameDisplay {
 	
 	public GameDisplay(Stage currentStage, SceneController currentSceneController) {
 		stage = currentStage;
-		rootPane = new Pane();
+		rootPane = new BorderPane();
+		gamePane = new Pane();
+		rootPane.setCenter(gamePane);
 		sceneController = currentSceneController;
 		scene = new Scene(rootPane, WelcomeScreen.WIDTH, WelcomeScreen.HEIGHT);
 		camera = new ParallelCamera();
@@ -40,6 +46,19 @@ public class GameDisplay {
 		scene.setOnMouseReleased(e -> playerManager.setPrimaryButtonUp(e.getX(), e.getY()));
 		
 		scene.setCamera(camera);
+		
+		createBack();
+	}
+	
+	private void createBack() {
+		Button back = new Button("Back");
+		back.setOnMouseClicked(e -> leaveGame());
+		rootPane.setTop(back);
+	}
+	
+	private void leaveGame() {
+		sceneController.switchScene(SceneController.WELCOME_SCREEN_KEY);
+		playerManager.stop();
 	}
 	
 	public void setPlayerManager(PlayerManager currentPlayerManager) {
@@ -54,7 +73,7 @@ public class GameDisplay {
 	
 	public void setUpdatedImages (List<DisplayableImage> images) {
 		//TODO; takes in new image file name, location, and size for all objects
-		rootPane.getChildren().clear();
+		gamePane.getChildren().clear();
 		ImageView gameImage = null;
 		for (DisplayableImage image : images) {
 			try {
@@ -68,11 +87,15 @@ public class GameDisplay {
 			gameImage.setRotate(image.getHeading());
 			gameImage.setX(image.getX()-image.getWidth()/2);
 			gameImage.setY(image.getY()-image.getHeight()/2);
-			rootPane.getChildren().add(gameImage);
+			gamePane.getChildren().add(gameImage);
 		}
 	}
 	
 	public Scene getScene() {
 		return scene;
+	}
+	
+	public Pane getPane() {
+		return gamePane;
 	}
 }

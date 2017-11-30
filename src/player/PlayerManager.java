@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import engine.EngineController;
 import engine.sprite.DisplayableImage;
 import javafx.scene.input.KeyCode;
 
@@ -15,6 +16,7 @@ import javafx.scene.input.KeyCode;
 public class PlayerManager {
 
 	private GameDisplay gameDisplay;
+	private EngineController engineController;
 	
 	private Set<String> keysDown = new HashSet<>();
 	private Set<String> prevKeysDown = new HashSet<>();
@@ -98,6 +100,14 @@ public class PlayerManager {
 	 */
 	public void setImageData(List<DisplayableImage> images) {
 		gameDisplay.setUpdatedImages(images);
+	}
+	
+	public void setEngineController(EngineController currentEngineController) {
+		engineController = currentEngineController;
+	}
+	
+	public void stop() {
+		engineController.stop();
 	}
 	
 }

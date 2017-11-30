@@ -80,6 +80,7 @@ public class GameSelector extends MenuOptionsTemplate {
 
 	private void handleNewGame(String theGame) {
 		GameDisplay gameDisplay = sceneController.getDisplay();
+		gameDisplay.getPane().getChildren().clear();
 		try {
 			GameController gameController = new GameController(stage, theGame, gameDisplay);
 		} catch (FileNotFoundException e) {
