@@ -6,8 +6,9 @@ import javafx.scene.control.TextArea;
 public class FEParameterName extends TextArea {
 	
 	protected FEParameterName(String name) {
-		this.setText(name);
-		this.setPrefWidth(170);
+		setText(name);
+		setPrefWidth(170);
+		setMaxHeight(3);
 		handleNameChange();
 	}
 	
