@@ -1,7 +1,7 @@
 package engine.parameterGetters;
 
 import engine.GameObject;
-import engine.World;
+import engine.Layer;
 
 /**
  * @author Ian Eldridge-Allegra
@@ -18,7 +18,7 @@ public abstract class ParameterGetter<T> {
 		this.parameterName = parameterName;
 	}
 	
-	public T get(GameObject asking, World world) {
+	public T get(GameObject asking, Layer world) {
 		return get(gameObject.get(asking, world), parameterName);
 	}
 	

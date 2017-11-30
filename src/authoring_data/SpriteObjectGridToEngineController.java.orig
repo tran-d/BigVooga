@@ -10,28 +10,40 @@ import engine.GameLayer;
 import engine.GameMaster;
 import engine.GameObject;
 import engine.GameWorld;
+<<<<<<< HEAD:src/authoring/SpriteObjectGridToEngineController.java
 import engine.GameLayer;
 import engine.Layer;
-
+=======
+import engine.GameObject;
+import engine.World;
+>>>>>>> 23b2c6a12ece1ff045d6436612264b10112bd477:src/authoring_data/SpriteObjectGridToEngineController.java
 import engine.utilities.data.GameDataHandler;
 import player.PlayerManager;
 
 public class SpriteObjectGridToEngineController {
 	
-
+<<<<<<< HEAD:src/authoring/SpriteObjectGridToEngineController.java
+	private GameMaster myEC;
+	private GameDataHandler GDH;
+=======
 	EngineController myEC;
 	GameDataHandler myGDH;
 	PlayerManager myPM;
+>>>>>>> 23b2c6a12ece1ff045d6436612264b10112bd477:src/authoring_data/SpriteObjectGridToEngineController.java
 
 	public SpriteObjectGridToEngineController(GameDataHandler GDH){
 		myGDH = GDH;
 	}
 	
 	public void createWorldAndAddToEngine(SpriteObjectGridManagerI SOGMI) {
-
-		GameWorld thisWorld = createWorld();
+<<<<<<< HEAD:src/authoring/SpriteObjectGridToEngineController.java
 		List<GameObject> GO_LIST = convertSpriteObjectGridToListOfGameObjects(SOGMI);
+		GameWorld thisWorld = createWorld(GO_LIST);
+=======
+		GameWorld thisWorld = createWorld();
+		ArrayList<GameObject> GO_LIST = convertSpriteObjectGridToListOfGameObjects(SOGMI);
 		addAllGameObjectsToWorld(GO_LIST, thisWorld);
+>>>>>>> 23b2c6a12ece1ff045d6436612264b10112bd477:src/authoring_data/SpriteObjectGridToEngineController.java
 		addWorldToEngine(thisWorld);
 	}
 	
@@ -46,21 +58,18 @@ public class SpriteObjectGridToEngineController {
 	private GameObject convertToGameObject(SpriteObjectI SOI){
 		//added null as input to rid error
 		GameObject GE = new GameObject(null);
-		setPositionOfGameObject(SOI, GE);
 		addParametersToGameObject(SOI, GE);
 		addConditionsAndActionsToGameObject(SOI, GE);
 		return GE;
 		
 	}
-	
-	private void setPositionOfGameObject(SpriteObjectI SOI, GameObject GO){
-		GO.setCoords(SOI.getXCenterCoordinate(), SOI.getYCenterCoordinate());
-	}
 
 	private void addParametersToGameObject(SpriteObjectI SOI, GameObject GE) {
 		for (ArrayList<SpriteParameterI> SPI_LIST: SOI.getParameters().values()){
 			for (SpriteParameterI SPI: SPI_LIST){
-
+<<<<<<< HEAD:src/authoring/SpriteObjectGridToEngineController.java
+				gE.addParameter(SPI.getName(), SPI.getValue());
+=======
 				if (SPI instanceof DoubleSpriteParameter){
 					GE.setDoubleVariable(SPI.getName(), (double) SPI.getValue());
 				} else if(SPI instanceof StringSpriteParameter){
@@ -68,6 +77,7 @@ public class SpriteObjectGridToEngineController {
 				} else if (SPI instanceof BooleanSpriteParameter){
 					GE.setBooleanVariable(SPI.getName(), (Boolean) SPI.getValue());
 				}	
+>>>>>>> 23b2c6a12ece1ff045d6436612264b10112bd477:src/authoring_data/SpriteObjectGridToEngineController.java
 			}
 		}
 	}
@@ -90,16 +100,29 @@ public class SpriteObjectGridToEngineController {
 		return GO_LIST;
 	}
 	
-
+<<<<<<< HEAD:src/authoring/SpriteObjectGridToEngineController.java
+	private GameWorld createWorld(List<GameObject> GO_LIST) {
+		GameLayer thisLayer = new GameLayer();
+		addAllGameObjectsToLayer(GO_LIST, thisLayer);
+		GameWorld thisWorld = new GameWorld();
+		thisWorld.addLayer(thisLayer);
+		return thisWorld;
+	}
+	
+	private void addAllGameObjectsToLayer(List<GameObject> GO_LIST, GameLayer layer) {
+		for (GameObject GO: GO_LIST) {
+			layer.addGameObject(GO);
+=======
 	private GameWorld createWorld() {
 		GameWorld thisWorld = new GameWorld();
 		return thisWorld;
 	}
 	
-	private void addAllGameObjectsToWorld(List<GameObject> gO_LIST, GameWorld world) {
+	private void addAllGameObjectsToWorld(ArrayList<GameObject> GO_LIST, GameWorld world) {
 		GameLayer GL = createGameLayer();
-		for (GameObject GO: gO_LIST) {
+		for (GameObject GO: GO_LIST) {
 			GL.addGameObject(GO);
+>>>>>>> 23b2c6a12ece1ff045d6436612264b10112bd477:src/authoring_data/SpriteObjectGridToEngineController.java
 		}
 		world.addLayer(GL);
 	}
@@ -121,10 +144,12 @@ public class SpriteObjectGridToEngineController {
 	}
 	
 	private void addWorldToEngine(GameWorld newWorld) {
-
+<<<<<<< HEAD:src/authoring/SpriteObjectGridToEngineController.java
+=======
 		if (myEC==null){
 			createEngine();
 		}
+>>>>>>> 23b2c6a12ece1ff045d6436612264b10112bd477:src/authoring_data/SpriteObjectGridToEngineController.java
 		myEC.addWorld(newWorld);
 	}
 }
