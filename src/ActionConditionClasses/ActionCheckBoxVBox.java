@@ -51,8 +51,12 @@ public class ActionCheckBoxVBox<T> extends VBoxList<T> implements ActionCheckBox
 
 	@Override
 	public void removeAction(Integer action) {
-		checkBoxes.remove(action);
-		for(int i = action; i < checkBoxes.size(); i++) checkBoxes.get(i).setText(Integer.toString(action));
+		checkBoxes.remove((int) action);
+		for(int i = action; i < checkBoxes.size(); i++) {
+			CheckBox iCheckBox = checkBoxes.get(i);
+			int currentLabel = Integer.parseInt(iCheckBox.getText());
+			iCheckBox.setText(Integer.toString(currentLabel - 1));
+		}
 	}
 
 }

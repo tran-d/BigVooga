@@ -29,7 +29,7 @@ public class ActionConditionTab extends Tab implements ActionConditionTabI {
 		actionConditionManager = new ScrollPane();
 		setContent(actionConditionManager);
 		setUpActionConditionManager();
-		ControllerTopToolBar controllerTopToolBar = new ControllerTopToolBar(buttons,actionConditionVBox);
+		//ControllerTopToolBar controllerTopToolBar = new ControllerTopToolBar(buttons,actionConditionVBox);
 	}
 
 	private void setUpActionConditionManager() {
@@ -50,6 +50,30 @@ public class ActionConditionTab extends Tab implements ActionConditionTabI {
 	
 	protected void setNewActionOptions(ObservableList<Integer> newActionOptions) {
 		actionConditionVBox.setNewActionOptions(newActionOptions);
+	}
+	
+	protected String getActionCondition() {
+		return buttons.getOptionsValue();
+	}
+	
+	protected void addCondition(String label,ObservableList<Integer> currentActions) {
+		actionConditionVBox.addConditionAction(label,currentActions);
+	}
+	
+	protected void addAction(String label) {
+		actionConditionVBox.addAction(label);
+	}
+	
+	protected void addRemoveOption() {
+		buttons.addRemoveOption();
+	}
+	
+	protected void removeActionCondtion(Integer row) {
+		actionConditionVBox.removeActionCondition(row);
+	}
+	
+	protected void removeRowOption(Integer row) {
+		buttons.removeRemoveOption(row);
 	}
 	
 	private void determineTabType(String title) {
@@ -81,4 +105,5 @@ public class ActionConditionTab extends Tab implements ActionConditionTabI {
 	public void removeActionOption(Integer action) {
 		actionConditionVBox.removeActionOption(action);
 	}
+	
 }
