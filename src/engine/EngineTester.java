@@ -153,8 +153,6 @@ public class EngineTester extends Application {
 		actions1 = new ArrayList<Action>();
 		actions1.add(new ChangeDouble("xSpeed", -3, false));
 		obj.addConditionAction(new Or(1, new KeyReleased(1, "Q"), new KeyReleased(1, "Space")), actions1);
-<<<<<<< HEAD
-=======
 //		actions1 = new ArrayList<Action>();
 //		actions1.add(new RotateTo(45.0));
 //		obj.addConditionAction(new Not(1, new ScreenClickHeld(1)), actions1);
@@ -164,7 +162,6 @@ public class EngineTester extends Application {
 //		actions1 = new ArrayList<Action>();
 //		actions1.add(new RotateTo(25));
 //		obj.addConditionAction(new DoubleGreaterThan(1, GameObject.X_COR, 300), actions1);
->>>>>>> a29e1242ef1727372b22f024e5b61112820a8ed1
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Create("Ob2", 500, 500, 20));
 		obj.addConditionAction(new KeyPressed(1,"C"), actions1);
