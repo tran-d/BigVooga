@@ -7,54 +7,55 @@ import java.util.Iterator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class SpriteObject extends ImageView implements SpriteObjectI{
-	
+public class SpriteObject extends ImageView implements SpriteObjectI {
+
 	private HashMap<String, ArrayList<SpriteParameterI>> categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();
-	private ImageView myImageView;
+//	private ImageView myImageView;
 	private String myImageURL;
 	private Integer[] myPositionOnGrid;
 	private String myName;
 	private double myNumCellsWidth;
 	private double myNumCellsHeight;
 	private int myUniqueID;
-	
+
 	public SpriteObject() {
 		super();
 		setUniqueID();
 	}
 
-	public SpriteObject(String fileURL){
+	public SpriteObject(String fileURL) {
 		this();
 		setupImageURLAndView(fileURL);
 		System.out.println(fileURL);
 		myName = fileURL.split("\\.")[0];
-//		myName = fileURL.split(".")[0];
+		// myName = fileURL.split(".")[0];
 	}
-	
-	public SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap) {
+
+	SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap) {
 		this();
 		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(inCategoryMap);
 	}
-	
+
 	SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap, String fileURL) {
 		this();
 		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(inCategoryMap);
 		setupImageURLAndView(fileURL);
 	}
-	
-	private void setupImageURLAndView(String fileURL){
-		myImageURL = fileURL;
-		this.setImage(new Image(myImageURL));
-		this.setFitWidth(45);
-		this.setFitHeight(45);
-	}
-	
+
 	private void setUniqueID() {
 		if (myUniqueID <= 0) {
 			myUniqueID = SpriteIDGenerator.getInstance().getUniqueID();
 		}
 	}
-	
+
+	private void setupImageURLAndView(String fileURL) {
+		myImageURL = fileURL;
+		this.setImage(new Image(myImageURL));
+		this.setFitWidth(45);
+		this.setFitHeight(45);
+	}
+
+
 	private double getNumCellsWidth() {
 		return myNumCellsWidth;
 	}
@@ -90,23 +91,20 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 		double centerx = xpos + width / 2;
 		return centerx;
 	}
-	
-	
+
 	@Override
-	public ImageView getImageView(){
-		return myImageView;
+	public ImageView getImageView() {
+		if (this.getImage() == null){
+			setupImageURLAndView(getImageURL());
+		}
+		return this;
 	}
-	
-	@Override 
-	public Integer[] getPositionOnGrid(){
+
+	@Override
+	public Integer[] getPositionOnGrid() {
 		return myPositionOnGrid;
 	}
-	
-	@Override 
-	public void setPositionOnGrid(Integer[] pos){
-		myPositionOnGrid = pos;
-	}
-	
+
 	public int getRowOnGrid() {
 		return getPositionOnGrid()[0];
 	}
@@ -114,65 +112,79 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 	public int getColumnOnGrid() {
 		return getPositionOnGrid()[1];
 	}
-	
-	@Override 
-	public void setImageURL(String fileLocation){
+
+	@Override
+	public void setPositionOnGrid(Integer[] pos) {
+		myPositionOnGrid = pos;
+	}
+
+	@Override
+	public void setImageURL(String fileLocation) {
 		setupImageURLAndView(fileLocation);
 	}
 	
+	public String getImageURL() {
+		return myImageURL;
+	}
+
 	@Override
-	public void setName(String name){
+	public void setName(String name) {
 		myName = name;
 	}
-	
+
 	@Override
-	public HashMap<String, ArrayList<SpriteParameterI>> getParameters() {	
+	public HashMap<String, ArrayList<SpriteParameterI>> getParameters() {
 		return categoryMap;
 	}
 
 	@Override
 	public void addParameter(SpriteParameterI SP) {
 		addParameter("General", SP);
-		
+
 	}
-	
-	public void addParameter(String category,SpriteParameterI SP){
-		if (!categoryMap.containsKey(category)){
+
+	public void addParameter(String category, SpriteParameterI SP) {
+		if (!categoryMap.containsKey(category)) {
 			categoryMap.put(category, new ArrayList<SpriteParameterI>());
 		}
-		
+
 		ArrayList<SpriteParameterI> val = categoryMap.get(category);
 		val.add(SP);
 		categoryMap.put(category, val);
 	}
-	
 
 	@Override
 	public void applyParameterUpdate(HashMap<String, ArrayList<SpriteParameterI>> newParams) {
+		replaceCategoryMap(newParams);
+	}
+
+	private void replaceCategoryMap(HashMap<String, ArrayList<SpriteParameterI>> newParams) {
 		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(newParams);
 	}
 
 	@Override
-	public boolean isSame(SpriteObject other){
+	public boolean isSame(SpriteObject other) {
 		if (!(other instanceof SpriteObject)) {
-	        return false;
-	    }
+			return false;
+		}
 		SpriteObject otherSO = (SpriteObject) other;
 		System.out.println("Using custom equals method for Sprite Object");
 		HashMap<String, ArrayList<SpriteParameterI>> otherMap = otherSO.getParameters();
 		HashMap<String, ArrayList<SpriteParameterI>> thisMap = this.getParameters();
-		for (String category: otherMap.keySet()){
-			if (!thisMap.keySet().contains(category)) { return false;}
+		for (String category : otherMap.keySet()) {
+			if (!thisMap.keySet().contains(category)) {
+				return false;
+			}
 			ArrayList<SpriteParameterI> otherParamList = otherMap.get(category);
 			ArrayList<SpriteParameterI> thisParamList = new ArrayList<SpriteParameterI>(thisMap.get(category));
-			if (otherParamList.size() != thisParamList.size()){
+			if (otherParamList.size() != thisParamList.size()) {
 				return false;
 			}
 			Iterator<SpriteParameterI> otherIt = otherParamList.iterator();
-			while (otherIt.hasNext()){
+			while (otherIt.hasNext()) {
 				SpriteParameterI otherSPI = otherIt.next();
 				Iterator<SpriteParameterI> thisIt = thisParamList.iterator();
-				while (thisIt.hasNext()){
+				while (thisIt.hasNext()) {
 					SpriteParameterI thisSPI = thisIt.next();
 					if (thisSPI.isSame(otherSPI)) {
 						thisIt.remove();
@@ -180,38 +192,30 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 					}
 				}
 			}
-			if (thisParamList.size()>0){
+			if (thisParamList.size() > 0) {
 				return false;
 			}
 		}
 		return true;
 	}
-	
-	private void replaceCategoryMap(HashMap<String, ArrayList<SpriteParameterI>> newParams) {
-		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(newParams);
-	}
-	
+
 	@Override
-	public SpriteObject newCopy(){
-//		System.out.println("Making copy");
+	public SpriteObject newCopy() {
+		// System.out.println("Making copy");
 		SpriteObject ret = new SpriteObject();
-		ret.setName(this.getName());
-		ret.replaceCategoryMap(this.categoryMap);
 		if (this.myImageURL != null) {
 			ret.setupImageURLAndView(this.myImageURL);
 		}
-//		if(this.myImageURL!=null) {
-//		return new SpriteObject(this.categoryMap, this.myImageURL);
-//		} else {
-//			return new SpriteObject(this.categoryMap);
-//		}
+		ret.setName(this.getName());
+		ret.replaceCategoryMap(this.categoryMap);
 		return ret;
+
 	}
-	
+
 	private ArrayList<SpriteParameterI> getSpriteParametersMatching(String type) {
 		ArrayList<SpriteParameterI> ret = new ArrayList<SpriteParameterI>();
 		Class desiredClass;
-		switch (type){
+		switch (type) {
 		case "Boolean":
 			desiredClass = BooleanSpriteParameter.class;
 			break;
@@ -225,26 +229,28 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 			desiredClass = SpriteParameter.class;
 			break;
 		}
-		
-		for (SpriteParameterI SPI: getAllParameters()){
-			if (SPI.getClass().equals(desiredClass)){
+
+		for (SpriteParameterI SPI : getAllParameters()) {
+			if (SPI.getClass().equals(desiredClass)) {
 				ret.add(SPI);
 			}
 		}
 		return ret;
 	}
-	
+
 	public ArrayList<String> getParameterNamesMatching(String type) {
-		ArrayList<SpriteParameterI> concreteParameters = getSpriteParametersMatching(type); 
+		ArrayList<SpriteParameterI> concreteParameters = getSpriteParametersMatching(type);
 		ArrayList<String> ret = new ArrayList<String>();
-		concreteParameters.forEach((item) -> {ret.add(item.getName());});
+		concreteParameters.forEach((item) -> {
+			ret.add(item.getName());
+		});
 		return ret;
 	}
-	
+
 	private ArrayList<SpriteParameterI> getAllParameters() {
 		ArrayList<SpriteParameterI> ret = new ArrayList<SpriteParameterI>();
-		for (ArrayList<SpriteParameterI> SPI_LIST: getParameters().values()){
-			for(SpriteParameterI SPI: SPI_LIST){
+		for (ArrayList<SpriteParameterI> SPI_LIST : getParameters().values()) {
+			for (SpriteParameterI SPI : SPI_LIST) {
 				ret.add(SPI);
 			}
 		}
@@ -255,16 +261,10 @@ public class SpriteObject extends ImageView implements SpriteObjectI{
 	public String getName() {
 		return myName;
 	}
-	
+
 	@Override
 	public void changeCategoryName(String prev, String next) {
 		getParameters().put(next, getParameters().remove(prev));
 	}
 
-	public String getImageURL() {
-		return myImageURL;
-	}
-	
-	
-	
 }

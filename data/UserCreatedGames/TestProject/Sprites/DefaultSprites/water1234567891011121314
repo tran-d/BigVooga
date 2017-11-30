@@ -82,7 +82,11 @@
   </accessibleRole>
   <image class="javafx.scene.image.ImageView$1">
     <value class="javafx.scene.image.Image">
+<<<<<<< HEAD
       <url>file:/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/bin/water.png</url>
+=======
+      <url>file:/C:/Users/ianel/eclipse-workspace/voogasalad_bigvooga/bin/water.png</url>
+>>>>>>> 8b401526e46c265adc9a375556cfe5ffe13feb61
       <progress>
         <value>1.0</value>
         <valid>true</valid>
@@ -2850,5 +2854,9 @@ ATdzADZyAjZyAjZyADNqADNqADJpADFpATBoAC9nAC1mAC1mAC1k</hb>
   <myName>water</myName>
   <myNumCellsWidth>0.0</myNumCellsWidth>
   <myNumCellsHeight>0.0</myNumCellsHeight>
+<<<<<<< HEAD
   <myUniqueID>107</myUniqueID>
+=======
+  <myUniqueID>232</myUniqueID>
+>>>>>>> 8b401526e46c265adc9a375556cfe5ffe13feb61
 </authoring.SpriteObject>

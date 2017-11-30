@@ -82,7 +82,11 @@
   </accessibleRole>
   <image class="javafx.scene.image.ImageView$1">
     <value class="javafx.scene.image.Image">
+<<<<<<< HEAD
       <url>file:/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/bin/pikachu.png</url>
+=======
+      <url>file:/C:/Users/ianel/eclipse-workspace/voogasalad_bigvooga/bin/pikachu.png</url>
+>>>>>>> 8b401526e46c265adc9a375556cfe5ffe13feb61
       <progress>
         <value>1.0</value>
         <valid>true</valid>
@@ -27996,5 +28000,9 @@ gf+fn5//ysrK//Hx8f///////v7+////////////////////////////////////////////////
   <myName>pikachu</myName>
   <myNumCellsWidth>0.0</myNumCellsWidth>
   <myNumCellsHeight>0.0</myNumCellsHeight>
+<<<<<<< HEAD
   <myUniqueID>106</myUniqueID>
+=======
+  <myUniqueID>231</myUniqueID>
+>>>>>>> 8b401526e46c265adc9a375556cfe5ffe13feb61
 </authoring.SpriteObject>

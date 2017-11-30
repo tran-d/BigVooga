@@ -11,12 +11,10 @@ import engine.GameMaster;
 import engine.GameObject;
 import engine.GameWorld;
 import engine.utilities.data.GameDataHandler;
-import player.PlayerManager;
 
 public class SpriteObjectGridToEngineController {
 	private GameMaster myEC;
 	private GameDataHandler myGDH;
-	PlayerManager myPM;
 
 	public SpriteObjectGridToEngineController(GameDataHandler GDH){
 		myGDH = GDH;
@@ -95,15 +93,7 @@ public class SpriteObjectGridToEngineController {
 	}
 	
 	private void createEngine() {
-		if (myPM == null){
-			createPlayerManager();
-		}
 		myEC = new GameMaster();
-		myEC.setPlayerManager(myPM);
-	}
-	
-	private void createPlayerManager(){
-		myPM = new PlayerManager();
 	}
 	
 	private void addWorldToEngine(GameWorld newWorld) {

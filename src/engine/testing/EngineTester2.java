@@ -1,4 +1,4 @@
-package engine;
+package engine.testing;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -9,6 +9,12 @@ import java.util.function.Consumer;
 
 import authoring.drawing.BoundingPolygonCreator;
 import authoring.drawing.ImageCanvas;
+import engine.Action;
+import engine.GameLayer;
+import engine.GameMaster;
+import engine.GameObject;
+import engine.GameObjectFactory;
+import engine.GameWorld;
 import engine.Actions.ChangeDouble;
 import engine.Actions.Create;
 import engine.Actions.Destroy;
@@ -51,6 +57,10 @@ public class EngineTester2 extends Application {
 		//testData(stage);
 		//testImageCanvas(stage);
 		//testDrawer(stage);
+		generateGame();
+	}
+	
+	public void generateGame() {
 		generateGame(new BoundedImage("Smiley.png"));
 	}
 	
