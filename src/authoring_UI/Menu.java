@@ -137,7 +137,7 @@ public class Menu extends VBox {
 		mySpriteTabs.getTabs().addAll(parameters, dialogue);
 		mySpriteTabs.setSide(Side.TOP);
 		createActionConditionTabs();
-		this.getChildren().add(mySpriteTabs);
+//		this.getChildren().add(mySpriteTabs);
 	}
 
 	private VBox createParameterTab() {

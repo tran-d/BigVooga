@@ -94,9 +94,9 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 
 	@Override
 	public ImageView getImageView() {
-		if (this.getImage() == null){
-			setupImageURLAndView(getImageURL());
-		}
+//		if (this.getImage() == null){
+//			setupImageURLAndView(getImageURL());
+//		}
 		return this;
 	}
 
