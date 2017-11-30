@@ -60,7 +60,7 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 	@Override
 	public ImageView[][] populateCell(SpriteObject spriteObject, Integer[] row_col) {
 		
-			setCell(spriteObject.newCopy(), row_col);
+			setCell(spriteObject, row_col);
 		
 		return getGrid();
 	}
@@ -68,7 +68,7 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 	@Override
 	public ImageView[][] populateCell(SpriteObject spriteObject, ArrayList<Integer[]> row_col) {
 		for (Integer [] loc: row_col) {
-			setCell(spriteObject.newCopy(), loc);
+			setCell(spriteObject, loc);
 		}
 		return getGrid();
 	}
@@ -154,16 +154,24 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 	
 	@Override
 	public void clearCells(ArrayList<Integer[]> cellsToClear){
+		System.out.println(cellsToClear);
+		removeActiveCells(cellsToClear);
+		
 		for (Integer[] loc: cellsToClear){
+			System.out.println("clearCells loc loop: "+loc);
+			
 			setCellAsDefault(loc);	
 		}
 	}
 	
 	private void setCell(SpriteObject SOI, Integer[] loc) {
+		System.out.println("Setcellwithpos: "+loc);
+		System.out.println("Setcellwithobject: "+SOI);
 		spriteGrid.get(loc[0]).set(loc[1], SOI);
 	}
 	
 	private void setCellAsDefault(Integer[] loc) {
+		
 		setCell(defaultEmptySprite.newCopy(), loc);
 	}
 	

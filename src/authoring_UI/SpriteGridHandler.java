@@ -51,11 +51,14 @@ public class SpriteGridHandler {
 		ArrayList<Integer[]> cellsToDelete = new ArrayList<Integer[]>();
 		mySOGM.getActiveSpriteObjects().forEach(s -> {
 			Integer[] row_col = s.getPositionOnGrid();
+			System.out.println("row_col: "+row_col);
 			cellsToDelete.add(row_col);
 		});
 		removeSpritesFromGrid();
 		myMenu.removeParameterTab();
-		mySOGM.removeActiveCells(cellsToDelete);
+		System.out.println();
+		mySOGM.clearCells(cellsToDelete);
+//		mySOGM.removeActiveCells(cellsToDelete);
 	}
 	
 	private void removeSpritesFromGrid() {
