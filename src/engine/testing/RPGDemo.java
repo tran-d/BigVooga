@@ -15,24 +15,19 @@ import engine.GameMaster;
 import engine.GameObject;
 import engine.GameObjectFactory;
 import engine.GameWorld;
-import engine.Actions.ChangeDouble;
+import engine.Actions.ChangeBoolean;
 import engine.Actions.Create;
+import engine.Actions.Destroy;
 import engine.Actions.Move;
-import engine.Actions.MoveByVariable;
 import engine.Actions.RemoveIntersection;
 import engine.Actions.Rotate;
-import engine.Actions.RotateTo;
 import engine.Conditions.And;
-import engine.Conditions.BeginStep;
+import engine.Conditions.BooleanTrue;
 import engine.Conditions.Collision;
-import engine.Conditions.DoubleGreaterThan;
 import engine.Conditions.KeyHeld;
 import engine.Conditions.KeyPressed;
-import engine.Conditions.KeyReleased;
 import engine.Conditions.Not;
 import engine.Conditions.ObjectClickHeld;
-import engine.Conditions.Or;
-import engine.Conditions.ScreenClickHeld;
 import engine.sprite.AnimationSequence;
 import engine.sprite.BoundedImage;
 import engine.sprite.Sprite;
@@ -69,6 +64,7 @@ public class RPGDemo extends Application {
 		obj1.setSize(64, 64);
 		obj1.setDoubleVariable("xSpeed", 0);
 		obj1.setDoubleVariable("ySpeed", 0);
+		obj1.setBooleanVariable("isDialogue", true);
 		blueprints.addBlueprint(obj1);
 		
 		GameObject wall = makeObject("Wall", new BoundedImage("brick.png"), 0, 0, this::conditionAction2);
@@ -76,7 +72,13 @@ public class RPGDemo extends Application {
 		wall.setSize(64, 64);
 		blueprints.addBlueprint(wall);
 		
+		GameObject empty = makeObject("Empty", new BoundedImage("Empty.png"), 0, 0, this::conditionAction3);
+		empty.setSize(544, 128);
+		blueprints.addBlueprint(empty);
 		
+		GameObject brick = makeObject("Brick", new BoundedImage("BrickWall.png"), 0, 0, this::conditionAction4);
+		brick.setSize(544, 128);
+		blueprints.addBlueprint(brick);
 		
 		GameLayer layer = new GameLayer("Layer");
 		layer.setBlueprints(blueprints);
@@ -122,19 +124,19 @@ public class RPGDemo extends Application {
 	private void conditionAction1(GameObject obj) {
 		List<Action> actions1 = new ArrayList<Action>();
 		actions1.add(new Move(-3, 0));
-		obj.addConditionAction(new KeyHeld(1,"Left"), actions1);
+		obj.addConditionAction(new KeyHeld(0,"Left"), actions1);
 		
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Move(3, 0));
-		obj.addConditionAction(new KeyHeld(1,"Right"), actions1);
+		obj.addConditionAction(new KeyHeld(0,"Right"), actions1);
 		
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Move(0, -3));
-		obj.addConditionAction(new KeyHeld(1,"Up"), actions1);
+		obj.addConditionAction(new KeyHeld(0,"Up"), actions1);
 		
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Move(0, 3));
-		obj.addConditionAction(new KeyHeld(1,"Down"), actions1);
+		obj.addConditionAction(new KeyHeld(0,"Down"), actions1);
 		
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Rotate(1));
@@ -150,6 +152,16 @@ public class RPGDemo extends Application {
 		actions1 = new ArrayList<Action>();
 		actions1.add(new RemoveIntersection());
 		obj.addConditionAction(new Collision(4, "Solid"), actions1);
+		
+		
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Create("Brick", 272, 640, 0));
+		obj.addConditionAction(new And(1, new KeyPressed(1, "Space"), new Collision(1,"Solid")), actions1);
+		
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Create("Empty", 272, 640, 0));
+		obj.addConditionAction(new And(1, new KeyPressed(1, "Space"), new Not(1, new Collision(1,"Solid"))), actions1);
+		
 
 	}
 	
@@ -158,6 +170,20 @@ public class RPGDemo extends Application {
 		actions1.add(new RemoveIntersection());
 		obj.addConditionAction(new Collision(3, "Ob1"), actions1);
 		obj.addConditionAction(new Collision(4, "Ob2"), actions1);
+	}
+	
+	private void conditionAction3(GameObject obj)
+	{
+		ArrayList<Action> actions1 = new ArrayList<Action>();
+
+		actions1.add(new Destroy("Empty"));
+		obj.addConditionAction(new KeyPressed(1,"A"), actions1);
+	}
+	private void conditionAction4(GameObject obj)
+	{
+		ArrayList<Action> actions1 = new ArrayList<Action>();
+		actions1.add(new Destroy("Brick"));
+		obj.addConditionAction(new KeyPressed(1,"A"), actions1);
 	}
 	
 	private void testImageCanvas(Stage stage) {

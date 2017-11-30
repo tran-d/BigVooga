@@ -28,7 +28,12 @@
               </entry>
             </doubleVars>
             <stringVars/>
-            <booleanVars/>
+            <booleanVars>
+              <entry>
+                <string>isDialogue</string>
+                <boolean>true</boolean>
+              </entry>
+            </booleanVars>
             <DEFAULT__TAG>unnamed</DEFAULT__TAG>
             <name>Player</name>
             <tagSet>
@@ -36,44 +41,14 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.Collision>
-                  <priorityNum>2</priorityNum>
-                  <tag>Solid</tag>
-                </engine.Conditions.Collision>
-                <list>
-                  <engine.Actions.RemoveIntersection/>
-                </list>
-              </entry>
-              <entry>
                 <engine.Conditions.KeyHeld>
-                  <priorityNum>1</priorityNum>
-                  <check>Up</check>
+                  <priorityNum>0</priorityNum>
+                  <check>Down</check>
                 </engine.Conditions.KeyHeld>
                 <list>
                   <engine.Actions.Move>
                     <xIncrement>0.0</xIncrement>
-                    <yIncrement>-3.0</yIncrement>
-                  </engine.Actions.Move>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.Collision>
-                  <priorityNum>3</priorityNum>
-                  <tag>Solid</tag>
-                </engine.Conditions.Collision>
-                <list>
-                  <engine.Actions.RemoveIntersection/>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.KeyHeld>
-                  <priorityNum>1</priorityNum>
-                  <check>Left</check>
-                </engine.Conditions.KeyHeld>
-                <list>
-                  <engine.Actions.Move>
-                    <xIncrement>-3.0</xIncrement>
-                    <yIncrement>0.0</yIncrement>
+                    <yIncrement>3.0</yIncrement>
                   </engine.Actions.Move>
                 </list>
               </entry>
@@ -89,7 +64,16 @@
               </entry>
               <entry>
                 <engine.Conditions.Collision>
-                  <priorityNum>4</priorityNum>
+                  <priorityNum>2</priorityNum>
+                  <tag>Solid</tag>
+                </engine.Conditions.Collision>
+                <list>
+                  <engine.Actions.RemoveIntersection/>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.Collision>
+                  <priorityNum>3</priorityNum>
                   <tag>Solid</tag>
                 </engine.Conditions.Collision>
                 <list>
@@ -98,19 +82,40 @@
               </entry>
               <entry>
                 <engine.Conditions.KeyHeld>
-                  <priorityNum>1</priorityNum>
-                  <check>Down</check>
+                  <priorityNum>0</priorityNum>
+                  <check>Up</check>
                 </engine.Conditions.KeyHeld>
                 <list>
                   <engine.Actions.Move>
                     <xIncrement>0.0</xIncrement>
-                    <yIncrement>3.0</yIncrement>
+                    <yIncrement>-3.0</yIncrement>
                   </engine.Actions.Move>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.KeyHeld>
+                <engine.Conditions.And>
                   <priorityNum>1</priorityNum>
+                  <condition1 class="engine.Conditions.KeyPressed">
+                    <priorityNum>1</priorityNum>
+                    <check>Space</check>
+                  </condition1>
+                  <condition2 class="engine.Conditions.Collision">
+                    <priorityNum>1</priorityNum>
+                    <tag>Solid</tag>
+                  </condition2>
+                </engine.Conditions.And>
+                <list>
+                  <engine.Actions.Create>
+                    <name>Brick</name>
+                    <x>272.0</x>
+                    <y>640.0</y>
+                    <heading>0.0</heading>
+                  </engine.Actions.Create>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>0</priorityNum>
                   <check>Right</check>
                 </engine.Conditions.KeyHeld>
                 <list>
@@ -118,6 +123,51 @@
                     <xIncrement>3.0</xIncrement>
                     <yIncrement>0.0</yIncrement>
                   </engine.Actions.Move>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.And>
+                  <priorityNum>1</priorityNum>
+                  <condition1 class="engine.Conditions.KeyPressed">
+                    <priorityNum>1</priorityNum>
+                    <check>Space</check>
+                  </condition1>
+                  <condition2 class="engine.Conditions.Not">
+                    <priorityNum>1</priorityNum>
+                    <condition class="engine.Conditions.Collision">
+                      <priorityNum>1</priorityNum>
+                      <tag>Solid</tag>
+                    </condition>
+                  </condition2>
+                </engine.Conditions.And>
+                <list>
+                  <engine.Actions.Create>
+                    <name>Empty</name>
+                    <x>272.0</x>
+                    <y>640.0</y>
+                    <heading>0.0</heading>
+                  </engine.Actions.Create>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>0</priorityNum>
+                  <check>Left</check>
+                </engine.Conditions.KeyHeld>
+                <list>
+                  <engine.Actions.Move>
+                    <xIncrement>-3.0</xIncrement>
+                    <yIncrement>0.0</yIncrement>
+                  </engine.Actions.Move>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.Collision>
+                  <priorityNum>4</priorityNum>
+                  <tag>Solid</tag>
+                </engine.Conditions.Collision>
+                <list>
+                  <engine.Actions.RemoveIntersection/>
                 </list>
               </entry>
             </events>
@@ -2335,6 +2385,10 @@
           <unserializable-parents/>
           <java.util.concurrent.ConcurrentSkipListMap>
             <default/>
+            <int>0</int>
+            <list>
+              <engine.GameObject reference="../../../../worldObjects/engine.GameObject"/>
+            </list>
             <int>1</int>
             <list>
               <engine.GameObject reference="../../../../worldObjects/engine.GameObject"/>
@@ -2454,7 +2508,12 @@
                   </entry>
                 </doubleVars>
                 <stringVars/>
-                <booleanVars/>
+                <booleanVars>
+                  <entry>
+                    <string>isDialogue</string>
+                    <boolean>true</boolean>
+                  </entry>
+                </booleanVars>
                 <DEFAULT__TAG>unnamed</DEFAULT__TAG>
                 <name>Player</name>
                 <tagSet>
@@ -2462,15 +2521,15 @@
                 </tagSet>
                 <events>
                   <entry>
-                    <engine.Conditions.Collision reference="../../../../../../../worldObjects/engine.GameObject/events/entry/engine.Conditions.Collision"/>
+                    <engine.Conditions.KeyHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry/engine.Conditions.KeyHeld"/>
                     <list>
-                      <engine.Actions.RemoveIntersection reference="../../../../../../../../worldObjects/engine.GameObject/events/entry/list/engine.Actions.RemoveIntersection"/>
+                      <engine.Actions.Move reference="../../../../../../../../worldObjects/engine.GameObject/events/entry/list/engine.Actions.Move"/>
                     </list>
                   </entry>
                   <entry>
-                    <engine.Conditions.KeyHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[2]/engine.Conditions.KeyHeld"/>
+                    <engine.Conditions.ObjectClickHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[2]/engine.Conditions.ObjectClickHeld"/>
                     <list>
-                      <engine.Actions.Move reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[2]/list/engine.Actions.Move"/>
+                      <engine.Actions.Rotate reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[2]/list/engine.Actions.Rotate"/>
                     </list>
                   </entry>
                   <entry>
@@ -2480,21 +2539,21 @@
                     </list>
                   </entry>
                   <entry>
-                    <engine.Conditions.KeyHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[4]/engine.Conditions.KeyHeld"/>
+                    <engine.Conditions.Collision reference="../../../../../../../worldObjects/engine.GameObject/events/entry[4]/engine.Conditions.Collision"/>
                     <list>
-                      <engine.Actions.Move reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[4]/list/engine.Actions.Move"/>
+                      <engine.Actions.RemoveIntersection reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[4]/list/engine.Actions.RemoveIntersection"/>
                     </list>
                   </entry>
                   <entry>
-                    <engine.Conditions.ObjectClickHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[5]/engine.Conditions.ObjectClickHeld"/>
+                    <engine.Conditions.KeyHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[5]/engine.Conditions.KeyHeld"/>
                     <list>
-                      <engine.Actions.Rotate reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[5]/list/engine.Actions.Rotate"/>
+                      <engine.Actions.Move reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[5]/list/engine.Actions.Move"/>
                     </list>
                   </entry>
                   <entry>
-                    <engine.Conditions.Collision reference="../../../../../../../worldObjects/engine.GameObject/events/entry[6]/engine.Conditions.Collision"/>
+                    <engine.Conditions.And reference="../../../../../../../worldObjects/engine.GameObject/events/entry[6]/engine.Conditions.And"/>
                     <list>
-                      <engine.Actions.RemoveIntersection reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[6]/list/engine.Actions.RemoveIntersection"/>
+                      <engine.Actions.Create reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[6]/list/engine.Actions.Create"/>
                     </list>
                   </entry>
                   <entry>
@@ -2504,9 +2563,21 @@
                     </list>
                   </entry>
                   <entry>
-                    <engine.Conditions.KeyHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[8]/engine.Conditions.KeyHeld"/>
+                    <engine.Conditions.And reference="../../../../../../../worldObjects/engine.GameObject/events/entry[8]/engine.Conditions.And"/>
                     <list>
-                      <engine.Actions.Move reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[8]/list/engine.Actions.Move"/>
+                      <engine.Actions.Create reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[8]/list/engine.Actions.Create"/>
+                    </list>
+                  </entry>
+                  <entry>
+                    <engine.Conditions.KeyHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[9]/engine.Conditions.KeyHeld"/>
+                    <list>
+                      <engine.Actions.Move reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[9]/list/engine.Actions.Move"/>
+                    </list>
+                  </entry>
+                  <entry>
+                    <engine.Conditions.Collision reference="../../../../../../../worldObjects/engine.GameObject/events/entry[10]/engine.Conditions.Collision"/>
+                    <list>
+                      <engine.Actions.RemoveIntersection reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[10]/list/engine.Actions.RemoveIntersection"/>
                     </list>
                   </entry>
                 </events>
@@ -2537,6 +2608,73 @@
                 </currentSprite>
                 <width>64.0</width>
                 <height>64.0</height>
+                <uniqueID>0</uniqueID>
+              </engine.GameObject>
+            </entry>
+            <entry>
+              <string>Empty</string>
+              <engine.GameObject>
+                <doubleVars>
+                  <entry>
+                    <string>yCor</string>
+                    <double>0.0</double>
+                  </entry>
+                  <entry>
+                    <string>heading</string>
+                    <double>0.0</double>
+                  </entry>
+                  <entry>
+                    <string>xCor</string>
+                    <double>0.0</double>
+                  </entry>
+                </doubleVars>
+                <stringVars/>
+                <booleanVars/>
+                <DEFAULT__TAG>unnamed</DEFAULT__TAG>
+                <name>Empty</name>
+                <tagSet/>
+                <events>
+                  <entry>
+                    <engine.Conditions.KeyPressed>
+                      <priorityNum>1</priorityNum>
+                      <check>A</check>
+                    </engine.Conditions.KeyPressed>
+                    <list>
+                      <engine.Actions.Destroy>
+                        <objectToDestroy>Empty</objectToDestroy>
+                      </engine.Actions.Destroy>
+                    </list>
+                  </entry>
+                </events>
+                <currentSprite>
+                  <animations>
+                    <entry>
+                      <string>Animation</string>
+                      <engine.sprite.AnimationSequence>
+                        <imageIndex>0</imageIndex>
+                        <images>
+                          <engine.sprite.BoundedImage>
+                            <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                            <relativeBounds>
+                              <engine.utilities.collisions.RelativeBoundingGeometry reference="../../../../../../../../../../../../worldObjects/engine.GameObject/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingGeometry"/>
+                            </relativeBounds>
+                            <fileName>Empty.png</fileName>
+                            <xCenter>0.0</xCenter>
+                            <yCenter>0.0</yCenter>
+                            <xSize>0.0</xSize>
+                            <ySize>0.0</ySize>
+                            <heading>0.0</heading>
+                            <depth>10</depth>
+                          </engine.sprite.BoundedImage>
+                        </images>
+                        <name>Animation</name>
+                      </engine.sprite.AnimationSequence>
+                    </entry>
+                  </animations>
+                  <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+                </currentSprite>
+                <width>544.0</width>
+                <height>128.0</height>
                 <uniqueID>0</uniqueID>
               </engine.GameObject>
             </entry>
@@ -2605,6 +2743,73 @@
                 </currentSprite>
                 <width>64.0</width>
                 <height>64.0</height>
+                <uniqueID>0</uniqueID>
+              </engine.GameObject>
+            </entry>
+            <entry>
+              <string>Brick</string>
+              <engine.GameObject>
+                <doubleVars>
+                  <entry>
+                    <string>yCor</string>
+                    <double>0.0</double>
+                  </entry>
+                  <entry>
+                    <string>heading</string>
+                    <double>0.0</double>
+                  </entry>
+                  <entry>
+                    <string>xCor</string>
+                    <double>0.0</double>
+                  </entry>
+                </doubleVars>
+                <stringVars/>
+                <booleanVars/>
+                <DEFAULT__TAG>unnamed</DEFAULT__TAG>
+                <name>Brick</name>
+                <tagSet/>
+                <events>
+                  <entry>
+                    <engine.Conditions.KeyPressed>
+                      <priorityNum>1</priorityNum>
+                      <check>A</check>
+                    </engine.Conditions.KeyPressed>
+                    <list>
+                      <engine.Actions.Destroy>
+                        <objectToDestroy>Brick</objectToDestroy>
+                      </engine.Actions.Destroy>
+                    </list>
+                  </entry>
+                </events>
+                <currentSprite>
+                  <animations>
+                    <entry>
+                      <string>Animation</string>
+                      <engine.sprite.AnimationSequence>
+                        <imageIndex>0</imageIndex>
+                        <images>
+                          <engine.sprite.BoundedImage>
+                            <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                            <relativeBounds>
+                              <engine.utilities.collisions.RelativeBoundingGeometry reference="../../../../../../../../../../../../worldObjects/engine.GameObject/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingGeometry"/>
+                            </relativeBounds>
+                            <fileName>BrickWall.png</fileName>
+                            <xCenter>0.0</xCenter>
+                            <yCenter>0.0</yCenter>
+                            <xSize>0.0</xSize>
+                            <ySize>0.0</ySize>
+                            <heading>0.0</heading>
+                            <depth>10</depth>
+                          </engine.sprite.BoundedImage>
+                        </images>
+                        <name>Animation</name>
+                      </engine.sprite.AnimationSequence>
+                    </entry>
+                  </animations>
+                  <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+                </currentSprite>
+                <width>544.0</width>
+                <height>128.0</height>
                 <uniqueID>0</uniqueID>
               </engine.GameObject>
             </entry>
