@@ -125,7 +125,7 @@
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>287.7906078031167</double>
+                <double>112.65586090996496</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -145,17 +145,6 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep>
-                  <priorityNum>0</priorityNum>
-                </engine.Conditions.BeginStep>
-                <list>
-                  <engine.Actions.Move>
-                    <xIncrement>-2.0</xIncrement>
-                    <yIncrement>0.0</yIncrement>
-                  </engine.Actions.Move>
-                </list>
-              </entry>
-              <entry>
                 <engine.Conditions.Collision>
                   <priorityNum>3</priorityNum>
                   <tag>Player</tag>
@@ -164,6 +153,17 @@
                   <engine.Actions.Destroy>
                     <objectToDestroy>Birb</objectToDestroy>
                   </engine.Actions.Destroy>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.BeginStep>
+                  <priorityNum>0</priorityNum>
+                </engine.Conditions.BeginStep>
+                <list>
+                  <engine.Actions.Move>
+                    <xIncrement>-2.0</xIncrement>
+                    <yIncrement>0.0</yIncrement>
+                  </engine.Actions.Move>
                 </list>
               </entry>
             </events>
@@ -195,14 +195,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>575.5812156062334</height>
+            <height>225.31172181992991</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>561.4456489688271</double>
+                <double>514.2431843195276</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -222,15 +222,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -260,14 +260,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>322.8912979376542</height>
+            <height>228.48636863905512</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>270.8767075066916</double>
+                <double>287.07196283196146</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -287,15 +287,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -325,14 +325,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>541.7534150133832</height>
+            <height>574.1439256639229</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>683.2941905985198</double>
+                <double>538.2710202682997</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -352,15 +352,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -390,14 +390,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>566.5883811970396</height>
+            <height>276.54204053659936</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>122.46428261899926</double>
+                <double>183.5429834059618</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -417,15 +417,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -455,14 +455,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>244.92856523799853</height>
+            <height>367.0859668119236</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>632.6651784309038</double>
+                <double>523.5277896322921</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -482,15 +482,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -520,14 +520,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>465.3303568618076</height>
+            <height>247.05557926458405</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>159.52021363358733</double>
+                <double>114.48978629813342</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -547,15 +547,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -585,14 +585,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>319.04042726717466</height>
+            <height>228.97957259626685</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>545.0915442042292</double>
+                <double>517.8090511582125</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -612,15 +612,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -650,14 +650,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>290.1830884084584</height>
+            <height>235.61810231642505</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>104.6603629483875</double>
+                <double>199.89541256436567</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -677,15 +677,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -715,14 +715,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>209.320725896775</height>
+            <height>399.79082512873134</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>558.8851677109162</double>
+                <double>644.6789603314905</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -742,15 +742,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -780,14 +780,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>317.77033542183244</height>
+            <height>489.3579206629811</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>286.75074105441894</double>
+                <double>236.69011532392642</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -807,15 +807,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -845,14 +845,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>573.5014821088379</height>
+            <height>473.38023064785284</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>644.9387330862294</double>
+                <double>606.3153770778447</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -872,15 +872,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -910,14 +910,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>489.87746617245875</height>
+            <height>412.63075415568943</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>174.97746014630735</double>
+                <double>119.51080367654173</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -937,15 +937,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -975,14 +975,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>349.9549202926147</height>
+            <height>239.02160735308345</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>674.6555059926454</double>
+                <double>568.0467628143697</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1002,15 +1002,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1040,14 +1040,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>549.3110119852907</height>
+            <height>336.0935256287395</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>217.55769263991326</double>
+                <double>189.0919885341239</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1067,15 +1067,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1105,14 +1105,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>435.1153852798265</height>
+            <height>378.1839770682478</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>599.892596566687</double>
+                <double>649.460557177148</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1132,15 +1132,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1170,14 +1170,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>399.78519313337404</height>
+            <height>498.921114354296</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>190.1726729617968</double>
+                <double>112.16430385268856</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1197,15 +1197,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1235,14 +1235,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>380.3453459235936</height>
+            <height>224.32860770537712</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>585.8725836550136</double>
+                <double>652.0534877043826</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1262,15 +1262,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1300,14 +1300,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>371.7451673100272</height>
+            <height>504.10697540876515</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>298.7400336815894</double>
+                <double>264.504932703037</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1327,15 +1327,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1365,14 +1365,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>597.4800673631788</height>
+            <height>529.009865406074</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>502.2188312449123</double>
+                <double>555.3728031653899</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1392,15 +1392,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1430,14 +1430,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>204.43766248982453</height>
+            <height>310.74560633077976</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>275.72061223261477</double>
+                <double>160.95896605137335</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1457,15 +1457,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1495,14 +1495,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>551.4412244652295</height>
+            <height>321.9179321027467</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>527.078530667889</double>
+                <double>559.5330864186407</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1522,15 +1522,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1560,14 +1560,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>254.1570613357781</height>
+            <height>319.0661728372813</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>148.81319047718165</double>
+                <double>295.21524356136683</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1587,15 +1587,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1625,14 +1625,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>297.6263809543633</height>
+            <height>590.4304871227337</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>508.8152531308274</double>
+                <double>592.0820887116304</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1652,15 +1652,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1690,14 +1690,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>217.6305062616548</height>
+            <height>384.16417742326064</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>126.2935954648971</double>
+                <double>288.3818489974107</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1717,15 +1717,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1755,14 +1755,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>252.5871909297942</height>
+            <height>576.7636979948214</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>528.7070410588119</double>
+                <double>534.7507037319083</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1782,15 +1782,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1820,14 +1820,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>257.4140821176238</height>
+            <height>269.5014074638166</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>255.69129000315067</double>
+                <double>247.59841894446924</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1847,15 +1847,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1885,14 +1885,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>511.38258000630134</height>
+            <height>495.1968378889385</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>651.8274117473139</double>
+                <double>667.1025275448808</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1912,15 +1912,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -1950,14 +1950,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>503.6548234946279</height>
+            <height>534.2050550897615</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>183.88105772660236</double>
+                <double>180.80239830076144</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -1977,15 +1977,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2015,14 +2015,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>367.76211545320473</height>
+            <height>361.6047966015229</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>692.7927038117318</double>
+                <double>529.0674695169156</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2042,15 +2042,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2080,14 +2080,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>585.5854076234635</height>
+            <height>258.1349390338312</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>229.53847710825227</double>
+                <double>256.2169057115897</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2107,15 +2107,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2145,14 +2145,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>459.07695421650453</height>
+            <height>512.4338114231793</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>674.9304318064187</double>
+                <double>635.4969665003073</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2172,15 +2172,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2210,14 +2210,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>549.8608636128374</height>
+            <height>470.99393300061445</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>216.43023942757634</double>
+                <double>118.15746291293101</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2237,15 +2237,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2275,14 +2275,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>432.8604788551527</height>
+            <height>236.31492582586202</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>657.8872241552983</double>
+                <double>649.0358535961562</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2302,15 +2302,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2340,14 +2340,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>515.7744483105967</height>
+            <height>498.07170719231254</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>291.9722002961283</double>
+                <double>135.4952910286454</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2367,15 +2367,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2405,14 +2405,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>583.9444005922566</height>
+            <height>270.9905820572908</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>547.6025669937408</double>
+                <double>551.713165730763</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2432,15 +2432,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2470,14 +2470,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>295.20513398748164</height>
+            <height>303.42633146152605</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>144.30427795024616</double>
+                <double>254.82518328139702</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2497,15 +2497,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2535,14 +2535,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>288.6085559004923</height>
+            <height>509.65036656279403</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>697.4024745299745</double>
+                <double>522.7813760584381</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2562,15 +2562,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2600,14 +2600,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>594.804949059949</height>
+            <height>245.56275211687634</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>247.8403986431888</double>
+                <double>124.44771860589393</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2627,15 +2627,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2665,14 +2665,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>495.6807972863776</height>
+            <height>248.89543721178785</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>638.8173902896149</double>
+                <double>605.6761173822467</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2692,15 +2692,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2730,14 +2730,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>477.63478057922964</height>
+            <height>411.35223476449346</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>217.5179368124044</double>
+                <double>243.1977160252809</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2757,15 +2757,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2795,14 +2795,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>435.0358736248088</height>
+            <height>486.3954320505618</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>640.32697351117</double>
+                <double>558.8466458231817</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2822,15 +2822,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2860,14 +2860,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>480.6539470223399</height>
+            <height>317.6932916463635</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>282.08357291018535</double>
+                <double>243.56524630348778</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2887,15 +2887,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2925,14 +2925,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>564.1671458203707</height>
+            <height>487.13049260697557</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>541.9332571893221</double>
+                <double>665.0664898768252</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -2952,15 +2952,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -2990,14 +2990,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>283.86651437864435</height>
+            <height>530.1329797536505</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>233.62523387797162</double>
+                <double>143.22067142305838</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -3017,15 +3017,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -3055,14 +3055,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>467.25046775594325</height>
+            <height>286.44134284611675</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>529.2388108830175</double>
+                <double>506.2441031581539</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -3082,15 +3082,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -3120,14 +3120,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>258.47762176603504</height>
+            <height>212.48820631630784</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>251.73174768905088</double>
+                <double>172.85357950322663</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -3147,15 +3147,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -3185,14 +3185,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>503.46349537810175</height>
+            <height>345.70715900645325</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>634.1601137947741</double>
+                <double>683.4104245618388</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -3212,15 +3212,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -3250,14 +3250,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>468.3202275895484</height>
+            <height>566.8208491236776</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>204.2972863713912</double>
+                <double>119.17482320351174</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -3277,15 +3277,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -3315,14 +3315,14 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>408.5945727427824</height>
+            <height>238.34964640702347</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
           <engine.GameObject>
             <doubleVars>
               <entry>
                 <string>yCor</string>
-                <double>637.764742425208</double>
+                <double>615.2840917627154</double>
               </entry>
               <entry>
                 <string>heading</string>
@@ -3342,15 +3342,15 @@
             </tagSet>
             <events>
               <entry>
-                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                 <list>
-                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.Collision reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                <engine.Conditions.BeginStep reference="../../../../engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                 <list>
-                  <engine.Actions.Destroy reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                  <engine.Actions.Move reference="../../../../../engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                 </list>
               </entry>
             </events>
@@ -3380,7 +3380,7 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>475.52948485041605</height>
+            <height>430.5681835254308</height>
             <uniqueID>0</uniqueID>
           </engine.GameObject>
         </worldObjects>
@@ -3536,15 +3536,15 @@
                 </tagSet>
                 <events>
                   <entry>
-                    <engine.Conditions.BeginStep reference="../../../../../../../worldObjects/engine.GameObject[2]/events/entry/engine.Conditions.BeginStep"/>
+                    <engine.Conditions.Collision reference="../../../../../../../worldObjects/engine.GameObject[2]/events/entry/engine.Conditions.Collision"/>
                     <list>
-                      <engine.Actions.Move reference="../../../../../../../../worldObjects/engine.GameObject[2]/events/entry/list/engine.Actions.Move"/>
+                      <engine.Actions.Destroy reference="../../../../../../../../worldObjects/engine.GameObject[2]/events/entry/list/engine.Actions.Destroy"/>
                     </list>
                   </entry>
                   <entry>
-                    <engine.Conditions.Collision reference="../../../../../../../worldObjects/engine.GameObject[2]/events/entry[2]/engine.Conditions.Collision"/>
+                    <engine.Conditions.BeginStep reference="../../../../../../../worldObjects/engine.GameObject[2]/events/entry[2]/engine.Conditions.BeginStep"/>
                     <list>
-                      <engine.Actions.Destroy reference="../../../../../../../../worldObjects/engine.GameObject[2]/events/entry[2]/list/engine.Actions.Destroy"/>
+                      <engine.Actions.Move reference="../../../../../../../../worldObjects/engine.GameObject[2]/events/entry[2]/list/engine.Actions.Move"/>
                     </list>
                   </entry>
                 </events>

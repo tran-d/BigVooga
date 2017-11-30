@@ -52,11 +52,14 @@ public class EngineTester extends Application {
 		//testData(stage);
 		//testImageCanvas(stage);
 		//testDrawer(stage);
+		generateGame();
+	}
+	
+	public void generateGame() {	
 		generateGame(new BoundedImage("testImage.png"));
 	}
 	
 	private void generateGame(BoundedImage i) {		
-		
 		GameObjectFactory blueprints = new GameObjectFactory();
 		GameObject obj1 = makeObject("Ob1", i, 200, 200, this::conditionAction1);
 		obj1.addTag("Ob1");
@@ -172,7 +175,7 @@ public class EngineTester extends Application {
 		obj.addConditionAction(new Collision(4, "Ob2"), actions1);
 	}
 	
-	private void testImageCanvas(Stage stage) {
+	public void testImageCanvas(Stage stage) {
 		Group g = new Group();
 		stage.setScene(new Scene(g));
 		ImageCanvas i = new ImageCanvas(()->GameDataHandler.chooseFileForImageSave(stage));

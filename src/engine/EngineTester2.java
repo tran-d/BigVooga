@@ -51,6 +51,10 @@ public class EngineTester2 extends Application {
 		//testData(stage);
 		//testImageCanvas(stage);
 		//testDrawer(stage);
+		generateGame();
+	}
+	
+	public void generateGame() {
 		generateGame(new BoundedImage("Smiley.png"));
 	}
 	
