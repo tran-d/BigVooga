@@ -43,7 +43,7 @@ public class SpriteManager extends TabPane implements Observer {
 		getParams();
 		createSprites();
 		createSpriteTabs();
-		this.setPrefWidth(110);
+		this.setPrefWidth(80);
 //		myUserSprites.getChildren().add(sp);
 //		makeSpriteDraggable(sp);
 
