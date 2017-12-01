@@ -148,6 +148,7 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 	public boolean addCategory(String category){
 		if (!categoryMap.containsKey(category)) {
 			categoryMap.put(category, new ArrayList<SpriteParameterI>());
+			System.out.println("Catgeory added: categoryMap is "+categoryMap);
 			return true;
 		}
 		return false;
@@ -301,14 +302,16 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 
 	@Override
 	public void updateCategoryName(String prev, String next) {
-		if (!next.equals(prev)){
+		
 			if (getParameters().containsKey(prev)){
+				if (!next.equals(prev)){
 				getParameters().put(next, getParameters().remove(prev));
-			} else {
+			} 
+		}
+			else {
 				this.addCategory(next);	
 			}
-		}
-		
+		System.out.println("updatecategories: " +this.categoryMap);
 		
 	}
 

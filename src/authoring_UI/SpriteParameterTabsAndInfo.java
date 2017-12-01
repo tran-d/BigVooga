@@ -63,7 +63,6 @@ public class SpriteParameterTabsAndInfo {
 
 	public void setSpriteObject(SpriteObject SO) {
 		mySO = SO;
-		clearTabPane();
 		create();
 	}
 
@@ -82,25 +81,30 @@ public class SpriteParameterTabsAndInfo {
 	public TabPane create() {
 		clearTabPane();
 		createFromSO(mySO);
-		addCreateCategoryTab();
+		createAddCategoryTab();
 		return getTabPane();
 	}
 
-	public TabPane create(SpriteObject SO) {
+	public void create(SpriteObject SO) {
 		setSpriteObject(SO);
-		return create();
+//		return create();
 	}
 	
 	public void createFromSO(SpriteObject SO) {
 		categoryCounter = 1;
+		this.catNames.clear();
 		HashMap<String, ArrayList<SpriteParameterI>> params = SO.getParameters();
-		
+		System.out.println(params);
 		for (Map.Entry<String, ArrayList<SpriteParameterI>> entry : params.entrySet()) {
+System.out.println("Loading entry");
 
 			String category = entry.getKey();
-		this.catNames.put(category, category);
+			System.out.println("Loading entry category: "+category);
+//		this.catNames.put(category, category);
 			ArrayList<SpriteParameterI> newParams = entry.getValue();
+			System.out.println("Loading entry val: "+newParams);
 			FEParameterFactory newFactory = new FEParameterFactory(newParams);
+			System.out.println("Loading entry");
 
 			addCategoryTab(category, newFactory);
 		}
@@ -114,7 +118,8 @@ public class SpriteParameterTabsAndInfo {
 	}
 
 	private void addEmptyCategoryTab() {
-		String category = String.format("Category%d", categoryCounter++);
+//		String category = String.format("Category%d", categoryCounter++);
+		String category = "Category1";
 		currentTab = new Tab(category);
 		currentTab.setContent(createEmptyCategoryVBox(category, currentTab));
 		currentTab.setClosable(false);
@@ -131,6 +136,7 @@ public class SpriteParameterTabsAndInfo {
 	}
 
 	private ScrollPane createStatePane(VBox temp) {
+		System.out.println("Creating statepane its null");
 		ScrollPane myStateSP_dummy = createEmptyScrollPane();
 		formatParametersVBox(temp);
 		myStateSP_dummy.setContent(temp);
@@ -147,7 +153,19 @@ public class SpriteParameterTabsAndInfo {
 	private HBox createCategoryName(String category, Tab parentTab){
 		HBox catNameHbox = new HBox();
 		Text cat = new Text("Category Name");
-		TextField catName = new TextField(category);
+		TextField catName = new TextField("");
+		int num = 1;
+		System.out.println("CATNAMES: "+catNames);
+		while (catNames.containsValue(category)){
+			System.out.println("In while, category: "+category);
+			category = String.format("Category%d", num++);
+			
+		}
+		System.out.println("Out of while, category: "+category);
+		catName.setText(category);
+		catNames.put(category, category);
+		parentTab.setText(category);
+		
 		catName.textProperty().addListener((observable, prev, next) -> {
 			String newText = next;
 			System.out.println("next cat name: "+ next);
@@ -157,25 +175,27 @@ public class SpriteParameterTabsAndInfo {
 				alert.setHeaderText("HEADER");
 				alert.setContentText("That category name already used: " + next);
 				alert.showAndWait();
-				newText = String.format("Category%d", categoryCounter);
+				
 //				newText
 //				catName.setText("");
 			}else {
-			if (catNames.containsValue(prev)){
+//			if (catNames.containsValue(prev)){
+//				catNames.containsValue(prev)
 				for (String key: catNames.keySet()){
 					if (catNames.get(key).equals(prev)){
 						catNames.put(key, next);
 					}
 				}
-			} else {
-			catNames.put(prev, next);
-			}
+//			} else {
+//			catNames.put(prev, next);
+//			}
 		
 //			mySO.changeCategoryName(prev, next);
 			}
 			parentTab.setText(newText);
 			catName.setText(newText);
 		});
+
 		catNameHbox.getChildren().addAll(cat, catName);
 		return catNameHbox;
 	}
@@ -265,7 +285,7 @@ public class SpriteParameterTabsAndInfo {
 		in.setPrefHeight(500);
 	}
 
-	private void addCreateCategoryTab() {
+	private void createAddCategoryTab() {
 		Tab newCategory = new Tab();
 		newCategory.setText("Add Category");
 		newCategory.setClosable(false);
@@ -287,15 +307,27 @@ public class SpriteParameterTabsAndInfo {
 			Tab t = tabs.get(i);
 			System.out.println(t.getText());
 			TabContentVBox TCV = (TabContentVBox) t.getContent();
-			String catName = TCV.getMyCategory();
+//			String catName = TCV.getMyCategory();
+			String catName = t.getText();
 			System.out.println("catName: "+catName);
-			if (catNames.containsKey(catName)){
-//				categoryCounter--;
-				String newCatName = catNames.get(catName);
-				t.setText(newCatName);
-				mySO.updateCategoryName(catName, newCatName);
+		
+			
+			if (catNames.containsValue(catName)){
+				for (String key: catNames.keySet()){
+					if (catNames.get(key).equals(catName)){
+						mySO.updateCategoryName(key, catName);
+					}
+				}
 			}
 			
+//			if (catNames.containsKey(catName)){
+////				categoryCounter--;
+//				String newCatName = catNames.get(catName);
+////				System.out.println("apply, newCatName: "+);
+////				t.setText(newCatName);
+//				mySO.updateCategoryName(catName, newCatName);
+//			}
+//			
 			
 			ScrollPane SP = null;
 			for (Node node: TCV.getChildren()){
