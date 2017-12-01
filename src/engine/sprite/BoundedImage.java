@@ -8,8 +8,10 @@ import engine.utilities.collisions.BoundingSet;
 import engine.utilities.collisions.RelativeBoundingGeometry;
 
 /**
+ * Represents an Image with relative bounds. 
+ * 
  * @author Ian Eldridge-Allegra
- *
+ * 
  */
 public class BoundedImage extends BoundingSet implements DisplayableImage{
 
