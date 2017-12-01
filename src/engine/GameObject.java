@@ -15,6 +15,10 @@ import engine.sprite.Sprite;
 import engine.utilities.collisions.CollisionEvent;
 
 /**
+ * The core of the game. Everything visible will be a GameObject. GameObjects have 2 paradigms:
+ * Variables are just named quantities unique to each instance of an object, such as names or coordinates.
+ * 
+ * Step() calls the Object's conditions and actions, which evaluate and modify its current state based on the conditions of the game.
  * 
  * @author Nikolas Bramblett, ...
  *
