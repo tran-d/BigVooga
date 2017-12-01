@@ -19,6 +19,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tools.DisplayLanguage;
 
+/**
+ * Class that allows user to select a game to play.
+ * 
+ * @author David, Samarth, Ian
+ *
+ */
 public class GameSelector extends MenuOptionsTemplate {
 
 	private static final String SELECTOR_PATH = "Selector.gif";
@@ -37,6 +43,14 @@ public class GameSelector extends MenuOptionsTemplate {
 	private ScrollPane contentPane;
 	private VBox entriesBox;
 
+	/**
+	 * Constructor that sets the scene
+	 * 
+	 * @param currentStage
+	 *            - stage that the game selector is displayed in
+	 * @param currentSceneController
+	 *            - scene that the game select is displayed in
+	 */
 	public GameSelector(Stage currentStage, SceneController currentSceneController) {
 		super(currentStage, currentSceneController);
 		createOptionScreen(SELECTOR_PATH, SELECTOR_WIDTH, SELECTOR_HEIGHT, HEADING_PADDING);
@@ -50,6 +64,9 @@ public class GameSelector extends MenuOptionsTemplate {
 		contentPane.setContent(entriesBox);
 	}
 
+	/**
+	 * Extracts names of user create games and creates an entry for each game
+	 */
 	public void createGameSelector() {
 
 		Set<String> gameSet = GameDataHandler.knownProjectsWithDateModified().keySet();
@@ -58,7 +75,8 @@ public class GameSelector extends MenuOptionsTemplate {
 		}
 	}
 
-	public HBox createTitleItem(String gameTitle) {
+	// creates an HBox for displaying the game title
+	private HBox createTitleItem(String gameTitle) {
 
 		HBox title = new HBox(new Label(gameTitle));
 		title.setAlignment(Pos.BASELINE_CENTER);
@@ -66,6 +84,7 @@ public class GameSelector extends MenuOptionsTemplate {
 		return title;
 	}
 
+	// creates an HBox for displaying buttons to play the game
 	private HBox createButtonPanel(String gameName) {
 
 		HBox buttonPanel = new HBox(ENTRY_SPACING);
@@ -78,6 +97,7 @@ public class GameSelector extends MenuOptionsTemplate {
 		return buttonPanel;
 	}
 
+	// creates a game controller to switch scenes and load the game
 	private void handleNewGame(String theGame) {
 		GameDisplay gameDisplay = sceneController.getDisplay();
 		try {
@@ -89,10 +109,12 @@ public class GameSelector extends MenuOptionsTemplate {
 		sceneController.switchScene(SceneController.GAME_DISPLAY_KEY);
 	}
 
+	// loads a game whose progress has been saved
 	private void handleContinueGame() {
-		// do stuff
+		//TODO 
 	}
 
+	// creates buttons to play the game
 	private Button createPlayGameButton(String text, EventHandler<ActionEvent> handler) {
 		Button btn = new Button();
 		btn.textProperty().bind(DisplayLanguage.createStringBinding(text));
@@ -100,18 +122,18 @@ public class GameSelector extends MenuOptionsTemplate {
 		return btn;
 	}
 
-	@SuppressWarnings("unchecked")
-	public void createGameEntry(String gameTitle) {
+	// creates a treeview that displays the game title and play buttons
+	private void createGameEntry(String gameTitle) {
 
 		TreeItem<HBox> title = new TreeItem<HBox>(createTitleItem(gameTitle));
 		TreeItem<HBox> buttons = new TreeItem<HBox>(createButtonPanel(gameTitle));
-		title.getChildren().addAll(buttons);
+		title.getChildren().add(buttons);
 		title.setExpanded(false);
 
 		TreeView<HBox> entry = new TreeView<HBox>(title);
 		entry.setOnMouseClicked(e -> resizeTree(title, entry));
-//		entry.setOnMouseEntered(e -> expandTree(title, entry));
-//		entry.setOnMouseExited(e -> collapseTree(title, entry));
+		// entry.setOnMouseEntered(e -> expandTree(title, entry));
+		// entry.setOnMouseExited(e -> collapseTree(title, entry));
 		entry.setPrefWidth(TREE_WIDTH);
 		entry.setPrefHeight(COLLAPSED_TREE_HEIGHT);
 		entry.getStylesheets().add(GameSelector.class.getResource("GameListStyle.css").toExternalForm());
@@ -119,17 +141,20 @@ public class GameSelector extends MenuOptionsTemplate {
 		entriesBox.getChildren().add(entry);
 	}
 
-	public void expandTree(TreeItem<HBox> title, TreeView<HBox> entry) {
+	// expands the treeview (unused for now)
+	private void expandTree(TreeItem<HBox> title, TreeView<HBox> entry) {
 		title.setExpanded(true);
 		entry.setPrefHeight(EXPANDED_TREE_HEIGHT);
 	}
-	
-	public void collapseTree(TreeItem<HBox> title, TreeView<HBox> entry) {
+
+	// collapses the treeview (unused for now)
+	private void collapseTree(TreeItem<HBox> title, TreeView<HBox> entry) {
 		title.setExpanded(false);
 		entry.setPrefHeight(COLLAPSED_TREE_HEIGHT);
 	}
 
-	public void resizeTree(TreeItem<HBox> title, TreeView<HBox> entry) {
+	// expands or collapses the treeview depending on its current state
+	private void resizeTree(TreeItem<HBox> title, TreeView<HBox> entry) {
 		if (entry.getExpandedItemCount() == 1) {
 			title.setExpanded(true);
 			entry.setPrefHeight(EXPANDED_TREE_HEIGHT);

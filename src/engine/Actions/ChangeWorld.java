@@ -12,6 +12,9 @@ import engine.Layer;
 
 /**
  * Currently non-functional.
+ * 
+ * @author aaronpaskin
+ * 
  */
 public class ChangeWorld implements Action {
 
