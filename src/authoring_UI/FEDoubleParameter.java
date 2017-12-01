@@ -49,7 +49,11 @@ public class FEDoubleParameter extends FEParameter {
 				displayErrorDialog(newValue, e);
 				newValue = "";
 			}
+			try{
 			myValue.setText(newValue);
+			} catch (Exception e){
+				System.out.println("The error");
+			}
 		});
 	}
 	

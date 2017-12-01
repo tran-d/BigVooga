@@ -3,6 +3,7 @@ package authoring;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map.Entry;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -10,7 +11,8 @@ import javafx.scene.image.ImageView;
 public class SpriteObject extends ImageView implements SpriteObjectI {
 
 	private HashMap<String, ArrayList<SpriteParameterI>> categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();
-//	private ImageView myImageView;
+	private HashMap<String, ArrayList<SpriteParameterI>> possibleCategoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();;
+	//	private ImageView myImageView;
 	private String myImageURL;
 	private Integer[] myPositionOnGrid;
 	private String myName;
@@ -142,15 +144,50 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 		addParameter("General", SP);
 
 	}
-
-	public void addParameter(String category, SpriteParameterI SP) {
+	
+	public boolean addCategory(String category){
 		if (!categoryMap.containsKey(category)) {
 			categoryMap.put(category, new ArrayList<SpriteParameterI>());
+			return true;
 		}
+		return false;
+	}
 
+	public void addParameter(String category, SpriteParameterI SP) {
+		addCategory(category);
 		ArrayList<SpriteParameterI> val = categoryMap.get(category);
 		val.add(SP);
 		categoryMap.put(category, val);
+	}
+	
+	public void addPossibleParameter(String category, SpriteParameterI SP) {
+		if (!possibleCategoryMap.containsKey(category)) {
+			possibleCategoryMap.put(category, new ArrayList<SpriteParameterI>());
+		}
+
+		ArrayList<SpriteParameterI> val = possibleCategoryMap.get(category);
+		val.add(SP);
+		possibleCategoryMap.put(category, val);
+	}
+	
+	public int acceptPossibleParameters(){
+		int ret = 0;
+		for (Entry<String, ArrayList<SpriteParameterI>> keyVal: possibleCategoryMap.entrySet()){
+			String key = keyVal.getKey();
+			ArrayList<SpriteParameterI> val = keyVal.getValue();
+			for (SpriteParameterI item: val){
+				boolean added = addCategory(key);
+				if (added){
+					ret+=1;
+				}
+				addParameter(key, item);
+			}
+		}
+		return ret;
+	}
+	
+	public void clearPossibleParameters(){
+		this.possibleCategoryMap.clear();
 	}
 
 	@Override
@@ -263,8 +300,16 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 	}
 
 	@Override
-	public void changeCategoryName(String prev, String next) {
-		getParameters().put(next, getParameters().remove(prev));
+	public void updateCategoryName(String prev, String next) {
+		if (!next.equals(prev)){
+			if (getParameters().containsKey(prev)){
+				getParameters().put(next, getParameters().remove(prev));
+			} else {
+				this.addCategory(next);	
+			}
+		}
+		
+		
 	}
 
 }

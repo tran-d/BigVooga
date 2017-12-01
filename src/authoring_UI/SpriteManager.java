@@ -136,10 +136,11 @@ public class SpriteManager extends TabPane implements Observer {
 			}
 			mySpriteObjs.add(SO);
 			try {
-				myGDH.saveDefaultSprite(SO);
+				throw new IOException("Dont break");
+//				myGDH.saveDefaultSprite(SO);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
 		}
 	}

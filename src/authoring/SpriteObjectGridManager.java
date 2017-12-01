@@ -72,6 +72,17 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 		}
 		return getGrid();
 	}
+	
+	private void setCell(SpriteObject SOI, Integer[] loc) {
+		System.out.println("Setcellwithpos: "+loc[0] + "," + loc[1]);
+		System.out.println("Setcellwithobject: "+SOI);
+		spriteGrid.get(loc[0]).set(loc[1], SOI);
+	}
+	
+	private void setCellAsDefault(Integer[] loc) {
+		
+		setCell(defaultEmptySprite.newCopy(), loc);
+	}
 
 	@Override
 	public ArrayList<SpriteParameterI> getSpriteParameters(ArrayList<Integer[]> row_col) {
@@ -86,7 +97,8 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 	@Override
 	public boolean switchCellActiveStatus(Integer[] makeActive){
 //		System.out.println(makeActive);
-		return changeCellActiveStatus(makeActive);
+		boolean ret = changeCellActiveStatus(makeActive);
+		return ret;
 	}
 	
 	@Override
@@ -117,6 +129,7 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 		for (Integer[] currentActive : activeCells){
 			System.out.println("curr active: " + currentActive[0]+" "+currentActive[1]);
 			if (Arrays.equals(currentActive, pos)){
+				this.getCell(pos).clearPossibleParameters();;
 				activeCells.remove(currentActive);
 				System.out.println("removed");
 				System.out.println("activeCells: " + activeCells);
@@ -147,6 +160,7 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 	public ArrayList<SpriteObject> getActiveSpriteObjects(){
 		ArrayList<SpriteObject> ret = new ArrayList<SpriteObject>();
 		for (Integer[] loc: activeCells){
+			System.out.println("Active cell: "+ loc[0]+"," + loc[1]);
 			ret.add(getCell(loc));
 		}
 		return ret;
@@ -164,16 +178,7 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 		}
 	}
 	
-	private void setCell(SpriteObject SOI, Integer[] loc) {
-		System.out.println("Setcellwithpos: "+loc);
-		System.out.println("Setcellwithobject: "+SOI);
-		spriteGrid.get(loc[0]).set(loc[1], SOI);
-	}
-	
-	private void setCellAsDefault(Integer[] loc) {
-		
-		setCell(defaultEmptySprite.newCopy(), loc);
-	}
+
 	
 	private SpriteObject getCell(Integer [] loc){
 		return spriteGrid.get(loc[0]).get(loc[1]);

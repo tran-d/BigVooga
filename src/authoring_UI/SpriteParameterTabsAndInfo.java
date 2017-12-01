@@ -11,12 +11,14 @@ import authoring.StringSpriteParameter;
 import javafx.collections.ObservableList;
 import javafx.geometry.Side;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -90,10 +92,13 @@ public class SpriteParameterTabsAndInfo {
 	}
 	
 	public void createFromSO(SpriteObject SO) {
+		categoryCounter = 1;
 		HashMap<String, ArrayList<SpriteParameterI>> params = SO.getParameters();
+		
 		for (Map.Entry<String, ArrayList<SpriteParameterI>> entry : params.entrySet()) {
 
 			String category = entry.getKey();
+		this.catNames.put(category, category);
 			ArrayList<SpriteParameterI> newParams = entry.getValue();
 			FEParameterFactory newFactory = new FEParameterFactory(newParams);
 
@@ -139,11 +144,23 @@ public class SpriteParameterTabsAndInfo {
 		return emptyVBox;
 	}
 
-	private HBox createCategoryName(String category, Tab parentTab) {
+	private HBox createCategoryName(String category, Tab parentTab){
 		HBox catNameHbox = new HBox();
 		Text cat = new Text("Category Name");
 		TextField catName = new TextField(category);
 		catName.textProperty().addListener((observable, prev, next) -> {
+			String newText = next;
+			System.out.println("next cat name: "+ next);
+			if(catNames.containsValue(next)){
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Error");
+				alert.setHeaderText("HEADER");
+				alert.setContentText("That category name already used: " + next);
+				alert.showAndWait();
+				newText = String.format("Category%d", categoryCounter);
+//				newText
+//				catName.setText("");
+			}else {
 			if (catNames.containsValue(prev)){
 				for (String key: catNames.keySet()){
 					if (catNames.get(key).equals(prev)){
@@ -153,7 +170,11 @@ public class SpriteParameterTabsAndInfo {
 			} else {
 			catNames.put(prev, next);
 			}
+		
 //			mySO.changeCategoryName(prev, next);
+			}
+			parentTab.setText(newText);
+			catName.setText(newText);
 		});
 		catNameHbox.getChildren().addAll(cat, catName);
 		return catNameHbox;
@@ -201,8 +222,9 @@ public class SpriteParameterTabsAndInfo {
 			String varName = String.format("%sParameter%d", type, varCount);
 
 			SpriteParameterI SPI = SpriteParameterFactory.makeParameter(varName, varValue);
-			mySO.addParameter(category, SPI);
+//			mySO.addParameter(category, SPI);
 
+			mySO.addPossibleParameter(category, SPI);
 			SP_Content.getChildren().add(FEParameterFactory.makeFEParameter(SPI));
 		});
 		
@@ -256,26 +278,29 @@ public class SpriteParameterTabsAndInfo {
 	}
 
 	public void apply() {
-
+		int categoriesAdded = mySO.acceptPossibleParameters();
+		categoryCounter -= categoriesAdded;
 		ObservableList<Tab> tabs = myTabPane.getTabs();
+		System.out.println("catNames : " + catNames);
 		for (int i=0;i<tabs.size()-1;i++) {
 			System.out.println(i);
 			Tab t = tabs.get(i);
 			System.out.println(t.getText());
 			TabContentVBox TCV = (TabContentVBox) t.getContent();
 			String catName = TCV.getMyCategory();
+			System.out.println("catName: "+catName);
 			if (catNames.containsKey(catName)){
+//				categoryCounter--;
 				String newCatName = catNames.get(catName);
 				t.setText(newCatName);
-				mySO.changeCategoryName(catName, newCatName);
-				
-				
+				mySO.updateCategoryName(catName, newCatName);
 			}
 			
 			
 			ScrollPane SP = null;
 			for (Node node: TCV.getChildren()){
 				if (node instanceof ScrollPane){
+					System.out.println("It's a scroll pane");
 					SP = (ScrollPane) node;
 				}
 				
@@ -285,6 +310,7 @@ public class SpriteParameterTabsAndInfo {
 			for (Node node : paramsVbox.getChildren()) {
 				System.out.println("Num: "+num++);
 				FEParameter FEP = (FEParameter) node;
+				System.out.println(FEP);
 				FEP.updateParameter();
 			}
 
