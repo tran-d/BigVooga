@@ -6,8 +6,6 @@ import engine.Layer;
 
 /**
  * 
- * NOTE: implement KeyPressed when implementing this condition.
- * 
  * @author aaronpaskin
  *
  */

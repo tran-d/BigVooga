@@ -6,6 +6,11 @@ import engine.Action;
 import engine.GameObject;
 import engine.Layer;
 
+/**
+ * 
+ * @author aaronpaskin
+ *
+ */
 public class ChangeStringList implements Action {
 
 	private String varName;
