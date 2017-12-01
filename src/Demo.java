@@ -1,12 +1,7 @@
-import java.util.ArrayList;
-import java.util.List;
-
-import engine.sprite.BoundedImage;
-import engine.testing.ActionConditionDemo;
-import engine.testing.EngineTester;
-import engine.testing.EngineTester2;
-import engine.testing.RPGDemo;
+import authoring.drawing.ImageCanvasPane;
 import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Demo extends Application {
@@ -22,10 +17,18 @@ public class Demo extends Application {
 	
 	@Override
 	public void start(Stage stage) throws Exception {
-		new EngineTester().generateGame();
-		new EngineTester2().generateGame();
-		new EngineTester().testImageCanvas(stage);
-		new ActionConditionDemo().generateGame();
-		new RPGDemo().generateGame();
+		testImageCanvas(stage);
+//		new EngineTester().generateGame();
+//		new EngineTester2().generateGame();
+//		new ActionConditionDemo().generateGame();
+//		new RPGDemo().generateGame();
+	}
+	
+	public void testImageCanvas(Stage stage) {
+		Group g = new Group();
+		stage.setScene(new Scene(g));
+		ImageCanvasPane p = new ImageCanvasPane(400, 400);
+		g.getChildren().add(p);
+		stage.show();
 	}
 }

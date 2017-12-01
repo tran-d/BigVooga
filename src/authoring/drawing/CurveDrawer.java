@@ -1,36 +1,18 @@
 package authoring.drawing;
+
 import javafx.geometry.Point2D;
-import javafx.scene.input.MouseEvent;
 
 /**
  * @author Ian Eldridge-Allegra
  */
-public class CurveDrawer extends DrawingTool {
+public class CurveDrawer extends SmoothDrawer {
+
 	public CurveDrawer(ImageCanvas canvas) {
 		super(canvas);
 	}
 
-	private Point2D lastLoc;
-	
-	private void mousePressed(MouseEvent e) {
-		lastLoc = point(e);
-		canvas.addLine(lastLoc, lastLoc);
-	}
-	
-	private void mouseDragged(MouseEvent e) {
-		canvas.addLine(lastLoc, point(e));
-		lastLoc = point(e);
-	}
-
 	@Override
-	public void use() {
-		canvas.setOnMousePressed(this::mousePressed);
-		canvas.setOnMouseDragged(this::mouseDragged);
-	}
-
-	@Override
-	public void drop() {
-		canvas.setOnMousePressed(null);
-		canvas.setOnMouseDragged(null);
+	protected void draw(Point2D lastLoc, Point2D point) {
+		canvas.drawLine(lastLoc, point);
 	}
 }

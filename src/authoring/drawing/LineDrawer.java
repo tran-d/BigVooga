@@ -22,14 +22,14 @@ public class LineDrawer extends DrawingTool{
 	}
 	
 	private void mouseReleased(MouseEvent e) {
-		canvas.addLine(lastLoc, point(e));
+		canvas.drawLine(lastLoc, point(e));
 	}
 
 	private void mouseDragged(MouseEvent e) {
-		canvas.remove(phantom);
+		canvas.getChildren().remove(phantom);
 		phantom = canvas.getLine(lastLoc, point(e));
 		phantom.setOpacity(PHANTOM_OPACITY);
-		canvas.addLine(phantom);
+		canvas.getChildren().add(phantom);
 	}
 	
 	@Override

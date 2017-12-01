@@ -1,55 +1,40 @@
 package authoring.drawing;
 
-import java.util.Iterator;
-
-import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Shape;
+import javafx.geometry.Point2D;
 
 /**
  * @author Ian Eldridge-Allegra
  *
  */
-public class EraserTool extends DrawingTool {
-
-	private Circle circle;
+public class EraserTool extends SmoothDrawer {
 	
 	public EraserTool(ImageCanvas canvas) {
 		super(canvas);
 	}
-
-	private void mouseDragged(MouseEvent e) {
-		handleCircle(e.getX(), e.getY());
-		Iterator<Line> it = canvas.getLines().iterator();
-		while(it.hasNext()) {
-			Line l = it.next();
-			if(Shape.intersect(l, circle).getBoundsInLocal().getWidth()>=0){
-				canvas.remove(l);
-				it.remove();
-			}
-		}
-	}
 	
-	private void handleCircle(double newX, double newY) {
-		canvas.remove(circle);
-		circle = new Circle(newX, newY, canvas.getStrokeWidth()/2);
-		circle.setFill(Color.WHITE);
-		circle.setStroke(Color.BLACK);
-		canvas.translate(circle);
-		canvas.add(circle);
+	private void handleCircle(Point2D newCenter) {
+		//canvas.eraseLine(new Point2D(circle.getCenterX(), circle.getCenterY()), newCenter);
+	}
+
+	private void eliminateCircle() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	protected void draw(Point2D lastLoc, Point2D point) {
+		canvas.eraseLine(lastLoc, point);
+		handleCircle(point);
 	}
 	
 	@Override
 	public void use() {
-		canvas.setOnMouseDragged(this::mouseDragged);
-		canvas.setOnMouseReleased(e->canvas.remove(circle));
+		super.use();
+		canvas.setOnMouseReleased(e-> eliminateCircle());
 	}
-	
+
 	@Override
 	public void drop() {
-		canvas.setOnMouseDragged(null);
+		super.drop();
 		canvas.setOnMouseReleased(null);
 	}
 }

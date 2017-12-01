@@ -1,94 +1,25 @@
 package authoring.drawing;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Supplier;
-
-import javax.imageio.ImageIO;
-
-import engine.VoogaException;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Point2D;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.ComboBox;
-import javafx.scene.image.WritableImage;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.transform.Rotate;
 
-/**
- * @author Ian Eldridge-Allegra
- *
- */
-public class ImageCanvas extends BorderPane {
-	private static final int MIN_HEIGHT = 400;
-	private static final int MIN_WIDTH = 400;
-	private static final Color DEFAULT_COLOR = Color.BLACK;
-	private static final int DEFAULT_STROKE_INDEX = 7;
-
-	private List<Line> lines = new ArrayList<>();
-	private ColorPicker colorPicker = new ColorPicker(DEFAULT_COLOR);
-	private ComboBox<Integer> strokeSelector;
-	private Integer[] strokes = { 3,4,5,6,7,8,9,10,11,12,14,16,18,20,22,24,26,30,36,48,64 };
-	private ComboBox<DrawingTool> toolSelector;
-	private DrawingTool[] knownTools = { new CurveDrawer(this), new LineDrawer(this), new EraserTool(this) };
+public class ImageCanvas extends Pane {
 	private DrawingTool currentTool;
-	private Supplier<File> fileLocation;
-	
-	public ImageCanvas(Supplier<File> fileLocation) {
-		setMinWidth(MIN_WIDTH);
-		setMinHeight(MIN_HEIGHT);
-		setMaxWidth(MIN_WIDTH);
-		setMaxHeight(MIN_HEIGHT);
-		setCenter(new Pane());
-		setTop(new FlowPane());
-		addToTop(colorPicker);
-		addToolSelector();
-		addStrokeSelector();
-		addSaveButton();
-		this.fileLocation = fileLocation;
+	private int stroke;
+	private Canvas canvas;
+
+	public ImageCanvas(double width, double height) {
+		canvas = new Canvas(width, height);
+		getChildren().add(canvas);
 	}
 
-	private void addSaveButton() {
-		Button b = new Button("Save");
-		b.setOnAction(e -> save(fileLocation.get()));
-		addToTop(b);
-	}
-
-	private void addToolSelector() {
-		toolSelector = new ComboBox<>();
-		toolSelector.getItems().addAll(knownTools);
-		toolSelector.setOnAction(e -> setTool(toolSelector.getValue()));
-		toolSelector.getSelectionModel().selectFirst();
-		setTool(toolSelector.getValue());
-		addToTop(toolSelector);
-	}
-	
-	private void addStrokeSelector() {
-		strokeSelector = new ComboBox<>();
-		strokeSelector.getItems().addAll(strokes);
-		strokeSelector.getSelectionModel().select(DEFAULT_STROKE_INDEX);
-		addToTop(strokeSelector);
-	}
-	
-	public int getStrokeWidth() {
-		return strokeSelector.getValue();
-	}
-
-	private void addToTop(Node n) {
-		((Pane) getTop()).getChildren().add(n);
-	}
-
-	private void setTool(DrawingTool tool) {
+	public void setTool(DrawingTool tool) {
 		if (currentTool != null)
 			currentTool.drop();
 		currentTool = tool;
@@ -96,57 +27,57 @@ public class ImageCanvas extends BorderPane {
 			tool.use();
 	}
 
-	public void translate(Node n) {
-		n.setTranslateX(-getCenter().getLayoutX());
-		n.setTranslateY(-getCenter().getLayoutY());
+	/**
+	 * From https://stackoverflow.com/questions/18260421/how-to-draw-image-rotated-on-javafx-canvas
+	 * 
+     * Sets the transform for the GraphicsContext to rotate around a pivot point.
+     *
+     * @param gc the graphics context the transform to applied to.
+     * @param angle the angle of rotation.
+     * @param px the x pivot coordinate for the rotation (in canvas coordinates).
+     * @param py the y pivot coordinate for the rotation (in canvas coordinates).
+     */
+	private void rotate(GraphicsContext gc, double angle, double px, double py) {
+        Rotate r = new Rotate(angle, px, py);
+        gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
+    }
+	
+	public void drawLine(Point2D lastLoc, Point2D point) {
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+		gc.save();
+		Point2D diff = point.subtract(lastLoc);
+		rotate(gc, Math.toDegrees(Math.atan2(diff.getY(), diff.getX())), lastLoc.getX(), lastLoc.getY());
+		gc.fillRoundRect(lastLoc.getX()-stroke/2, lastLoc.getY()-stroke/2, diff.magnitude()+stroke,
+				stroke, stroke, stroke);
+		gc.restore();
 	}
 	
-	public void add(Node n) {
-		((Pane) getCenter()).getChildren().add(n);
-	}
-
-	public void remove(Node n) {
-		((Pane) getCenter()).getChildren().remove(n);
-	}
-
-	public void addLine(Line line) {
-		lines.add(line);
-		add(line);
+	public void eraseLine(Point2D lastLoc, Point2D point) {
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+		Point2D diff = point.subtract(lastLoc);
+		gc.clearRect(lastLoc.getX()-stroke/2, lastLoc.getY()-stroke/2, diff.magnitude()+stroke,
+				stroke);
 	}
 	
-	public List<Line> getLines(){
-		return lines;
+	
+
+	public void setStroke(int strokeValue) {
+		stroke = strokeValue;
 	}
 
-	public void addLine(Point2D loc1, Point2D loc2) {
-		addLine(getLine(loc1, loc2));
+	public void setColor(Color c) {
+		canvas.getGraphicsContext2D().setFill(c);
 	}
 
-	public Line getLine(Point2D loc1, Point2D loc2) {
-		Line line = new Line(loc1.getX(), loc1.getY(), loc2.getX(), loc2.getY());
-		line.setStroke(colorPicker.getValue());
-		translate(line);
-		line.setStrokeWidth(getStrokeWidth());
-		line.setStrokeLineCap(StrokeLineCap.ROUND);
-		return line;
+	public Canvas getCanvas() {
+		return canvas;
 	}
 
-	//http://code.makery.ch/blog/javafx-2-snapshot-as-png-image/
-	public void save(File location) {
-		if(location==null)
-			return;
-		SnapshotParameters params = new SnapshotParameters();
-		params.setFill(Color.TRANSPARENT);
-		params.setViewport(centerView());
-		WritableImage image = getCenter().snapshot(params, null);
-		try {
-			ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", location);
-		} catch (IOException e) {
-			throw new VoogaException("IllegalFile", location.getAbsolutePath());
-		}
-	}
-
-	private Rectangle2D centerView() {
-		return new Rectangle2D(0-getCenter().getLayoutX(),((Pane) getTop()).getHeight(), getWidth(), getHeight()-((Pane) getTop()).getHeight());
+	public Line getLine(Point2D point1, Point2D point2) {
+		Line l = new Line(point1.getX(),point1.getY(),point2.getX(), point2.getY());
+		l.setStrokeWidth(stroke);
+		l.setStroke(canvas.getGraphicsContext2D().getFill());
+		l.setStrokeLineCap(StrokeLineCap.ROUND);
+		return l;
 	}
 }
