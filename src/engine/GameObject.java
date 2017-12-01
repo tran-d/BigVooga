@@ -108,8 +108,7 @@ public class GameObject extends VariableContainer {
 	}
 
 	/**
-	 * This is meant for the frontend to use for the purpose of placing a new
-	 * instance of an object into the world.
+	 * Setter for x and y Coordinates
 	 * 
 	 * @param x, y
 	 */
@@ -135,6 +134,10 @@ public class GameObject extends VariableContainer {
 		return doubleVars.get(HEADING);
 	}
 
+	/**
+	 * Compiles all priorities of Conditions into an iterable set. Used by Layer to call Events in proper order.
+	 * @return {Set<Integer>} priorities
+	 */
 	public Set<Integer> getPriorities() {
 		Set<Integer> priorities = new TreeSet<Integer>();
 		for (Condition c : events.keySet()) {
@@ -158,7 +161,7 @@ public class GameObject extends VariableContainer {
 	public void setSprite(Sprite set) {
 		currentSprite = set;
 	}
-
+	
 	public void addParameter(String name, Object o) throws VoogaException {
 		try {
 			getClass().getDeclaredMethod(
@@ -171,6 +174,7 @@ public class GameObject extends VariableContainer {
 	}
 
 	/**
+	 * Returns the current image of this Object.
 	 * @return BoundedImage
 	 */
 	public BoundedImage getImage() {
@@ -181,7 +185,10 @@ public class GameObject extends VariableContainer {
 		result.setSize(width, height);
 		return result;
 	}
-
+	
+	/**
+	 * Creates a new instance of this game object, which has the same values (but can take new values)
+	 */
 	public GameObject clone() {
 		GameObject copy = new GameObject(name);
 		copy.setCoords(doubleVars.get(X_COR), doubleVars.get(Y_COR));
