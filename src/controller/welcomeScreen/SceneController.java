@@ -3,7 +3,7 @@ package controller.welcomeScreen;
 import java.util.HashMap;
 import java.util.Map;
 
-import authoring_UI.MapManager;
+import authoring_UI.MainAuthoringGUI;
 import gui.player.GameDisplay;
 import gui.welcomescreen.GameSelector;
 import gui.welcomescreen.Learn;
@@ -50,8 +50,9 @@ public class SceneController {
 		scene = gameSelector.getScene();
 		sceneMap.put(GAME_SELECTOR_KEY, scene);
 		
-		MapManager mapManager = new MapManager(stage, this);
-		scene = mapManager.getScene();
+		MainAuthoringGUI authoringGUI = new MainAuthoringGUI(stage, this);
+		authoringGUI.createAuthoringGUI();
+		scene = authoringGUI.getScene();
 		sceneMap.put(CREATE_KEY, scene);
 		
 		Learn learn = new Learn(stage, this);

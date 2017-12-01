@@ -8,21 +8,28 @@ import controller.welcomeScreen.SceneController;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class MapManager extends TabPane {
+public class MainAuthoringGUI{
 	
 	private Stage stage;
 	private Scene scene;
 	private SceneController sceneController;
+	private BorderPane rootPane;
 	private SingleSelectionModel<Tab> mySelectModel;
+	private TabPane mapManager;
 	private Tab currentTab;
 	private Tab addTab;
+	private ToolBar toolBar;
+	
 	private AuthoringEnvironmentManager myAEM;
 	private SpriteObjectGridManagerI mySOGM;
 	private SpriteManager mySprites;
@@ -30,21 +37,61 @@ public class MapManager extends TabPane {
 	private final String addTabString = "+";
 	
 	private int myTabCount = 1;
-	private static final String TABTAG = "map ";
+	private MenuButton fileOptions;
+	private MenuButton settings;
 	
+	private static final String TABTAG = "map ";
 
-	public MapManager(Stage currentStage, SceneController currentSceneController) {
+	public MainAuthoringGUI(Stage currentStage, SceneController currentSceneController) {
 		
 		stage = currentStage;
+		rootPane = new BorderPane();
+		scene = new Scene(rootPane, WelcomeScreen.WIDTH, WelcomeScreen.HEIGHT);
 		sceneController = currentSceneController;
-		scene = new Scene(this, WelcomeScreen.WIDTH, WelcomeScreen.HEIGHT);
+
+	}
+	
+	public void createAuthoringGUI() {
+		mapManager = new TabPane();
+		mySelectModel = mapManager.getSelectionModel();
+		setTab();
+		createToolBar();
+		rootPane.setTop(toolBar);
+		rootPane.setCenter(mapManager);
+	}
+	
+	private void createToolBar() {
 		
-		mySelectModel = this.getSelectionModel();
-		setTab();	
+		createFileOptions();
+		createSettings();
+		
+		toolBar = new ToolBar(
+				fileOptions,
+				settings
+				);
+		
+	}
+	
+	private void createFileOptions() {
+		
+		MenuItem save = new MenuItem("Save");
+		//TODO save.setOnAction(e -> ());
+
+		fileOptions = new MenuButton ("File", null, save);
+		
+	}
+	
+	private void createSettings() {
+		
+		MenuItem language = new MenuItem("Language");
+		//TODO language.setOnAction(e -> ());
+
+		settings = new MenuButton ("Settings", null, language);
+		
 	}
 	
 	private void setTab() {
-		this.setSide(Side.TOP);
+		mapManager.setSide(Side.TOP);
 		addTab = new Tab();
 		addTab.setClosable(false);
 		addTab.setText(addTabString);
@@ -52,7 +99,7 @@ public class MapManager extends TabPane {
 			createTab(myTabCount);
 			mySelectModel.select(currentTab);
 		});
-		this.getTabs().add(addTab);
+		mapManager.getTabs().add(addTab);
 	}
 
 	private HBox setupScene() {
@@ -100,13 +147,13 @@ public class MapManager extends TabPane {
 		String tabName = TABTAG + Integer.toString(tabCount);
 		currentTab.setText(tabName);
 		currentTab.setContent(setupScene());
-		this.getTabs().add(this.getTabs().size() - 1, currentTab);
+		mapManager.getTabs().add(mapManager.getTabs().size() - 1, currentTab);
 		myTabCount++;
 	}
 	
 	private ArrayList<AuthoringMapEnvironment> getAllMapEnvironments(){
 		ArrayList<AuthoringMapEnvironment> allMaps = new ArrayList<AuthoringMapEnvironment>();
-		for (Tab t: this.getTabs()) {
+		for (Tab t: mapManager.getTabs()) {
 			if (!t.getText().equals(addTabString)){
 				AuthoringMapEnvironment AME = (AuthoringMapEnvironment) t.getContent();
 				allMaps.add(AME);
@@ -116,4 +163,14 @@ public class MapManager extends TabPane {
 
 	
 	}
+	
+	/**
+	 * Gets the scene for initialization in SceneController.
+	 * 
+	 * @return the authoring gui scene
+	 */
+	public Scene getScene() {
+		return scene;
+	}
+	
 }
