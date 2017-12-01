@@ -5,6 +5,11 @@ import engine.GameObject;
 import engine.Layer;
 import javafx.geometry.Point2D;
 
+/**
+ * 
+ * @author aaronpaskin
+ *
+ */
 public class RemoveIntersection implements Action {
 	
 	@Override

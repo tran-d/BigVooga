@@ -6,6 +6,11 @@ import engine.Action;
 import engine.GameObject;
 import engine.Layer;
 
+/**
+ * 
+ * @author aaronpaskin
+ *
+ */
 public class ChangeDoubleList implements Action {
 
 	private String varName;

@@ -1,5 +1,6 @@
 package engine.testing;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -58,20 +59,25 @@ public class EngineTester extends Application {
 		//testData(stage);
 		//testImageCanvas(stage);
 		//testDrawer(stage);
-		generateGame(new BoundedImage("testImage.png"));
+		generateGame();
 	}
 	
-	private void generateGame(BoundedImage i) {		
-		
+	public void generateGame() {	
+		generateGame("Test1", new BoundedImage("testImage.png"));
+	}
+	
+	public void generateGame(String name, BoundedImage i) {		
 		GameObjectFactory blueprints = new GameObjectFactory();
-		GameObject obj1 = makeObject("Ob1", i, 200, 200, this::conditionAction1);
+		GameObject obj1 = makeObject("Ob1", i, 120, 150, this::conditionAction1);
 		obj1.addTag("Ob1");
-		GameObject obj2 = makeObject("Ob2", i.clone(), 500, 200, this::conditionAction2);
+		GameObject obj2 = makeObject("Ob2", i.clone(), 350, 150, this::conditionAction2);
+		obj2.addTag("Ob2");
+		GameObject obj3 = makeObject("Ob3", i.clone(), 750, 500, this::conditionAction3);
 		
 		obj1.setDoubleVariable("xSpeed", -3);
 		obj1.setDoubleVariable("ySpeed", 0);
 		blueprints.addBlueprint(obj1);
-		obj2.addTag("Ob2");
+		
 		blueprints.addBlueprint(obj2);
 		GameLayer layer = new GameLayer("Layer");
 		GameObject obj = new GameObject();
@@ -93,6 +99,7 @@ public class EngineTester extends Application {
 
 		layer.addGameObject(obj1);
 		layer.addGameObject(obj2);
+		layer.addGameObject(obj3);
 		layer.setBlueprints(blueprints);
 		
 		GameWorld w = new GameWorld("World");
@@ -102,13 +109,13 @@ public class EngineTester extends Application {
 		master.addWorld(w);
 		master.setCurrentWorld("World");
 		try {
-			new GameDataHandler("Test1").saveGame(master);
+			new GameDataHandler(name).saveGame(master);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
 		try {
-			new GameDataHandler("Test1").loadGame().setCurrentWorld("World");
+			new GameDataHandler(name).loadGame().setCurrentWorld("World");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -148,6 +155,9 @@ public class EngineTester extends Application {
 		actions1.add(new Rotate(-1));
 		obj.addConditionAction(new KeyHeld(1,"Z"), actions1);
 		actions1 = new ArrayList<Action>();
+		actions1.add(new Rotate(1));
+		obj.addConditionAction(new KeyHeld(1,"X"), actions1);
+		actions1 = new ArrayList<Action>();
 		actions1.add(new ChangeDouble("xSpeed", -10, false));
 		obj.addConditionAction(new And(1, new KeyHeld(1, "Q"), new KeyHeld(1, "Space")), actions1);
 		actions1 = new ArrayList<Action>();
@@ -159,13 +169,12 @@ public class EngineTester extends Application {
 //		actions1 = new ArrayList<Action>();
 //		actions1.add(new RotateTo(0));
 //		obj.addConditionAction(new ScreenClickHeld(1), actions1);
-		actions1 = new ArrayList<Action>();
-		actions1.add(new RotateTo(25));
-		obj.addConditionAction(new DoubleGreaterThan(1, GameObject.X_COR, 300), actions1);
+//		actions1 = new ArrayList<Action>();
+//		actions1.add(new RotateTo(25));
+//		obj.addConditionAction(new DoubleGreaterThan(1, GameObject.X_COR, 300), actions1);
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Create("Ob2", 500, 500, 20));
 		obj.addConditionAction(new KeyPressed(1,"C"), actions1);
-
 	}
 	
 	private void conditionAction2(GameObject obj) {
@@ -173,9 +182,18 @@ public class EngineTester extends Application {
 		actions1.add(new RemoveIntersection());
 		obj.addConditionAction(new Collision(3, "Ob1"), actions1);
 		obj.addConditionAction(new Collision(4, "Ob2"), actions1);
+		obj.addConditionAction(new Collision(5, "Ob3"), actions1);
 	}
 	
-	private void testImageCanvas(Stage stage) {
+	private void conditionAction3(GameObject obj) {
+		List<Action> actions1 = new ArrayList<Action>();
+		actions1.add(new RemoveIntersection());
+		obj.addConditionAction(new Collision(3, "Ob1"), actions1);
+		obj.addConditionAction(new Collision(4, "Ob2"), actions1);
+		obj.addConditionAction(new Collision(5, "Ob3"), actions1);
+	}
+	
+	public void testImageCanvas(Stage stage) {
 		Group g = new Group();
 		stage.setScene(new Scene(g));
 		ImageCanvas i = new ImageCanvas(()->GameDataHandler.chooseFileForImageSave(stage));
@@ -187,9 +205,11 @@ public class EngineTester extends Application {
 		Group g = new Group();
 		Scene scene = new Scene(g);
 		stage.setScene(scene);
+		File f = new GameDataHandler("Bounds Test").addChosenFileToProject(new Stage());
+		System.out.println(f.getName());
 		Pane bpd = new BoundingPolygonCreator(
-				new Image(new GameDataHandler("Test1").addChosenFileToProject(new Stage()).toURI().toString()),
-				"testImage.png", i -> generateGame(i));
+				new Image(f.toURI().toString()),
+				f.getName(), i -> generateGame("Bounds Test",i));
 		g.getChildren().add(bpd);
 		stage.show();
 	}

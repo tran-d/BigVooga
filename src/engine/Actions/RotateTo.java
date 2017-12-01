@@ -4,6 +4,11 @@ import engine.Action;
 import engine.GameObject;
 import engine.Layer;
 
+/**
+ * 
+ * @author aaronpaskin
+ *
+ */
 public class RotateTo implements Action {
 
 	private double newHeading;

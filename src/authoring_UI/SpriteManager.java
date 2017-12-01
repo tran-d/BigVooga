@@ -119,7 +119,7 @@ public class SpriteManager extends TabPane implements Observer {
 		urls.add("brick.png");
 		urls.add("pikachu.png");
 		urls.add("water.png");
-
+		urls.add("Link.png");
 		double i = 10.0;
 		ArrayList<String> s = new ArrayList<String>();
 		s.add("hello");
@@ -142,6 +142,17 @@ public class SpriteManager extends TabPane implements Observer {
 				e.printStackTrace();
 			}
 		}
+		SpriteObject SO = new SpriteObject(urls.get(4));
+		ArrayList<SpriteParameterI> myParams = new ArrayList<SpriteParameterI>();
+		myParams.add(mySPF.makeParameter("canFight", true));
+		myParams.add(mySPF.makeParameter("health", 10));
+		myParams.add(mySPF.makeParameter("arrows", 10));
+		myParams.add(mySPF.makeParameter("name", s.get(0)));
+		myParams.add(mySPF.makeParameter("stamina", 50));
+		for (SpriteParameterI SP: myParams){
+			SO.addParameter(SP);
+		}
+		mySpriteObjs.add(SO);
 	}
 
 	private void createSpriteTabs() {

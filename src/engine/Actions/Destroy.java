@@ -4,6 +4,11 @@ import engine.Action;
 import engine.GameObject;
 import engine.Layer;
 
+/**
+ * 
+ * @author aaronpaskin
+ *
+ */
 public class Destroy implements Action {
 
 	private String objectToDestroy;

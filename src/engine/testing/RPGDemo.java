@@ -56,6 +56,10 @@ public class RPGDemo extends Application {
 		generateGame(new BoundedImage("skeptical.jpg"));
 	}
 	
+	public void generateGame() {
+		generateGame(new BoundedImage("skeptical.jpg"));
+	}
+	
 	private void generateGame(BoundedImage i) {		
 		
 		GameObjectFactory blueprints = new GameObjectFactory();
