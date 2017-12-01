@@ -82,7 +82,11 @@
   </accessibleRole>
   <image class="javafx.scene.image.ImageView$1">
     <value class="javafx.scene.image.Image">
+<<<<<<< HEAD
       <url>file:/C:/Users/Samarth/eclipse-workspace/Compsci_308/voogasalad_bigvooga/bin/water.png</url>
+=======
+      <url>file:/C:/Users/nikbr/Desktop/eclipse/My_Workspace/voogasalad_bigvooga/bin/water.png</url>
+>>>>>>> 3da45ac4b7b7149f2969279bcb9f07ea64c26206
       <progress>
         <value>1.0</value>
         <valid>true</valid>
