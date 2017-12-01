@@ -73,7 +73,7 @@ public class MapManager extends TabPane {
 	}
 	
 	private void setupFEAuthClasses() {
-		Menu myMenu = new Menu(myAEM, this);
+		Menu myMenu = new Menu(myAEM, this, sceneController);
 		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, myMenu, mySOGM);
 		DraggableGrid myGrid = new DraggableGrid(mySpriteGridHandler);
 		mySprites = new SpriteManager(mySpriteGridHandler, myAEM, mySOGM);

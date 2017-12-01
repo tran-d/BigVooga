@@ -30,7 +30,6 @@ public class SceneController {
 	private Map<String, Scene> sceneMap = new HashMap<String, Scene>() ;
 	private Stage stage;
 	private Scene scene;
-	private GameDisplay gameDisplay;
 	
 	/**
 	 * Initializes all the scenes and puts them in the sceneMap.
@@ -50,11 +49,6 @@ public class SceneController {
 		gameSelector.createGameSelector();
 		scene = gameSelector.getScene();
 		sceneMap.put(GAME_SELECTOR_KEY, scene);
-		
-		gameDisplay = new GameDisplay(stage, this);
-		gameDisplay.createGameDisplay();
-		scene = gameDisplay.getScene();
-		sceneMap.put(GAME_DISPLAY_KEY, scene);
 		
 		MapManager mapManager = new MapManager(stage, this);
 		scene = mapManager.getScene();
@@ -80,9 +74,5 @@ public class SceneController {
 	public void switchScene (String key) {
 		stage.setScene(sceneMap.get(key));
 		
-	}
-	
-	public GameDisplay getDisplay() {
-		return gameDisplay;
 	}
 }

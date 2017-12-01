@@ -172,6 +172,10 @@ public class ActionConditionDemo extends Application {
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Rotate(-1));
 		obj.addConditionAction(new DoubleGreaterThan(1, GameObject.X_COR, 750), actions1);
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Move(-3, 0));
+		actions1.add(new Rotate(1));
+		obj.addConditionAction(new KeyHeld(1, "A"), actions1);
 	}
 	
 	private void conditionAction2(GameObject obj) {
