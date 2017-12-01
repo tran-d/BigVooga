@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObjectGridManagerI;
-import default_pkg.SceneController;
+import controller.welcomeScreen.SceneController;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.geometry.Side;
 import javafx.scene.Scene;

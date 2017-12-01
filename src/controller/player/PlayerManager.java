@@ -1,4 +1,4 @@
-package player;
+package controller.player;
 
 import java.util.HashSet;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.Set;
 
 import engine.EngineController;
 import engine.sprite.DisplayableImage;
+import gui.player.GameDisplay;
 import javafx.scene.input.KeyCode;
 
 /**

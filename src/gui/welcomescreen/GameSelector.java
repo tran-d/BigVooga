@@ -1,11 +1,11 @@
-package player;
+package gui.welcomescreen;
 
 import java.io.FileNotFoundException;
 import java.util.Set;
 
-import default_pkg.SceneController;
+import controller.player.GameController;
+import controller.welcomeScreen.SceneController;
 import engine.utilities.data.GameDataHandler;
-import gui.welcomescreen.MenuOptionsTemplate;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;

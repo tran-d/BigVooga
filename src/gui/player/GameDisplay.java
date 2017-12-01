@@ -1,9 +1,10 @@
-package player;
+package gui.player;
 
 import java.net.URISyntaxException;
 import java.util.List;
 
-import default_pkg.SceneController;
+import controller.player.PlayerManager;
+import controller.welcomeScreen.SceneController;
 import engine.sprite.DisplayableImage;
 import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.WelcomeScreen;

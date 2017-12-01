@@ -1,10 +1,11 @@
-package player;
+package controller.player;
 
 import java.io.FileNotFoundException;
 
-import default_pkg.SceneController;
+import controller.welcomeScreen.SceneController;
 import engine.EngineController;
 import engine.utilities.data.GameDataHandler;
+import gui.player.GameDisplay;
 import javafx.stage.Stage;
 
 /**
@@ -39,6 +40,7 @@ public class GameController {
 		
 		playerManager = new PlayerManager();
 		gameDisplay = new GameDisplay(stage, sceneController);
+		stage.setScene(gameDisplay.getScene());
 		gameDataHandler = new GameDataHandler(projectName);
 		playerManager.setDisplay(gameDisplay);
 		gameDisplay.setPlayerManager(playerManager);

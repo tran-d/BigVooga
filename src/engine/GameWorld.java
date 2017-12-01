@@ -3,7 +3,7 @@ package engine;
 import java.util.ArrayList;
 import java.util.List;
 
-import player.PlayerManager;
+import controller.player.PlayerManager;
 
 public class GameWorld {
 	

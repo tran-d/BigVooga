@@ -1,20 +1,20 @@
-package default_pkg;
+package controller.welcomeScreen;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import authoring_UI.MapManager;
+import gui.player.GameDisplay;
+import gui.welcomescreen.GameSelector;
 import gui.welcomescreen.Learn;
 import gui.welcomescreen.Settings;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import player.GameDisplay;
-import player.GameSelector;
 
 /**
- * Stores all the scenes in the program, and allows them to be accessible by a map. This ensures that only one instance of each scene is created,
- * so the states of the scenes can be passed around effectively.
+ * Stores all the scenes accessed by the welcome screen, and allows them to be accessible by a map. This ensures that only one instance of
+ * each of these scenes is created, so the states of the scenes can be passed around effectively.
  * @author Samarth Desai
  *
  */
