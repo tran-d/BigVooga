@@ -84,11 +84,11 @@ public class GameSelector extends MenuOptionsTemplate {
 		try {
 			GameController gameController = new GameController(stage, theGame, sceneController);
 		} catch (FileNotFoundException e) {
+			System.out.println("Alert");
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setContentText(e.getMessage());
 			alert.showAndWait();
 		}
-		sceneController.switchScene(SceneController.GAME_DISPLAY_KEY);
 	}
 
 	private void handleContinueGame() {
