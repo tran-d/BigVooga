@@ -9,6 +9,8 @@ import gui.welcomescreen.MenuOptionsTemplate;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -78,14 +80,13 @@ public class GameSelector extends MenuOptionsTemplate {
 		return buttonPanel;
 	}
 
-	private void handleNewGame(String theGame) {
-		GameDisplay gameDisplay = sceneController.getDisplay();
-		gameDisplay.getPane().getChildren().clear();
+	private void handleNewGame(String theGame) {		
 		try {
-			GameController gameController = new GameController(stage, theGame, gameDisplay);
+			GameController gameController = new GameController(stage, theGame, sceneController);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
 		}
 		sceneController.switchScene(SceneController.GAME_DISPLAY_KEY);
 	}
