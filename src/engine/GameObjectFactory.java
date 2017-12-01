@@ -13,6 +13,9 @@ public class GameObjectFactory {
 		originals = new HashMap<String, GameObject>();
 	}
 	
+	/**
+	 * Adds an object template to the GameObjectFactory, which allows it to be cloned for future use.
+	 */
 	public void addBlueprint(GameObject obj) {
 		originals.put(obj.getName(), obj.clone());
 	}

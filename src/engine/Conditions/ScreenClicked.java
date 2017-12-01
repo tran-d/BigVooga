@@ -6,8 +6,6 @@ import engine.Layer;
 
 /**
  * 
- * NOTE: implement ClickReleased when implementing this condition.
- * 
  * @author aaronpaskin
  *
  */

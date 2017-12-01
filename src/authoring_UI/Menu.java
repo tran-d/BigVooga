@@ -3,34 +3,29 @@ package authoring_UI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.Optional;
+import java.util.ResourceBundle;
+
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObject;
 import authoring.SpriteParameterI;
 import authoring_actionconditions.ActionConditionTab;
-import authoring_actionconditions.ControllerActionCheckBoxVBox;
 import authoring_actionconditions.ControllerConditionActionTabs;
+import default_pkg.SceneController;
 import javafx.geometry.Side;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.RowConstraints;
-import javafx.stage.Stage;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class Menu extends VBox {
 	
+	private SceneController sceneController;
+	private Button myBack;
 	private Button myLoad;
 	private Button mySave;
 	private AuthoringEnvironmentManager myAEM;
@@ -48,10 +43,11 @@ public class Menu extends VBox {
 	
 	public static final ResourceBundle conditionActionTitles = ResourceBundle.getBundle(ACTIONCONDITIONTITLES_PATH);
 	
-	protected Menu(AuthoringEnvironmentManager AEM, MapManager myManager) {
+	protected Menu(AuthoringEnvironmentManager AEM, MapManager myManager, SceneController currentSceneController) {
 		mySPTAI = new SpriteParameterTabsAndInfo();
 		myAEM = AEM;
 		myMapManager = myManager;
+		sceneController = currentSceneController;
 		setUpMenu();
 
 	}
@@ -106,13 +102,20 @@ public class Menu extends VBox {
 
 	private void createButtons() {
 		HBox myButtons = new HBox();
+		myBack = createBack();
 		myLoad = new Button(LOAD);
 		mySave = new Button(SAVE);
-		myButtons.getChildren().addAll(myLoad, mySave);
+		myButtons.getChildren().addAll(myBack, myLoad, mySave);
 		buttonInteraction();
 
 		this.getChildren().add(myButtons);
 
+	}
+	
+	private Button createBack() {
+		Button back = new Button("Back");
+		back.setOnMouseClicked(e -> sceneController.switchScene(SceneController.WELCOME_SCREEN_KEY));
+		return back;
 	}
 	
 	private void createActionConditionTabs() {

@@ -5,6 +5,11 @@ import java.util.List;
 
 import player.PlayerManager;
 
+/**
+ * Holds Layers, which hold GameObjects. An Example of a GameWorld would be a tavern room or a dark forest.
+ * @author Nikolas Bramblett, ...
+ *
+ */
 public class GameWorld {
 	
 	private List<GameLayer> worldLayers;
@@ -33,6 +38,9 @@ public class GameWorld {
 		return worldName.equals(name);
 	}
 
+	/**
+	 * Calls step() on each layer
+	 */
 	public void step() {
 		for(GameLayer l: worldLayers)
 			l.step();

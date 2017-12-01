@@ -6,8 +6,6 @@ import engine.Layer;
 
 /**
  * 
- * NOTE: implement KeyReleased when implementing this condition
- * 
  * @author aaronpaskin
  *
  */
