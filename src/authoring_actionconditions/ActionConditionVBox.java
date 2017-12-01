@@ -31,7 +31,7 @@ public class ActionConditionVBox extends VBox implements ActionConditionVBoxI{
 	}
 
 	@Override
-	public void addConditionAction(String label,ObservableList<Integer> currentActions) {
+	public void addCondition(String label,ObservableList<Integer> currentActions) {
 		ActionConditionRow actionConditionRow = new ActionConditionRow(rows.size() + 1,label,selectorLabel,isConditionVBox, currentActions);
 		rows.add(actionConditionRow);
 		getChildren().add(actionConditionRow);

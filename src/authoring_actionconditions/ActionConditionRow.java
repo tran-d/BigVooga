@@ -9,6 +9,20 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.ToolBar;
 
+/**
+ * ActionConditionRow
+ * purpose--in each action/condition tab, there is a list of actions or conditions that a user can add. These rows contain all of the information that 
+ * the user can add for each action or condition.
+assumptions--an actioncheckboxvbox is added to an action tab, which is shouldn't be. It should only be added to condition tab since conditions select 
+which actions they cause
+dependencies--depends on the choiceboxvbox class to instantiate itself and present choices to the user
+an example of how to use it--pass in ID (row #), label (for the label of specific action or condition), selector Label (to further select the action or 
+condition that the user wants), if it is a conditionRow, and the new potential list of actionOptions
+any other details users should know--condition and action rows only differ between in that condition rows have an actioncheckboxvbox
+ * @author Owen Smith
+ *
+ */
+
 public class ActionConditionRow extends ToolBar {
 	
 	private static final String ACTIONCONDITION_RESOURCE_PATH = "TextResources/ActionConditionVBoxResources";
