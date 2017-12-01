@@ -6,6 +6,11 @@ import engine.Layer;
 import engine.utilities.collisions.CollisionEvent;
 import javafx.geometry.Point2D;
 
+/**
+ * 
+ * @author aaronpaskin
+ *
+ */
 public class Collision extends Condition {
 
 	private String tag;

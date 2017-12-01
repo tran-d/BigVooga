@@ -18,7 +18,7 @@ public interface SpriteObjectI {
 	void setPositionOnGrid(Integer[] pos);
 	String getName();
 	void setName(String name);
-	void changeCategoryName(String prev, String next);
+	void updateCategoryName(String prev, String next);
 	
 }
 

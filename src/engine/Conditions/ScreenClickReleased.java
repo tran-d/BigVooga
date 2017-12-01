@@ -6,8 +6,6 @@ import engine.Layer;
 
 /**
  * 
- * NOTE: implement Clicked when implementing this condition.
- * 
  * @author aaronpaskin
  *
  */

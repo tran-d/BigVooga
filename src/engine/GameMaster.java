@@ -12,7 +12,7 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 
 /**
- * 
+ * Controls the game flow, and passes game info to PlayerManager.
  * @author Nikolas Bramblett, ...
  *
  */
@@ -35,7 +35,11 @@ public class GameMaster implements EngineController{
 		
 		globalVars = new GlobalVariables();
 	}
-
+	
+	
+	/**
+	 * Begins the gameloop, will continue until stop() is called.
+	 */
 	@Override
 	public void start() {
 		gameLoop = new Timeline();
@@ -44,17 +48,13 @@ public class GameMaster implements EngineController{
 		gameLoop.getKeyFrames().add(frame);
 		gameLoop.play();
 	}
+	/**
+	 * Ends Gameloop
+	 */
 	public void stop() {
 		if(gameLoop != null)
 			gameLoop.stop();
 		gameLoop = null;
-	}
-
-	//Not sure we really need this
-	@Override
-	public void addListener(Runnable listener) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -64,6 +64,10 @@ public class GameMaster implements EngineController{
 		madeWorlds.add(w);
 	}
 	
+	/** 
+	 * Sets which world will be displayed in Manager and be affected by the GameLoop.
+	 * @param {String} s- Name of the world being set as current.
+	 */
 	@Override
 	public void setCurrentWorld(String s) {
 		// TODO Auto-generated method stub

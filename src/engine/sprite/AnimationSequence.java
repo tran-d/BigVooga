@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * A sequence of BoundedImages that loops.
+ * 
  * @author Ian Eldridge-Allegra
  *
  */
@@ -21,23 +23,32 @@ public class AnimationSequence{
 		return name;
 	}
 
+	/**
+	 * Move to the next image
+	 */
 	public void increment() {
 		imageIndex++;
 		if(imageIndex >= images.size())
 			reset();
 	}
 	
+	/**
+	 * Move to the first image
+	 */
 	public void reset() {
 		imageIndex = 0;
 	}
 
+	/**
+	 * @return The BoundedImage of the current frame
+	 */
 	public BoundedImage getImage() {
 		return images.get(imageIndex);
 	}
 	
 	public AnimationSequence clone()
 	{
-		List<BoundedImage> clones = new ArrayList();
+		List<BoundedImage> clones = new ArrayList<>();
 		for(BoundedImage i : images)
 		{
 			clones.add(i.clone());
