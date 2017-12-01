@@ -61,7 +61,7 @@ public class GameDisplay {
 	}
 	
 	private void leaveGame() {
-		sceneController.switchScene(SceneController.WELCOME_SCREEN_KEY);
+		sceneController.switchScene(SceneController.GAME_SELECTOR_KEY);
 		playerManager.stop();
 	}
 	
