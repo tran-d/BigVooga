@@ -1,8 +1,8 @@
 ## External API Engine: 
 
-Additional Classes:
+### Additional Classes:
 
-### class OperationFactory
+class OperationFactory
 
    Operation makeOperation(String operationName, Object... parameters)
 
@@ -10,7 +10,7 @@ Additional Classes:
 
    List(String) getOperations(String operationType)
    
-### class ActionFactory
+class ActionFactory
 
    List(String) getCategories()
    
@@ -19,4 +19,18 @@ Additional Classes:
    Action makeAction(String actionName, Object... parameters)
    
    List(String) getParameters(String actionName)
+   
+class GameLayer
+
+   Replaces GameWorld, which now just holds layers
+
+### Changes to Existing
+
+class GameWorld
+
+   Now holds Layers
+
+   void addLayer(GameLayer layer)
+   
+   void addGlobalVars(GlobalVariables gvs)
    
