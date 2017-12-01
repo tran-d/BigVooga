@@ -83,7 +83,7 @@ public class GameDisplay {
 	 * Acts when the back button is selected, and changes scenes to the welcome screen while also stopping the engine controller.
 	 */
 	private void leaveGame() {
-		sceneController.switchScene(SceneController.WELCOME_SCREEN_KEY);
+		sceneController.switchScene(SceneController.GAME_SELECTOR_KEY);
 		playerManager.stop();
 	}
 	
