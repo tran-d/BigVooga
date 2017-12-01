@@ -60,6 +60,10 @@ public class SpriteSelectPanel extends VBox {
         mySGH.addSpriteMouseClick(SO);
 	}
 	
+	public void addNewSprite(SpriteObject SO){
+		
+	}
+	
 	public void addNewDefaultSprite(SpriteObject SO, int spriteLocation) {
 		SpriteObject newSO = SO.newCopy();
 		this.getChildren().add(spriteLocation, newSO);
