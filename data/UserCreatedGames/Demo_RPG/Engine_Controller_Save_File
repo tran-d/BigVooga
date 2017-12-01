@@ -43,12 +43,72 @@
               <entry>
                 <engine.Conditions.KeyHeld>
                   <priorityNum>0</priorityNum>
+                  <check>Right</check>
+                </engine.Conditions.KeyHeld>
+                <list>
+                  <engine.Actions.Move>
+                    <xIncrement>3.0</xIncrement>
+                    <yIncrement>0.0</yIncrement>
+                  </engine.Actions.Move>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>0</priorityNum>
+                  <check>Left</check>
+                </engine.Conditions.KeyHeld>
+                <list>
+                  <engine.Actions.Move>
+                    <xIncrement>-3.0</xIncrement>
+                    <yIncrement>0.0</yIncrement>
+                  </engine.Actions.Move>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.And>
+                  <priorityNum>1</priorityNum>
+                  <condition1 class="engine.Conditions.KeyPressed">
+                    <priorityNum>1</priorityNum>
+                    <check>Space</check>
+                  </condition1>
+                  <condition2 class="engine.Conditions.Not">
+                    <priorityNum>1</priorityNum>
+                    <condition class="engine.Conditions.Collision">
+                      <priorityNum>1</priorityNum>
+                      <tag>Solid</tag>
+                    </condition>
+                  </condition2>
+                </engine.Conditions.And>
+                <list>
+                  <engine.Actions.Create>
+                    <name>Empty</name>
+                    <x>272.0</x>
+                    <y>640.0</y>
+                    <heading>0.0</heading>
+                  </engine.Actions.Create>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>0</priorityNum>
                   <check>Down</check>
                 </engine.Conditions.KeyHeld>
                 <list>
                   <engine.Actions.Move>
                     <xIncrement>0.0</xIncrement>
                     <yIncrement>3.0</yIncrement>
+                  </engine.Actions.Move>
+                </list>
+              </entry>
+              <entry>
+                <engine.Conditions.KeyHeld>
+                  <priorityNum>0</priorityNum>
+                  <check>Up</check>
+                </engine.Conditions.KeyHeld>
+                <list>
+                  <engine.Actions.Move>
+                    <xIncrement>0.0</xIncrement>
+                    <yIncrement>-3.0</yIncrement>
                   </engine.Actions.Move>
                 </list>
               </entry>
@@ -81,15 +141,12 @@
                 </list>
               </entry>
               <entry>
-                <engine.Conditions.KeyHeld>
-                  <priorityNum>0</priorityNum>
-                  <check>Up</check>
-                </engine.Conditions.KeyHeld>
+                <engine.Conditions.Collision>
+                  <priorityNum>4</priorityNum>
+                  <tag>Solid</tag>
+                </engine.Conditions.Collision>
                 <list>
-                  <engine.Actions.Move>
-                    <xIncrement>0.0</xIncrement>
-                    <yIncrement>-3.0</yIncrement>
-                  </engine.Actions.Move>
+                  <engine.Actions.RemoveIntersection/>
                 </list>
               </entry>
               <entry>
@@ -111,63 +168,6 @@
                     <y>640.0</y>
                     <heading>0.0</heading>
                   </engine.Actions.Create>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.KeyHeld>
-                  <priorityNum>0</priorityNum>
-                  <check>Right</check>
-                </engine.Conditions.KeyHeld>
-                <list>
-                  <engine.Actions.Move>
-                    <xIncrement>3.0</xIncrement>
-                    <yIncrement>0.0</yIncrement>
-                  </engine.Actions.Move>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.And>
-                  <priorityNum>1</priorityNum>
-                  <condition1 class="engine.Conditions.KeyPressed">
-                    <priorityNum>1</priorityNum>
-                    <check>Space</check>
-                  </condition1>
-                  <condition2 class="engine.Conditions.Not">
-                    <priorityNum>1</priorityNum>
-                    <condition class="engine.Conditions.Collision">
-                      <priorityNum>1</priorityNum>
-                      <tag>Solid</tag>
-                    </condition>
-                  </condition2>
-                </engine.Conditions.And>
-                <list>
-                  <engine.Actions.Create>
-                    <name>Empty</name>
-                    <x>272.0</x>
-                    <y>640.0</y>
-                    <heading>0.0</heading>
-                  </engine.Actions.Create>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.KeyHeld>
-                  <priorityNum>0</priorityNum>
-                  <check>Left</check>
-                </engine.Conditions.KeyHeld>
-                <list>
-                  <engine.Actions.Move>
-                    <xIncrement>-3.0</xIncrement>
-                    <yIncrement>0.0</yIncrement>
-                  </engine.Actions.Move>
-                </list>
-              </entry>
-              <entry>
-                <engine.Conditions.Collision>
-                  <priorityNum>4</priorityNum>
-                  <tag>Solid</tag>
-                </engine.Conditions.Collision>
-                <list>
-                  <engine.Actions.RemoveIntersection/>
                 </list>
               </entry>
             </events>
@@ -252,8 +252,8 @@
             <events>
               <entry>
                 <engine.Conditions.Collision>
-                  <priorityNum>4</priorityNum>
-                  <tag>Ob2</tag>
+                  <priorityNum>3</priorityNum>
+                  <tag>Ob1</tag>
                 </engine.Conditions.Collision>
                 <list>
                   <engine.Actions.RemoveIntersection/>
@@ -261,8 +261,8 @@
               </entry>
               <entry>
                 <engine.Conditions.Collision>
-                  <priorityNum>3</priorityNum>
-                  <tag>Ob1</tag>
+                  <priorityNum>4</priorityNum>
+                  <tag>Ob2</tag>
                 </engine.Conditions.Collision>
                 <list>
                   <engine.Actions.RemoveIntersection reference="../../../entry/list/engine.Actions.RemoveIntersection"/>
@@ -2527,21 +2527,21 @@
                     </list>
                   </entry>
                   <entry>
-                    <engine.Conditions.ObjectClickHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[2]/engine.Conditions.ObjectClickHeld"/>
+                    <engine.Conditions.KeyHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[2]/engine.Conditions.KeyHeld"/>
                     <list>
-                      <engine.Actions.Rotate reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[2]/list/engine.Actions.Rotate"/>
+                      <engine.Actions.Move reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[2]/list/engine.Actions.Move"/>
                     </list>
                   </entry>
                   <entry>
-                    <engine.Conditions.Collision reference="../../../../../../../worldObjects/engine.GameObject/events/entry[3]/engine.Conditions.Collision"/>
+                    <engine.Conditions.And reference="../../../../../../../worldObjects/engine.GameObject/events/entry[3]/engine.Conditions.And"/>
                     <list>
-                      <engine.Actions.RemoveIntersection reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[3]/list/engine.Actions.RemoveIntersection"/>
+                      <engine.Actions.Create reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[3]/list/engine.Actions.Create"/>
                     </list>
                   </entry>
                   <entry>
-                    <engine.Conditions.Collision reference="../../../../../../../worldObjects/engine.GameObject/events/entry[4]/engine.Conditions.Collision"/>
+                    <engine.Conditions.KeyHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[4]/engine.Conditions.KeyHeld"/>
                     <list>
-                      <engine.Actions.RemoveIntersection reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[4]/list/engine.Actions.RemoveIntersection"/>
+                      <engine.Actions.Move reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[4]/list/engine.Actions.Move"/>
                     </list>
                   </entry>
                   <entry>
@@ -2551,33 +2551,33 @@
                     </list>
                   </entry>
                   <entry>
-                    <engine.Conditions.And reference="../../../../../../../worldObjects/engine.GameObject/events/entry[6]/engine.Conditions.And"/>
+                    <engine.Conditions.ObjectClickHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[6]/engine.Conditions.ObjectClickHeld"/>
                     <list>
-                      <engine.Actions.Create reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[6]/list/engine.Actions.Create"/>
+                      <engine.Actions.Rotate reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[6]/list/engine.Actions.Rotate"/>
                     </list>
                   </entry>
                   <entry>
-                    <engine.Conditions.KeyHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[7]/engine.Conditions.KeyHeld"/>
+                    <engine.Conditions.Collision reference="../../../../../../../worldObjects/engine.GameObject/events/entry[7]/engine.Conditions.Collision"/>
                     <list>
-                      <engine.Actions.Move reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[7]/list/engine.Actions.Move"/>
+                      <engine.Actions.RemoveIntersection reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[7]/list/engine.Actions.RemoveIntersection"/>
                     </list>
                   </entry>
                   <entry>
-                    <engine.Conditions.And reference="../../../../../../../worldObjects/engine.GameObject/events/entry[8]/engine.Conditions.And"/>
+                    <engine.Conditions.Collision reference="../../../../../../../worldObjects/engine.GameObject/events/entry[8]/engine.Conditions.Collision"/>
                     <list>
-                      <engine.Actions.Create reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[8]/list/engine.Actions.Create"/>
+                      <engine.Actions.RemoveIntersection reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[8]/list/engine.Actions.RemoveIntersection"/>
                     </list>
                   </entry>
                   <entry>
-                    <engine.Conditions.KeyHeld reference="../../../../../../../worldObjects/engine.GameObject/events/entry[9]/engine.Conditions.KeyHeld"/>
+                    <engine.Conditions.Collision reference="../../../../../../../worldObjects/engine.GameObject/events/entry[9]/engine.Conditions.Collision"/>
                     <list>
-                      <engine.Actions.Move reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[9]/list/engine.Actions.Move"/>
+                      <engine.Actions.RemoveIntersection reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[9]/list/engine.Actions.RemoveIntersection"/>
                     </list>
                   </entry>
                   <entry>
-                    <engine.Conditions.Collision reference="../../../../../../../worldObjects/engine.GameObject/events/entry[10]/engine.Conditions.Collision"/>
+                    <engine.Conditions.And reference="../../../../../../../worldObjects/engine.GameObject/events/entry[10]/engine.Conditions.And"/>
                     <list>
-                      <engine.Actions.RemoveIntersection reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[10]/list/engine.Actions.RemoveIntersection"/>
+                      <engine.Actions.Create reference="../../../../../../../../worldObjects/engine.GameObject/events/entry[10]/list/engine.Actions.Create"/>
                     </list>
                   </entry>
                 </events>

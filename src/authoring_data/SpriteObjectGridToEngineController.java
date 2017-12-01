@@ -1,37 +1,28 @@
 package authoring_data;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import authoring.*;
-import engine.EngineController;
+import authoring.SpriteObjectGridManagerI;
+import authoring.SpriteObjectI;
+import authoring.SpriteParameterI;
 import engine.GameLayer;
 import engine.GameMaster;
 import engine.GameObject;
 import engine.GameWorld;
-import engine.GameLayer;
-import engine.Layer;
-
 import engine.utilities.data.GameDataHandler;
-import player.PlayerManager;
 
 public class SpriteObjectGridToEngineController {
-	
-
-	EngineController myEC;
-	GameDataHandler myGDH;
-	PlayerManager myPM;
+	private GameMaster myEC;
+	private GameDataHandler myGDH;
 
 	public SpriteObjectGridToEngineController(GameDataHandler GDH){
 		myGDH = GDH;
 	}
 	
 	public void createWorldAndAddToEngine(SpriteObjectGridManagerI SOGMI) {
-
-		GameWorld thisWorld = createWorld();
 		List<GameObject> GO_LIST = convertSpriteObjectGridToListOfGameObjects(SOGMI);
-		addAllGameObjectsToWorld(GO_LIST, thisWorld);
+		GameWorld thisWorld = createWorld(GO_LIST);
 		addWorldToEngine(thisWorld);
 	}
 	
@@ -60,14 +51,7 @@ public class SpriteObjectGridToEngineController {
 	private void addParametersToGameObject(SpriteObjectI SOI, GameObject GE) {
 		for (ArrayList<SpriteParameterI> SPI_LIST: SOI.getParameters().values()){
 			for (SpriteParameterI SPI: SPI_LIST){
-
-				if (SPI instanceof DoubleSpriteParameter){
-					GE.setDoubleVariable(SPI.getName(), (double) SPI.getValue());
-				} else if(SPI instanceof StringSpriteParameter){
-					GE.setStringVariable(SPI.getName(), (String) SPI.getValue());
-				} else if (SPI instanceof BooleanSpriteParameter){
-					GE.setBooleanVariable(SPI.getName(), (Boolean) SPI.getValue());
-				}	
+				GE.addParameter(SPI.getName(), SPI.getValue());
 			}
 		}
 	}
@@ -90,18 +74,18 @@ public class SpriteObjectGridToEngineController {
 		return GO_LIST;
 	}
 	
-
-	private GameWorld createWorld() {
+	private GameWorld createWorld(List<GameObject> GO_LIST) {
+		GameLayer thisLayer = new GameLayer();
+		addAllGameObjectsToLayer(GO_LIST, thisLayer);
 		GameWorld thisWorld = new GameWorld();
+		thisWorld.addLayer(thisLayer);
 		return thisWorld;
 	}
 	
-	private void addAllGameObjectsToWorld(List<GameObject> gO_LIST, GameWorld world) {
-		GameLayer GL = createGameLayer();
-		for (GameObject GO: gO_LIST) {
-			GL.addGameObject(GO);
+	private void addAllGameObjectsToLayer(List<GameObject> GO_LIST, GameLayer layer) {
+		for (GameObject GO: GO_LIST) {
+			layer.addGameObject(GO);
 		}
-		world.addLayer(GL);
 	}
 	
 	private GameLayer createGameLayer() {
@@ -109,19 +93,10 @@ public class SpriteObjectGridToEngineController {
 	}
 	
 	private void createEngine() {
-		if (myPM == null){
-			createPlayerManager();
-		}
 		myEC = new GameMaster();
-		myEC.setPlayerManager(myPM);
-	}
-	
-	private void createPlayerManager(){
-		myPM = new PlayerManager();
 	}
 	
 	private void addWorldToEngine(GameWorld newWorld) {
-
 		if (myEC==null){
 			createEngine();
 		}
