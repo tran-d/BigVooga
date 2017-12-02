@@ -1,5 +1,6 @@
-package authoring.drawing;
+package authoring.drawing.drawingTools;
 
+import authoring.drawing.ImageCanvas;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -12,8 +13,8 @@ public class EraserTool extends SmoothDrawer {
 	
 	private Rectangle square;
 
-	public EraserTool(ImageCanvas canvas) {
-		super(canvas);
+	public EraserTool(String name, ImageCanvas canvas) {
+		super(name, canvas);
 	}
 	
 	private void handleSquare(Point2D newCenter) {

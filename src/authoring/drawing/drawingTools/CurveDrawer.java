@@ -1,5 +1,6 @@
-package authoring.drawing;
+package authoring.drawing.drawingTools;
 
+import authoring.drawing.ImageCanvas;
 import javafx.geometry.Point2D;
 
 /**
@@ -7,8 +8,8 @@ import javafx.geometry.Point2D;
  */
 public class CurveDrawer extends SmoothDrawer {
 
-	public CurveDrawer(ImageCanvas canvas) {
-		super(canvas);
+	public CurveDrawer(String name, ImageCanvas canvas) {
+		super(name, canvas);
 	}
 
 	@Override

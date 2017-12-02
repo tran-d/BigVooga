@@ -1,5 +1,7 @@
-package authoring.drawing;
+package authoring.drawing.drawingTools;
 
+import authoring.drawing.DrawingTool;
+import authoring.drawing.ImageCanvas;
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseEvent;
 
@@ -7,8 +9,8 @@ public abstract class SmoothDrawer extends DrawingTool {
 
 	private Point2D lastLoc;
 
-	public SmoothDrawer(ImageCanvas canvas) {
-		super(canvas);
+	public SmoothDrawer(String name, ImageCanvas canvas) {
+		super(name, canvas);
 	}
 
 	private void mousePressed(MouseEvent e) {
