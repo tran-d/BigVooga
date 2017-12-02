@@ -6,6 +6,7 @@ import ActionConditionClasses.ActionCheckBoxVBox;
 import ActionConditionClasses.ActionCheckBoxVBoxI;
 import ActionConditionClasses.ChoiceBoxVBox;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.ToolBar;
@@ -46,6 +47,7 @@ public class ActionConditionRow extends ToolBar implements ActionCheckBoxVBoxI {
 		ChoiceBoxVBox<String> implementationSelectorVBox = new ChoiceBoxVBox<String>(selectorLabel, actionConditionOptions);
 		getItems().addAll(IDlabel,separator,new Label(label),implementationSelectorVBox);
 		if(isConditionRow) addActionCheckBox();
+		else addBuildActionButton();
 	}
 	
 	protected void setNewActionCheckBoxVBoxOptions(ObservableList<Integer> newOptions) {
@@ -60,6 +62,11 @@ public class ActionConditionRow extends ToolBar implements ActionCheckBoxVBoxI {
 	private void addActionCheckBox() {
 		actionCheckBoxVBox = new ActionCheckBoxVBox<Integer>(actionConditionVBoxResources.getString("ActionCheckBoxLabel"),newActionOptions);
 		getItems().add(actionCheckBoxVBox);
+	}
+	
+	private void addBuildActionButton() {
+		Button buildActionButton = new Button(actionConditionVBoxResources.getString("BuildActionButton"));
+		getItems().add(buildActionButton);
 	}
 
 	@Override
