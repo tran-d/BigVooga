@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import authoring.SpriteObject;
+import authoring.SpriteObjectGridManager;
 import authoring.SpriteObjectGridManagerI;
 import authoring.SpriteObjectI;
 import authoring.SpriteParameterI;
@@ -24,11 +25,11 @@ public class SpriteObjectGridToEngineController {
 	}
 	
 	// called every time a grid is processed (new world is added to engine)
-	public void createLayerAndAddToEngine(DraggableGrid currentGrid) { //SpriteObjectGridManagerI SOGMI
-		List<MapLayer> allLayers = currentGrid.getLayers();
+	public void createWorldAndAddToEngine(DraggableGrid currentGrid) {
+		List<SpriteObjectGridManager> allLayerManagers = currentGrid.getGrids();
 		createWorld();
-		for (MapLayer thisLayer : allLayers) {
-			createEngineLayerAndAddToWorld(thisLayer);
+		for (SpriteObjectGridManager SOGM: allLayerManagers) {
+			createEngineLayerAndAddToWorld(SOGM.getEntireListOfSpriteObjects());
 		}
 		addWorldToEngine(currentWorld);
 	}
@@ -37,9 +38,8 @@ public class SpriteObjectGridToEngineController {
 		currentWorld = new GameWorld(); 
 	}
 
-	private void createEngineLayerAndAddToWorld(MapLayer thisLayer) {
-		SpriteObjectGridManagerI SOGMI = thisLayer.getSpriteManager();
-		List<GameObject> GO_LIST = convertSpriteObjectGridToListOfGameObjects(SOGMI);
+	private void createEngineLayerAndAddToWorld(List<SpriteObject> layerObjects) {
+		List<GameObject> GO_LIST = convertSpriteObjectGridToListOfGameObjects(layerObjects);
 		GameLayer engineLayer = createLayer(GO_LIST);
 		addLayerToWorld(engineLayer);
 	}
@@ -84,9 +84,9 @@ public class SpriteObjectGridToEngineController {
 		
 	}
 	
-	private List<GameObject> convertSpriteObjectGridToListOfGameObjects(SpriteObjectGridManagerI SOGM_IN) {
+	private List<GameObject> convertSpriteObjectGridToListOfGameObjects(List<SpriteObject> layerObjects) {
 		List<GameObject> GO_LIST = new ArrayList<GameObject>();
-		for (SpriteObject SOI: SOGM_IN.getEntireListOfSpriteObjects()) {
+		for (SpriteObject SOI: layerObjects) {
 			GameObject convertedToGameObject = convertToGameObject(SOI);
 			GO_LIST.add(convertedToGameObject);
 		}
