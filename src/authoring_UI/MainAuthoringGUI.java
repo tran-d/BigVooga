@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObjectGridManagerI;
 import controller.welcomeScreen.SceneController;
+import gui.welcomescreen.MenuOptionsTemplate;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
@@ -16,6 +17,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class MainAuthoringGUI{
@@ -39,14 +41,21 @@ public class MainAuthoringGUI{
 	private int myTabCount = 1;
 	private MenuButton fileOptions;
 	private MenuButton settings;
+	private ViewSideBar sideBar;
+	private Pane authoringPane;
 	
+	private static final String AUTHORING_CSS = "Authoring.css";
+	private static final String BORDERPANE_ID = "borderpane";
 	private static final String TABTAG = "map ";
+	
 
 	public MainAuthoringGUI(Stage currentStage, SceneController currentSceneController) {
 		
 		stage = currentStage;
 		rootPane = new BorderPane();
+		rootPane.setId(BORDERPANE_ID);
 		scene = new Scene(rootPane, WelcomeScreen.WIDTH, WelcomeScreen.HEIGHT);
+		scene.getStylesheets().add(MainAuthoringGUI.class.getResource(AUTHORING_CSS).toExternalForm());
 		sceneController = currentSceneController;
 
 	}
@@ -54,10 +63,17 @@ public class MainAuthoringGUI{
 	public void createAuthoringGUI() {
 		mapManager = new TabPane();
 		mySelectModel = mapManager.getSelectionModel();
+		mapManager.setPrefWidth(WelcomeScreen.WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH);
+		mapManager.setPrefHeight(WelcomeScreen.HEIGHT);
 		setTab();
 		createToolBar();
 		rootPane.setTop(toolBar);
-		rootPane.setCenter(mapManager);
+		
+		mapManager.setLayoutX(ViewSideBar.VIEW_MENU_HIDDEN_WIDTH);
+		authoringPane = new Pane();
+		authoringPane.getChildren().addAll(mapManager, sideBar);
+		
+		rootPane.setCenter(authoringPane);
 	}
 	
 	private void createToolBar() {
@@ -76,8 +92,12 @@ public class MainAuthoringGUI{
 		
 		MenuItem save = new MenuItem("Save");
 		//TODO save.setOnAction(e -> ());
-
-		fileOptions = new MenuButton ("File", null, save);
+		MenuItem importOption = new MenuItem("Import");
+		//TODO save.setOnAction(e -> ());
+		MenuItem exit = new MenuItem("Exit");
+		//TODO save.setOnAction(e -> ());
+		
+		fileOptions = new MenuButton ("File", null, save, importOption, exit);
 		
 	}
 	
@@ -107,9 +127,6 @@ public class MainAuthoringGUI{
 		authMap = new AuthoringMapEnvironment();
 		setupBEAuthClasses();
 		setupFEAuthClasses();
-
-		authMap.setPrefWidth(WelcomeScreen.WIDTH);
-		authMap.setPrefHeight(WelcomeScreen.HEIGHT);
 		
 		return authMap;
 	}
@@ -125,6 +142,8 @@ public class MainAuthoringGUI{
 		DraggableGrid myGrid = new DraggableGrid(mySpriteGridHandler);
 		mySprites = new SpriteManager(mySpriteGridHandler, myAEM, mySOGM);
 		mySpriteGridHandler.addKeyPress(scene);
+		sideBar = new ViewSideBar();
+		sideBar.toFront();
 //
 //<<<<<<< HEAD
 //		authMap.getChildren().addAll(myMenu, myGrid, mySprites);

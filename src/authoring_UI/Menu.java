@@ -26,8 +26,6 @@ public class Menu extends VBox {
 	
 	private SceneController sceneController;
 	private Button myBack;
-	private Button myLoad;
-	private Button mySave;
 	private AuthoringEnvironmentManager myAEM;
 	private TabPane myParamTabs;
 	private TabPane mySpriteTabs;
@@ -35,8 +33,6 @@ public class Menu extends VBox {
 	private TextArea myParameterErrorMessage;
 	private SpriteParameterTabsAndInfo mySPTAI;
 	private MainAuthoringGUI myMapManager;
-	private static final String LOAD = "Load";
-	private static final String SAVE = "Save";
 	private static final String ACTIONCONDITIONTITLES_PATH = "TextResources/ConditionActionTitles";
 	private static final double MENU_WIDTH = 435;
 	private static final double MENU_HEIGHT = 500;
@@ -103,9 +99,7 @@ public class Menu extends VBox {
 	private void createButtons() {
 		HBox myButtons = new HBox();
 		myBack = createBack();
-		myLoad = new Button(LOAD);
-		mySave = new Button(SAVE);
-		myButtons.getChildren().addAll(myBack, myLoad, mySave);
+		myButtons.getChildren().addAll(myBack);
 		buttonInteraction();
 
 		this.getChildren().add(myButtons);
