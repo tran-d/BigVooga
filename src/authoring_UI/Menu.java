@@ -24,15 +24,12 @@ import javafx.scene.layout.VBox;
 
 public class Menu extends VBox {
 	
-	private SceneController sceneController;
-	private Button myBack;
 	private AuthoringEnvironmentManager myAEM;
 	private TabPane myParamTabs;
 	private TabPane mySpriteTabs;
 	private VBox myParamTabVBox;
 	private TextArea myParameterErrorMessage;
 	private SpriteParameterTabsAndInfo mySPTAI;
-	private MapManager myMapManager;
 	private static final String ACTIONCONDITIONTITLES_PATH = "TextResources/ConditionActionTitles";
 	private static final double MENU_WIDTH = 435;
 	private static final double MENU_HEIGHT = 500;
@@ -43,7 +40,6 @@ public class Menu extends VBox {
 		mySPTAI = new SpriteParameterTabsAndInfo();
 		System.out.println("made SPTAI in MENU");
 		myAEM = AEM;
-		myMapManager = myManager;
 		setUpMenu();
 
 	}
