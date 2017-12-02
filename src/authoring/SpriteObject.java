@@ -16,6 +16,8 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 
 	private HashMap<String, ArrayList<SpriteParameterI>> categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();
 	private HashMap<String, ArrayList<SpriteParameterI>> possibleCategoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();;
+	
+	
 	// private ImageView myImageView;
 	private String myImageURL;
 	private Integer[] myPositionOnGrid;

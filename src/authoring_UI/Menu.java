@@ -328,6 +328,7 @@ public class Menu extends VBox {
 
 	private void apply() {
 		mySPTAI.apply();
+//		OwensActiosn.apply()
 		myAEM.getSpriteParameterSidebarManager().apply();
 	}
 

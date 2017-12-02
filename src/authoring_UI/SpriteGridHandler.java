@@ -82,6 +82,13 @@ public class SpriteGridHandler {
 		});		
 	}
 	
+	protected void addGridMouseDrag(StackPane pane) {
+		pane.setOnMouseDragEntered(e -> {
+			if (pane.getChildren().size() == 0) changeCellStatus(pane);
+			System.out.println("ENTERED BY MOUSE DRAG");
+		});		
+	}
+	
 	private void changeCellStatus(StackPane pane) {
 		if(pane.getOpacity() == 1) {
 			makeCellActive(pane);
@@ -163,12 +170,14 @@ public class SpriteGridHandler {
 			System.out.println("populating from SGH");
 			SpriteObject SO = s.newCopy();
 			cell.setOpacity(1);
+			cell.getChildren().clear();
 			cell.getChildren().add(SO);
 			Integer[] cellPos = getStackPanePositionInGrid(cell);
 			myDG.getActiveGrid().populateCell(SO, cellPos);
 			SO.setPositionOnGrid(cellPos);
 			addSpriteMouseClick(SO);
 		});
+		activeGridCells.clear();
 	}
 
 	private Integer[] getStackPanePositionInGrid(StackPane pane) {

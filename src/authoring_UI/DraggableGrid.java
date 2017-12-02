@@ -2,6 +2,7 @@ package authoring_UI;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.PriorityQueue;
 
 import authoring.SpriteObjectGridManager;
@@ -38,6 +39,7 @@ public class DraggableGrid extends VBox {
 	private ImageView terrainImage;
 	private GridPane terrainGrid;
 	private GridPane myGrid;
+	private List<SpriteObjectGridManager> allGrids;
 	private ArrayList<SpriteObjectGridManager> gridManagers;
 	private SpriteObjectGridManager activeGrid;
 	
@@ -92,10 +94,17 @@ public class DraggableGrid extends VBox {
 		ScrollPane scrollGrid = new ScrollPane(myStackPane);
 		scrollGrid.setPannable(true);
 		scrollGrid.setMaxWidth(500);
+//		scrollGrid.mouse
 
 		// spriteGridHandler.addGrid(gp);
 
 		this.getChildren().add(1, scrollGrid);
+	}
+	
+	public List<SpriteObjectGridManager> getGrids(){
+//		return this.allGrids;
+		//TODO
+		return allGrids;
 	}
 	
 	private void makeLayers(SpriteGridHandler spriteGridHandler){
@@ -113,6 +122,7 @@ public class DraggableGrid extends VBox {
 		gridManagers.add(terrain);
 		gridManagers.add(sprites);
 		gridManagers.add(panels);
+		allGrids = new ArrayList<SpriteObjectGridManager>(gridManagers);
 	}
 	
 	public SpriteObjectGridManager getActiveGrid(){
