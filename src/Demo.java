@@ -1,31 +1,36 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.ResourceBundle;
 
-import engine.sprite.BoundedImage;
-import engine.testing.ActionConditionDemo;
-import engine.testing.EngineTester;
-import engine.testing.EngineTester2;
-import engine.testing.RPGDemo;
+import authoring.drawing.ImageCanvasPane;
+import engine.utilities.data.GameDataHandler;
 import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Demo extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
-		//Main.main(args);
+		// Main.main(args);
 	}
 
-	public void generateGame() {
-		
-	}
-	
 	@Override
 	public void start(Stage stage) throws Exception {
-		new EngineTester().generateGame();
-		new EngineTester2().generateGame();
-		new EngineTester().testImageCanvas(stage);
-		new ActionConditionDemo().generateGame();
-		new RPGDemo().generateGame();
+		testImageCanvas(stage);
+		// new EngineTester().generateGame();
+		// new EngineTester2().generateGame();
+		// new ActionConditionDemo().generateGame();
+		// new RPGDemo().generateGame();
+	}
+
+	public void testImageCanvas(Stage stage) {
+		Group g = new Group();
+		Scene scene = new Scene(g);
+
+		stage.setScene(scene);
+		ImageCanvasPane p = new ImageCanvasPane(ResourceBundle.getBundle("authoring.drawing.drawingTools.drawingTools"), 400, 400,
+				() -> GameDataHandler.chooseFileForImageSave(stage));
+		g.getChildren().add(p);
+		stage.show();
 	}
 }
