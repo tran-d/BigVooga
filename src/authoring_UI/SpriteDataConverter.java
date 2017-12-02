@@ -17,18 +17,10 @@ import authoring.SpriteParameterI;
 import javafx.geometry.Point2D;
 
 public class SpriteDataConverter {
-	private final XStream SERIALIZER = setupXStream();
 	
-	public HashMap<String, ArrayList<SpriteParameterI>> catmap;
-	public Integer[] gridPos;
-	public String name;
-	public Double width;
-	public Double height;
-	public String UUID;
-	public String imageURL;
-	public String mySavePath;
+	private static final XStream SERIALIZER = setupXStream();
 	
-	public XStream setupXStream() {
+	private static XStream setupXStream() {
 		XStream xstream = new XStream(new DomDriver());
 		// xstream.addPermission(NoTypePermission.NONE);
 		xstream.addPermission(NullPermission.NULL);
@@ -37,6 +29,15 @@ public class SpriteDataConverter {
 		xstream.allowTypesByWildcard(new String[] { "engine.**", "java.**" });
 		return xstream;
 	}
+	
+	HashMap<String, ArrayList<SpriteParameterI>> catmap;
+	Integer[] gridPos;
+	String name;
+	Double width;
+	Double height;
+	String UUID;
+	String imageURL;
+	String mySavePath;
 	
 	public SpriteDataConverter(SpriteObject SO){
 		convertSprite(SO);
@@ -47,6 +48,7 @@ public class SpriteDataConverter {
 	}
 	
 	public SpriteObject getSprite(File file){
+		
 		return null;
 	}
 	
@@ -80,5 +82,6 @@ public class SpriteDataConverter {
 		ret.setName(name);
 		ret.setSavePath(mySavePath);
 		return ret;
+		
 	}
 }
