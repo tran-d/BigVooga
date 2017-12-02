@@ -69,6 +69,7 @@ public class SpriteDataConverter {
 		UUID = SO.getUniqueID();
 		imageURL = SO.getImageURL();
 		mySavePath = SO.getSavePath();
+		myCondAct = So>getconditionAction();
 	}
 
 	public SpriteObject createSprite() {
@@ -81,6 +82,7 @@ public class SpriteDataConverter {
 		ret.setUniqueID(UUID);
 		ret.setName(name);
 		ret.setSavePath(mySavePath);
+		ret.setCondAct(private var)
 		return ret;
 		
 	}

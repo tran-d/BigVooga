@@ -233,7 +233,7 @@ public class GameDataHandler {
 			path = this.makeValidFileName(path);
 			SO.setSavePath(path);
 		}
-		SpriteDataConverter SDC = new SpriteDataConverter(SO);
+		check this out SpriteDataConverter SDC = new SpriteDataConverter(SO);
 		saveSprite(SDC, path);
 		// String toSave = SERIALIZER.toXML(SO);
 		// FileWriter writer = new FileWriter(path);

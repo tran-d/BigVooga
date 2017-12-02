@@ -220,6 +220,7 @@ public class Menu extends VBox {
 			clearParameterTab();
 			removeParameterErrorMessage();
 			mySPTAI.create(getActiveCell());
+			OwensClass.setCell(getActiveCell());
 			// HashMap<String, ArrayList<SpriteParameterI>> params =
 			// getParametersOfActiveCells();
 			//
@@ -321,6 +322,7 @@ public class Menu extends VBox {
 
 	private void apply() {
 		mySPTAI.apply();
+		OwensActions.apply();
 		myAEM.getSpriteParameterSidebarManager().apply();
 	}
 

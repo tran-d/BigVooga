@@ -204,6 +204,7 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 	public void matchActiveCellsToSprite(SpriteObject firstSprite) {
 		for (SpriteObject SOI: getActiveSpriteObjects()){
 			SOI.applyParameterUpdate(firstSprite.getParameters());
+			SOI.applyConditionActionUpdates(firstSprite.getConditionsandActions);
 		}
 		
 	}
