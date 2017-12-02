@@ -1,7 +1,6 @@
 package engine.operations;
 
-import java.lang.reflect.InvocationTargetException;
-
+import engine.Actions.ActionFactory;
 import engine.operations.stringops.StringOperation;
 
 public class FactoryTester {
@@ -11,12 +10,10 @@ public class FactoryTester {
 		System.out.println(factory.getOperations("String"));
 		StringOperation first = ()->"First";
 		StringOperation second = ()->" and the second";
-		try {
-			System.out.println(factory.makeOperation("Concatenate", first, second).evaluate());
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-				| NoSuchMethodException | SecurityException | ClassNotFoundException e) {
-			System.out.println(first.getClass().getName());
-			e.printStackTrace();
-		}
+		System.out.println(factory.makeOperation("Concatenate", first, second).evaluate());
+		
+		ActionFactory actFact = new ActionFactory();
+		System.out.println(actFact.getCategories());
+		System.out.println(actFact.getActions(actFact.getCategories().get(0)));
 	}
 }
