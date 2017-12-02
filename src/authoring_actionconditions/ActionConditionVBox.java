@@ -46,12 +46,12 @@ public class ActionConditionVBox extends VBox implements ActionConditionVBoxI{
 
 	@Override
 	public void addActionOption() {
-		rows.forEach(row -> row.addActionOption());
+		rows.forEach(row -> row.addAction());
 	}
 
 	@Override
 	public void removeActionOption(Integer action) {
-		rows.forEach(row -> row.removeActionOption(action));
+		rows.forEach(row -> row.removeAction(action));
 	}
 
 }

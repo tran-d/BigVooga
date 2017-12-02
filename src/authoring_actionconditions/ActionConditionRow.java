@@ -3,6 +3,7 @@ package authoring_actionconditions;
 import java.util.ResourceBundle;
 
 import ActionConditionClasses.ActionCheckBoxVBox;
+import ActionConditionClasses.ActionCheckBoxVBoxI;
 import ActionConditionClasses.ChoiceBoxVBox;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
@@ -23,7 +24,7 @@ any other details users should know--condition and action rows only differ betwe
  *
  */
 
-public class ActionConditionRow extends ToolBar {
+public class ActionConditionRow extends ToolBar implements ActionCheckBoxVBoxI {
 	
 	private static final String ACTIONCONDITION_RESOURCE_PATH = "TextResources/ActionConditionVBoxResources";
 	
@@ -51,14 +52,6 @@ public class ActionConditionRow extends ToolBar {
 		actionCheckBoxVBox.setNewOptions(newOptions);
 	}
 	
-	protected void addActionOption() {
-		actionCheckBoxVBox.addAction();
-	}
-	
-	protected void removeActionOption(Integer action) {
-		actionCheckBoxVBox.removeAction(action);
-	}
-	
 	protected void decreaseLabelID() {
 		labelInt --;
 		IDlabel.setText(Integer.toString(labelInt));
@@ -67,6 +60,16 @@ public class ActionConditionRow extends ToolBar {
 	private void addActionCheckBox() {
 		actionCheckBoxVBox = new ActionCheckBoxVBox<Integer>(actionConditionVBoxResources.getString("ActionCheckBoxLabel"),newActionOptions);
 		getItems().add(actionCheckBoxVBox);
+	}
+
+	@Override
+	public void addAction() {
+		actionCheckBoxVBox.addAction();
+	}
+
+	@Override
+	public void removeAction(Integer action) {
+		actionCheckBoxVBox.removeAction(action);
 	}
 	
 }
