@@ -1,6 +1,6 @@
 package engine;
 
-import player.PlayerManager;
+import controller.player.PlayerManager;
 
 public interface EngineController {
 	public void start();

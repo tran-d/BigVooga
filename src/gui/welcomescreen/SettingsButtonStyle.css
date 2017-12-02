@@ -11,17 +11,18 @@
 
 .toggle-button:visited {
 	-fx-background-color: 
-        #D97843;
+        #FFCD3C;
 }
 .toggle-button:hover {
     -fx-background-color: 
-        #D97843;
+        #FFCD3C;
 }
 .toggle-button:active {
     -fx-background-color: 
-        #D97843;
+        #FFCD3C;
 }
 .toggle-button:selected {
 	 -fx-background-color: 
-        #D97843;
+        #FFCD3C;
+
 }

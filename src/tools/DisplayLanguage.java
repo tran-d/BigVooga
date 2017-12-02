@@ -117,7 +117,7 @@ public final class DisplayLanguage {
      * @param args - optional arguments for the Button text
      * @return the created Button
      */
-    public static Button buttonForKey(final String key, final Object... args) {
+    public static Button buttonForKey (final String key, final Object... args) {
         Button button = new Button();
         button.textProperty().bind(createStringBinding(key, args));
         return button;

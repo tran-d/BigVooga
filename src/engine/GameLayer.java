@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentSkipListMap;
 
-import player.PlayerManager;
+import controller.player.PlayerManager;
 /**
  * 
  * @author Nikolas Bramblett, ...

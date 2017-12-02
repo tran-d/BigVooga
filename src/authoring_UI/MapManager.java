@@ -4,43 +4,39 @@ import java.util.ArrayList;
 
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObjectGridManagerI;
-import default_pkg.SceneController;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.geometry.Side;
-import javafx.scene.Scene;
+import javafx.scene.Node;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class MapManager extends TabPane {
+public class MapManager extends TabPane {	
 	
-	private Stage stage;
-	private Scene scene;
-	private SceneController sceneController;
-	private SingleSelectionModel<Tab> mySelectModel;
-	private Tab currentTab;
-	private Tab addTab;
-	private AuthoringEnvironmentManager myAEM;
-	private SpriteObjectGridManagerI mySOGM;
-	private SpriteManager mySprites;
-	private AuthoringMapEnvironment authMap;
-	private final String addTabString = "+";
-	
-	private int myTabCount = 1;
 	private static final String TABTAG = "map ";
 	
+	private Stage stage;
+	private SingleSelectionModel<Tab> mySelectModel;
+	private Tab addTab;
+	private AuthoringMapEnvironment authMap;
+	private ViewSideBar sideBar;
+	private SpriteManager mySprites;
+	private AuthoringEnvironmentManager myAEM;
+	private SpriteObjectGridManagerI mySOGM;
+	private int myTabCount;
+	private Tab currentTab;
+	private String addTabString;
 
-	public MapManager(Stage currentStage, SceneController currentSceneController) {
-		
+	public MapManager(Stage currentStage) {
 		stage = currentStage;
-		sceneController = currentSceneController;
-		scene = new Scene(this, WelcomeScreen.WIDTH, WelcomeScreen.HEIGHT);
-		
 		mySelectModel = this.getSelectionModel();
-		setTab();	
+		this.setPrefWidth(WelcomeScreen.WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH);
+		this.setPrefHeight(WelcomeScreen.HEIGHT);
+		this.setLayoutX(ViewSideBar.VIEW_MENU_HIDDEN_WIDTH);
+		
+		setTab();
 	}
 	
 	private void setTab() {
@@ -60,9 +56,6 @@ public class MapManager extends TabPane {
 		authMap = new AuthoringMapEnvironment();
 		setupBEAuthClasses();
 		setupFEAuthClasses();
-
-		authMap.setPrefWidth(WelcomeScreen.WIDTH);
-		authMap.setPrefHeight(WelcomeScreen.HEIGHT);
 		
 		return authMap;
 	}
@@ -74,13 +67,13 @@ public class MapManager extends TabPane {
 	}
 	
 	private void setupFEAuthClasses() {
-		Menu myMenu = new Menu(myAEM, this, sceneController);
+		Menu myMenu = new Menu(myAEM, this);
 		DraggableGrid myGrid = myAEM.getDraggableGrid();
 		
 		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, myMenu, myGrid);
 		myGrid.construct(mySpriteGridHandler);
 		mySprites = new SpriteManager(mySpriteGridHandler, myAEM, mySOGM);
-		mySpriteGridHandler.addKeyPress(scene);
+		mySpriteGridHandler.addKeyPress(stage.getScene());
 //
 //<<<<<<< HEAD
 //		authMap.getChildren().addAll(myMenu, myGrid, mySprites);
@@ -90,11 +83,6 @@ public class MapManager extends TabPane {
 		authMap.setGrid(myGrid);
 		authMap.setSpriteManager(mySprites);
 //		authMap.getChildren().addAll(myMenu, myGrid, mySprites);
-	}
-	
-	protected SpriteCreator createNewSpriteCreator() {
-		SpriteCreator mySpriteCreator = new SpriteCreator(stage, mySprites, myAEM);
-		return mySpriteCreator;
 	}
 	
 
@@ -116,7 +104,7 @@ public class MapManager extends TabPane {
 			}
 		}
 		return allMaps;
-
-	
 	}
+	
+	
 }

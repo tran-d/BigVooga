@@ -145,14 +145,6 @@ public class EngineTester2 extends Application {
 		actions1 = new ArrayList<Action>();
 		
 	}
-	
-	private void testImageCanvas(Stage stage) {
-		Group g = new Group();
-		stage.setScene(new Scene(g));
-		ImageCanvas i = new ImageCanvas(()->GameDataHandler.chooseFileForImageSave(stage));
-		g.getChildren().add(i);
-		stage.show();
-	}
 
 	private void testDrawer(Stage stage) throws IOException {
 		Group g = new Group();

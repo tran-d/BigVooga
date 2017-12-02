@@ -143,6 +143,7 @@ public class GameDataHandler {
 	 * @throws FileNotFoundException
 	 */
 	public EngineController loadGame() throws FileNotFoundException {
+		System.out.println("Trying to load game");
 		File controllerFile = new File(projectPath + CONTROLLER_FILE);
 		Scanner scanner = new Scanner(controllerFile);
 		String fileContents = scanner.useDelimiter("\\Z").next();

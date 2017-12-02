@@ -65,6 +65,7 @@ public class SpriteGridHandler {
 		myMenu.removeParameterTab();
 		System.out.println();
 		myDG.getActiveGrid().clearCells(cellsToDelete);
+
 //		mySOGM.removeActiveCells(cellsToDelete);
 	}
 	

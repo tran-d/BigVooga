@@ -192,14 +192,6 @@ public class EngineTester extends Application {
 		obj.addConditionAction(new Collision(4, "Ob2"), actions1);
 		obj.addConditionAction(new Collision(5, "Ob3"), actions1);
 	}
-	
-	public void testImageCanvas(Stage stage) {
-		Group g = new Group();
-		stage.setScene(new Scene(g));
-		ImageCanvas i = new ImageCanvas(()->GameDataHandler.chooseFileForImageSave(stage));
-		g.getChildren().add(i);
-		stage.show();
-	}
 
 	private void testDrawer(Stage stage) throws IOException {
 		Group g = new Group();

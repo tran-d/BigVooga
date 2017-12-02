@@ -1,6 +1,6 @@
 package gui.welcomescreen;
 
-import default_pkg.SceneController;
+import controller.welcomeScreen.SceneController;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 public class MenuOptionsTemplate {
 
 	protected static final int CONTENT_INSET_SIZE = 10;
+	private static final String MENU_OPTIONS_CSS = "MenuOptionsStyle.css";
 	private static final int BACK_WIDTH = 50;
 	private static final int BACK_HEIGHT = 50;
 	private static final String BACK_STATIC_PATH = "Back_Static.png";
@@ -50,7 +51,7 @@ public class MenuOptionsTemplate {
 		sceneController = currentSceneController;
 		rootPane = new BorderPane();
 		scene = new Scene(rootPane, WelcomeScreen.WIDTH, WelcomeScreen.HEIGHT);
-		scene.getStylesheets().add(MenuOptionsTemplate.class.getResource("MenuOptionsStyle.css").toExternalForm());
+		scene.getStylesheets().add(MenuOptionsTemplate.class.getResource(MENU_OPTIONS_CSS).toExternalForm());
 	}
 
 	public void createOptionScreen(String titleLogoPath, int titleLogoWidth, int titleLogoHeight, int topAndBottomPadding) {

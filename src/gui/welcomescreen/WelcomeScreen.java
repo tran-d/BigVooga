@@ -1,6 +1,6 @@
 package gui.welcomescreen;
 
-import default_pkg.SceneController;
+import controller.welcomeScreen.SceneController;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

@@ -1,8 +1,7 @@
 package authoring.drawing;
 
-import java.util.ResourceBundle;
-
 import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -11,9 +10,11 @@ import javafx.scene.input.MouseEvent;
  */
 public abstract class DrawingTool {
 	protected ImageCanvas canvas;
-	private ResourceBundle names = ResourceBundle.getBundle("authoring.drawing.drawingTools");
+	private String name;
+	private Image icon;
 
-	public DrawingTool(ImageCanvas canvas) {
+	public DrawingTool(String name, ImageCanvas canvas) {
+		this.name = name;
 		this.canvas = canvas;
 	}
 	
@@ -25,6 +26,13 @@ public abstract class DrawingTool {
 	}
 	
 	public String toString() {
-		return names.getString(getClass().getSimpleName());
+		return name;
+	}
+
+	public void setIcon(Image icon) {
+		this.icon = icon;
+	}
+	public Image getIcon() {
+		return icon;
 	}
 }
