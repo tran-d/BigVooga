@@ -1,6 +1,6 @@
 package gui.welcomescreen;
 
-import default_pkg.SceneController;
+import controller.welcomeScreen.SceneController;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;

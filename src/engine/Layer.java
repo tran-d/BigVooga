@@ -1,7 +1,7 @@
 package engine;
 import java.util.List;
 
-import player.PlayerManager;
+import controller.player.PlayerManager;
 
 public interface Layer{
 	

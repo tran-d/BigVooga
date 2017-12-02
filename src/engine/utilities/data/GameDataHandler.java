@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.MissingResourceException;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -72,7 +73,8 @@ public class GameDataHandler {
 	}
 
 	/**
-	 * @param controller to serialize
+	 * @param controller
+	 *            to serialize
 	 * @throws IOException
 	 */
 	public void saveGame(EngineController controller) throws IOException {
@@ -89,31 +91,45 @@ public class GameDataHandler {
 	 * https://stackoverflow.com/questions/22370051/how-to-write-values-in-a-properties-file-through-java-code
 	 * Updates a specific properties file to include projectName in its keyset.
 	 * 
-	 * Adds the project name to a properties file of all file names. 
+	 * Adds the project name to a properties file of all file names.
 	 * 
 	 * @throws IOException
 	 */
-	private void addToKnownProjects() throws IOException {
+	private void addToKnownProjects() {
 		Properties prop = new Properties();
-		FileInputStream in = new FileInputStream(KNOWN_PROJECTS_PATH);
-		prop.load(in);
-		in.close();
+
+		try {
+			FileInputStream in = new FileInputStream(KNOWN_PROJECTS_PATH);
+			prop.load(in);
+			in.close();
+		} catch (IOException e) {
+			// Intentionally Blank
+		}
 		prop.put(projectName, "Modified " + LocalDateTime.now());
-		FileOutputStream out = new FileOutputStream(KNOWN_PROJECTS_PATH);
-		prop.store(out, null);
-		out.close();
+
+		try {
+			FileOutputStream out = new FileOutputStream(KNOWN_PROJECTS_PATH);
+			prop.store(out, null);
+			out.close();
+		} catch (IOException e) {
+			throw new RuntimeException("KNOWN PROJECTS NOT FOUND");// TODO improve this
+		}
 	}
 
 	/**
-	 * @return A map of all project names to the modified date. 
+	 * @return A map of all project names to the modified date.
 	 */
 	public static Map<String, String> knownProjectsWithDateModified() {
 		Map<String, String> result = new HashMap<>();
-		ResourceBundle bundle = ResourceBundle.getBundle(KNOWN_PROJECTS);
-		Enumeration<String> projects = bundle.getKeys();
-		while (projects.hasMoreElements()) {
-			String p = projects.nextElement();
-			result.put(p, bundle.getString(p));
+		try {
+			ResourceBundle bundle = ResourceBundle.getBundle(KNOWN_PROJECTS);
+			Enumeration<String> projects = bundle.getKeys();
+			while (projects.hasMoreElements()) {
+				String p = projects.nextElement();
+				result.put(p, bundle.getString(p));
+			}
+		} catch (MissingResourceException e) {
+			// Intentionally Blank
 		}
 		return result;
 	}
@@ -123,6 +139,7 @@ public class GameDataHandler {
 	 * @throws FileNotFoundException
 	 */
 	public EngineController loadGame() throws FileNotFoundException {
+		System.out.println("Trying to load game");
 		File controllerFile = new File(projectPath + CONTROLLER_FILE);
 		Scanner scanner = new Scanner(controllerFile);
 		String fileContents = scanner.useDelimiter("\\Z").next();
@@ -131,7 +148,8 @@ public class GameDataHandler {
 	}
 
 	/**
-	 * @param fileName simple file name of file in the project directory
+	 * @param fileName
+	 *            simple file name of file in the project directory
 	 * @return The Image
 	 * @throws URISyntaxException
 	 */
@@ -145,7 +163,8 @@ public class GameDataHandler {
 	}
 
 	/**
-	 * @param stage To present the dialog
+	 * @param stage
+	 *            To present the dialog
 	 * @return The chosen File that was added to the project
 	 * @throws IOException
 	 */
@@ -156,7 +175,8 @@ public class GameDataHandler {
 	}
 
 	/**
-	 * @param file Adds the file to the project
+	 * @param file
+	 *            Adds the file to the project
 	 * @throws IOException
 	 */
 	public void addFileToProject(File file) throws IOException {
@@ -178,7 +198,8 @@ public class GameDataHandler {
 	}
 
 	/**
-	 * @param stage To present dialog
+	 * @param stage
+	 *            To present dialog
 	 * @return File Chosen
 	 */
 	public static File chooseFileForImageSave(Stage stage) {

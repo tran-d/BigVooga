@@ -51,11 +51,14 @@ public class SpriteGridHandler {
 		ArrayList<Integer[]> cellsToDelete = new ArrayList<Integer[]>();
 		mySOGM.getActiveSpriteObjects().forEach(s -> {
 			Integer[] row_col = s.getPositionOnGrid();
+			System.out.println("row_col: "+row_col);
 			cellsToDelete.add(row_col);
 		});
 		removeSpritesFromGrid();
 		myMenu.removeParameterTab();
-		mySOGM.removeActiveCells(cellsToDelete);
+		System.out.println();
+		mySOGM.clearCells(cellsToDelete);
+//		mySOGM.removeActiveCells(cellsToDelete);
 	}
 	
 	private void removeSpritesFromGrid() {
@@ -100,10 +103,12 @@ public class SpriteGridHandler {
 					s.setEffect(makeSpriteEffect());
 					activeSpriteGridCells.add((StackPane) s.getParent());
 				} else {
+//					s.clearPossibleParameters();
 					s.setEffect(null);
 					activeSpriteGridCells.remove((StackPane) s.getParent());
 					myMenu.removeParameterTab();
 				}
+				
 				if (mySOGM.getActiveSpriteObjects().size() == 0) {
 					myMenu.removeParameterTab();
 				} else {
@@ -134,6 +139,8 @@ public class SpriteGridHandler {
 	
 	private void populateGridCells(SpriteObject s) {
 		activeGridCells.forEach(cell -> {
+			
+			System.out.println("populating from SGH");
 			SpriteObject SO = s.newCopy();
 			cell.setOpacity(1);
 			cell.getChildren().add(SO);
@@ -147,6 +154,7 @@ public class SpriteGridHandler {
 	private Integer[] getStackPanePositionInGrid(StackPane pane) {
 		int row = ((GridPane) pane.getParent()).getRowIndex(pane);
 		int col = ((GridPane) pane.getParent()).getColumnIndex(pane);
+		System.out.println("getStackPanePos: "+row+", " + col);
 		Integer[] row_col = new Integer[] { row, col };
 		return row_col;
 	}

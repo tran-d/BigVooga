@@ -86,7 +86,11 @@
   </accessibleRole>
   <image class="javafx.scene.image.ImageView$2">
     <value class="javafx.scene.image.Image">
+<<<<<<< HEAD
       <url>file:/C:/Users/Owen%20Smith/eclipse-workspace/voogasalad_bigvooga/bin/pikachu.png</url>
+=======
+      <url>file:/Users/Samuel/Documents/workspace/voogasalad_bigvooga/bin/pikachu.png</url>
+>>>>>>> master
       <progress>
         <value>1.0</value>
         <valid>true</valid>
@@ -27996,6 +28000,7 @@ gf+fn5//ysrK//Hx8f///////v7+////////////////////////////////////////////////
       </list>
     </entry>
   </categoryMap>
+  <possibleCategoryMap/>
   <myImageURL>pikachu.png</myImageURL>
   <myName>pikachu</myName>
   <myNumCellsWidth>0.0</myNumCellsWidth>

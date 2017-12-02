@@ -86,7 +86,11 @@
   </accessibleRole>
   <image class="javafx.scene.image.ImageView$2">
     <value class="javafx.scene.image.Image">
+<<<<<<< HEAD
       <url>file:/C:/Users/Owen%20Smith/eclipse-workspace/voogasalad_bigvooga/bin/water.png</url>
+=======
+      <url>file:/Users/Samuel/Documents/workspace/voogasalad_bigvooga/bin/water.png</url>
+>>>>>>> master
       <progress>
         <value>1.0</value>
         <valid>true</valid>
@@ -2850,6 +2854,7 @@ ATdzADZyAjZyAjZyADNqADNqADJpADFpATBoAC9nAC1mAC1mAC1k</hb>
       </list>
     </entry>
   </categoryMap>
+  <possibleCategoryMap/>
   <myImageURL>water.png</myImageURL>
   <myName>water</myName>
   <myNumCellsWidth>0.0</myNumCellsWidth>
