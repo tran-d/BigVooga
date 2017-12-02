@@ -8,9 +8,9 @@ public class FactoryTester {
 		OperationFactory factory = new OperationFactory();
 		System.out.println(factory.getOperations("Boolean"));
 		System.out.println(factory.getOperations("String"));
-		StringOperation first = ()->"First";
-		StringOperation second = ()->" and the second";
-		System.out.println(factory.makeOperation("Concatenate", first, second).evaluate());
+		StringOperation first = (a,b)->"First";
+		StringOperation second = (a,b)->" and the second";
+		System.out.println(factory.makeOperation("Concatenate", first, second).evaluate(null, null));
 		
 		ActionFactory actFact = new ActionFactory();
 		System.out.println(actFact.getCategories());

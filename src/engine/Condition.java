@@ -1,5 +1,7 @@
 package engine;
 
+import engine.operations.booleanops.BooleanOperation;
+
 /**
  * Implementations of Condition represent any instances for which an object is defined to carry
  * out Actions. These Conditions check for three main types of instances: user input, variable states,
@@ -17,9 +19,15 @@ package engine;
  * @author Aaron Paskin
  *
  */
-public abstract class Condition implements Comparable<Condition> {
+public class Condition implements Comparable<Condition> {
 	
 	public int priorityNum;
+	private BooleanOperation operation;
+	
+	public Condition(int priorityNum, BooleanOperation operation) {
+		this.operation = operation;
+		this.priorityNum = priorityNum;
+	}
 	
 	/**
 	 * Returns true when requested states of asking, world, and/or given Conditions occur.
@@ -28,7 +36,9 @@ public abstract class Condition implements Comparable<Condition> {
 	 * @param world
 	 * @return
 	 */
-	public abstract boolean isTrue(GameObject asking, Layer world);
+	public boolean isTrue(GameObject asking, Layer world) {
+		return operation.evaluate(asking, world);
+	}
 	
 	/**
 	 * Returns the priority number of the Condition, which is used to customize the order

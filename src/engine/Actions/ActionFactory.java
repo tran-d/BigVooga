@@ -1,6 +1,7 @@
 package engine.Actions;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -10,7 +11,6 @@ import java.util.ResourceBundle;
 
 import engine.Action;
 import engine.VoogaException;
-import engine.archived.MoveTo;
 import engine.operations.OperationFactory;
 
 /**
@@ -18,13 +18,13 @@ import engine.operations.OperationFactory;
  *
  */
 public class ActionFactory {
-	
+
 	private static final String PACKAGE_NAME = ActionFactory.class.getPackage().getName();
-	private static final String BUNDLE_LOCATION = PACKAGE_NAME+".Actions";
+	private static final String BUNDLE_LOCATION = PACKAGE_NAME + ".Actions";
 
 	private Map<String, ResourceBundle> categoryBundles;
 	private Map<String, String> operationTypeMap;
-	
+
 	public ActionFactory() {
 		populateCategoryMap();
 		operationTypeMap = OperationFactory.getParameterTypeMap();
@@ -33,23 +33,29 @@ public class ActionFactory {
 	private void populateCategoryMap() {
 		categoryBundles = new HashMap<>();
 		ResourceBundle bundleLocations = ResourceBundle.getBundle(BUNDLE_LOCATION);
-		for(String category : bundleLocations.keySet()) {
-			categoryBundles.put(category, ResourceBundle.getBundle(PACKAGE_NAME+"."+bundleLocations.getString(category)));
+		for (String category : bundleLocations.keySet()) {
+			categoryBundles.put(category,
+					ResourceBundle.getBundle(PACKAGE_NAME + "." + bundleLocations.getString(category)));
 		}
 	}
-	
-	public List<String> getCategories(){
+
+	public List<String> getCategories() {
 		return new ArrayList<>(categoryBundles.keySet());
 	}
-	   
+
 	public List<String> getActions(String category) {
 		return Collections.list(categoryBundles.get(category).getKeys());
 	}
 
 	public Action makeAction(String actionName, Object... parameters) {
-		return new MoveTo(0, 0);
+		try {
+			return (Action) getConstructor(actionName).newInstance(parameters);
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+				| ClassNotFoundException e) {
+			throw new VoogaException("ActionNotFound", actionName);
+		}
 	}
-	   
+
 	public List<String> getParameters(String actionName) {
 		List<String> types = new ArrayList<>();
 		try {
@@ -60,11 +66,11 @@ public class ActionFactory {
 		}
 		return types;
 	}
-	
+
 	private Constructor<?> getConstructor(String operationName) throws ClassNotFoundException {
 		return Class.forName(getClassName(operationName)).getDeclaredConstructors()[0];
 	}
-	
+
 	private String getClassName(String actionName) {
 		for (String key : categoryBundles.keySet()) {
 			if (categoryBundles.get(key).containsKey(actionName))
