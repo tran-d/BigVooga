@@ -89,6 +89,12 @@ public abstract class SpriteSet {
 		}
 		return mySSV;
 	}
+	
+	/*protected SpriteSamarthGrid getSamarthGrid() {
+		mySG == null {
+			make
+		}
+	}*/
 
 	protected void makeSpriteScrollView() {
 		mySSV = new SpriteScrollView();

@@ -61,14 +61,17 @@ public class MapManager extends TabPane {
 	}
 	
 	private void setupBEAuthClasses() {
+		
 		myAEM = new AuthoringEnvironmentManager();
 		mySOGM = myAEM.getGridManager();
 	}
 	
 	private void setupFEAuthClasses() {
 		Menu myMenu = new Menu(myAEM, this);
-		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, myMenu, mySOGM);
-		DraggableGrid myGrid = new DraggableGrid(mySpriteGridHandler);
+		DraggableGrid myGrid = myAEM.getDraggableGrid();
+		
+		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, myMenu, myGrid);
+		myGrid.construct(mySpriteGridHandler);
 		mySprites = new SpriteManager(mySpriteGridHandler, myAEM, mySOGM);
 		mySpriteGridHandler.addKeyPress(stage.getScene());
 //
