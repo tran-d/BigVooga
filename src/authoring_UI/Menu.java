@@ -143,21 +143,26 @@ public class Menu extends VBox {
 
 	private VBox createParameterTab() {
 		myParamTabVBox = new VBox();
-		Button applyButton = new Button();
-		myParamTabVBox.getChildren().addAll(myParamTabs, applyButton);
+		
+		myParamTabVBox.getChildren().addAll(myParamTabs);
 
 		setDefaultErrorNoSpriteTabPane();
 
 		// theHorizTabs = myParamTabs;
 
-		applyButton.textProperty().setValue("Apply Button");
-		applyButton.setOnAction(e -> {
-			apply();
-		});
 
 		// myParamTabVBox.getChildren().addAll(theHorizTabs, applyButton);
 		// addParameterErrorMessage();
 		return myParamTabVBox;
+	}
+	
+	private Button makeApplyButton(){
+		Button applyButton = new Button();
+		applyButton.textProperty().setValue("Apply Button");
+		applyButton.setOnAction(e -> {
+			apply();
+		});
+		return applyButton;
 	}
 
 	private void createCategoryTabs() {
@@ -182,9 +187,9 @@ public class Menu extends VBox {
 		}
 	}
 
-	private void addParameterTab() {
+	private void addSpriteInfoTab() {
 		if (!this.getChildren().contains(mySpriteTabs)) {
-			this.getChildren().add(mySpriteTabs);
+			this.getChildren().addAll(mySpriteTabs, this.makeApplyButton());
 		}
 	}
 
@@ -233,7 +238,7 @@ public class Menu extends VBox {
 			// myParamTabs.getTabs().add(newCategory);
 
 			// }
-			addParameterTab();
+			addSpriteInfoTab();
 		} catch (Exception e) {
 			// throw new RuntimeException();
 			setDefaultErrorNoSpriteTabPane();
