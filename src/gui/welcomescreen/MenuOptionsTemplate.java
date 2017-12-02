@@ -1,6 +1,6 @@
 package gui.welcomescreen;
 
-import default_pkg.SceneController;
+import controller.welcomeScreen.SceneController;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

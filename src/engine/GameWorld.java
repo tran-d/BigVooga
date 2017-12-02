@@ -3,7 +3,7 @@ package engine;
 import java.util.ArrayList;
 import java.util.List;
 
-import player.PlayerManager;
+import controller.player.PlayerManager;
 
 /**
  * Holds Layers, which hold GameObjects. An Example of a GameWorld would be a tavern room or a dark forest.

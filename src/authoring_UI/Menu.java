@@ -11,7 +11,7 @@ import authoring.SpriteObject;
 import authoring.SpriteParameterI;
 import authoring_actionconditions.ActionConditionTab;
 import authoring_actionconditions.ControllerConditionActionTabs;
-import default_pkg.SceneController;
+import controller.welcomeScreen.SceneController;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
@@ -34,7 +34,7 @@ public class Menu extends VBox {
 	private VBox myParamTabVBox;
 	private TextArea myParameterErrorMessage;
 	private SpriteParameterTabsAndInfo mySPTAI;
-	private MapManager myMapManager;
+	private MainAuthoringGUI myMapManager;
 	private static final String LOAD = "Load";
 	private static final String SAVE = "Save";
 	private static final String ACTIONCONDITIONTITLES_PATH = "TextResources/ConditionActionTitles";
@@ -43,7 +43,7 @@ public class Menu extends VBox {
 	
 	public static final ResourceBundle conditionActionTitles = ResourceBundle.getBundle(ACTIONCONDITIONTITLES_PATH);
 	
-	protected Menu(AuthoringEnvironmentManager AEM, MapManager myManager, SceneController currentSceneController) {
+	protected Menu(AuthoringEnvironmentManager AEM, MainAuthoringGUI myManager, SceneController currentSceneController) {
 		mySPTAI = new SpriteParameterTabsAndInfo();
 		myAEM = AEM;
 		myMapManager = myManager;

@@ -1,6 +1,6 @@
 package authoring_data;
 
-import authoring_UI.MapManager;
+import authoring_UI.MainAuthoringGUI;
 import engine.utilities.data.GameDataHandler;
 
 public class AuthoringDataManager {
@@ -8,7 +8,7 @@ public class AuthoringDataManager {
 	SpriteObjectGridToEngineController mySOGTEC;
 	GameDataHandler myGDH;
 	AuthoringMapDataManager myAMDM;
-	MapManager myMM;
+	MainAuthoringGUI myMM;
 	
 	AuthoringDataManager(GameDataHandler GDH){
 		myGDH = GDH;
