@@ -6,7 +6,10 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import authoring_UI.MapLayer;
+import authoring_UI.SpriteGridHandler;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
 public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 	
@@ -17,6 +20,19 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 	private int CURR_COLS = 15;
 	private SpriteObject defaultEmptySprite;
 	private Set<Integer []> activeCells;
+	private MapLayer myMapLayer;
+	private SpriteGridHandler spriteGridHandler;
+	
+	
+	SpriteObjectGridManager(int rows, int columns, int layerNum){
+		
+	}
+	
+	
+	SpriteObjectGridManager(int rows, int columns, int layerNum, Color c){
+		
+	}
+	
 	
 	
 	SpriteObjectGridManager() {
