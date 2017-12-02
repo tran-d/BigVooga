@@ -56,7 +56,6 @@ public class SpriteGridHandler {
 		});
 		removeSpritesFromGrid();
 		myMenu.removeParameterTab();
-		System.out.println();
 		mySOGM.clearCells(cellsToDelete);
 //		mySOGM.removeActiveCells(cellsToDelete);
 	}

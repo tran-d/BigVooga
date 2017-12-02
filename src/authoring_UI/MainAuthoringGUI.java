@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObjectGridManagerI;
+import controller.authoring.AuthoringController;
 import controller.welcomeScreen.SceneController;
 import gui.welcomescreen.MenuOptionsTemplate;
 import gui.welcomescreen.WelcomeScreen;
@@ -26,27 +27,15 @@ public class MainAuthoringGUI{
 	private Scene scene;
 	private SceneController sceneController;
 	private BorderPane rootPane;
-	private SingleSelectionModel<Tab> mySelectModel;
-	private TabPane mapManager;
-	private Tab currentTab;
-	private Tab addTab;
 	private ToolBar toolBar;
 	
-	private AuthoringEnvironmentManager myAEM;
-	private SpriteObjectGridManagerI mySOGM;
-	private SpriteManager mySprites;
-	private AuthoringMapEnvironment authMap;
-	private final String addTabString = "+";
-	
-	private int myTabCount = 1;
 	private MenuButton fileOptions;
 	private MenuButton settings;
-	private ViewSideBar sideBar;
 	private Pane authoringPane;
+	private AuthoringController authoringController;
 	
 	private static final String AUTHORING_CSS = "Authoring.css";
 	private static final String BORDERPANE_ID = "borderpane";
-	private static final String TABTAG = "map ";
 	
 
 	public MainAuthoringGUI(Stage currentStage, SceneController currentSceneController) {
@@ -61,17 +50,13 @@ public class MainAuthoringGUI{
 	}
 	
 	public void createAuthoringGUI() {
-		mapManager = new TabPane();
-		mySelectModel = mapManager.getSelectionModel();
-		mapManager.setPrefWidth(WelcomeScreen.WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH);
-		mapManager.setPrefHeight(WelcomeScreen.HEIGHT);
-		setTab();
 		createToolBar();
 		rootPane.setTop(toolBar);
 		
-		mapManager.setLayoutX(ViewSideBar.VIEW_MENU_HIDDEN_WIDTH);
 		authoringPane = new Pane();
-		authoringPane.getChildren().addAll(mapManager, sideBar);
+		authoringController = new AuthoringController(stage, authoringPane);
+		ViewSideBar sideBar = new ViewSideBar(authoringController);
+		authoringController.switchView(authoringController.MAP_EDITOR_KEY, sideBar);
 		
 		rootPane.setCenter(authoringPane);
 	}
@@ -108,79 +93,6 @@ public class MainAuthoringGUI{
 
 		settings = new MenuButton ("Settings", null, language);
 		
-	}
-	
-	private void setTab() {
-		mapManager.setSide(Side.TOP);
-		addTab = new Tab();
-		addTab.setClosable(false);
-		addTab.setText(addTabString);
-		addTab.setOnSelectionChanged(e -> {
-			createTab(myTabCount);
-			mySelectModel.select(currentTab);
-		});
-		mapManager.getTabs().add(addTab);
-	}
-
-	private HBox setupScene() {
-
-		authMap = new AuthoringMapEnvironment();
-		setupBEAuthClasses();
-		setupFEAuthClasses();
-		
-		return authMap;
-	}
-	
-	private void setupBEAuthClasses() {
-		myAEM = new AuthoringEnvironmentManager();
-		mySOGM = myAEM.getGridManager();
-	}
-	
-	private void setupFEAuthClasses() {
-		Menu myMenu = new Menu(myAEM, this, sceneController);
-		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, myMenu, mySOGM);
-		DraggableGrid myGrid = new DraggableGrid(mySpriteGridHandler);
-		mySprites = new SpriteManager(mySpriteGridHandler, myAEM, mySOGM);
-		mySpriteGridHandler.addKeyPress(scene);
-		sideBar = new ViewSideBar();
-		sideBar.toFront();
-//
-//<<<<<<< HEAD
-//		authMap.getChildren().addAll(myMenu, myGrid, mySprites);
-//		mySpriteGridHandler.addKeyPress(scene);
-//=======
-		authMap.setMenu(myMenu);
-		authMap.setGrid(myGrid);
-		authMap.setSpriteManager(mySprites);
-//		authMap.getChildren().addAll(myMenu, myGrid, mySprites);
-	}
-	
-	protected SpriteCreator createNewSpriteCreator() {
-		SpriteCreator mySpriteCreator = new SpriteCreator(stage, mySprites, myAEM);
-		return mySpriteCreator;
-	}
-	
-
-	private void createTab(int tabCount) {
-		currentTab = new Tab();
-		String tabName = TABTAG + Integer.toString(tabCount);
-		currentTab.setText(tabName);
-		currentTab.setContent(setupScene());
-		mapManager.getTabs().add(mapManager.getTabs().size() - 1, currentTab);
-		myTabCount++;
-	}
-	
-	private ArrayList<AuthoringMapEnvironment> getAllMapEnvironments(){
-		ArrayList<AuthoringMapEnvironment> allMaps = new ArrayList<AuthoringMapEnvironment>();
-		for (Tab t: mapManager.getTabs()) {
-			if (!t.getText().equals(addTabString)){
-				AuthoringMapEnvironment AME = (AuthoringMapEnvironment) t.getContent();
-				allMaps.add(AME);
-			}
-		}
-		return allMaps;
-
-	
 	}
 	
 	/**

@@ -1,5 +1,6 @@
 package authoring_UI;
 
+import controller.authoring.AuthoringController;
 import javafx.animation.TranslateTransition;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
@@ -17,31 +18,36 @@ public class ViewSideBar extends VBox {
 	private static final int TRANSLATION_RATE = 1;
 	private static final String MAP_EDITOR = "MapEditor";
 	private static final String SPRITE_CREATOR = "SpriteCreator";
-	private static final String PANEL_CREATOR = "PanelCreator";
-	private static final String CUSTOM = "Custom";
+	private static final String CUSTOM_PANEL = "CustomPanel";
 	private static final String CUTSCENES = "Cutscenes";
 	private static final String DIALOGUE = "Dialogue";
 	private static final String HUD = "HUD";
 	private static final String INVENTORY = "Inventory";
+	private static final String MENU_CREATOR = "MenuCreator";
+	
+	private AuthoringController authoringController;
 	private TranslateTransition thisTranslation;
 	private ToggleGroup viewGroup = new ToggleGroup();
 	
-	public ViewSideBar () {
+	public ViewSideBar (AuthoringController currentAuthoringController) {
+		
+		authoringController = currentAuthoringController;
+		
 		this.setId(ID_NAME);
 	    this.setPrefWidth(SIDE_BAR_WIDTH);
 
-	    RadioButton mapButton = createViewButton(MAP_EDITOR);
+	    RadioButton mapButton = createViewButton(MAP_EDITOR, AuthoringController.MAP_EDITOR_KEY);
 	    mapButton.setSelected(true);
 	    
 	    this.getChildren().addAll(
 	    		mapButton,
-	    		createViewButton(SPRITE_CREATOR),
-	    		createViewButton(PANEL_CREATOR),
-	    		createViewButton(CUSTOM),
-	    		createViewButton(CUTSCENES),
-	    		createViewButton(DIALOGUE),
-	    		createViewButton(HUD),
-	    		createViewButton(INVENTORY)
+	    		createViewButton(SPRITE_CREATOR, AuthoringController.SPRITE_CREATOR_KEY),
+	    		createViewButton(CUSTOM_PANEL, AuthoringController.CUSTOM_PANEL_KEY),
+	    		createViewButton(CUTSCENES, AuthoringController.CUTSCENES_KEY),
+	    		createViewButton(DIALOGUE, AuthoringController.DIALOGUE_KEY),
+	    		createViewButton(HUD, AuthoringController.HUD_KEY),
+	    		createViewButton(INVENTORY, AuthoringController.INVENTORY_KEY),
+	    		createViewButton(MENU_CREATOR, AuthoringController.MENU_CREATOR_KEY)
 	    		);
 
 	    this.getStylesheets().add(ViewSideBar.class.getResource("ViewMenu.css").toExternalForm());
@@ -56,12 +62,13 @@ public class ViewSideBar extends VBox {
 	    
 	}
 	
-	private RadioButton createViewButton(String view) {
+	private RadioButton createViewButton(String view, String viewKey) {
 		RadioButton viewButton = new RadioButton(view);
 		viewButton.getStyleClass().remove("radio-button");
 		viewButton.getStyleClass().add("toggle-button");
 		viewButton.setToggleGroup(viewGroup);
 		viewButton.textProperty().bind(DisplayLanguage.createStringBinding(view));
+		viewButton.setOnAction(e -> authoringController.switchView(viewKey, this));
 		return viewButton;
 	}
 	
