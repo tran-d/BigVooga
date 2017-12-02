@@ -34,7 +34,7 @@ public class SpriteObjectGridToEngineController {
 	}
 	
 	private void createWorld() {
-		currentWorld = new GameWorld();
+		currentWorld = new GameWorld(); 
 	}
 
 	private void createEngineLayerAndAddToWorld(MapLayer thisLayer) {
