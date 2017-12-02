@@ -35,7 +35,7 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 	
 	
 	
-	SpriteObjectGridManager() {
+	public SpriteObjectGridManager() {
 		setDefaultEmptySprite(new SpriteObject());
 		initializeGrid();
 		activeCells = new HashSet<Integer[]>();
