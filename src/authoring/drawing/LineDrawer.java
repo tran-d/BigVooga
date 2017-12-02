@@ -23,6 +23,7 @@ public class LineDrawer extends DrawingTool{
 	
 	private void mouseReleased(MouseEvent e) {
 		canvas.drawLine(lastLoc, point(e));
+		canvas.getChildren().remove(phantom);
 	}
 
 	private void mouseDragged(MouseEvent e) {

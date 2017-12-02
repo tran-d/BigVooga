@@ -1,6 +1,7 @@
 package authoring.drawing;
 
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
@@ -72,12 +73,16 @@ public class ImageCanvas extends Pane {
 	public Canvas getCanvas() {
 		return canvas;
 	}
-
+	
 	public Line getLine(Point2D point1, Point2D point2) {
 		Line l = new Line(point1.getX(),point1.getY(),point2.getX(), point2.getY());
 		l.setStrokeWidth(stroke);
 		l.setStroke(canvas.getGraphicsContext2D().getFill());
 		l.setStrokeLineCap(StrokeLineCap.ROUND);
 		return l;
+	}
+	
+	public double getStroke() {
+		return stroke;
 	}
 }
