@@ -3,9 +3,11 @@ package authoring_data;
 import java.util.ArrayList;
 import java.util.List;
 
+import authoring.SpriteObject;
 import authoring.SpriteObjectGridManagerI;
 import authoring.SpriteObjectI;
 import authoring.SpriteParameterI;
+import authoring_UI.MapLayer;
 import engine.GameLayer;
 import engine.GameMaster;
 import engine.GameObject;
@@ -15,17 +17,39 @@ import engine.utilities.data.GameDataHandler;
 public class SpriteObjectGridToEngineController {
 	private GameMaster myEC;
 	private GameDataHandler myGDH;
+	private GameWorld currentWorld;
 
 	public SpriteObjectGridToEngineController(GameDataHandler GDH){
 		myGDH = GDH;
 	}
 	
-	public void createWorldAndAddToEngine(SpriteObjectGridManagerI SOGMI) {
-		List<GameObject> GO_LIST = convertSpriteObjectGridToListOfGameObjects(SOGMI);
-		GameWorld thisWorld = createWorld(GO_LIST);
-		addWorldToEngine(thisWorld);
+	// called every time a grid is processed (new world is added to engine)
+	public void createLayerAndAddToEngine(DraggableGrid currentGrid) { //SpriteObjectGridManagerI SOGMI
+		List<MapLayer> allLayers = currentGrid.getLayers();
+		createWorld();
+		for (MapLayer thisLayer : allLayers) {
+			createEngineLayerAndAddToWorld(thisLayer);
+		}
+		addWorldToEngine(currentWorld);
 	}
 	
+	private void createWorld() {
+		currentWorld = new GameWorld();
+	}
+
+	private void createEngineLayerAndAddToWorld(MapLayer thisLayer) {
+		SpriteObjectGridManagerI SOGMI = thisLayer.getSpriteManager();
+		List<GameObject> GO_LIST = convertSpriteObjectGridToListOfGameObjects(SOGMI);
+		GameLayer engineLayer = createLayer(GO_LIST);
+		addLayerToWorld(engineLayer);
+	}
+
+	private GameLayer createLayer(List<GameObject> gO_LIST) {
+		GameLayer thisLayer = new GameLayer();
+		addAllGameObjectsToLayer(gO_LIST, thisLayer);
+		return thisLayer;
+	}
+
 	public void saveEngine() {
 		try{
 		myGDH.saveGame(myEC);
@@ -34,17 +58,16 @@ public class SpriteObjectGridToEngineController {
 		}
 	}
 	
-	private GameObject convertToGameObject(SpriteObjectI SOI){
+	private GameObject convertToGameObject(SpriteObject SOI){
 		//added null as input to rid error
 		GameObject GE = new GameObject(null);
 		setPositionOfGameObject(SOI, GE);
 		addParametersToGameObject(SOI, GE);
 		addConditionsAndActionsToGameObject(SOI, GE);
 		return GE;
-		
 	}
 	
-	private void setPositionOfGameObject(SpriteObjectI SOI, GameObject GO){
+	private void setPositionOfGameObject(SpriteObject SOI, GameObject GO){
 		GO.setCoords(SOI.getXCenterCoordinate(), SOI.getYCenterCoordinate());
 	}
 
@@ -57,39 +80,27 @@ public class SpriteObjectGridToEngineController {
 	}
 	
 	private void addConditionsAndActionsToGameObject(SpriteObjectI SOI, GameObject GE){
-		// NEED TO DO
+		// TODO 
 		
 	}
 	
-	private void addNewGameObject(ArrayList<GameObject> GO_LIST, GameObject GO){
-		GO_LIST.add(GO);
-	}
-	
 	private List<GameObject> convertSpriteObjectGridToListOfGameObjects(SpriteObjectGridManagerI SOGM_IN) {
-		ArrayList<GameObject> GO_LIST = new ArrayList<GameObject>();
-		for (SpriteObjectI SOI: SOGM_IN.getEntireListOfSpriteObjects()) {
+		List<GameObject> GO_LIST = new ArrayList<GameObject>();
+		for (SpriteObject SOI: SOGM_IN.getEntireListOfSpriteObjects()) {
 			GameObject convertedToGameObject = convertToGameObject(SOI);
-			addNewGameObject(GO_LIST,convertedToGameObject);
+			GO_LIST.add(convertedToGameObject);
 		}
 		return GO_LIST;
 	}
 	
-	private GameWorld createWorld(List<GameObject> GO_LIST) {
-		GameLayer thisLayer = new GameLayer();
-		addAllGameObjectsToLayer(GO_LIST, thisLayer);
-		GameWorld thisWorld = new GameWorld();
-		thisWorld.addLayer(thisLayer);
-		return thisWorld;
+	private void addLayerToWorld(GameLayer layerToAdd) {
+		currentWorld.addLayer(layerToAdd);
 	}
 	
 	private void addAllGameObjectsToLayer(List<GameObject> GO_LIST, GameLayer layer) {
 		for (GameObject GO: GO_LIST) {
 			layer.addGameObject(GO);
 		}
-	}
-	
-	private GameLayer createGameLayer() {
-		return new GameLayer();
 	}
 	
 	private void createEngine() {
