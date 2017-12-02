@@ -1,10 +1,14 @@
 package authoring;
 
+import java.io.File;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -12,17 +16,26 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 
 	private HashMap<String, ArrayList<SpriteParameterI>> categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();
 	private HashMap<String, ArrayList<SpriteParameterI>> possibleCategoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();;
-	//	private ImageView myImageView;
+	// private ImageView myImageView;
 	private String myImageURL;
 	private Integer[] myPositionOnGrid;
 	private String myName;
 	private double myNumCellsWidth;
 	private double myNumCellsHeight;
-	private int myUniqueID;
+	private String myUniqueID;
+	private String mySavePath;
 
 	public SpriteObject() {
 		super();
 		setUniqueID();
+	}
+
+	public SpriteObject(boolean isRecreation) {
+		if (isRecreation) {
+			// Nothing
+		} else {
+			setUniqueID();
+		}
 	}
 
 	public SpriteObject(String fileURL) {
@@ -42,12 +55,23 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 		this();
 		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(inCategoryMap);
 		setupImageURLAndView(fileURL);
+
 	}
 
 	private void setUniqueID() {
-		if (myUniqueID <= 0) {
+		if (myUniqueID == null) {
 			myUniqueID = SpriteIDGenerator.getInstance().getUniqueID();
 		}
+	}
+
+	public void setUniqueID(String ID) {
+		if (myUniqueID==null){
+			myUniqueID = ID;
+		}
+	}
+
+	public String getUniqueID() {
+		return myUniqueID;
 	}
 
 	private void setupImageURLAndView(String fileURL) {
@@ -57,20 +81,19 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 		this.setFitHeight(45);
 	}
 
-
-	private double getNumCellsWidth() {
+	public double getNumCellsWidth() {
 		return myNumCellsWidth;
 	}
 
-	private void setNumCellsWidth(double in) {
+	public void setNumCellsWidth(double in) {
 		myNumCellsWidth = in;
 	}
 
-	private double getNumCellsHeight() {
+	public double getNumCellsHeight() {
 		return myNumCellsHeight;
 	}
 
-	private void setNumCellsHeight(double in) {
+	public void setNumCellsHeight(double in) {
 		myNumCellsHeight = in;
 	}
 
@@ -78,14 +101,12 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 		return new double[] { getXCenterCoordinate(), getYCenterCoordinate() };
 	}
 
-
 	public double getYCenterCoordinate() {
 		double height = getNumCellsHeight();
 		double ypos = getRowOnGrid();
 		double centery = ypos + height / 2;
 		return centery;
 	}
-
 
 	public double getXCenterCoordinate() {
 		double width = getNumCellsWidth();
@@ -96,9 +117,9 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 
 	@Override
 	public ImageView getImageView() {
-//		if (this.getImage() == null){
-//			setupImageURLAndView(getImageURL());
-//		}
+		// if (this.getImage() == null){
+		// setupImageURLAndView(getImageURL());
+		// }
 		return this;
 	}
 
@@ -124,8 +145,22 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 	public void setImageURL(String fileLocation) {
 		setupImageURLAndView(fileLocation);
 	}
-	
+
 	public String getImageURL() {
+		// System.out.println("myImageURL: "+myImageURL);
+		// File f = new File("brick.png");
+		// System.out.println("File:\n" + f.toURI().toString());
+		// Image image = new Image(f.toURI().toString());
+		// Image image = null;
+		// try {
+		// image = new Image(myImageURL);
+		// Alert al = new Alert(AlertType.INFORMATION);
+		// al.setGraphic(new ImageView(image));
+		// al.showAndWait();
+		// } catch (Exception e) {
+		// //
+		// }
+		// System.out.println("getImage().file: "+this.getImage().get);
 		return myImageURL;
 	}
 
@@ -144,10 +179,11 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 		addParameter("General", SP);
 
 	}
-	
-	public boolean addCategory(String category){
+
+	public boolean addCategory(String category) {
 		if (!categoryMap.containsKey(category)) {
 			categoryMap.put(category, new ArrayList<SpriteParameterI>());
+			System.out.println("Catgeory added: categoryMap is " + categoryMap);
 			return true;
 		}
 		return false;
@@ -159,7 +195,7 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 		val.add(SP);
 		categoryMap.put(category, val);
 	}
-	
+
 	public void addPossibleParameter(String category, SpriteParameterI SP) {
 		if (!possibleCategoryMap.containsKey(category)) {
 			possibleCategoryMap.put(category, new ArrayList<SpriteParameterI>());
@@ -169,29 +205,35 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 		val.add(SP);
 		possibleCategoryMap.put(category, val);
 	}
-	
-	public int acceptPossibleParameters(){
+
+	public int acceptPossibleParameters() {
 		int ret = 0;
-		for (Entry<String, ArrayList<SpriteParameterI>> keyVal: possibleCategoryMap.entrySet()){
+		for (Entry<String, ArrayList<SpriteParameterI>> keyVal : possibleCategoryMap.entrySet()) {
 			String key = keyVal.getKey();
+			
 			ArrayList<SpriteParameterI> val = keyVal.getValue();
-			for (SpriteParameterI item: val){
+			System.out.println("Key: "+ key + ", Val: " + val);
+			for (SpriteParameterI item : val) {
 				boolean added = addCategory(key);
-				if (added){
-					ret+=1;
+				if (added) {
+					ret += 1;
 				}
 				addParameter(key, item);
 			}
 		}
 		return ret;
 	}
-	
-	public void clearPossibleParameters(){
+
+	public void clearPossibleParameters() {
 		this.possibleCategoryMap.clear();
 	}
 
 	@Override
 	public void applyParameterUpdate(HashMap<String, ArrayList<SpriteParameterI>> newParams) {
+		replaceCategoryMap(newParams);
+	}
+
+	public void setParameterMap(HashMap<String, ArrayList<SpriteParameterI>> newParams) {
 		replaceCategoryMap(newParams);
 	}
 
@@ -301,15 +343,45 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 
 	@Override
 	public void updateCategoryName(String prev, String next) {
-		if (!next.equals(prev)){
-			if (getParameters().containsKey(prev)){
+
+		if (getParameters().containsKey(prev)) {
+			if (!next.equals(prev)) {
 				getParameters().put(next, getParameters().remove(prev));
-			} else {
-				this.addCategory(next);	
 			}
+		} else {
+			this.addCategory(next);
 		}
-		
-		
+		System.out.println("updatecategories: " + this.categoryMap);
+
+	}
+
+	// private HashMap<String, ArrayList<SpriteParameterI>> categoryMap = new
+	// HashMap<String, ArrayList<SpriteParameterI>>();
+	// private HashMap<String, ArrayList<SpriteParameterI>> possibleCategoryMap
+	// = new HashMap<String, ArrayList<SpriteParameterI>>();;
+	// // private ImageView myImageView;
+	// private String myImageURL;
+	// private Integer[] myPositionOnGrid;
+	// private String myName;
+	// private double myNumCellsWidth;
+	// private double myNumCellsHeight;
+	// private String myUniqueID;
+	// public Field[] getInfoToSerialize(){
+	// Field[] f = this.getClass().getDeclaredFields();
+	// for (int i=0;i<f.length;i++){
+	// System.out.println(f.g)
+	// System.out.println(f[i]);
+	// }
+	// System.out.println();
+	// return f;
+	// }
+	
+	public String getSavePath(){
+		return mySavePath;
+	}
+	
+	public void setSavePath(String path){
+		mySavePath = path;
 	}
 
 }

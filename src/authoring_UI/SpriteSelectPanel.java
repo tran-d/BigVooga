@@ -8,13 +8,13 @@ import javafx.scene.layout.VBox;
 public class SpriteSelectPanel extends VBox {
 
 	private String myName;
-	private SpriteManager mySM;
+//	private SpriteManager mySM;
 	private SpriteGridHandler mySGH;
 
-	SpriteSelectPanel(String name, SpriteManager SM, SpriteGridHandler SGH){
+	SpriteSelectPanel(String name, SpriteGridHandler SGH){
 		super();
 		myName = name;
-		mySM = SM;
+//		mySM = SM;
 		mySGH = SGH;
 	}
 	
@@ -29,7 +29,7 @@ public class SpriteSelectPanel extends VBox {
 	private void setDefaultSpriteVBox(ArrayList<SpriteObject> defaults) {
 		this.getChildren().clear();
 		defaults.forEach(SO -> {
-			this.getChildren().addAll((SpriteObject) SO);
+			this.getChildren().add(SO);
 		});
 
 	}
@@ -67,6 +67,14 @@ public class SpriteSelectPanel extends VBox {
 	public void addNewDefaultSprite(SpriteObject SO, int spriteLocation) {
 		SpriteObject newSO = SO.newCopy();
 		this.getChildren().add(spriteLocation, newSO);
+		makeSpriteDraggable(newSO);
+		makeSpriteClickable(newSO);
+	}
+	
+	public void addNewDefaultSprite(SpriteObject SO) {
+		SpriteObject newSO = SO.newCopy();
+		int size = this.getChildren().size();
+		this.getChildren().add(size, newSO);
 		makeSpriteDraggable(newSO);
 		makeSpriteClickable(newSO);
 	}

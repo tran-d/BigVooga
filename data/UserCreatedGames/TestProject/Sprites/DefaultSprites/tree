@@ -82,7 +82,7 @@
   </accessibleRole>
   <image class="javafx.scene.image.ImageView$1">
     <value class="javafx.scene.image.Image">
-      <url>file:/Users/Samuel/Documents/workspace/voogasalad_bigvooga/bin/tree.png</url>
+      <url>file:/Users/Samuel/Documents/workspace/voogasalad_bigvooga/resources/tree.png</url>
       <progress>
         <value>1.0</value>
         <valid>true</valid>
@@ -7570,9 +7570,9 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</hb>
     </entry>
   </categoryMap>
   <possibleCategoryMap/>
-  <myImageURL>tree.png</myImageURL>
+  <myImageURL>file:/Users/Samuel/Documents/workspace/voogasalad_bigvooga/resources/tree.png</myImageURL>
   <myName>tree</myName>
   <myNumCellsWidth>0.0</myNumCellsWidth>
   <myNumCellsHeight>0.0</myNumCellsHeight>
-  <myUniqueID>229</myUniqueID>
+  <myUniqueID>01ccbb34-8b21-4345-80c1-8d9fc3a4b722</myUniqueID>
 </authoring.SpriteObject>
