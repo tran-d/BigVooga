@@ -1,7 +1,11 @@
 package authoring_UI;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 
+import authoring.SpriteObjectGridManager;
+import authoring.TerrainObjectGridManager;
 import engine.Layer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -34,19 +38,19 @@ public class DraggableGrid extends VBox {
 	private ImageView terrainImage;
 	private GridPane terrainGrid;
 	private GridPane myGrid;
-	private ArrayList<MapLayer> mapLayers;
+	private ArrayList<SpriteObjectGridManager> gridManagers;
+	private SpriteObjectGridManager activeGrid;
 	
 	private StackPane myStackPane;
 	private HBox topHbox = new HBox(10);
+	private SpriteGridHandler mySGH;
 
-	protected DraggableGrid(SpriteGridHandler spriteGridHandler) {
-		
+	public DraggableGrid() {
+
 		// myGrids = new StackPane();
 		// terrainImage = new ImageView(new Image("square.png"));
 		// createTerrainGrid();
-		makeTopInfo();
-		makeLayers(spriteGridHandler);
-		createGrid(spriteGridHandler);
+	
 		
 		
 		
@@ -54,6 +58,13 @@ public class DraggableGrid extends VBox {
 		// scrollGrid.setPannable(true);
 		// scrollGrid.setMaxWidth(600);
 		// createTerrainGrid();
+	}
+	
+	public void construct(SpriteGridHandler spriteGridHandler) {
+		mySGH = spriteGridHandler;
+		makeTopInfo();
+		makeLayers(spriteGridHandler);
+		createGrid(spriteGridHandler);
 	}
 
 	private void makeTopInfo() {
@@ -72,8 +83,8 @@ public class DraggableGrid extends VBox {
 //		c.add(Color.BLACK);
 
 		
-		for (MapLayer ml: mapLayers){
-			myStackPane.getChildren().add(ml);
+		for (SpriteObjectGridManager ml: gridManagers){
+			myStackPane.getChildren().add(ml.getMapLayer());
 			makeLayerButton(ml);
 			showLayer(ml);
 		}
@@ -88,33 +99,60 @@ public class DraggableGrid extends VBox {
 	}
 	
 	private void makeLayers(SpriteGridHandler spriteGridHandler){
-		mapLayers = new ArrayList<MapLayer>();
-		MapLayer terrain = new TerrainLayer(15,15,spriteGridHandler);
+		gridManagers = new ArrayList<SpriteObjectGridManager>();
+//		MapLayer terrain = new TerrainLayer(15,15,spriteGridHandler);
+		SpriteObjectGridManager terrain = new TerrainObjectGridManager(15, 15, spriteGridHandler);
+//		MapLayer terrain = terrMan.getMapLayer();
 //		this.getChildren().add(terrain);
 //		myStackPane.getChildren().add(new ImageView(new Image("pikachu.png")));
 //		makeLayerButton(terrain);
-		MapLayer sprites = new SpriteLayer(15,15,spriteGridHandler);
-		MapLayer panels = new PanelLayer(15,15,spriteGridHandler);
-		mapLayers.add(terrain);
-		mapLayers.add(sprites);
-		mapLayers.add(panels);
+//		SpriteLayer sprites = new SpriteLayer(15,15,spriteGridHandler);
+//		MapLayer panels = new PanelLayer(15,15,spriteGridHandler);
+		SpriteObjectGridManagerForSprites sprites = new SpriteObjectGridManagerForSprites(15, 15, spriteGridHandler);
+		PanelObjectGridManager panels = new PanelObjectGridManager(15, 15, spriteGridHandler);
+		gridManagers.add(terrain);
+		gridManagers.add(sprites);
+		gridManagers.add(panels);
+	}
+	
+	public SpriteObjectGridManager getActiveGrid(){
+		gridManagers.sort(new Comparator<SpriteObjectGridManager>(){
+
+			@Override
+			public int compare(SpriteObjectGridManager o1, SpriteObjectGridManager o2) {
+				return o2.getMapLayer().getLayerNumber()-o1.getMapLayer().getLayerNumber();
+			}
+			
+		});
+		
+		return gridManagers.get(0);
 	}
 	
 	
 	
-	private void showLayer(MapLayer ML){
+	private void showLayer(SpriteObjectGridManager ML){
 		System.out.println("Adding layer: "+ML.getName());
+		if (!gridManagers.contains(ML)){
+		gridManagers.add(ML);
+		}
 //		myStackPane.getChid
 //		myStackPane.getChildren().add(ML.getLayerNumber(), ML);
 		ML.setVisible(true);
 	}
 	
-	private void hideLayer(MapLayer ML){
+	private void hideLayer(SpriteObjectGridManager ML){
 //		myStackPane.getChildren().remove(ML);
+		mySGH.removeActiveCells();
+		if (gridManagers.contains(ML)){
+			
+		
+		gridManagers.remove(ML);
+		}
+		
 		ML.setVisible(false);
 	}
 	
-	private void makeLayerButton(MapLayer ML) {
+	private void makeLayerButton(SpriteObjectGridManager ML) {
 		HBox hbox = new HBox(10);
 		
 		Label label = new Label(ML.getName());
