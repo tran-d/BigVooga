@@ -16,6 +16,8 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 
 	private HashMap<String, ArrayList<SpriteParameterI>> categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();
 	private HashMap<String, ArrayList<SpriteParameterI>> possibleCategoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();;
+	
+	
 	// private ImageView myImageView;
 	private String myImageURL;
 	private Integer[] myPositionOnGrid;
@@ -46,12 +48,12 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 		// myName = fileURL.split(".")[0];
 	}
 
-	public SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap) {
+	SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap) {
 		this();
 		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(inCategoryMap);
 	}
 
-	public SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap, String fileURL) {
+	SpriteObject(HashMap<String, ArrayList<SpriteParameterI>> inCategoryMap, String fileURL) {
 		this();
 		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(inCategoryMap);
 		setupImageURLAndView(fileURL);
@@ -183,7 +185,7 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 	public boolean addCategory(String category) {
 		if (!categoryMap.containsKey(category)) {
 			categoryMap.put(category, new ArrayList<SpriteParameterI>());
-			System.out.println("Category added: categoryMap is " + categoryMap);
+			System.out.println("Catgeory added: categoryMap is " + categoryMap);
 			return true;
 		}
 		return false;

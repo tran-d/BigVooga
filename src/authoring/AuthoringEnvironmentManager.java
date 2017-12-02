@@ -2,6 +2,7 @@ package authoring;
 
 import java.util.ArrayList;
 
+import authoring_UI.DraggableGrid;
 import authoring_UI.SpriteSet;
 import authoring_UI.SpriteSetDefault;
 import authoring_UI.SpriteSetUserDefined;
@@ -18,16 +19,22 @@ public class AuthoringEnvironmentManager {
 	private GameDataHandler myGDH;
 	private SpriteSet myDefaultSprites;
 	private SpriteSet myCustomSprites;
+	private DraggableGrid myGrid;
 
 	public AuthoringEnvironmentManager(String projectName) {
 		myGDH = new GameDataHandler(projectName);
 		defaultEmptySprite = new SpriteObject();
-		SOGM = new SpriteObjectGridManager();
-		SPSM = new SpriteParameterSidebarManager(SOGM);
+		myGrid = new DraggableGrid();
+//		SOGM = new SpriteObjectGridManager();
+		SPSM = new SpriteParameterSidebarManager(myGrid);
 		initializeDefaultSprites();
 		initializeCustomSprites();
 //		defaultSprites = new ArrayList<SpriteObject>();
 //		userSprites = new ArrayList<SpriteObject>();
+	}
+	
+	public DraggableGrid getDraggableGrid(){
+		return myGrid;
 	}
 	
 	public AuthoringEnvironmentManager(){

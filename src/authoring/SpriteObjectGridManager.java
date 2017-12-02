@@ -11,34 +11,53 @@ import authoring_UI.SpriteGridHandler;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
-public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
+public abstract class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 	
-	private ArrayList<ArrayList<SpriteObject>> spriteGrid;
+	protected ArrayList<ArrayList<SpriteObject>> spriteGrid;
 	private int MAX_ROWS = 15;
 	private int MAX_COLS = 15;
-	private int CURR_ROWS = 15;
-	private int CURR_COLS = 15;
+	protected int CURR_ROWS;
+	protected int CURR_COLS;
 	private SpriteObject defaultEmptySprite;
 	private Set<Integer []> activeCells;
-	private MapLayer myMapLayer;
-	private SpriteGridHandler spriteGridHandler;
+	protected MapLayer myMapLayer;
+	protected SpriteGridHandler mySpriteGridHandler;
+	protected int myLayerNum;
 	
-	
-	SpriteObjectGridManager(int rows, int columns, int layerNum){
-		
+	protected SpriteObjectGridManager(int rows, int columns, SpriteGridHandler SGH){
+		this(rows, columns);
+		mySpriteGridHandler = SGH;
+
+//		myLayerNum = layerNum;
+		createMapLayer();
 	}
 	
 	
 	SpriteObjectGridManager(int rows, int columns, int layerNum, Color c){
-		
+		this(rows, columns);
+		createMapLayer();
 	}
 	
-	
-	
-	public SpriteObjectGridManager() {
+	SpriteObjectGridManager(int rows, int cols) {
+		CURR_ROWS = rows;
+		CURR_COLS = cols;
 		setDefaultEmptySprite(new SpriteObject());
 		initializeGrid();
 		activeCells = new HashSet<Integer[]>();
+	}
+	
+	protected abstract void createMapLayer();
+	
+	public MapLayer getMapLayer(){
+		return this.myMapLayer;
+	}
+	
+	public void setVisible(boolean visibility){
+		this.getMapLayer().setVisible(visibility);
+	}
+	
+	public String getName(){
+		return getMapLayer().getName();
 	}
 
 	private void initializeGrid() {
@@ -145,16 +164,18 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 		for (Integer[] currentActive : activeCells){
 			System.out.println("curr active: " + currentActive[0]+" "+currentActive[1]);
 			if (Arrays.equals(currentActive, pos)){
-				this.getCell(pos).clearPossibleParameters();;
-				activeCells.remove(currentActive);
-				System.out.println("removed");
-				System.out.println("activeCells: " + activeCells);
+				removeActiveCell(pos);
 				return false;
 			}
 		}
 		
 		activeCells.add(pos);
 		return true;	
+	}
+	
+	private void removeActiveCell(Integer [] in){
+		this.getCell(in).clearPossibleParameters();
+		activeCells.remove(in);
 	}
 	
 //	@Override 
@@ -164,12 +185,16 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 	
 	@Override
 	public void removeActiveCells(ArrayList<Integer[]> makeInactive){
-		activeCells.removeAll(makeInactive);
+//		activeCells.removeAll(makeInactive);
+		makeInactive.forEach(a->{
+			removeActiveCell(a);
+		});
 	}
 	
 	@Override
 	public void resetActiveCells() {
-		activeCells.clear();
+		ArrayList<Integer []>  dummy = new ArrayList<Integer[]>(activeCells);
+		removeActiveCells(dummy);
 	}
 	
 	@Override
@@ -204,6 +229,7 @@ public class SpriteObjectGridManager implements SpriteObjectGridManagerI {
 	public void matchActiveCellsToSprite(SpriteObject firstSprite) {
 		for (SpriteObject SOI: getActiveSpriteObjects()){
 			SOI.applyParameterUpdate(firstSprite.getParameters());
+			
 		}
 		
 	}

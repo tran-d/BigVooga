@@ -20,7 +20,6 @@ public abstract class MapLayer extends GridPane {
 	private SpriteGridHandler mySGH;
 	private Color defaultColor;
 	private String myName;
-	private String mySavePath;
 
 	MapLayer(int rows, int columns, int layerNum, SpriteGridHandler SGH, Color c) {
 		super();
@@ -30,24 +29,17 @@ public abstract class MapLayer extends GridPane {
 		myLayerNumber = layerNum;
 		mySGH = SGH;
 		setup();
+
 	}
 	
 	public String getName(){
 		return myName;
 	}
 	
-	public int getColumns() {
-		return myColumns;
-	}
-	
-	public int getRows() {
-		return myRows;
-	}
-	
-	protected void setName(String name) {
+	protected void setName(String name)
+	{
 		myName = name;
 	}
-	
 	public int getLayerNumber() {
 		return myLayerNumber;
 	}
@@ -76,15 +68,9 @@ public abstract class MapLayer extends GridPane {
 				this.add(sp, i, j);
 				mySGH.addDropHandling(sp);
 				mySGH.addGridMouseClick(sp);
+				mySGH.addGridMouseDrag(sp);
 			}
 		}
 	}
 
-	public String getSavePath(){
-		return mySavePath;
-	}
-	
-	public void setSavePath(String path){
-		mySavePath = path;
-	}
 }
