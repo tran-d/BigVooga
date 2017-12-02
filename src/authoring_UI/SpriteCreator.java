@@ -274,6 +274,7 @@ public class SpriteCreator extends Observable {
 
 	private void openImage() throws IOException {
 		FileChooser imageChooser = new FileChooser();
+		imageChooser.setInitialDirectory(new File("resources/"));
 		imageChooser.setTitle("Open Image");
 		File file = imageChooser.showOpenDialog(myStage);
 		

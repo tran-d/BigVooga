@@ -2,8 +2,6 @@ package authoring_actionconditions;
 
 import java.util.LinkedList;
 import java.util.List;
-
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.VBox;
 
@@ -23,12 +21,6 @@ public class ActionConditionVBox extends VBox implements ActionConditionVBoxI{
 	protected void setNewActionOptions(ObservableList<Integer> newActionOptions) {
 		rows.forEach(row -> row.setNewActionCheckBoxVBoxOptions(newActionOptions));
 	}
-	
-	protected void addAction(String label) {
-		ActionConditionRow actionConditionRow = new ActionConditionRow(rows.size() + 1,label,selectorLabel,isConditionVBox,FXCollections.observableArrayList());
-		rows.add(actionConditionRow);
-		getChildren().add(actionConditionRow);
-	}
 
 	@Override
 	public void addConditionAction(String label,ObservableList<Integer> currentActions) {
@@ -38,7 +30,7 @@ public class ActionConditionVBox extends VBox implements ActionConditionVBoxI{
 	}
 	
 	@Override
-	public void removeActionCondition(int row) {
+	public void removeConditionAction(int row) {
 		getChildren().remove(rows.get(row));
 		rows.remove(row);
 		for(int i = row; i < rows.size(); i++) rows.get(i).decreaseLabelID();
@@ -46,12 +38,12 @@ public class ActionConditionVBox extends VBox implements ActionConditionVBoxI{
 
 	@Override
 	public void addActionOption() {
-		rows.forEach(row -> row.addActionOption());
+		rows.forEach(row -> row.addAction());
 	}
 
 	@Override
 	public void removeActionOption(Integer action) {
-		rows.forEach(row -> row.removeActionOption(action));
+		rows.forEach(row -> row.removeAction(action));
 	}
 
 }
