@@ -1,5 +1,7 @@
-package authoring.drawing;
+package authoring.drawing.drawingTools;
 
+import authoring.drawing.DrawingTool;
+import authoring.drawing.ImageCanvas;
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Line;
@@ -13,8 +15,8 @@ public class LineDrawer extends DrawingTool{
 	private Point2D lastLoc;
 	private Line phantom;
 	
-	public LineDrawer(ImageCanvas canvas) {
-		super(canvas);
+	public LineDrawer(String name, ImageCanvas canvas) {
+		super(name, canvas);
 	}
 	
 	private void mousePressed(MouseEvent e) {
@@ -22,14 +24,15 @@ public class LineDrawer extends DrawingTool{
 	}
 	
 	private void mouseReleased(MouseEvent e) {
-		canvas.addLine(lastLoc, point(e));
+		canvas.drawLine(lastLoc, point(e));
+		canvas.getChildren().remove(phantom);
 	}
 
 	private void mouseDragged(MouseEvent e) {
-		canvas.remove(phantom);
+		canvas.getChildren().remove(phantom);
 		phantom = canvas.getLine(lastLoc, point(e));
 		phantom.setOpacity(PHANTOM_OPACITY);
-		canvas.addLine(phantom);
+		canvas.getChildren().add(phantom);
 	}
 	
 	@Override
