@@ -34,14 +34,43 @@ public class SpriteManager extends TabPane implements Observer {
 
 	protected SpriteManager(SpriteGridHandler spriteGridHandler, AuthoringEnvironmentManager AEM, SpriteObjectGridManagerI SOGM){
 		mySPF = new SpriteParameterFactory();
-		mySpriteGridHandler = spriteGridHandler;
 		myAEM = AEM;
+		mySpriteGridHandler = spriteGridHandler;
+//		mySpriteGridHandler = myAEM.getSpriteGridHandler();
+//		myAEM = AEM;
 		myGDH = AEM.getGameDataHandler();
 		mySOGM = SOGM;
-		mySprites = new SpriteSelectPanel("DEFAULT", this, mySpriteGridHandler);
-		myUserSprites = new SpriteSelectPanel("USERDEFINED", this, mySpriteGridHandler);
-		getParams();
-		createSprites();
+		mySprites = new SpriteSelectPanel("DEFAULT", mySpriteGridHandler);
+//		SpriteSet mySS = new SpriteSetDefault(myGDH);
+//		SpriteSet myCustom = new SpriteSetUserDefined(myGDH);
+		mySprites = myAEM.getDefaultSpriteController().getSpritePanel(mySpriteGridHandler);
+//				mySS.getSpritePanel(mySpriteGridHandler);
+//		mySS.getAllSpritesAsMap().forEach((a,b)->{
+//			System.out.println("Key: "+a+ ", Value: "+b);
+//			b.forEach(s->{
+//				s.getImageURL();
+//			});
+//			myAEM.addDefaultSprite(b);
+//		});
+//		mySS.getAllSpritesAsMap().forEach((a,b)->{
+//			b.forEach(item->{
+//				try {
+//						myGDH.saveDefaultSprite(item);
+					
+//					mySS.saveSprite(a, item);
+//					System.out.println("Saved: "+item);
+//				} catch (Exception e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			});
+			
+//		});
+//		myUserSprites = new SpriteSelectPanel("USERDEFINED", mySpriteGridHandler);
+//		myUserSprites = myCustom.getSpritePanel(mySpriteGridHandler);
+		myUserSprites = myAEM.getCustomSpriteController().getSpritePanel(mySpriteGridHandler);
+//		getParams();
+//		createSprites();
 		createSpriteTabs();
 		this.setPrefWidth(80);
 //		myUserSprites.getChildren().add(sp);
@@ -50,14 +79,14 @@ public class SpriteManager extends TabPane implements Observer {
 	}
 
 	private void createSprites() {
-		SpriteObject s1 = mySpriteObjs.get(0);
-		SpriteObject s2 = mySpriteObjs.get(1);
-		SpriteObject s3 = mySpriteObjs.get(2);
-		SpriteObject s4 = mySpriteObjs.get(3);
-		myAEM.addDefaultSprite(s1);
-		myAEM.addDefaultSprite(s2);
-		myAEM.addDefaultSprite(s3);
-		myAEM.addDefaultSprite(s4);
+//		SpriteObject s1 = mySpriteObjs.get(0);
+//		SpriteObject s2 = mySpriteObjs.get(1);
+//		SpriteObject s3 = mySpriteObjs.get(2);
+//		SpriteObject s4 = mySpriteObjs.get(3);
+//		myAEM.addDefaultSprite(s1);
+//		myAEM.addDefaultSprite(s2);
+//		myAEM.addDefaultSprite(s3);
+//		myAEM.addDefaultSprite(s4);
 		setupDefaultSprites();
 		setupUserDefinedSprites();
 
@@ -91,7 +120,13 @@ public class SpriteManager extends TabPane implements Observer {
 			throw new RuntimeException("Its not a sprite");
 		}
 		SpriteObject sp = (SpriteObject) spObj;
-		addNewUserDefinedSprite(sp, myUserSprites.getChildren().size());
+		try {
+			this.myAEM.addUserSprite(sp);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		addNewUserDefinedSprite(sp, myUserSprites.getChildren().size());
 	}
 
 	
@@ -114,19 +149,26 @@ public class SpriteManager extends TabPane implements Observer {
 	}
 
 	public void getParams() {
+		System.out.println("Params!!");
 		ArrayList<String> urls = new ArrayList<String>();
-		urls.add("tree.png");
-		urls.add("brick.png");
-		urls.add("pikachu.png");
-		urls.add("water.png");
-		urls.add("Link.png");
+		urls.add("file:/Users/Samuel/Documents/workspace/voogasalad_bigvooga/resources/tree.png");
+		urls.add("file:/Users/Samuel/Documents/workspace/voogasalad_bigvooga/resources/brick.png");
+		urls.add("file:/Users/Samuel/Documents/workspace/voogasalad_bigvooga/resources/pikachu.png");
+		urls.add("file:/Users/Samuel/Documents/workspace/voogasalad_bigvooga/resources/water.png");
+//		urls.add("file:/Users/Samuel/Documents/workspace/voogasalad_bigvooga/resources/Link.png");
 		double i = 10.0;
 		ArrayList<String> s = new ArrayList<String>();
+		ArrayList<String> names = new ArrayList<String>();
+		names.add("tree");
+		names.add("brick");
+		names.add("pikachu");
+		names.add("water");
 		s.add("hello");
 		s.add("world");
 		s.add("bye");
 		for (int h = 0; h < 4; h++) {
 			SpriteObject SO = new SpriteObject(urls.get(h));
+			SO.setName(names.get(h));
 			ArrayList<SpriteParameterI> myParams = new ArrayList<SpriteParameterI>();
 			myParams.add(mySPF.makeParameter("canFight", true));
 			myParams.add(mySPF.makeParameter("health", i));
@@ -135,25 +177,32 @@ public class SpriteManager extends TabPane implements Observer {
 				SO.addParameter(SP);
 			}
 			mySpriteObjs.add(SO);
-			try {
-				throw new IOException("Dont break");
-//				myGDH.saveDefaultSprite(SO);
-			} catch (IOException e) {
+//			try {
+//				throw new IOException("Dont break");
+				try {
+					myGDH.saveDefaultSprite(SO);
+					System.out.println("Saved "+SO.getImageURL());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+//			} catch (IOException e) {
 				// TODO Auto-generated catch block
 //				e.printStackTrace();
-			}
+//			}
 		}
-		SpriteObject SO = new SpriteObject(urls.get(4));
-		ArrayList<SpriteParameterI> myParams = new ArrayList<SpriteParameterI>();
-		myParams.add(mySPF.makeParameter("canFight", true));
-		myParams.add(mySPF.makeParameter("health", 10));
-		myParams.add(mySPF.makeParameter("arrows", 10));
-		myParams.add(mySPF.makeParameter("name", s.get(0)));
-		myParams.add(mySPF.makeParameter("stamina", 50));
-		for (SpriteParameterI SP: myParams){
-			SO.addParameter(SP);
-		}
-		mySpriteObjs.add(SO);
+//		SpriteObject SO = new SpriteObject(urls.get(4));
+//		ArrayList<SpriteParameterI> myParams = new ArrayList<SpriteParameterI>();
+//		myParams.add(mySPF.makeParameter("canFight", true));
+//		myParams.add(mySPF.makeParameter("health", 10));
+//		myParams.add(mySPF.makeParameter("arrows", 10));
+//		myParams.add(mySPF.makeParameter("name", s.get(0)));
+//		myParams.add(mySPF.makeParameter("stamina", 50));
+//		for (SpriteParameterI SP: myParams){
+//			SO.addParameter(SP);
+//		}
+//		mySpriteObjs.add(SO);
 	}
 
 	private void createSpriteTabs() {

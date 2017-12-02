@@ -1,12 +1,15 @@
 package authoring;
 
+import java.util.UUID;
+
 public class SpriteIDGenerator {
 	
 	private static SpriteIDGenerator instance = null;
-	private int nextID;
+//	private long currentTime;
+//	private long extraDigit = 10;
 	
 	private SpriteIDGenerator(){
-		nextID = 0;
+//		extraDigit = 10;
 	}
 	
 	public static SpriteIDGenerator getInstance(){
@@ -16,8 +19,19 @@ public class SpriteIDGenerator {
 		return instance;
 	}
 	
-	public int getUniqueID(){
-		return nextID++;
+	public String getUniqueID(){
+//		long newTime = System.currentTimeMillis();
+//		if (newTime!=currentTime){
+//			currentTime = newTime;
+//			extraDigit = 10;
+//			return Long.toString(newTime);
+//		} else {
+//			extraDigit++;
+//			System.out.println("Extra digit as hex: "+ Long.toHexString(extraDigit));
+//			return Long.toString(newTime)+Long.toHexString(extraDigit);
+//		}
+	
+//	}
+		return UUID.randomUUID().toString();
 	}
-
 }

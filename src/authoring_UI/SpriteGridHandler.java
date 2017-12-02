@@ -25,7 +25,7 @@ public class SpriteGridHandler {
 	private Menu myMenu;
 	private ArrayList<StackPane> activeGridCells;
 	private ArrayList<StackPane> activeSpriteGridCells;
-	private GridPane myGrid;
+//	private GridPane myGrid;
 	
 	protected SpriteGridHandler(int mapCount, Menu menu, SpriteObjectGridManagerI SOGM) {
 		objectFormat = new DataFormat("MyObject" + Integer.toString(mapCount));
@@ -35,9 +35,9 @@ public class SpriteGridHandler {
 		activeSpriteGridCells = new ArrayList<StackPane>();
 	}
 	
-	protected void addGrid(GridPane grid) {
-		myGrid = grid;
-	}
+//	protected void addGrid(GridPane grid) {
+//		myGrid = grid;
+//	}
 	
 	protected void addKeyPress(Scene scene) {
 		scene.setOnKeyPressed(e -> { 

@@ -196,14 +196,6 @@ public class ActionConditionDemo extends Application {
 		actions1.add(new Destroy("Ob3"));
 		obj.addConditionAction(new ObjectClicked(1), actions1);
 	}
-	
-	private void testImageCanvas(Stage stage) {
-		Group g = new Group();
-		stage.setScene(new Scene(g));
-		ImageCanvas i = new ImageCanvas(()->GameDataHandler.chooseFileForImageSave(stage));
-		g.getChildren().add(i);
-		stage.show();
-	}
 
 	private void testDrawer(Stage stage) throws IOException {
 		Group g = new Group();

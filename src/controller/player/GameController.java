@@ -45,6 +45,7 @@ public class GameController {
 		playerManager.setDisplay(gameDisplay);
 		gameDisplay.setPlayerManager(playerManager);
 		gameDisplay.setDataHandler(gameDataHandler);
+		gameDisplay.createGameDisplay();
 		engineController = gameDataHandler.loadGame();
 		engineController.setPlayerManager(playerManager);
 		playerManager.setEngineController(engineController);

@@ -41,6 +41,7 @@ public class Menu extends VBox {
 	
 	protected Menu(AuthoringEnvironmentManager AEM, MapManager myManager) {
 		mySPTAI = new SpriteParameterTabsAndInfo();
+		System.out.println("made SPTAI in MENU");
 		myAEM = AEM;
 		myMapManager = myManager;
 		setUpMenu();
@@ -79,7 +80,7 @@ public class Menu extends VBox {
 	}
 
 	private SpriteObject getActiveCell() throws Exception {
-		System.out.println("MYAEMACTIVE: " + myAEM.getActiveCell());
+//		System.out.println("MYAEMACTIVE: " + myAEM.getActiveCell());
 		return myAEM.getActiveCell();
 	}
 
@@ -120,21 +121,26 @@ public class Menu extends VBox {
 
 	private VBox createParameterTab() {
 		myParamTabVBox = new VBox();
-		Button applyButton = new Button();
-		myParamTabVBox.getChildren().addAll(myParamTabs, applyButton);
+		
+		myParamTabVBox.getChildren().addAll(myParamTabs);
 
 		setDefaultErrorNoSpriteTabPane();
 
 		// theHorizTabs = myParamTabs;
 
-		applyButton.textProperty().setValue("Apply Button");
-		applyButton.setOnAction(e -> {
-			apply();
-		});
 
 		// myParamTabVBox.getChildren().addAll(theHorizTabs, applyButton);
 		// addParameterErrorMessage();
 		return myParamTabVBox;
+	}
+	
+	private Button makeApplyButton(){
+		Button applyButton = new Button();
+		applyButton.textProperty().setValue("Apply Button");
+		applyButton.setOnAction(e -> {
+			apply();
+		});
+		return applyButton;
 	}
 
 	private void createCategoryTabs() {
@@ -159,9 +165,9 @@ public class Menu extends VBox {
 		}
 	}
 
-	private void addParameterTab() {
+	private void addSpriteInfoTab() {
 		if (!this.getChildren().contains(mySpriteTabs)) {
-			this.getChildren().add(mySpriteTabs);
+			this.getChildren().addAll(mySpriteTabs, this.makeApplyButton());
 		}
 	}
 
@@ -187,7 +193,7 @@ public class Menu extends VBox {
 
 	protected void updateParameterTab() {
 
-		System.out.println("Updating....");
+//		System.out.println("Updating....");
 		try {
 			clearParameterTab();
 			removeParameterErrorMessage();
@@ -210,7 +216,7 @@ public class Menu extends VBox {
 			// myParamTabs.getTabs().add(newCategory);
 
 			// }
-			addParameterTab();
+			addSpriteInfoTab();
 		} catch (Exception e) {
 			// throw new RuntimeException();
 			setDefaultErrorNoSpriteTabPane();
@@ -228,7 +234,7 @@ public class Menu extends VBox {
 	private void createOverviewWindow() {
 		Button openOverView = new Button("Open Overview");
 		openOverView.setOnAction(e -> {
-			System.out.println("Overview button pressed");
+//			System.out.println("Overview button pressed");
 			OverviewWindow overviewWindow = new OverviewWindow();
 			overviewWindow.getStage().show();
 		});
@@ -240,7 +246,7 @@ public class Menu extends VBox {
 		Button createSpriteButton = new Button("Create Sprite");
 
 		createSpriteButton.setOnAction(e -> {
-			System.out.println("Button pressed");
+//			System.out.println("Button pressed");
 			SpriteCreator mySpriteCreatorClass = myMapManager.createNewSpriteCreator();
 			VBox mySpriteCreator = mySpriteCreatorClass.getVBox();
 			this.getChildren().remove(createSpriteButton);

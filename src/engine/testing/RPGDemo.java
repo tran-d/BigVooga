@@ -189,14 +189,6 @@ public class RPGDemo extends Application {
 		actions1.add(new Destroy("Brick"));
 		obj.addConditionAction(new KeyPressed(1,"A"), actions1);
 	}
-	
-	private void testImageCanvas(Stage stage) {
-		Group g = new Group();
-		stage.setScene(new Scene(g));
-		ImageCanvas i = new ImageCanvas(()->GameDataHandler.chooseFileForImageSave(stage));
-		g.getChildren().add(i);
-		stage.show();
-	}
 
 	private void testDrawer(Stage stage) throws IOException {
 		Group g = new Group();
