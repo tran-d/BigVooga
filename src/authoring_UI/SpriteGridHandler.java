@@ -35,6 +35,8 @@ public class SpriteGridHandler {
 		activeSpriteGridCells = new ArrayList<StackPane>();
 	}
 	
+	
+	
 //	protected void addGrid(GridPane grid) {
 //		myGrid = grid;
 //	}
@@ -174,6 +176,8 @@ public class SpriteGridHandler {
 
 		pane.setOnDragDropped(e -> {
 			Dragboard db = e.getDragboard();
+			MapLayer ML = (MapLayer) pane.getParent();
+			System.out.println("MapLayer: "+ ML.getName());
 			int row = ((GridPane) pane.getParent()).getRowIndex(pane);
 			int col = ((GridPane) pane.getParent()).getColumnIndex(pane);
 			Integer[] row_col = new Integer[] { row, col };

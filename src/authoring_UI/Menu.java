@@ -35,6 +35,7 @@ public class Menu extends VBox {
 	private TextArea myParameterErrorMessage;
 	private SpriteParameterTabsAndInfo mySPTAI;
 	private MapManager myMapManager;
+	private VBox spriteInfoAndApplyButton;
 	private static final String LOAD = "Load";
 	private static final String SAVE = "Save";
 	private static final String ACTIONCONDITIONTITLES_PATH = "TextResources/ConditionActionTitles";
@@ -58,6 +59,11 @@ public class Menu extends VBox {
 		// System.out.println("Making error message");
 	}
 
+	
+	private void setSpriteInfoAndVBox() {
+		spriteInfoAndApplyButton = new VBox(10);
+		spriteInfoAndApplyButton.getChildren().addAll(mySpriteTabs, this.makeApplyButton());
+	}
 	// protected void displayParams() {
 	// Map<String, ArrayList<SpriteParameterI>> paramMap = new HashMap<String,
 	// ArrayList<SpriteParameterI>>();
@@ -97,6 +103,7 @@ public class Menu extends VBox {
 		createSpriteCreator();
 		createOverviewWindow();
 		this.setPrefSize(MENU_WIDTH, MENU_HEIGHT);
+		setSpriteInfoAndVBox();
 
 		// createStatePane(new VBox());
 	}
@@ -182,14 +189,14 @@ public class Menu extends VBox {
 	}
 
 	protected void removeParameterTab() {
-		if (this.getChildren().contains(mySpriteTabs)) {
-			this.getChildren().remove(mySpriteTabs);
+		if (this.getChildren().contains(spriteInfoAndApplyButton)) {
+			this.getChildren().remove(spriteInfoAndApplyButton);
 		}
 	}
 
 	private void addSpriteInfoTab() {
-		if (!this.getChildren().contains(mySpriteTabs)) {
-			this.getChildren().addAll(mySpriteTabs, this.makeApplyButton());
+		if (!this.getChildren().contains(spriteInfoAndApplyButton)) {
+			this.getChildren().addAll(spriteInfoAndApplyButton);
 		}
 	}
 
