@@ -5,7 +5,7 @@ import engine.utilities.data.GameDataHandler;
 
 public class SpriteSetUserDefined extends SpriteSet{
 
-	SpriteSetUserDefined(GameDataHandler GDH) {
+	public SpriteSetUserDefined(GameDataHandler GDH) {
 		super(GDH);
 	}
 
@@ -17,7 +17,7 @@ public class SpriteSetUserDefined extends SpriteSet{
 	@Override
 	protected void makeSpritePanel(SpriteGridHandler SGH) {
 		mySSP = new SpriteSelectPanel("USERSPRITES", SGH);
-		mySSP.setupSprites(getAllSprites());
+		mySSP.setupDefaultSprites(getAllSprites());
 	}
 
 

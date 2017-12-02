@@ -4,24 +4,24 @@ import engine.utilities.data.GameDataHandler;
 
 public class SpriteSetDefault extends SpriteSet{
 	
-	SpriteSetDefault(GameDataHandler GDH) {
+	public SpriteSetDefault(GameDataHandler GDH) {
 		super(GDH);
-		System.out.println(myGDH.getProjectPath());
+//		System.out.println(myGDH.getProjectPath());
 	}
 
 	@Override
 	protected void setFolderToLoad() {
-		System.out.println(myGDH.getProjectPath());
+//		System.out.println(myGDH.getProjectPath());
 		setFolderToLoad(myGDH.getDefaultSpriteDirectoryPath());
 	}
 
 	@Override
 	protected void makeSpritePanel(SpriteGridHandler SGH) {
 		mySSP = new SpriteSelectPanel("DEFAULTSPRITES", SGH);
-		mySSP.setupSprites(getAllSprites());
+		mySSP.setupDefaultSprites(getAllSprites());
 	}
 	
-	public void changeDefaultSpriteFolder(String newFolder){
+	public void changeFolderPath(String newFolder){
 		
 	}
 	

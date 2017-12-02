@@ -45,6 +45,7 @@ public class Menu extends VBox {
 	
 	protected Menu(AuthoringEnvironmentManager AEM, MapManager myManager, SceneController currentSceneController) {
 		mySPTAI = new SpriteParameterTabsAndInfo();
+		System.out.println("made SPTAI in MENU");
 		myAEM = AEM;
 		myMapManager = myManager;
 		sceneController = currentSceneController;
@@ -84,7 +85,7 @@ public class Menu extends VBox {
 	}
 
 	private SpriteObject getActiveCell() throws Exception {
-		System.out.println("MYAEMACTIVE: " + myAEM.getActiveCell());
+//		System.out.println("MYAEMACTIVE: " + myAEM.getActiveCell());
 		return myAEM.getActiveCell();
 	}
 
@@ -209,7 +210,7 @@ public class Menu extends VBox {
 
 	protected void updateParameterTab() {
 
-		System.out.println("Updating....");
+//		System.out.println("Updating....");
 		try {
 			clearParameterTab();
 			removeParameterErrorMessage();
@@ -250,7 +251,7 @@ public class Menu extends VBox {
 	private void createOverviewWindow() {
 		Button openOverView = new Button("Open Overview");
 		openOverView.setOnAction(e -> {
-			System.out.println("Overview button pressed");
+//			System.out.println("Overview button pressed");
 			OverviewWindow overviewWindow = new OverviewWindow();
 			overviewWindow.getStage().show();
 		});
@@ -262,7 +263,7 @@ public class Menu extends VBox {
 		Button createSpriteButton = new Button("Create Sprite");
 
 		createSpriteButton.setOnAction(e -> {
-			System.out.println("Button pressed");
+//			System.out.println("Button pressed");
 			SpriteCreator mySpriteCreatorClass = myMapManager.createNewSpriteCreator();
 			VBox mySpriteCreator = mySpriteCreatorClass.getVBox();
 			this.getChildren().remove(createSpriteButton);

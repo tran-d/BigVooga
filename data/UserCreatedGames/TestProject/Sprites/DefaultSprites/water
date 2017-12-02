@@ -82,7 +82,7 @@
   </accessibleRole>
   <image class="javafx.scene.image.ImageView$1">
     <value class="javafx.scene.image.Image">
-      <url>file:/Users/Samuel/Documents/workspace/voogasalad_bigvooga/bin/water.png</url>
+      <url>file:/Users/Samuel/Documents/workspace/voogasalad_bigvooga/resources/water.png</url>
       <progress>
         <value>1.0</value>
         <valid>true</valid>
@@ -2847,9 +2847,9 @@ ATdzADZyAjZyAjZyADNqADNqADJpADFpATBoAC9nAC1mAC1mAC1k</hb>
     </entry>
   </categoryMap>
   <possibleCategoryMap/>
-  <myImageURL>water.png</myImageURL>
+  <myImageURL>file:/Users/Samuel/Documents/workspace/voogasalad_bigvooga/resources/water.png</myImageURL>
   <myName>water</myName>
   <myNumCellsWidth>0.0</myNumCellsWidth>
   <myNumCellsHeight>0.0</myNumCellsHeight>
-  <myUniqueID>232</myUniqueID>
+  <myUniqueID>64acf6c2-ef01-4bba-b1d4-b4906e260e7e</myUniqueID>
 </authoring.SpriteObject>
