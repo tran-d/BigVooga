@@ -233,7 +233,8 @@ public class GameDataHandler {
 			path = this.makeValidFileName(path);
 			SO.setSavePath(path);
 		}
-		check this out SpriteDataConverter SDC = new SpriteDataConverter(SO);
+		////////////////////////////////////////////////////////////////////////////////////////////////check this out 
+		SpriteDataConverter SDC = new SpriteDataConverter(SO);
 		saveSprite(SDC, path);
 		// String toSave = SERIALIZER.toXML(SO);
 		// FileWriter writer = new FileWriter(path);
@@ -245,6 +246,7 @@ public class GameDataHandler {
 		String toSave = SERIALIZER.toXML(SO);
 		FileWriter writer = new FileWriter(path);
 		writer.write(toSave);
+		///////////////////////////////////////////////////////////////////////////////////////////////////may need to write to a new file
 		writer.close();
 	}
 

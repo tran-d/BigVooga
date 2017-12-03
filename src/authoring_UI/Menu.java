@@ -11,6 +11,7 @@ import authoring.SpriteObject;
 import authoring.SpriteParameterI;
 import authoring_actionconditions.ActionConditionTab;
 import authoring_actionconditions.ControllerConditionActionTabs;
+import authoring_actionconditions.SpriteConditionActionTabsandInfo;
 import controller.welcomeScreen.SceneController;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
@@ -34,6 +35,7 @@ public class Menu extends VBox {
 	private VBox myParamTabVBox;
 	private TextArea myParameterErrorMessage;
 	private SpriteParameterTabsAndInfo mySPTAI;
+	private SpriteConditionActionTabsandInfo mySCATI;
 	private MainAuthoringGUI myMapManager;
 	private static final String LOAD = "Load";
 	private static final String SAVE = "Save";
@@ -45,6 +47,7 @@ public class Menu extends VBox {
 	
 	protected Menu(AuthoringEnvironmentManager AEM, MainAuthoringGUI myManager, SceneController currentSceneController) {
 		mySPTAI = new SpriteParameterTabsAndInfo();
+		mySCATI = new SpriteConditionActionTabsandInfo();
 		System.out.println("made SPTAI in MENU");
 		myAEM = AEM;
 		myMapManager = myManager;
@@ -220,7 +223,7 @@ public class Menu extends VBox {
 			clearParameterTab();
 			removeParameterErrorMessage();
 			mySPTAI.create(getActiveCell());
-			OwensClass.setCell(getActiveCell());
+			///////////////////////////////////////////////////////////////////////////////////////////////////////mySCATI.create(getActiveCell());
 			// HashMap<String, ArrayList<SpriteParameterI>> params =
 			// getParametersOfActiveCells();
 			//
@@ -322,7 +325,7 @@ public class Menu extends VBox {
 
 	private void apply() {
 		mySPTAI.apply();
-		OwensActions.apply();
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////OwensActions.apply();
 		myAEM.getSpriteParameterSidebarManager().apply();
 	}
 

@@ -32,6 +32,7 @@ public class ActionConditionRow extends ToolBar implements ActionCheckBoxVBoxI {
 	private ResourceBundle actionConditionVBoxResources;
 	private int labelInt;
 	private Label IDlabel;
+	private ChoiceBoxVBox<String> implementationSelectorVBox;
 	private ActionCheckBoxVBox<Integer> actionCheckBoxVBox;
 	private ObservableList<Integer> newActionOptions;
 	
@@ -48,6 +49,12 @@ public class ActionConditionRow extends ToolBar implements ActionCheckBoxVBoxI {
 		getItems().addAll(IDlabel,separator,new Label(label),implementationSelectorVBox);
 		if(isConditionRow) addActionCheckBox();
 		else addBuildActionButton();
+	}
+	
+	public ActionConditionRow(int ID,String label,String selectorLabel,boolean isConditionRow, ObservableList<Integer> newActionOptions,
+			String selectedConditionAction) {
+		this(ID,label,selectorLabel,isConditionRow,newActionOptions);
+		
 	}
 	
 	protected void setNewActionCheckBoxVBoxOptions(ObservableList<Integer> newOptions) {

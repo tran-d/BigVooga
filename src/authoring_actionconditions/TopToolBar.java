@@ -21,16 +21,21 @@ public class TopToolBar extends ToolBar implements TopToolBarI {
 	private Button removeButton;
 	private RemoveChoiceBoxVBox removeRowVBox;
 	
-	public TopToolBar(ResourceBundle resourceBundle,String addButtonTitle,String optionsTitle,String selectorLabel,String remove) {
+	public TopToolBar(ResourceBundle resourceBundle) {
 		super();
 		tabResources = resourceBundle;
-		addButton = new Button(tabResources.getString(addButtonTitle));
-		ObservableList<String> additionOptions = ActionConditionTabUtil.convertToObservableList(tabResources.getString(optionsTitle));
-		selectorVBox = new ChoiceBoxVBox<String>(tabResources.getString(selectorLabel), additionOptions);
+		addButton = new Button(tabResources.getString("AddButtonLabel"));
+		ObservableList<String> additionOptions = ActionConditionTabUtil.convertToObservableList(tabResources.getString("Options"));
+		selectorVBox = new ChoiceBoxVBox<String>(tabResources.getString("SelectorLabel"), additionOptions);
 		Separator separator = ActionConditionTabUtil.makeVerticalSeparator();
-		removeButton = new Button(tabResources.getString(remove));
+		removeButton = new Button(tabResources.getString("RemoveButtonLabel"));
 		removeRowVBox = new RemoveChoiceBoxVBox(tabResources.getString("RemoverLabel"),FXCollections.observableList(new LinkedList<Integer>()));
 		getItems().addAll(addButton,selectorVBox,separator,removeButton,removeRowVBox);
+	}
+	
+	public TopToolBar(ResourceBundle resourceBundle,ObservableList<Integer> actions) {
+		this(resourceBundle);
+		removeRowVBox.setNewOptions(actions);
 	}
 	
 	protected ObservableList<Integer> getRemoveRowVBoxOptions() {
