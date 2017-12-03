@@ -32,7 +32,6 @@ public class MapManager extends TabPane {
 	public MapManager(Stage currentStage) {
 		stage = currentStage;
 		mySelectModel = this.getSelectionModel();
-		this.setPrefWidth(WelcomeScreen.WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH);
 		this.setPrefHeight(WelcomeScreen.HEIGHT);
 		this.setLayoutX(ViewSideBar.VIEW_MENU_HIDDEN_WIDTH);
 		
