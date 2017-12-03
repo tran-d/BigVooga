@@ -22,6 +22,7 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -42,12 +43,15 @@ public class SpriteCreator {
 	private static final int PANE_HEIGHT = 600;
 
 	private TabPane myTabPane;
+	private Pane myPane;
 	private VBox myStatePanel;
 	private StackPane myImageStack;
 	private int spriteCount = 1;
 
 	public SpriteCreator() {
+		myPane = new Pane();
 		myTabPane = new TabPane();
+		myPane.getChildren().add(myTabPane);
 
 		Tab tab = makeTab();
 		myTabPane.getTabs().add(tab);
@@ -194,7 +198,7 @@ public class SpriteCreator {
 		return hb;
 	}
 
-	public TabPane getParent() {
-		return myTabPane;
+	public Pane getParent() {
+		return myPane;
 	}
 }
