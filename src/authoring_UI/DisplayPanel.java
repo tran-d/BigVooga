@@ -235,11 +235,11 @@ public class DisplayPanel extends VBox {
 	}
 
 	private void createOverviewWindow() {
-		Button openOverView = new Button("Open Overview");
+		Button openOverView = new Button("Open Object Viewer");
 		openOverView.setOnAction(e -> {
 //			System.out.println("Overview button pressed");
-			OverviewWindow overviewWindow = new OverviewWindow();
-			overviewWindow.getStage().show();
+			ObjectViewer objectViewer = new ObjectViewer();
+			objectViewer.getStage().show();
 		});
 		this.getChildren().add(openOverView);
 	}
