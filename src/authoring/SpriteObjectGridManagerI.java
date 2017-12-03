@@ -19,5 +19,6 @@ public interface SpriteObjectGridManagerI {
 //	void switchCellActiveStatus(SpriteObjectI SOI);
 	boolean switchCellActiveStatus(Integer[] makeActive);
 	ImageView[][] populateCell(SpriteObject spriteObject, Integer[] row_col);
+	int getLayerNum();
 	
 }
