@@ -17,7 +17,7 @@ public class And extends Condition {
 	public And(int priorityNum, Condition condition1, Condition condition2) {
 		this.priorityNum = priorityNum;
 		this.condition1 = condition1;
-		this.condition2=  condition2;
+		this.condition2 = condition2;
 	}
 	
 	@Override
