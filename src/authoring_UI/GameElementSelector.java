@@ -12,14 +12,22 @@ import authoring.SpriteObjectGridManagerI;
 import authoring.SpriteParameterFactory;
 import authoring.SpriteParameterI;
 import engine.utilities.data.GameDataHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Side;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 public class GameElementSelector extends TabPane implements Observer {
 	private DraggableGrid myGrid;
@@ -231,22 +239,26 @@ public class GameElementSelector extends TabPane implements Observer {
 		
 		Tab defaultSpriteTab = new Tab();
 		defaultSpriteTab.setText("Default Sprites");
-		defaultSpriteTab.setContent(mySprites);
+//		defaultSpriteTab.setContent(mySprites);
+		makeGrid(defaultSpriteTab);
 		defaultSpriteTab.setClosable(false);
 
 		Tab mySpriteTab = new Tab();
 		mySpriteTab.setText("User Sprites");
-		mySpriteTab.setContent(myUserSprites);
+//		mySpriteTab.setContent(myUserSprites);
+		makeGrid(mySpriteTab);
 		mySpriteTab.setClosable(false);
 		
 		Tab defaultDialogueTab = new Tab();
 		defaultDialogueTab.setText("Default Dialogues");
-		defaultDialogueTab.setContent(mySprites);
+//		defaultDialogueTab.setContent(mySprites);
+		makeGrid(defaultDialogueTab);
 		defaultDialogueTab.setClosable(false);
 
 		Tab myDialogueTab = new Tab();
 		myDialogueTab.setText("User Dialogues");
-		myDialogueTab.setContent(myUserSprites);
+//		myDialogueTab.setContent(myUserSprites);
+		makeGrid(myDialogueTab);
 		myDialogueTab.setClosable(false);
 
 		spritesTabPane.getTabs().addAll(defaultSpriteTab, mySpriteTab);
@@ -268,6 +280,27 @@ public class GameElementSelector extends TabPane implements Observer {
 		this.getTabs().addAll(spriteTab, dialoguesTab);
 		this.setSide(Side.TOP);
 
+	}
+
+	private void makeGrid(Tab t) {
+		GridPane gp = new GridPane();
+		
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 15; j++) {
+				StackPane sp = new StackPane();
+				sp.setPrefHeight(50);
+				sp.setPrefWidth(50);
+				sp.setBackground(
+						new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+				BorderStroke border = new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.DOTTED,
+						CornerRadii.EMPTY, BorderWidths.DEFAULT);
+				sp.setBorder(new Border(border));
+				gp.add(sp, i, j);
+			}
+		}
+		
+		ScrollPane sp = new ScrollPane(gp);
+		t.setContent(sp);
 	}
 
 	// private ImageView createTrash() {
