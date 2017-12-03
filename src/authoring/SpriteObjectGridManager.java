@@ -23,28 +23,46 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 	protected MapLayer myMapLayer;
 	protected SpriteGridHandler mySpriteGridHandler;
 	protected int myLayerNum;
+	Color myColor;
 	
 	protected SpriteObjectGridManager(int rows, int columns, SpriteGridHandler SGH){
 		this(rows, columns);
 		mySpriteGridHandler = SGH;
-
 //		myLayerNum = layerNum;
 		createMapLayer();
 	}
 	
 	
-	SpriteObjectGridManager(int rows, int columns, int layerNum, Color c){
+	public Color getColor() {
+		return myColor;
+	}
+	
+	public int getNumRows() {
+		return CURR_ROWS;
+	}
+	
+	public int getNumCols() {
+		return CURR_COLS;
+	}
+	
+	public int getLayerNum() {
+		return myLayerNum;
+	}
+	
+	public SpriteObjectGridManager(int rows, int columns, int layerNum, Color c){
 		this(rows, columns);
+		myColor = c;
 		createMapLayer();
 	}
 	
-	SpriteObjectGridManager(int rows, int cols) {
+	public SpriteObjectGridManager(int rows, int cols) {
 		CURR_ROWS = rows;
 		CURR_COLS = cols;
 		setDefaultEmptySprite(new SpriteObject());
 		initializeGrid();
 		activeCells = new HashSet<Integer[]>();
 	}
+	
 	
 	protected abstract void createMapLayer();
 	
@@ -144,7 +162,6 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 		});
 	}
 	
-	
 	private boolean changeCellActiveStatus(Integer [] pos){
 //		System.out.println("ChangingStatus");
 //		Integer[] a = {3,4};
@@ -168,7 +185,6 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 				return false;
 			}
 		}
-		
 		activeCells.add(pos);
 		return true;	
 	}
@@ -218,9 +234,7 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 			setCellAsDefault(loc);	
 		}
 	}
-	
 
-	
 	private SpriteObject getCell(Integer [] loc){
 		return spriteGrid.get(loc[0]).get(loc[1]);
 	}
@@ -229,10 +243,6 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 	public void matchActiveCellsToSprite(SpriteObject firstSprite) {
 		for (SpriteObject SOI: getActiveSpriteObjects()){
 			SOI.applyParameterUpdate(firstSprite.getParameters());
-			
 		}
-		
 	}
-	
-
 }
