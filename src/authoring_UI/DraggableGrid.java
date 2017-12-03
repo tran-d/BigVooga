@@ -8,6 +8,7 @@ import java.util.PriorityQueue;
 import authoring.SpriteObjectGridManager;
 import authoring.TerrainObjectGridManager;
 import engine.Layer;
+import gui.welcomescreen.WelcomeScreen;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
@@ -82,7 +83,7 @@ public class DraggableGrid extends VBox {
 		}
 		ScrollPane scrollGrid = new ScrollPane(myStackPane);
 		scrollGrid.setPannable(true);
-		scrollGrid.setMaxWidth(500);
+		scrollGrid.setMaxWidth(WelcomeScreen.WIDTH/2);
 //		scrollGrid.mouse
 		// spriteGridHandler.addGrid(gp);
 		this.getChildren().add(1, scrollGrid);
@@ -145,7 +146,11 @@ public class DraggableGrid extends VBox {
 	private void makeLayerButton(SpriteObjectGridManager ML) {
 		HBox hbox = new HBox(10);
 		Label label = new Label(ML.getName());
+		label.setTextFill(Color.ANTIQUEWHITE);
+		
+
 		CheckBox checkbox = new CheckBox();
+		checkbox.setTextFill(Color.BISQUE);
 		checkbox.setSelected(true);
 		checkbox.selectedProperty().addListener(new ChangeListener<Boolean>(){
 			@Override

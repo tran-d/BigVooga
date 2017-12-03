@@ -4,6 +4,10 @@ import engine.GameObject;
 import engine.Layer;
 import engine.operations.vectorops.VectorOperation;
 
+/**
+ * @author Ian Eldridge-Allegra
+ *
+ */
 public class YOf implements DoubleOperation {
 
 	private VectorOperation vector;

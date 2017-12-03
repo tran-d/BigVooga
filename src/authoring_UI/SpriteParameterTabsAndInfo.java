@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import authoring.AbstractSpriteObject;
 import authoring.SpriteObject;
 import authoring.SpriteParameterFactory;
 import authoring.SpriteParameterI;
@@ -30,7 +31,7 @@ public class SpriteParameterTabsAndInfo {
 	private final static double MENU_HEIGHT = 500;
 	private int categoryCounter = 1;
 	private HashMap<String, Integer> counters;
-	private SpriteObject mySO;
+	private AbstractSpriteObject mySO;
 	private HashMap<String, String> catNames;
 	private SingleSelectionModel<Tab> mySelectModel;
 	private Tab currentTab;
@@ -39,7 +40,7 @@ public class SpriteParameterTabsAndInfo {
 		this(new SpriteObject());
 	}
 
-	SpriteParameterTabsAndInfo(SpriteObject SO) {
+	SpriteParameterTabsAndInfo(AbstractSpriteObject SO) {
 		setupCounters();
 		setupCategoryNamesMap();
 		createCategoryTabPane();
@@ -58,7 +59,7 @@ public class SpriteParameterTabsAndInfo {
 		catNames = new HashMap<String, String>();
 	}
 
-	public void setSpriteObject(SpriteObject SO) {
+	public void setSpriteObject(AbstractSpriteObject SO) {
 		mySO = SO;
 		create();
 	}
@@ -89,12 +90,12 @@ public class SpriteParameterTabsAndInfo {
 		return getTabPane();
 	}
 
-	public void create(SpriteObject SO) {
+	public void create(AbstractSpriteObject SO) {
 		setSpriteObject(SO);
 		// return create();
 	}
 
-	public void createFromSO(SpriteObject SO) {
+	public void createFromSO(AbstractSpriteObject SO) {
 		categoryCounter = 1;
 		this.catNames.clear();
 		HashMap<String, ArrayList<SpriteParameterI>> params = SO.getParameters();

@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 public class TerrainLayer extends MapLayer {
 	
 	public TerrainLayer(int rows, int columns, SpriteGridHandler SGH){
-		this(rows, columns, 0, SGH, Color.YELLOW);
+		this(rows, columns, 0, SGH, Color.BEIGE);
 	}
 
 	TerrainLayer(int rows, int columns, int layerNum, SpriteGridHandler SGH, Color c) {
