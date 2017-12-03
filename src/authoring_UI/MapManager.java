@@ -11,6 +11,7 @@ import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class MapManager extends TabPane {	
@@ -29,8 +30,11 @@ public class MapManager extends TabPane {
 	private Tab currentTab;
 	private String addTabString;
 
+	private Pane mapEditor = new Pane();
+
 	public MapManager(Stage currentStage) {
 		stage = currentStage;
+		mapEditor.getChildren().add(this);
 		mySelectModel = this.getSelectionModel();
 		this.setPrefWidth(WelcomeScreen.WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH);
 		this.setPrefHeight(WelcomeScreen.HEIGHT);
@@ -104,5 +108,7 @@ public class MapManager extends TabPane {
 		return allMaps;
 	}
 	
-	
+	public Pane getPane() {
+		return mapEditor;
+	}
 }

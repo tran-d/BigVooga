@@ -20,10 +20,10 @@ public class AuthoringController {
 	public static final String INVENTORY_KEY = "Inventory";
 	public static final String MENU_CREATOR_KEY = "Menu Creator";
 	
-	private Map<String, TabPane> viewMap = new HashMap<String, TabPane>();
+	private Map<String, Pane> viewMap = new HashMap<String, Pane>();
 	private Pane authoringPane;
 	private Stage stage;
-	private TabPane view;
+	private Pane view;
 	
 	public AuthoringController(Stage currentStage, Pane currentAuthoringPane) {
 		
@@ -31,9 +31,9 @@ public class AuthoringController {
 		authoringPane = currentAuthoringPane;
 		
 		MapManager mapManager = new MapManager(stage);
-		viewMap.put(MAP_EDITOR_KEY, mapManager);
+		viewMap.put(MAP_EDITOR_KEY, mapManager.getPane());
 		
-		TabPane testPane = new TabPane();
+		Pane testPane = new Pane();
 		viewMap.put(SPRITE_CREATOR_KEY, testPane);
 		
 		//SpriteCreator mySpriteCreator = new SpriteCreator(stage, mySprites, myAEM);
