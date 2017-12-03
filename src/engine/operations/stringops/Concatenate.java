@@ -1,5 +1,8 @@
 package engine.operations.stringops;
 
+import engine.GameObject;
+import engine.Layer;
+
 public class Concatenate implements StringOperation{
 
 	private StringOperation first;
@@ -9,10 +12,9 @@ public class Concatenate implements StringOperation{
 		this.first = first;
 		this.second = second;
 	}
-	
-	@Override
-	public String evaluate() {
-		return first.evaluate() + second.evaluate();
-	}
 
+	@Override
+	public String evaluate(GameObject asking, Layer world) {
+		return first.evaluate(asking, world)+second.evaluate(asking, world);
+	}
 }
