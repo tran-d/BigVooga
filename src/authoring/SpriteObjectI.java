@@ -3,6 +3,7 @@ package authoring;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import authoring_actionconditions.ActionConditionTab;
 import javafx.scene.image.ImageView;
 
 public interface SpriteObjectI {
@@ -19,6 +20,10 @@ public interface SpriteObjectI {
 	String getName();
 	void setName(String name);
 	void updateCategoryName(String prev, String next);
+	public ActionConditionTab getConditionTab();
+	public ActionConditionTab getActionTab();
+	public void setConditionTab(ActionConditionTab newConditionTab);
+	public void setActionTab(ActionConditionTab newActionTab);
 	
 }
 

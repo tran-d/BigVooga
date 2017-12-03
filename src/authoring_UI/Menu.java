@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import authoring.ApplyButtonController;
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObject;
 import authoring.SpriteParameterI;
 import authoring_actionconditions.ActionConditionTab;
 import authoring_actionconditions.ControllerConditionActionTabs;
-import authoring_actionconditions.SpriteConditionActionTabsandInfo;
 import controller.welcomeScreen.SceneController;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
@@ -34,8 +34,9 @@ public class Menu extends VBox {
 	private TabPane mySpriteTabs;
 	private VBox myParamTabVBox;
 	private TextArea myParameterErrorMessage;
+	private ActionConditionTab conditions;
+	private ActionConditionTab actions;
 	private SpriteParameterTabsAndInfo mySPTAI;
-	private SpriteConditionActionTabsandInfo mySCATI;
 	private MainAuthoringGUI myMapManager;
 	private static final String LOAD = "Load";
 	private static final String SAVE = "Save";
@@ -47,7 +48,6 @@ public class Menu extends VBox {
 	
 	protected Menu(AuthoringEnvironmentManager AEM, MainAuthoringGUI myManager, SceneController currentSceneController) {
 		mySPTAI = new SpriteParameterTabsAndInfo();
-		mySCATI = new SpriteConditionActionTabsandInfo();
 		System.out.println("made SPTAI in MENU");
 		myAEM = AEM;
 		myMapManager = myManager;
@@ -123,8 +123,8 @@ public class Menu extends VBox {
 	}
 	
 	private void createActionConditionTabs() {
-		ActionConditionTab conditions = new ActionConditionTab(conditionActionTitles.getString("ConditionsTabTitle"));
-		ActionConditionTab actions = new ActionConditionTab(conditionActionTitles.getString("ActionsTabTitle"));
+		conditions = new ActionConditionTab(conditionActionTitles.getString("ConditionsTabTitle"));
+		actions = new ActionConditionTab(conditionActionTitles.getString("ActionsTabTitle"));
 		ControllerConditionActionTabs controllerConditionActionTabs = new ControllerConditionActionTabs(conditions,actions);
 		mySpriteTabs.getTabs().addAll(conditions,actions);
 	}
@@ -222,8 +222,10 @@ public class Menu extends VBox {
 		try {
 			clearParameterTab();
 			removeParameterErrorMessage();
-			mySPTAI.create(getActiveCell());
-			///////////////////////////////////////////////////////////////////////////////////////////////////////mySCATI.create(getActiveCell());
+			mySPTAI.create(getActiveCell());	//loads in parameters for a given sprite object
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////conditions = ;
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////actions = ;
+			
 			// HashMap<String, ArrayList<SpriteParameterI>> params =
 			// getParametersOfActiveCells();
 			//
@@ -325,7 +327,8 @@ public class Menu extends VBox {
 
 	private void apply() {
 		mySPTAI.apply();
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////OwensActions.apply();
+		////////////////////////////////////////////////////////////////////////////conditions = getActiveCell().getConditionTab(); i will change this
+		///////////////////////////////////////////////////////////////////////////////actions = getActiveCell().getActionTab(); i will change this
 		myAEM.getSpriteParameterSidebarManager().apply();
 	}
 

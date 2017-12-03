@@ -10,4 +10,7 @@ public interface ActionConditionTabI {
 	public void addRemoveListener(EventHandler<ActionEvent> e);
 	public void addActionOption();
 	public void removeActionOption(Integer action);
+	public boolean isEqualTo(ActionConditionTab actionConditionTab);
+	public ActionConditionVBox getActionConditionVBox();
+	
 }

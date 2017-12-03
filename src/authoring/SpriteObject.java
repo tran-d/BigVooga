@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
+import authoring_actionconditions.ActionConditionTab;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
@@ -17,7 +18,8 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 	private HashMap<String, ArrayList<SpriteParameterI>> categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();
 	private HashMap<String, ArrayList<SpriteParameterI>> possibleCategoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();;
 	// private ImageView myImageView;
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////private conditions -> actions
+	private ActionConditionTab conditionTab;	//////////////////////////////////////////////////////////////////////////////////
+	private ActionConditionTab actionTab;		/////////////////////////////////////////////////////////////////////////////////////
 	private String myImageURL;
 	private Integer[] myPositionOnGrid;
 	private String myName;
@@ -243,7 +245,6 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 	}
 
 	@Override
-	/////////////////////////////////////////////////////////////////////////////use this method to check if actions and conditions are the same
 	public boolean isSame(SpriteObject other) {
 		if (!(other instanceof SpriteObject)) {
 			return false;
@@ -277,6 +278,7 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 				return false;
 			}
 		}
+		if(!conditionTab.isEqualTo(other.getConditionTab()) || actionTab.isEqualTo(other.getActionTab())) return false; //////////////////////////////
 		return true;
 	}
 
@@ -384,6 +386,26 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 	
 	public void setSavePath(String path){
 		mySavePath = path;
+	}
+
+	@Override
+	public ActionConditionTab getConditionTab() {
+		return conditionTab;	//////////////////////////////////////////////////////////////////////////////////////////////////
+	}
+
+	@Override
+	public ActionConditionTab getActionTab() {
+		return actionTab;/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	}
+
+	@Override
+	public void setConditionTab(ActionConditionTab newConditionTab) {
+		conditionTab = newConditionTab;////////////////////////////////////////////////////////////////////////////////////////////////////////
+	}
+
+	@Override
+	public void setActionTab(ActionConditionTab newActionTab) {
+		actionTab = newActionTab;//////////////////////////////////////////////////////////////////////////////////////////////////////////
 	}
 
 }

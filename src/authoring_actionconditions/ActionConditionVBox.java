@@ -18,8 +18,17 @@ public class ActionConditionVBox extends VBox implements ActionConditionVBoxI{
 		rows = new LinkedList<ActionConditionRow>();
 	}
 	
+	public ActionConditionVBox(String selectorString,boolean isConditionVBox,List<ActionConditionRow> rows) {
+		this(selectorString,isConditionVBox);
+		this.rows = rows;
+	}
+	
 	protected void setNewActionOptions(ObservableList<Integer> newActionOptions) {
 		rows.forEach(row -> row.setNewActionCheckBoxVBoxOptions(newActionOptions));
+	}
+	
+	protected List<ActionConditionRow> getRows() {
+		return rows;
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 package authoring_actionconditions;
 
+import java.util.List;
 import java.util.ResourceBundle;
-
 import authoring_UI.Menu;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -31,7 +31,11 @@ public class ActionConditionTab extends Tab implements ActionConditionTabI {
 		setUpActionConditionManager();
 	}
 	
-	public ActionConditionTab(String title,)
+	public ActionConditionTab(String title,TopToolBar topToolBar,ActionConditionVBox actionConditionVBox) {
+		this(title);
+		buttons = topToolBar;
+		this.actionConditionVBox = actionConditionVBox;
+	}
 
 	private void setUpActionConditionManager() {
 		buttons = new TopToolBar(actionTabResources);
@@ -101,6 +105,24 @@ public class ActionConditionTab extends Tab implements ActionConditionTabI {
 	@Override
 	public void removeActionOption(Integer action) {
 		actionConditionVBox.removeActionOption(action);
+	}
+
+	@Override
+	public boolean isEqualTo(ActionConditionTab other) {
+		List<ActionConditionRow> myRows = actionConditionVBox.getRows();
+		List<ActionConditionRow> otherRows = other.getActionConditionVBox().getRows();
+		if(myRows.size() != otherRows.size()) return false;
+		else {
+			for(int row = 0; row < myRows.size(); row++) {
+				if(!myRows.get(row).isEqualTo(otherRows.get(row))) return false;
+			}
+			return true;
+		}
+	}
+
+	@Override
+	public ActionConditionVBox getActionConditionVBox() {
+		return actionConditionVBox;
 	}
 	
 }

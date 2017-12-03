@@ -35,6 +35,7 @@ public class ActionConditionRow extends ToolBar implements ActionCheckBoxVBoxI {
 	private ChoiceBoxVBox<String> implementationSelectorVBox;
 	private ActionCheckBoxVBox<Integer> actionCheckBoxVBox;
 	private ObservableList<Integer> newActionOptions;
+	private boolean isConditionRow;
 	
 	public ActionConditionRow(int ID,String label,String selectorLabel,boolean isConditionRow, ObservableList<Integer> newActionOptions) {
 		super();
@@ -42,10 +43,11 @@ public class ActionConditionRow extends ToolBar implements ActionCheckBoxVBoxI {
 		actionConditionVBoxResources = ResourceBundle.getBundle(ACTIONCONDITION_RESOURCE_PATH);
 		labelInt = ID;
 		IDlabel = new Label(Integer.toString(ID));
+		this.isConditionRow = isConditionRow;
 		Separator separator = ActionConditionTabUtil.makeVerticalSeparator();
 		ObservableList<String> actionConditionOptions = ActionConditionTabUtil.convertToObservableList(actionConditionVBoxResources.getString(label 
 				+ actionConditionVBoxResources.getString("OptionsTag"))); 
-		ChoiceBoxVBox<String> implementationSelectorVBox = new ChoiceBoxVBox<String>(selectorLabel, actionConditionOptions);
+		implementationSelectorVBox = new ChoiceBoxVBox<String>(selectorLabel, actionConditionOptions);
 		getItems().addAll(IDlabel,separator,new Label(label),implementationSelectorVBox);
 		if(isConditionRow) addActionCheckBox();
 		else addBuildActionButton();
@@ -54,7 +56,7 @@ public class ActionConditionRow extends ToolBar implements ActionCheckBoxVBoxI {
 	public ActionConditionRow(int ID,String label,String selectorLabel,boolean isConditionRow, ObservableList<Integer> newActionOptions,
 			String selectedConditionAction) {
 		this(ID,label,selectorLabel,isConditionRow,newActionOptions);
-		
+		implementationSelectorVBox.setValue(selectedConditionAction);
 	}
 	
 	protected void setNewActionCheckBoxVBoxOptions(ObservableList<Integer> newOptions) {
@@ -64,6 +66,25 @@ public class ActionConditionRow extends ToolBar implements ActionCheckBoxVBoxI {
 	protected void decreaseLabelID() {
 		labelInt --;
 		IDlabel.setText(Integer.toString(labelInt));
+	}
+	
+	protected boolean isEqualTo(ActionConditionRow other) {
+		if(!(isConditionRow == other.isConditionRow)) return false;
+		else if(!getImplementationSelectorVBoxValue().equals(other.getImplementationSelectorVBoxValue())) return false;
+		else if(!getSelectedActions().equals(other.getSelectedActions())) return false;
+		else return true;
+	}
+	
+	protected Object getSelectedActions() {
+		return actionCheckBoxVBox.getCurrentValue();
+	}
+	
+	protected boolean getIsConditionRow() {
+		return isConditionRow;
+	}
+	
+	protected String getImplementationSelectorVBoxValue() {
+		return (String) implementationSelectorVBox.getCurrentValue();
 	}
 	
 	private void addActionCheckBox() {
