@@ -1,8 +1,14 @@
 package authoring_UI;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.PriorityQueue;
 
+import authoring.SpriteObjectGridManager;
+import authoring.TerrainObjectGridManager;
 import engine.Layer;
+import gui.welcomescreen.WelcomeScreen;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
@@ -34,95 +40,119 @@ public class DraggableGrid extends VBox {
 	private ImageView terrainImage;
 	private GridPane terrainGrid;
 	private GridPane myGrid;
-	private ArrayList<MapLayer> mapLayers;
-	
+	private List<SpriteObjectGridManager> allGrids;
+	private ArrayList<SpriteObjectGridManager> gridManagers;
+	private SpriteObjectGridManager activeGrid;
 	private StackPane myStackPane;
 	private HBox topHbox = new HBox(10);
+	private SpriteGridHandler mySGH;
 
-	protected DraggableGrid(SpriteGridHandler spriteGridHandler) {
-		
+	public DraggableGrid() {
 		// myGrids = new StackPane();
 		// terrainImage = new ImageView(new Image("square.png"));
 		// createTerrainGrid();
-		makeTopInfo();
-		makeLayers(spriteGridHandler);
-		createGrid(spriteGridHandler);
-		
-		
-		
 		// ScrollPane scrollGrid = new ScrollPane(myGrids);
 		// scrollGrid.setPannable(true);
 		// scrollGrid.setMaxWidth(600);
 		// createTerrainGrid();
+	}
+	
+	public void construct(SpriteGridHandler spriteGridHandler) {
+		mySGH = spriteGridHandler;
+		makeTopInfo();
+		makeLayers(spriteGridHandler);
+		createGrid(spriteGridHandler);
 	}
 
 	private void makeTopInfo() {
 		topHbox = new HBox(10);
 		this.getChildren().add(0, topHbox);
 	}
-	
 
 	private void createGrid(SpriteGridHandler spriteGridHandler) {
-
 		myStackPane = new StackPane();
 		myStackPane.setAlignment(Pos.CENTER);
 //		ArrayList<Color> c = new ArrayList<Color>();
 //		c.add(Color.TRANSPARENT);
 //		c.add(Color.YELLOW);
 //		c.add(Color.BLACK);
-
-		
-		for (MapLayer ml: mapLayers){
-			myStackPane.getChildren().add(ml);
+		for (SpriteObjectGridManager ml: gridManagers){
+			myStackPane.getChildren().add(ml.getMapLayer());
 			makeLayerButton(ml);
 			showLayer(ml);
 		}
-		
 		ScrollPane scrollGrid = new ScrollPane(myStackPane);
 		scrollGrid.setPannable(true);
-		scrollGrid.setMaxWidth(500);
-
+		scrollGrid.setMaxWidth(WelcomeScreen.WIDTH/2);
+//		scrollGrid.mouse
 		// spriteGridHandler.addGrid(gp);
-
 		this.getChildren().add(1, scrollGrid);
 	}
 	
+	public List<SpriteObjectGridManager> getGrids(){
+//		return this.allGrids;
+		//TODO
+		return allGrids;
+	}
+	
 	private void makeLayers(SpriteGridHandler spriteGridHandler){
-		mapLayers = new ArrayList<MapLayer>();
-		MapLayer terrain = new TerrainLayer(15,15,spriteGridHandler);
+		gridManagers = new ArrayList<SpriteObjectGridManager>();
+//		MapLayer terrain = new TerrainLayer(15,15,spriteGridHandler);
+		SpriteObjectGridManager terrain = new TerrainObjectGridManager(15, 15, spriteGridHandler);
+//		MapLayer terrain = terrMan.getMapLayer();
 //		this.getChildren().add(terrain);
 //		myStackPane.getChildren().add(new ImageView(new Image("pikachu.png")));
 //		makeLayerButton(terrain);
-		MapLayer sprites = new SpriteLayer(15,15,spriteGridHandler);
-		MapLayer panels = new PanelLayer(15,15,spriteGridHandler);
-		mapLayers.add(terrain);
-		mapLayers.add(sprites);
-		mapLayers.add(panels);
+//		SpriteLayer sprites = new SpriteLayer(15,15,spriteGridHandler);
+//		MapLayer panels = new PanelLayer(15,15,spriteGridHandler);
+		SpriteObjectGridManagerForSprites sprites = new SpriteObjectGridManagerForSprites(15, 15, spriteGridHandler);
+		PanelObjectGridManager panels = new PanelObjectGridManager(15, 15, spriteGridHandler);
+		gridManagers.add(terrain);
+		gridManagers.add(sprites);
+		gridManagers.add(panels);
+		allGrids = new ArrayList<SpriteObjectGridManager>(gridManagers);
 	}
 	
+	public SpriteObjectGridManager getActiveGrid(){
+		gridManagers.sort(new Comparator<SpriteObjectGridManager>(){
+
+			@Override
+			public int compare(SpriteObjectGridManager o1, SpriteObjectGridManager o2) {
+				return o2.getMapLayer().getLayerNumber()-o1.getMapLayer().getLayerNumber();
+			}
+		});
+		return gridManagers.get(0);
+	}
 	
-	
-	private void showLayer(MapLayer ML){
+	private void showLayer(SpriteObjectGridManager ML){
 		System.out.println("Adding layer: "+ML.getName());
+		if (!gridManagers.contains(ML)){
+		gridManagers.add(ML);
+		}
 //		myStackPane.getChid
 //		myStackPane.getChildren().add(ML.getLayerNumber(), ML);
 		ML.setVisible(true);
 	}
 	
-	private void hideLayer(MapLayer ML){
+	private void hideLayer(SpriteObjectGridManager ML){
 //		myStackPane.getChildren().remove(ML);
+		mySGH.removeActiveCells();
+		if (gridManagers.contains(ML)){
+			gridManagers.remove(ML);
+		}
 		ML.setVisible(false);
 	}
 	
-	private void makeLayerButton(MapLayer ML) {
+	private void makeLayerButton(SpriteObjectGridManager ML) {
 		HBox hbox = new HBox(10);
-		
 		Label label = new Label(ML.getName());
+		label.setTextFill(Color.ANTIQUEWHITE);
 		
+
 		CheckBox checkbox = new CheckBox();
+		checkbox.setTextFill(Color.BISQUE);
 		checkbox.setSelected(true);
 		checkbox.selectedProperty().addListener(new ChangeListener<Boolean>(){
-
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				if (newValue){
@@ -130,17 +160,11 @@ public class DraggableGrid extends VBox {
 				} else {
 					hideLayer(ML);
 				}
-				
 			}
-			
 		});
-		
 		hbox.getChildren().addAll(label, checkbox);
-		
-		
 		addLayerButton(hbox);
 	}
-	
 	
 	private void addLayerButton(HBox in){
 		if (this.topHbox.getChildren().size()!=0){
@@ -150,10 +174,6 @@ public class DraggableGrid extends VBox {
 		}
 		topHbox.getChildren().add(in);
 	}
-	
-	
-	
-	
 	// private void createTerrainGrid() {
 	// terrainGrid = new GridPane();
 	// for(int i = 0; i < 10; i++){
@@ -166,7 +186,6 @@ public class DraggableGrid extends VBox {
 	// }
 	// }
 	// }
-
 	// private HBox createTerrainButton() {
 	// myTerrain = new ComboBox<String>();
 	// myTerrain.getItems().addAll("Grass", "Desert", "Rock");
@@ -201,6 +220,4 @@ public class DraggableGrid extends VBox {
 	// }
 	// }
 	// }
-
-
 }

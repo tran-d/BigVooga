@@ -24,7 +24,7 @@ import engine.utilities.collisions.CollisionEvent;
  *
  */
 public class GameObject extends VariableContainer {
-	private final String DEFAULT_TAG = "unnamed";
+	
 	private String name;
 	private Set<String> tagSet;
 	private Map<Condition, List<Action>> events;
@@ -34,12 +34,17 @@ public class GameObject extends VariableContainer {
 	private double height = 200; //TODO Sizes
 	private int uniqueID;
 
+	private static final String DEFAULT_NAME = "unnamed";
+	private static final String DEFAULT_TAG = "default";
 	public static final String X_COR = "xCor";
 	public static final String Y_COR = "yCor";
 	public static final String HEADING = "heading";
 	
 	public GameObject() {
-		name = DEFAULT_TAG;
+		this(DEFAULT_NAME);
+	}
+
+	public GameObject(String name) {
 		tagSet = new HashSet<String>();
 		doubleVars = new HashMap<String, Double>();
 		doubleVars.put(X_COR, 0.0);
@@ -48,11 +53,9 @@ public class GameObject extends VariableContainer {
 		booleanVars = new HashMap<String, Boolean>();
 		stringVars = new HashMap<String, String>();
 		events = new HashMap<>();
-	}
-
-	public GameObject(String name) {
-		this();
 		this.name = name;
+		tagSet.add(name);
+		tagSet.add(DEFAULT_TAG);
 	}
 
 	public String getName() {

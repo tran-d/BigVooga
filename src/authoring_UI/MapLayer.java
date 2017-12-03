@@ -68,6 +68,7 @@ public abstract class MapLayer extends GridPane {
 				this.add(sp, i, j);
 				mySGH.addDropHandling(sp);
 				mySGH.addGridMouseClick(sp);
+				mySGH.addGridMouseDrag(sp);
 			}
 		}
 	}

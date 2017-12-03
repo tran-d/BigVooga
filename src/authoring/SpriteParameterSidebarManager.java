@@ -3,6 +3,7 @@ package authoring;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import authoring_UI.DraggableGrid;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
@@ -17,15 +18,17 @@ public class SpriteParameterSidebarManager {
 	HashMap<String, String> newNameOldName = new HashMap<String, String>();
 	boolean firstTimeThrough = true;
 	SpriteObject firstSprite;
-	SpriteObjectGridManagerI mySOGM;
+//	SpriteObjectGridManagerI mySOGM;
+	DraggableGrid myDG;
 
-	SpriteParameterSidebarManager(SpriteObjectGridManagerI SOGM) {
-		mySOGM = SOGM;
+	SpriteParameterSidebarManager(DraggableGrid DG) {
+		myDG = DG;
+//		mySOGM = SOGM;
 	}
 
 	public SpriteObject getActiveSprite() throws Exception {
 		// mySOGM = SOGM;
-		ArrayList<SpriteObject> sprites = mySOGM.getActiveSpriteObjects();
+		ArrayList<SpriteObject> sprites = myDG.getActiveGrid().getActiveSpriteObjects();
 		checkActiveCellsMatch(sprites);
 		return firstSprite;
 	}
@@ -65,7 +68,7 @@ public class SpriteParameterSidebarManager {
 	}
 
 	public void apply() {
-		mySOGM.matchActiveCellsToSprite(firstSprite);
+		myDG.getActiveGrid().matchActiveCellsToSprite(firstSprite);
 	}
 
 }
