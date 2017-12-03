@@ -1,6 +1,9 @@
 package authoring_UI;
 
 import java.util.ArrayList;
+
+import authoring.AbstractSpriteObject;
+import authoring.InventoryObject;
 import authoring.SpriteObject;
 import authoring.SpriteObjectGridManagerI;
 import javafx.scene.Scene;
@@ -20,13 +23,13 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 public class SpriteGridHandler {
-	private SpriteObject draggingObject;
+	private AbstractSpriteObject draggingObject;
 	private DataFormat objectFormat;
 //	private SpriteObjectGridManagerI mySOGM;
 	private DisplayPanel myDP;
 	private ArrayList<StackPane> activeGridCells;
 	private ArrayList<StackPane> activeSpriteGridCells;
-	private ArrayList<SpriteObject> SO_LIST;
+	private ArrayList<AbstractSpriteObject> SO_LIST;
 	private DraggableGrid myDG;
 //	private GridPane myGrid;
 	
@@ -34,7 +37,7 @@ public class SpriteGridHandler {
 		objectFormat = new DataFormat("MyObject" + Integer.toString(mapCount));
 //		mySOGM = SOGM;
 		myDG = DG;
-		SO_LIST = new ArrayList<SpriteObject>();
+		SO_LIST = new ArrayList<AbstractSpriteObject>();
 		activeGridCells = new ArrayList<StackPane>();
 		activeSpriteGridCells = new ArrayList<StackPane>();
 	}
@@ -63,7 +66,8 @@ public class SpriteGridHandler {
 			cellsToDelete.add(row_col);
 		});
 		removeSpritesFromGrid();
-		myDP.removeParameterTab();
+		myDP.removeSpriteEditorVBox();
+
 		System.out.println();
 		myDG.getActiveGrid().clearCells(cellsToDelete);
 
@@ -110,9 +114,9 @@ public class SpriteGridHandler {
 	}
 	
 
-	protected void addSpriteMouseClick(SpriteObject s) {
+	protected void addSpriteMouseClick(AbstractSpriteObject s) {
 		s.setOnMouseClicked(e -> {
-			
+			if (s instanceof SpriteObject){
 			boolean activeStatus;
 			if (s.getPositionOnGrid() != null) {
 				activeStatus = myDG.getActiveGrid().switchCellActiveStatus(s.getPositionOnGrid());
@@ -125,17 +129,21 @@ public class SpriteGridHandler {
 					s.setEffect(null);
 //					activeSpriteGridCells.remove((StackPane) s.getParent());
 					SO_LIST.remove(s);
-					myDP.removeParameterTab();
+
+					myDP.removeSpriteEditorVBox();
 				}
 				
 				if (myDG.getActiveGrid().getActiveSpriteObjects().size() == 0) {
-					myDP.removeParameterTab();
+					myDP.removeSpriteEditorVBox();
 				} else {
 					myDP.updateParameterTab();
 				}
 			} else {
-				populateGridCells(s);
+				populateGridCells((SpriteObject)s);
 				removeActiveCells();
+			}
+			} else if (s instanceof InventoryObject){
+				//TODO: what if it is an inventory object?
 			}
 		});
 	}
@@ -163,7 +171,9 @@ public class SpriteGridHandler {
 		});
 		SO_LIST.clear();
 		this.myDG.getActiveGrid().resetActiveCells();
-		myDP.removeParameterTab();
+
+		myDP.removeSpriteEditorVBox();
+
 	}
 	
 	private void populateGridCells(SpriteObject s) {
@@ -213,9 +223,13 @@ public class SpriteGridHandler {
 			System.out.println(row_col);
 
 			if (db.hasContent(objectFormat)) {
-				myDG.getActiveGrid().populateCell(draggingObject, row_col);
+				if (draggingObject instanceof SpriteObject){
+				myDG.getActiveGrid().populateCell((SpriteObject)draggingObject, row_col);
 				draggingObject.setPositionOnGrid(row_col);
 				// gets locations of sprite in pane
+				} else if (draggingObject instanceof InventoryObject){
+					//TODO: What if the dragged sprite is inventory?
+				}
 				int spriteLocation = ((Pane)draggingObject.getParent()).getChildren().indexOf(draggingObject);
 				
 				if (draggingObject.getParent() instanceof SpriteSelectPanel) {
@@ -257,7 +271,7 @@ public class SpriteGridHandler {
 //		});
 //	}
 
-	protected void addDragObject(SpriteObject s) {
+	protected void addDragObject(AbstractSpriteObject s) {
 		s.setOnDragDetected(e -> {
 			Dragboard db = s.startDragAndDrop(TransferMode.MOVE);
 

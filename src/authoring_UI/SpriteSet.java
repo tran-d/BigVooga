@@ -6,14 +6,17 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import authoring.AbstractSpriteObject;
 import authoring.SpriteObject;
 import authoring.SpriteObjectI;
 import authoring.SpriteParameterI;
+import authoring.SpriteThumbnail;
 import engine.utilities.data.GameDataHandler;
+import javafx.scene.layout.Pane;
 
 public abstract class SpriteSet {
 
-	protected Map<String, ArrayList<SpriteObject>> categoryToSprites;
+	protected Map<String, ArrayList<AbstractSpriteObject>> categoryToSprites;
 	protected SpriteSelectPanel mySSP;
 	protected SpriteScrollView mySSV;
 	protected GameDataHandler myGDH;
@@ -21,24 +24,33 @@ public abstract class SpriteSet {
 	protected boolean loaded = false;
 	protected ArrayList<SpriteObject> toSave;
 
-	SpriteSet(GameDataHandler GDH) {
+	protected SpriteSet(GameDataHandler GDH) {
 		myGDH = GDH;
-		categoryToSprites = new HashMap<String, ArrayList<SpriteObject>>();
+		categoryToSprites = new HashMap<String, ArrayList<AbstractSpriteObject>>();
 		setFolderToLoad();
 		loadSprites();
 		toSave = new ArrayList<SpriteObject>();
 	}
 
-	protected Map<String, ArrayList<SpriteObject>> getCategoryToSprites() {
+	protected Map<String, ArrayList<AbstractSpriteObject>> getCategoryToSprites() {
 		return categoryToSprites;
 	}
+	
+	public ArrayList<Pane> getAllSpritesAsThumbnails(){
+		ArrayList<AbstractSpriteObject> ASOs = getAllSprites();
+		ArrayList<Pane> ret = new ArrayList<Pane>();
+		ASOs.forEach(sprite->{
+			ret.add(new SpriteThumbnail(sprite));
+		});
+		return ret;
+	}
 
-	public ArrayList<SpriteObject> getAllSprites() {
+	public ArrayList<AbstractSpriteObject> getAllSprites() {
 		if (!loaded) {
 			this.loadSprites();
 		}
 //		System.out.println("Getting all");
-		ArrayList<SpriteObject> ret = new ArrayList<SpriteObject>();
+		ArrayList<AbstractSpriteObject> ret = new ArrayList<AbstractSpriteObject>();
 		getCategoryToSprites().values().forEach(list -> {
 			list.forEach(obj -> {
 //				System.out.println(obj);
@@ -48,7 +60,7 @@ public abstract class SpriteSet {
 		return ret;
 	}
 
-	protected Map<String, ArrayList<SpriteObject>> getAllSpritesAsMap() {
+	protected Map<String, ArrayList<AbstractSpriteObject>> getAllSpritesAsMap() {
 //		System.out.println("Getting them");
 		if (!loaded) {
 			this.loadSprites();
@@ -73,7 +85,7 @@ public abstract class SpriteSet {
 
 	protected void loadSprites() {
 		if (categoryToSprites == null) {
-			categoryToSprites = new HashMap<String, ArrayList<SpriteObject>>();
+			categoryToSprites = new HashMap<String, ArrayList<AbstractSpriteObject>>();
 		}
 		// if (getFolderToLoad()==null){
 		// setFolderToLoad();
@@ -125,22 +137,22 @@ public abstract class SpriteSet {
 		if (categoryExists(newCategory)) {
 			throw new Exception("Category already exists.");
 		}
-		getCategoryToSprites().put(newCategory, new ArrayList<SpriteObject>());
+		getCategoryToSprites().put(newCategory, new ArrayList<AbstractSpriteObject>());
 	}
 
 	protected boolean categoryExists(String category) {
 		return getAllCategoriesSet().contains(category);
 	}
 
-	public void addNewSprite(SpriteObject SO) throws Exception {
+	public void addNewSprite(AbstractSpriteObject SO) throws Exception {
 		addNewSprite("General", SO);
 	}
 
-	protected void addNewSprite(String category, SpriteObject SO) throws Exception {
+	protected void addNewSprite(String category, AbstractSpriteObject SO) throws Exception {
 		if (!categoryExists(category)) {
 				addCategory(category);
 		}
-			ArrayList<SpriteObject> val = getCategoryToSprites().get(category);
+			ArrayList<AbstractSpriteObject> val = getCategoryToSprites().get(category);
 			val.add(SO);
 			getCategoryToSprites().put(category, val);
 //		}
@@ -148,20 +160,20 @@ public abstract class SpriteSet {
 			mySSP.addNewDefaultSprite(SO);
 		}
 		if (mySSV != null) {
-			mySSV.addNewSprite(SO);
+			mySSV.addToVBox(new SpriteThumbnail(SO));
 		}
 		saveSprite(category, SO);
 	}
 
-	protected void saveSprite(String category, SpriteObject SO) throws Exception {
+	protected void saveSprite(String category, AbstractSpriteObject SO) throws Exception {
 		String folderToSaveTo = getFolderToLoad() + category + "/"+SO.getName();
 		myGDH.saveSprite(SO, folderToSaveTo);
 	}
 
 	protected void saveAllSprites() throws Exception {
-		for (Entry<String, ArrayList<SpriteObject>> keyVal : getAllSpritesAsMap().entrySet()) {
-			ArrayList<SpriteObject> SO_LIST = keyVal.getValue();
-			for (SpriteObject SO : SO_LIST) {
+		for (Entry<String, ArrayList<AbstractSpriteObject>> keyVal : getAllSpritesAsMap().entrySet()) {
+			ArrayList<AbstractSpriteObject> SO_LIST = keyVal.getValue();
+			for (AbstractSpriteObject SO : SO_LIST) {
 				saveSprite(keyVal.getKey(), SO);
 			}
 		}

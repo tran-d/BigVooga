@@ -28,8 +28,12 @@ public class DisplayPanel extends VBox {
 	private TabPane mySpriteTabs;
 	private VBox myParamTabVBox;
 	private TextArea myParameterErrorMessage;
-	private SpriteParameterTabsAndInfo mySPTAI;
-	private VBox spriteInfoAndApplyButton;
+
+	private SpriteParameterTabsAndInfo mySParameterTAI;
+	private MapManager myMapManager;
+	private SpriteInventoryTabAndInfo mySInventoryTAI;
+
+	private VBox spriteEditorAndApplyButtonVBox;
 
 	private static final String ACTIONCONDITIONTITLES_PATH = "TextResources/ConditionActionTitles";
 	private static final double MENU_WIDTH = WelcomeScreen.WIDTH/2;
@@ -37,8 +41,10 @@ public class DisplayPanel extends VBox {
 	
 	public static final ResourceBundle conditionActionTitles = ResourceBundle.getBundle(ACTIONCONDITIONTITLES_PATH);
 	
+
 	protected DisplayPanel(AuthoringEnvironmentManager AEM, MapManager myManager) {
-		mySPTAI = new SpriteParameterTabsAndInfo();
+		mySParameterTAI = new SpriteParameterTabsAndInfo();
+		mySInventoryTAI = new SpriteInventoryTabAndInfo(AEM);
 		System.out.println("made SPTAI in MENU");
 		myAEM = AEM;
 		setUpMenu();
@@ -52,8 +58,8 @@ public class DisplayPanel extends VBox {
 
 	
 	private void setSpriteInfoAndVBox() {
-		spriteInfoAndApplyButton = new VBox(10);
-		spriteInfoAndApplyButton.getChildren().addAll(mySpriteTabs, this.makeApplyButton());
+		spriteEditorAndApplyButtonVBox = new VBox(10);
+		spriteEditorAndApplyButtonVBox.getChildren().addAll(mySpriteTabs, this.makeApplyButton());
 	}
 	// protected void displayParams() {
 	// Map<String, ArrayList<SpriteParameterI>> paramMap = new HashMap<String,
@@ -88,7 +94,7 @@ public class DisplayPanel extends VBox {
 
 	private void setUpMenu() {
 		setErrorMessage();
-		createCategoryTabs();
+		createParameterCategoryTabs();
 		createSpriteTabs();
 	//createSpriteCreator();
 		createOverviewWindow();
@@ -106,23 +112,45 @@ public class DisplayPanel extends VBox {
 		ControllerConditionActionTabs controllerConditionActionTabs = new ControllerConditionActionTabs(conditions,actions);
 		mySpriteTabs.getTabs().addAll(conditions,actions);
 	}
+	
+	private void createParameterTab(){
+		Tab parameters = new Tab("Parameters");
+		parameters.setContent(createContainingVBoxToPlaceInParameterTab());
+		mySpriteTabs.getTabs().addAll(parameters);
+	}
+	
+	private void createDialogueTab(){
+		Tab dialogue = new Tab("Dialogue");
+		dialogue.setContent(new TextArea("dialogue goes here"));
+		mySpriteTabs.getTabs().addAll(dialogue);
+	}
+	
+	private void createInventoryTab(){
+		Tab inventory = new Tab("Inventory");
+		inventory.setContent(mySInventoryTAI.getContainingVBox());
+		mySpriteTabs.getTabs().addAll(inventory);
+	}
 
 	private void createSpriteTabs() {
 		mySpriteTabs = new TabPane();
-		Tab parameters = new Tab("Parameters");
+		mySpriteTabs.setSide(Side.TOP);
+		createParameterTab();
+		createDialogueTab();
+		createActionConditionTabs();
+		createInventoryTab();
 		// .setOnSelectionChanged(e->{displayParams();});
 		// parameters.setContent(myParamTabs);
-		parameters.setContent(createParameterTab());
-		Tab dialogue = new Tab("Dialogue");
-		dialogue.setContent(new TextArea("dialogue goes here"));
+//		mySpriteTabs.getTabs().addAll(parameters, dialogue);
 		
-		mySpriteTabs.getTabs().addAll(parameters, dialogue);
-		mySpriteTabs.setSide(Side.TOP);
-		createActionConditionTabs();
-		//this.getChildren().add(mySpriteTabs);
 	}
 
-	private VBox createParameterTab() {
+	/**
+	 * Creates the VBox that will contain the TabPane of the Active Sprite's parameters
+	 * This VBox will be the content of the Tab that says parameters.
+	 * @author Samuel
+	 * @return VBox - the VBox to contain Sprite Parameter Info
+	 */
+	private VBox createContainingVBoxToPlaceInParameterTab() {
 		myParamTabVBox = new VBox();
 		
 		myParamTabVBox.getChildren().addAll(myParamTabs);
@@ -137,6 +165,12 @@ public class DisplayPanel extends VBox {
 		return myParamTabVBox;
 	}
 	
+	/**
+	 * Make's the apply button that the user will click to apply changes the Active Sprite
+	 * Makes button's set on action call the 'apply' method in this class. 
+	 * @author Samuel
+	 * @return Button - the button UI component.
+	 */
 	private Button makeApplyButton(){
 		Button applyButton = new Button();
 		applyButton.textProperty().setValue("Apply Button");
@@ -146,9 +180,16 @@ public class DisplayPanel extends VBox {
 		return applyButton;
 	}
 
-	private void createCategoryTabs() {
+	/**
+	 * Ensures that the instance variable containing the TabPane of the Active Sprite's 
+	 * Parameters is pointed to the class controlling that info. 
+	 * 
+	 * @author Samuel
+	 * 
+	 */
+	private void createParameterCategoryTabs() {
 		// mySPTAI.createCategoryTabs();
-		myParamTabs = mySPTAI.getTabPane();
+		myParamTabs = mySParameterTAI.getTabPane();
 
 		// myParamTabs = new TabPane();
 		// myParamTabs.setSide(Side.RIGHT);
@@ -157,36 +198,37 @@ public class DisplayPanel extends VBox {
 
 	}
 
-	private void clearParameterTab() {
+	private void clearAllSpriteEditorTabs() {
 //		myParamTabs.getTabs().clear();
-		mySPTAI.clearTabPane();
+		mySParameterTAI.clearTabPane();
+		mySInventoryTAI.reset();
 	}
 
-	protected void removeParameterTab() {
-		if (this.getChildren().contains(spriteInfoAndApplyButton)) {
-			this.getChildren().remove(spriteInfoAndApplyButton);
+	protected void removeSpriteEditorVBox() {
+		if (this.getChildren().contains(spriteEditorAndApplyButtonVBox)) {
+			this.getChildren().remove(spriteEditorAndApplyButtonVBox);
 		}
 	}
 
-	private void addSpriteInfoTab() {
-		if (!this.getChildren().contains(spriteInfoAndApplyButton)) {
-			this.getChildren().addAll(spriteInfoAndApplyButton);
+	private void addSpriteEditorVBox() {
+		if (!this.getChildren().contains(spriteEditorAndApplyButtonVBox)) {
+			this.getChildren().addAll(spriteEditorAndApplyButtonVBox);
 		}
 	}
 
 	private void setDefaultErrorNoSpriteTabPane() {
-		clearParameterTab();
-		removeParameterTab();
-		addParameterErrorMessage();
+		clearAllSpriteEditorTabs();
+		removeSpriteEditorVBox();
+		addSpriteEditorErrorMessage();
 	}
 
-	private void removeParameterErrorMessage() {
+	private void removeSpriteEditorErrorMessage() {
 		if (this.getChildren().contains(myParameterErrorMessage)) {
 			this.getChildren().remove(myParameterErrorMessage);
 		}
 	}
 
-	private void addParameterErrorMessage() {
+	private void addSpriteEditorErrorMessage() {
 		if (!this.getChildren().contains(myParameterErrorMessage)) {
 			// System.out.println(myParamTabVBox.getChildren().size());
 			int numChildren = this.getChildren().size();
@@ -196,11 +238,12 @@ public class DisplayPanel extends VBox {
 
 	protected void updateParameterTab() {
 
-//		System.out.println("Updating....");
+		System.out.println("Updating....");
 		try {
-			clearParameterTab();
-			removeParameterErrorMessage();
-			mySPTAI.create(getActiveCell());
+			clearAllSpriteEditorTabs();
+			removeSpriteEditorErrorMessage();
+			mySParameterTAI.create(getActiveCell());
+			mySInventoryTAI.setSpriteObjectAndUpdate(getActiveCell());
 			// HashMap<String, ArrayList<SpriteParameterI>> params =
 			// getParametersOfActiveCells();
 			//
@@ -219,9 +262,10 @@ public class DisplayPanel extends VBox {
 			// myParamTabs.getTabs().add(newCategory);
 
 			// }
-			addSpriteInfoTab();
+			addSpriteEditorVBox();
 		} catch (Exception e) {
 			// throw new RuntimeException();
+			e.printStackTrace();
 			setDefaultErrorNoSpriteTabPane();
 
 		}
@@ -301,7 +345,8 @@ public class DisplayPanel extends VBox {
 	// }
 
 	private void apply() {
-		mySPTAI.apply();
+		mySParameterTAI.apply();
+		mySInventoryTAI.apply();
 //		OwensActiosn.apply()
 		myAEM.getSpriteParameterSidebarManager().apply();
 	}
