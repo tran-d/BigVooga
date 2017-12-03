@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.sun.javafx.geom.Point2D;
+
 /**
  * Holds variables of different types with String names. GameObject and GlobalVariables extend this.
  * 
- * @author aaronpaskin
+ * @author Aaron Paskin
  *
  */
 public abstract class VariableContainer {
@@ -19,15 +21,27 @@ public abstract class VariableContainer {
 	protected Map<String, Double> doubleVars;
 	protected Map<String, List<Double>> doubleListVars;
 	
+	protected Map<String, Point2D> vectorVars;
+	
 	protected Map<String, String> stringVars;
 	protected Map<String, List<String>> stringListVars;
 	
 	protected Map<String, Boolean> booleanVars;
+	
+	protected Map<String, GameObject> gameObjectVars;
 
 	public VariableContainer() {
-		// TODO Auto-generated constructor stub
 		doubleVars = new HashMap<String, Double>();
+		doubleListVars = new HashMap<String, List<Double>>();
+		
+		vectorVars = new HashMap<String, Point2D>();
+		
 		stringVars = new HashMap<String, String>();
+		stringListVars = new HashMap<String, List<String>>();
+		
+		booleanVars = new HashMap<String, Boolean>();
+		
+		gameObjectVars = new HashMap<String, GameObject>();
 	}
 	
 	public double getDouble(String key) {
@@ -38,6 +52,10 @@ public abstract class VariableContainer {
 	
 	public List<Double> getDoubleList(String key) {
 		return doubleListVars.get(key);
+	}
+	
+	public Point2D getVector(String key) {
+		return vectorVars.get(key);
 	}
 	
 	public String getString(String key) {
@@ -62,6 +80,10 @@ public abstract class VariableContainer {
 	
 	public void setDoubleListVariable(String name, List<Double> val) {
 		doubleListVars.put(name, val);
+	}
+	
+	public void setVectorVariable(String name, Point2D val) {
+		vectorVars.put(name, val);
 	}
 	
 	public void setStringVariable(String name, String val) {
