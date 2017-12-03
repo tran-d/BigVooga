@@ -166,8 +166,10 @@ public class DraggableGrid extends VBox {
 		HBox hbox = new HBox(10);
 		
 		Label label = new Label(ML.getName());
+		label.setTextFill(Color.ANTIQUEWHITE);
 		
 		CheckBox checkbox = new CheckBox();
+		checkbox.setTextFill(Color.BISQUE);
 		checkbox.setSelected(true);
 		checkbox.selectedProperty().addListener(new ChangeListener<Boolean>(){
 

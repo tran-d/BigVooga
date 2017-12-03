@@ -25,6 +25,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.security.NullPermission;
 import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
+import authoring.AbstractSpriteObject;
 import authoring.SpriteObject;
 import authoring_UI.SpriteDataConverter;
 import engine.EngineController;
@@ -52,6 +53,7 @@ public class GameDataHandler {
 	private static final String PROJECT_USER_SPRITE_PATH = "Sprites/";
 	private static final String DEFAULT_SPRITE_FOLDER = "DefaultSprites/";
 	private static final String CUSTOM_SPRITE_FOLDER = "CustomSprites/";
+	private final String INVENTORY_SPRITE_FOLDER = "InventorySprites/";
 	private static final String DEFAULT_CATEGORY = "General/";
 	private Map<String, Image> cache = new HashMap<>();
 	private String projectPath;
@@ -228,7 +230,7 @@ public class GameDataHandler {
 		saveSprite(SO, path);
 	}
 
-	public void saveSprite(SpriteObject SO, String path) throws IOException {
+	public void saveSprite(AbstractSpriteObject SO, String path) throws IOException {
 		if (!path.equals(SO.getSavePath())) {
 			path = this.makeValidFileName(path);
 			SO.setSavePath(path);
@@ -274,7 +276,7 @@ public class GameDataHandler {
 //		}
 //	}
 
-	public void saveDefaultSprite(SpriteObject SO) throws IOException {
+	public void saveDefaultSprite(AbstractSpriteObject SO) throws IOException {
 		// SpriteDataConverter SDC = new SpriteDataConverter(SO);
 
 		String BasicPath = getDefaultSpriteDirectoryPath() + getDefaultCategory() + SO.getName();
@@ -318,12 +320,12 @@ public class GameDataHandler {
 		saveSprite(SO, newSpritePath);
 	}
 
-	public SpriteObject loadSprite(File spriteFile) throws FileNotFoundException {
+	public AbstractSpriteObject loadSprite(File spriteFile) throws FileNotFoundException {
 		Scanner scanner = new Scanner(spriteFile);
 		String fileContents = scanner.useDelimiter("\\Z").next();
 		scanner.close();
 		SpriteDataConverter SDC = (SpriteDataConverter) SERIALIZER.fromXML(fileContents);
-		SpriteObject ret = SDC.createSprite();
+		AbstractSpriteObject ret = SDC.createSprite();
 		return ret;
 	}
 
@@ -355,6 +357,12 @@ public class GameDataHandler {
 		// System.out.println("default path: "+ret);
 		return ret;
 	}
+	
+	public String getInventorySpriteDirectoryPath() {
+		String ret = projectPath + PROJECT_USER_SPRITE_PATH + INVENTORY_SPRITE_FOLDER;
+		// System.out.println("default path: "+ret);
+		return ret;
+	}
 
 	public String getCustomSpriteDirectoryPath() {
 		String ret = projectPath + PROJECT_USER_SPRITE_PATH + CUSTOM_SPRITE_FOLDER;
@@ -363,16 +371,16 @@ public class GameDataHandler {
 		return ret;
 	}
 
-	private ArrayList<SpriteObject> loadSpritesFromDirectory(File directory) throws Exception {
+	private ArrayList<AbstractSpriteObject> loadSpritesFromDirectory(File directory) throws Exception {
 		System.out.println("Directory in loadSpritesFromDirectory: " + directory);
 		if (!isValidDirectory(directory)) {
 			throw new Exception("Not a directory");
 		}
 		File[] files = directory.listFiles();
-		ArrayList<SpriteObject> ret = new ArrayList<SpriteObject>();
+		ArrayList<AbstractSpriteObject> ret = new ArrayList<AbstractSpriteObject>();
 		for (File f : files) {
 			try {
-				SpriteObject dummy = loadSprite(f);
+				AbstractSpriteObject dummy = loadSprite(f);
 				ret.add(dummy);
 
 			} catch (Exception e) {
@@ -382,16 +390,16 @@ public class GameDataHandler {
 		return ret;
 	}
 
-	private ArrayList<SpriteObject> loadSpritesDataFromDirectory(File directory) throws Exception {
+	private ArrayList<AbstractSpriteObject> loadSpritesDataFromDirectory(File directory) throws Exception {
 		System.out.println("Directory in loadSpritesFromDirectory: " + directory);
 		if (!isValidDirectory(directory)) {
 			throw new Exception("Not a directory");
 		}
 		File[] files = directory.listFiles();
-		ArrayList<SpriteObject> ret = new ArrayList<SpriteObject>();
+		ArrayList<AbstractSpriteObject> ret = new ArrayList<AbstractSpriteObject>();
 		for (File f : files) {
 			try {
-				SpriteObject dummy = loadSprite(f);
+				AbstractSpriteObject dummy = loadSprite(f);
 				// SpriteObject dummy = dummy1.createSprite();
 				ret.add(dummy);
 
@@ -402,24 +410,24 @@ public class GameDataHandler {
 		return ret;
 	}
 
-	private ArrayList<SpriteObject> loadSpritesFromDirectoryName(String filePath) throws Exception {
+	private ArrayList<AbstractSpriteObject> loadSpritesFromDirectoryName(String filePath) throws Exception {
 		File directory = new File(filePath);
 		return loadSpritesFromDirectory(directory);
 	}
 
-	public Map<String, ArrayList<SpriteObject>> loadSpritesFromNestedDirectories(String rootDirectory) {
+	public Map<String, ArrayList<AbstractSpriteObject>> loadSpritesFromNestedDirectories(String rootDirectory) {
 		File file = new File(rootDirectory);
 		if (!isValidDirectory(file)) {
 			return null;
 		}
 		System.out.println("Still going");
-		Map<String, ArrayList<SpriteObject>> ret = new HashMap<String, ArrayList<SpriteObject>>();
+		Map<String, ArrayList<AbstractSpriteObject>> ret = new HashMap<String, ArrayList<AbstractSpriteObject>>();
 
 		File[] files = file.listFiles();
 		for (File f : files) {
 			if (isValidDirectory(f)) {
 				try {
-					ArrayList<SpriteObject> val = loadSpritesDataFromDirectory(f);
+					ArrayList<AbstractSpriteObject> val = loadSpritesDataFromDirectory(f);
 					String name = f.getName();
 					ret.put(name, val);
 				} catch (Exception e) {
@@ -471,6 +479,7 @@ public class GameDataHandler {
 		ArrayList<String> pathsToMake = new ArrayList<String>();
 		pathsToMake.add(getDefaultSpriteDirectoryPath());
 		pathsToMake.add(getCustomSpriteDirectoryPath());
+		pathsToMake.add(getInventorySpriteDirectoryPath());
 
 		for (String s : pathsToMake) {
 			File file = new File(s);

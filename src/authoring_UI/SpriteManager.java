@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+
+import authoring.AbstractSpriteObject;
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObject;
 import authoring.SpriteObjectGridManagerI;
@@ -25,7 +27,7 @@ public class SpriteManager extends TabPane implements Observer {
 
 	private AuthoringEnvironmentManager myAEM;
 	private SpriteParameterFactory mySPF;
-	private ArrayList<SpriteObject> mySpriteObjs = new ArrayList<SpriteObject>();
+	private ArrayList<AbstractSpriteObject> mySpriteObjs = new ArrayList<AbstractSpriteObject>();
 	private ArrayList<SpriteObject> myUserSpriteObjs = new ArrayList<SpriteObject>();
 	private GameDataHandler myGDH;
 	private SpriteObjectGridManagerI mySOGM;
@@ -71,7 +73,7 @@ public class SpriteManager extends TabPane implements Observer {
 		// mySpriteGridHandler);
 		// myUserSprites = myCustom.getSpritePanel(mySpriteGridHandler);
 		myUserSprites = myAEM.getCustomSpriteController().getSpritePanel(mySpriteGridHandler);
-		// getParams();
+//		 getParams();
 		// createSprites();
 		createSpriteTabs();
 		this.setPrefWidth(80);
@@ -89,8 +91,8 @@ public class SpriteManager extends TabPane implements Observer {
 		// myAEM.addDefaultSprite(s2);
 		// myAEM.addDefaultSprite(s3);
 		// myAEM.addDefaultSprite(s4);
-		setupDefaultSprites();
-		setupUserDefinedSprites();
+//		setupDefaultSprites();
+//		setupUserDefinedSprites();
 
 	}
 
@@ -139,15 +141,15 @@ public class SpriteManager extends TabPane implements Observer {
 		myUserSprites.addNewDefaultSprite(sp, spLocation);
 	}
 
-	public void setupDefaultSprites() {
-		ArrayList<SpriteObject> defaults = myAEM.getDefaultGameSprites();
-		mySprites.setupDefaultSprites(defaults);
-	}
+//	public void setupDefaultSprites() {
+//		ArrayList<SpriteObject> defaults = myAEM.getDefaultGameSprites();
+//		mySprites.setupDefaultSprites(defaults);
+//	}
 
-	public void setupUserDefinedSprites() {
-		ArrayList<SpriteObject> defaults = myAEM.getUserDefinedSprites();
-		myUserSprites.setupDefaultSprites(defaults);
-	}
+//	public void setupUserDefinedSprites() {
+//		ArrayList<SpriteObject> defaults = myAEM.getUserDefinedSprites();
+//		myUserSprites.setupDefaultSprites(defaults);
+//	}
 
 	public void getParams() {
 		System.out.println("Params!!");
@@ -156,7 +158,7 @@ public class SpriteManager extends TabPane implements Observer {
 		urls.add("file:/Users/Samuel/Documents/workspace/voogasalad_bigvooga/resources/brick.png");
 		urls.add("file:/Users/Samuel/Documents/workspace/voogasalad_bigvooga/resources/pikachu.png");
 		urls.add("file:/Users/Samuel/Documents/workspace/voogasalad_bigvooga/resources/water.png");
-		// urls.add("file:/Users/Samuel/Documents/workspace/voogasalad_bigvooga/resources/Link.png");
+		 urls.add("file:/Users/Samuel/Documents/workspace/voogasalad_bigvooga/resources/Link.png");
 		double i = 10.0;
 		ArrayList<String> s = new ArrayList<String>();
 		ArrayList<String> names = new ArrayList<String>();
@@ -168,7 +170,8 @@ public class SpriteManager extends TabPane implements Observer {
 		s.add("world");
 		s.add("bye");
 		for (int h = 0; h < 4; h++) {
-			SpriteObject SO = new SpriteObject(urls.get(h));
+			AbstractSpriteObject SO = new SpriteObject();
+			SO.setImageURL(urls.get(h));
 			SO.setName(names.get(h));
 			ArrayList<SpriteParameterI> myParams = new ArrayList<SpriteParameterI>();
 			myParams.add(mySPF.makeParameter("canFight", true));
@@ -180,6 +183,11 @@ public class SpriteManager extends TabPane implements Observer {
 			mySpriteObjs.add(SO);
 			// try {
 			// throw new IOException("Dont break");
+			
+			// } catch (IOException e) {
+			// TODO Auto-generated catch block
+			// e.printStackTrace();
+			// }
 			try {
 				myGDH.saveDefaultSprite(SO);
 				System.out.println("Saved " + SO.getImageURL());
@@ -187,12 +195,15 @@ public class SpriteManager extends TabPane implements Observer {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
-			// } catch (IOException e) {
-			// TODO Auto-generated catch block
-			// e.printStackTrace();
-			// }
 		}
+		SpriteObject SO = new SpriteObject();
+		SO.setName("testinginventory");
+		SO.addParameter(mySPF.makeParameter("hellothere" , "aweaponforalesscivilizedage"));
+		SO.setInventory(mySpriteObjs);
+		SO.setImageURL(urls.get(4));
+		
+		
+
 		// SpriteObject SO = new SpriteObject(urls.get(4));
 		// ArrayList<SpriteParameterI> myParams = new
 		// ArrayList<SpriteParameterI>();
