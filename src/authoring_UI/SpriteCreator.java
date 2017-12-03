@@ -9,6 +9,8 @@ import java.nio.file.StandardCopyOption;
 import java.util.Observable;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+
+import authoring.AbstractSpriteObject;
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObject;
 import engine.utilities.data.GameDataHandler;
@@ -49,7 +51,7 @@ public class SpriteCreator extends Observable {
 	private Stage myStage;
 	private VBox myCreateSpriteBox;
 	private GridPane myGrid;
-	private SpriteManager mySpriteManager;
+	private GameElementSelector mySpriteManager;
 	private GameDataHandler myGDH;
 	private SpriteObject mySpriteObject;
 	private File mySpriteFile;
@@ -60,7 +62,7 @@ public class SpriteCreator extends Observable {
 	private TextField nameInput;
 	private VBox imageChooseBox;
 
-	protected SpriteCreator(Stage stage, SpriteManager spriteManager, AuthoringEnvironmentManager AEM) {
+	protected SpriteCreator(Stage stage, GameElementSelector spriteManager, AuthoringEnvironmentManager AEM) {
 
 		myStage = stage;
 		mySPTAI = new SpriteParameterTabsAndInfo();
@@ -252,10 +254,15 @@ public class SpriteCreator extends Observable {
 //		myGrid.add(spriteChooseBox, 0, 0);
 	}
 
-	private void chooseSpriteFileandLoadSprite() throws FileNotFoundException {
+	private void chooseSpriteFileandLoadSprite() throws Exception {
 		File newChosenSpriteFile = myGDH.chooseSpriteFile(myStage);
 		mySpriteFile = newChosenSpriteFile;
-		mySpriteObject = myGDH.loadSprite(newChosenSpriteFile);
+		AbstractSpriteObject tempSprite = myGDH.loadSprite(newChosenSpriteFile);
+		if (tempSprite instanceof SpriteObject){
+		mySpriteObject = (SpriteObject) tempSprite;
+		} else {
+			throw new Exception("Sprite is not a valid SpriteObject");
+		}
 		mySPTAI.setSpriteObject(mySpriteObject);
 		nameInput.setText(mySpriteObject.getName());
 	}

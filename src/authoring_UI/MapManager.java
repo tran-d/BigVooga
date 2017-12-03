@@ -22,7 +22,7 @@ public class MapManager extends TabPane {
 	private Tab addTab;
 	private AuthoringMapEnvironment authMap;
 	private ViewSideBar sideBar;
-	private SpriteManager mySprites;
+	private GameElementSelector mySprites;
 	private AuthoringEnvironmentManager myAEM;
 	private SpriteObjectGridManagerI mySOGM;
 	private int myTabCount;
@@ -67,22 +67,20 @@ public class MapManager extends TabPane {
 	}
 	
 	private void setupFEAuthClasses() {
-		Menu myMenu = new Menu(myAEM, this);
-		DraggableGrid myGrid = myAEM.getDraggableGrid();
 		
-		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, myMenu, myGrid);
+		DraggableGrid myGrid = myAEM.getDraggableGrid();
+		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, myGrid);
 		myGrid.construct(mySpriteGridHandler);
-		mySprites = new SpriteManager(mySpriteGridHandler, myAEM, mySOGM);
 		mySpriteGridHandler.addKeyPress(stage.getScene());
+		SpritePanels spritePanels = new SpritePanels(this, mySpriteGridHandler, myAEM, mySOGM);
+		mySpriteGridHandler.setDisplayPanel(spritePanels);
 //
 //<<<<<<< HEAD
 //		authMap.getChildren().addAll(myMenu, myGrid, mySprites);
 //		mySpriteGridHandler.addKeyPress(scene);
 //=======
-		authMap.setMenu(myMenu);
+		authMap.setPanels(spritePanels);
 		authMap.setGrid(myGrid);
-		authMap.setSpriteManager(mySprites);
-//		authMap.getChildren().addAll(myMenu, myGrid, mySprites);
 	}
 	
 

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+
+import authoring.AbstractSpriteObject;
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObject;
 import authoring.SpriteObjectGridManagerI;
@@ -11,6 +13,7 @@ import authoring.SpriteParameterFactory;
 import authoring.SpriteParameterI;
 import engine.utilities.data.GameDataHandler;
 import javafx.geometry.Side;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
@@ -18,20 +21,20 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-public class SpriteManager extends TabPane implements Observer {
+public class GameElementSelector extends TabPane implements Observer {
 	private DraggableGrid myGrid;
 	private SpriteSelectPanel mySprites;
 	private SpriteSelectPanel myUserSprites;
 
 	private AuthoringEnvironmentManager myAEM;
 	private SpriteParameterFactory mySPF;
-	private ArrayList<SpriteObject> mySpriteObjs = new ArrayList<SpriteObject>();
+	private ArrayList<AbstractSpriteObject> mySpriteObjs = new ArrayList<AbstractSpriteObject>();
 	private ArrayList<SpriteObject> myUserSpriteObjs = new ArrayList<SpriteObject>();
 	private GameDataHandler myGDH;
 	private SpriteObjectGridManagerI mySOGM;
 	private SpriteGridHandler mySpriteGridHandler;
 
-	protected SpriteManager(SpriteGridHandler spriteGridHandler, AuthoringEnvironmentManager AEM,
+	protected GameElementSelector(SpriteGridHandler spriteGridHandler, AuthoringEnvironmentManager AEM,
 			SpriteObjectGridManagerI SOGM) {
 		mySPF = new SpriteParameterFactory();
 		myAEM = AEM;
@@ -41,10 +44,15 @@ public class SpriteManager extends TabPane implements Observer {
 		// myAEM = AEM;
 		myGDH = AEM.getGameDataHandler();
 //		mySOGM = SOGM;
-		mySprites = new SpriteSelectPanel("DEFAULT", mySpriteGridHandler);
+		//mySprites = new SpriteSelectPanel("DEFAULT", mySpriteGridHandler);
 		// SpriteSet mySS = new SpriteSetDefault(myGDH);
 		// SpriteSet myCustom = new SpriteSetUserDefined(myGDH);
+		myAEM.getDefaultSpriteController().getAllSprites().forEach(sprite->{
+			System.out.println("Sprite exists, name: "+sprite.getName());
+		});
 		mySprites = myAEM.getDefaultSpriteController().getSpritePanel(mySpriteGridHandler);
+		
+//		mySprites.getSpritePanel
 		// mySS.getSpritePanel(mySpriteGridHandler);
 		// mySS.getAllSpritesAsMap().forEach((a,b)->{
 		// System.out.println("Key: "+a+ ", Value: "+b);
@@ -71,7 +79,7 @@ public class SpriteManager extends TabPane implements Observer {
 		// mySpriteGridHandler);
 		// myUserSprites = myCustom.getSpritePanel(mySpriteGridHandler);
 		myUserSprites = myAEM.getCustomSpriteController().getSpritePanel(mySpriteGridHandler);
-		// getParams();
+//		 getParams();
 		// createSprites();
 		createSpriteTabs();
 		this.setPrefWidth(80);
@@ -89,8 +97,8 @@ public class SpriteManager extends TabPane implements Observer {
 		// myAEM.addDefaultSprite(s2);
 		// myAEM.addDefaultSprite(s3);
 		// myAEM.addDefaultSprite(s4);
-		setupDefaultSprites();
-		setupUserDefinedSprites();
+//		setupDefaultSprites();
+//		setupUserDefinedSprites();
 
 	}
 
@@ -139,15 +147,15 @@ public class SpriteManager extends TabPane implements Observer {
 		myUserSprites.addNewDefaultSprite(sp, spLocation);
 	}
 
-	public void setupDefaultSprites() {
-		ArrayList<SpriteObject> defaults = myAEM.getDefaultGameSprites();
-		mySprites.setupDefaultSprites(defaults);
-	}
+//	public void setupDefaultSprites() {
+//		ArrayList<SpriteObject> defaults = myAEM.getDefaultGameSprites();
+//		mySprites.setupDefaultSprites(defaults);
+//	}
 
-	public void setupUserDefinedSprites() {
-		ArrayList<SpriteObject> defaults = myAEM.getUserDefinedSprites();
-		myUserSprites.setupDefaultSprites(defaults);
-	}
+//	public void setupUserDefinedSprites() {
+//		ArrayList<SpriteObject> defaults = myAEM.getUserDefinedSprites();
+//		myUserSprites.setupDefaultSprites(defaults);
+//	}
 
 	public void getParams() {
 		System.out.println("Params!!");
@@ -156,7 +164,7 @@ public class SpriteManager extends TabPane implements Observer {
 		urls.add("file:/Users/Samuel/Documents/workspace/voogasalad_bigvooga/resources/brick.png");
 		urls.add("file:/Users/Samuel/Documents/workspace/voogasalad_bigvooga/resources/pikachu.png");
 		urls.add("file:/Users/Samuel/Documents/workspace/voogasalad_bigvooga/resources/water.png");
-		// urls.add("file:/Users/Samuel/Documents/workspace/voogasalad_bigvooga/resources/Link.png");
+		 urls.add("file:/Users/Samuel/Documents/workspace/voogasalad_bigvooga/resources/Link.png");
 		double i = 10.0;
 		ArrayList<String> s = new ArrayList<String>();
 		ArrayList<String> names = new ArrayList<String>();
@@ -168,7 +176,8 @@ public class SpriteManager extends TabPane implements Observer {
 		s.add("world");
 		s.add("bye");
 		for (int h = 0; h < 4; h++) {
-			SpriteObject SO = new SpriteObject(urls.get(h));
+			AbstractSpriteObject SO = new SpriteObject();
+			SO.setImageURL(urls.get(h));
 			SO.setName(names.get(h));
 			ArrayList<SpriteParameterI> myParams = new ArrayList<SpriteParameterI>();
 			myParams.add(mySPF.makeParameter("canFight", true));
@@ -180,6 +189,11 @@ public class SpriteManager extends TabPane implements Observer {
 			mySpriteObjs.add(SO);
 			// try {
 			// throw new IOException("Dont break");
+			
+			// } catch (IOException e) {
+			// TODO Auto-generated catch block
+			// e.printStackTrace();
+			// }
 			try {
 				myGDH.saveDefaultSprite(SO);
 				System.out.println("Saved " + SO.getImageURL());
@@ -187,12 +201,15 @@ public class SpriteManager extends TabPane implements Observer {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
-			// } catch (IOException e) {
-			// TODO Auto-generated catch block
-			// e.printStackTrace();
-			// }
 		}
+		SpriteObject SO = new SpriteObject();
+		SO.setName("testinginventory");
+		SO.addParameter(mySPF.makeParameter("hellothere" , "aweaponforalesscivilizedage"));
+		SO.setInventory(mySpriteObjs);
+		SO.setImageURL(urls.get(4));
+		
+		
+
 		// SpriteObject SO = new SpriteObject(urls.get(4));
 		// ArrayList<SpriteParameterI> myParams = new
 		// ArrayList<SpriteParameterI>();
@@ -208,7 +225,10 @@ public class SpriteManager extends TabPane implements Observer {
 	}
 
 	private void createSpriteTabs() {
-		// TabPane mySpriteTabs = new TabPane();
+		
+		TabPane spritesTabPane = new TabPane();
+		TabPane dialoguesTabPane = new TabPane();
+		
 		Tab defaultSpriteTab = new Tab();
 		defaultSpriteTab.setText("Default Sprites");
 		defaultSpriteTab.setContent(mySprites);
@@ -218,16 +238,36 @@ public class SpriteManager extends TabPane implements Observer {
 		mySpriteTab.setText("User Sprites");
 		mySpriteTab.setContent(myUserSprites);
 		mySpriteTab.setClosable(false);
+		
+		Tab defaultDialogueTab = new Tab();
+		defaultDialogueTab.setText("Default Dialogues");
+		defaultDialogueTab.setContent(mySprites);
+		defaultDialogueTab.setClosable(false);
 
-		// mySpriteTabs.getTabs().addAll(defaultSpriteTab, mySpriteTab);
-		// mySpriteTabs.setSide(Side.RIGHT);
-		// mySpriteTabs.setPrefWidth(90);
+		Tab myDialogueTab = new Tab();
+		myDialogueTab.setText("User Dialogues");
+		myDialogueTab.setContent(myUserSprites);
+		myDialogueTab.setClosable(false);
 
-		this.getTabs().addAll(defaultSpriteTab, mySpriteTab);
-		this.setSide(Side.RIGHT);
-		// this.setPrefWidth(90);
+		spritesTabPane.getTabs().addAll(defaultSpriteTab, mySpriteTab);
+		spritesTabPane.setSide(Side.RIGHT);
+		
+		dialoguesTabPane.getTabs().addAll(defaultDialogueTab, myDialogueTab);
+		dialoguesTabPane.setSide(Side.RIGHT);
 
-		// return mySpriteTabs;
+		Tab spriteTab = new Tab();
+		spriteTab.setText("Sprites");
+		spriteTab.setContent(spritesTabPane);
+		spriteTab.setClosable(false);
+		
+		Tab dialoguesTab = new Tab();
+		dialoguesTab.setText("Dialogues");
+		dialoguesTab.setContent(dialoguesTabPane);
+		dialoguesTab.setClosable(false);
+		
+		this.getTabs().addAll(spriteTab, dialoguesTab);
+		this.setSide(Side.TOP);
+
 	}
 
 	// private ImageView createTrash() {

@@ -7,6 +7,7 @@ import authoring.SpriteObject;
 import authoring.SpriteObjectGridManagerI;
 import authoring.SpriteObjectI;
 import authoring.SpriteParameterI;
+import authoring_UI.DraggableGrid;
 import authoring_UI.MapLayer;
 import engine.GameLayer;
 import engine.GameMaster;
