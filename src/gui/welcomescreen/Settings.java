@@ -2,7 +2,7 @@ package gui.welcomescreen;
 
 import java.util.Locale;
 
-import default_pkg.SceneController;
+import controller.welcomeScreen.SceneController;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

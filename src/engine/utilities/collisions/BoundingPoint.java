@@ -2,6 +2,12 @@ package engine.utilities.collisions;
 
 import javafx.geometry.Point2D;
 
+/**
+ * A Point representing "Bounds," but without any size
+ * 
+ * @author Ian Eldridge-Allegra
+ *
+ */
 public class BoundingPoint extends BoundingGeometry {
 
 	private Point2D point;
@@ -39,11 +45,13 @@ public class BoundingPoint extends BoundingGeometry {
 		return equals(point)?new Point2D(0,0):null;
 	}
 
+	//TODO not correct
 	@Override
 	public BoundingGeometry getScaled(double xFactor, double yFactor) {
 		return this;
 	}
 
+	//TODO not correct
 	@Override
 	public BoundingGeometry getRotated(double rotation) {
 		return this;

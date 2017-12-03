@@ -43,7 +43,8 @@ public class TopToolBar extends ToolBar implements TopToolBarI {
 
 	@Override
 	public Integer getRemoveValue() {
-		return (int) removeRowVBox.getCurrentValue();
+		System.out.println("current value " + removeRowVBox.getCurrentValue());
+		return (Integer) removeRowVBox.getCurrentValue();
 	}
 
 	@Override

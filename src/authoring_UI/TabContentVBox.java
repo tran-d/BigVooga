@@ -1,15 +1,23 @@
 package authoring_UI;
 
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
 
 public class TabContentVBox extends VBox{
 	
 	String myCategory;
+	Tab parentTab;
 	
 	TabContentVBox(String category){
 		super();
 		myCategory = category;
+		setSpacing(10);
+	}
+	
+	TabContentVBox(Tab parent){
+		parentTab = parent;
+		myCategory = parentTab.getText();
 		setSpacing(10);
 	}
 	
@@ -19,5 +27,9 @@ public class TabContentVBox extends VBox{
 
 	public void setMyCategory(String myCategory) {
 		this.myCategory = myCategory;
+	}
+	
+	public String getCategory(){
+		return parentTab.getText();
 	}
 }

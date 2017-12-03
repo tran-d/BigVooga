@@ -10,5 +10,4 @@ public interface ActionConditionTabI {
 	public void addRemoveListener(EventHandler<ActionEvent> e);
 	public void addActionOption();
 	public void removeActionOption(Integer action);
-
 }

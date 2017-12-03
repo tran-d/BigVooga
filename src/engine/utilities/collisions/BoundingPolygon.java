@@ -7,6 +7,9 @@ import java.util.function.Function;
 import javafx.geometry.Point2D;
 
 /**
+ * A Polygon subclass of BoundingGeometry
+ * @see BoundingGeometry
+ * 
  * @author Ian Eldridge-Allegra
  *
  */
@@ -14,6 +17,9 @@ public class BoundingPolygon extends BoundingGeometry {
 
 	private List<Point2D> vertices;
 
+	/**
+	 * @param vertices Given in clockwise order (on a traditional comp-sci grid) and as a convex shape
+	 */
 	public BoundingPolygon(List<Point2D> vertices) {
 		this.vertices = vertices;
 	}
