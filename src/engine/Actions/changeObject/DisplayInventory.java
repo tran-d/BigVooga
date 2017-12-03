@@ -7,6 +7,7 @@ import engine.Action;
 import engine.GameObject;
 import engine.Layer;
 import engine.Actions.movement.MoveTo;
+import engine.Actions.variableSetting.GiveInventory;
 import engine.operations.doubleops.Difference;
 import engine.operations.doubleops.DoubleOperation;
 import engine.operations.doubleops.Magnitude;
@@ -15,6 +16,8 @@ import engine.operations.doubleops.Quotient;
 import engine.operations.doubleops.Sum;
 import engine.operations.doubleops.Value;
 import engine.operations.gameobjectops.GameObjectOperation;
+import engine.operations.gameobjectops.Self;
+import engine.operations.gameobjectops.Get;
 
 public class DisplayInventory implements Action {
 
@@ -35,6 +38,8 @@ public class DisplayInventory implements Action {
 	@Override
 	public void execute(GameObject asking, Layer world) {
 		GameObject inventoryPane = inventoryDisplay.evaluate(asking, world);
+		GiveInventory transfer = new GiveInventory(new Get(inventoryPane));
+		transfer.execute(asking, world);
 		world.addGameObject(inventoryPane);
 		DoubleOperation inventoryX = new Value(inventoryPane.getX());
 		DoubleOperation inventoryY = new Value(inventoryPane.getY());
