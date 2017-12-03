@@ -25,15 +25,26 @@ public class ActionConditionVBox extends VBox implements ActionConditionVBoxI {
 
 	@Override
 	public void addConditionAction(String label, ObservableList<Integer> currentActions) {
-		ActionConditionRow actionConditionRow = new ActionConditionRow(rows.size() + 1, label, selectorLabel,
-				isConditionVBox, currentActions, this);
-		rows.add(actionConditionRow);
-
-		if (!isConditionVBox) {
-			BuildActionView view = new BuildActionView(this, actionConditionRow);
+		if (isConditionVBox) {
+			ConditionRow conditionRow = new ConditionRow(rows.size() + 1, label, selectorLabel, isConditionVBox,
+					currentActions, this);
+			rows.add(conditionRow);
+			getChildren().add(conditionRow);
 		}
-		else
-			getChildren().add(actionConditionRow);
+		else {
+			ActionRow actionRow = new ActionRow(rows.size() + 1, label, selectorLabel, isConditionVBox,
+					currentActions, this);
+			rows.add(actionRow);
+			BuildActionView view = new BuildActionView(this, actionRow);
+		}
+		
+//		ActionConditionRow actionConditionRow = new ActionConditionRow(rows.size() + 1, label, selectorLabel,
+//				isConditionVBox, currentActions, this);
+//		rows.add(actionConditionRow);
+//		if (!isConditionVBox) {
+//			
+//		} else
+//			getChildren().add(actionConditionRow);
 	}
 
 	@Override
@@ -53,6 +64,5 @@ public class ActionConditionVBox extends VBox implements ActionConditionVBoxI {
 	public void removeActionOption(Integer action) {
 		rows.forEach(row -> row.removeAction(action));
 	}
-
 
 }

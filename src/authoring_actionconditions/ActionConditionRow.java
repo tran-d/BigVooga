@@ -38,7 +38,7 @@ public class ActionConditionRow extends ToolBar implements ActionCheckBoxVBoxI {
 
 	private static final String ACTIONCONDITION_RESOURCE_PATH = "TextResources/ActionConditionVBoxResources";
 
-	private ResourceBundle actionConditionVBoxResources;
+	protected ResourceBundle actionConditionVBoxResources;
 	private int labelInt;
 	private Label IDlabel;
 	private ActionCheckBoxVBox<Integer> actionCheckBoxVBox;
@@ -57,14 +57,14 @@ public class ActionConditionRow extends ToolBar implements ActionCheckBoxVBoxI {
 		Separator separator = ActionConditionTabUtil.makeVerticalSeparator();
 		ObservableList<String> actionConditionOptions = ActionConditionTabUtil.convertToObservableList(
 				actionConditionVBoxResources.getString(label + actionConditionVBoxResources.getString("OptionsTag")));
-		actionOptions = new ChoiceBoxVBox<String>(selectorLabel,
-				actionConditionOptions);
+		actionOptions = new ChoiceBoxVBox<String>(selectorLabel, actionConditionOptions);
 		getItems().addAll(IDlabel, separator, new Label(label), actionOptions);
-		if (isConditionRow) {
-			addActionCheckBox();
-		} 
-//		else
-//			addBuildActionButton(e -> openBuildWindow());
+
+		// if (isConditionRow) {
+		// addActionCheckBox();
+		// }
+		// else
+		// addBuildActionButton(e -> openBuildWindow());
 	}
 
 	protected void setNewActionCheckBoxVBoxOptions(ObservableList<Integer> newOptions) {
@@ -76,21 +76,10 @@ public class ActionConditionRow extends ToolBar implements ActionCheckBoxVBoxI {
 		IDlabel.setText(Integer.toString(labelInt));
 	}
 
-	private void addActionCheckBox() {
+	protected void addActionCheckBox() {
 		actionCheckBoxVBox = new ActionCheckBoxVBox<Integer>(
 				actionConditionVBoxResources.getString("ActionCheckBoxLabel"), newActionOptions);
 		getItems().add(actionCheckBoxVBox);
-	}
-
-	private void addBuildActionButton(EventHandler<ActionEvent> handler) {
-		Button buildActionButton = new Button(actionConditionVBoxResources.getString("BuildActionButton"));
-		buildActionButton.setOnAction(handler);
-		getItems().add(buildActionButton);
-	}
-
-	private void openBuildWindow() {
-//		if (view == null && actionOptions.getSelected() != null)
-//			view = new BuildActionView(ACVBox, (ActionConditionRow) ACVBox.getChildren().get(labelInt - 1));
 	}
 
 	@Override
@@ -102,7 +91,7 @@ public class ActionConditionRow extends ToolBar implements ActionCheckBoxVBoxI {
 	public void removeAction(Integer action) {
 		actionCheckBoxVBox.removeAction(action);
 	}
-	
+
 	public int getRowID() {
 		return labelInt;
 	}
