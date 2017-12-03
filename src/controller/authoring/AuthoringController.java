@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import authoring_UI.MapManager;
+import authoring_UI.SpriteCreator;
 import authoring_UI.ViewSideBar;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
@@ -33,8 +34,9 @@ public class AuthoringController {
 		MapManager mapManager = new MapManager(stage);
 		viewMap.put(MAP_EDITOR_KEY, mapManager);
 		
-		TabPane testPane = new TabPane();
-		viewMap.put(SPRITE_CREATOR_KEY, testPane);
+//		TabPane testPane = new TabPane();
+		SpriteCreator sc = new SpriteCreator();
+		viewMap.put(SPRITE_CREATOR_KEY, sc.getParent());
 		
 		//SpriteCreator mySpriteCreator = new SpriteCreator(stage, mySprites, myAEM);
 		
