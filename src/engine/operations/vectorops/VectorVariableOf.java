@@ -1,25 +1,29 @@
+
 package engine.operations.vectorops;
 
 import engine.GameObject;
 import engine.Layer;
 import engine.operations.gameobjectops.GameObjectOperation;
+import engine.operations.stringops.StringOperation;
 import javafx.geometry.Point2D;
 
 /**
  * @author Ian Eldridge-Allegra
  *
  */
-public class HeadingOf implements VectorOperation {
+public class VectorVariableOf implements VectorOperation {
 
+	private StringOperation varName;
 	private GameObjectOperation object;
 
-	public HeadingOf(GameObjectOperation object) {
+	public VectorVariableOf(GameObjectOperation object, StringOperation varName) {
 		this.object = object;
+		this.varName = varName;
 	}
-	
+
 	@Override
 	public Point2D evaluate(GameObject asking, Layer world) {
-		return new Point2D(Math.cos(Math.toRadians(object.evaluate(asking, world).getHeading())), Math.sin(Math.toRadians(object.evaluate(asking, world).getHeading())));
+		return object.evaluate(asking, world).getVector(varName.evaluate(asking, world));
 	}
 
 }

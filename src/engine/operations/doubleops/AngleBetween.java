@@ -5,6 +5,10 @@ import engine.Layer;
 import engine.operations.vectorops.VectorOperation;
 import javafx.geometry.Point2D;
 
+/**
+ * @author Ian Eldridge-Allegra
+ *
+ */
 public class AngleBetween implements DoubleOperation {
 
 	private VectorOperation from;
