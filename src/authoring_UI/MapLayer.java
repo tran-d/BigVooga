@@ -55,7 +55,7 @@ public abstract class MapLayer extends GridPane {
 	protected void setup() {
 		for (int i = 0; i < myColumns; i++) {
 			for (int j = 0; j < myRows; j++) {
-				StackPane sp = new StackPane();
+				AuthoringMapStackPane sp = new AuthoringMapStackPane(this);
 				sp.setPrefHeight(50);
 				sp.setPrefWidth(50);
 				// "-fx-background-color: rgba(0, 100, 100, 0.5);

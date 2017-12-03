@@ -176,6 +176,10 @@ public class SpriteGridHandler {
 
 	}
 	
+	public void addSpriteSizeChangeListener(){
+		
+	}
+	
 	private void populateGridCells(SpriteObject s) {
 		activeGridCells.forEach(cell -> {
 			
@@ -204,7 +208,7 @@ public class SpriteGridHandler {
 		myDG.getActiveGrid().getGrid();
 	}
 
-	protected void addDropHandling(StackPane pane) {
+	protected void addDropHandling(AuthoringMapStackPane pane) {
 		pane.setOnDragOver(e -> {
 			Dragboard db = e.getDragboard();
 			if (db.hasContent(objectFormat) && draggingObject != null) {
@@ -215,10 +219,10 @@ public class SpriteGridHandler {
 
 		pane.setOnDragDropped(e -> {
 			Dragboard db = e.getDragboard();
-			MapLayer ML = (MapLayer) pane.getParent();
+			MapLayer ML = pane.getMapLayer();
 			System.out.println("MapLayer: "+ ML.getName());
-			int row = ((GridPane) pane.getParent()).getRowIndex(pane);
-			int col = ((GridPane) pane.getParent()).getColumnIndex(pane);
+			int row = ML.getRowIndex(pane);
+			int col = ML.getColumnIndex(pane);
 			Integer[] row_col = new Integer[] { row, col };
 			System.out.println(row_col);
 
@@ -237,7 +241,7 @@ public class SpriteGridHandler {
 					spritePanel.addNewDefaultSprite(draggingObject, spriteLocation);
 				}
 				((Pane) draggingObject.getParent()).getChildren().remove(draggingObject);
-				pane.getChildren().add(draggingObject);
+				pane.addChild(draggingObject);
 				e.setDropCompleted(true);
 				draggingObject = null;
 			}

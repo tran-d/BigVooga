@@ -1,13 +1,21 @@
 package authoring;
 
 import java.io.File;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
+import java.util.function.Consumer;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
@@ -15,21 +23,75 @@ import javafx.scene.image.ImageView;
 
 public abstract class AbstractSpriteObject extends ImageView {
 
+	@Target(ElementType.FIELD)
+	@Retention(RetentionPolicy.RUNTIME)
+	@interface IsLockedUtility {
+		String readableName();
+		String getMethod();
+	}
+
+	@Target(ElementType.FIELD)
+	@Retention(RetentionPolicy.RUNTIME)
+	@interface IsUnlockedUtility {
+		String readableName();
+		String getMethod();
+		String setMethod();
+	}
+
 	protected HashMap<String, ArrayList<SpriteParameterI>> categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();
 	protected HashMap<String, ArrayList<SpriteParameterI>> possibleCategoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();;
 	protected ArrayList<AbstractSpriteObject> myInventory;
-	
+
 	// protected ImageView myImageView;
+	@IsLockedUtility(
+			readableName = "Image Path",
+			getMethod = "getImagueURL")
 	protected String myImageURL;
+	@IsUnlockedUtility (
+			readableName = "Position",
+			getMethod = "getMyPositionOnGrid",
+			setMethod = "setMyPositionOnGrid"
+			)
+	
 	protected Integer[] myPositionOnGrid;
+	ObjectProperty<Integer[]> position;
+	
+	@IsLockedUtility(
+		readableName = "Name",
+				getMethod = "getName()"
+	)
 	protected String myName;
-	protected double myNumCellsWidth;
-	protected double myNumCellsHeight;
+	@IsUnlockedUtility(
+			readableName = "Cell Width",
+			getMethod = "getNumCellsWidth",
+			setMethod = "setNumCellsWidth"
+			)
+	ObjectProperty<Integer> width;
+	Consumer<Integer> widthConsumer;
+	protected int myNumCellsWidth;
+	@IsUnlockedUtility(
+			readableName = "Cell Height",
+			getMethod = "getNumCellsHeight",
+			setMethod = "setNumCellsHeight"
+			)
+	ObjectProperty<Integer> height;
+	Consumer<Integer> heightConsumer;
+	protected int myNumCellsHeight;
+	@IsLockedUtility(
+			readableName = "UniqueID",
+			getMethod = "getUniqueID"
+			)
+	
 	protected String myUniqueID;
+	@IsLockedUtility(
+			readableName = "Save File",
+			getMethod = "getSavePath")
 	protected String mySavePath;
 
 	public AbstractSpriteObject() {
 		super();
+		initializePositionOnGridProperty();
+		initializeHeightWidthProperties();
 		setUniqueID();
 	}
 
@@ -37,6 +99,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 		if (isRecreation) {
 			// Nothing
 		} else {
+			initializePositionOnGridProperty();
 			setUniqueID();
 		}
 	}
@@ -68,7 +131,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 	}
 
 	public void setUniqueID(String ID) {
-		if (myUniqueID==null){
+		if (myUniqueID == null) {
 			myUniqueID = ID;
 		}
 	}
@@ -76,35 +139,35 @@ public abstract class AbstractSpriteObject extends ImageView {
 	public String getUniqueID() {
 		return myUniqueID;
 	}
-	
-	public ArrayList<AbstractSpriteObject> getInventory(){
-		if (myInventory==null){
+
+	public ArrayList<AbstractSpriteObject> getInventory() {
+		if (myInventory == null) {
 			myInventory = new ArrayList<AbstractSpriteObject>();
 		}
 		return myInventory;
 	}
-	
-	public void setInventory(Collection<AbstractSpriteObject> inventoryList){
-		if (myInventory==null){
+
+	public void setInventory(Collection<AbstractSpriteObject> inventoryList) {
+		if (myInventory == null) {
 			myInventory = new ArrayList<AbstractSpriteObject>();
 		}
 		myInventory.clear();
 		myInventory.addAll(inventoryList);
 	}
-	
-	public void addToInventory(AbstractSpriteObject ASO){
+
+	public void addToInventory(AbstractSpriteObject ASO) {
 		myInventory.add(ASO);
 	}
-	
-	public boolean removeFromInventory(AbstractSpriteObject ASO){
-		if (getInventory().contains(ASO)){
+
+	public boolean removeFromInventory(AbstractSpriteObject ASO) {
+		if (getInventory().contains(ASO)) {
 			getInventory().remove(ASO);
 			return true;
 		}
 		return false;
 	}
-	
-	public void clearInventory(){
+
+	public void clearInventory() {
 		myInventory.clear();
 	}
 
@@ -114,20 +177,76 @@ public abstract class AbstractSpriteObject extends ImageView {
 		this.setFitWidth(45);
 		this.setFitHeight(45);
 	}
+	
+	private void initializeHeightWidthProperties(){
+		width = new SimpleObjectProperty<Integer>();
+		widthConsumer = new Consumer<Integer>(){
 
-	public double getNumCellsWidth() {
+			@Override
+			public void accept(Integer t) {
+				// nothing
+				
+			}
+			
+		};
+		width.addListener((change, previous, next)->{getWidthConsumer().accept(next);});
+		height = new SimpleObjectProperty<Integer>();
+		heightConsumer = new Consumer<Integer>(){
+
+			@Override
+			public void accept(Integer t) {
+				// nothing
+				
+			}
+			
+		};
+		height.addListener((change, previous, next)->{getHeightConsumer().accept(next);});
+	}
+	
+	public ObjectProperty<Integer> getWidthObjectProperty(){
+		return width;
+	}
+	private void setWidthObjectProperty(ObjectProperty<Integer> newWidth){
+		width = newWidth;
+	}
+	
+	public void setWidthConsumer(Consumer<Integer> consumer){
+		widthConsumer = consumer;
+	}
+	
+	public Consumer<Integer> getWidthConsumer(){
+		return widthConsumer;
+	}
+	public ObjectProperty<Integer> getHeightObjectProperty(){
+		return height;
+	}
+	private void setHeightObjectProperty(ObjectProperty<Integer> newHeight){
+		height= newHeight;
+	}
+	
+	public void setHeightConsumer(Consumer<Integer> consumer){
+		heightConsumer = consumer;
+	}
+	
+	public Consumer<Integer> getHeightConsumer(){
+		return heightConsumer;
+	}
+
+	public int getNumCellsWidth() {
 		return myNumCellsWidth;
 	}
 
-	public void setNumCellsWidth(double in) {
+	public void setNumCellsWidth(int in) {
+		width.set(in);
 		myNumCellsWidth = in;
 	}
 
-	public double getNumCellsHeight() {
+	public int getNumCellsHeight() {
 		return myNumCellsHeight;
 	}
 
-	public void setNumCellsHeight(double in) {
+	public void setNumCellsHeight(int in) {
+		height.set(in);
 		myNumCellsHeight = in;
 	}
 
@@ -149,7 +268,6 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return centerx;
 	}
 
-	
 	public ImageView getImageView() {
 		// if (this.getImage() == null){
 		// setupImageURLAndView(getImageURL());
@@ -157,7 +275,6 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return this;
 	}
 
-	
 	public Integer[] getPositionOnGrid() {
 		return myPositionOnGrid;
 	}
@@ -170,12 +287,23 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return getPositionOnGrid()[1];
 	}
 
-
 	public void setPositionOnGrid(Integer[] pos) {
+		position.set(pos);
 		myPositionOnGrid = pos;
 	}
-
 	
+	public void initializePositionOnGridProperty(){
+		position = new SimpleObjectProperty<Integer[]>();
+	}
+	
+	public void setPositionOnGridProperty(ObjectProperty<Integer[]> newProp){
+		position =newProp;
+	}
+	
+	public ObjectProperty<Integer[]> getPositionOnGridProperty(){
+		return position;
+	}
+
 	public void setImageURL(String fileLocation) {
 		setupImageURLAndView(fileLocation);
 	}
@@ -198,17 +326,14 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return myImageURL;
 	}
 
-	
 	public void setName(String name) {
 		myName = name;
 	}
 
-	
 	public HashMap<String, ArrayList<SpriteParameterI>> getParameters() {
 		return categoryMap;
 	}
 
-	
 	public void addParameter(SpriteParameterI SP) {
 		addParameter("General", SP);
 
@@ -244,9 +369,9 @@ public abstract class AbstractSpriteObject extends ImageView {
 		int ret = 0;
 		for (Entry<String, ArrayList<SpriteParameterI>> keyVal : possibleCategoryMap.entrySet()) {
 			String key = keyVal.getKey();
-			
+
 			ArrayList<SpriteParameterI> val = keyVal.getValue();
-			System.out.println("Key: "+ key + ", Val: " + val);
+			System.out.println("Key: " + key + ", Val: " + val);
 			for (SpriteParameterI item : val) {
 				boolean added = addCategory(key);
 				if (added) {
@@ -262,7 +387,6 @@ public abstract class AbstractSpriteObject extends ImageView {
 		this.possibleCategoryMap.clear();
 	}
 
-	
 	public void applyParameterUpdate(HashMap<String, ArrayList<SpriteParameterI>> newParams) {
 		replaceCategoryMap(newParams);
 	}
@@ -275,7 +399,6 @@ public abstract class AbstractSpriteObject extends ImageView {
 		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(newParams);
 	}
 
-	
 	public boolean isSame(AbstractSpriteObject other) {
 		if (!(other instanceof AbstractSpriteObject)) {
 			return false;
@@ -311,7 +434,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 		}
 		return true;
 	}
-	
+
 	public abstract AbstractSpriteObject newCopy();
 
 	protected ArrayList<SpriteParameterI> getSpriteParametersMatching(String type) {
@@ -359,12 +482,10 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return ret;
 	}
 
-	
 	public String getName() {
 		return myName;
 	}
 
-	
 	public void updateCategoryName(String prev, String next) {
 
 		if (getParameters().containsKey(prev)) {
@@ -380,7 +501,8 @@ public abstract class AbstractSpriteObject extends ImageView {
 
 	// protected HashMap<String, ArrayList<SpriteParameterI>> categoryMap = new
 	// HashMap<String, ArrayList<SpriteParameterI>>();
-	// protected HashMap<String, ArrayList<SpriteParameterI>> possibleCategoryMap
+	// protected HashMap<String, ArrayList<SpriteParameterI>>
+	// possibleCategoryMap
 	// = new HashMap<String, ArrayList<SpriteParameterI>>();;
 	// // protected ImageView myImageView;
 	// protected String myImageURL;
@@ -398,12 +520,12 @@ public abstract class AbstractSpriteObject extends ImageView {
 	// System.out.println();
 	// return f;
 	// }
-	
-	public String getSavePath(){
+
+	public String getSavePath() {
 		return mySavePath;
 	}
-	
-	public void setSavePath(String path){
+
+	public void setSavePath(String path) {
 		mySavePath = path;
 	}
 

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class SpriteObject extends AbstractSpriteObject {
 	
+	
+	
 	public SpriteObject(){
 		super();
 	}

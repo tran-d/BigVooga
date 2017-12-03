@@ -36,8 +36,8 @@ public class SpriteDataConverter {
 	ArrayList<SpriteDataConverter> inventory;
 	Integer[] gridPos;
 	String name;
-	Double width;
-	Double height;
+	Integer width;
+	Integer height;
 	String UUID;
 	String imageURL;
 	String mySavePath;
