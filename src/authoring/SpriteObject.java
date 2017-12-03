@@ -17,7 +17,6 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 	private HashMap<String, ArrayList<SpriteParameterI>> categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();
 	private HashMap<String, ArrayList<SpriteParameterI>> possibleCategoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();;
 	// private ImageView myImageView;
-	private conditions -> actions
 	private String myImageURL;
 	private Integer[] myPositionOnGrid;
 	private String myName;
@@ -243,7 +242,6 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 	}
 
 	@Override
-	use this method to check if actions and conditions are the same
 	public boolean isSame(SpriteObject other) {
 		if (!(other instanceof SpriteObject)) {
 			return false;

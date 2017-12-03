@@ -32,7 +32,7 @@ public class ActionConditionTab extends Tab implements ActionConditionTabI {
 	}
 
 	private void setUpActionConditionManager() {
-		buttons = new TopToolBar(actionTabResources,"AddButtonLabel","Options","SelectorLabel","RemoveButtonLabel");
+		buttons = new TopToolBar(actionTabResources,"AddButtonLabel","Options","SelectorLabel","EditButtonLabel","RemoveButtonLabel");
 		actionConditionVBox = new ActionConditionVBox(actionTabResources.getString("SelectorLabel"),isConditionTab);
 		VBox mainVBox = new VBox(SPACING);
 		mainVBox.getChildren().addAll(buttons,actionConditionVBox);
