@@ -6,6 +6,7 @@ import com.sun.javafx.geom.Point2D;
 
 import engine.GameObject;
 import engine.Layer;
+import engine.NullObject;
 import engine.operations.doubleops.Magnitude;
 import engine.operations.stringops.StringOperation;
 import engine.operations.vectorops.LocationOf;
