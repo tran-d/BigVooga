@@ -23,6 +23,8 @@ public class Create implements Action {
 		this.heading = heading;
 	}
 	
+//TODO: second constructor that takes in a GameObjectOperation
+	
 	@Override
 	public void execute(GameObject asking, Layer world) {
 		world.addGameObject(name.evaluate(asking, world), x.evaluate(asking, world), y.evaluate(asking, world), heading.evaluate(asking, world));
