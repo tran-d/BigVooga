@@ -83,7 +83,7 @@ public class DraggableGrid extends VBox {
 		}
 		ScrollPane scrollGrid = new ScrollPane(myStackPane);
 		scrollGrid.setPannable(true);
-		scrollGrid.setMaxWidth(WelcomeScreen.WIDTH/2);
+		scrollGrid.setMaxWidth(MainAuthoringGUI.AUTHORING_WIDTH/2);
 //		scrollGrid.mouse
 		// spriteGridHandler.addGrid(gp);
 		this.getChildren().add(1, scrollGrid);

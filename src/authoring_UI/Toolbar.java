@@ -59,7 +59,7 @@ public class Toolbar extends ToolBar {
 		
 		MenuItem elementViewer = new MenuItem();
 		elementViewer.textProperty().bind(DisplayLanguage.createStringBinding(ELEMENT_VIEWER_STRING));
-		//TODO language.setOnAction(e -> ());
+		elementViewer.setOnAction(e -> new ElementViewer());
 		
 		MenuItem mapViewer = new MenuItem();
 		mapViewer.textProperty().bind(DisplayLanguage.createStringBinding(MAP_VIEWER_STRING));
