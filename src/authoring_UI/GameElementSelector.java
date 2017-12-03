@@ -13,13 +13,8 @@ import authoring.SpriteParameterFactory;
 import authoring.SpriteParameterI;
 import engine.utilities.data.GameDataHandler;
 import javafx.geometry.Side;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 
 public class GameElementSelector extends TabPane implements Observer {
 	private DraggableGrid myGrid;
