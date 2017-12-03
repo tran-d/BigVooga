@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import authoring.AbstractSpriteObject;
 import authoring.SpriteObject;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
 public class SpriteSelectPanel extends VBox {

@@ -92,7 +92,8 @@ public abstract class SpriteSet {
 		// }
 		loaded = true;
 		categoryToSprites = myGDH.loadSpritesFromNestedDirectories(getFolderToLoad());
-//		System.out.println(categoryToSprites);
+		System.out.println("!!!!!!!!!!!!!!");
+		System.out.println(categoryToSprites);
 	}
 
 	protected SpriteScrollView getSpriteScrollView() {
@@ -101,6 +102,12 @@ public abstract class SpriteSet {
 		}
 		return mySSV;
 	}
+	
+	/*protected SpriteSamarthGrid getSamarthGrid() {
+		mySG == null {
+			make
+		}
+	}*/
 
 	protected void makeSpriteScrollView() {
 		mySSV = new SpriteScrollView();

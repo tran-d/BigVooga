@@ -26,24 +26,25 @@ public class SpriteGridHandler {
 	private AbstractSpriteObject draggingObject;
 	private DataFormat objectFormat;
 //	private SpriteObjectGridManagerI mySOGM;
-	private Menu myMenu;
+	private DisplayPanel myDP;
 	private ArrayList<StackPane> activeGridCells;
 	private ArrayList<StackPane> activeSpriteGridCells;
 	private ArrayList<AbstractSpriteObject> SO_LIST;
 	private DraggableGrid myDG;
 //	private GridPane myGrid;
 	
-	protected SpriteGridHandler(int mapCount, Menu menu, DraggableGrid DG) {
+	protected SpriteGridHandler(int mapCount, DraggableGrid DG) {
 		objectFormat = new DataFormat("MyObject" + Integer.toString(mapCount));
 //		mySOGM = SOGM;
 		myDG = DG;
-		myMenu = menu;
 		SO_LIST = new ArrayList<AbstractSpriteObject>();
 		activeGridCells = new ArrayList<StackPane>();
 		activeSpriteGridCells = new ArrayList<StackPane>();
 	}
 	
-	
+	public void setDisplayPanel(SpritePanels spritePanels) {
+		myDP = spritePanels.getDisplayPanel();
+	}
 	
 //	protected void addGrid(GridPane grid) {
 //		myGrid = grid;
@@ -65,7 +66,8 @@ public class SpriteGridHandler {
 			cellsToDelete.add(row_col);
 		});
 		removeSpritesFromGrid();
-		myMenu.removeSpriteEditorVBox();
+		myDP.removeSpriteEditorVBox();
+
 		System.out.println();
 		myDG.getActiveGrid().clearCells(cellsToDelete);
 
@@ -127,13 +129,14 @@ public class SpriteGridHandler {
 					s.setEffect(null);
 //					activeSpriteGridCells.remove((StackPane) s.getParent());
 					SO_LIST.remove(s);
-					myMenu.removeSpriteEditorVBox();
+
+					myDP.removeSpriteEditorVBox();
 				}
 				
 				if (myDG.getActiveGrid().getActiveSpriteObjects().size() == 0) {
-					myMenu.removeSpriteEditorVBox();
+					myDP.removeSpriteEditorVBox();
 				} else {
-					myMenu.updateParameterTab();
+					myDP.updateParameterTab();
 				}
 			} else {
 				populateGridCells((SpriteObject)s);
@@ -168,7 +171,9 @@ public class SpriteGridHandler {
 		});
 		SO_LIST.clear();
 		this.myDG.getActiveGrid().resetActiveCells();
-		myMenu.removeSpriteEditorVBox();
+
+		myDP.removeSpriteEditorVBox();
+
 	}
 	
 	private void populateGridCells(SpriteObject s) {
