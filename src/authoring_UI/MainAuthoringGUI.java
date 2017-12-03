@@ -13,6 +13,10 @@ import javafx.stage.Stage;
 
 public class MainAuthoringGUI{
 	
+	private static final int AUTHORING_WIDTH = 1400;
+	private static final String AUTHORING_CSS = "Authoring.css";
+	private static final String BORDERPANE_ID = "borderpane";
+	
 	private Stage stage;
 	private Scene scene;
 	private SceneController sceneController;
@@ -24,16 +28,14 @@ public class MainAuthoringGUI{
 	private Pane authoringPane;
 	private AuthoringController authoringController;
 	
-	private static final String AUTHORING_CSS = "Authoring.css";
-	private static final String BORDERPANE_ID = "borderpane";
-	
 
 	public MainAuthoringGUI(Stage currentStage, SceneController currentSceneController) {
 		
 		stage = currentStage;
 		rootPane = new BorderPane();
 		rootPane.setId(BORDERPANE_ID);
-		scene = new Scene(rootPane, WelcomeScreen.WIDTH, WelcomeScreen.HEIGHT);
+		rootPane.setPrefWidth(AUTHORING_WIDTH);
+		scene = new Scene(rootPane, AUTHORING_WIDTH, WelcomeScreen.HEIGHT);
 		scene.getStylesheets().add(MainAuthoringGUI.class.getResource(AUTHORING_CSS).toExternalForm());
 		sceneController = currentSceneController;
 

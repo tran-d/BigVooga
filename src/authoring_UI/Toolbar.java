@@ -10,16 +10,19 @@ public class Toolbar extends ToolBar {
 	private MenuButton fileOptions;
 	private MenuButton settings;
 	private SceneController sceneController;
+	private MenuButton views;
 
 	public Toolbar(SceneController currentSceneController) {
 		
 		sceneController = currentSceneController;
 		
 		createFileOptions();
+		createViews();
 		createSettings();
 		
 		this.getItems().addAll(
 				fileOptions,
+				views,
 				settings
 				);
 		
@@ -35,6 +38,15 @@ public class Toolbar extends ToolBar {
 		exit.setOnAction(e -> sceneController.switchScene(SceneController.WELCOME_SCREEN_KEY));
 		
 		fileOptions = new MenuButton ("File", null, save, importOption, exit);
+		
+	}
+	
+	private void createViews() {
+		
+		MenuItem objectView = new MenuItem("Object View");
+		//TODO language.setOnAction(e -> ());
+
+		views = new MenuButton ("Views", null, objectView);
 		
 	}
 	

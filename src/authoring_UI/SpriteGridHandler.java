@@ -23,24 +23,25 @@ public class SpriteGridHandler {
 	private SpriteObject draggingObject;
 	private DataFormat objectFormat;
 //	private SpriteObjectGridManagerI mySOGM;
-	private Menu myMenu;
+	private DisplayPanel myDP;
 	private ArrayList<StackPane> activeGridCells;
 	private ArrayList<StackPane> activeSpriteGridCells;
 	private ArrayList<SpriteObject> SO_LIST;
 	private DraggableGrid myDG;
 //	private GridPane myGrid;
 	
-	protected SpriteGridHandler(int mapCount, Menu menu, DraggableGrid DG) {
+	protected SpriteGridHandler(int mapCount, DraggableGrid DG) {
 		objectFormat = new DataFormat("MyObject" + Integer.toString(mapCount));
 //		mySOGM = SOGM;
 		myDG = DG;
-		myMenu = menu;
 		SO_LIST = new ArrayList<SpriteObject>();
 		activeGridCells = new ArrayList<StackPane>();
 		activeSpriteGridCells = new ArrayList<StackPane>();
 	}
 	
-	
+	public void setDisplayPanel(SpritePanels spritePanels) {
+		myDP = spritePanels.getDisplayPanel();
+	}
 	
 //	protected void addGrid(GridPane grid) {
 //		myGrid = grid;
@@ -62,7 +63,7 @@ public class SpriteGridHandler {
 			cellsToDelete.add(row_col);
 		});
 		removeSpritesFromGrid();
-		myMenu.removeParameterTab();
+		myDP.removeParameterTab();
 		System.out.println();
 		myDG.getActiveGrid().clearCells(cellsToDelete);
 
@@ -124,13 +125,13 @@ public class SpriteGridHandler {
 					s.setEffect(null);
 //					activeSpriteGridCells.remove((StackPane) s.getParent());
 					SO_LIST.remove(s);
-					myMenu.removeParameterTab();
+					myDP.removeParameterTab();
 				}
 				
 				if (myDG.getActiveGrid().getActiveSpriteObjects().size() == 0) {
-					myMenu.removeParameterTab();
+					myDP.removeParameterTab();
 				} else {
-					myMenu.updateParameterTab();
+					myDP.updateParameterTab();
 				}
 			} else {
 				populateGridCells(s);
@@ -162,7 +163,7 @@ public class SpriteGridHandler {
 		});
 		SO_LIST.clear();
 		this.myDG.getActiveGrid().resetActiveCells();
-		myMenu.removeParameterTab();
+		myDP.removeParameterTab();
 	}
 	
 	private void populateGridCells(SpriteObject s) {

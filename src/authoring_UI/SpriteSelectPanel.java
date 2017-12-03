@@ -3,6 +3,7 @@ package authoring_UI;
 import java.util.ArrayList;
 
 import authoring.SpriteObject;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
 public class SpriteSelectPanel extends VBox {

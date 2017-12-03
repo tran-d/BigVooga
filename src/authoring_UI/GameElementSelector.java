@@ -11,6 +11,7 @@ import authoring.SpriteParameterFactory;
 import authoring.SpriteParameterI;
 import engine.utilities.data.GameDataHandler;
 import javafx.geometry.Side;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
@@ -18,7 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-public class SpriteManager extends TabPane implements Observer {
+public class GameElementSelector extends TabPane implements Observer {
 	private DraggableGrid myGrid;
 	private SpriteSelectPanel mySprites;
 	private SpriteSelectPanel myUserSprites;
@@ -31,7 +32,7 @@ public class SpriteManager extends TabPane implements Observer {
 	private SpriteObjectGridManagerI mySOGM;
 	private SpriteGridHandler mySpriteGridHandler;
 
-	protected SpriteManager(SpriteGridHandler spriteGridHandler, AuthoringEnvironmentManager AEM,
+	protected GameElementSelector(SpriteGridHandler spriteGridHandler, AuthoringEnvironmentManager AEM,
 			SpriteObjectGridManagerI SOGM) {
 		mySPF = new SpriteParameterFactory();
 		myAEM = AEM;
@@ -41,10 +42,15 @@ public class SpriteManager extends TabPane implements Observer {
 		// myAEM = AEM;
 		myGDH = AEM.getGameDataHandler();
 //		mySOGM = SOGM;
-		mySprites = new SpriteSelectPanel("DEFAULT", mySpriteGridHandler);
+		//mySprites = new SpriteSelectPanel("DEFAULT", mySpriteGridHandler);
 		// SpriteSet mySS = new SpriteSetDefault(myGDH);
 		// SpriteSet myCustom = new SpriteSetUserDefined(myGDH);
+		myAEM.getDefaultSpriteController().getAllSprites().forEach(sprite->{
+			System.out.println("Sprite exists, name: "+sprite.getName());
+		});
 		mySprites = myAEM.getDefaultSpriteController().getSpritePanel(mySpriteGridHandler);
+		
+//		mySprites.getSpritePanel
 		// mySS.getSpritePanel(mySpriteGridHandler);
 		// mySS.getAllSpritesAsMap().forEach((a,b)->{
 		// System.out.println("Key: "+a+ ", Value: "+b);
@@ -208,7 +214,10 @@ public class SpriteManager extends TabPane implements Observer {
 	}
 
 	private void createSpriteTabs() {
-		// TabPane mySpriteTabs = new TabPane();
+		
+		TabPane spritesTabPane = new TabPane();
+		TabPane dialoguesTabPane = new TabPane();
+		
 		Tab defaultSpriteTab = new Tab();
 		defaultSpriteTab.setText("Default Sprites");
 		defaultSpriteTab.setContent(mySprites);
@@ -218,16 +227,36 @@ public class SpriteManager extends TabPane implements Observer {
 		mySpriteTab.setText("User Sprites");
 		mySpriteTab.setContent(myUserSprites);
 		mySpriteTab.setClosable(false);
+		
+		Tab defaultDialogueTab = new Tab();
+		defaultDialogueTab.setText("Default Dialogues");
+		defaultDialogueTab.setContent(mySprites);
+		defaultDialogueTab.setClosable(false);
 
-		// mySpriteTabs.getTabs().addAll(defaultSpriteTab, mySpriteTab);
-		// mySpriteTabs.setSide(Side.RIGHT);
-		// mySpriteTabs.setPrefWidth(90);
+		Tab myDialogueTab = new Tab();
+		myDialogueTab.setText("User Dialogues");
+		myDialogueTab.setContent(myUserSprites);
+		myDialogueTab.setClosable(false);
 
-		this.getTabs().addAll(defaultSpriteTab, mySpriteTab);
-		this.setSide(Side.RIGHT);
-		// this.setPrefWidth(90);
+		spritesTabPane.getTabs().addAll(defaultSpriteTab, mySpriteTab);
+		spritesTabPane.setSide(Side.RIGHT);
+		
+		dialoguesTabPane.getTabs().addAll(defaultDialogueTab, myDialogueTab);
+		dialoguesTabPane.setSide(Side.RIGHT);
 
-		// return mySpriteTabs;
+		Tab spriteTab = new Tab();
+		spriteTab.setText("Sprites");
+		spriteTab.setContent(spritesTabPane);
+		spriteTab.setClosable(false);
+		
+		Tab dialoguesTab = new Tab();
+		dialoguesTab.setText("Dialogues");
+		dialoguesTab.setContent(dialoguesTabPane);
+		dialoguesTab.setClosable(false);
+		
+		this.getTabs().addAll(spriteTab, dialoguesTab);
+		this.setSide(Side.TOP);
+
 	}
 
 	// private ImageView createTrash() {

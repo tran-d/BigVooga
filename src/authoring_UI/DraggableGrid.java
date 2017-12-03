@@ -8,6 +8,7 @@ import java.util.PriorityQueue;
 import authoring.SpriteObjectGridManager;
 import authoring.TerrainObjectGridManager;
 import engine.Layer;
+import gui.welcomescreen.WelcomeScreen;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
@@ -93,7 +94,7 @@ public class DraggableGrid extends VBox {
 		
 		ScrollPane scrollGrid = new ScrollPane(myStackPane);
 		scrollGrid.setPannable(true);
-		scrollGrid.setMaxWidth(500);
+		scrollGrid.setMaxWidth(WelcomeScreen.WIDTH/2);
 //		scrollGrid.mouse
 
 		// spriteGridHandler.addGrid(gp);

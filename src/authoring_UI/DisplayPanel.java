@@ -11,6 +11,7 @@ import authoring.SpriteObject;
 import authoring.SpriteParameterI;
 import authoring_actionconditions.ActionConditionTab;
 import authoring_actionconditions.ControllerConditionActionTabs;
+import gui.welcomescreen.WelcomeScreen;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
@@ -20,7 +21,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 
-public class Menu extends VBox {
+public class DisplayPanel extends VBox {
 	
 	private AuthoringEnvironmentManager myAEM;
 	private TabPane myParamTabs;
@@ -31,12 +32,12 @@ public class Menu extends VBox {
 	private VBox spriteInfoAndApplyButton;
 
 	private static final String ACTIONCONDITIONTITLES_PATH = "TextResources/ConditionActionTitles";
-	private static final double MENU_WIDTH = 435;
-	private static final double MENU_HEIGHT = 500;
+	private static final double MENU_WIDTH = WelcomeScreen.WIDTH/2;
+	private static final double MENU_HEIGHT = 300;
 	
 	public static final ResourceBundle conditionActionTitles = ResourceBundle.getBundle(ACTIONCONDITIONTITLES_PATH);
 	
-	protected Menu(AuthoringEnvironmentManager AEM, MapManager myManager) {
+	protected DisplayPanel(AuthoringEnvironmentManager AEM, MapManager myManager) {
 		mySPTAI = new SpriteParameterTabsAndInfo();
 		System.out.println("made SPTAI in MENU");
 		myAEM = AEM;
@@ -118,7 +119,7 @@ public class Menu extends VBox {
 		mySpriteTabs.getTabs().addAll(parameters, dialogue);
 		mySpriteTabs.setSide(Side.TOP);
 		createActionConditionTabs();
-//		this.getChildren().add(mySpriteTabs);
+		//this.getChildren().add(mySpriteTabs);
 	}
 
 	private VBox createParameterTab() {

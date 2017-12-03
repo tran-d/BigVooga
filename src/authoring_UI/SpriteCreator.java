@@ -49,7 +49,7 @@ public class SpriteCreator extends Observable {
 	private Stage myStage;
 	private VBox myCreateSpriteBox;
 	private GridPane myGrid;
-	private SpriteManager mySpriteManager;
+	private GameElementSelector mySpriteManager;
 	private GameDataHandler myGDH;
 	private SpriteObject mySpriteObject;
 	private File mySpriteFile;
@@ -60,7 +60,7 @@ public class SpriteCreator extends Observable {
 	private TextField nameInput;
 	private VBox imageChooseBox;
 
-	protected SpriteCreator(Stage stage, SpriteManager spriteManager, AuthoringEnvironmentManager AEM) {
+	protected SpriteCreator(Stage stage, GameElementSelector spriteManager, AuthoringEnvironmentManager AEM) {
 
 		myStage = stage;
 		mySPTAI = new SpriteParameterTabsAndInfo();
