@@ -9,9 +9,18 @@ public class TerrainObjectGridManager extends SpriteObjectGridManager{
 		super(rows, cols, SGH);
 	}
 	
+	public TerrainObjectGridManager(int rows, int cols) {
+		super(rows, cols);
+	}
+	
 	@Override
 	protected void createMapLayer() {
 		myMapLayer = new TerrainLayer(CURR_ROWS, CURR_COLS, mySpriteGridHandler);
+	}
+	
+	@Override
+	public int getLayerNum() {
+		return myMapLayer.getLayerNumber();
 	}
 
 
