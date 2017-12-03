@@ -1,5 +1,6 @@
 package default_pkg;
 
+import controller.welcomeScreen.SceneController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -11,6 +12,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 	
 	private SceneController sceneController;
+	
 	/**
 	 * Launches the program.
 	 * @param args

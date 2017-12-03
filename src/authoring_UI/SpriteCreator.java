@@ -152,9 +152,9 @@ public class SpriteCreator extends Observable {
 		Button createSprite = new Button("Finish Creating");
 		createSprite.setOnAction(e-> {
 			System.out.println(getSpriteObject());
-			System.out.println(getSpriteObject().getName());
+			System.out.println("Spritename when creating: "+getSpriteObject().getName());
 			mySPTAI.apply();
-			copySpriteFileToProject();
+//			copySpriteFileToProject();
 			setChanged();
 			notifyObservers(getSpriteObject());
 			myConsumer.accept(null);
@@ -274,6 +274,7 @@ public class SpriteCreator extends Observable {
 
 	private void openImage() throws IOException {
 		FileChooser imageChooser = new FileChooser();
+		imageChooser.setInitialDirectory(new File("resources/"));
 		imageChooser.setTitle("Open Image");
 		File file = imageChooser.showOpenDialog(myStage);
 		
