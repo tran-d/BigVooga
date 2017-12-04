@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -13,27 +14,43 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import tools.DisplayLanguage;
 
+/**
+ * Class that displays the text areas and utilities for editing dialogues.
+ * 
+ * @author DavidTran
+ *
+ */
 public class DialogueTextAreaView extends VBox {
 
 	private static final double VBOX_SPACING = 25;
-	private static final double DIALOG_PROMPT_WIDTH = 150;
-	private static final double DIALOG_PROMPT_HEIGHT = 150;
+	private static final double DIALOG_PROMPT_WIDTH = 600;
+	private static final double DIALOG_PROMPT_HEIGHT = 300;
 	private static final String NEXT_BUTTON_PROMPT = "Next";
 	private static final String PREV_BUTTON_PROMPT = "Previous";
 
 	private List<TextArea> dialogueList;
 	private Button nextButton;
 	private Button prevButton;
-	private int currentPanelIndex = 0;
+	private int currentPanelIndex = -1;
 	private Label currentPanel;
+	private Label totalPanels;
 	private HBox dialoguePreview;
+	
+	private SimpleIntegerProperty curr;
+	private SimpleIntegerProperty total;
 
 	public DialogueTextAreaView() {
 		dialogueList = new ArrayList<>();
-		this.setSpacing(15);
 		dialoguePreview = new HBox();
 
+//		curr = new SimpleIntegerProperty(currentPanelIndex + 1);
+//		total = new SimpleIntegerProperty(dialogueList.size());
+		this.setSpacing(15);
 		this.getChildren().addAll(dialoguePreview, makeToolPanel());
+	}
+	
+	public List<TextArea> getDialogueList() {
+		return dialogueList;
 	}
 
 	/************************ PUBLIC METHODS ***************************/
@@ -57,26 +74,11 @@ public class DialogueTextAreaView extends VBox {
 				dialogueList.remove(--currentPanelIndex);
 			}
 		}
-
-		// if (!dialogueList.isEmpty()) {
-		//
-		// dialoguePreview.getChildren().clear();
-		//
-		// if (currentPanelIndex == 0) {
-		// next();
-		// if (currentPanelIndex > 0)
-		// dialogueList.remove(--currentPanelIndex);
-		// }
-		// if (currentPanelIndex == dialogueList.size() - 1) {
-		// removeLast();
-		// }
-		//
-		// System.out.println("removed panel");
-		// }
 	}
 
 	public void addPanel() {
 		TextArea ta = new TextArea();
+		ta.setPrefSize(DIALOG_PROMPT_WIDTH, DIALOG_PROMPT_HEIGHT);
 		ta.setWrapText(true);
 		dialogueList.add(ta);
 
@@ -105,23 +107,21 @@ public class DialogueTextAreaView extends VBox {
 		}
 	}
 
-	private void removeLast() {
-		dialoguePreview.getChildren().clear();
-		dialogueList.remove(dialogueList.size() - 1);
-		dialoguePreview.getChildren().add(dialogueList.get(--currentPanelIndex));
-		System.out.println("prev panel");
-	}
-
 	private HBox makeToolPanel() {
-		HBox hb = new HBox(50);
+		HBox hb = new HBox();
+		hb.setPrefWidth(DIALOG_PROMPT_WIDTH);
 		currentPanel = new Label();
-		currentPanel.textProperty().bind(new SimpleIntegerProperty(currentPanelIndex).asString());
-		hb.getChildren().addAll(makeButtonPanel(), currentPanel);
+		currentPanel.textProperty().bind(new SimpleIntegerProperty(currentPanelIndex + 1).asString());
+		Label slash = new Label("/");
+		totalPanels = new Label();
+		totalPanels.textProperty().bind(new SimpleIntegerProperty(dialogueList.size()).asString());
+		hb.getChildren().addAll(makeButtonPanel(), currentPanel, slash, totalPanels);
 		return hb;
 	}
 
 	private HBox makeButtonPanel() {
 		HBox hb = new HBox(15);
+		hb.setPrefWidth(DIALOG_PROMPT_WIDTH * 0.90);
 		nextButton = makeButton(NEXT_BUTTON_PROMPT, e -> next());
 		prevButton = makeButton(PREV_BUTTON_PROMPT, e -> prev());
 		hb.getChildren().addAll(prevButton, nextButton);

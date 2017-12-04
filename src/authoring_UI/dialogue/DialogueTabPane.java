@@ -2,6 +2,7 @@ package authoring_UI.dialogue;
 
 import authoring_UI.ViewSideBar;
 import gui.welcomescreen.WelcomeScreen;
+import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
@@ -13,8 +14,8 @@ import javafx.scene.control.TabPane;
  */
 public class DialogueTabPane extends TabPane {
 
-	private Tab defaultTab;
-	private Tab userTab;
+	private DefaultDialogueTab defaultTab;
+	private UserDialogueTab userTab;
 
 	public DialogueTabPane() {
 		
@@ -23,6 +24,14 @@ public class DialogueTabPane extends TabPane {
 		this.getTabs().addAll(defaultTab, userTab);
 		this.setPrefWidth((WelcomeScreen.WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH)/2);
 		this.setPrefHeight(WelcomeScreen.HEIGHT);
+	}
+	
+	public void addDefaultDialogueButton(int number, Button btn) {
+		defaultTab.addDialogue(number, btn);
+	}
+	
+	public void addUserDialogueButton(int number, Button btn) {
+		userTab.addDialogue(number, btn);
 	}
 
 }

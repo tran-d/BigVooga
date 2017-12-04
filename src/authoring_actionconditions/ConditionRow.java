@@ -12,8 +12,8 @@ public class ConditionRow extends ActionConditionRow {
 
 	public ConditionRow(int ID, String label, String selectorLabel, boolean isConditionRow,
 			ObservableList<Integer> newActionOptions, ActionConditionVBox ACVBox) {
+		
 		super(ID, label, selectorLabel, isConditionRow, newActionOptions, ACVBox);
-
 		addActionCheckBox();
 	}
 
