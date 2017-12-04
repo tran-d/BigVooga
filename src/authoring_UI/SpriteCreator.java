@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+import gui.welcomescreen.WelcomeScreen;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -36,13 +37,11 @@ import javafx.stage.Stage;
  *
  */
 
-public class SpriteCreator {
+public class SpriteCreator extends TabPane {
 
 	public static final String PATH = "resources/";
-	private static final int PANE_WIDTH = 1300;
-	private static final int PANE_HEIGHT = 600;
+	private static final int PANE_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH-ViewSideBar.VIEW_MENU_HIDDEN_WIDTH;
 
-	private TabPane myTabPane;
 	private Pane myPane;
 	private VBox myStatePanel;
 	private StackPane myImageStack;
@@ -50,11 +49,12 @@ public class SpriteCreator {
 
 	public SpriteCreator() {
 		myPane = new Pane();
-		myTabPane = new TabPane();
-		myPane.getChildren().add(myTabPane);
+		myPane.getChildren().add(this);
 
+		this.setWidth(PANE_WIDTH);
+		this.setLayoutX(ViewSideBar.VIEW_MENU_HIDDEN_WIDTH);
 		Tab tab = makeTab();
-		myTabPane.getTabs().add(tab);
+		this.getTabs().add(tab);
 
 	}
 
@@ -75,7 +75,7 @@ public class SpriteCreator {
 
 	private void addToolBox(HBox parentBox) {
 		VBox toolBox = new VBox();
-		toolBox.setPrefSize(200, PANE_HEIGHT);
+		toolBox.setPrefSize(200, WelcomeScreen.HEIGHT);
 		Button b1 = new Button("test tool_1");
 		Button b2 = new Button("test tool_2");
 		toolBox.getChildren().addAll(b1,b2);
@@ -84,8 +84,8 @@ public class SpriteCreator {
 
 	private void addImageStackPane(HBox parentBox) {
 		myImageStack = new StackPane();
-		myImageStack.setPrefSize(PANE_WIDTH/2-100, PANE_HEIGHT);
-		myImageStack.setMaxSize(PANE_WIDTH/2-100, PANE_HEIGHT);
+		myImageStack.setPrefSize(PANE_WIDTH/2-100, WelcomeScreen.HEIGHT);
+		myImageStack.setMaxSize(PANE_WIDTH/2-100, WelcomeScreen.HEIGHT);
 		myImageStack.setBackground(
 				new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 		BorderStroke border = new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.DOTTED,
@@ -101,7 +101,7 @@ public class SpriteCreator {
 		myStatePanel = new VBox();
 		myStatePanel.setPrefWidth(PANE_WIDTH / 2);
 		myStatePanel.setMaxWidth(PANE_WIDTH / 2);
-		myStatePanel.setPrefHeight(PANE_HEIGHT);
+		myStatePanel.setPrefHeight(WelcomeScreen.HEIGHT);
 		myStatePanel.setMaxWidth(PANE_WIDTH);
 		myStatePanel.setStyle("-fx-background-color: #ffaadd;");
 
@@ -143,7 +143,7 @@ public class SpriteCreator {
 			Files.copy(file.toPath(), Paths.get(PATH + file.getName()), StandardCopyOption.REPLACE_EXISTING);
 			Image image = new Image(file.getName());
 			ImageView imageView = new ImageView(image);
-			imageView.setFitHeight(PANE_HEIGHT);
+			imageView.setFitHeight(WelcomeScreen.HEIGHT);
 			imageView.setFitWidth(PANE_WIDTH/2-100);
 			myImageStack.getChildren().remove(0);
 			myImageStack.getChildren().add(imageView);
@@ -176,14 +176,14 @@ public class SpriteCreator {
 		}
 
 		ScrollPane sp = new ScrollPane(gp);
-		sp.setMaxHeight(PANE_HEIGHT/2);
+		sp.setMaxHeight(WelcomeScreen.HEIGHT/2);
 		return sp;
 	}
 
 	private VBox createStateBox() {
 		VBox stateBox = new VBox();
-		stateBox.setMaxHeight(PANE_HEIGHT / 2);
-		stateBox.setPrefHeight(PANE_HEIGHT / 2);
+		stateBox.setMaxHeight(WelcomeScreen.HEIGHT / 2);
+		stateBox.setPrefHeight(WelcomeScreen.HEIGHT / 2);
 		stateBox.setPrefWidth(PANE_WIDTH / 2);
 		stateBox.setStyle("-fx-background-color: #ffaadd;");
 		return stateBox;
@@ -193,12 +193,12 @@ public class SpriteCreator {
 		HBox hb = new HBox();
 		hb.setStyle("-fx-background-color: #FFFFFF;");
 		hb.setPrefWidth(PANE_WIDTH);
-		hb.setPrefHeight(PANE_HEIGHT);
+		hb.setPrefHeight(WelcomeScreen.HEIGHT);
 		tab.setContent(hb);
 		return hb;
 	}
 
-	public Pane getParent() {
+	public Pane getPane() {
 		return myPane;
 	}
 }

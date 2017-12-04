@@ -35,7 +35,7 @@ public class DisplayPanel extends VBox {
 	private VBox spriteEditorAndApplyButtonVBox;
 
 	private static final String ACTIONCONDITIONTITLES_PATH = "TextResources/ConditionActionTitles";
-	private static final double DISPLAY_PANEL_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH/2 - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH-150;
+	private static final double DISPLAY_PANEL_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH/2 - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH-155;
 	private static final double DISPLAY_PANEL_HEIGHT = WelcomeScreen.HEIGHT/2;
 	
 	public static final ResourceBundle conditionActionTitles = ResourceBundle.getBundle(ACTIONCONDITIONTITLES_PATH);
@@ -55,7 +55,6 @@ public class DisplayPanel extends VBox {
 		// System.out.println("Making error message");
 	}
 
-	
 	private void setSpriteInfoAndVBox() {
 		spriteEditorAndApplyButtonVBox = new VBox(10);
 		spriteEditorAndApplyButtonVBox.getChildren().addAll(mySpriteTabs, this.makeApplyButton());

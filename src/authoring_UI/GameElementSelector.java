@@ -18,6 +18,7 @@ import javafx.geometry.Side;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -29,6 +30,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Popup;
 import tools.DisplayLanguage;
 
 public class GameElementSelector extends TabPane implements Observer {
@@ -42,6 +44,7 @@ public class GameElementSelector extends TabPane implements Observer {
 	private DraggableGrid myGrid;
 	private SpriteSelectPanel mySprites;
 	private SpriteSelectPanel myUserSprites;
+	private final int NUM_COLUMNS = 10;
 
 	private AuthoringEnvironmentManager myAEM;
 	private SpriteParameterFactory mySPF;
@@ -99,7 +102,6 @@ public class GameElementSelector extends TabPane implements Observer {
 //		 getParams();
 		// createSprites();
 		createSpriteTabs();
-		this.setPrefWidth(80);
 		// myUserSprites.getChildren().add(sp);
 		// makeSpriteDraggable(sp);
 
@@ -246,17 +248,17 @@ public class GameElementSelector extends TabPane implements Observer {
 		TabPane spritesTabPane = new TabPane();
 		TabPane dialoguesTabPane = new TabPane();
 		
-		Tab defaultSpriteTab = createSubTab(DEFAULT);
-		Tab userSpriteTab = createSubTab(USER);
-		Tab importedSpriteTab = createSubTab(IMPORTED);
-		Tab defaultDialogueTab = createSubTab(DEFAULT);
-		Tab userDialogueTab = createSubTab(USER);
-		Tab importedDialogueTab = createSubTab(IMPORTED);
+		Tab defaultSpriteTab = createSubTab(DEFAULT, myAEM.getDefaultSpriteController().getAllSprites());
+		Tab userSpriteTab = createSubTab(USER, myAEM.getCustomSpriteController().getAllSprites());
+		Tab importedSpriteTab = createSubTab(IMPORTED, new ArrayList<AbstractSpriteObject>());
+//		Tab defaultDialogueTab = createSubTab(DEFAULT);
+//		Tab userDialogueTab = createSubTab(USER);
+//		Tab importedDialogueTab = createSubTab(IMPORTED);
 
 		spritesTabPane.getTabs().addAll(defaultSpriteTab, userSpriteTab, importedSpriteTab);
 		spritesTabPane.setSide(Side.RIGHT);
 		
-		dialoguesTabPane.getTabs().addAll(defaultDialogueTab, userDialogueTab, importedDialogueTab);
+//		dialoguesTabPane.getTabs().addAll(defaultDialogueTab, userDialogueTab, importedDialogueTab);
 		dialoguesTabPane.setSide(Side.RIGHT);
 
 		Tab spritesTab = createElementTab(SPRITES, spritesTabPane);
@@ -267,11 +269,11 @@ public class GameElementSelector extends TabPane implements Observer {
 
 	}
 	
-	private Tab createSubTab(String tabName) {
+	private Tab createSubTab(String tabName, ArrayList<AbstractSpriteObject> sprites) {
 		Tab subTab = new Tab();
 		subTab.textProperty().bind(DisplayLanguage.createStringBinding(tabName));
 //		defaultSpriteTab.setContent(mySprites);
-		subTab.setContent(makeGrid());
+		subTab.setContent(makeGrid(sprites));
 		subTab.setClosable(false);
 		return subTab;
 	}
@@ -284,12 +286,20 @@ public class GameElementSelector extends TabPane implements Observer {
 		return elementTab;
 	}
 
-	private ScrollPane makeGrid() {
+	private ScrollPane makeGrid(ArrayList<AbstractSpriteObject> sprites) {
 		GridPane gp = new GridPane();
 		
-		for (int i = 0; i < 13; i++) {
-			for (int j = 0; j < 15; j++) {
+		int totalRows = (int) Math.ceil(sprites.size()/10);
+	
+		int DEFAULT_MIN_ROWS = 15;
+		
+		totalRows = (totalRows<DEFAULT_MIN_ROWS) ? DEFAULT_MIN_ROWS : totalRows;
+		
+		int counter =0;
+		for (int i = 0; i < totalRows; i++) {
+			for (int j = 0; j < 10; j++) {				
 				StackPane sp = new StackPane();
+				
 				sp.setPrefHeight(50);
 				sp.setPrefWidth(50);
 				sp.setBackground(
@@ -297,9 +307,23 @@ public class GameElementSelector extends TabPane implements Observer {
 				BorderStroke border = new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.DOTTED,
 						CornerRadii.EMPTY, BorderWidths.DEFAULT);
 				sp.setBorder(new Border(border));
-				gp.add(sp, i, j);
+				if (counter<sprites.size()) {
+					AbstractSpriteObject toPopulate = sprites.get(counter);
+					System.out.println("Adding " + toPopulate);
+					sp.getChildren().add(toPopulate);
+				} else {
+					if (i%5==0) {
+					SpriteObject SO = new SpriteObject();
+					//SO.setImage(new Image("brick.png"));
+					sp.getChildren().add(SO);
+					}
+				}
+				counter++;
+				
+				gp.add(sp, j, i);
 			}
 		}
+
 		
 		ScrollPane sp = new ScrollPane(gp);
 		//sp.getStylesheets().add(this.getClass().getResource("gui.welcomescreen/" + MenuOptionsTemplate.SCROLLPANE_CSS).toExternalForm());

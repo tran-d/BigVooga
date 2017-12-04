@@ -34,9 +34,8 @@ public class AuthoringController {
 		MapManager mapManager = new MapManager(stage);
 		viewMap.put(MAP_EDITOR_KEY, mapManager.getPane());
 
-//		Pane testPane = new Pane();
 		SpriteCreator sc = new SpriteCreator();
-		viewMap.put(SPRITE_CREATOR_KEY, sc.getParent());
+		viewMap.put(SPRITE_CREATOR_KEY, sc.getPane());
 		
 		//SpriteCreator mySpriteCreator = new SpriteCreator(stage, mySprites, myAEM);
 		

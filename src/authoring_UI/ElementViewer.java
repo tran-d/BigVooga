@@ -40,8 +40,8 @@ public class ElementViewer {
 	private ArrayList<String> myObjList;
 	private ArrayList<String> myOptionList;
 
-	public static final double SCENE_WIDTH = 800;
-	public static final double SCENE_HEIGHT = 700;
+	public static final double SCENE_WIDTH = 790;
+	public static final double SCENE_HEIGHT = 600;
 
 	public ElementViewer() {
 		myStage = new Stage();
