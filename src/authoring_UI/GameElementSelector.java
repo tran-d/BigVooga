@@ -12,6 +12,7 @@ import authoring.SpriteObjectGridManagerI;
 import authoring.SpriteParameterFactory;
 import authoring.SpriteParameterI;
 import engine.utilities.data.GameDataHandler;
+import gui.welcomescreen.MenuOptionsTemplate;
 import javafx.geometry.Insets;
 import javafx.geometry.Side;
 import javafx.scene.control.ScrollPane;
@@ -286,7 +287,7 @@ public class GameElementSelector extends TabPane implements Observer {
 	private ScrollPane makeGrid() {
 		GridPane gp = new GridPane();
 		
-		for (int i = 0; i < 11; i++) {
+		for (int i = 0; i < 13; i++) {
 			for (int j = 0; j < 15; j++) {
 				StackPane sp = new StackPane();
 				sp.setPrefHeight(50);
@@ -301,6 +302,7 @@ public class GameElementSelector extends TabPane implements Observer {
 		}
 		
 		ScrollPane sp = new ScrollPane(gp);
+		//sp.getStylesheets().add(this.getClass().getResource("gui.welcomescreen/" + MenuOptionsTemplate.SCROLLPANE_CSS).toExternalForm());
 		return sp;
 	}
 
