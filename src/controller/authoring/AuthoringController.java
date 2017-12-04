@@ -4,9 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import authoring_UI.MapManager;
-import authoring_UI.SpriteCreator;
 import authoring_UI.ViewSideBar;
-import javafx.scene.control.TabPane;
+import authoring_UI.dialogue.DialogueManager;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -38,7 +37,8 @@ public class AuthoringController {
 		viewMap.put(SPRITE_CREATOR_KEY, testPane);
 		
 		//SpriteCreator mySpriteCreator = new SpriteCreator(stage, mySprites, myAEM);
-		
+		DialogueManager dc = new DialogueManager();
+		viewMap.put(DIALOGUE_KEY, dc.getParent());
 	}
 	
 	/**

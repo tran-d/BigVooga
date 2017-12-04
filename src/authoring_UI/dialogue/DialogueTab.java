@@ -10,6 +10,12 @@ import javafx.scene.control.Tab;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * Class that represents a tab listing dialogues to edit
+ * 
+ * @author DavidTran
+ *
+ */
 public class DialogueTab extends Tab {
 	
 	private VBox dialogueView;

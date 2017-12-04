@@ -1,23 +1,28 @@
 package authoring_UI.dialogue;
 
+import authoring_UI.ViewSideBar;
+import gui.welcomescreen.WelcomeScreen;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
-public class DialogueTabPane {
-	TabPane tabPane;
-	Tab defaultTab;
-	Tab userTab;
-	
+/**
+ * Class that holds all dialogue tabs
+ * 
+ * @author DavidTran
+ *
+ */
+public class DialogueTabPane extends TabPane {
+
+	private Tab defaultTab;
+	private Tab userTab;
 
 	public DialogueTabPane() {
-		tabPane = new TabPane();
 		
 		defaultTab = new DefaultDialogueTab("Default Dialogues");
 		userTab = new UserDialogueTab("User Created Dialogues");
-		tabPane.getTabs().addAll(defaultTab, userTab);
+		this.getTabs().addAll(defaultTab, userTab);
+		this.setPrefWidth((WelcomeScreen.WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH)/2);
+		this.setPrefHeight(WelcomeScreen.HEIGHT);
 	}
 
-	public TabPane getParent() {
-		return tabPane;
-	}
 }
