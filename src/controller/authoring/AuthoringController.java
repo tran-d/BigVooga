@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import authoring_UI.MapManager;
+import authoring_UI.SpriteCreator;
 import authoring_UI.ViewSideBar;
 import authoring_UI.dialogue.DialogueManager;
 import javafx.scene.layout.Pane;
