@@ -22,14 +22,13 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
- * Class where users can see all saved maps, sprite objects, and inventory
- * objects
+ * Class where users can see all saved objects
  * 
  * @author taekwhunchung
  *
  */
 
-public class ObjectViewer {
+public class ElementViewer {
 
 	private Stage myStage;
 	private Scene myScene;
@@ -44,12 +43,11 @@ public class ObjectViewer {
 	public static final double SCENE_WIDTH = 800;
 	public static final double SCENE_HEIGHT = 700;
 
-	protected ObjectViewer() {
+	public ElementViewer() {
 		myStage = new Stage();
 		myTabPane = new TabPane();
 
 		myObjList = new ArrayList<String>();
-		myObjList.add("maps");
 		myObjList.add("sprites");
 		myObjList.add("dialogues");
 		myObjList.add("cut scenes");
@@ -127,8 +125,8 @@ public class ObjectViewer {
 		// myOM.makeOverviewButtons(myGrid);
 		//
 		// myGrid.add(myOM.getNode(), 1, 1);
-		//
 
+		myStage.show();
 	}
 
 	private void createTopTabs() {
@@ -197,8 +195,5 @@ public class ObjectViewer {
 	// return cb;
 	// }
 	//
-	public Stage getStage() {
-		return myStage;
-	}
 
 }

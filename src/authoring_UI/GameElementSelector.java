@@ -12,6 +12,7 @@ import authoring.SpriteObjectGridManagerI;
 import authoring.SpriteParameterFactory;
 import authoring.SpriteParameterI;
 import engine.utilities.data.GameDataHandler;
+import gui.welcomescreen.MenuOptionsTemplate;
 import javafx.geometry.Insets;
 import javafx.geometry.Side;
 import javafx.scene.control.ScrollPane;
@@ -28,8 +29,16 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import tools.DisplayLanguage;
 
 public class GameElementSelector extends TabPane implements Observer {
+	
+	private static final String SPRITES = "Sprites";
+	private static final String DIALOGUES = "Dialogues";
+	private static final String DEFAULT = "Default";
+	private static final String USER = "User";
+	private static final String IMPORTED = "Imported";
+	
 	private DraggableGrid myGrid;
 	private SpriteSelectPanel mySprites;
 	private SpriteSelectPanel myUserSprites;
@@ -237,55 +246,48 @@ public class GameElementSelector extends TabPane implements Observer {
 		TabPane spritesTabPane = new TabPane();
 		TabPane dialoguesTabPane = new TabPane();
 		
-		Tab defaultSpriteTab = new Tab();
-		defaultSpriteTab.setText("Default Sprites");
-//		defaultSpriteTab.setContent(mySprites);
-		makeGrid(defaultSpriteTab);
-		defaultSpriteTab.setClosable(false);
+		Tab defaultSpriteTab = createSubTab(DEFAULT);
+		Tab userSpriteTab = createSubTab(USER);
+		Tab importedSpriteTab = createSubTab(IMPORTED);
+		Tab defaultDialogueTab = createSubTab(DEFAULT);
+		Tab userDialogueTab = createSubTab(USER);
+		Tab importedDialogueTab = createSubTab(IMPORTED);
 
-		Tab mySpriteTab = new Tab();
-		mySpriteTab.setText("User Sprites");
-//		mySpriteTab.setContent(myUserSprites);
-		makeGrid(mySpriteTab);
-		mySpriteTab.setClosable(false);
-		
-		Tab defaultDialogueTab = new Tab();
-		defaultDialogueTab.setText("Default Dialogues");
-//		defaultDialogueTab.setContent(mySprites);
-		makeGrid(defaultDialogueTab);
-		defaultDialogueTab.setClosable(false);
-
-		Tab myDialogueTab = new Tab();
-		myDialogueTab.setText("User Dialogues");
-//		myDialogueTab.setContent(myUserSprites);
-		makeGrid(myDialogueTab);
-		myDialogueTab.setClosable(false);
-
-		spritesTabPane.getTabs().addAll(defaultSpriteTab, mySpriteTab);
+		spritesTabPane.getTabs().addAll(defaultSpriteTab, userSpriteTab, importedSpriteTab);
 		spritesTabPane.setSide(Side.RIGHT);
 		
-		dialoguesTabPane.getTabs().addAll(defaultDialogueTab, myDialogueTab);
+		dialoguesTabPane.getTabs().addAll(defaultDialogueTab, userDialogueTab, importedDialogueTab);
 		dialoguesTabPane.setSide(Side.RIGHT);
 
-		Tab spriteTab = new Tab();
-		spriteTab.setText("Sprites");
-		spriteTab.setContent(spritesTabPane);
-		spriteTab.setClosable(false);
+		Tab spritesTab = createElementTab(SPRITES, spritesTabPane);
+		Tab dialoguesTab = createElementTab(DIALOGUES, dialoguesTabPane);
 		
-		Tab dialoguesTab = new Tab();
-		dialoguesTab.setText("Dialogues");
-		dialoguesTab.setContent(dialoguesTabPane);
-		dialoguesTab.setClosable(false);
-		
-		this.getTabs().addAll(spriteTab, dialoguesTab);
+		this.getTabs().addAll(spritesTab, dialoguesTab);
 		this.setSide(Side.TOP);
 
 	}
+	
+	private Tab createSubTab(String tabName) {
+		Tab subTab = new Tab();
+		subTab.textProperty().bind(DisplayLanguage.createStringBinding(tabName));
+//		defaultSpriteTab.setContent(mySprites);
+		subTab.setContent(makeGrid());
+		subTab.setClosable(false);
+		return subTab;
+	}
+	
+	private Tab createElementTab(String tabName, TabPane tabPane) {
+		Tab elementTab = new Tab();
+		elementTab.textProperty().bind(DisplayLanguage.createStringBinding(tabName));
+		elementTab.setContent(tabPane);
+		elementTab.setClosable(false);
+		return elementTab;
+	}
 
-	private void makeGrid(Tab t) {
+	private ScrollPane makeGrid() {
 		GridPane gp = new GridPane();
 		
-		for (int i = 0; i < 9; i++) {
+		for (int i = 0; i < 13; i++) {
 			for (int j = 0; j < 15; j++) {
 				StackPane sp = new StackPane();
 				sp.setPrefHeight(50);
@@ -300,7 +302,8 @@ public class GameElementSelector extends TabPane implements Observer {
 		}
 		
 		ScrollPane sp = new ScrollPane(gp);
-		t.setContent(sp);
+		//sp.getStylesheets().add(this.getClass().getResource("gui.welcomescreen/" + MenuOptionsTemplate.SCROLLPANE_CSS).toExternalForm());
+		return sp;
 	}
 
 	// private ImageView createTrash() {

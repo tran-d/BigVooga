@@ -22,8 +22,8 @@ import javafx.stage.Stage;
  */
 public class MenuOptionsTemplate {
 
-	protected static final int CONTENT_INSET_SIZE = 10;
-	private static final String MENU_OPTIONS_CSS = "MenuOptionsStyle.css";
+	public static final int CONTENT_INSET_SIZE = 10;
+	public static final String SCROLLPANE_CSS = "ScrollPane.css";
 	private static final int BACK_WIDTH = 50;
 	private static final int BACK_HEIGHT = 50;
 	private static final String BACK_STATIC_PATH = "Back_Static.png";
@@ -51,7 +51,7 @@ public class MenuOptionsTemplate {
 		sceneController = currentSceneController;
 		rootPane = new BorderPane();
 		scene = new Scene(rootPane, WelcomeScreen.WIDTH, WelcomeScreen.HEIGHT);
-		scene.getStylesheets().add(MenuOptionsTemplate.class.getResource(MENU_OPTIONS_CSS).toExternalForm());
+		scene.getStylesheets().add(MenuOptionsTemplate.class.getResource(SCROLLPANE_CSS).toExternalForm());
 	}
 
 	public void createOptionScreen(String titleLogoPath, int titleLogoWidth, int titleLogoHeight, int topAndBottomPadding) {
