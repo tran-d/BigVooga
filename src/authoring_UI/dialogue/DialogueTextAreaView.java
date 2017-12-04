@@ -27,28 +27,34 @@ public class DialogueTextAreaView extends VBox {
 	private static final double DIALOG_PROMPT_HEIGHT = 300;
 	private static final String NEXT_BUTTON_PROMPT = "Next";
 	private static final String PREV_BUTTON_PROMPT = "Previous";
+	private static final String ADD_PANEL_BUTTON_PROMPT = "AddPanel";
+	private static final String REMOVE_PANEL_BUTTON_PROMPT = "RemovePanel";
+	private static final String SAVE_BUTTON_PROMPT = "Save";
 
 	private List<TextArea> dialogueList;
 	private Button nextButton;
 	private Button prevButton;
+	private Button addPanelButton;
+	private Button removePanelButton;
+	private Button saveButton;
 	private int currentPanelIndex = -1;
 	private Label currentPanel;
 	private Label totalPanels;
 	private HBox dialoguePreview;
-	
+
 	private SimpleIntegerProperty curr;
 	private SimpleIntegerProperty total;
 
 	public DialogueTextAreaView() {
 		dialogueList = new ArrayList<>();
 		dialoguePreview = new HBox();
-
-//		curr = new SimpleIntegerProperty(currentPanelIndex + 1);
-//		total = new SimpleIntegerProperty(dialogueList.size());
+		this.addPanel();
+		// curr = new SimpleIntegerProperty(currentPanelIndex + 1);
+		// total = new SimpleIntegerProperty(dialogueList.size());
 		this.setSpacing(15);
 		this.getChildren().addAll(dialoguePreview, makeToolPanel());
 	}
-	
+
 	public List<TextArea> getDialogueList() {
 		return dialogueList;
 	}
@@ -124,7 +130,11 @@ public class DialogueTextAreaView extends VBox {
 		hb.setPrefWidth(DIALOG_PROMPT_WIDTH * 0.90);
 		nextButton = makeButton(NEXT_BUTTON_PROMPT, e -> next());
 		prevButton = makeButton(PREV_BUTTON_PROMPT, e -> prev());
-		hb.getChildren().addAll(prevButton, nextButton);
+		addPanelButton = makeButton(ADD_PANEL_BUTTON_PROMPT, e -> this.addPanel());
+		removePanelButton = makeButton(REMOVE_PANEL_BUTTON_PROMPT, e -> this.removePanel());
+		// change number
+		// saveButton = makeButton(SAVE_BUTTON_PROMPT, e -> save(nameTF.getText()));
+		hb.getChildren().addAll(prevButton, nextButton, addPanelButton, removePanelButton);
 		return hb;
 	}
 
