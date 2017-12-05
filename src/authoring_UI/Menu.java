@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
 import ActionConditionClasses.ResourceBundleUtil;
 import authoring.ApplyButtonController;
 import authoring.AuthoringEnvironmentManager;
@@ -39,6 +38,7 @@ public class Menu extends VBox {
 	private ActionConditionTab actions;
 	private SpriteParameterTabsAndInfo mySPTAI;
 	private MainAuthoringGUI myMapManager;
+	private ApplyButtonController applyButtonController;
 	private static final String LOAD = "Load";
 	private static final String SAVE = "Save";
 	private static final String ACTIONCONDITIONTITLES_PATH = "TextResources/ConditionActionTitles";
@@ -127,6 +127,7 @@ public class Menu extends VBox {
 		conditions = new ActionConditionTab(ResourceBundleUtil.getTabTitle("ConditionsTabTitle"));
 		actions = new ActionConditionTab(ResourceBundleUtil.getTabTitle("ActionsTabTitle"));
 		ControllerConditionActionTabs controllerConditionActionTabs = new ControllerConditionActionTabs(conditions,actions);
+		applyButtonController = new ApplyButtonController(conditions,actions);
 		mySpriteTabs.getTabs().addAll(conditions,actions);
 	}
 
@@ -164,7 +165,12 @@ public class Menu extends VBox {
 		Button applyButton = new Button();
 		applyButton.textProperty().setValue("Apply Button");
 		applyButton.setOnAction(e -> {
-			apply();
+			try {
+				apply();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		});
 		return applyButton;
 	}
@@ -224,8 +230,7 @@ public class Menu extends VBox {
 			clearParameterTab();
 			removeParameterErrorMessage();
 			mySPTAI.create(getActiveCell());	//loads in parameters for a given sprite object
-			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////conditions = ;
-			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////actions = ;
+			applyButtonController.updateActionConditionTabs(getActiveCell());
 			
 			// HashMap<String, ArrayList<SpriteParameterI>> params =
 			// getParametersOfActiveCells();
@@ -326,10 +331,9 @@ public class Menu extends VBox {
 	//
 	// }
 
-	private void apply() {
+	private void apply() throws Exception {
 		mySPTAI.apply();
-		////////////////////////////////////////////////////////////////////////////conditions = getActiveCell().getConditionTab(); i will change this
-		///////////////////////////////////////////////////////////////////////////////actions = getActiveCell().getActionTab(); i will change this
+		applyButtonController.updateSpriteObject(getActiveCell());
 		myAEM.getSpriteParameterSidebarManager().apply();
 	}
 
