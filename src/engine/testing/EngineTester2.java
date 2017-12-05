@@ -15,23 +15,23 @@ import engine.GameMaster;
 import engine.GameObject;
 import engine.GameObjectFactory;
 import engine.GameWorld;
-import engine.Actions.ChangeDouble;
-import engine.Actions.Create;
-import engine.Actions.Destroy;
-import engine.Actions.Move;
-import engine.Actions.MoveByVariable;
-import engine.Actions.RemoveIntersection;
-import engine.Actions.Rotate;
-import engine.Conditions.And;
-import engine.Conditions.BeginStep;
-import engine.Conditions.Collision;
-import engine.Conditions.KeyHeld;
-import engine.Conditions.KeyPressed;
-import engine.Conditions.KeyReleased;
-import engine.Conditions.Not;
-import engine.Conditions.ObjectClickHeld;
-import engine.Conditions.Or;
-import engine.Conditions.ScreenClickHeld;
+import engine.archived.Actions.ChangeDouble;
+import engine.archived.Actions.Create;
+import engine.archived.Actions.Destroy;
+import engine.archived.Actions.Move;
+import engine.archived.Actions.MoveByVariable;
+import engine.archived.Actions.RemoveIntersection;
+import engine.archived.Actions.Rotate;
+import engine.archived.Conditions.And;
+import engine.archived.Conditions.BeginStep;
+import engine.archived.Conditions.Collision;
+import engine.archived.Conditions.KeyHeld;
+import engine.archived.Conditions.KeyPressed;
+import engine.archived.Conditions.KeyReleased;
+import engine.archived.Conditions.Not;
+import engine.archived.Conditions.ObjectClickHeld;
+import engine.archived.Conditions.Or;
+import engine.archived.Conditions.ScreenClickHeld;
 import engine.sprite.AnimationSequence;
 import engine.sprite.BoundedImage;
 import engine.sprite.Sprite;
@@ -144,14 +144,6 @@ public class EngineTester2 extends Application {
 		obj.addConditionAction(new BeginStep(), actions1);
 		actions1 = new ArrayList<Action>();
 		
-	}
-	
-	private void testImageCanvas(Stage stage) {
-		Group g = new Group();
-		stage.setScene(new Scene(g));
-		ImageCanvas i = new ImageCanvas(()->GameDataHandler.chooseFileForImageSave(stage));
-		g.getChildren().add(i);
-		stage.show();
 	}
 
 	private void testDrawer(Stage stage) throws IOException {

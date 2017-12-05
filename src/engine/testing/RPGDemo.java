@@ -15,19 +15,19 @@ import engine.GameMaster;
 import engine.GameObject;
 import engine.GameObjectFactory;
 import engine.GameWorld;
-import engine.Actions.ChangeBoolean;
-import engine.Actions.Create;
-import engine.Actions.Destroy;
-import engine.Actions.Move;
-import engine.Actions.RemoveIntersection;
-import engine.Actions.Rotate;
-import engine.Conditions.And;
-import engine.Conditions.BooleanTrue;
-import engine.Conditions.Collision;
-import engine.Conditions.KeyHeld;
-import engine.Conditions.KeyPressed;
-import engine.Conditions.Not;
-import engine.Conditions.ObjectClickHeld;
+import engine.archived.Actions.ChangeBoolean;
+import engine.archived.Actions.Create;
+import engine.archived.Actions.Destroy;
+import engine.archived.Actions.Move;
+import engine.archived.Actions.RemoveIntersection;
+import engine.archived.Actions.Rotate;
+import engine.archived.Conditions.And;
+import engine.archived.Conditions.BooleanTrue;
+import engine.archived.Conditions.Collision;
+import engine.archived.Conditions.KeyHeld;
+import engine.archived.Conditions.KeyPressed;
+import engine.archived.Conditions.Not;
+import engine.archived.Conditions.ObjectClickHeld;
 import engine.sprite.AnimationSequence;
 import engine.sprite.BoundedImage;
 import engine.sprite.Sprite;
@@ -188,14 +188,6 @@ public class RPGDemo extends Application {
 		ArrayList<Action> actions1 = new ArrayList<Action>();
 		actions1.add(new Destroy("Brick"));
 		obj.addConditionAction(new KeyPressed(1,"A"), actions1);
-	}
-	
-	private void testImageCanvas(Stage stage) {
-		Group g = new Group();
-		stage.setScene(new Scene(g));
-		ImageCanvas i = new ImageCanvas(()->GameDataHandler.chooseFileForImageSave(stage));
-		g.getChildren().add(i);
-		stage.show();
 	}
 
 	private void testDrawer(Stage stage) throws IOException {

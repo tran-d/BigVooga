@@ -2,7 +2,7 @@ package authoring_actionconditions;
 
 import java.util.ResourceBundle;
 
-import authoring_UI.Menu;
+import authoring_UI.DisplayPanel;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,11 +29,10 @@ public class ActionConditionTab extends Tab implements ActionConditionTabI {
 		actionConditionManager = new ScrollPane();
 		setContent(actionConditionManager);
 		setUpActionConditionManager();
-		//ControllerTopToolBar controllerTopToolBar = new ControllerTopToolBar(buttons,actionConditionVBox);
 	}
 
 	private void setUpActionConditionManager() {
-		buttons = new TopToolBar(actionTabResources,"AddButtonLabel","Options","SelectorLabel","RemoveButtonLabel");
+		buttons = new TopToolBar(actionTabResources,"AddButtonLabel","Options","SelectorLabel","EditButtonLabel","RemoveButtonLabel");
 		actionConditionVBox = new ActionConditionVBox(actionTabResources.getString("SelectorLabel"),isConditionTab);
 		VBox mainVBox = new VBox(SPACING);
 		mainVBox.getChildren().addAll(buttons,actionConditionVBox);
@@ -56,12 +55,8 @@ public class ActionConditionTab extends Tab implements ActionConditionTabI {
 		return buttons.getOptionsValue();
 	}
 	
-	protected void addCondition(String label,ObservableList<Integer> currentActions) {
+	protected void addConditionAction(String label,ObservableList<Integer> currentActions) {
 		actionConditionVBox.addConditionAction(label,currentActions);
-	}
-	
-	protected void addAction(String label) {
-		actionConditionVBox.addAction(label);
 	}
 	
 	protected void addRemoveOption() {
@@ -69,7 +64,7 @@ public class ActionConditionTab extends Tab implements ActionConditionTabI {
 	}
 	
 	protected void removeActionCondtion(Integer row) {
-		actionConditionVBox.removeActionCondition(row);
+		actionConditionVBox.removeConditionAction(row);
 	}
 	
 	protected void removeRowOption(Integer row) {
@@ -77,7 +72,7 @@ public class ActionConditionTab extends Tab implements ActionConditionTabI {
 	}
 	
 	private void determineTabType(String title) {
-		if(title.equals(Menu.conditionActionTitles.getString("ConditionsTabTitle"))) isConditionTab = true;
+		if(title.equals(DisplayPanel.conditionActionTitles.getString("ConditionsTabTitle"))) isConditionTab = true;
 		else isConditionTab = false;
 	}
 

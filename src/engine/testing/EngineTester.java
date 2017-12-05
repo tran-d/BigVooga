@@ -16,24 +16,24 @@ import engine.GameMaster;
 import engine.GameObject;
 import engine.GameObjectFactory;
 import engine.GameWorld;
-import engine.Actions.ChangeDouble;
-import engine.Actions.Create;
-import engine.Actions.Move;
-import engine.Actions.MoveByVariable;
-import engine.Actions.RemoveIntersection;
-import engine.Actions.Rotate;
-import engine.Actions.RotateTo;
-import engine.Conditions.And;
-import engine.Conditions.BeginStep;
-import engine.Conditions.Collision;
-import engine.Conditions.DoubleGreaterThan;
-import engine.Conditions.KeyHeld;
-import engine.Conditions.KeyPressed;
-import engine.Conditions.KeyReleased;
-import engine.Conditions.Not;
-import engine.Conditions.ObjectClickHeld;
-import engine.Conditions.Or;
-import engine.Conditions.ScreenClickHeld;
+import engine.archived.Actions.ChangeDouble;
+import engine.archived.Actions.Create;
+import engine.archived.Actions.Move;
+import engine.archived.Actions.MoveByVariable;
+import engine.archived.Actions.RemoveIntersection;
+import engine.archived.Actions.Rotate;
+import engine.archived.Actions.RotateTo;
+import engine.archived.Conditions.And;
+import engine.archived.Conditions.BeginStep;
+import engine.archived.Conditions.Collision;
+import engine.archived.Conditions.DoubleGreaterThan;
+import engine.archived.Conditions.KeyHeld;
+import engine.archived.Conditions.KeyPressed;
+import engine.archived.Conditions.KeyReleased;
+import engine.archived.Conditions.Not;
+import engine.archived.Conditions.ObjectClickHeld;
+import engine.archived.Conditions.Or;
+import engine.archived.Conditions.ScreenClickHeld;
 import engine.sprite.AnimationSequence;
 import engine.sprite.BoundedImage;
 import engine.sprite.Sprite;
@@ -191,14 +191,6 @@ public class EngineTester extends Application {
 		obj.addConditionAction(new Collision(3, "Ob1"), actions1);
 		obj.addConditionAction(new Collision(4, "Ob2"), actions1);
 		obj.addConditionAction(new Collision(5, "Ob3"), actions1);
-	}
-	
-	public void testImageCanvas(Stage stage) {
-		Group g = new Group();
-		stage.setScene(new Scene(g));
-		ImageCanvas i = new ImageCanvas(()->GameDataHandler.chooseFileForImageSave(stage));
-		g.getChildren().add(i);
-		stage.show();
 	}
 
 	private void testDrawer(Stage stage) throws IOException {

@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import controller.player.PlayerManager;
 import engine.sprite.BoundedImage;
 import engine.sprite.DisplayableImage;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
-import player.PlayerManager;
 
 /**
  * Controls the game flow, and passes game info to PlayerManager.
