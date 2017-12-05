@@ -5,9 +5,11 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map.Entry;
 
 import authoring_actionconditions.ActionConditionTab;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
@@ -18,8 +20,9 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 	private HashMap<String, ArrayList<SpriteParameterI>> categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();
 	private HashMap<String, ArrayList<SpriteParameterI>> possibleCategoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();;
 	// private ImageView myImageView;
-	private ActionConditionTab conditionTab;	//////////////////////////////////////////////////////////////////////////////////
-	private ActionConditionTab actionTab;		/////////////////////////////////////////////////////////////////////////////////////
+	private ObservableList<Integer> allActions;
+	private HashMap<List<String>,List<Integer>> conditionRows;
+	private List<List<String>> actionRows;
 	private String myImageURL;
 	private Integer[] myPositionOnGrid;
 	private String myName;
@@ -278,6 +281,7 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 				return false;
 			}
 		}
+		fix this
 		if(!conditionTab.isEqualTo(other.getConditionTab()) || actionTab.isEqualTo(other.getActionTab())) return false; //////////////////////////////
 		return true;
 	}
@@ -389,23 +393,33 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 	}
 
 	@Override
-	public ActionConditionTab getConditionTab() {
-		return conditionTab;	//////////////////////////////////////////////////////////////////////////////////////////////////
+	public void setAllActions(ObservableList<Integer> allActions) {
+		this.allActions = allActions;
 	}
 
 	@Override
-	public ActionConditionTab getActionTab() {
-		return actionTab;/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	public void setCondidtionRows(HashMap<List<String>, List<Integer>> conditionRows) {
+		this.conditionRows = conditionRows;
 	}
 
 	@Override
-	public void setConditionTab(ActionConditionTab newConditionTab) {
-		conditionTab = newConditionTab;////////////////////////////////////////////////////////////////////////////////////////////////////////
+	public void setActionRows(List<List<String>> actionRows) {
+		this.actionRows = actionRows;
 	}
 
 	@Override
-	public void setActionTab(ActionConditionTab newActionTab) {
-		actionTab = newActionTab;//////////////////////////////////////////////////////////////////////////////////////////////////////////
+	public ObservableList<Integer> getAllActions() {
+		return allActions;
+	}
+
+	@Override
+	public HashMap<List<String>, List<Integer>> getConditionRows() {
+		return conditionRows;
+	}
+
+	@Override
+	public List<List<String>> getActionRows() {
+		return actionRows;
 	}
 
 }

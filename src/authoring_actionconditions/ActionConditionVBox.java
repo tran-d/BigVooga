@@ -27,7 +27,8 @@ public class ActionConditionVBox extends VBox implements ActionConditionVBoxI{
 		rows.forEach(row -> row.setNewActionCheckBoxVBoxOptions(newActionOptions));
 	}
 	
-	protected List<ActionConditionRow> getRows() {
+	@Override
+	public List<ActionConditionRow> getRows() {
 		return rows;
 	}
 

@@ -38,7 +38,8 @@ public class TopToolBar extends ToolBar implements TopToolBarI {
 		removeRowVBox.setNewOptions(actions);
 	}
 	
-	protected ObservableList<Integer> getRemoveRowVBoxOptions() {
+	@Override
+	public ObservableList<Integer> getRemoveRowVBoxOptions() {
 		return removeRowVBox.getOptions();
 	}
 	

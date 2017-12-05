@@ -124,5 +124,12 @@ public class ActionConditionTab extends Tab implements ActionConditionTabI {
 	public ActionConditionVBox getActionConditionVBox() {
 		return actionConditionVBox;
 	}
+
+	@Override
+	public TopToolBar getTopToolBar() {
+		return buttons;
+	}
+	
+	
 	
 }

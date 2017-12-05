@@ -25,12 +25,13 @@ any other details users should know--condition and action rows only differ betwe
  *
  */
 
-public class ActionConditionRow extends ToolBar implements ActionCheckBoxVBoxI {
+public class ActionConditionRow extends ToolBar implements ActionCheckBoxVBoxI,ActionConditionRowI {
 	
 	private static final String ACTIONCONDITION_RESOURCE_PATH = "TextResources/ActionConditionVBoxResources";
 	
 	private ResourceBundle actionConditionVBoxResources;
 	private int labelInt;
+	private Label label;
 	private Label IDlabel;
 	private ChoiceBoxVBox<String> implementationSelectorVBox;
 	private ActionCheckBoxVBox<Integer> actionCheckBoxVBox;
@@ -41,6 +42,7 @@ public class ActionConditionRow extends ToolBar implements ActionCheckBoxVBoxI {
 		super();
 		this.newActionOptions= newActionOptions;
 		actionConditionVBoxResources = ResourceBundle.getBundle(ACTIONCONDITION_RESOURCE_PATH);
+		this.label = new Label(label);
 		labelInt = ID;
 		IDlabel = new Label(Integer.toString(ID));
 		this.isConditionRow = isConditionRow;
@@ -48,7 +50,7 @@ public class ActionConditionRow extends ToolBar implements ActionCheckBoxVBoxI {
 		ObservableList<String> actionConditionOptions = ActionConditionTabUtil.convertToObservableList(actionConditionVBoxResources.getString(label 
 				+ actionConditionVBoxResources.getString("OptionsTag"))); 
 		implementationSelectorVBox = new ChoiceBoxVBox<String>(selectorLabel, actionConditionOptions);
-		getItems().addAll(IDlabel,separator,new Label(label),implementationSelectorVBox);
+		getItems().addAll(IDlabel,separator,this.label,implementationSelectorVBox);
 		if(isConditionRow) addActionCheckBox();
 		else addBuildActionButton();
 	}
@@ -75,7 +77,8 @@ public class ActionConditionRow extends ToolBar implements ActionCheckBoxVBoxI {
 		else return true;
 	}
 	
-	protected Object getSelectedActions() {
+	@Override
+	public Object getSelectedActions() {
 		return actionCheckBoxVBox.getCurrentValue();
 	}
 	
@@ -105,6 +108,16 @@ public class ActionConditionRow extends ToolBar implements ActionCheckBoxVBoxI {
 	@Override
 	public void removeAction(Integer action) {
 		actionCheckBoxVBox.removeAction(action);
+	}
+
+	@Override
+	public Label getLabel() {
+		return label;
+	}
+
+	@Override
+	public Label getImplementationSelectorLabel() {
+		return implementationSelectorVBox.getLabel();
 	}
 	
 }

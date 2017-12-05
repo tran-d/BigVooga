@@ -44,5 +44,10 @@ public abstract class VBoxList<T> extends VBox implements VBoxListI<T> {
 	public void addListChangeListener(ListChangeListener<T> listChangeListener) {
 		boxOptions.addListener(listChangeListener);
 	}
+	
+	@Override
+	public Label getLabel() {
+		return topLabel;
+	}
 
 }
