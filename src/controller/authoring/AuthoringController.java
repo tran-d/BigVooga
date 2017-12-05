@@ -6,6 +6,7 @@ import java.util.Map;
 import authoring_UI.MapManager;
 import authoring_UI.SpriteCreator;
 import authoring_UI.ViewSideBar;
+import authoring_UI.HUD.HUDManager;
 import authoring_UI.dialogue.DialogueManager;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -38,14 +39,19 @@ public class AuthoringController {
 		viewMap.put(SPRITE_CREATOR_KEY, sc.getPane());
 		
 		//SpriteCreator mySpriteCreator = new SpriteCreator(stage, mySprites, myAEM);
-		DialogueManager dc = new DialogueManager();
-		viewMap.put(DIALOGUE_KEY, dc.getParent());
+		
+		DialogueManager dm = new DialogueManager();
+		viewMap.put(DIALOGUE_KEY, dm.getPane());
+		
+		HUDManager hudManager = new HUDManager();
+		viewMap.put(HUD_KEY, hudManager.getPane());
+		
 	}
 	
 	/**
-	 * Changes and sets the scene.
+	 * Changes and sets the authoring view.
 	 * 
-	 * @param key - The key that extracts the correct scene from the map to use
+	 * @param key - The key that extracts the correct view from the viewmap to use
 	 */
 	public void switchView (String key, ViewSideBar currentSideBar) {
 		authoringPane.getChildren().removeAll(view, currentSideBar);

@@ -1,5 +1,6 @@
 package authoring_UI;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -176,17 +177,19 @@ public class GameElementSelector extends TabPane implements Observer {
 //		myUserSprites.setupDefaultSprites(defaults);
 //	}
 
-	public void getParams() {
+	public void getParams(){
 		System.out.println("Params!!");
 		ArrayList<String> urls = new ArrayList<String>();
-		urls.add("file:/Users/Samuel/Documents/workspace/voogasalad_bigvooga/resources/tree.png");
-		urls.add("file:/Users/Samuel/Documents/workspace/voogasalad_bigvooga/resources/brick.png");
-		urls.add("file:/Users/Samuel/Documents/workspace/voogasalad_bigvooga/resources/pikachu.png");
-		urls.add("file:/Users/Samuel/Documents/workspace/voogasalad_bigvooga/resources/water.png");
-		 urls.add("file:/Users/Samuel/Documents/workspace/voogasalad_bigvooga/resources/Link.png");
+		urls.add("/tree.png");
+		urls.add("/brick.png");
+		urls.add("/pikachu.png");
+		urls.add("/water.png");
+		 urls.add("/Link.png");
 		double i = 10.0;
 		ArrayList<String> s = new ArrayList<String>();
 		ArrayList<String> names = new ArrayList<String>();
+		int width = 1;
+		int height = 1;
 		names.add("tree");
 		names.add("brick");
 		names.add("pikachu");
@@ -205,7 +208,13 @@ public class GameElementSelector extends TabPane implements Observer {
 			for (SpriteParameterI SP : myParams) {
 				SO.addParameter(SP);
 			}
+			SO.setNumCellsWidthNoException(width);
+			SO.setNumCellsHeightNoException(height);
 			mySpriteObjs.add(SO);
+			
+			
+			
+		
 			// try {
 			// throw new IOException("Dont break");
 			
@@ -213,19 +222,26 @@ public class GameElementSelector extends TabPane implements Observer {
 			// TODO Auto-generated catch block
 			// e.printStackTrace();
 			// }
-			try {
-				myGDH.saveDefaultSprite(SO);
-				System.out.println("Saved " + SO.getImageURL());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
+			
 		}
 		SpriteObject SO = new SpriteObject();
 		SO.setName("testinginventory");
 		SO.addParameter(mySPF.makeParameter("hellothere" , "aweaponforalesscivilizedage"));
 		SO.setInventory(mySpriteObjs);
+		SO.setNumCellsHeightNoException(2);
+		SO.setNumCellsWidthNoException(2);
 		SO.setImageURL(urls.get(4));
+	
+		try {
+			myGDH.saveDefaultSprite(SO);
+			System.out.println("Saved " + SO.getImageURL());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		
 		
 
@@ -310,24 +326,45 @@ public class GameElementSelector extends TabPane implements Observer {
 				if (counter<sprites.size()) {
 					AbstractSpriteObject toPopulate = sprites.get(counter);
 					System.out.println("Adding " + toPopulate);
+					this.mySpriteGridHandler.addSpriteDrag(toPopulate);
+					this.mySpriteGridHandler.addSpriteMouseClick(toPopulate);
+//					this.mySpriteGridHandler.add
 					sp.getChildren().add(toPopulate);
-				} else {
-					if (i%5==0) {
-					SpriteObject SO = new SpriteObject();
-					//SO.setImage(new Image("brick.png"));
-					sp.getChildren().add(SO);
-					}
-				}
+//				} else {
+//					if (i%5==0) {
+//					SpriteObject SO = new SpriteObject();
+//					System.out.println("Name: "+toPopulate.getName());
+//					System.out.println("ImageURL: "+toPopulate.getImageURL());
+//					 try {
+//						String current = new java.io.File( "." ).getCanonicalPath();
+//						System.out.println(current);
+//						File f = new File("");
+//						System.out.println("Abs: "+f.getAbsolutePath());
+//						System.out.println("Canon :"+f.getCanonicalPath());
+//						System.out.println("Basic: "+f.getPath());
+//						File g; 
+//						while true{
+//							File[] files = 
+//						}
+//					} catch (IOException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//					toPopulate.setImage(new Image("/brick.png"));
+//					sp.getChildren().add(SO);
+//					}
+//				}
 				counter++;
 				
 				gp.add(sp, j, i);
 			}
 		}
+		}
 
 		
-		ScrollPane sp = new ScrollPane(gp);
+		ScrollPane SP = new ScrollPane(gp);
 		//sp.getStylesheets().add(this.getClass().getResource("gui.welcomescreen/" + MenuOptionsTemplate.SCROLLPANE_CSS).toExternalForm());
-		return sp;
+		return SP;
 	}
 
 	// private ImageView createTrash() {

@@ -31,6 +31,8 @@ public class DisplayPanel extends VBox {
 
 	private SpriteParameterTabsAndInfo mySParameterTAI;
 	private SpriteInventoryTabAndInfo mySInventoryTAI;
+	private SpriteUtilityTabAndInfo mySUtilityTAI;
+	private SpriteAnimationSequenceTabsAndInfo mySAnimationSequenceTAI;
 
 	private VBox spriteEditorAndApplyButtonVBox;
 
@@ -39,11 +41,12 @@ public class DisplayPanel extends VBox {
 	private static final double DISPLAY_PANEL_HEIGHT = WelcomeScreen.HEIGHT/2;
 	
 	public static final ResourceBundle conditionActionTitles = ResourceBundle.getBundle(ACTIONCONDITIONTITLES_PATH);
-	
 
 	protected DisplayPanel(AuthoringEnvironmentManager AEM, MapManager myManager) {
 		mySParameterTAI = new SpriteParameterTabsAndInfo();
 		mySInventoryTAI = new SpriteInventoryTabAndInfo(AEM);
+		mySAnimationSequenceTAI = new SpriteAnimationSequenceTabsAndInfo();
+		mySUtilityTAI = new SpriteUtilityTabAndInfo();
 		System.out.println("made SPTAI in MENU");
 		myAEM = AEM;
 		setUpMenu();
@@ -52,7 +55,6 @@ public class DisplayPanel extends VBox {
 
 	private void setErrorMessage() {
 		myParameterErrorMessage = new TextArea("Either no active cells or active cells have different parameters");
-		// System.out.println("Making error message");
 	}
 
 	private void setSpriteInfoAndVBox() {
@@ -127,6 +129,18 @@ public class DisplayPanel extends VBox {
 		inventory.setContent(mySInventoryTAI.getContainingVBox());
 		mySpriteTabs.getTabs().addAll(inventory);
 	}
+	
+	private void createUtilityTab(){
+		Tab utility = new Tab("Utility");
+		utility.setContent(mySUtilityTAI.getScrollPane());
+		mySpriteTabs.getTabs().addAll(utility);
+	}
+	
+	private void createAnimationTab(){
+		Tab animations = new Tab("Animations");
+		animations.setContent(mySAnimationSequenceTAI.getScrollPane());
+		mySpriteTabs.getTabs().addAll(animations);
+	}
 
 	private void createSpriteTabs() {
 		mySpriteTabs = new TabPane();
@@ -135,6 +149,8 @@ public class DisplayPanel extends VBox {
 		createDialogueTab();
 		createActionConditionTabs();
 		createInventoryTab();
+		createUtilityTab();
+		createAnimationTab();
 		// .setOnSelectionChanged(e->{displayParams();});
 		// parameters.setContent(myParamTabs);
 //		mySpriteTabs.getTabs().addAll(parameters, dialogue);
@@ -207,7 +223,7 @@ public class DisplayPanel extends VBox {
 		}
 	}
 
-	private void addSpriteEditorVBox() {
+	void addSpriteEditorVBox() {
 		if (!this.getChildren().contains(spriteEditorAndApplyButtonVBox)) {
 			this.getChildren().addAll(spriteEditorAndApplyButtonVBox);
 		}
@@ -241,6 +257,8 @@ public class DisplayPanel extends VBox {
 			removeSpriteEditorErrorMessage();
 			mySParameterTAI.create(getActiveCell());
 			mySInventoryTAI.setSpriteObjectAndUpdate(getActiveCell());
+			mySUtilityTAI.setSpriteObjectAndUpdate(getActiveCell());
+			mySAnimationSequenceTAI.setSpriteObject(getActiveCell());
 			// HashMap<String, ArrayList<SpriteParameterI>> params =
 			// getParametersOfActiveCells();
 			//

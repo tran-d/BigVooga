@@ -22,8 +22,6 @@ public class DialogueTabPane extends TabPane {
 		defaultTab = new DefaultDialogueTab("Default Dialogues");
 		userTab = new UserDialogueTab("User Created Dialogues");
 		this.getTabs().addAll(defaultTab, userTab);
-		this.setPrefWidth((WelcomeScreen.WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH)/2);
-		this.setPrefHeight(WelcomeScreen.HEIGHT);
 	}
 	
 	public void addDefaultDialogueButton(int number, Button btn) {
