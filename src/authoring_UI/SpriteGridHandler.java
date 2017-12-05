@@ -263,12 +263,21 @@ public class SpriteGridHandler {
 				if (db.hasContent(objectFormat)) {
 					if (draggingObject instanceof SpriteObject) {
 
-						if (draggingObject.getParent() instanceof SpriteSelectPanel) {
-							int spriteLocation = ((Pane) draggingObject.getParent()).getChildren()
-									.indexOf(draggingObject);
-							SpriteSelectPanel spritePanel = (SpriteSelectPanel) draggingObject.getParent();
-							spritePanel.addNewDefaultSprite(draggingObject, spriteLocation);
-							((Pane) draggingObject.getParent()).getChildren().remove(draggingObject);
+						if (!(draggingObject.getParent() instanceof AuthoringMapStackPane)) {
+							StackPane SP = (StackPane) draggingObject.getParent();
+//							GridPane GP = (GridPane) SP.getParent();
+//							int spriteRow = GP.getRowIndex(SP);
+//							int spriteCol = GP.getColumnIndex(SP);
+							SP.getChildren().clear();
+							AbstractSpriteObject SO = draggingObject.newCopy();
+							this.addSpriteDrag(SO);
+							this.addSpriteMouseClick(SO);
+							SP.getChildren().add(SO);
+							
+							
+//							SpriteSelectPanel spritePanel = (SpriteSelectPanel) draggingObject.getParent();
+//							spritePanel.addNewDefaultSprite(draggingObject, spriteLocation);
+//							((Pane) draggingObject.getParent()).getChildren().remove(draggingObject);
 						} else if (draggingObject.getParent() instanceof AuthoringMapStackPane) {
 							((AuthoringMapStackPane) draggingObject.getParent()).removeChild();
 						}

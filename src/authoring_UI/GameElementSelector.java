@@ -326,6 +326,9 @@ public class GameElementSelector extends TabPane implements Observer {
 				if (counter<sprites.size()) {
 					AbstractSpriteObject toPopulate = sprites.get(counter);
 					System.out.println("Adding " + toPopulate);
+					this.mySpriteGridHandler.addSpriteDrag(toPopulate);
+					this.mySpriteGridHandler.addSpriteMouseClick(toPopulate);
+//					this.mySpriteGridHandler.add
 					sp.getChildren().add(toPopulate);
 //				} else {
 //					if (i%5==0) {
@@ -347,7 +350,7 @@ public class GameElementSelector extends TabPane implements Observer {
 //						// TODO Auto-generated catch block
 //						e.printStackTrace();
 //					}
-					toPopulate.setImage(new Image("/brick.png"));
+//					toPopulate.setImage(new Image("/brick.png"));
 //					sp.getChildren().add(SO);
 //					}
 //				}
