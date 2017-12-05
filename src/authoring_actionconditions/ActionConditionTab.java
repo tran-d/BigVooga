@@ -2,6 +2,8 @@ package authoring_actionconditions;
 
 import java.util.List;
 import java.util.ResourceBundle;
+
+import ActionConditionClasses.ResourceBundleUtil;
 import authoring_UI.Menu;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -15,30 +17,29 @@ public class ActionConditionTab extends Tab implements ActionConditionTabI {
 	
 	private static final double SPACING = 10;
 	
-	private ResourceBundle actionTabResources;
 	private ScrollPane actionConditionManager;
 	private TopToolBar buttons;
 	private ActionConditionVBox actionConditionVBox;
 	private boolean isConditionTab;
+	private ResourceBundle actionTabResources;
 	
 	public ActionConditionTab(String title) {
 		super(title);
 		determineTabType(title);
-		String resourcePath = "TextResources/" + title.substring(0,title.length() - 1) + "TabResources";
-		actionTabResources = ResourceBundle.getBundle(resourcePath); 
+		actionTabResources = ResourceBundleUtil.getResourceBundle(title);
 		actionConditionManager = new ScrollPane();
 		setContent(actionConditionManager);
-		setUpActionConditionManager();
+		setUpActionConditionManager(title);
 	}
 	
-	public ActionConditionTab(String title,TopToolBar topToolBar,ActionConditionVBox actionConditionVBox) {
+	public ActionConditionTab(String title,ActionConditionVBox actionConditionVBox,TopToolBar topToolBar) {
 		this(title);
-		buttons = topToolBar;
 		this.actionConditionVBox = actionConditionVBox;
+		buttons = topToolBar;
 	}
 
-	private void setUpActionConditionManager() {
-		buttons = new TopToolBar(actionTabResources);
+	private void setUpActionConditionManager(String title) {
+		buttons = new TopToolBar(title);
 		actionConditionVBox = new ActionConditionVBox(actionTabResources.getString("SelectorLabel"),isConditionTab);
 		VBox mainVBox = new VBox(SPACING);
 		mainVBox.getChildren().addAll(buttons,actionConditionVBox);

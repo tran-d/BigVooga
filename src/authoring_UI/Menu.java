@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import ActionConditionClasses.ResourceBundleUtil;
 import authoring.ApplyButtonController;
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObject;
@@ -123,8 +124,8 @@ public class Menu extends VBox {
 	}
 	
 	private void createActionConditionTabs() {
-		conditions = new ActionConditionTab(conditionActionTitles.getString("ConditionsTabTitle"));
-		actions = new ActionConditionTab(conditionActionTitles.getString("ActionsTabTitle"));
+		conditions = new ActionConditionTab(ResourceBundleUtil.getTabTitle("ConditionsTabTitle"));
+		actions = new ActionConditionTab(ResourceBundleUtil.getTabTitle("ActionsTabTitle"));
 		ControllerConditionActionTabs controllerConditionActionTabs = new ControllerConditionActionTabs(conditions,actions);
 		mySpriteTabs.getTabs().addAll(conditions,actions);
 	}

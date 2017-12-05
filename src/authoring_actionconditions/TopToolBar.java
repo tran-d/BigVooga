@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 import ActionConditionClasses.ChoiceBoxVBox;
+import ActionConditionClasses.ResourceBundleUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -21,9 +22,9 @@ public class TopToolBar extends ToolBar implements TopToolBarI {
 	private Button removeButton;
 	private RemoveChoiceBoxVBox removeRowVBox;
 	
-	public TopToolBar(ResourceBundle resourceBundle) {
+	public TopToolBar(String tabType) {
 		super();
-		tabResources = resourceBundle;
+		tabResources = ResourceBundleUtil.getResourceBundle(tabType);
 		addButton = new Button(tabResources.getString("AddButtonLabel"));
 		ObservableList<String> additionOptions = ActionConditionTabUtil.convertToObservableList(tabResources.getString("Options"));
 		selectorVBox = new ChoiceBoxVBox<String>(tabResources.getString("SelectorLabel"), additionOptions);
@@ -33,8 +34,8 @@ public class TopToolBar extends ToolBar implements TopToolBarI {
 		getItems().addAll(addButton,selectorVBox,separator,removeButton,removeRowVBox);
 	}
 	
-	public TopToolBar(ResourceBundle resourceBundle,ObservableList<Integer> actions) {
-		this(resourceBundle);
+	public TopToolBar(String tabType,ObservableList<Integer> actions) {
+		this(tabType);
 		removeRowVBox.setNewOptions(actions);
 	}
 	

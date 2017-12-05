@@ -1,5 +1,6 @@
 package authoring_actionconditions;
 
+import java.util.List;
 import java.util.ResourceBundle;
 
 import ActionConditionClasses.ActionCheckBoxVBox;
@@ -55,10 +56,16 @@ public class ActionConditionRow extends ToolBar implements ActionCheckBoxVBoxI,A
 		else addBuildActionButton();
 	}
 	
-	public ActionConditionRow(int ID,String label,String selectorLabel,boolean isConditionRow, ObservableList<Integer> newActionOptions,
-			String selectedConditionAction) {
+	public ActionConditionRow(int ID,String label,String selectorLabel,boolean isConditionRow, String selectedConditionAction, 
+			ObservableList<Integer> newActionOptions) {
 		this(ID,label,selectorLabel,isConditionRow,newActionOptions);
 		implementationSelectorVBox.setValue(selectedConditionAction);
+	}
+	
+	public ActionConditionRow(int ID,String label,String selectorLabel,boolean isConditionRow, String selectedConditionAction, 
+			ObservableList<Integer> newActionOptions,List<Integer> selectedActionOptions) {
+		this(ID,label,selectorLabel,isConditionRow,selectedConditionAction,newActionOptions);
+		actionCheckBoxVBox = new ActionCheckBoxVBox(newActionOptions,selectedActionOptions);
 	}
 	
 	protected void setNewActionCheckBoxVBoxOptions(ObservableList<Integer> newOptions) {
@@ -86,12 +93,13 @@ public class ActionConditionRow extends ToolBar implements ActionCheckBoxVBoxI,A
 		return isConditionRow;
 	}
 	
-	protected String getImplementationSelectorVBoxValue() {
+	@Override
+	public String getImplementationSelectorVBoxValue() {
 		return (String) implementationSelectorVBox.getCurrentValue();
 	}
 	
 	private void addActionCheckBox() {
-		actionCheckBoxVBox = new ActionCheckBoxVBox<Integer>(actionConditionVBoxResources.getString("ActionCheckBoxLabel"),newActionOptions);
+		actionCheckBoxVBox = new ActionCheckBoxVBox<Integer>(newActionOptions);
 		getItems().add(actionCheckBoxVBox);
 	}
 	

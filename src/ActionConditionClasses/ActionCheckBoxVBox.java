@@ -12,12 +12,23 @@ import javafx.scene.control.CheckBox;
 public class ActionCheckBoxVBox<T> extends VBoxList<T> implements ActionCheckBoxVBoxI {
 
 	private ObservableList<CheckBox> checkBoxes;
+	private static final String ASSOCIATED_ACTIONS = "Associated actions";
 
-	public ActionCheckBoxVBox(String label, ObservableList<T> options) {
-		super(label, options);
+	public ActionCheckBoxVBox(ObservableList<T> options) {
+		super(ASSOCIATED_ACTIONS, options);
 		checkBoxes = FXCollections.observableList(new LinkedList<CheckBox>());
 		checkBoxes.addListener((ListChangeListener<CheckBox>) c -> addOrRemoveCheckBoxes(c));
 		setNewOptions(options);
+	}
+	
+	public ActionCheckBoxVBox(ObservableList<T> options,List<T> selectedOptions) {
+		this(options);
+		for(T selectedOption : selectedOptions) {
+			for(CheckBox checkBox : checkBoxes) {
+				if(checkBox.getText().equals(selectedOption.toString())) checkBox.setSelected(true);
+				break;
+			}
+		}
 	}
 
 	@Override
