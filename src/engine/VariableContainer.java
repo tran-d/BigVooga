@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.sun.javafx.geom.Point2D;
+import javafx.geometry.Point2D;
 
 /**
  * Holds variables of different types with String names. GameObject and GlobalVariables extend this.

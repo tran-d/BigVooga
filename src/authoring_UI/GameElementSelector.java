@@ -12,11 +12,13 @@ import authoring.SpriteObjectGridManagerI;
 import authoring.SpriteParameterFactory;
 import authoring.SpriteParameterI;
 import engine.utilities.data.GameDataHandler;
+import gui.welcomescreen.MenuOptionsTemplate;
 import javafx.geometry.Insets;
 import javafx.geometry.Side;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -28,11 +30,21 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Popup;
+import tools.DisplayLanguage;
 
 public class GameElementSelector extends TabPane implements Observer {
+	
+	private static final String SPRITES = "Sprites";
+	private static final String DIALOGUES = "Dialogues";
+	private static final String DEFAULT = "Default";
+	private static final String USER = "User";
+	private static final String IMPORTED = "Imported";
+	
 	private DraggableGrid myGrid;
 	private SpriteSelectPanel mySprites;
 	private SpriteSelectPanel myUserSprites;
+	private final int NUM_COLUMNS = 10;
 
 	private AuthoringEnvironmentManager myAEM;
 	private SpriteParameterFactory mySPF;
@@ -90,7 +102,6 @@ public class GameElementSelector extends TabPane implements Observer {
 //		 getParams();
 		// createSprites();
 		createSpriteTabs();
-		this.setPrefWidth(80);
 		// myUserSprites.getChildren().add(sp);
 		// makeSpriteDraggable(sp);
 
@@ -237,57 +248,58 @@ public class GameElementSelector extends TabPane implements Observer {
 		TabPane spritesTabPane = new TabPane();
 		TabPane dialoguesTabPane = new TabPane();
 		
-		Tab defaultSpriteTab = new Tab();
-		defaultSpriteTab.setText("Default Sprites");
-//		defaultSpriteTab.setContent(mySprites);
-		makeGrid(defaultSpriteTab);
-		defaultSpriteTab.setClosable(false);
+		Tab defaultSpriteTab = createSubTab(DEFAULT, myAEM.getDefaultSpriteController().getAllSprites());
+		Tab userSpriteTab = createSubTab(USER, myAEM.getCustomSpriteController().getAllSprites());
+		Tab importedSpriteTab = createSubTab(IMPORTED, new ArrayList<AbstractSpriteObject>());
+//		Tab defaultDialogueTab = createSubTab(DEFAULT);
+//		Tab userDialogueTab = createSubTab(USER);
+//		Tab importedDialogueTab = createSubTab(IMPORTED);
 
-		Tab mySpriteTab = new Tab();
-		mySpriteTab.setText("User Sprites");
-//		mySpriteTab.setContent(myUserSprites);
-		makeGrid(mySpriteTab);
-		mySpriteTab.setClosable(false);
-		
-		Tab defaultDialogueTab = new Tab();
-		defaultDialogueTab.setText("Default Dialogues");
-//		defaultDialogueTab.setContent(mySprites);
-		makeGrid(defaultDialogueTab);
-		defaultDialogueTab.setClosable(false);
-
-		Tab myDialogueTab = new Tab();
-		myDialogueTab.setText("User Dialogues");
-//		myDialogueTab.setContent(myUserSprites);
-		makeGrid(myDialogueTab);
-		myDialogueTab.setClosable(false);
-
-		spritesTabPane.getTabs().addAll(defaultSpriteTab, mySpriteTab);
+		spritesTabPane.getTabs().addAll(defaultSpriteTab, userSpriteTab, importedSpriteTab);
 		spritesTabPane.setSide(Side.RIGHT);
 		
-		dialoguesTabPane.getTabs().addAll(defaultDialogueTab, myDialogueTab);
+//		dialoguesTabPane.getTabs().addAll(defaultDialogueTab, userDialogueTab, importedDialogueTab);
 		dialoguesTabPane.setSide(Side.RIGHT);
 
-		Tab spriteTab = new Tab();
-		spriteTab.setText("Sprites");
-		spriteTab.setContent(spritesTabPane);
-		spriteTab.setClosable(false);
+		Tab spritesTab = createElementTab(SPRITES, spritesTabPane);
+		Tab dialoguesTab = createElementTab(DIALOGUES, dialoguesTabPane);
 		
-		Tab dialoguesTab = new Tab();
-		dialoguesTab.setText("Dialogues");
-		dialoguesTab.setContent(dialoguesTabPane);
-		dialoguesTab.setClosable(false);
-		
-		this.getTabs().addAll(spriteTab, dialoguesTab);
+		this.getTabs().addAll(spritesTab, dialoguesTab);
 		this.setSide(Side.TOP);
 
 	}
+	
+	private Tab createSubTab(String tabName, ArrayList<AbstractSpriteObject> sprites) {
+		Tab subTab = new Tab();
+		subTab.textProperty().bind(DisplayLanguage.createStringBinding(tabName));
+//		defaultSpriteTab.setContent(mySprites);
+		subTab.setContent(makeGrid(sprites));
+		subTab.setClosable(false);
+		return subTab;
+	}
+	
+	private Tab createElementTab(String tabName, TabPane tabPane) {
+		Tab elementTab = new Tab();
+		elementTab.textProperty().bind(DisplayLanguage.createStringBinding(tabName));
+		elementTab.setContent(tabPane);
+		elementTab.setClosable(false);
+		return elementTab;
+	}
 
-	private void makeGrid(Tab t) {
+	private ScrollPane makeGrid(ArrayList<AbstractSpriteObject> sprites) {
 		GridPane gp = new GridPane();
 		
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 15; j++) {
+		int totalRows = (int) Math.ceil(sprites.size()/10);
+	
+		int DEFAULT_MIN_ROWS = 15;
+		
+		totalRows = (totalRows<DEFAULT_MIN_ROWS) ? DEFAULT_MIN_ROWS : totalRows;
+		
+		int counter =0;
+		for (int i = 0; i < totalRows; i++) {
+			for (int j = 0; j < 10; j++) {				
 				StackPane sp = new StackPane();
+				
 				sp.setPrefHeight(50);
 				sp.setPrefWidth(50);
 				sp.setBackground(
@@ -295,12 +307,27 @@ public class GameElementSelector extends TabPane implements Observer {
 				BorderStroke border = new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.DOTTED,
 						CornerRadii.EMPTY, BorderWidths.DEFAULT);
 				sp.setBorder(new Border(border));
-				gp.add(sp, i, j);
+				if (counter<sprites.size()) {
+					AbstractSpriteObject toPopulate = sprites.get(counter);
+					System.out.println("Adding " + toPopulate);
+					sp.getChildren().add(toPopulate);
+				} else {
+					if (i%5==0) {
+					SpriteObject SO = new SpriteObject();
+					//SO.setImage(new Image("brick.png"));
+					sp.getChildren().add(SO);
+					}
+				}
+				counter++;
+				
+				gp.add(sp, j, i);
 			}
 		}
+
 		
 		ScrollPane sp = new ScrollPane(gp);
-		t.setContent(sp);
+		//sp.getStylesheets().add(this.getClass().getResource("gui.welcomescreen/" + MenuOptionsTemplate.SCROLLPANE_CSS).toExternalForm());
+		return sp;
 	}
 
 	// private ImageView createTrash() {

@@ -6,7 +6,7 @@ import java.util.Map;
 import authoring_UI.MapManager;
 import authoring_UI.SpriteCreator;
 import authoring_UI.ViewSideBar;
-import javafx.scene.control.TabPane;
+import authoring_UI.dialogue.DialogueManager;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -21,10 +21,10 @@ public class AuthoringController {
 	public static final String INVENTORY_KEY = "Inventory";
 	public static final String MENU_CREATOR_KEY = "Menu Creator";
 	
-	private Map<String, TabPane> viewMap = new HashMap<String, TabPane>();
+	private Map<String, Pane> viewMap = new HashMap<String, Pane>();
 	private Pane authoringPane;
 	private Stage stage;
-	private TabPane view;
+	private Pane view;
 	
 	public AuthoringController(Stage currentStage, Pane currentAuthoringPane) {
 		
@@ -32,14 +32,14 @@ public class AuthoringController {
 		authoringPane = currentAuthoringPane;
 		
 		MapManager mapManager = new MapManager(stage);
-		viewMap.put(MAP_EDITOR_KEY, mapManager);
-		
-//		TabPane testPane = new TabPane();
+		viewMap.put(MAP_EDITOR_KEY, mapManager.getPane());
+
 		SpriteCreator sc = new SpriteCreator();
-		viewMap.put(SPRITE_CREATOR_KEY, sc.getParent());
+		viewMap.put(SPRITE_CREATOR_KEY, sc.getPane());
 		
 		//SpriteCreator mySpriteCreator = new SpriteCreator(stage, mySprites, myAEM);
-		
+		DialogueManager dc = new DialogueManager();
+		viewMap.put(DIALOGUE_KEY, dc.getParent());
 	}
 	
 	/**

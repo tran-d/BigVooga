@@ -30,14 +30,13 @@ public class DisplayPanel extends VBox {
 	private TextArea myParameterErrorMessage;
 
 	private SpriteParameterTabsAndInfo mySParameterTAI;
-	private MapManager myMapManager;
 	private SpriteInventoryTabAndInfo mySInventoryTAI;
 
 	private VBox spriteEditorAndApplyButtonVBox;
 
 	private static final String ACTIONCONDITIONTITLES_PATH = "TextResources/ConditionActionTitles";
-	private static final double MENU_WIDTH = WelcomeScreen.WIDTH/2;
-	private static final double MENU_HEIGHT = 300;
+	private static final double DISPLAY_PANEL_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH/2 - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH-155;
+	private static final double DISPLAY_PANEL_HEIGHT = WelcomeScreen.HEIGHT/2;
 	
 	public static final ResourceBundle conditionActionTitles = ResourceBundle.getBundle(ACTIONCONDITIONTITLES_PATH);
 	
@@ -56,7 +55,6 @@ public class DisplayPanel extends VBox {
 		// System.out.println("Making error message");
 	}
 
-	
 	private void setSpriteInfoAndVBox() {
 		spriteEditorAndApplyButtonVBox = new VBox(10);
 		spriteEditorAndApplyButtonVBox.getChildren().addAll(mySpriteTabs, this.makeApplyButton());
@@ -97,8 +95,7 @@ public class DisplayPanel extends VBox {
 		createParameterCategoryTabs();
 		createSpriteTabs();
 	//createSpriteCreator();
-		createOverviewWindow();
-		this.setPrefSize(MENU_WIDTH, MENU_HEIGHT);
+		this.setPrefSize(DISPLAY_PANEL_WIDTH, DISPLAY_PANEL_HEIGHT);
 		setSpriteInfoAndVBox();
 
 		// createStatePane(new VBox());
@@ -269,23 +266,13 @@ public class DisplayPanel extends VBox {
 			setDefaultErrorNoSpriteTabPane();
 
 		}
-		this.setPrefWidth(MENU_WIDTH);
+		this.setPrefWidth(DISPLAY_PANEL_WIDTH);
 	}
 
 	private void formatParametersVBox(VBox in) {
 		in.setPrefWidth(500);
 		in.setPrefHeight(500);
 		// return in;
-	}
-
-	private void createOverviewWindow() {
-		Button openOverView = new Button("Open Object Viewer");
-		openOverView.setOnAction(e -> {
-//			System.out.println("Overview button pressed");
-			ObjectViewer objectViewer = new ObjectViewer();
-			objectViewer.getStage().show();
-		});
-		this.getChildren().add(openOverView);
 	}
 
 	/*private void createSpriteCreator() {
@@ -312,7 +299,7 @@ public class DisplayPanel extends VBox {
 
 	private ScrollPane createStatePane(VBox temp) {
 		ScrollPane myStateSP_dummy = new ScrollPane();
-		myStateSP_dummy.setPrefSize(MENU_WIDTH, MENU_HEIGHT);
+		myStateSP_dummy.setPrefSize(DISPLAY_PANEL_WIDTH, DISPLAY_PANEL_HEIGHT);
 		myStateSP_dummy.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 		myStateSP_dummy.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 		// VBox temp = new VBox();

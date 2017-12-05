@@ -28,5 +28,8 @@ public class ChoiceBoxVBox<T> extends VBoxList<T> implements ChoiceBoxVBoxI<T> {
 	public void realizeNewOptions(ObservableList<T> newOptions) {
 		choiceBox.setItems(newOptions);
 	}
+	public String getSelected() {
+		return (String) choiceBox.getValue();
+	}
 
 }
