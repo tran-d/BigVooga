@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ResourceBundle;
 
 import gui.welcomescreen.WelcomeScreen;
 import javafx.geometry.Insets;
@@ -39,15 +40,18 @@ import javafx.stage.Stage;
 
 public class SpriteCreator extends TabPane {
 
-	public static final String PATH = "resources/";
+	private static final String PATH = "resources/";
+	private static final String SPRITECREATORRESOURCES_PATH = "TextResources/SpriteCreatorResources";
 	private static final int PANE_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH-ViewSideBar.VIEW_MENU_HIDDEN_WIDTH;
 
+	private ResourceBundle spriteCreatorResources;
 	private Pane myPane;
 	private VBox myStatePanel;
 	private StackPane myImageStack;
 	private int spriteCount = 1;
 
 	public SpriteCreator() {
+		spriteCreatorResources = ResourceBundle.getBundle(SPRITECREATORRESOURCES_PATH);
 		myPane = new Pane();
 		myPane.getChildren().add(this);
 
@@ -60,7 +64,7 @@ public class SpriteCreator extends TabPane {
 
 	private Tab makeTab() {
 		Tab tab = new Tab();
-		tab.setText("sprite" + spriteCount);
+		tab.setText(spriteCreatorResources.getString("SpriteTab") + spriteCount);
 		spriteCount++;
 
 		HBox hb = addParentHBox(tab);
@@ -76,8 +80,8 @@ public class SpriteCreator extends TabPane {
 	private void addToolBox(HBox parentBox) {
 		VBox toolBox = new VBox();
 		toolBox.setPrefSize(200, WelcomeScreen.HEIGHT);
-		Button b1 = new Button("test tool_1");
-		Button b2 = new Button("test tool_2");
+		Button b1 = new Button(spriteCreatorResources.getString("TestTool1"));
+		Button b2 = new Button(spriteCreatorResources.getString("TestTool2"));
 		toolBox.getChildren().addAll(b1,b2);
 		parentBox.getChildren().add(toolBox);
 	}
@@ -85,6 +89,7 @@ public class SpriteCreator extends TabPane {
 	private void addImageStackPane(HBox parentBox) {
 		myImageStack = new StackPane();
 //		myImageStack.setPrefSize(PANE_WIDTH/2-100, WelcomeScreen.HEIGHT);
+		myImageStack.setMinWidth(PANE_WIDTH/2-100);
 		myImageStack.setMaxSize(PANE_WIDTH/2-100, WelcomeScreen.HEIGHT);
 		myImageStack.setBackground(
 				new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -117,7 +122,7 @@ public class SpriteCreator extends TabPane {
 	}
 
 	private void addButtons(HBox buttonBox) {
-		Button loadImageButton = new Button("Load Image");
+		Button loadImageButton = new Button(spriteCreatorResources.getString("LoadImageButton"));
 		loadImageButton.setOnAction(e -> {
 			try {
 				openImage();
@@ -136,15 +141,15 @@ public class SpriteCreator extends TabPane {
 	private void openImage() throws IOException {
 		FileChooser imageChooser = new FileChooser();
 		imageChooser.setInitialDirectory(new File("resources/"));
-		imageChooser.setTitle("Open Image");
+		imageChooser.setTitle(spriteCreatorResources.getString("ImageChooser"));
 		File file = imageChooser.showOpenDialog(new Stage());
 
 		if (file != null) {
 			Files.copy(file.toPath(), Paths.get(PATH + file.getName()), StandardCopyOption.REPLACE_EXISTING);
 			Image image = new Image(file.getName());
 			ImageView imageView = new ImageView(image);
-			imageView.setFitHeight(WelcomeScreen.HEIGHT);
-			imageView.setFitWidth(PANE_WIDTH/2-100);
+//			imageView.setFitHeight(WelcomeScreen.HEIGHT);
+//			imageView.setFitWidth(PANE_WIDTH/2-100);
 			myImageStack.getChildren().remove(0);
 			myImageStack.getChildren().add(imageView);
 			
