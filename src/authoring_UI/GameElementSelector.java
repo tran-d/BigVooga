@@ -54,6 +54,7 @@ public class GameElementSelector extends TabPane implements Observer {
 	private GameDataHandler myGDH;
 	private SpriteObjectGridManagerI mySOGM;
 	private SpriteGridHandler mySpriteGridHandler;
+	private Tab dialoguesTab;
 
 	protected GameElementSelector(SpriteGridHandler spriteGridHandler, AuthoringEnvironmentManager AEM,
 			SpriteObjectGridManagerI SOGM) {
@@ -278,7 +279,7 @@ public class GameElementSelector extends TabPane implements Observer {
 		dialoguesTabPane.setSide(Side.RIGHT);
 
 		Tab spritesTab = createElementTab(SPRITES, spritesTabPane);
-		Tab dialoguesTab = createElementTab(DIALOGUES, dialoguesTabPane);
+		dialoguesTab = createElementTab(DIALOGUES, dialoguesTabPane);
 		
 		this.getTabs().addAll(spritesTab, dialoguesTab);
 		this.setSide(Side.TOP);
@@ -383,6 +384,10 @@ public class GameElementSelector extends TabPane implements Observer {
 		System.out.println("notified observer");
 		System.out.println(mySprites);
 		createUserSprite(arg);
+	}
+	
+	public Tab getDialoguesTab() {
+		return dialoguesTab;
 	}
 
 }

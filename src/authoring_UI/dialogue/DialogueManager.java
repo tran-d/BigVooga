@@ -3,12 +3,12 @@ package authoring_UI.dialogue;
 import java.util.ArrayList;
 import java.util.List;
 
-import authoring_UI.MainAuthoringGUI;
 import authoring_UI.MapManager;
-import gui.welcomescreen.WelcomeScreen;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import tools.DisplayLanguage;
@@ -28,15 +28,20 @@ public class DialogueManager {
 	private static final String SAVE_BUTTON_PROMPT = "Save";
 
 	private HBox hb;
-	private DialogueEditor editor;
+	private DialogueEditor dEditor;
 	private DialogueTabPane dView;
 	private List<DialogueEditor> editorList;
 	private int currentEditor = 0;
+	private DialogueExtractor dExtractor;
+	private DialogueListView listView;
+	
+	private Tab mapDialoguesTab;
 
 	public DialogueManager() {
 
 		dView = new DialogueTabPane();
 		editorList = new ArrayList<>();
+		dExtractor = new DialogueExtractor();
 		hb = new HBox(NODE_SPACING);
 		hb.setPrefSize(MapManager.VIEW_WIDTH, MapManager.VIEW_HEIGHT);
 		hb.getChildren().addAll(dView, createButtonPanel());
@@ -49,14 +54,28 @@ public class DialogueManager {
 
 	/*************************** PUBLIC METHODS **********************************/
 
+	public void addDialogueListener(Tab dialoguesTab) {
+		mapDialoguesTab = dialoguesTab;
+	}
+	
 	public HBox getPane() {
 		return hb;
 	}
+	
 
 	/*************************** PRIVATE METHODS *********************************/
-
+	
+	private void updateListView() {
+		dExtractor.extract(editorList);
+		listView = new DialogueListView(dExtractor.getDialogueList());
+		System.out.println(listView);
+		
+//		hb.getChildren().add(listView);
+		mapDialoguesTab.setContent(listView);
+	}
+	
 	private void save() {
-		if (editor != null && !editor.getName().trim().equals("")) {
+		if (dEditor != null && !dEditor.getName().trim().equals("")) {
 
 			// if (editorList.size() > currentEditor) {
 			// editorList.remove(currentEditor);
@@ -65,27 +84,29 @@ public class DialogueManager {
 			// else
 			// editorList.add(editor);
 
-			editorList.add(editor);
-			addUserDialogueButton(editor.getName());
-			editor = null;
+			editorList.add(dEditor);
+			addUserDialogueButton(dEditor.getName());
+			dEditor = null;
 		}
 		System.out.println("# editors: " + editorList.size());
+		
+		updateListView();
 	}
 
 	private void newEditor() {
-		editor = new DialogueEditor(name -> save());
+		dEditor = new DialogueEditor(name -> save());
 		loadEditor(editorList.size());
 	}
 
 	private void loadEditor(int index) {
-		if (hb.getChildren().size() == 3)
+		if (hb.getChildren().size() >= 3)
 			hb.getChildren().remove(3 - 1);
 
 		if (editorList.size() <= index) {
-			hb.getChildren().add(editor.getParent());
+			hb.getChildren().add(dEditor.getParent());
 		} else {
 			hb.getChildren().add(editorList.get(index).getParent());
-			editor = editorList.get(index);
+			dEditor = editorList.get(index);
 
 		}
 
