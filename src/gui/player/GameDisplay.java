@@ -65,7 +65,7 @@ public class GameDisplay {
 		scene.setOnKeyReleased(e -> playerManager.setKeyReleased(e.getCode()));
 		scene.setOnMousePressed(e -> playerManager.setPrimaryButtonDown(e.getX(), e.getY()));
 		scene.setOnMouseReleased(e -> playerManager.setPrimaryButtonUp(e.getX(), e.getY()));
-		
+		scene.setOnMouseMoved(e -> playerManager.setMouseXY(e.getX(), e.getY()));
 		scene.setCamera(camera);
 		
 		createBack();

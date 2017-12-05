@@ -7,6 +7,7 @@ import java.util.Set;
 import engine.EngineController;
 import engine.sprite.DisplayableImage;
 import gui.player.GameDisplay;
+import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 
 /**
@@ -29,6 +30,8 @@ public class PlayerManager {
 	private boolean prevPrimaryButtonDown = false;
 	private double clickX;
 	private double clickY;
+	private double mouseX;
+	private double mouseY;
 	private int id;
 	
 	/**
@@ -181,6 +184,28 @@ public class PlayerManager {
 	 */
 	public void stop() {
 		engineController.stop();
+	}
+
+	/**
+	 * Sets the current position of the mouse.
+	 * 
+	 * Called by GameDisplay any time the mouse moves.
+	 * 
+	 * @param x
+	 * @param y
+	 */
+	public void setMouseXY(double x, double y) {
+		mouseX = x;
+		mouseY = y;
+	}
+	
+	/**
+	 * Returns a vector of the xy-coordinates of the mouse.
+	 * 
+	 * @return Vector of xy-coordinates of the mouse.
+	 */
+	public Point2D getMouseXY() {
+		return new Point2D(mouseX, mouseY);
 	}
 	
 }
