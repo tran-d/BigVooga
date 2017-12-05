@@ -14,7 +14,7 @@ public class Cos implements DoubleOperation{
 	@Override
 	public Double evaluate(GameObject asking, Layer world) {
 		// TODO Auto-generated method stub
-		return angle.evaluate(asking, world);
+		return Math.cos(Math.toRadians(angle.evaluate(asking, world)));
 	}
 
 }
