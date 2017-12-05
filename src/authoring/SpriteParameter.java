@@ -13,9 +13,9 @@ import javafx.scene.layout.Pane;
 
 public abstract class SpriteParameter implements SpriteParameterI {
 
-	Control myNameJavaFXNode;
+//	Control myNameJavaFXNode;
 	String myName;
-	Control myJavaFXNode;
+//	Control myJavaFXNode;
 	Object myValue;
 	SpriteParameterI dummy; 
 	boolean isDummy;

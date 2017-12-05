@@ -2,7 +2,7 @@ package authoring_actionconditions;
 
 import java.util.ResourceBundle;
 
-import authoring_UI.Menu;
+import authoring_UI.DisplayPanel;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -32,7 +32,7 @@ public class ActionConditionTab extends Tab implements ActionConditionTabI {
 	}
 
 	private void setUpActionConditionManager() {
-		buttons = new TopToolBar(actionTabResources,"AddButtonLabel","Options","SelectorLabel","RemoveButtonLabel");
+		buttons = new TopToolBar(actionTabResources,"AddButtonLabel","Options","SelectorLabel","EditButtonLabel","RemoveButtonLabel");
 		actionConditionVBox = new ActionConditionVBox(actionTabResources.getString("SelectorLabel"),isConditionTab);
 		VBox mainVBox = new VBox(SPACING);
 		mainVBox.getChildren().addAll(buttons,actionConditionVBox);
@@ -72,7 +72,7 @@ public class ActionConditionTab extends Tab implements ActionConditionTabI {
 	}
 	
 	private void determineTabType(String title) {
-		if(title.equals(Menu.conditionActionTitles.getString("ConditionsTabTitle"))) isConditionTab = true;
+		if(title.equals(DisplayPanel.conditionActionTitles.getString("ConditionsTabTitle"))) isConditionTab = true;
 		else isConditionTab = false;
 	}
 

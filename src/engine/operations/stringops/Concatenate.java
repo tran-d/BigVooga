@@ -3,6 +3,10 @@ package engine.operations.stringops;
 import engine.GameObject;
 import engine.Layer;
 
+/**
+ * @author Ian Eldridge-Allegra
+ *
+ */
 public class Concatenate implements StringOperation{
 
 	private StringOperation first;

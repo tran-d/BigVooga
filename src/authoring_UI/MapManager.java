@@ -5,35 +5,44 @@ import java.util.ArrayList;
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObjectGridManagerI;
 import gui.welcomescreen.WelcomeScreen;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.geometry.Side;
-import javafx.scene.Node;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import tools.DisplayLanguage;
 
 public class MapManager extends TabPane {	
 	
-	private static final String TABTAG = "map ";
+	public static final int VIEW_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH;
+	public static final int VIEW_HEIGHT = WelcomeScreen.HEIGHT - 35;
+	private static final String TAB_TAG = "Map";
 	
 	private Stage stage;
 	private SingleSelectionModel<Tab> mySelectModel;
 	private Tab addTab;
 	private AuthoringMapEnvironment authMap;
 	private ViewSideBar sideBar;
-	private SpriteManager mySprites;
+	private GameElementSelector mySprites;
 	private AuthoringEnvironmentManager myAEM;
 	private SpriteObjectGridManagerI mySOGM;
-	private int myTabCount;
+	private int myTabCount = 1;
 	private Tab currentTab;
 	private String addTabString;
 
+	private Pane mapEditor = new Pane();
+
 	public MapManager(Stage currentStage) {
 		stage = currentStage;
+		mapEditor.getChildren().add(this);
 		mySelectModel = this.getSelectionModel();
-		this.setPrefWidth(WelcomeScreen.WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH);
-		this.setPrefHeight(WelcomeScreen.HEIGHT);
+		this.setPrefWidth(VIEW_WIDTH);
+		this.setPrefHeight(VIEW_HEIGHT);
 		this.setLayoutX(ViewSideBar.VIEW_MENU_HIDDEN_WIDTH);
 		
 		setTab();
@@ -67,29 +76,28 @@ public class MapManager extends TabPane {
 	}
 	
 	private void setupFEAuthClasses() {
-		Menu myMenu = new Menu(myAEM, this);
-		DraggableGrid myGrid = myAEM.getDraggableGrid();
 		
-		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, myMenu, myGrid);
+		DraggableGrid myGrid = myAEM.getDraggableGrid();
+		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, myGrid);
 		myGrid.construct(mySpriteGridHandler);
-		mySprites = new SpriteManager(mySpriteGridHandler, myAEM, mySOGM);
 		mySpriteGridHandler.addKeyPress(stage.getScene());
+		SpritePanels spritePanels = new SpritePanels(this, mySpriteGridHandler, myAEM, mySOGM);
+		mySpriteGridHandler.setDisplayPanel(spritePanels);
 //
 //<<<<<<< HEAD
 //		authMap.getChildren().addAll(myMenu, myGrid, mySprites);
 //		mySpriteGridHandler.addKeyPress(scene);
 //=======
-		authMap.setMenu(myMenu);
+		authMap.setPanels(spritePanels);
 		authMap.setGrid(myGrid);
-		authMap.setSpriteManager(mySprites);
-//		authMap.getChildren().addAll(myMenu, myGrid, mySprites);
 	}
 	
 
 	private void createTab(int tabCount) {
 		currentTab = new Tab();
-		String tabName = TABTAG + Integer.toString(tabCount);
-		currentTab.setText(tabName);
+		StringProperty tabMap = new SimpleStringProperty();
+		tabMap.bind(Bindings.concat(DisplayLanguage.createStringBinding(TAB_TAG)).concat(" " + Integer.toString(tabCount)));
+		currentTab.textProperty().bind(tabMap);
 		currentTab.setContent(setupScene());
 		this.getTabs().add(this.getTabs().size() - 1, currentTab);
 		myTabCount++;
@@ -106,5 +114,7 @@ public class MapManager extends TabPane {
 		return allMaps;
 	}
 	
-	
+	public Pane getPane() {
+		return mapEditor;
+	}
 }
