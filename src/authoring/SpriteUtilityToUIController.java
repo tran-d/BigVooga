@@ -4,7 +4,9 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import authoring.AbstractSpriteObject.IsLockedUtility;
 import authoring.AbstractSpriteObject.IsUnlockedUtility;
@@ -13,26 +15,35 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 
 public class SpriteUtilityToUIController {
 
 	private HBox containerHbox;
-	private Consumer<ArrayList<Object>> myMethodOnValueChange;
+	private BiFunction<String, Object, Boolean> myMethodOnValueChange;
+	private AbstractSpriteObject myASO;
+	private String setMethodSignature;
+//	private boolean isLocked;
 
 	public SpriteUtilityToUIController() {
-		this.setMethodOnValueChange(list -> {
-			// Nothing
+		setMethodOnValueChange((string, object)->{
+			return true;
 		});
 	}
+	
+	public void setSpriteObject(AbstractSpriteObject ASO){
+		myASO = ASO;
+	}
 
-	SpriteUtilityToUIController(Consumer<ArrayList<Object>> methodOnValueChange) {
-		this.setMethodOnValueChange(methodOnValueChange);
+	public SpriteUtilityToUIController(BiFunction<String, Object, Boolean> methodOnValueChange) {
+		setMethodOnValueChange(methodOnValueChange);
 	}
 
 	public SpriteUtilityUI getUIComponent(Annotation[] a, Field f) {
 		Object o = null;
 		try {
-			o = (Object) f.get(this);
+			o = (Object) f.get(myASO);
+//			System.out.println("getting field value: "+o);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -47,18 +58,27 @@ public class SpriteUtilityToUIController {
 		}
 		return null;
 	}
+	
+//	private void setSetMethodSignature(String t){
+//		setMethodSignature = t;
+//	}
+//	private String getSetMethodSignature(){
+//		return setMethodSignature;
+//	}
 
 	private SpriteUtilityUI getUnlockedUIComponent(IsUnlockedUtility a, Object o) {
 		String getMethod = a.getMethod();
 		String setMethod = a.setMethod();
 		String readableName = a.readableName();
+		
+//		setSetMethodSignature(setMethod);
 
 		Pane p = new HBox();
 
 		Label nameLabel = new Label();
 		nameLabel.setText(readableName);
-
-		Node content = getRequiredValueComponent(o, getMethodOnValueChange());
+//		isLocked = false;
+		Node content = getRequiredValueComponent(o, getMethodOnValueChange(), new String(setMethod), false);
 
 		p.getChildren().addAll(nameLabel, content);
 
@@ -71,14 +91,17 @@ public class SpriteUtilityToUIController {
 	private SpriteUtilityUI getLockedUIComponent(IsLockedUtility a, Object o) {
 		String getMethod = a.getMethod();
 		String readableName = a.readableName();
+		
+//		isLocked = true;
 
-		Pane p = new HBox();
+		Pane p = new HBox(20);
 
 		Label nameLabel = new Label();
 		nameLabel.setText(readableName);
+//		nameLabel.se
 
-		Node content = getRequiredValueComponent(o, getMethodOnValueChange());
-
+		Node content = getRequiredValueComponent(o, getMethodOnValueChange(), "", true);
+		content.setDisable(true);
 		p.getChildren().addAll(nameLabel, content);
 
 		SpriteUtilityUI SUUI = new SpriteUtilityUI(p);
@@ -87,37 +110,59 @@ public class SpriteUtilityToUIController {
 
 	}
 
-	private Node getRequiredValueComponent(Object o, Consumer<ArrayList<Object>> consumer) {
+	private Node getRequiredValueComponent(Object o, BiFunction<String, Object, Boolean> consumer, String setMethod, Boolean isLocked) {
+//		System.out.println("getting required value: "+o);
 		if (o instanceof String) {
 			TextField ret = new TextField();
 			ret.setText((String) o);
+			if (!isLocked){
 			ret.textProperty().addListener((observable, previous, next) -> {
-				ArrayList<Object> forConsumer = new ArrayList<Object>();
-				forConsumer.add(previous);
-				forConsumer.add(next);
-				consumer.accept(forConsumer);
+				if (!consumer.apply(setMethod, next)){
+					ret.textProperty().set(previous);
+				}
 			});
+			}
 			return ret;
-		} else if (o instanceof Integer || o instanceof Double) {
-			NumberSpinner ret = new NumberSpinner(BigDecimal.valueOf((Double) o), BigDecimal.ONE);
-			ret.numberProperty().addListener((observable, previous, next) -> {
-				ArrayList<Object> forConsumer = new ArrayList<Object>();
-				forConsumer.add(previous);
-				forConsumer.add(next);
-				consumer.accept(forConsumer);
+		} else if (o instanceof Integer) {
+			NumberSpinner ret = new NumberSpinner(new BigDecimal((Integer)o), BigDecimal.ONE);
+			ret.setCheckFunction(new Function<Integer, Boolean>(){
+				@Override
+				public Boolean apply(Integer t) {
+//					System.out.println("In function, t = " + t);
+					if (isLocked){
+						return false;
+					}
+					boolean ret = consumer.apply(setMethod, t);
+//					System.out.println("The function returned "+ret);
+					return ret;
+				}
+				
 			});
+//			if (!isLocked){
+//			ret.numberProperty().addListener((observable, previous, next) -> {
+//				if (!consumer.apply(setMethod, next.intValue())){
+//					ret.setNumber(previous);
+//				}
+//			});
+//			}
 			return ret;
 		} else if (o instanceof Boolean) {
 
+		} else if (o instanceof Integer[]) {
+			Text text = new Text();
+			Integer [] asIntArray = (Integer[]) o;
+			text.setText(asIntArray[0]+" , " + asIntArray[1]);
+			return text;
 		}
-		return null;
+		Text emptyText = new Text("NOVALUE");
+		return emptyText;
 	}
 
-	private Consumer<ArrayList<Object>> getMethodOnValueChange() {
+	private BiFunction<String, Object, Boolean> getMethodOnValueChange() {
 		return myMethodOnValueChange;
 	}
 
-	private void setMethodOnValueChange(Consumer<ArrayList<Object>> consumer) {
+	private void setMethodOnValueChange(BiFunction<String, Object, Boolean> consumer) {
 		myMethodOnValueChange = consumer;
 	}
 

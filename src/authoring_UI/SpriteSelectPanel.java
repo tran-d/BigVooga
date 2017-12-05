@@ -49,7 +49,7 @@ public class SpriteSelectPanel extends VBox {
 	}
 	
 	private void makeSpriteDraggable(AbstractSpriteObject SO) {
-		mySGH.addDragObject(SO);
+		mySGH.addSpriteDrag(SO);
 	}
 	
 	private void makeDefaultSpritesClickable(ArrayList<AbstractSpriteObject> defaults) {

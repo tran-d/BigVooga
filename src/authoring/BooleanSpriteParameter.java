@@ -1,12 +1,8 @@
 package authoring;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Control;
-import javafx.scene.layout.Pane;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 
 public class BooleanSpriteParameter extends SpriteParameter {
 	
@@ -17,6 +13,10 @@ public class BooleanSpriteParameter extends SpriteParameter {
 //	BooleanProperty boolProp;
 //	BooleanSpriteParameter dummy;
 //	boolean isDummy;
+	
+	BooleanSpriteParameter(){
+		
+	}
 	
 	
 	BooleanSpriteParameter(String name, Object checkedStatus){
@@ -80,7 +80,17 @@ public class BooleanSpriteParameter extends SpriteParameter {
 		}
 		return true;
 	}
+	@Override
+	public void writeExternal(ObjectOutput out) throws IOException {
+		out.writeObject(myName);
+		out.writeObject(myValue);
+	}
 
+	@Override
+	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+		myName = (String)in.readObject();
+		myValue = (Boolean)in.readObject();
+	}
 
 
 }

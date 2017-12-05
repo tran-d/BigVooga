@@ -2,6 +2,8 @@ package authoring;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.util.function.Function;
+
 import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -48,6 +50,7 @@ public class NumberSpinner extends HBox {
     private final Button decrementButton;
     private final NumberBinding buttonHeight;
     private final NumberBinding spacing;
+    private Function<Integer, Boolean> myFunction;
 
     public NumberSpinner() {
         this(BigDecimal.ZERO, BigDecimal.ONE);
@@ -159,7 +162,20 @@ public class NumberSpinner extends HBox {
     private void increment() {
         BigDecimal value = numberField.getNumber();
         value = value.add(stepWitdhProperty.get());
-        numberField.setNumber(value);
+        int valueAsInt = value.intValue();
+        System.out.println("New value is: "+ valueAsInt);
+        if (checkValid(valueAsInt)){
+        	System.out.println("Apparently new value "+ valueAsInt + " is valid");
+        	numberField.setNumber(value);
+        }
+    }
+    
+    public void setCheckFunction(Function<Integer, Boolean> checkFunc){
+    	myFunction = checkFunc;
+    }
+    
+    private boolean checkValid(int value){
+    	return myFunction.apply(value);
     }
 
     /**
@@ -168,7 +184,13 @@ public class NumberSpinner extends HBox {
     private void decrement() {
         BigDecimal value = numberField.getNumber();
         value = value.subtract(stepWitdhProperty.get());
-        numberField.setNumber(value);
+        int valueAsInt = value.intValue();
+        
+        System.out.println("New value is: "+ valueAsInt);
+        if (checkValid(valueAsInt)){
+        	System.out.println("Apparently new value "+ valueAsInt + " is valid");
+        	numberField.setNumber(value);
+        }
     }
 
     public final void setNumber(BigDecimal value) {

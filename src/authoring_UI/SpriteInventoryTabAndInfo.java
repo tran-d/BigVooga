@@ -158,6 +158,7 @@ public class SpriteInventoryTabAndInfo {
 		// dialogVbox.getChildren().add(new Text("This is a Dialog"));
 		Scene dialogScene = new Scene(SSV, 300, 200);
 		dialog.setScene(dialogScene);
+		
 		// dialog.show();
 		dialog.showAndWait();
 		// dialog.setOnCloseRequest

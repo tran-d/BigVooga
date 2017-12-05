@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import authoring.AbstractSpriteObject;
 import authoring.SpriteUtilityToUIController;
@@ -28,8 +29,17 @@ public class SpriteUtilityTabAndInfo {
 	private AbstractSpriteObject myASO;
 	private SpriteUtilityToUIController mySUTUIC;
 
+	
+
 	SpriteUtilityTabAndInfo(){
-		mySUTUIC = new SpriteUtilityToUIController();
+		mySUTUIC = new SpriteUtilityToUIController(getBiFunctionForValueOnChange());
+		initialize();
+	}
+	
+	private void initialize(){
+		makeContainerVBox();
+		makeScrollPane();
+		putVBoxIntoScrollPane();
 	}
 	
 	public void setSpriteObject(AbstractSpriteObject ASO){
@@ -38,17 +48,27 @@ public class SpriteUtilityTabAndInfo {
 	
 	public void setSpriteObjectAndUpdate(AbstractSpriteObject ASO){
 		myASO = ASO;
+		mySUTUIC.setSpriteObject(ASO);
 		clearVBox();
 		addUtilityParametersToContainerVBox();
 	}
 	
 	public void addUtilityParametersToContainerVBox(){
-		Field [] fields = myASO.getClass().getDeclaredFields();
+//		System.out.println("ASO: "+myASO);
+//		myASO = myASO.getClass().getSuperclass().cast(myASO);
+		Field [] fields = myASO.getClass().getSuperclass().getDeclaredFields();
+		Annotation[] as = myASO.getClass().getAnnotations();
+//		System.out.println(as);
+//		System.out.println("Fields: "+ fields);
 		for (Field f:fields){
+//			System.out.println("Field f: "+f);
 			Annotation[] a = f.getAnnotations();
 //			 IsUnlockedUtility a = f.getAnnotation(IsUnlockedUtility.class);
+			
 			if (a!=null){
+//				System.out.println("a isnt null!");
 				SpriteUtilityUI UI_Component = mySUTUIC.getUIComponent(a, f);
+//				System.out.println("UI_Component is "+UI_Component);
 				if (UI_Component!=null){
 					addToVBox(UI_Component);
 				}
@@ -62,6 +82,25 @@ public class SpriteUtilityTabAndInfo {
 	
 	private void clearVBox(){
 		containerVbox.getChildren().clear();
+	}
+	
+	public Pane getContainerVBox(){
+		return containerVbox;
+	}
+	
+	private void makeContainerVBox(){
+		containerVbox = new VBox(10);
+	}
+	
+	private void makeScrollPane(){
+		containerScrollPane = new ScrollPane();
+	}
+	public ScrollPane getScrollPane(){
+		return containerScrollPane;
+	}
+	
+	public void putVBoxIntoScrollPane(){
+		containerScrollPane.setContent(getContainerVBox());
 	}
 	
 	private void sort(){
@@ -87,42 +126,56 @@ public class SpriteUtilityTabAndInfo {
 		});
 	}
 	
-	private void setConsumerForValueOnChange(){
-		BiFunction<String, ArrayList<Object>, Boolean> bifunc = new BiFunction<String, ArrayList<Object>, Boolean>(){
+
+	
+	private BiFunction<String, Object, Boolean> getBiFunctionForValueOnChange(){
+		BiFunction<String, Object, Boolean> bifunc = new BiFunction<String, Object, Boolean>(){
 			
 			@Override
-			public Boolean apply(String t, ArrayList<Object> u) {
+			public Boolean apply(String t, Object u) {
 				
+//				System.out.println("U equals: "+u);
+//				System.out.println(u.getClass());
 				Method setMethod = null;
 				if (u!=null){
 					try{
-					if (u.get(0) instanceof String){
-						setMethod  = myASO.getClass().getMethod(t, String.class);
+					if (u instanceof String){
+						setMethod  = myASO.getClass().getSuperclass().getMethod(t, String.class);
+						setMethod.invoke(myASO, (String) u);
 					}
 						//TODO: Handle String Changes
-					else if (u.get(0) instanceof Double){
-						setMethod  = myASO.getClass().getMethod(t, Double.class);
+					else if (u instanceof Double){
+						setMethod  = myASO.getClass().getSuperclass().getMethod(t, Double.class);
+//						System.out.println("method: "+setMethod);
+						setMethod.invoke(myASO, (Double) u);
 						//TODO: Handle Double Changes
-					}else if (u.get(0) instanceof Integer){
-						setMethod  = myASO.getClass().getMethod(t, Integer.class);
+					}else if (u instanceof Integer){
+//						System.out.println("method: "+setMethod);
+//						System.out.println("method name: "+t);
+						setMethod  = myASO.getClass().getSuperclass().getMethod(t, Integer.class);
+//						System.out.println("method : "+setMethod);
+						setMethod.invoke(myASO, (Integer) u);
 						//TODO: Handle Integer Changes
-					} else if (u.get(0) instanceof Boolean){
+					} else if (u instanceof Boolean){
 						//TODO: Handle Boolean Changes
-						setMethod  = myASO.getClass().getMethod(t, Boolean.class);
+						setMethod  = myASO.getClass().getSuperclass().getMethod(t, Boolean.class);
 					}
-					
+//					System.out.println("About to return true");
 					return true;
 				}
 				 catch (Exception e){
-					e.printStackTrace();
+//					e.printStackTrace();
 					return false;
 				}
+					
 				}
 				
 				return false;
 			}
 			
 		};
+		
+		return bifunc;
 	}
 	
 	
