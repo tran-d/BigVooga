@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import authoring_UI.MainAuthoringGUI;
-import gui.player.GameDisplay;
 import gui.welcomescreen.GameSelector;
 import gui.welcomescreen.Learn;
 import gui.welcomescreen.Settings;
@@ -27,7 +26,7 @@ public class SceneController {
 	public static final String LEARN_KEY = "Learn";
 	public static final String SETTINGS_KEY = "Settings";
 	
-	private Map<String, Scene> sceneMap = new HashMap<String, Scene>() ;
+	private Map<String, Scene> sceneMap = new HashMap<String, Scene>();
 	private Stage stage;
 	private Scene scene;
 	
@@ -74,6 +73,6 @@ public class SceneController {
 	 */
 	public void switchScene (String key) {
 		stage.setScene(sceneMap.get(key));
-		
+		stage.centerOnScreen();
 	}
 }

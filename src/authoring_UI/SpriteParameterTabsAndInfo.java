@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import authoring.AbstractSpriteObject;
 import authoring.SpriteObject;
 import authoring.SpriteParameterFactory;
 import authoring.SpriteParameterI;
@@ -30,7 +31,7 @@ public class SpriteParameterTabsAndInfo {
 	private final static double MENU_HEIGHT = 500;
 	private int categoryCounter = 1;
 	private HashMap<String, Integer> counters;
-	private SpriteObject mySO;
+	private AbstractSpriteObject mySO;
 	private HashMap<String, String> catNames;
 	private SingleSelectionModel<Tab> mySelectModel;
 	private Tab currentTab;
@@ -39,7 +40,7 @@ public class SpriteParameterTabsAndInfo {
 		this(new SpriteObject());
 	}
 
-	SpriteParameterTabsAndInfo(SpriteObject SO) {
+	SpriteParameterTabsAndInfo(AbstractSpriteObject SO) {
 		setupCounters();
 		setupCategoryNamesMap();
 		createCategoryTabPane();
@@ -58,7 +59,7 @@ public class SpriteParameterTabsAndInfo {
 		catNames = new HashMap<String, String>();
 	}
 
-	public void setSpriteObject(SpriteObject SO) {
+	public void setSpriteObject(AbstractSpriteObject SO) {
 		mySO = SO;
 		create();
 	}
@@ -76,7 +77,7 @@ public class SpriteParameterTabsAndInfo {
 		int numTabs = myTabPane.getTabs().size();
 		myTabPane.getTabs().remove(0, numTabs);
 		this.catNames.clear();
-		System.out.println("Clearing tab pane: " + myTabPane.getTabs().size());
+//		System.out.println("Clearing tab pane: " + myTabPane.getTabs().size());
 		// .clear();
 	}
 
@@ -84,17 +85,17 @@ public class SpriteParameterTabsAndInfo {
 		clearTabPane();
 		// createAddCategoryTab();
 		createFromSO(mySO);
-		System.out.println("catNames after create: "+ catNames);
+//		System.out.println("catNames after create: "+ catNames);
 		this.createAddCategoryTab();
 		return getTabPane();
 	}
 
-	public void create(SpriteObject SO) {
+	public void create(AbstractSpriteObject SO) {
 		setSpriteObject(SO);
 		// return create();
 	}
 
-	public void createFromSO(SpriteObject SO) {
+	public void createFromSO(AbstractSpriteObject SO) {
 		categoryCounter = 1;
 		this.catNames.clear();
 		HashMap<String, ArrayList<SpriteParameterI>> params = SO.getParameters();
@@ -173,20 +174,20 @@ public class SpriteParameterTabsAndInfo {
 		TextField catName = new TextField("");
 		int num = 1;
 //		System.out.println("CATNAMES: " + catNames);
-		System.out.println("before while, current catNames: "+catNames);
+//		System.out.println("before while, current catNames: "+catNames);
 		while (catNames.containsValue(category)) {
-			System.out.println("In while, category: " + category);
+//			System.out.println("In while, category: " + category);
 			category = String.format("Category%d", num++);
 
 		}
-		System.out.println("Out of while, category: " + category);
+//		System.out.println("Out of while, category: " + category);
 		catName.setText(category);
 		catNames.put(category, category);
 		parentTab.setText(category);
 
 		catName.textProperty().addListener((observable, prev, next) -> {
 			String newText = next;
-			System.out.println("next cat name: " + next);
+//			System.out.println("next cat name: " + next);
 			if (catNames.containsValue(next)) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Error");
@@ -311,11 +312,11 @@ public class SpriteParameterTabsAndInfo {
 		newCategory.setClosable(false);
 		myTabPane.getTabs().add(newCategory);
 		for (Tab t : myTabPane.getTabs()) {
-			System.out.println("Tab t: " + t.getText());
+//			System.out.println("Tab t: " + t.getText());
 		}
 		System.out.println("Created add category");
 		newCategory.setOnSelectionChanged(e -> {
-			System.out.println("On change occured");
+//			System.out.println("On change occured");
 			addEmptyCategoryTab();
 		});
 
@@ -325,15 +326,15 @@ public class SpriteParameterTabsAndInfo {
 		int categoriesAdded = mySO.acceptPossibleParameters();
 		categoryCounter -= categoriesAdded;
 		ObservableList<Tab> tabs = myTabPane.getTabs();
-		System.out.println("catNames : " + catNames);
+//		System.out.println("catNames : " + catNames);
 		for (int i = 0; i < tabs.size() - 1; i++) {
-			System.out.println(i);
+//			System.out.println(i);
 			Tab t = tabs.get(i);
-			System.out.println(t.getText());
+//			System.out.println(t.getText());
 			TabContentVBox TCV = (TabContentVBox) t.getContent();
 			// String catName = TCV.getMyCategory();
 			String catName = t.getText();
-			System.out.println("catName: " + catName);
+//			System.out.println("catName: " + catName);
 
 			if (catNames.containsValue(catName)) {
 				for (String key : catNames.keySet()) {
@@ -355,7 +356,7 @@ public class SpriteParameterTabsAndInfo {
 			ScrollPane SP = null;
 			for (Node node : TCV.getChildren()) {
 				if (node instanceof ScrollPane) {
-					System.out.println("It's a scroll pane");
+//					System.out.println("It's a scroll pane");
 					SP = (ScrollPane) node;
 				}
 
@@ -363,9 +364,9 @@ public class SpriteParameterTabsAndInfo {
 			VBox paramsVbox = (VBox) SP.getContent();
 			int num = 0;
 			for (Node node : paramsVbox.getChildren()) {
-				System.out.println("Num: " + num++);
+//				System.out.println("Num: " + num++);
 				FEParameter FEP = (FEParameter) node;
-				System.out.println(FEP);
+//				System.out.println(FEP);
 				FEP.updateParameter();
 			}
 

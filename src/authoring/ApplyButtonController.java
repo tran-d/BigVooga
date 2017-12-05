@@ -15,6 +15,7 @@ public class ApplyButtonController implements ApplyButtonControllerI {
 	
 	private ActionConditionTab conditionTab;
 	private ActionConditionTab actionTab;
+	private AbstractSpriteObject spriteObject;
 	
 	private static final int LABEL_INDEX = 0;
 	private static final int SELECTOR_LABEL_INDEX = 1;
@@ -26,7 +27,8 @@ public class ApplyButtonController implements ApplyButtonControllerI {
 	}
 
 	@Override
-	public void updateActionConditionTabs(SpriteObject spriteObject) {
+	public void updateActionConditionTabs(SpriteObject SO) {
+		spriteObject = SO;
 		HashMap<List<String>,List<Integer>> conditions = spriteObject.getConditionRows();
 		List<List<String>> actions = spriteObject.getActionRows();
 		ObservableList<Integer> allActions = spriteObject.getAllActions();
@@ -35,7 +37,7 @@ public class ApplyButtonController implements ApplyButtonControllerI {
 		int rowCond = 0;
 		List<ActionConditionRow> conditionRows = new LinkedList<ActionConditionRow>();
 		for(List<String> labels : conditions.keySet()) {
-			ActionConditionRow conditionRow = new ActionConditionRow(rowCond,labels.get(LABEL_INDEX),labels.get(SELECTOR_LABEL_INDEX),true,
+			ActionConditionRow conditionRow = new ActionConditionRow(rowCond,labels.get(LABEL_INDEX),labels.get(SELECTOR_LABEL_INDEX),
 					labels.get(SELECTOR_VALUE_INDEX),allActions,conditions.get(labels));
 			conditionRows.add(conditionRow);
 			rowCond++;
@@ -43,7 +45,7 @@ public class ApplyButtonController implements ApplyButtonControllerI {
 		List<ActionConditionRow> actionRows = new LinkedList<ActionConditionRow>();
 		int rowAct = 0;
 		for(List<String> labels : actions) {
-			ActionConditionRow actionRow = new ActionConditionRow(rowAct,labels.get(LABEL_INDEX),labels.get(SELECTOR_LABEL_INDEX),false,
+			ActionConditionRow actionRow = new ActionConditionRow(rowAct,labels.get(LABEL_INDEX),labels.get(SELECTOR_LABEL_INDEX),
 					labels.get(SELECTOR_VALUE_INDEX),allActions);
 			actionRows.add(actionRow);
 			rowAct++;
@@ -57,7 +59,7 @@ public class ApplyButtonController implements ApplyButtonControllerI {
 	}
 
 	@Override
-	public void updateSpriteObject(SpriteObject spriteObject) {
+	public void updateSpriteObject() {
 		spriteObject.setAllActions(actionTab.getTopToolBar().getRemoveRowVBoxOptions());
 		HashMap<List<String>,List<Integer>> conditions = new HashMap<List<String>,List<Integer>>();
 		conditionTab.getActionConditionVBox().getRows().forEach(row -> {

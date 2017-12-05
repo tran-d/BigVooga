@@ -1,10 +1,8 @@
 package authoring_actionconditions;
 
-import java.util.List;
 import java.util.ResourceBundle;
-
 import ActionConditionClasses.ResourceBundleUtil;
-import authoring_UI.Menu;
+import authoring_UI.DisplayPanel;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -37,7 +35,7 @@ public class ActionConditionTab extends Tab implements ActionConditionTabI {
 		this.actionConditionVBox = actionConditionVBox;
 		buttons = topToolBar;
 	}
-
+                                                                                                                                                                                                                                                                          
 	private void setUpActionConditionManager(String title) {
 		buttons = new TopToolBar(title);
 		actionConditionVBox = new ActionConditionVBox(getSelectorLabel(),isConditionTab);
@@ -79,7 +77,7 @@ public class ActionConditionTab extends Tab implements ActionConditionTabI {
 	}
 	
 	private void determineTabType(String title) {
-		if(title.equals(Menu.conditionActionTitles.getString("ConditionsTabTitle"))) isConditionTab = true;
+		if(title.equals(DisplayPanel.conditionActionTitles.getString("ConditionsTabTitle"))) isConditionTab = true;
 		else isConditionTab = false;
 	}
 
@@ -106,19 +104,6 @@ public class ActionConditionTab extends Tab implements ActionConditionTabI {
 	@Override
 	public void removeActionOption(Integer action) {
 		actionConditionVBox.removeActionOption(action);
-	}
-
-	@Override
-	public boolean isEqualTo(ActionConditionTab other) {
-		List<ActionConditionRow> myRows = actionConditionVBox.getRows();
-		List<ActionConditionRow> otherRows = other.getActionConditionVBox().getRows();
-		if(myRows.size() != otherRows.size()) return false;
-		else {
-			for(int row = 0; row < myRows.size(); row++) {
-				if(!myRows.get(row).isEqualTo(otherRows.get(row))) return false;
-			}
-			return true;
-		}
 	}
 
 	@Override

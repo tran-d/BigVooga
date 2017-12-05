@@ -15,7 +15,7 @@ import javafx.scene.control.Separator;
 import javafx.scene.control.ToolBar;
 
 public class TopToolBar extends ToolBar implements TopToolBarI {
-	
+
 	private ResourceBundle tabResources;
 	private Button addButton;
 	private ChoiceBoxVBox<String> selectorVBox;
@@ -43,7 +43,7 @@ public class TopToolBar extends ToolBar implements TopToolBarI {
 	public ObservableList<Integer> getRemoveRowVBoxOptions() {
 		return removeRowVBox.getOptions();
 	}
-	
+
 	protected void addRemoveRowVBoxListener(ListChangeListener<Integer> listChangeListener) {
 		removeRowVBox.addListChangeListener(listChangeListener);
 	}
@@ -78,5 +78,5 @@ public class TopToolBar extends ToolBar implements TopToolBarI {
 	public void removeRemoveOption(int row) {
 		removeRowVBox.removeRow();
 	}
-	
+
 }
