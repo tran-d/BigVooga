@@ -84,7 +84,7 @@ public class SpriteCreator extends TabPane {
 
 	private void addImageStackPane(HBox parentBox) {
 		myImageStack = new StackPane();
-		myImageStack.setPrefSize(PANE_WIDTH/2-100, WelcomeScreen.HEIGHT);
+//		myImageStack.setPrefSize(PANE_WIDTH/2-100, WelcomeScreen.HEIGHT);
 		myImageStack.setMaxSize(PANE_WIDTH/2-100, WelcomeScreen.HEIGHT);
 		myImageStack.setBackground(
 				new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));

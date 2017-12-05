@@ -19,6 +19,8 @@ import tools.DisplayLanguage;
 
 public class MapManager extends TabPane {	
 	
+	public static final int VIEW_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH;
+	public static final int VIEW_HEIGHT = WelcomeScreen.HEIGHT - 35;
 	private static final String TAB_TAG = "Map";
 	
 	private Stage stage;
@@ -39,8 +41,8 @@ public class MapManager extends TabPane {
 		stage = currentStage;
 		mapEditor.getChildren().add(this);
 		mySelectModel = this.getSelectionModel();
-		this.setPrefWidth(MainAuthoringGUI.AUTHORING_WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH/2);
-		this.setPrefHeight(WelcomeScreen.HEIGHT);
+		this.setPrefWidth(VIEW_WIDTH);
+		this.setPrefHeight(VIEW_HEIGHT);
 		this.setLayoutX(ViewSideBar.VIEW_MENU_HIDDEN_WIDTH);
 		
 		setTab();
