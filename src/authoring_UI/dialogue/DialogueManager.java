@@ -31,6 +31,7 @@ public class DialogueManager {
 	private List<DialogueEditor> editorList;
 	private int currentEditor = 0;
 	private DialogueExtractor dExtractor;
+	private DialogueListView listView;
 
 	public DialogueManager() {
 
@@ -59,9 +60,13 @@ public class DialogueManager {
 	
 
 	/*************************** PRIVATE METHODS *********************************/
-
-	private void extract() {
+	
+	private void updateListView() {
 		dExtractor.extract(editorList);
+		listView = new DialogueListView(dExtractor.getDialogueList());
+		System.out.println(listView);
+		
+		hb.getChildren().add(listView);
 	}
 	
 	private void save() {
@@ -79,6 +84,8 @@ public class DialogueManager {
 			dEditor = null;
 		}
 		System.out.println("# editors: " + editorList.size());
+		
+		updateListView();
 	}
 
 	private void newEditor() {
@@ -87,7 +94,7 @@ public class DialogueManager {
 	}
 
 	private void loadEditor(int index) {
-		if (hb.getChildren().size() == 3)
+		if (hb.getChildren().size() >= 3)
 			hb.getChildren().remove(3 - 1);
 
 		if (editorList.size() <= index) {

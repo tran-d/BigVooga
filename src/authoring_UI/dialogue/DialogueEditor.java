@@ -62,7 +62,8 @@ public class DialogueEditor {
 	}
 
 	public int getFontSize() {
-		return Integer.parseInt(sizeTF.getText());
+//		return Integer.parseInt(sizeTF.getText());
+		return 0;
 	}
 
 	public String getFont() {
