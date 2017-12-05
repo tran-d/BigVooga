@@ -46,7 +46,6 @@ public class DialogueEditor {
 		this.saveConsumer = saveCons;
 		view = new VBox(10);
 		view.setPrefSize((WelcomeScreen.WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH) / 2, INPUT_HBOX_HEIGHT);
-
 		view.getStylesheets().add(DialogueManager.class.getResource("dialogue.css").toExternalForm());
 
 		this.makeTemplate();

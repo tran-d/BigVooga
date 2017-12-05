@@ -3,9 +3,7 @@ package authoring_UI.dialogue;
 import java.util.ArrayList;
 import java.util.List;
 
-import authoring_UI.MainAuthoringGUI;
 import authoring_UI.MapManager;
-import gui.welcomescreen.WelcomeScreen;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -28,15 +26,17 @@ public class DialogueManager {
 	private static final String SAVE_BUTTON_PROMPT = "Save";
 
 	private HBox hb;
-	private DialogueEditor editor;
+	private DialogueEditor dEditor;
 	private DialogueTabPane dView;
 	private List<DialogueEditor> editorList;
 	private int currentEditor = 0;
+	private DialogueExtractor dExtractor;
 
 	public DialogueManager() {
 
 		dView = new DialogueTabPane();
 		editorList = new ArrayList<>();
+		dExtractor = new DialogueExtractor();
 		hb = new HBox(NODE_SPACING);
 		hb.setPrefSize(MapManager.VIEW_WIDTH, MapManager.VIEW_HEIGHT);
 		hb.getChildren().addAll(dView, createButtonPanel());
@@ -49,14 +49,23 @@ public class DialogueManager {
 
 	/*************************** PUBLIC METHODS **********************************/
 
+	public void addDialogueListener() {
+		
+	}
+	
 	public HBox getPane() {
 		return hb;
 	}
+	
 
 	/*************************** PRIVATE METHODS *********************************/
 
+	private void extract() {
+		dExtractor.extract(editorList);
+	}
+	
 	private void save() {
-		if (editor != null && !editor.getName().trim().equals("")) {
+		if (dEditor != null && !dEditor.getName().trim().equals("")) {
 
 			// if (editorList.size() > currentEditor) {
 			// editorList.remove(currentEditor);
@@ -65,15 +74,15 @@ public class DialogueManager {
 			// else
 			// editorList.add(editor);
 
-			editorList.add(editor);
-			addUserDialogueButton(editor.getName());
-			editor = null;
+			editorList.add(dEditor);
+			addUserDialogueButton(dEditor.getName());
+			dEditor = null;
 		}
 		System.out.println("# editors: " + editorList.size());
 	}
 
 	private void newEditor() {
-		editor = new DialogueEditor(name -> save());
+		dEditor = new DialogueEditor(name -> save());
 		loadEditor(editorList.size());
 	}
 
@@ -82,10 +91,10 @@ public class DialogueManager {
 			hb.getChildren().remove(3 - 1);
 
 		if (editorList.size() <= index) {
-			hb.getChildren().add(editor.getParent());
+			hb.getChildren().add(dEditor.getParent());
 		} else {
 			hb.getChildren().add(editorList.get(index).getParent());
-			editor = editorList.get(index);
+			dEditor = editorList.get(index);
 
 		}
 
