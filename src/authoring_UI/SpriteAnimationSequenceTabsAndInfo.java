@@ -1,5 +1,6 @@
 package authoring_UI;
 
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import authoring.AbstractSpriteObject;
@@ -26,6 +27,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	
 	private AbstractSpriteObject mySO;
 	private ScrollPane containerScrollPane;
+	private ArrayList<AnimationSequence> animationsSequences;
 	private VBox containerVbox;
 	private TabPane containerTabPane;
 	private HBox addAnimationSequenceHbox;
@@ -40,6 +42,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	
 	public void setSpriteObject(AbstractSpriteObject SO){
 		mySO = SO;
+		clearAnimationSequencesList();
 		this.clearExisting();
 		SO.getAnimationSequences().forEach(AS->{
 			System.out.println("AnimationSequence: "+AS);
@@ -56,7 +59,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 		putAddAnimationSequenceButtonIntoHbox();
 		
 		
-		
+		initializeAnimationSequencesList();
 		
 		createScrollPane();
 		createContainerVBox();
@@ -66,6 +69,14 @@ public class SpriteAnimationSequenceTabsAndInfo {
 		putTabPaneAndHboxIntoContainerVbox();
 		
 		putVBoxIntoScrollPane();
+	}
+	
+	private void initializeAnimationSequencesList(){
+		 animationsSequences = new ArrayList<AnimationSequence>();
+	}
+	
+	private void clearAnimationSequencesList(){
+		animationsSequences.clear();
 	}
 	
 	private void createAnimationTabPane(){
@@ -167,7 +178,9 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	
 	
 	private Tab addAnimationSequence(AnimationSequence AS){
+		this.animationsSequences.add(AS);
 		Tab tab = new Tab();
+		tab.setText(AS.getName());
 		tab.setContent(AS.getUIContent());
 		this.containerTabPane.getTabs().add(tab);
 		return tab;
@@ -193,6 +206,10 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	
 	private void removePromptNewNameAndCreateButtonToHbox(){
 		this.addAnimationSequenceHbox.getChildren().removeAll(promptNewName, createAnimationSequenceButton);
+	}
+	
+	public void apply(){
+		mySO.setAnimationSequences(this.animationsSequences);
 	}
 	
 	

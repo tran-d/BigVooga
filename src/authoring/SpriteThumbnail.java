@@ -24,9 +24,13 @@ public class SpriteThumbnail extends Thumbnail{
 		super(im, name);
 	}
 	
-	public SpriteThumbnail(AbstractSpriteObject ASO){
+	public SpriteThumbnail(AbstractSpriteObject ASO, Boolean showButton){
 		this(ASO, ASO.getName());
 		myASO = ASO;
+	}
+	
+	public SpriteThumbnail(AbstractSpriteObject ASO){
+		this(ASO, false);
 	}
 	
 	public AbstractSpriteObject getSprite(){

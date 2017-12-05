@@ -352,6 +352,7 @@ public class DisplayPanel extends VBox {
 	private void apply() {
 		mySParameterTAI.apply();
 		mySInventoryTAI.apply();
+		mySAnimationSequenceTAI.apply();
 //		OwensActiosn.apply()
 		myAEM.getSpriteParameterSidebarManager().apply();
 	}

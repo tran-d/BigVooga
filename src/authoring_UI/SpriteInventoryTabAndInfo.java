@@ -2,12 +2,14 @@ package authoring_UI;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
 
 import authoring.AbstractSpriteObject;
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteThumbnail;
+
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -24,7 +26,7 @@ public class SpriteInventoryTabAndInfo {
 
 	private VBox containerVBox;
 	private SpriteScrollView myScrollPane;
-	private Set<AbstractSpriteObject> myInventory;
+//	private ArrayList<AbstractSpriteObject> myInventory;
 	private AbstractSpriteObject myASO;
 	private final static double MENU_WIDTH = 400;
 	private final static double MENU_HEIGHT = 500;
@@ -34,7 +36,7 @@ public class SpriteInventoryTabAndInfo {
 	private AuthoringEnvironmentManager myAEM;
 
 	private Set<AbstractSpriteObject> temporaryInventory;
-	private Set<AbstractSpriteObject> removedInventory;
+//	private List<AbstractSpriteObject> removedInventory;
 
 	SpriteInventoryTabAndInfo(AuthoringEnvironmentManager AEM) {
 		myAEM = AEM;
@@ -52,9 +54,9 @@ public class SpriteInventoryTabAndInfo {
 	private void initialize() {
 		containerVBox = new VBox(5);
 
-		myInventory = new HashSet<AbstractSpriteObject>();
+//		myInventory = new ArrayList<AbstractSpriteObject>();
 		temporaryInventory = new HashSet<AbstractSpriteObject>();
-		removedInventory = new HashSet<AbstractSpriteObject>();
+//		removedInventory = new ArrayList<AbstractSpriteObject>();
 		this.setClickEvent(click -> {
 			// Nothing by default
 		});
@@ -84,12 +86,15 @@ public class SpriteInventoryTabAndInfo {
 	}
 
 	public void addInventory(AbstractSpriteObject ASO) {
-		SpriteThumbnail ST = new SpriteThumbnail(ASO);
+		SpriteThumbnail ST = new SpriteThumbnail(ASO, true);
+		ST.addSideButton("Remove");
+		ST.setSideButtonRunnable(()->this.removeInventory(ASO));
 		ST.setOnMouseClicked(event -> {
 			itemOnClickAction.accept(ST);
 		});
 		myScrollPane.addToVBox(ST);
 	}
+	
 
 	private void remakeContainingVBoxFromNewInventory() {
 		resetScrollPane();
@@ -99,14 +104,18 @@ public class SpriteInventoryTabAndInfo {
 	}
 
 	private void setInventory(ArrayList<AbstractSpriteObject> newInventory) {
-		myInventory.clear();
-		myInventory.addAll(newInventory);
+//		myInventory.clear();
+//		myInventory.addAll(newInventory);
 //		System.out.println("Inventory: " + myInventory);
 //		myInventory.forEach(item -> {
 //			System.out.println("item : " + item);
 //		});
 		temporaryInventory.clear();
 		temporaryInventory.addAll(newInventory);
+	}
+	
+	private void removeInventory(AbstractSpriteObject ASO){
+		temporaryInventory.remove(ASO);
 	}
 
 	private void createBoundingScrollPane() {
@@ -135,7 +144,7 @@ public class SpriteInventoryTabAndInfo {
 		SSV.setChildOnClickAction(pane -> {
 			if (pane instanceof SpriteThumbnail) {
 				SpriteThumbnail ST = (SpriteThumbnail) pane;
-				ST.setClicked(!ST.isClicked());
+				ST.isClicked(!ST.isClicked());
 				if (ST.isClicked()) {
 					SSV.addToSpriteList(ST.getSprite());
 				} else {
@@ -176,8 +185,8 @@ public class SpriteInventoryTabAndInfo {
 	}
 	
 	public void apply(){
-		myInventory.addAll(temporaryInventory);
-		myASO.setInventory(myInventory);
+//		myInventory.addAll(temporaryInventory);
+		myASO.setInventory(temporaryInventory);
 	}
 
 }
