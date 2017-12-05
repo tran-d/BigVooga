@@ -33,12 +33,16 @@ public class GameObject extends VariableContainer {
 	private double width = 200; //TODO Sizes
 	private double height = 200; //TODO Sizes
 	private int uniqueID;
+	
+	private Inventory inventory;
 
 	private static final String DEFAULT_NAME = "unnamed";
 	private static final String DEFAULT_TAG = "default";
 	public static final String X_COR = "xCor";
 	public static final String Y_COR = "yCor";
 	public static final String HEADING = "heading";
+	
+	
 	
 	public GameObject() {
 		this(DEFAULT_NAME);
@@ -56,6 +60,8 @@ public class GameObject extends VariableContainer {
 		this.name = name;
 		tagSet.add(name);
 		tagSet.add(DEFAULT_TAG);
+		
+		inventory = new Inventory();
 	}
 
 	public String getName() {
@@ -250,6 +256,10 @@ public class GameObject extends VariableContainer {
 	public double getHeight()
 	{
 		return height;
+	}
+	
+	public Inventory getInventory() {
+		return inventory;
 	}
 	
 }
