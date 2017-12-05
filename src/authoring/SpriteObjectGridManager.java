@@ -189,10 +189,19 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 		return true;	
 	}
 	
-	private void removeActiveCell(Integer [] in){
+	public void removeActiveCell(Integer [] in){
 		this.getCell(in).clearPossibleParameters();
 		activeCells.remove(in);
 	}
+	
+	public void addActiveCell(AbstractSpriteObject ASO){
+		activeCells.add(ASO.getPositionOnGrid());
+	}
+	
+	public void removeActiveCell(AbstractSpriteObject ASO){
+		removeActiveCell(ASO.getPositionOnGrid());
+	}
+	
 	
 //	@Override 
 //	public void switchCellActiveStatus(SpriteObjectI SOI){
@@ -225,12 +234,13 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 	
 	@Override
 	public void clearCells(ArrayList<Integer[]> cellsToClear){
-		System.out.println(cellsToClear);
+		
+		System.out.println("cellsToClear :" + cellsToClear);
 		removeActiveCells(cellsToClear);
+		getMapLayer().removeSpritesAtPositions(cellsToClear);
 		
 		for (Integer[] loc: cellsToClear){
 			System.out.println("clearCells loc loop: "+loc);
-			
 			setCellAsDefault(loc);	
 		}
 	}

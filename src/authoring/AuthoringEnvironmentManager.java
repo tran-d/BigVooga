@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import authoring_UI.DefaultSpriteObject;
 import authoring_UI.DraggableGrid;
 import authoring_UI.SpriteSet;
 import authoring_UI.SpriteSetDefault;
@@ -15,7 +16,7 @@ import javafx.scene.layout.VBox;
 
 public class AuthoringEnvironmentManager {
 
-	private SpriteObject defaultEmptySprite;
+	private AbstractSpriteObject defaultEmptySprite;
 	private SpriteParameterSidebarManager SPSM;
 	private SpriteObjectGridManagerI SOGM;
 	private ArrayList<SpriteObject> defaultSprites;
@@ -29,7 +30,7 @@ public class AuthoringEnvironmentManager {
 
 	public AuthoringEnvironmentManager(String projectName) {
 		myGDH = new GameDataHandler(projectName);
-		defaultEmptySprite = new SpriteObject();
+		defaultEmptySprite = new DefaultSpriteObject();
 		myGrid = new DraggableGrid();
 		// SOGM = new SpriteObjectGridManager();
 		SPSM = new SpriteParameterSidebarManager(myGrid);
@@ -184,7 +185,7 @@ public class AuthoringEnvironmentManager {
 	// userSprites.add(SOI);
 	// }
 
-	public SpriteObject getDefaultEmptySprite() {
+	public AbstractSpriteObject getDefaultEmptySprite() {
 		return defaultEmptySprite;
 	}
 
