@@ -39,7 +39,6 @@ public class DisplayPanel extends VBox {
 	private static final double DISPLAY_PANEL_HEIGHT = WelcomeScreen.HEIGHT/2;
 	
 	public static final ResourceBundle conditionActionTitles = ResourceBundle.getBundle(ACTIONCONDITIONTITLES_PATH);
-	
 
 	protected DisplayPanel(AuthoringEnvironmentManager AEM, MapManager myManager) {
 		mySParameterTAI = new SpriteParameterTabsAndInfo();
@@ -52,7 +51,6 @@ public class DisplayPanel extends VBox {
 
 	private void setErrorMessage() {
 		myParameterErrorMessage = new TextArea("Either no active cells or active cells have different parameters");
-		// System.out.println("Making error message");
 	}
 
 	private void setSpriteInfoAndVBox() {
