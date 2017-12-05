@@ -40,7 +40,7 @@ public class ActionConditionTab extends Tab implements ActionConditionTabI {
 
 	private void setUpActionConditionManager(String title) {
 		buttons = new TopToolBar(title);
-		actionConditionVBox = new ActionConditionVBox(actionTabResources.getString("SelectorLabel"),isConditionTab);
+		actionConditionVBox = new ActionConditionVBox(getSelectorLabel(),isConditionTab);
 		VBox mainVBox = new VBox(SPACING);
 		mainVBox.getChildren().addAll(buttons,actionConditionVBox);
 		actionConditionManager.setContent(mainVBox);
@@ -129,6 +129,11 @@ public class ActionConditionTab extends Tab implements ActionConditionTabI {
 	@Override
 	public TopToolBar getTopToolBar() {
 		return buttons;
+	}
+
+	@Override
+	public String getSelectorLabel() {
+		return actionTabResources.getString("SelectorLabel");
 	}
 	
 	

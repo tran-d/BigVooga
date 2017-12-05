@@ -1,7 +1,5 @@
 package authoring;
 
-import java.io.File;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -281,8 +279,7 @@ public class SpriteObject extends ImageView implements SpriteObjectI {
 				return false;
 			}
 		}
-		fix this
-		if(!conditionTab.isEqualTo(other.getConditionTab()) || actionTab.isEqualTo(other.getActionTab())) return false; //////////////////////////////
+		if(!(conditionRows.equals(other.getConditionRows()) && actionRows.equals(other.getActionRows()))) return false; 
 		return true;
 	}
 

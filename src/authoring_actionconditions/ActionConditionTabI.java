@@ -15,5 +15,6 @@ public interface ActionConditionTabI {
 	public boolean isEqualTo(ActionConditionTab actionConditionTab);
 	public ActionConditionVBox getActionConditionVBox();
 	public TopToolBar getTopToolBar();
+	public String getSelectorLabel();
 	
 }

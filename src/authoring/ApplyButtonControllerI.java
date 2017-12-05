@@ -2,7 +2,7 @@ package authoring;
 
 public interface ApplyButtonControllerI {
 	
-	public void updateActionConditionTabs();
-	public void updateSpriteObject();
+	public void updateActionConditionTabs(SpriteObject spriteObject);
+	public void updateSpriteObject(SpriteObject spriteObject);
 
 }
