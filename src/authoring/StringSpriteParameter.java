@@ -1,13 +1,16 @@
 package authoring;
 
-import javafx.application.Platform;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Control;
-import javafx.scene.control.TextArea;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 
 public class StringSpriteParameter extends SpriteParameter {
 	
 	String myValue; 
+	
+	StringSpriteParameter(){
+		
+	}
 	
 	public StringSpriteParameter(String name, Object value){
 			super(name, value);	
@@ -75,4 +78,16 @@ public class StringSpriteParameter extends SpriteParameter {
 //		
 //	}
 //
+	
+	@Override
+	public void writeExternal(ObjectOutput out) throws IOException {
+		out.writeObject(myName);
+		out.writeObject(myValue);
+	}
+
+	@Override
+	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+		myName = (String)in.readObject();
+		myValue = (String)in.readObject();
+	}
 }

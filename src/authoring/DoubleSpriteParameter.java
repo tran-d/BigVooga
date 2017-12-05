@@ -1,5 +1,10 @@
 package authoring;
 
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Observable;
 
 import javafx.application.Platform;
@@ -13,6 +18,10 @@ public class DoubleSpriteParameter extends SpriteParameter {
 //	String myName;
 	Double myValue; 
 //	TextArea myTextArea;
+	
+	DoubleSpriteParameter(){
+		
+	}
 	
 	DoubleSpriteParameter(String name, Object value){
 		super(name, value);
@@ -146,6 +155,18 @@ public class DoubleSpriteParameter extends SpriteParameter {
 //			System.out.println("End of method");
 		
 		return true;
+	}
+
+	@Override
+	public void writeExternal(ObjectOutput out) throws IOException {
+		out.writeObject(myName);
+		out.writeObject(myValue);
+	}
+
+	@Override
+	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+		myName = (String)in.readObject();
+		myValue = (Double)in.readObject();
 	}
 	
 
