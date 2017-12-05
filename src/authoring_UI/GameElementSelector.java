@@ -1,5 +1,6 @@
 package authoring_UI;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -311,23 +312,41 @@ public class GameElementSelector extends TabPane implements Observer {
 					AbstractSpriteObject toPopulate = sprites.get(counter);
 					System.out.println("Adding " + toPopulate);
 					sp.getChildren().add(toPopulate);
-				} else {
-					if (i%5==0) {
-					SpriteObject SO = new SpriteObject();
-					//SO.setImage(new Image("brick.png"));
-					sp.getChildren().add(SO);
-					}
-				}
+//				} else {
+//					if (i%5==0) {
+//					SpriteObject SO = new SpriteObject();
+//					System.out.println("Name: "+toPopulate.getName());
+//					System.out.println("ImageURL: "+toPopulate.getImageURL());
+//					 try {
+//						String current = new java.io.File( "." ).getCanonicalPath();
+//						System.out.println(current);
+//						File f = new File("");
+//						System.out.println("Abs: "+f.getAbsolutePath());
+//						System.out.println("Canon :"+f.getCanonicalPath());
+//						System.out.println("Basic: "+f.getPath());
+//						File g; 
+//						while true{
+//							File[] files = 
+//						}
+//					} catch (IOException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+					toPopulate.setImage(new Image("/brick.png"));
+//					sp.getChildren().add(SO);
+//					}
+//				}
 				counter++;
 				
 				gp.add(sp, j, i);
 			}
 		}
+		}
 
 		
-		ScrollPane sp = new ScrollPane(gp);
+		ScrollPane SP = new ScrollPane(gp);
 		//sp.getStylesheets().add(this.getClass().getResource("gui.welcomescreen/" + MenuOptionsTemplate.SCROLLPANE_CSS).toExternalForm());
-		return sp;
+		return SP;
 	}
 
 	// private ImageView createTrash() {

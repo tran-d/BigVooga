@@ -1,10 +1,11 @@
-package authoring_UI.dialogue;
+package authoring_UI.HUD;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import authoring_UI.MainAuthoringGUI;
 import authoring_UI.MapManager;
+import authoring_UI.dialogue.DialogueEditor;
+import authoring_UI.dialogue.DialogueTabPane;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,13 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import tools.DisplayLanguage;
 
-/**
- * Class that represents the pane containing all dialogue authoring components
- * 
- * @author DavidTran
- *
- */
-public class DialogueManager {
+public class HUDManager {
 
 	private static final double NODE_SPACING = 20;
 	private static final double BUTTON_WIDTH = 300;
@@ -33,7 +28,7 @@ public class DialogueManager {
 	private List<DialogueEditor> editorList;
 	private int currentEditor = 0;
 
-	public DialogueManager() {
+	public HUDManager() {
 
 		dView = new DialogueTabPane();
 		editorList = new ArrayList<>();
@@ -122,4 +117,5 @@ public class DialogueManager {
 		btn.setOnAction(e -> loadEditor(id));
 		dView.addUserDialogueButton(id, btn);
 	}
+	
 }
