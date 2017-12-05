@@ -53,6 +53,7 @@ public class ApplyButtonController implements ApplyButtonControllerI {
 			actionRows.add(actionRow);
 			rowAct++;
 		}
+		conditionTab = new ActionConditionTab(ResourceBundleUtil.getTabTitle("ConditionsTabTitle"),new ActionConditionVBox)
 	}
 
 	@Override
