@@ -83,10 +83,12 @@ public class DraggableGrid extends VBox {
 		}
 		ScrollPane scrollGrid = new ScrollPane(myStackPane);
 		scrollGrid.setPannable(true);
-		scrollGrid.setMaxWidth(WelcomeScreen.WIDTH/2);
+		//scrollGrid.setMaxWidth(MainAuthoringGUI.AUTHORING_WIDTH/2 + 170);
 //		scrollGrid.mouse
 		// spriteGridHandler.addGrid(gp);
 		this.getChildren().add(1, scrollGrid);
+		this.setMaxWidth(MainAuthoringGUI.AUTHORING_WIDTH/2 + 110);
+		this.setMaxHeight(WelcomeScreen.HEIGHT-75);
 	}
 	
 	public List<SpriteObjectGridManager> getGrids(){
@@ -98,15 +100,15 @@ public class DraggableGrid extends VBox {
 	private void makeLayers(SpriteGridHandler spriteGridHandler){
 		gridManagers = new ArrayList<SpriteObjectGridManager>();
 //		MapLayer terrain = new TerrainLayer(15,15,spriteGridHandler);
-		SpriteObjectGridManager terrain = new TerrainObjectGridManager(15, 15, spriteGridHandler);
+		SpriteObjectGridManager terrain = new TerrainObjectGridManager(20, 20, spriteGridHandler);
 //		MapLayer terrain = terrMan.getMapLayer();
 //		this.getChildren().add(terrain);
 //		myStackPane.getChildren().add(new ImageView(new Image("pikachu.png")));
 //		makeLayerButton(terrain);
 //		SpriteLayer sprites = new SpriteLayer(15,15,spriteGridHandler);
 //		MapLayer panels = new PanelLayer(15,15,spriteGridHandler);
-		SpriteObjectGridManagerForSprites sprites = new SpriteObjectGridManagerForSprites(15, 15, spriteGridHandler);
-		PanelObjectGridManager panels = new PanelObjectGridManager(15, 15, spriteGridHandler);
+		SpriteObjectGridManagerForSprites sprites = new SpriteObjectGridManagerForSprites(20, 20, spriteGridHandler);
+		PanelObjectGridManager panels = new PanelObjectGridManager(20, 20, spriteGridHandler);
 		gridManagers.add(terrain);
 		gridManagers.add(sprites);
 		gridManagers.add(panels);
