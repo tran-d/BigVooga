@@ -36,6 +36,7 @@ public class MapManager extends TabPane {
 	private String addTabString;
 
 	private Pane mapEditor = new Pane();
+	private SpritePanels spritePanels;
 
 	public MapManager(Stage currentStage) {
 		stage = currentStage;
@@ -81,7 +82,7 @@ public class MapManager extends TabPane {
 		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, myGrid);
 		myGrid.construct(mySpriteGridHandler);
 		mySpriteGridHandler.addKeyPress(stage.getScene());
-		SpritePanels spritePanels = new SpritePanels(this, mySpriteGridHandler, myAEM, mySOGM);
+		spritePanels = new SpritePanels(this, mySpriteGridHandler, myAEM, mySOGM);
 		mySpriteGridHandler.setDisplayPanel(spritePanels);
 //
 //<<<<<<< HEAD
@@ -116,5 +117,9 @@ public class MapManager extends TabPane {
 	
 	public Pane getPane() {
 		return mapEditor;
+	}
+	
+	public Tab getDialoguesTab() {
+		return spritePanels.getDialoguesTab();
 	}
 }

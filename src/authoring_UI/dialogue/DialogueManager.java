@@ -7,6 +7,8 @@ import authoring_UI.MapManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import tools.DisplayLanguage;
@@ -32,6 +34,8 @@ public class DialogueManager {
 	private int currentEditor = 0;
 	private DialogueExtractor dExtractor;
 	private DialogueListView listView;
+	
+	private Tab mapDialoguesTab;
 
 	public DialogueManager() {
 
@@ -50,8 +54,8 @@ public class DialogueManager {
 
 	/*************************** PUBLIC METHODS **********************************/
 
-	public void addDialogueListener() {
-		
+	public void addDialogueListener(Tab dialoguesTab) {
+		mapDialoguesTab = dialoguesTab;
 	}
 	
 	public HBox getPane() {
@@ -66,7 +70,8 @@ public class DialogueManager {
 		listView = new DialogueListView(dExtractor.getDialogueList());
 		System.out.println(listView);
 		
-		hb.getChildren().add(listView);
+//		hb.getChildren().add(listView);
+		mapDialoguesTab.setContent(listView);
 	}
 	
 	private void save() {

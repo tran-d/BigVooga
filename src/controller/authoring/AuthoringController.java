@@ -41,6 +41,7 @@ public class AuthoringController {
 		//SpriteCreator mySpriteCreator = new SpriteCreator(stage, mySprites, myAEM);
 		
 		DialogueManager dm = new DialogueManager();
+		dm.addDialogueListener(mapManager.getDialoguesTab());
 		viewMap.put(DIALOGUE_KEY, dm.getPane());
 		
 		HUDManager hudManager = new HUDManager();
