@@ -9,7 +9,6 @@
 .tab-pane *.tab-header-area *.tab-header-background {
   -fx-background-color: transparent;
   -fx-border-color: #47BDFF;
-  -fx-padding: 1px;
 }
 
 .tab {
@@ -22,8 +21,11 @@
 }
 
 .tab:selected {
-	-fx-effect: null;
     -fx-background-color: #FFCD3C;
+}
+
+.tab:hover {
+	-fx-background-color: #FFCD3C;
 }
 
 .scroll-pane > .viewport {
@@ -73,9 +75,15 @@
 
 .button:visited {
 	-fx-background-color: #FFCD3C;
+	-fx-background-insets: 0 0 0.5px 0;
 }
 .button:hover {
     -fx-background-color: #FFCD3C;
+    -fx-background-insets: 0 0 0.5px 0;
+}
+
+.text{
+	-fx-text-fill: #47BDFF;
 }
 
 .menu-button{
@@ -90,6 +98,7 @@
 
 .menu-button:hover {
     -fx-background-color: #FFCD3C;
+    -fx-background-insets: 0 0 0.5px 0;
 }
 
 .menu-item{
@@ -108,9 +117,40 @@
     -fx-padding: 0px;
 }
 
+.choice-box {
+	-fx-background-color: transparent;
+	-fx-border-color: #47BDFF;
+	-fx-mark-color: #47BDFF;
+	-fx-focused-mark-color: transparent;
+}
+
+.choice-box:hover {
+	-fx-background-color: #FFCD3C;
+	-fx-background-insets: 0 0 0.5px 0;
+	
+}
+
+.choice-box > .arrow-button {
+    -fx-background-color: #47BDFF;
+}
+
 .text-area{
 	-fx-border-color: #47BDFF;
 	-fx-background-color: transparent;
+}
+
+.check-box .box {
+    -fx-background-color: transparent;
+    -fx-border-color: #47BDFF;
+    -fx-background-insets: 0 0 0.5px 0;
+}
+
+.check-box .box:hover {
+    -fx-background-color: #FFCD3C;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: #47BDFF;
 }
 
 .separator{

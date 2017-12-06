@@ -21,6 +21,7 @@ import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 
@@ -166,6 +167,7 @@ public class DisplayPanel extends VBox {
 
 	private void createSpriteTabs() {
 		mySpriteTabs = new TabPane();
+		mySpriteTabs.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 		mySpriteTabs.setSide(Side.TOP);
 		createParameterTab();
 		createDialogueTab();

@@ -3,6 +3,7 @@ package ActionConditionClasses;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
@@ -13,6 +14,7 @@ public abstract class VBoxList<T> extends VBox implements VBoxListI<T> {
 
 	public VBoxList(String label, ObservableList<T> options) {
 		super();
+		this.setAlignment(Pos.CENTER);
 		topLabel = new Label(label);
 		getChildren().add(topLabel);
 		boxOptions = FXCollections.observableArrayList();
