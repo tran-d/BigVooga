@@ -6,6 +6,7 @@ import authoring.AbstractSpriteObject;
 import authoring.InventoryObject;
 import authoring.SpriteObject;
 import authoring.SpriteObjectGridManagerI;
+import javafx.event.Event;
 import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Effect;
@@ -16,6 +17,8 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -87,8 +90,15 @@ public class SpriteGridHandler {
 
 	protected void addGridMouseClick(AuthoringMapStackPane pane) {
 		pane.setOnMouseClicked(e -> {
-			if (!pane.hasChild() && !pane.isCoveredByOtherSprite()) {
-				changeCellStatus(pane);
+			if (!pane.hasChild()){
+				if (!pane.isCoveredByOtherSprite()){
+					changeCellStatus(pane);
+				} else if (pane.isCoveredByOtherSprite()){
+					Event.fireEvent(pane.getCoveringSprite(), new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
+			                0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+			                true, true, true, true, true, true, null));
+				}
+				
 			}
 		});
 	}
