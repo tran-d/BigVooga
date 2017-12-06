@@ -36,6 +36,11 @@ public class SpriteUtilityTabAndInfo {
 		initialize();
 	}
 	
+//	public void reset() {
+//		myASO = null;
+//		resetScrollPane();
+//	}
+	
 	private void initialize(){
 		makeContainerVBox();
 		makeScrollPane();
@@ -98,6 +103,8 @@ public class SpriteUtilityTabAndInfo {
 	public ScrollPane getScrollPane(){
 		return containerScrollPane;
 	}
+	
+	
 	
 	public void putVBoxIntoScrollPane(){
 		containerScrollPane.setContent(getContainerVBox());

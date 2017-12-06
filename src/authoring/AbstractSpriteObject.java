@@ -477,6 +477,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 	}
 
 	protected void replaceCategoryMap(HashMap<String, ArrayList<SpriteParameterI>> newParams) {
+		System.out.println("Replacing cat map");
 		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(newParams);
 	}
 

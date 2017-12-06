@@ -2,6 +2,7 @@ package authoring;
 
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.image.ImageView;
@@ -20,9 +21,18 @@ public class Thumbnail extends HBox{
 	private int HEIGHT = 40;
 	private int WIDTH = 100;
 	private boolean isClicked;
+	protected Runnable onButtonClick;
+	protected Button sideButton;
 	
 	public Thumbnail(ImageView im, String name){
 		setup(im, name);
+	}
+	
+	public Thumbnail(ImageView im, String name, Boolean showSideButton){
+		this(im, name);
+		if (showSideButton){
+			this.addSideButton();
+		}
 	}
 	
 	private void createLabel(String name){
@@ -42,7 +52,7 @@ public class Thumbnail extends HBox{
 		this.getChildren().add(imView);
 	}
 	
-	public void setClicked(boolean in){
+	public void isClicked(boolean in){
 		isClicked = in;
 		if (in){
 			this.setBackground(new Background(new BackgroundFill(Color.BEIGE, null, null)));
@@ -66,6 +76,43 @@ public class Thumbnail extends HBox{
 		s.setOrientation(Orientation.VERTICAL);
 		this.getChildren().add(s);
 		createLabel(name);
+		onButtonClick = new Runnable(){
+			@Override
+			public void run() {
+				// Do nothing by default		
+			}	
+		};
+	}
+	
+	protected void addSideButton(){
+		addSideButton("");
+	}
+	
+	public void addSideButton(String text){
+		sideButton = new Button();
+		sideButton.setText(text);
+		sideButton.setOnAction(event->{
+			this.onButtonClick.run();
+		});
+		this.getChildren().add(sideButton);
+	}
+	
+	public void addSideButton(String text, Runnable r){
+		sideButton = new Button();
+		sideButton.setText(text);
+		setSideButtonRunnable(r);
+		sideButton.setOnAction(event->{
+			r.run();
+		});
+		this.getChildren().add(sideButton);
+	}
+	
+	public void removeSideButton(){
+		this.getChildren().remove(sideButton);
+	}
+
+	public void setSideButtonRunnable(Runnable r){
+		this.onButtonClick = r;
 	}
 
 }
