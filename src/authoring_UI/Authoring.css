@@ -156,3 +156,7 @@
 .separator{
 	-fx-background: #47BDFF;
 }
+
+#NumberSpinnerArrow {
+    -fx-stroke: #47BDFF;
+}

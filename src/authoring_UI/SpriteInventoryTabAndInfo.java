@@ -33,7 +33,7 @@ public class SpriteInventoryTabAndInfo {
 	private Consumer<Pane> itemOnClickAction;
 	private Consumer buttonAction;
 	private String buttonText;
-	private AuthoringEnvironmentManager myAEM;
+	private AuthoringEnvironmentManager myAEM; 
 
 	private Set<AbstractSpriteObject> temporaryInventory;
 //	private List<AbstractSpriteObject> removedInventory;

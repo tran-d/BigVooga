@@ -624,7 +624,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 	}
 	
 	public void createNewAnimationSequence(String name){
-		myAnimationSequences.add(new AnimationSequence(name));
+		myAnimationSequences.add(new AnimationSequence(name)); 
 	}
 	
 	public AnimationSequence getAnimationSequence(String name){

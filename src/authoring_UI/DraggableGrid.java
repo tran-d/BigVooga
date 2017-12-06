@@ -141,7 +141,7 @@ public class DraggableGrid extends VBox {
 		mySGH.removeActiveCells();
 		if (gridManagers.contains(ML)){
 			gridManagers.remove(ML);
-		}
+		} 
 		ML.setVisible(false);
 	}
 	
@@ -170,12 +170,18 @@ public class DraggableGrid extends VBox {
 	}
 	
 	private void addLayerButton(HBox in){
-		if (this.topHbox.getChildren().size()!=0){
-			Separator s = new Separator();
-			s.setOrientation(Orientation.VERTICAL);
-			topHbox.getChildren().add(s);
+		if (this.topHbox.getChildren().size()==0){
+		Separator s = new Separator();
+		
+		s.setOrientation(Orientation.VERTICAL);
+		topHbox.getChildren().add(s);
 		}
+		
 		topHbox.getChildren().add(in);
+		Separator s = new Separator();
+		
+		s.setOrientation(Orientation.VERTICAL);
+		topHbox.getChildren().add(s);
 	}
 	// private void createTerrainGrid() {
 	// terrainGrid = new GridPane();
