@@ -2,10 +2,10 @@ package authoring_actionconditions;
 
 public class ControllerConditionActionTabs {
 	
-	private ActionConditionTab conditionTab;
-	private ActionConditionTab actionTab;
+	private ConditionTab conditionTab;
+	private ActionTab actionTab;
 	
-	public ControllerConditionActionTabs(ActionConditionTab conditionTab,ActionConditionTab actionTab) {
+	public ControllerConditionActionTabs(ConditionTab conditionTab,ActionTab actionTab) {
 		this.conditionTab = conditionTab;
 		this.actionTab = actionTab;
 		this.conditionTab.addButtonListener(e -> addConditionActionRow(this.conditionTab));
@@ -20,14 +20,17 @@ public class ControllerConditionActionTabs {
 		});
 	}
 	
-	private void addConditionActionRow(ActionConditionTab actionConditionTab) {
+	private void addConditionActionRow(ActionTab actionConditionTab) {
 		if(!(actionConditionTab.getActionCondition() == null)) {
-			actionConditionTab.addConditionAction(actionConditionTab.getActionCondition(),actionTab.getCurrentActions());
+			if(actionConditionTab instanceof ConditionTab) {
+				((ConditionTab) actionConditionTab).addCondition(actionConditionTab.getActionCondition(),actionTab.getCurrentActions());
+			}
+			else ((ActionTab) actionConditionTab).addAction(actionConditionTab.getActionCondition());
 			actionConditionTab.addRemoveOption();
 		}
 	}
 	
-	private void removeConditionActionRow(ActionConditionTab actionConditionTab) {
+	private void removeConditionActionRow(ActionTab actionConditionTab) {
 		if(!(actionConditionTab.getRemoveValue() == null)) {
 			int rowToBeRemoved = actionConditionTab.getRemoveValue();
 			actionConditionTab.removeActionCondtion(rowToBeRemoved - 1);

@@ -5,12 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import ActionConditionClasses.ApplyButtonController;
 import ActionConditionClasses.ResourceBundleUtil;
-import authoring.ApplyButtonController;
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObject;
 import authoring.SpriteParameterI;
-import authoring_actionconditions.ActionConditionTab;
+import authoring_actionconditions.ActionTab;
+import authoring_actionconditions.ConditionTab;
 import authoring_actionconditions.ControllerConditionActionTabs;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.geometry.Side;
@@ -29,8 +31,8 @@ public class DisplayPanel extends VBox {
 	private TabPane mySpriteTabs;
 	private VBox myParamTabVBox;
 	private TextArea myParameterErrorMessage;
-	private ActionConditionTab conditions;
-	private ActionConditionTab actions;
+	private ConditionTab conditions;
+	private ActionTab actions;
 	private ApplyButtonController applyButtonController;
 	private SpriteParameterTabsAndInfo mySParameterTAI;
 	private SpriteInventoryTabAndInfo mySInventoryTAI;
@@ -108,8 +110,8 @@ public class DisplayPanel extends VBox {
 	
 	
 	private void createActionConditionTabs() {
-		conditions = new ActionConditionTab(ResourceBundleUtil.getTabTitle("ConditionsTabTitle"));
-		actions = new ActionConditionTab(ResourceBundleUtil.getTabTitle("ActionsTabTitle"));
+		conditions = new ConditionTab(ResourceBundleUtil.getTabTitle("ConditionsTabTitle"));
+		actions = new ActionTab(ResourceBundleUtil.getTabTitle("ActionsTabTitle"));
 		ControllerConditionActionTabs controllerConditionActionTabs = new ControllerConditionActionTabs(conditions,actions);
 		applyButtonController = new ApplyButtonController(conditions,actions);
 		mySpriteTabs.getTabs().addAll(conditions,actions);

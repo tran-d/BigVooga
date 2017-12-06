@@ -1,14 +1,14 @@
 package authoring;
 
-import authoring_actionconditions.ActionConditionTab;
+import authoring_actionconditions.ActionTab;
 
 public class ControllerActionConditionTabsSpriteObject implements ControllerActionConditionTabI{
 	
 	private SpriteObject spriteObject;
-	private ActionConditionTab conditionTab;
-	private ActionConditionTab actionTab;
+	private ActionTab conditionTab;
+	private ActionTab actionTab;
 
-	public ControllerActionConditionTabsSpriteObject(SpriteObject spriteObject,ActionConditionTab conditionTab,ActionConditionTab actionTab) {
+	public ControllerActionConditionTabsSpriteObject(SpriteObject spriteObject,ActionTab conditionTab,ActionTab actionTab) {
 		this.spriteObject = spriteObject;
 		this.conditionTab = conditionTab;
 		this.actionTab = actionTab;

@@ -83,6 +83,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 	
 	protected ArrayList<AnimationSequence> myAnimationSequences;
 	
+	private ObservableList<Integer> allConditions;
 	private ObservableList<Integer> allActions;
 	private HashMap<List<String>,List<Integer>> conditionRows;
 	private List<List<String>> actionRows;
@@ -641,6 +642,10 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return AS;
 	}
 	
+	public void setAllConditions(ObservableList<Integer> allConditions) {
+		this.allConditions = allConditions;
+	}
+	
 	public void setAllActions(ObservableList<Integer> allActions) {
 		this.allActions = allActions;
 	}
@@ -651,6 +656,10 @@ public abstract class AbstractSpriteObject extends ImageView {
 
 	public void setActionRows(List<List<String>> actionRows) {
 		this.actionRows = actionRows;
+	}
+	
+	public ObservableList<Integer> getAllConditions() {
+		return allConditions;
 	}
 
 	public ObservableList<Integer> getAllActions() {

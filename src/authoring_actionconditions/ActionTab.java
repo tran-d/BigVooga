@@ -2,7 +2,6 @@ package authoring_actionconditions;
 
 import java.util.ResourceBundle;
 import ActionConditionClasses.ResourceBundleUtil;
-import authoring_UI.DisplayPanel;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,26 +10,24 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
 
-public class ActionConditionTab extends Tab implements ActionConditionTabI {
+public class ActionTab<T> extends Tab implements ActionTabI<T> {
 	
 	private static final double SPACING = 10;
 	
 	private ScrollPane actionConditionManager;
 	private TopToolBar buttons;
-	private ActionConditionVBox actionConditionVBox;
-	private boolean isConditionTab;
+	private ActionConditionVBox<T> actionConditionVBox;
 	private ResourceBundle actionTabResources;
 	
-	public ActionConditionTab(String title) {
+	public ActionTab(String title) {
 		super(title);
-		determineTabType(title);
 		actionTabResources = ResourceBundleUtil.getResourceBundle(title);
 		actionConditionManager = new ScrollPane();
 		setContent(actionConditionManager);
 		setUpActionConditionManager(title);
 	}
 	
-	public ActionConditionTab(String title,ActionConditionVBox actionConditionVBox,TopToolBar topToolBar) {
+	public ActionTab(String title,ActionConditionVBox<T> actionConditionVBox,TopToolBar topToolBar) {
 		this(title);
 		this.actionConditionVBox = actionConditionVBox;
 		buttons = topToolBar;
@@ -38,47 +35,45 @@ public class ActionConditionTab extends Tab implements ActionConditionTabI {
                                                                                                                                                                                                                                                                           
 	private void setUpActionConditionManager(String title) {
 		buttons = new TopToolBar(title);
-		actionConditionVBox = new ActionConditionVBox(getSelectorLabel(),isConditionTab);
+		actionConditionVBox = setActionConditionVBox();
 		VBox mainVBox = new VBox(SPACING);
 		mainVBox.getChildren().addAll(buttons,actionConditionVBox);
 		actionConditionManager.setContent(mainVBox);
 	}
 	
-	protected void addTopToolBarListChangeListener(ListChangeListener<Integer> listChangeListener) {
+	@Override
+	public void addTopToolBarListChangeListener(ListChangeListener<Integer> listChangeListener) {
 		buttons.addRemoveRowVBoxListener(listChangeListener);
 	}
 	
-	protected ObservableList<Integer> getCurrentActions() {
+	@Override
+	public ObservableList<Integer> getCurrentActions() {
 		return buttons.getRemoveRowVBoxOptions();
 	}
 	
-	protected void setNewActionOptions(ObservableList<Integer> newActionOptions) {
-		actionConditionVBox.setNewActionOptions(newActionOptions);
-	}
-	
-	protected String getActionCondition() {
+	@Override
+	public String getActionCondition() {
 		return buttons.getOptionsValue();
 	}
 	
-	protected void addConditionAction(String label,ObservableList<Integer> currentActions) {
-		actionConditionVBox.addConditionAction(label,currentActions);
+	@Override
+	public void addAction(String label) {
+		((ActionVBox<T>) actionConditionVBox).addAction(label);
 	}
 	
-	protected void addRemoveOption() {
+	@Override
+	public void addRemoveOption() {
 		buttons.addRemoveOption();
 	}
 	
-	protected void removeActionCondtion(Integer row) {
+	@Override
+	public void removeActionCondtion(Integer row) {
 		actionConditionVBox.removeConditionAction(row);
 	}
 	
-	protected void removeRowOption(Integer row) {
+	@Override
+	public void removeRowOption(Integer row) {
 		buttons.removeRemoveOption(row);
-	}
-	
-	private void determineTabType(String title) {
-		if(title.equals(DisplayPanel.conditionActionTitles.getString("ConditionsTabTitle"))) isConditionTab = true;
-		else isConditionTab = false;
 	}
 
 	@Override
@@ -97,17 +92,7 @@ public class ActionConditionTab extends Tab implements ActionConditionTabI {
 	}
 
 	@Override
-	public void addActionOption() {
-		actionConditionVBox.addActionOption();
-	}
-
-	@Override
-	public void removeActionOption(Integer action) {
-		actionConditionVBox.removeActionOption(action);
-	}
-
-	@Override
-	public ActionConditionVBox getActionConditionVBox() {
+	public ActionConditionVBox<T> getActionConditionVBox() {
 		return actionConditionVBox;
 	}
 
@@ -121,6 +106,9 @@ public class ActionConditionTab extends Tab implements ActionConditionTabI {
 		return actionTabResources.getString("SelectorLabel");
 	}
 	
-	
+	@Override
+	public ActionConditionVBox<T> setActionConditionVBox() {
+		return new ActionVBox<T>(getSelectorLabel());
+	}
 	
 }

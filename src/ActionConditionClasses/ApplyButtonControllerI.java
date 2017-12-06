@@ -1,4 +1,6 @@
-package authoring;
+package ActionConditionClasses;
+
+import authoring.SpriteObject;
 
 public interface ApplyButtonControllerI {
 	

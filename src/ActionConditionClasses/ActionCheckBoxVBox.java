@@ -70,4 +70,9 @@ public class ActionCheckBoxVBox<T> extends VBoxList<T> implements ActionCheckBox
 		}
 	}
 
+	@Override
+	public Object getSelectedActions() {
+		return getCurrentValue();
+	}
+
 }

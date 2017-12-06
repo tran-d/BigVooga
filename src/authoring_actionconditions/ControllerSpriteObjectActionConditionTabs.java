@@ -4,7 +4,7 @@ import authoring.SpriteObject;
 
 public class ControllerSpriteObjectActionConditionTabs {
 	
-	public ControllerSpriteObjectActionConditionTabs(SpriteObject spriteObject,ActionConditionTab conditionTab,ActionConditionTab actionTab) {
+	public ControllerSpriteObjectActionConditionTabs(SpriteObject spriteObject,ActionTab conditionTab,ActionTab actionTab) {
 		
 	}
 

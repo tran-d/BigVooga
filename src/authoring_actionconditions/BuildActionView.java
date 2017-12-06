@@ -1,12 +1,11 @@
 package authoring_actionconditions;
 
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 public class BuildActionView {
+	
 	private double WIDTH = 500;
 	private double HEIGHT = 500;
 

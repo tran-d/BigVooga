@@ -1,6 +1,5 @@
 package authoring_actionconditions;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -13,11 +12,8 @@ import javafx.scene.control.Button;
  */
 public class ActionRow extends ActionConditionRow {
 
-	public ActionRow(int ID, String label, String selectorLabel,
-			ObservableList<Integer> newActionOptions, ActionConditionVBox ACVBox) {
-		super(ID, label, selectorLabel, newActionOptions, ACVBox);
-		
-
+	public ActionRow(int ID, String label, String selectorLabel,String selectedAction, ActionConditionVBox ACVBox) {
+		super(ID, label, selectorLabel, selectedAction, ACVBox);
 		addBuildActionButton(e -> openBuildWindow());
 	}
 
