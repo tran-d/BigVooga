@@ -266,6 +266,7 @@ public class GameDataHandler {
 			Path p = Paths.get(RESOURCES_PATH.toString(), file.getName());
 			System.out.println("Path p: "+p);
 		
+			System.out.println();
 			Files.copy(file.toPath(), p, StandardCopyOption.REPLACE_EXISTING);
 	}
 
@@ -442,6 +443,7 @@ public class GameDataHandler {
 		}
 		File[] files = directory.listFiles();
 		for (File f : files) {
+			
 			try {
 				DraggableGrid temp = loadWorld(f);
 				worlds.add(temp);

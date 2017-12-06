@@ -221,6 +221,32 @@ public class GameElementSelector extends TabPane implements Observer {
 		SO.setNumCellsHeightNoException(2);
 		SO.setNumCellsWidthNoException(2);
 		SO.setImageURL(urls.get(4));
+		try {
+			myGDH.saveDefaultSprite(SO);
+			System.out.println("Saved " + SO.getImageURL());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+
+		// SpriteObject SO = new SpriteObject(urls.get(4));
+		// ArrayList<SpriteParameterI> myParams = new
+		// ArrayList<SpriteParameterI>();
+		// myParams.add(mySPF.makeParameter("canFight", true));
+		// myParams.add(mySPF.makeParameter("health", 10));
+		// myParams.add(mySPF.makeParameter("arrows", 10));
+		// myParams.add(mySPF.makeParameter("name", s.get(0)));
+		// myParams.add(mySPF.makeParameter("stamina", 50));
+		// for (SpriteParameterI SP: myParams){
+		// SO.addParameter(SP);
+		// }
+		// mySpriteObjs.add(SO);
+
 	}
 
 	private void createSpriteTabs() {

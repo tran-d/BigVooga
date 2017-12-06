@@ -37,14 +37,14 @@ public class MapManager extends TabPane {
 	private Tab currentTab;
 	private String addTabString;
 	private boolean oldProject;
-	private String projectName = "";
+	private String projectName = "TestProject";
 	private GameDataHandler myGDH;
 	private int numWorlds = 1;
 
 	private Pane mapEditor = new Pane();
 	private SpritePanels spritePanels;
 
-	public MapManager(Stage currentStage) throws Exception {
+	public MapManager(Stage currentStage)  {
 		stage = currentStage;
 		mapEditor.getChildren().add(this);
 		mySelectModel = this.getSelectionModel();
@@ -56,8 +56,13 @@ public class MapManager extends TabPane {
 		}
 		myGDH = new GameDataHandler(projectName); 
 		if (oldProject) {
-			for (DraggableGrid myWorld : myGDH.loadWorldsFromDirectoryName(projectName)) {
-				setTab(myWorld);
+			try {
+				for (DraggableGrid myWorld : myGDH.loadWorldsFromDirectoryName(projectName)) {
+					setTab(myWorld);
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		else {
