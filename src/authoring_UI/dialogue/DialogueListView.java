@@ -15,6 +15,7 @@ import javafx.scene.control.ListView;
  */
 public class DialogueListView extends ListView<String> {
 
+	private static double HEIGHT = 20;
 //	private List<DialogueListCell> dList = new ArrayList<>();
 	private List<String> dList = new ArrayList<>();
 
@@ -27,5 +28,13 @@ public class DialogueListView extends ListView<String> {
 		    dList);
 		
 		this.setItems(items);
+//		this.setTooltip(getTooltip());
+		
+		this.setHeight(HEIGHT);
+		
+	}
+	
+	private String createListCellText(Dialogue d) {
+		return "Name: " + d.getName() + " | Font: " + d.getFont() + " | Font Size: " + d.getFontSize();
 	}
 }
