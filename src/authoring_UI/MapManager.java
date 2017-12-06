@@ -1,9 +1,11 @@
 package authoring_UI;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObjectGridManagerI;
+import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
@@ -34,18 +36,52 @@ public class MapManager extends TabPane {
 	private int myTabCount = 1;
 	private Tab currentTab;
 	private String addTabString;
+	private boolean oldProject;
+	private String projectName = "TestProject";
+	private GameDataHandler myGDH;
+	private int numWorlds = 1;
 
 	private Pane mapEditor = new Pane();
+	private SpritePanels spritePanels;
 
-	public MapManager(Stage currentStage) {
+	public MapManager(Stage currentStage)  {
 		stage = currentStage;
 		mapEditor.getChildren().add(this);
 		mySelectModel = this.getSelectionModel();
 		this.setPrefWidth(VIEW_WIDTH);
 		this.setPrefHeight(VIEW_HEIGHT);
 		this.setLayoutX(ViewSideBar.VIEW_MENU_HIDDEN_WIDTH);
-		
-		setTab();
+		if (oldProject) {
+			projectName = "OLD PROJECT NAME"; // TODO. where to get new project name from?
+		}
+		myGDH = new GameDataHandler(projectName); 
+		if (oldProject) {
+			try {
+				for (DraggableGrid myWorld : myGDH.loadWorldsFromDirectoryName(projectName)) {
+					setTab(myWorld);
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else {
+			setTab(); 
+		}
+		// calls createTab, which calls setUpScene, which calls set up auth classes, 
+		// which creates new Authoring Environment Manager
+	}
+	
+	private void setTab(DraggableGrid world) {
+		this.setSide(Side.TOP);
+		addTab = new Tab();
+		addTab.setClosable(false);
+		addTab.setText(addTabString);
+		addTab.setOnSelectionChanged(e -> {
+			createTab(myTabCount, world);
+			mySelectModel.select(currentTab);
+		});
+		this.getTabs().add(addTab);
 	}
 	
 	private void setTab() {
@@ -60,18 +96,30 @@ public class MapManager extends TabPane {
 		this.getTabs().add(addTab);
 	}
 
-	private HBox setupScene() {
-
-		authMap = new AuthoringMapEnvironment();
+	private HBox setupScene() { // called for every world there is
+		authMap = new AuthoringMapEnvironment(); // TODO just 1 fine?
 		setupBEAuthClasses();
 		setupFEAuthClasses();
-		
 		return authMap;
 	}
 	
+	private HBox setupScene(DraggableGrid world) {
+		authMap = new AuthoringMapEnvironment();
+		setupBEAuthClasses(world);
+		setupFEAuthClasses();
+		return authMap;
+	}
+	
+	private void setupBEAuthClasses(DraggableGrid world) {
+		myAEM = new AuthoringEnvironmentManager(myGDH);
+		if (oldProject) {
+			myAEM.setOldDraggableGrid(world); //TODO FILL THIS IN
+		}
+		mySOGM = myAEM.getGridManager();
+	}
+	
 	private void setupBEAuthClasses() {
-		
-		myAEM = new AuthoringEnvironmentManager();
+		myAEM = new AuthoringEnvironmentManager(myGDH);
 		mySOGM = myAEM.getGridManager();
 	}
 	
@@ -81,13 +129,8 @@ public class MapManager extends TabPane {
 		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, myGrid);
 		myGrid.construct(mySpriteGridHandler);
 		mySpriteGridHandler.addKeyPress(stage.getScene());
-		SpritePanels spritePanels = new SpritePanels(this, mySpriteGridHandler, myAEM, mySOGM);
+		spritePanels = new SpritePanels(this, mySpriteGridHandler, myAEM, mySOGM);
 		mySpriteGridHandler.setDisplayPanel(spritePanels);
-//
-//<<<<<<< HEAD
-//		authMap.getChildren().addAll(myMenu, myGrid, mySprites);
-//		mySpriteGridHandler.addKeyPress(scene);
-//=======
 		authMap.setPanels(spritePanels);
 		authMap.setGrid(myGrid);
 	}
@@ -103,8 +146,18 @@ public class MapManager extends TabPane {
 		myTabCount++;
 	}
 	
-	private ArrayList<AuthoringMapEnvironment> getAllMapEnvironments(){
-		ArrayList<AuthoringMapEnvironment> allMaps = new ArrayList<AuthoringMapEnvironment>();
+	private void createTab(int tabCount, DraggableGrid DG) {
+		currentTab = new Tab();
+		StringProperty tabMap = new SimpleStringProperty();
+		tabMap.bind(Bindings.concat(DisplayLanguage.createStringBinding(TAB_TAG)).concat(" " + Integer.toString(tabCount)));
+		currentTab.textProperty().bind(tabMap);
+		currentTab.setContent(setupScene(DG));
+		this.getTabs().add(this.getTabs().size() - 1, currentTab);
+		myTabCount++;
+	}
+	
+	private List<AuthoringMapEnvironment> getAllMapEnvironments(){
+		List<AuthoringMapEnvironment> allMaps = new ArrayList<AuthoringMapEnvironment>();
 		for (Tab t: this.getTabs()) {
 			if (!t.getText().equals(addTabString)){
 				AuthoringMapEnvironment AME = (AuthoringMapEnvironment) t.getContent();
@@ -116,5 +169,9 @@ public class MapManager extends TabPane {
 	
 	public Pane getPane() {
 		return mapEditor;
+	}
+	
+	public Tab getDialoguesTab() {
+		return spritePanels.getDialoguesTab();
 	}
 }

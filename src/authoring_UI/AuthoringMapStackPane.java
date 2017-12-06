@@ -29,6 +29,8 @@ public class AuthoringMapStackPane extends StackPane {
 	private Background inactiveBackground;
 	private BiConsumer<AbstractSpriteObject, Integer> myBindSpriteWidth;
 	private BiConsumer<AbstractSpriteObject, Integer> myBindSpriteHeight;
+	private AbstractSpriteObject coveringSprite;
+	private AbstractSpriteObject mySO;
 
 	private ObjectProperty<Boolean> coveredByStretchedSpriteProperty;
 	// private int myRow =
@@ -70,6 +72,14 @@ public class AuthoringMapStackPane extends StackPane {
 		createShapeSpriteWidth();
 		createShapeSpriteHeight();
 	}
+	
+	public void setCoveringSprite(AbstractSpriteObject ASO){
+		this.coveringSprite = ASO;
+	}
+	
+	public void removeCoveringSprite(){
+		this.coveringSprite = null;
+	}
 
 	private BiConsumer<Integer, Integer> getOnRowSpanChange() {
 		BiConsumer<Integer, Integer> onRowChange = new BiConsumer<Integer, Integer>() {
@@ -78,6 +88,8 @@ public class AuthoringMapStackPane extends StackPane {
 			// });
 			@Override
 			public void accept(Integer oldValue, Integer newValue) {
+				System.out.println("newValueRowSpan: " + newValue);
+				System.out.println("oldValueRowSpan: " + newValue);
 				int diff = newValue - oldValue;
 				int startRow = (diff > 0) ? getRowIndex() + oldValue : getRowIndex() + oldValue - 1;
 				for (int i = 0; i < Math.abs(diff); i++) {
@@ -85,6 +97,7 @@ public class AuthoringMapStackPane extends StackPane {
 					for (int column = getColIndex(); column <= getFarRightColumn(); column++) {
 						getMapLayer().getChildAtPosition(newRow, column).changeCoveredByOtherSprite();
 						getMapLayer().getChildAtPosition(newRow, column).setInactive();
+						getMapLayer().getChildAtPosition(newRow, column).setCoveringSprite(mySO);
 						// getMapLayer().getChildAtPosition(newRow,
 						// column).setBackground(new Background(new
 						// BackgroundFill(Color.BLACK, CornerRadii.EMPTY,
@@ -112,6 +125,7 @@ public class AuthoringMapStackPane extends StackPane {
 					for (int row = getRowIndex(); row <= getFarBottomRow(); row++) {
 						getMapLayer().getChildAtPosition(row, newColumn).changeCoveredByOtherSprite();
 						getMapLayer().getChildAtPosition(row, newColumn).setInactive();
+						getMapLayer().getChildAtPosition(row, newColumn).setCoveringSprite(mySO);
 						// getMapLayer().getChildAtPosition(row,
 						// newColumn).setBackground(new Background(new
 						// BackgroundFill(Color.BLACK, CornerRadii.EMPTY,
@@ -158,6 +172,10 @@ public class AuthoringMapStackPane extends StackPane {
 
 	public boolean isCoveredByOtherSprite() {
 		return coveredByStretchedSpriteProperty.get();
+	}
+	
+	public AbstractSpriteObject getCoveringSprite(){
+		return this.coveringSprite;
 	}
 
 	private void createActiveProperty() {
@@ -251,9 +269,10 @@ public class AuthoringMapStackPane extends StackPane {
 	}
 
 	public void shapeSpriteToCellSize(AbstractSpriteObject ASO) {
+		createShapeSpriteWidth();
+		createShapeSpriteHeight();
 		this.setAlignment(ASO, Pos.CENTER_LEFT);
-		// ASO.setFitHeight(this.rowSpanProperty.get() * cellSize);
-		// ASO.setFitWidth(this.colSpanProperty.get() * cellSize);
+		 
 	
 		this.rowSpanProperty.addListener((observable, oldValue, newValue) -> {
 //			getOnRowSpanChange().accept(oldValue, newValue);
@@ -272,16 +291,21 @@ public class AuthoringMapStackPane extends StackPane {
 	}
 
 	public void addChild(AbstractSpriteObject ASO) {
+		
 		// ASO
+		mySO = ASO;
 		this.getChildren().clear();
+		setCoveredByOtherSprite(true);
 		shapeSpriteToCellSize(ASO);
 		setRowSpan(ASO.getNumCellsHeight());
 		setColSpan(ASO.getNumCellsWidth());
+		ASO.setFitHeight(this.rowSpanProperty.get() * cellSize);
+		ASO.setFitWidth(this.colSpanProperty.get() * cellSize);
 
 //		System.out.println("Adding ASO to AMStackPane");
 		this.getChildren().add(ASO);
-		ASO.setWidthFunction(widthConsumer());
-		ASO.setHeightFunction(heightConsumer());
+		ASO.setWidthFunction(widthCheckValidFunction());
+		ASO.setHeightFunction(heightCheckValidFunction());
 //		this.widthProperty().addListener((value) -> {
 //			// ASO.setFitWidth(this.getWidth()*.99);
 //			System.out.println("width changed");
@@ -358,7 +382,7 @@ public class AuthoringMapStackPane extends StackPane {
 		return getRowIndex() + getRowSpan() - 1;
 	}
 
-	public Function<Integer, Boolean> heightConsumer() {
+	public Function<Integer, Boolean> heightCheckValidFunction() {
 		Function<Integer, Boolean> consumer = new Function<Integer, Boolean>() {
 			@Override
 			public Boolean apply(Integer t) {
@@ -383,7 +407,7 @@ public class AuthoringMapStackPane extends StackPane {
 
 					int newRow = getRowIndex() + t - 1;
 					for (int column = getColIndex(); column <= getFarRightColumn(); column++) {
-						if (getMapLayer().hasChildAtPosition(newRow, column)) {
+						if (getMapLayer().getChildAtPosition(newRow, column).isCoveredByOtherSprite()) {
 							ret = false;
 							break;
 						}
@@ -400,7 +424,6 @@ public class AuthoringMapStackPane extends StackPane {
 
 				if (ret) {
 					setRowSpan(t);
-
 				}
 				return ret;
 			}
@@ -409,7 +432,7 @@ public class AuthoringMapStackPane extends StackPane {
 		return consumer;
 	}
 
-	public Function<Integer, Boolean> widthConsumer() {
+	public Function<Integer, Boolean> widthCheckValidFunction() {
 		Function<Integer, Boolean> consumer = new Function<Integer, Boolean>() {
 			@Override
 			public Boolean apply(Integer t) {
@@ -432,7 +455,7 @@ public class AuthoringMapStackPane extends StackPane {
 				} else {
 					int newCol = getColIndex() + t - 1;
 					for (int row = getRowIndex(); row <= getFarBottomRow(); row++) {
-						if (getMapLayer().hasChildAtPosition(row, newCol)) {
+						if (getMapLayer().getChildAtPosition(row, newCol).isCoveredByOtherSprite()) {
 //							System.out.println("Has child there?");
 							ret = false;
 							break;

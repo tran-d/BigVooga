@@ -1,11 +1,13 @@
 package authoring_UI;
 
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import authoring.AbstractSpriteObject;
 import authoring.AnimationSequence;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
@@ -26,12 +28,14 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	
 	private AbstractSpriteObject mySO;
 	private ScrollPane containerScrollPane;
+	private ArrayList<AnimationSequence> animationsSequences;
 	private VBox containerVbox;
 	private TabPane containerTabPane;
 	private HBox addAnimationSequenceHbox;
 	private Button addAnimationSequenceButton;
 	private Button createAnimationSequenceButton;
 	private TextField promptNewName;
+	private Label promptNameLabel;
 	
 	
 	SpriteAnimationSequenceTabsAndInfo(){
@@ -40,6 +44,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	
 	public void setSpriteObject(AbstractSpriteObject SO){
 		mySO = SO;
+		clearAnimationSequencesList();
 		this.clearExisting();
 		SO.getAnimationSequences().forEach(AS->{
 			System.out.println("AnimationSequence: "+AS);
@@ -53,10 +58,11 @@ public class SpriteAnimationSequenceTabsAndInfo {
 		createAddAnimationSequenceButton();
 		createCreateAnimationSequenceButton();
 		createPromptNameText();
+		createPromptNameLabel();
 		putAddAnimationSequenceButtonIntoHbox();
 		
 		
-		
+		initializeAnimationSequencesList();
 		
 		createScrollPane();
 		createContainerVBox();
@@ -66,6 +72,14 @@ public class SpriteAnimationSequenceTabsAndInfo {
 		putTabPaneAndHboxIntoContainerVbox();
 		
 		putVBoxIntoScrollPane();
+	}
+	
+	private void initializeAnimationSequencesList(){
+		 animationsSequences = new ArrayList<AnimationSequence>();
+	}
+	
+	private void clearAnimationSequencesList(){
+		animationsSequences.clear();
 	}
 	
 	private void createAnimationTabPane(){
@@ -167,14 +181,21 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	
 	
 	private Tab addAnimationSequence(AnimationSequence AS){
+		this.animationsSequences.add(AS);
 		Tab tab = new Tab();
+		tab.setText(AS.getName());
 		tab.setContent(AS.getUIContent());
 		this.containerTabPane.getTabs().add(tab);
 		return tab;
 	}
 	
+	private void createPromptNameLabel(){
+		promptNameLabel = new Label("AnimationSequence Name:");
+		
+	}
+	
 	private void createPromptNameText(){
-		promptNewName = new TextField("AnimationSequence Name");
+		promptNewName = new TextField();
 
 	}
 	
@@ -188,11 +209,15 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	}
 	
 	private void addPromptNewNameAndCreateButtonToHbox(){
-		this.addAnimationSequenceHbox.getChildren().addAll(promptNewName, createAnimationSequenceButton);
+		this.addAnimationSequenceHbox.getChildren().addAll(promptNameLabel, promptNewName, createAnimationSequenceButton);
 	}
 	
 	private void removePromptNewNameAndCreateButtonToHbox(){
-		this.addAnimationSequenceHbox.getChildren().removeAll(promptNewName, createAnimationSequenceButton);
+		this.addAnimationSequenceHbox.getChildren().removeAll(promptNameLabel, promptNewName, createAnimationSequenceButton);
+	}
+	
+	public void apply(){
+		mySO.setAnimationSequences(this.animationsSequences);
 	}
 	
 	

@@ -16,15 +16,15 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 	
 	private ActionCheckBoxVBox<Integer> actionCheckBoxVBox;
 
-	public ConditionRow(int ID, String label, String selectorLabel,String selectedCondition,ObservableList<Integer> newActionOptions, ActionConditionVBox ACVBox) {
+	public ConditionRow(int ID, String label, String selectorLabel,String selectedCondition,ObservableList<Integer> newActionOptions, ConditionVBox<ConditionRow> ACVBox) {
 		super(ID, label, selectorLabel,selectedCondition, ACVBox);
 		addActionCheckBox(newActionOptions);
 	}
 	
 	public ConditionRow(int ID,String label,String selectorLabel, String selectedCondition, ObservableList<Integer> newActionOptions,
-			List<Integer> selectedActionOptions,ActionConditionVBox ACVBox) {
+			List<Integer> selectedActionOptions,ConditionVBox<ConditionRow> ACVBox) {
 		this(ID,label,selectorLabel,selectedCondition,newActionOptions,ACVBox);
-		actionCheckBoxVBox = new ActionCheckBoxVBox(newActionOptions,selectedActionOptions);
+		actionCheckBoxVBox = new ActionCheckBoxVBox<Integer>(newActionOptions,selectedActionOptions);
 	}
 	
 	@Override

@@ -12,7 +12,7 @@ import javafx.scene.control.Button;
  */
 public class ActionRow extends ActionConditionRow {
 
-	public ActionRow(int ID, String label, String selectorLabel,String selectedAction, ActionConditionVBox ACVBox) {
+	public ActionRow(int ID, String label, String selectorLabel,String selectedAction, ActionVBox<ActionRow> ACVBox) {
 		super(ID, label, selectorLabel, selectedAction, ACVBox);
 		addBuildActionButton(e -> openBuildWindow());
 	}

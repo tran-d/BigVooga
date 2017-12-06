@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -106,8 +107,6 @@ public class SpriteDataConverter {
 			// Default
 			ret = new SpriteObject(true);
 		}
-		
-
 		ret.setImageURL(imageURL);
 		ret.setParameterMap(catmap);
 		ret.setPositionOnGrid(gridPos);
@@ -119,14 +118,13 @@ public class SpriteDataConverter {
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////ret.setCondAct(private var)
 //		ret.setWidthFunction(widthFunction);
 //		ret.setHeightFunction(heightFunction);
-		ArrayList<AbstractSpriteObject> newInventory = new ArrayList<AbstractSpriteObject>();
+		List<AbstractSpriteObject> newInventory = new ArrayList<AbstractSpriteObject>();
 		inventory.forEach(SDC ->{
 			newInventory.add(SDC.createSprite());
 		});
 		ret.setInventory(newInventory);
 		System.out.println("spriteInventoryinSDC: "+ret.getInventory());
 		return ret;
-
 	}
 	
 //	private Object readResolve() throws java.io.ObjectStreamException{
