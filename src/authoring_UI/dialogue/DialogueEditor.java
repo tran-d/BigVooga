@@ -28,6 +28,8 @@ public class DialogueEditor {
 	private static final String FONT_PROMPT = "Font";
 	private static final String FONT_SIZE_PROMPT = "FontSize";
 	private static final String NUM_PANELS_PROMPT = "NumberOfPanels";
+	private static final String INVALID_INPUT_MESSAGE = "InvalidInput";
+	private static final String INTEGER_INPUT_PROMPT = "InputInteger";
 
 	private static final double NAME_PROMPT_WIDTH = 150;
 	private static final double FONT_PROMPT_WIDTH = 50; // change to choicebox
@@ -110,8 +112,8 @@ public class DialogueEditor {
 				} catch (NumberFormatException ex) {
 					sizeTF.clear();
 					Alert alert = new Alert(AlertType.ERROR);
-					alert.setHeaderText("Invalid input");
-					alert.setContentText("Enter an integer value");
+					alert.contentTextProperty().bind(DisplayLanguage.createStringBinding(INTEGER_INPUT_PROMPT));
+					alert.headerTextProperty().bind(DisplayLanguage.createStringBinding(INVALID_INPUT_MESSAGE));
 					alert.show();
 				}
 			}

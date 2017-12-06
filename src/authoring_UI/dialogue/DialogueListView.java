@@ -22,7 +22,7 @@ public class DialogueListView extends ListView<String> {
 	public DialogueListView(List<Dialogue> list) {
 
 		for (Dialogue d : list) {
-			dList.add(d.toString());
+			dList.add(d.getName());
 		}
 		ObservableList<String> items = FXCollections.observableArrayList (
 		    dList);
