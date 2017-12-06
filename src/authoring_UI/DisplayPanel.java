@@ -293,8 +293,10 @@ public class DisplayPanel extends VBox {
 			clearAllSpriteEditorTabs();
 			removeSpriteEditorErrorMessage();
 //			mySParameterTAI.create(getActiveCell());
-			applyButtonController.updateActionConditionTabs(getActiveCell());
 			mySParameterTAI.create(activeCell);
+			applyButtonController.updateActionConditionTabs(activeCell);
+			mySpriteTabs.getTabs().add(applyButtonController.getConditionTab());
+			mySpriteTabs.getTabs().add(applyButtonController.getActionTab());
 			
 			if (!myAEM.multipleActive()){	
 //				mySInventoryTAI.setSpriteObjectAndUpdate(activeCell);

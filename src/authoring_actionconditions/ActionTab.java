@@ -110,5 +110,6 @@ public class ActionTab<T> extends Tab implements ActionTabI<T> {
 	public ActionConditionVBox<T> setActionConditionVBox() {
 		return new ActionVBox<T>(getSelectorLabel());
 	}
+
 	
 }

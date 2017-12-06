@@ -1,10 +1,10 @@
 package ActionConditionClasses;
 
-import authoring.SpriteObject;
+import authoring.AbstractSpriteObject;
 
 public interface ApplyButtonControllerI {
 	
-	public void updateActionConditionTabs(SpriteObject spriteObject);
+	public void updateActionConditionTabs(AbstractSpriteObject spriteObject);
 	public void updateSpriteObject();
 
 }

@@ -2,10 +2,10 @@ package authoring_actionconditions;
 
 public class ControllerConditionActionTabs {
 	
-	private ConditionTab conditionTab;
-	private ActionTab actionTab;
+	private ConditionTab<ConditionRow> conditionTab;
+	private ActionTab<ActionRow> actionTab;
 	
-	public ControllerConditionActionTabs(ConditionTab conditionTab,ActionTab actionTab) {
+	public ControllerConditionActionTabs(ConditionTab<ConditionRow> conditionTab,ActionTab<ActionRow> actionTab) {
 		this.conditionTab = conditionTab;
 		this.actionTab = actionTab;
 		this.conditionTab.addButtonListener(e -> addConditionActionRow(this.conditionTab));
@@ -21,11 +21,12 @@ public class ControllerConditionActionTabs {
 	}
 	
 	private void addConditionActionRow(ActionTab actionConditionTab) {
+		System.out.println("Action/condition " + actionConditionTab.getActionCondition());
 		if(!(actionConditionTab.getActionCondition() == null)) {
-			if(actionConditionTab instanceof ConditionTab) {
-				((ConditionTab) actionConditionTab).addCondition(actionConditionTab.getActionCondition(),actionTab.getCurrentActions());
+			if(actionConditionTab instanceof ConditionTab<?>) {
+				((ConditionTab<ConditionRow>) actionConditionTab).addCondition(actionConditionTab.getActionCondition(),actionTab.getCurrentActions());
 			}
-			else ((ActionTab) actionConditionTab).addAction(actionConditionTab.getActionCondition());
+			else ((ActionTab<ActionRow>) actionConditionTab).addAction(actionConditionTab.getActionCondition());
 			actionConditionTab.addRemoveOption();
 		}
 	}

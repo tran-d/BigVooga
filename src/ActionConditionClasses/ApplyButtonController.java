@@ -4,9 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-
 import authoring.AbstractSpriteObject;
-import authoring.SpriteObject;
 import authoring_actionconditions.ActionTab;
 import authoring_actionconditions.ActionVBox;
 import authoring_actionconditions.ActionRow;
@@ -32,9 +30,11 @@ public class ApplyButtonController implements ApplyButtonControllerI {
 	}
 
 	@Override
-	public void updateActionConditionTabs(SpriteObject SO) {
+	public void updateActionConditionTabs(AbstractSpriteObject SO) {
 		spriteObject = SO;
+		System.out.println("Sprite actions" + spriteObject.getAllConditions());
 		HashMap<List<String>,List<Integer>> conditions = spriteObject.getConditionRows();
+		System.out.println("Sprite conditions" + spriteObject.getAllConditions());
 		List<List<String>> actions = spriteObject.getActionRows();
 		ObservableList<Integer> allConditions = spriteObject.getAllConditions();
 		ObservableList<Integer> allActions = spriteObject.getAllActions();
@@ -61,6 +61,14 @@ public class ApplyButtonController implements ApplyButtonControllerI {
 		System.out.println("Controller should be updating too");
 		conditionTab = new ConditionTab<ConditionRow>(ResourceBundleUtil.getTabTitle("ConditionsTabTitle"),conditionVBox,topToolBarConditions);
 		actionTab = new ActionTab<ActionRow>(ResourceBundleUtil.getTabTitle("ActionsTabTitle"),actionVBox,topToolBarActions);
+	}
+	
+	public ConditionTab<ConditionRow> getConditionTab() {
+		return conditionTab;
+	}
+	
+	public ActionTab<ActionRow> getActionTab() {
+		return actionTab;
 	}
 
 	@Override
