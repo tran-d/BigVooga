@@ -16,7 +16,6 @@ public class GameWorld {
 	private GameWorld nextWorld;
 
 	private final static String DEFAULT_NAME = "layer";
-	public final static String PLAYER_TAG = "Player";
 	
 	private String worldName;
 	private GlobalVariables globalVars;
