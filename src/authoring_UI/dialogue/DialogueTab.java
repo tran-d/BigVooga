@@ -5,11 +5,12 @@ import gui.welcomescreen.WelcomeScreen;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Tab;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import tools.DisplayLanguage;
 
 /**
  * Class that represents a tab listing dialogues to edit
@@ -26,7 +27,7 @@ public class DialogueTab extends Tab {
 	private ScrollPane sp;
 
 	public DialogueTab(String name) {
-		this.setText(name);
+		this.textProperty().bind(DisplayLanguage.createStringBinding(name));
 
 		dialogueLister = makeVBox((WelcomeScreen.WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH) / 2, WelcomeScreen.HEIGHT,
 				DIALOGUE_SPACING);
@@ -52,10 +53,9 @@ public class DialogueTab extends Tab {
 		if (dialogueLister.getChildren().size() > index) {
 			dialogueLister.getChildren().remove(index);
 			dialogueLister.getChildren().add(index, btn);
-		}
-		else
+		} else
 			dialogueLister.getChildren().add(btn);
-//		System.out.println(dialogueLister.getChildren().size() + " " + index);
+		// System.out.println(dialogueLister.getChildren().size() + " " + index);
 
 	}
 
