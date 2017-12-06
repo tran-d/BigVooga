@@ -114,6 +114,10 @@ public class MapManager extends TabPane {
 		return allMaps;
 	}
 	
+	public AuthoringEnvironmentManager getAEM() {
+		return myAEM;
+	}
+	
 	public Pane getPane() {
 		return mapEditor;
 	}
