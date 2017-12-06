@@ -44,11 +44,14 @@ public class DialogueTextAreaView extends VBox {
 
 	private SimpleIntegerProperty curr;
 	private SimpleIntegerProperty total;
+	
+	private Runnable r;
 
-	public DialogueTextAreaView() {
+	public DialogueTextAreaView(Runnable r) {
 		dialogueList = new ArrayList<>();
 		dialoguePreview = new HBox();
 		this.addPanel();
+		this.r = r;
 		// curr = new SimpleIntegerProperty(currentPanelIndex + 1);
 		// total = new SimpleIntegerProperty(dialogueList.size());
 		this.setSpacing(15);
@@ -87,6 +90,8 @@ public class DialogueTextAreaView extends VBox {
 		ta.setPrefSize(DIALOG_PROMPT_WIDTH, DIALOG_PROMPT_HEIGHT);
 		ta.setWrapText(true);
 		dialogueList.add(ta);
+		
+		ta.setOnKeyTyped(e -> r.run());
 
 		setCurrentPanel(dialogueList.size() - 1);
 	}
@@ -144,5 +149,7 @@ public class DialogueTextAreaView extends VBox {
 		btn.setOnAction(handler);
 		return btn;
 	}
+	
+	
 
 }
