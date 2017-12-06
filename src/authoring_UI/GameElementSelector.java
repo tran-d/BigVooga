@@ -101,7 +101,7 @@ public class GameElementSelector extends TabPane implements Observer {
 		// mySpriteGridHandler);
 		// myUserSprites = myCustom.getSpritePanel(mySpriteGridHandler);
 		myUserSprites = myAEM.getCustomSpriteController().getSpritePanel(mySpriteGridHandler);
-//		 getParams();
+		 getParams();
 		// createSprites();
 		createSpriteTabs();
 		// myUserSprites.getChildren().add(sp);
@@ -120,7 +120,6 @@ public class GameElementSelector extends TabPane implements Observer {
 		// myAEM.addDefaultSprite(s4);
 //		setupDefaultSprites();
 //		setupUserDefinedSprites();
-
 	}
 
 	public void getUserSpriteParam(String url) {
@@ -129,11 +128,9 @@ public class GameElementSelector extends TabPane implements Observer {
 		param.add(mySPF.makeParameter("canFight", false));
 		param.add(mySPF.makeParameter("health", 17.0));
 		param.add(mySPF.makeParameter("name", "Ryan"));
-
 		for (SpriteParameterI SP : param) {
 			userSprite.addParameter(SP);
 		}
-
 		myUserSpriteObjs.add(userSprite);
 		createUserSprite(userSprite);
 	}
@@ -159,7 +156,6 @@ public class GameElementSelector extends TabPane implements Observer {
 		}
 		// addNewUserDefinedSprite(sp, myUserSprites.getChildren().size());
 	}
-
 	// private void addNewDefaultSprite(SpriteObject sp) {
 	// mySprites.addNewDefaultSprite(sp);
 	// }
@@ -179,7 +175,6 @@ public class GameElementSelector extends TabPane implements Observer {
 //	}
 
 	public void getParams(){
-		System.out.println("Params!!");
 		ArrayList<String> urls = new ArrayList<String>();
 		urls.add("/tree.png");
 		urls.add("/brick.png");
@@ -212,19 +207,12 @@ public class GameElementSelector extends TabPane implements Observer {
 			SO.setNumCellsWidthNoException(width);
 			SO.setNumCellsHeightNoException(height);
 			mySpriteObjs.add(SO);
-			
-			
-			
-		
-			// try {
-			// throw new IOException("Dont break");
-			
-			// } catch (IOException e) {
-			// TODO Auto-generated catch block
-			// e.printStackTrace();
-			// }
-			
-			
+			try {
+				myGDH.saveDefaultSprite(SO);
+				System.out.println("Saved " + SO.getImageURL());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		SpriteObject SO = new SpriteObject();
 		SO.setName("testinginventory");
@@ -233,57 +221,25 @@ public class GameElementSelector extends TabPane implements Observer {
 		SO.setNumCellsHeightNoException(2);
 		SO.setNumCellsWidthNoException(2);
 		SO.setImageURL(urls.get(4));
-	
-		try {
-			myGDH.saveDefaultSprite(SO);
-			System.out.println("Saved " + SO.getImageURL());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		
-		
-
-		// SpriteObject SO = new SpriteObject(urls.get(4));
-		// ArrayList<SpriteParameterI> myParams = new
-		// ArrayList<SpriteParameterI>();
-		// myParams.add(mySPF.makeParameter("canFight", true));
-		// myParams.add(mySPF.makeParameter("health", 10));
-		// myParams.add(mySPF.makeParameter("arrows", 10));
-		// myParams.add(mySPF.makeParameter("name", s.get(0)));
-		// myParams.add(mySPF.makeParameter("stamina", 50));
-		// for (SpriteParameterI SP: myParams){
-		// SO.addParameter(SP);
-		// }
-		// mySpriteObjs.add(SO);
 	}
 
 	private void createSpriteTabs() {
-		
 		TabPane spritesTabPane = new TabPane();
 		TabPane dialoguesTabPane = new TabPane();
-		
 		Tab defaultSpriteTab = createSubTab(DEFAULT, myAEM.getDefaultSpriteController().getAllSprites());
 		Tab userSpriteTab = createSubTab(USER, myAEM.getCustomSpriteController().getAllSprites());
 		Tab importedSpriteTab = createSubTab(IMPORTED, new ArrayList<AbstractSpriteObject>());
 //		Tab defaultDialogueTab = createSubTab(DEFAULT);
 //		Tab userDialogueTab = createSubTab(USER);
 //		Tab importedDialogueTab = createSubTab(IMPORTED);
-
 		spritesTabPane.getTabs().addAll(defaultSpriteTab, userSpriteTab, importedSpriteTab);
 		spritesTabPane.setSide(Side.RIGHT);
-		
 //		dialoguesTabPane.getTabs().addAll(defaultDialogueTab, userDialogueTab, importedDialogueTab);
 		dialoguesTabPane.setSide(Side.RIGHT);
-
 		Tab spritesTab = createElementTab(SPRITES, spritesTabPane);
 		dialoguesTab = createElementTab(DIALOGUES, dialoguesTabPane);
-		
 		this.getTabs().addAll(spritesTab, dialoguesTab);
 		this.setSide(Side.TOP);
-
 	}
 	
 	private Tab createSubTab(String tabName, ArrayList<AbstractSpriteObject> sprites) {
@@ -305,18 +261,13 @@ public class GameElementSelector extends TabPane implements Observer {
 
 	private ScrollPane makeGrid(ArrayList<AbstractSpriteObject> sprites) {
 		GridPane gp = new GridPane();
-		
 		int totalRows = (int) Math.ceil(sprites.size()/10);
-	
 		int DEFAULT_MIN_ROWS = 15;
-		
 		totalRows = (totalRows<DEFAULT_MIN_ROWS) ? DEFAULT_MIN_ROWS : totalRows;
-		
 		int counter =0;
 		for (int i = 0; i < totalRows; i++) {
 			for (int j = 0; j < 10; j++) {				
 				StackPane sp = new StackPane();
-				
 				sp.setPrefHeight(50);
 				sp.setPrefWidth(50);
 				sp.setBackground(
@@ -360,24 +311,13 @@ public class GameElementSelector extends TabPane implements Observer {
 				gp.add(sp, j, i);
 			}
 		}
-		}
+	}
 
-		
 		ScrollPane SP = new ScrollPane(gp);
 		//sp.getStylesheets().add(this.getClass().getResource("gui.welcomescreen/" + MenuOptionsTemplate.SCROLLPANE_CSS).toExternalForm());
 		return SP;
 	}
-
-	// private ImageView createTrash() {
-	// ImageView trashCan = new ImageView(new Image("trash.png"));
-	// trashCan.setFitWidth(45);
-	// trashCan.setFitHeight(45);
-	// mySpriteGridHandler.addDropToTrash(trashCan);
-	//
-	// return trashCan;
-	// }
-
-	// adds new user sprites
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		System.out.println(arg);
@@ -389,5 +329,4 @@ public class GameElementSelector extends TabPane implements Observer {
 	public Tab getDialoguesTab() {
 		return dialoguesTab;
 	}
-
 }
