@@ -147,6 +147,7 @@ public class DraggableGrid extends VBox {
 	
 	private void makeLayerButton(SpriteObjectGridManager ML) {
 		HBox hbox = new HBox(10);
+		hbox.setId("layerbox");
 		Label label = new Label(ML.getName());
 		label.setTextFill(Color.ANTIQUEWHITE);
 		

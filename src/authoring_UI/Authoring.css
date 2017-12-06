@@ -130,8 +130,8 @@
 	
 }
 
-.choice-box > .arrow-button {
-    -fx-background-color: #47BDFF;
+#layerbox{
+	-fx-padding: 5px;
 }
 
 .text-area{
