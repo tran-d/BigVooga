@@ -1,10 +1,13 @@
 package authoring_UI;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.function.Function;
 
+import authoring.NumberSpinner;
 import authoring.SpriteObjectGridManager;
 import authoring.TerrainObjectGridManager;
 import engine.Layer;
@@ -46,8 +49,12 @@ public class DraggableGrid extends VBox {
 	private StackPane myStackPane;
 	private HBox topHbox = new HBox(10);
 	private SpriteGridHandler mySGH;
+	private Integer rows;
+	private Integer cols;
 
 	public DraggableGrid() {
+		rows = 20;
+		cols = 20;
 		// myGrids = new StackPane();
 		// terrainImage = new ImageView(new Image("square.png"));
 		// createTerrainGrid();
@@ -81,6 +88,8 @@ public class DraggableGrid extends VBox {
 			makeLayerButton(ml);
 			showLayer(ml);
 		}
+		addChangeRowsNumberSpinner();
+		addChangeColumnsNumberSpinner();
 		ScrollPane scrollGrid = new ScrollPane(myStackPane);
 		scrollGrid.setPannable(true);
 		//scrollGrid.setMaxWidth(MainAuthoringGUI.AUTHORING_WIDTH/2 + 170);
@@ -100,19 +109,23 @@ public class DraggableGrid extends VBox {
 	private void makeLayers(SpriteGridHandler spriteGridHandler){
 		gridManagers = new ArrayList<SpriteObjectGridManager>();
 //		MapLayer terrain = new TerrainLayer(15,15,spriteGridHandler);
-		SpriteObjectGridManager terrain = new TerrainObjectGridManager(20, 20, spriteGridHandler);
+		SpriteObjectGridManager terrain = new TerrainObjectGridManager(rows, cols, spriteGridHandler);
 //		MapLayer terrain = terrMan.getMapLayer();
 //		this.getChildren().add(terrain);
 //		myStackPane.getChildren().add(new ImageView(new Image("pikachu.png")));
 //		makeLayerButton(terrain);
 //		SpriteLayer sprites = new SpriteLayer(15,15,spriteGridHandler);
 //		MapLayer panels = new PanelLayer(15,15,spriteGridHandler);
-		SpriteObjectGridManagerForSprites sprites = new SpriteObjectGridManagerForSprites(20, 20, spriteGridHandler);
-		PanelObjectGridManager panels = new PanelObjectGridManager(20, 20, spriteGridHandler);
+		SpriteObjectGridManagerForSprites sprites = new SpriteObjectGridManagerForSprites(rows, cols, spriteGridHandler);
+		PanelObjectGridManager panels = new PanelObjectGridManager(rows, cols, spriteGridHandler);
 		gridManagers.add(terrain);
 		gridManagers.add(sprites);
 		gridManagers.add(panels);
-		allGrids = new ArrayList<SpriteObjectGridManager>(gridManagers);
+		allGrids = new ArrayList<SpriteObjectGridManager>();
+		gridManagers.forEach(item->{
+			allGrids.add(item);
+		});
+//		allGrids = new ArrayList<SpriteObjectGridManager>(gridManagers);
 	}
 	
 	public SpriteObjectGridManager getActiveGrid(){
@@ -182,6 +195,38 @@ public class DraggableGrid extends VBox {
 		
 		s.setOrientation(Orientation.VERTICAL);
 		topHbox.getChildren().add(s);
+	}
+	
+	private void addChangeRowsNumberSpinner(){
+		NumberSpinner ret = new NumberSpinner(new BigDecimal((Integer)rows), BigDecimal.ONE);
+		ret.setCheckFunction(new Function<Integer, Boolean>(){
+
+			@Override
+			public Boolean apply(Integer t) {
+				for (SpriteObjectGridManager SOGM: allGrids){
+					SOGM.setNumRows(t);
+				}
+				return true;
+			}
+			
+		});
+		topHbox.getChildren().add(ret);
+	}
+	
+	private void addChangeColumnsNumberSpinner(){
+		NumberSpinner ret = new NumberSpinner(new BigDecimal((Integer)cols), BigDecimal.ONE);
+		ret.setCheckFunction(new Function<Integer, Boolean>(){
+
+			@Override
+			public Boolean apply(Integer t) {
+				for (SpriteObjectGridManager SOGM: allGrids){
+					SOGM.setNumCols(t);
+				}
+				return true;
+			}
+			
+		});
+		topHbox.getChildren().add(ret);
 	}
 	// private void createTerrainGrid() {
 	// terrainGrid = new GridPane();

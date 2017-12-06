@@ -68,6 +68,7 @@ public class Thumbnail extends HBox{
 	}
 	
 	private void setup(ImageView im, String name){
+		this.setSpacing(30);
 		this.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY,BorderWidths.DEFAULT)));
 		this.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
 		this.setAlignment(Pos.CENTER);
