@@ -93,8 +93,6 @@ public abstract class SpriteSet {
 		// }
 		loaded = true;
 		categoryToSprites = myGDH.loadSpritesFromNestedDirectories(getFolderToLoad());
-		System.out.println("!!!!!!!!!!!!!!");
-		System.out.println(categoryToSprites);
 	}
 
 	protected SpriteScrollView getSpriteScrollView() {

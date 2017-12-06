@@ -58,12 +58,14 @@ public class ApplyButtonController implements ApplyButtonControllerI {
 			actionRows.add(actionRow);
 			rowAct++;
 		}
+		System.out.println("Controller should be updating too");
 		conditionTab = new ConditionTab<ConditionRow>(ResourceBundleUtil.getTabTitle("ConditionsTabTitle"),conditionVBox,topToolBarConditions);
 		actionTab = new ActionTab<ActionRow>(ResourceBundleUtil.getTabTitle("ActionsTabTitle"),actionVBox,topToolBarActions);
 	}
 
 	@Override
 	public void updateSpriteObject() {
+		System.out.println("Spriteobject should be updating");
 		spriteObject.setAllConditions(conditionTab.getTopToolBar().getRemoveRowVBoxOptions());
 		spriteObject.setAllActions(actionTab.getTopToolBar().getRemoveRowVBoxOptions());
 		HashMap<List<String>,List<Integer>> conditions = new HashMap<List<String>,List<Integer>>();

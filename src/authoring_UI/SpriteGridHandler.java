@@ -56,7 +56,7 @@ public class SpriteGridHandler {
 	protected void addKeyPress(Scene scene) {
 		
 		scene.setOnKeyPressed(e -> {
-			System.out.println("Key pressed: "+ e.getCode());
+//			System.out.println("Key pressed: "+ e.getCode());
 			if (e.getCode().equals(KeyCode.BACK_SPACE)) {
 				deleteSelectedSprites();
 			}
@@ -67,13 +67,11 @@ public class SpriteGridHandler {
 		ArrayList<Integer[]> cellsToDelete = new ArrayList<Integer[]>();
 		myDG.getActiveGrid().getActiveSpriteObjects().forEach(s -> {
 			Integer[] row_col = s.getPositionOnGrid();
-			System.out.println("row_col: " + row_col);
+//			System.out.println("row_col: " + row_col);
 			cellsToDelete.add(row_col);
 		});
 		deactivateActiveSprites();
 		myDP.removeSpriteEditorVBox();
-
-		System.out.println();
 		myDG.getActiveGrid().clearCells(cellsToDelete);
 
 		// mySOGM.removeActiveCells(cellsToDelete);
@@ -196,7 +194,7 @@ public class SpriteGridHandler {
 	}
 
 	public void removeActiveCells() {
-		System.out.println("RMEOVING ACTIVE CELLS");
+//		System.out.println("RMEOVING ACTIVE CELLS");
 		// activeGridCells.forEach(e->{
 		// System.out.println(this.getStackPanePositionInGrid(e));
 		//
@@ -223,7 +221,7 @@ public class SpriteGridHandler {
 	private void populateGridCells(SpriteObject s) {
 		activeGridCells.forEach(cell -> {
 
-			System.out.println("populating from SGH");
+//			System.out.println("populating from SGH");
 			SpriteObject SO = s.newCopy();
 			// cell.setOpacity(1);
 			// cell.getChildren().clear();

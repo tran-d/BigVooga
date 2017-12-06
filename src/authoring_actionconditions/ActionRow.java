@@ -14,7 +14,7 @@ public class ActionRow extends ActionConditionRow {
 
 	public ActionRow(int ID, String label, String selectorLabel,String selectedAction, ActionVBox<ActionRow> ACVBox) {
 		super(ID, label, selectorLabel, selectedAction, ACVBox);
-		addBuildActionButton(e -> openBuildWindow());
+		//addBuildActionButton(e -> openBuildWindow());
 	}
 
 	private void addBuildActionButton(EventHandler<ActionEvent> handler) {

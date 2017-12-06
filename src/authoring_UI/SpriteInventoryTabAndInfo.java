@@ -195,8 +195,7 @@ public class SpriteInventoryTabAndInfo {
 	
 	public void apply(){
 //		myInventory.addAll(temporaryInventory);
-		System.out.println("myASO: "+myASO);
-		myASO.setInventory(temporaryInventory);
+//		myASO.setInventory(temporaryInventory);
 	}
 
 }

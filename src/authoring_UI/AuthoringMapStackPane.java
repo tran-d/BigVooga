@@ -88,8 +88,6 @@ public class AuthoringMapStackPane extends StackPane {
 			// });
 			@Override
 			public void accept(Integer oldValue, Integer newValue) {
-				System.out.println("newValueRowSpan: " + newValue);
-				System.out.println("oldValueRowSpan: " + newValue);
 				int diff = newValue - oldValue;
 				int startRow = (diff > 0) ? getRowIndex() + oldValue : getRowIndex() + oldValue - 1;
 				for (int i = 0; i < Math.abs(diff); i++) {

@@ -292,14 +292,14 @@ public class DisplayPanel extends VBox {
 			this.checkMultipleCellsActive();
 			clearAllSpriteEditorTabs();
 			removeSpriteEditorErrorMessage();
-			mySParameterTAI.create(getActiveCell());
+//			mySParameterTAI.create(getActiveCell());
 			applyButtonController.updateActionConditionTabs(getActiveCell());
 			mySParameterTAI.create(activeCell);
 			
 			if (!myAEM.multipleActive()){	
-				mySInventoryTAI.setSpriteObjectAndUpdate(activeCell);
-				mySUtilityTAI.setSpriteObjectAndUpdate(activeCell);
-				mySAnimationSequenceTAI.setSpriteObject(activeCell);
+//				mySInventoryTAI.setSpriteObjectAndUpdate(activeCell);
+//				mySUtilityTAI.setSpriteObjectAndUpdate(activeCell);
+//				mySAnimationSequenceTAI.setSpriteObject(activeCell);
 			}
 			
 			// HashMap<String, ArrayList<SpriteParameterI>> params =
@@ -394,6 +394,7 @@ public class DisplayPanel extends VBox {
 
 	private void apply() throws Exception {
 		mySParameterTAI.apply();
+		System.out.println("SHOULD BE APPLYING");
 		if (!myAEM.multipleActive()){
 		mySInventoryTAI.apply();
 		mySAnimationSequenceTAI.apply();

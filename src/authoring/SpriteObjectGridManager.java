@@ -127,8 +127,6 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 	}
 	
 	private void setCell(SpriteObject SOI, Integer[] loc) {
-		System.out.println("Setcellwithpos: "+loc[0] + "," + loc[1]);
-		System.out.println("Setcellwithobject: "+SOI);
 		spriteGrid.get(loc[0]).set(loc[1], SOI);
 	}
 	
@@ -176,10 +174,8 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 //				
 //			}
 //		}
-		System.out.println("pos: "+pos[0]+" "+pos[1]);
 		
 		for (Integer[] currentActive : activeCells){
-			System.out.println("curr active: " + currentActive[0]+" "+currentActive[1]);
 			if (Arrays.equals(currentActive, pos)){
 				removeActiveCell(pos);
 				return false;
@@ -226,7 +222,6 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 	public ArrayList<SpriteObject> getActiveSpriteObjects(){
 		ArrayList<SpriteObject> ret = new ArrayList<SpriteObject>();
 		for (Integer[] loc: activeCells){
-			System.out.println("Active cell: "+ loc[0]+"," + loc[1]);
 			ret.add(getCell(loc));
 		}
 		return ret;
@@ -235,12 +230,10 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 	@Override
 	public void clearCells(ArrayList<Integer[]> cellsToClear){
 		
-		System.out.println("cellsToClear :" + cellsToClear);
 		removeActiveCells(cellsToClear);
 		getMapLayer().removeSpritesAtPositions(cellsToClear);
 		
 		for (Integer[] loc: cellsToClear){
-			System.out.println("clearCells loc loop: "+loc);
 			setCellAsDefault(loc);	
 		}
 	}

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.function.Consumer;
@@ -22,6 +23,7 @@ import authoring_UI.AuthoringImageView;
 import authoring_UI.SpriteDataConverter;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -92,6 +94,14 @@ public abstract class AbstractSpriteObject extends ImageView {
 		super();
 		initializeVariables();
 		setUniqueID();
+		initializeActionConditions();
+	}
+	
+	private void initializeActionConditions() {
+		allConditions = FXCollections.observableArrayList();
+		allActions = FXCollections.observableArrayList();
+		conditionRows = new HashMap<List<String>,List<Integer>>();
+		actionRows = new LinkedList<List<String>>();
 	}
 
 	private void initializeVariables() {
@@ -484,7 +494,6 @@ public abstract class AbstractSpriteObject extends ImageView {
 	}
 
 	protected void replaceCategoryMap(HashMap<String, ArrayList<SpriteParameterI>> newParams) {
-		System.out.println("Replacing cat map");
 		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(newParams);
 	}
 

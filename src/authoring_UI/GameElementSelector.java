@@ -101,7 +101,7 @@ public class GameElementSelector extends TabPane implements Observer {
 		// mySpriteGridHandler);
 		// myUserSprites = myCustom.getSpritePanel(mySpriteGridHandler);
 		myUserSprites = myAEM.getCustomSpriteController().getSpritePanel(mySpriteGridHandler);
-		 getParams();
+//		 getParams();
 		// createSprites();
 		createSpriteTabs();
 		// myUserSprites.getChildren().add(sp);
@@ -207,12 +207,7 @@ public class GameElementSelector extends TabPane implements Observer {
 			SO.setNumCellsWidthNoException(width);
 			SO.setNumCellsHeightNoException(height);
 			mySpriteObjs.add(SO);
-			try {
-				myGDH.saveDefaultSprite(SO);
-				System.out.println("Saved " + SO.getImageURL());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+	
 		}
 		SpriteObject SO = new SpriteObject();
 		SO.setName("testinginventory");
