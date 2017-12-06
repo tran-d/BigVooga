@@ -73,7 +73,7 @@ public class SpriteUtilityToUIController {
 		
 //		setSetMethodSignature(setMethod);
 
-		Pane p = new HBox();
+		Pane p = new HBox(20);
 
 		Label nameLabel = new Label();
 		nameLabel.setText(readableName);
@@ -149,9 +149,9 @@ public class SpriteUtilityToUIController {
 		} else if (o instanceof Boolean) {
 
 		} else if (o instanceof Integer[]) {
-			Text text = new Text();
+			Label text = new Label();
 			Integer [] asIntArray = (Integer[]) o;
-			text.setText(asIntArray[0]+" , " + asIntArray[1]);
+			text.setText("Row: "+asIntArray[0]+" ; Column:  " + asIntArray[1]);
 			return text;
 		}
 		Text emptyText = new Text("NOVALUE");

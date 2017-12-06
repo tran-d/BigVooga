@@ -50,33 +50,33 @@ public abstract class AbstractSpriteObject extends ImageView {
 	protected ArrayList<AbstractSpriteObject> myInventory;
 
 	// protected ImageView myImageView;
-	@IsLockedUtility(readableName = "Image Path", getMethod = "getImageURL")
+	@IsLockedUtility(readableName = "Image Path: ", getMethod = "getImageURL")
 	protected String myImageURL;
 
-	@IsUnlockedUtility(readableName = "Position", getMethod = "getMyPositionOnGrid", setMethod = "setMyPositionOnGrid")
+	@IsUnlockedUtility(readableName = "Position: ", getMethod = "getMyPositionOnGrid", setMethod = "setMyPositionOnGrid")
 	protected Integer[] myPositionOnGrid;
 
 	protected ObjectProperty<Integer[]> position;
 
-	@IsLockedUtility(readableName = "Name", getMethod = "getName()")
+	@IsLockedUtility(readableName = "Name: ", getMethod = "getName()")
 	protected String myName;
 
-	@IsUnlockedUtility(readableName = "Cell Width", getMethod = "getNumCellsWidth", setMethod = "setNumCellsWidth")
+	@IsUnlockedUtility(readableName = "Cell Width: ", getMethod = "getNumCellsWidth", setMethod = "setNumCellsWidth")
 	protected Integer myNumCellsWidth;
 
 	protected ObjectProperty<Integer> width;
 	protected Function<Integer, Boolean> widthFunction;
 
-	@IsUnlockedUtility(readableName = "Cell Height", getMethod = "getNumCellsHeight", setMethod = "setNumCellsHeight")
+	@IsUnlockedUtility(readableName = "Cell Height: ", getMethod = "getNumCellsHeight", setMethod = "setNumCellsHeight")
 	protected Integer myNumCellsHeight;
 
 	protected ObjectProperty<Integer> height;
 	protected Function<Integer, Boolean> heightFunction;
 
-	@IsLockedUtility(readableName = "UniqueID", getMethod = "getUniqueID")
+	@IsLockedUtility(readableName = "UniqueID: ", getMethod = "getUniqueID")
 	protected String myUniqueID;
 
-	@IsLockedUtility(readableName = "Save File", getMethod = "getSavePath")
+//	@IsLockedUtility(readableName = "Save File", getMethod = "getSavePath")
 	protected String mySavePath;
 	
 	protected ArrayList<AnimationSequence> myAnimationSequences;
