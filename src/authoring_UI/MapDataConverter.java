@@ -49,8 +49,11 @@ public class MapDataConverter {
 		return converters;
 	}
 	
+	// create spriteobjectgrid manager list. 
+	
 	public DraggableGrid createMap() {
 		DraggableGrid newMap = new DraggableGrid();
+		
 		// TODO need more? 
 		return newMap;
 	}

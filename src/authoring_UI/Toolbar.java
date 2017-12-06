@@ -9,6 +9,7 @@ import tools.DisplayLanguage;
 public class Toolbar extends ToolBar {
 	
 	private static final String FILE_STRING = "File";
+	private static final String LOAD_STRING = "Load";
 	private static final String SAVE_STRING = "Save";
 	private static final String IMPORT_STRING = "Import";
 	private static final String EXIT_STRING = "Exit";
@@ -39,18 +40,20 @@ public class Toolbar extends ToolBar {
 	}
 	
 	private void createFileOptions() {
-		
+		MenuItem load = new MenuItem();
+		load.textProperty().bind(DisplayLanguage.createStringBinding(LOAD_STRING));
+		//TODO load.setOnAction(e -> ());
 		MenuItem save = new MenuItem();
 		save.textProperty().bind(DisplayLanguage.createStringBinding(SAVE_STRING));
 		//TODO save.setOnAction(e -> ());
 		MenuItem importOption = new MenuItem();
 		importOption.textProperty().bind(DisplayLanguage.createStringBinding(IMPORT_STRING));
-		//TODO save.setOnAction(e -> ());
+		//TODO importOption.setOnAction(e -> ());
 		MenuItem exit = new MenuItem();
 		exit.textProperty().bind(DisplayLanguage.createStringBinding(EXIT_STRING));
 		exit.setOnAction(e -> sceneController.switchScene(SceneController.WELCOME_SCREEN_KEY));
 
-		fileOptions = new MenuButton(FILE_STRING, null, save, importOption, exit);
+		fileOptions = new MenuButton(FILE_STRING, null, load, save, importOption, exit);
 		fileOptions.textProperty().bind(DisplayLanguage.createStringBinding(FILE_STRING));
 		
 	}

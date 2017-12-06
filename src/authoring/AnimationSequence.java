@@ -196,7 +196,10 @@ public class AnimationSequence {
 //			Image im = new Image("/"+file.getName());
 //			Image im = new Image("/"+"brick.png");
 //			System.out.println("Image loaded: "+im);
-			AuthoringImageView AIV = new AuthoringImageView("/"+file.getName());
+			
+			String testFile = File.separator+file.getName();
+			System.out.println(testFile);
+			AuthoringImageView AIV = new AuthoringImageView(testFile);
 			addNewAuthoringImageViewToSequence(AIV);
 		});
 	}

@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.Properties;
@@ -31,6 +32,8 @@ import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 import authoring.AbstractSpriteObject;
 import authoring.InventoryObject;
 import authoring.SpriteObject;
+import authoring_UI.DraggableGrid;
+import authoring_UI.MapDataConverter;
 import authoring_UI.SpriteDataConverter;
 import engine.EngineController;
 import javafx.geometry.Point2D;
@@ -56,6 +59,7 @@ public class GameDataHandler {
 	private static final String SELECTOR_TITLE = "Open Resource File";
 	private static final String KNOWN_PROJECTS_PATH = "resources/" + KNOWN_PROJECTS + ".properties";
 	private static final String PROJECT_USER_SPRITE_PATH = "Sprites/";
+	private static final String WORLD_PATH = "Worlds/";
 	private static final String DEFAULT_SPRITE_FOLDER = "DefaultSprites/";
 	private static final String CUSTOM_SPRITE_FOLDER = "CustomSprites/";
 	private final String INVENTORY_SPRITE_FOLDER = "InventorySprites/";
@@ -75,7 +79,11 @@ public class GameDataHandler {
 		xstream.allowTypesByWildcard(new String[] { "engine.**", "java.**" });
 		return xstream;
 	}
-
+	
+	public GameDataHandler() {
+		this("Test Project");
+	}
+	
 	public GameDataHandler(String projectName) {
 		RESOURCES_PATH = Paths.get(RESOURCES).toAbsolutePath();
 		this.projectName = projectName;
@@ -84,6 +92,10 @@ public class GameDataHandler {
 		makeSpriteDirectories();
 	}
 
+	public String getProjectName() {
+		return projectName;
+	}
+	
 	/**
 	 * @param controller
 	 *            to serialize
@@ -240,7 +252,6 @@ public class GameDataHandler {
 		
 	}
 	
-	
 	public static void addImageFileToResources(File file) throws IOException {
 		if (file != null){
 //			Path newPath = Paths.get(RESOURCES_PATH);
@@ -255,6 +266,7 @@ public class GameDataHandler {
 			Path p = Paths.get(RESOURCES_PATH.toString(), file.getName());
 			System.out.println("Path p: "+p);
 		
+			System.out.println();
 			Files.copy(file.toPath(), p, StandardCopyOption.REPLACE_EXISTING);
 	}
 
@@ -275,47 +287,18 @@ public class GameDataHandler {
 	}
 
 	public void saveSprite(AbstractSpriteObject SO, String path) throws Exception {
-		
 		if (SO.getSavePath()==null || !path.equals(SO.getSavePath())) {
 			path = this.makeValidFileName(path);
 			SO.setSavePath(path);
 		}
-//		
-//		if (SO instanceof SpriteObject){
-//		SpriteObject sprite = (SpriteObject) SO;
-//		System.out.println("class of sprite: "+sprite.getClass());
-//		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path));
-//        oos.writeObject(sprite);
-//        oos.close();
-//		} else if(SO instanceof InventoryObject){
-//			InventoryObject inventory = (InventoryObject) SO;
-//			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path));
-//	        oos.writeObject(inventory);
-//	        oos.close();
-//		} else {
-//			throw new Exception("Not a valid Sprite class to serialize");
-//		}
-		
-		
-		
-//		String toSave = SERIALIZER.toXML(SO);
-//		FileWriter writer = new FileWriter(path);
-//		writer.write(toSave);
-//		writer.close();
-		
-//		If proxy fails uncomment next two lines
 		SpriteDataConverter SDC = new SpriteDataConverter(SO);
-		saveSprite(SDC, path);
-//		
-		
+		saveSprite(SDC, path);	
+		//TODO WHY DO WE HAVE THE NEXT 4 LINES WHEN THAT HAPPENS IN SAVESPRITE
 		 String toSave = SERIALIZER.toXML(SDC);
 		 FileWriter writer = new FileWriter(path);
 		 writer.write(toSave);
 		 writer.close();
 	}
-	
-	
-	
 
 	private void saveSprite(SpriteDataConverter SO, String path) throws IOException {
 		String toSave = SERIALIZER.toXML(SO);
@@ -323,32 +306,6 @@ public class GameDataHandler {
 		writer.write(toSave);
 		writer.close();
 	}
-
-//	public void saveSpriteToDirectory(SpriteObject SO, String directory) throws Exception {
-//		if (!directoryExists(directory)) {
-//			makeDirectory(directory);
-//		}
-//		String spriteName = directory + SO.getName();
-//
-//		try {
-//			saveSprite(SO, spriteName);
-//		} catch (Exception e) {
-//			throw new Exception("Could not save sprite");
-//		}
-//	}
-
-//	public void saveSpriteToDirectory(SpriteDataConverter SO, String directory) throws Exception {
-//		if (!directoryExists(directory)) {
-//			makeDirectory(directory);
-//		}
-//		String spriteName = directory + SO.getName();
-//
-//		try {
-//			saveSprite(SO, spriteName);
-//		} catch (Exception e) {
-//			throw new Exception("Could not save sprite");
-//		}
-//	}
 
 	public void saveDefaultSprite(AbstractSpriteObject SO) throws Exception {
 		// SpriteDataConverter SDC = new SpriteDataConverter(SO);
@@ -407,31 +364,7 @@ public class GameDataHandler {
 		AbstractSpriteObject ret = SDC.createSprite();
 		System.out.println("File: "+spriteFile);
 		return ret;
-//		Object a = SERIALIZER.fromXML(fileContents);
-//		SpriteObject ret = (SpriteObject) 
-	
-//		FileInputStream FIS = new FileInputStream(spriteFile);
-//		System.out.println(FIS.toString());
-//				ObjectInputStream ois = new ObjectInputStream(FIS);
-////				ois.rea
-//				System.out.println(ois.readObject());
-//				SpriteObject a = new SpriteObject();
-//				
-//				System.out.println(a);
-//		System.out.println(a.getClass());
-//		System.out.println("Can i do anything?");
-//		return a;
 	}
-
-	// public SpriteDataConverter loadSpriteData(File spriteFile) throws
-	// FileNotFoundException {
-	// Scanner scanner = new Scanner(spriteFile);
-	// String fileContents = scanner.useDelimiter("\\Z").next();
-	// scanner.close();
-	// SpriteDataConverter ret = (SpriteDataConverter)
-	// SERIALIZER.fromXML(fileContents);
-	// return ret;
-	// }
 
 	public File chooseSpriteFile(Stage stage) throws FileNotFoundException {
 		FileChooser imageChooser = new FileChooser();
@@ -468,18 +401,69 @@ public class GameDataHandler {
 
 		return ret;
 	}
+	
+	public String getWorldDirectoryPath() {
+		String ret = projectPath + WORLD_PATH;
+		return ret;
+	}
+	
+	public void saveWorld(MapDataConverter MDC, String path) throws Exception {
+		 String toSave = SERIALIZER.toXML(MDC);
+		 FileWriter writer = new FileWriter(path);
+		 writer.write(toSave);
+		 writer.close();
+	}
+	
+	public void saveWorld(DraggableGrid DG) throws Exception { // we need to create a path
+		String worldPath = makeValidFileName(getWorldDirectoryPath());
+		saveWorld(DG, worldPath);
+	}
+	
+	public void saveWorld(DraggableGrid DG, String path) throws Exception { // didn't check for null path
+		MapDataConverter MDC = new MapDataConverter(DG);
+		saveWorld(MDC, path);
+	}
+	
+	private DraggableGrid loadWorld(File worldFile) throws Exception {
+		if (!isValidFile(worldFile)){
+			throw new Exception("Invalid file to load");
+		}
+		Scanner scanner = new Scanner(worldFile);
+		String fileContents = scanner.useDelimiter("\\Z").next();
+		scanner.close();
+		MapDataConverter MDC = (MapDataConverter) SERIALIZER.fromXML(fileContents);
+		DraggableGrid ret = MDC.createMap(); // TODO this will not totally work
+		return ret;
+	}
+	
+	private List<DraggableGrid> loadWorldsFromDirectory(File directory) throws Exception { // TODO doesn't need parameter bc GDH is unique for every game?
+		List<DraggableGrid> worlds = new ArrayList<>();
+		if (!isValidDirectory(directory)) {
+			throw new Exception("Not a directory");
+		}
+		File[] files = directory.listFiles();
+		for (File f : files) {
+			
+			try {
+				DraggableGrid temp = loadWorld(f);
+				worlds.add(temp);
 
-	private ArrayList<AbstractSpriteObject> loadSpritesFromDirectory(File directory) throws Exception {
+			} catch (Exception e) {
+			}
+		}
+		return worlds;
+	}
+
+	private List<AbstractSpriteObject> loadSpritesFromDirectory(File directory) throws Exception {
 		System.out.println("Directory in loadSpritesFromDirectory: " + directory);
 		if (!isValidDirectory(directory)) {
 			throw new Exception("Not a directory");
 		}
 		File[] files = directory.listFiles();
-		ArrayList<AbstractSpriteObject> ret = new ArrayList<AbstractSpriteObject>();
+		List<AbstractSpriteObject> ret = new ArrayList<AbstractSpriteObject>();
 		for (File f : files) {
 			try {
 				AbstractSpriteObject dummy = loadSprite(f);
-				System.out.println("Done loading sprite");
 				ret.add(dummy);
 
 			} catch (Exception e) {
@@ -489,95 +473,41 @@ public class GameDataHandler {
 		}
 		return ret;
 	}
-
-	private ArrayList<AbstractSpriteObject> loadSpritesDataFromDirectory(File directory) throws Exception {
-		System.out.println("Directory in loadSpritesFromDirectory: " + directory);
-		if (!isValidDirectory(directory)) {
-			throw new Exception("Not a directory");
-		}
-		File[] files = directory.listFiles();
-		ArrayList<AbstractSpriteObject> ret = new ArrayList<AbstractSpriteObject>();
-		for (File f : files) {
-			try {
-				AbstractSpriteObject dummy = loadSprite(f);
-				// SpriteObject dummy = dummy1.createSprite();
-				ret.add(dummy);
-
-			} catch (Exception e) {
-//				e.printStackTrace();
-				// do nothing
-			}
-		}
-		return ret;
+	
+	public List<DraggableGrid> loadWorldsFromDirectoryName(String filePath) throws Exception {
+		File directory = new File(filePath);
+		return loadWorldsFromDirectory(directory);
 	}
 
-	private ArrayList<AbstractSpriteObject> loadSpritesFromDirectoryName(String filePath) throws Exception {
+	private List<AbstractSpriteObject> loadSpritesFromDirectoryName(String filePath) throws Exception {
 		File directory = new File(filePath);
 		return loadSpritesFromDirectory(directory);
 	}
 
-	public Map<String, ArrayList<AbstractSpriteObject>> loadSpritesFromNestedDirectories(String rootDirectory) {
+	public Map<String, List<AbstractSpriteObject>> loadSpritesFromNestedDirectories(String rootDirectory) {
 		File file = new File(rootDirectory);
 		if (!isValidDirectory(file)) {
 			return null;
 		}
 		System.out.println("Still going");
-		Map<String, ArrayList<AbstractSpriteObject>> ret = new HashMap<String, ArrayList<AbstractSpriteObject>>();
-
+		Map<String, List<AbstractSpriteObject>> ret = new HashMap<String, List<AbstractSpriteObject>>();
 		File[] files = file.listFiles();
 		for (File f : files) {
 			if (isValidDirectory(f)) {
 				try {
-					ArrayList<AbstractSpriteObject> val = loadSpritesDataFromDirectory(f);
+					List<AbstractSpriteObject> val = loadSpritesFromDirectory(f);
 					String name = f.getName();
 					ret.put(name, val);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-
-				// }
-				// } catch (Exception e) {
-				// e.printStackTrace();
-				// Do nothing
 			}
-
 		}
 		return ret;
 	}
 
-	// public Map<String, ArrayList<SpriteDataConverter>>
-	// loadSpritesDataFromNestedDirectories(String rootDirectory) {
-	// File file = new File(rootDirectory);
-	// if (!isValidDirectory(file)) {
-	// return null;
-	// }
-	// System.out.println("Still going");
-	// Map<String, ArrayList<SpriteDataConverter>> ret = new HashMap<String,
-	// ArrayList<SpriteDataConverter>>();
-	//
-	// File[] files = file.listFiles();
-	// for (File f : files) {
-	// if (isValidDirectory(f)){
-	// try{
-	// ArrayList<SpriteObject> val = loadSpritesDataFromDirectory(f);
-	// String name = f.getName();
-	// ret.put(name, val);
-	// } catch (Exception e){
-	// e.printStackTrace();
-	// }
-	//
-	//// }
-	//// } catch (Exception e) {
-	//// e.printStackTrace();
-	// // Do nothing
-	// }
-	//
-	// }
-	// return ret;
-	// }
-
 	private void makeSpriteDirectories() {
-		ArrayList<String> pathsToMake = new ArrayList<String>();
+		List<String> pathsToMake = new ArrayList<String>();
 		pathsToMake.add(getDefaultSpriteDirectoryPath());
 		pathsToMake.add(getCustomSpriteDirectoryPath());
 		pathsToMake.add(getInventorySpriteDirectoryPath());
