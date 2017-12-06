@@ -20,10 +20,15 @@ public class SpriteParameterSidebarManager {
 	SpriteObject firstSprite;
 //	SpriteObjectGridManagerI mySOGM;
 	DraggableGrid myDG;
+	private boolean multipleCellsActive = false;
 
 	SpriteParameterSidebarManager(DraggableGrid DG) {
 		myDG = DG;
 //		mySOGM = SOGM;
+	}
+	
+	public boolean multipleActive(){
+		return multipleCellsActive;
 	}
 
 	public SpriteObject getActiveSprite() throws Exception {
@@ -34,7 +39,9 @@ public class SpriteParameterSidebarManager {
 	}
 
 	private void checkActiveCellsMatch(ArrayList<SpriteObject> SO_List) throws Exception {
+		multipleCellsActive = (SO_List.size()>1);
 		if (SO_List.size() > 0) {
+			
 			firstTimeThrough = true;
 			for (SpriteObject SO : SO_List) {
 				if (firstTimeThrough) {

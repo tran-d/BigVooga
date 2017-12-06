@@ -192,6 +192,10 @@ public class AuthoringEnvironmentManager {
 	public SpriteObject getActiveCell() throws Exception {
 		return SPSM.getActiveSprite();
 	}
+	
+	public boolean multipleActive(){
+		return SPSM.multipleActive();
+	}
 
 	public SpriteObjectGridManagerI getGridManager() {
 		return SOGM;

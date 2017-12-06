@@ -77,6 +77,10 @@ public class SpriteScrollView extends ScrollPane {
 		Separator ret = new Separator();
 		return ret;
 	}
+	
+	public void removeFromVBox(Pane pane){
+		containerVBox.getChildren().remove(pane);
+	}
 
 	public void addToVBox(Pane pane) {
 		if (containerVBox.getChildren().size() > 0) {

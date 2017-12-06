@@ -88,7 +88,10 @@ public class SpriteInventoryTabAndInfo {
 	public void addInventory(AbstractSpriteObject ASO) {
 		SpriteThumbnail ST = new SpriteThumbnail(ASO, true);
 		ST.addSideButton("Remove");
-		ST.setSideButtonRunnable(()->this.removeInventory(ASO));
+		ST.setSideButtonRunnable(()->{
+			removeFromInventory(ST);
+			
+		});
 		ST.setOnMouseClicked(event -> {
 			itemOnClickAction.accept(ST);
 		});
@@ -114,8 +117,14 @@ public class SpriteInventoryTabAndInfo {
 		temporaryInventory.addAll(newInventory);
 	}
 	
-	private void removeInventory(AbstractSpriteObject ASO){
-		temporaryInventory.remove(ASO);
+//	private void removeFromInventory(AbstractSpriteObject ASO){
+//		myScrollPane.removeFromVBox();
+//		temporaryInventory.remove(ASO);
+//	}
+	
+	private void removeFromInventory(SpriteThumbnail ST){
+		myScrollPane.removeFromVBox(ST);
+		temporaryInventory.remove(ST.getSprite());
 	}
 
 	private void createBoundingScrollPane() {
@@ -186,6 +195,7 @@ public class SpriteInventoryTabAndInfo {
 	
 	public void apply(){
 //		myInventory.addAll(temporaryInventory);
+		System.out.println("myASO: "+myASO);
 		myASO.setInventory(temporaryInventory);
 	}
 

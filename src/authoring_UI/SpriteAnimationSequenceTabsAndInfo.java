@@ -7,6 +7,7 @@ import authoring.AbstractSpriteObject;
 import authoring.AnimationSequence;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
@@ -34,6 +35,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	private Button addAnimationSequenceButton;
 	private Button createAnimationSequenceButton;
 	private TextField promptNewName;
+	private Label promptNameLabel;
 	
 	
 	SpriteAnimationSequenceTabsAndInfo(){
@@ -56,6 +58,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 		createAddAnimationSequenceButton();
 		createCreateAnimationSequenceButton();
 		createPromptNameText();
+		createPromptNameLabel();
 		putAddAnimationSequenceButtonIntoHbox();
 		
 		
@@ -186,8 +189,13 @@ public class SpriteAnimationSequenceTabsAndInfo {
 		return tab;
 	}
 	
+	private void createPromptNameLabel(){
+		promptNameLabel = new Label("AnimationSequence Name:");
+		
+	}
+	
 	private void createPromptNameText(){
-		promptNewName = new TextField("AnimationSequence Name");
+		promptNewName = new TextField();
 
 	}
 	
@@ -201,11 +209,11 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	}
 	
 	private void addPromptNewNameAndCreateButtonToHbox(){
-		this.addAnimationSequenceHbox.getChildren().addAll(promptNewName, createAnimationSequenceButton);
+		this.addAnimationSequenceHbox.getChildren().addAll(promptNameLabel, promptNewName, createAnimationSequenceButton);
 	}
 	
 	private void removePromptNewNameAndCreateButtonToHbox(){
-		this.addAnimationSequenceHbox.getChildren().removeAll(promptNewName, createAnimationSequenceButton);
+		this.addAnimationSequenceHbox.getChildren().removeAll(promptNameLabel, promptNewName, createAnimationSequenceButton);
 	}
 	
 	public void apply(){

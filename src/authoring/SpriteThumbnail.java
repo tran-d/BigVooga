@@ -34,10 +34,10 @@ public class SpriteThumbnail extends Thumbnail{
 	}
 	
 	public AbstractSpriteObject getSprite(){
-		if (myASOCopy==null){
-			myASOCopy = myASO.newCopy();
-		}
-		return myASOCopy;
+//		if (myASOCopy==null){
+//			myASOCopy = myASO.newCopy();
+//		}
+		return myASO;
 	}
 
 }
