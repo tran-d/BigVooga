@@ -232,7 +232,6 @@ public class GameElementSelector extends TabPane implements Observer {
 		SO.setNumCellsHeightNoException(2);
 		SO.setNumCellsWidthNoException(2);
 		SO.setImageURL(urls.get(4));
-	
 		try {
 			myGDH.saveDefaultSprite(SO);
 			System.out.println("Saved " + SO.getImageURL());
@@ -240,6 +239,7 @@ public class GameElementSelector extends TabPane implements Observer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		
 		
 		

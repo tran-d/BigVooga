@@ -6,6 +6,26 @@
     -fx-background-color: #001E32;
 }
 
+.tab-pane *.tab-header-area *.tab-header-background {
+  -fx-background-color: transparent;
+  -fx-border-color: #47BDFF;
+  -fx-padding: 1px;
+}
+
+.tab {
+  -fx-border-color: #47BDFF;
+  -fx-background-color: transparent;
+}
+
+.tab-label {
+	-fx-text-fill: #47BDFF;
+}
+
+.tab:selected {
+	-fx-effect: null;
+    -fx-background-color: #FFCD3C;
+}
+
 .scroll-pane > .viewport {
    -fx-background-color: #001E32;
 }
@@ -38,4 +58,61 @@
 .scroll-bar:horizontal .thumb,
 .scroll-bar:vertical .thumb {
     -fx-background-color: #47BDFF;
+}
+
+.label{
+	-fx-text-fill: #47BDFF;
+}
+
+.button{
+	-fx-border-color: #47BDFF;
+	-fx-text-fill: #47BDFF;
+	-fx-background-color: transparent;
+	-fx-overflow: hidden;
+}
+
+.button:visited {
+	-fx-background-color: #FFCD3C;
+}
+.button:hover {
+    -fx-background-color: #FFCD3C;
+}
+
+.menu-button{
+	-fx-border-color: #47BDFF;
+	-fx-background-color: transparent;
+	-fx-overflow: hidden;
+}
+
+.menu-button > .arrow-button > .arrow {
+    -fx-background-color: #47BDFF;
+}
+
+.menu-button:hover {
+    -fx-background-color: #FFCD3C;
+}
+
+.menu-item{
+	-fx-border-color: #47BDFF;
+	-fx-background-color: transparent;
+	-fx-overflow: hidden;
+}
+
+.menu-item:hover {
+    -fx-background-color: #FFCD3C;
+}
+
+.context-menu {
+    -fx-background-color: #001E32;
+    -fx-effect: null;
+    -fx-padding: 0px;
+}
+
+.text-area{
+	-fx-border-color: #47BDFF;
+	-fx-background-color: transparent;
+}
+
+.separator{
+	-fx-background: #47BDFF;
 }
