@@ -73,7 +73,7 @@ public class SpriteUtilityToUIController {
 		
 //		setSetMethodSignature(setMethod);
 
-		Pane p = new HBox();
+		Pane p = new HBox(20);
 
 		Label nameLabel = new Label();
 		nameLabel.setText(readableName);
@@ -110,14 +110,14 @@ public class SpriteUtilityToUIController {
 
 	}
 
-	private Node getRequiredValueComponent(Object o, BiFunction<String, Object, Boolean> consumer, String setMethod, Boolean isLocked) {
+	private Node getRequiredValueComponent(Object o, BiFunction<String, Object, Boolean> BiFunctionToCheck, String setMethod, Boolean isLocked) {
 //		System.out.println("getting required value: "+o);
 		if (o instanceof String) {
 			TextField ret = new TextField();
 			ret.setText((String) o);
 			if (!isLocked){
 			ret.textProperty().addListener((observable, previous, next) -> {
-				if (!consumer.apply(setMethod, next)){
+				if (!BiFunctionToCheck.apply(setMethod, next)){
 					ret.textProperty().set(previous);
 				}
 			});
@@ -132,7 +132,7 @@ public class SpriteUtilityToUIController {
 					if (isLocked){
 						return false;
 					}
-					boolean ret = consumer.apply(setMethod, t);
+					boolean ret = BiFunctionToCheck.apply(setMethod, t);
 //					System.out.println("The function returned "+ret);
 					return ret;
 				}
@@ -149,9 +149,9 @@ public class SpriteUtilityToUIController {
 		} else if (o instanceof Boolean) {
 
 		} else if (o instanceof Integer[]) {
-			Text text = new Text();
+			Label text = new Label();
 			Integer [] asIntArray = (Integer[]) o;
-			text.setText(asIntArray[0]+" , " + asIntArray[1]);
+			text.setText("Row: "+asIntArray[0]+" ; Column:  " + asIntArray[1]);
 			return text;
 		}
 		Text emptyText = new Text("NOVALUE");

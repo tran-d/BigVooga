@@ -24,12 +24,12 @@ public class AuthoringEnvironmentManager {
 	private GameDataHandler myGDH;
 	private SpriteSet myDefaultSprites;
 	private SpriteSet myCustomSprites;
-
 	private SpriteSet myInventorySprites;
 	private DraggableGrid myGrid;
 
-	public AuthoringEnvironmentManager(String projectName) {
-		myGDH = new GameDataHandler(projectName);
+	public AuthoringEnvironmentManager(GameDataHandler GDH) {
+		myGDH = GDH;
+		//myGDH = new GameDataHandler(projectName);
 		defaultEmptySprite = new DefaultSpriteObject();
 		myGrid = new DraggableGrid();
 		// SOGM = new SpriteObjectGridManager();
@@ -45,10 +45,12 @@ public class AuthoringEnvironmentManager {
 		return myGrid;
 	}
 
-	public AuthoringEnvironmentManager() {
-		this("TestProject");
+	public void setOldDraggableGrid(DraggableGrid toSet) {
+		String projectName = myGDH.getProjectName();
+		myGrid = toSet;
+		// do stuff to get the saved data
 	}
-
+	
 	public GameDataHandler getGameDataHandler() {
 		return myGDH;
 	}
@@ -180,7 +182,6 @@ public class AuthoringEnvironmentManager {
 		});
 		// defaultSprites.addAll(SOI_LIST);
 	}
-
 	// public void addUserSprite(SpriteObject SOI) {
 	// userSprites.add(SOI);
 	// }
@@ -192,9 +193,12 @@ public class AuthoringEnvironmentManager {
 	public SpriteObject getActiveCell() throws Exception {
 		return SPSM.getActiveSprite();
 	}
-
-	public SpriteObjectGridManagerI getGridManager() {
-		return SOGM;
+	
+	public boolean multipleActive(){
+		return SPSM.multipleActive();
 	}
 
+	public SpriteObjectGridManagerI getGridManager() {
+		return SOGM; // BTW THIS IS NEVER INITIALIZED. 
+	}
 }

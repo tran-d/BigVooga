@@ -102,7 +102,7 @@ public class AnimationSequence {
 		if (this.outMostVbox==null){
 			outMostVbox  = new VBox(5);
 			outMostVbox.getChildren().add(getScrollPane());
-			outMostVbox.getChildren().add(new Separator());
+//			outMostVbox.getChildren().add(new Separator());
 			outMostVbox.getChildren().add(this.getAddImageButton());
 		}
 		return outMostVbox;
@@ -143,22 +143,42 @@ public class AnimationSequence {
 	}
 
 	private void addAllAnimationSequenceImageThumbnails() {
-		int counter = 1;
 		for (AnimationSequenceImage ASI : this.getImages()) {
-			String label = "Image " + Integer.toString(counter);
-			myContainerVbox.getChildren().add(new Thumbnail(ASI.getImage(), label));
-			counter++;
+			addNewAnimationSequenceToUI(ASI);
 		}
+//		int counter = 1;
+//		for (AnimationSequenceImage ASI : this.getImages()) {
+//			String label = "Image " + Integer.toString(counter);
+//			addNewAnimationSequenceToUI(ASI);
+//			counter++;
+//		}
 	}
 
 	private void addNewAnimationSequenceToUI(AnimationSequenceImage ASI, String label) {
-		myContainerVbox.getChildren().add(new Thumbnail(ASI.getImage(), label));
+		
+		Thumbnail th = new Thumbnail(ASI.getImage(), label);
+		th.addSideButton("Remove from animation");
+		th.setSideButtonRunnable(()->{
+			myContainerVbox.getChildren().remove(th);
+			this.myImages.remove(ASI);
+		});
+		
+		myContainerVbox.getChildren().add(th);
 	}
 
 	private void addNewAnimationSequenceToUI(AnimationSequenceImage ASI) {
 		int vboxSize = myContainerVbox.getChildren().size();
 		System.out.println("Adding to AnSeq");
-		myContainerVbox.getChildren().add(new Thumbnail(ASI.getImage(), Integer.toString(vboxSize)));
+		Thumbnail th = new Thumbnail(ASI.getImage(), "Image "+Integer.toString(vboxSize));
+		th.addSideButton("Remove from animation");
+		th.setSideButtonRunnable(()->{
+			if(!(this.getName().equals("Default")&&this.myContainerVbox.getChildren().size()==1)){
+			myContainerVbox.getChildren().remove(th);
+			this.myImages.remove(ASI);
+			}
+		});
+		
+		myContainerVbox.getChildren().add(th);
 	}
 	
 	private void createAddImageButton(){
@@ -176,7 +196,10 @@ public class AnimationSequence {
 //			Image im = new Image("/"+file.getName());
 //			Image im = new Image("/"+"brick.png");
 //			System.out.println("Image loaded: "+im);
-			AuthoringImageView AIV = new AuthoringImageView("/"+file.getName());
+			
+			String testFile = File.separator+file.getName();
+			System.out.println(testFile);
+			AuthoringImageView AIV = new AuthoringImageView(testFile);
 			addNewAuthoringImageViewToSequence(AIV);
 		});
 	}

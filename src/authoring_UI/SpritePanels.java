@@ -2,6 +2,7 @@ package authoring_UI;
 
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObjectGridManagerI;
+import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
 
 public class SpritePanels extends VBox {
@@ -20,6 +21,10 @@ public class SpritePanels extends VBox {
 	
 	public DisplayPanel getDisplayPanel() {
 		return displayPanel;
+	}
+	
+	public Tab getDialoguesTab() {
+		return gameElementSelector.getDialoguesTab();
 	}
 	
 }

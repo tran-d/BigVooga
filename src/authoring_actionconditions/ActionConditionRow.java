@@ -47,7 +47,7 @@ public class ActionConditionRow extends ToolBar implements ActionCheckBoxVBoxI {
 	private ChoiceBoxVBox<String> actionOptions;
 	private ActionConditionVBox ACVBox;
 
-	public ActionConditionRow(int ID, String label, String selectorLabel, boolean isConditionRow,
+	public ActionConditionRow(int ID, String label, String selectorLabel,
 			ObservableList<Integer> newActionOptions, ActionConditionVBox ACVBox) {
 		super();
 		this.newActionOptions = newActionOptions;

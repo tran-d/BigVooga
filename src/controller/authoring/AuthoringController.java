@@ -43,6 +43,7 @@ public class AuthoringController {
 //		viewMap.put(DIALOGUE_KEY, dc.getParent());
 		
 		DialogueManager dm = new DialogueManager();
+		dm.addDialogueListener(mapManager.getDialoguesTab());
 		viewMap.put(DIALOGUE_KEY, dm.getPane());
 		
 		HUDManager hudManager = new HUDManager();
