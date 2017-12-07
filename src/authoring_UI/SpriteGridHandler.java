@@ -37,7 +37,7 @@ public class SpriteGridHandler {
 	private DraggableGrid myDG;
 	// private GridPane myGrid;
 
-	protected SpriteGridHandler(int mapCount, DraggableGrid DG) {
+	public SpriteGridHandler(int mapCount, DraggableGrid DG) {
 		objectFormat = new DataFormat("MyObject" + Integer.toString(mapCount));
 		// mySOGM = SOGM;
 		myDG = DG;
@@ -137,7 +137,7 @@ public class SpriteGridHandler {
 	// pane.setOpacity(1);
 	// }
 
-	protected void addSpriteMouseClick(AbstractSpriteObject s) {
+	public void addSpriteMouseClick(AbstractSpriteObject s) {
 		s.setOnMouseClicked(e -> {
 			System.out.println("I clicked sprite : " + s);
 			
@@ -348,8 +348,9 @@ public class SpriteGridHandler {
 	// });
 	// }
 
-	protected void addSpriteDrag(AbstractSpriteObject s) {
+	public void addSpriteDrag(AbstractSpriteObject s) {
 		s.setOnDragDetected(e -> {
+			if (!myDG.getActiveGrid().getActiveSpriteObjects().contains(s)){
 			Dragboard db = s.startDragAndDrop(TransferMode.MOVE);
 
 			db.setDragView(s.snapshot(null, null));
@@ -357,6 +358,7 @@ public class SpriteGridHandler {
 			cc.put(objectFormat, " ");
 			db.setContent(cc);
 			draggingObject = s;
+			}
 		});
 	}
 }

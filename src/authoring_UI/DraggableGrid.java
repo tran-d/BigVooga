@@ -64,11 +64,27 @@ public class DraggableGrid extends VBox {
 		// createTerrainGrid();
 	}
 	
-	public void construct(SpriteGridHandler spriteGridHandler) {
+//	public DraggableGrid(SpriteGridHandler SGH){
+//		mySGH = SGH;
+//		
+//	}
+	
+	public void construct(SpriteGridHandler spriteGridHandler, SpriteObjectGridManager SGM){
+		ArrayList<SpriteObjectGridManager> dummy = new ArrayList<SpriteObjectGridManager>();
+		dummy.add(SGM);
+		construct(spriteGridHandler, dummy);
+	}
+	
+	public void construct(SpriteGridHandler spriteGridHandler, ArrayList<SpriteObjectGridManager> SGMs){
+		allGrids = SGMs;
 		mySGH = spriteGridHandler;
 		makeTopInfo();
 		makeLayers(spriteGridHandler);
 		createGrid(spriteGridHandler);
+	}
+	
+	public void construct(SpriteGridHandler spriteGridHandler) {
+		construct(spriteGridHandler, new ArrayList<SpriteObjectGridManager>());
 	}
 
 	private void makeTopInfo() {
@@ -108,23 +124,24 @@ public class DraggableGrid extends VBox {
 	
 	private void makeLayers(SpriteGridHandler spriteGridHandler){
 		gridManagers = new ArrayList<SpriteObjectGridManager>();
-//		MapLayer terrain = new TerrainLayer(15,15,spriteGridHandler);
+		if (allGrids.size()==0){
 		SpriteObjectGridManager terrain = new TerrainObjectGridManager(rows, cols, spriteGridHandler);
-//		MapLayer terrain = terrMan.getMapLayer();
-//		this.getChildren().add(terrain);
-//		myStackPane.getChildren().add(new ImageView(new Image("pikachu.png")));
-//		makeLayerButton(terrain);
-//		SpriteLayer sprites = new SpriteLayer(15,15,spriteGridHandler);
-//		MapLayer panels = new PanelLayer(15,15,spriteGridHandler);
 		SpriteObjectGridManagerForSprites sprites = new SpriteObjectGridManagerForSprites(rows, cols, spriteGridHandler);
 		PanelObjectGridManager panels = new PanelObjectGridManager(rows, cols, spriteGridHandler);
 		gridManagers.add(terrain);
 		gridManagers.add(sprites);
 		gridManagers.add(panels);
-		allGrids = new ArrayList<SpriteObjectGridManager>();
 		gridManagers.forEach(item->{
 			allGrids.add(item);
 		});
+		} else {
+			allGrids.forEach(item->{
+				item.setSpriteGridHandler(spriteGridHandler);
+				item.createMapLayer();
+				item.getMapLayer().setSpriteGridHandler(spriteGridHandler);
+				gridManagers.add(item);
+			});
+		}
 //		allGrids = new ArrayList<SpriteObjectGridManager>(gridManagers);
 	}
 	

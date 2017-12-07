@@ -44,7 +44,7 @@ public class AuthoringController {
 		dm.addDialogueListener(mapManager.getDialoguesTab());
 		viewMap.put(DIALOGUE_KEY, dm.getPane());
 		
-		HUDManager hudManager = new HUDManager();
+		HUDManager hudManager = new HUDManager(mapManager.getGameDataHandler());
 		viewMap.put(HUD_KEY, hudManager.getPane());
 		
 	}

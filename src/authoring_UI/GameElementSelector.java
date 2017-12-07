@@ -56,8 +56,7 @@ public class GameElementSelector extends TabPane implements Observer {
 	private SpriteGridHandler mySpriteGridHandler;
 	private Tab dialoguesTab;
 
-	protected GameElementSelector(SpriteGridHandler spriteGridHandler, AuthoringEnvironmentManager AEM,
-			SpriteObjectGridManagerI SOGM) {
+	protected GameElementSelector(SpriteGridHandler spriteGridHandler, AuthoringEnvironmentManager AEM) {
 		mySPF = new SpriteParameterFactory();
 		myAEM = AEM;
 		// mySpriteGridHandler = myAEM.getSpriteGridHandler();

@@ -5,6 +5,7 @@ import java.util.List;
 
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObjectGridManagerI;
+import authoring_UI.HUD.HUDManager;
 import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.beans.binding.Bindings;
@@ -32,7 +33,7 @@ public class MapManager extends TabPane {
 	private ViewSideBar sideBar;
 	private GameElementSelector mySprites;
 	private AuthoringEnvironmentManager myAEM;
-	private SpriteObjectGridManagerI mySOGM;
+//	private SpriteObjectGridManagerI mySOGM;
 	private int myTabCount = 1;
 	private Tab currentTab;
 	private String addTabString;
@@ -40,6 +41,7 @@ public class MapManager extends TabPane {
 	private String projectName = "TestProject";
 	private GameDataHandler myGDH;
 	private int numWorlds = 1;
+	private SpriteGridHandler mySpriteGridHandler;
 
 	private Pane mapEditor = new Pane();
 	private SpritePanels spritePanels;
@@ -115,21 +117,22 @@ public class MapManager extends TabPane {
 		if (oldProject) {
 			myAEM.setOldDraggableGrid(world); //TODO FILL THIS IN
 		}
-		mySOGM = myAEM.getGridManager();
+//		mySOGM = myAEM.getGridManager();
 	}
 	
 	private void setupBEAuthClasses() {
 		myAEM = new AuthoringEnvironmentManager(myGDH);
-		mySOGM = myAEM.getGridManager();
+//		mySOGM = myAEM.getGridManager();
 	}
 	
 	private void setupFEAuthClasses() {
 		
 		DraggableGrid myGrid = myAEM.getDraggableGrid();
-		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, myGrid);
+		mySpriteGridHandler = new SpriteGridHandler(myTabCount, myGrid);
 		myGrid.construct(mySpriteGridHandler);
 		mySpriteGridHandler.addKeyPress(stage.getScene());
-		spritePanels = new SpritePanels(this, mySpriteGridHandler, myAEM, mySOGM);
+//		myHUDManager = new HUDManager(mySpriteGridHandler);
+		spritePanels = new SpritePanels(mySpriteGridHandler, myAEM);
 		mySpriteGridHandler.setDisplayPanel(spritePanels);
 		authMap.setPanels(spritePanels);
 		authMap.setGrid(myGrid);
@@ -174,4 +177,21 @@ public class MapManager extends TabPane {
 	public Tab getDialoguesTab() {
 		return spritePanels.getDialoguesTab();
 	}
+
+	public SpriteGridHandler getSpriteGridHandler() {
+		return this.mySpriteGridHandler;
+	}
+	
+	public AuthoringEnvironmentManager getAEM(){
+		return this.myAEM;
+	}
+	
+	public SpritePanels getSpritePanels(){
+		return this.spritePanels;
+	}
+	
+	public GameDataHandler getGameDataHandler(){
+		return myGDH;
+	}
+	
 }

@@ -313,6 +313,7 @@ public class AuthoringMapStackPane extends StackPane {
 			mySO = ASO;
 			this.getChildren().clear();
 			setCoveredByOtherSprite(true);
+			this.setCoveringSprite(mySO);
 			shapeSpriteToCellSize();
 
 			setRowSpan(mySO.getNumCellsHeight());
@@ -380,22 +381,28 @@ public class AuthoringMapStackPane extends StackPane {
 
 	public void setRowSpan(int span) {
 		// System.out.println("Resizing row span, " + span);
+		if (span<=0){
+			span=1;
+		}
 		getMapLayer().setRowSpan(this, span);
 		rowSpanProperty.set(span);
 	}
 
 	public void setColSpan(int span) {
 		// System.out.println("Resizing column span, " + span);
+		if (span<=0){
+			span = 1;
+		}
 		getMapLayer().setColumnSpan(this, span);
 		colSpanProperty.set(span);
 	}
 
-	private int getRowSpan() {
+	int getRowSpan() {
 
 		return getMapLayer().getRowSpan(this);
 	}
 
-	private int getColSpan() {
+	int getColSpan() {
 		return getMapLayer().getColumnSpan(this);
 	}
 

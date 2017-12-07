@@ -34,7 +34,7 @@ public abstract class MapLayer extends GridPane {
 	protected ObjectProperty<Integer> numColumnsProperty;
 	private ArrayList<AuthoringMapStackPane> activeGridCells;
 
-	MapLayer(int rows, int columns, int layerNum, SpriteGridHandler SGH, Color c) {
+	protected MapLayer(int rows, int columns, int layerNum, SpriteGridHandler SGH, Color c) {
 		super();
 		defaultColor = c;
 		activeGridCells = new ArrayList<AuthoringMapStackPane>();
@@ -56,7 +56,10 @@ public abstract class MapLayer extends GridPane {
 						}
 						if (AMSP.isCoveredByOtherSprite()){
 							AbstractSpriteObject ASO = AMSP.getCoveringSprite();
-							((AuthoringMapStackPane)ASO.getParent()).removeChild();
+							AuthoringMapStackPane parentSP = (AuthoringMapStackPane)ASO.getParent();
+//							parentSP.removeChild();
+							parentSP.setRowSpan(parentSP.getRowSpan()-1);
+							
 //							AMSP.getCoveringSprite().setFitHeight(currFitHeight-this.CELL_SIZE);
 						}
 					this.getChildren().remove(AMSP);
@@ -77,13 +80,17 @@ public abstract class MapLayer extends GridPane {
 			if (diff<0){
 				for (int i=0;i>diff;i--){
 					for (int row =0;row<numRowsProperty.get();row++){
+						System.out.println("Row: "+row);
 						AuthoringMapStackPane AMSP = this.getChildAtPosition(row,oldNumColumns-i-1);
 						if (AMSP.isActive()){
 							this.removeActive(AMSP);
 						}
 						if (AMSP.isCoveredByOtherSprite()){
 							AbstractSpriteObject ASO = AMSP.getCoveringSprite();
-							((AuthoringMapStackPane)ASO.getParent()).removeChild();
+							AuthoringMapStackPane parentSP = (AuthoringMapStackPane)ASO.getParent();
+//							parentSP.removeChild();
+							parentSP.setColSpan(parentSP.getColSpan()-1);
+							
 						}
 					this.getChildren().remove(AMSP);
 					}
@@ -104,6 +111,10 @@ public abstract class MapLayer extends GridPane {
 		this.setNumCols(columns);
 //		setup();
 
+	}
+	
+	public void setSpriteGridHandler(SpriteGridHandler SGH){
+		mySGH = SGH;
 	}
 	
 	public void addActive(AuthoringMapStackPane pane){

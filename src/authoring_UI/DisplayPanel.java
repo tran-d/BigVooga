@@ -46,7 +46,7 @@ public class DisplayPanel extends VBox {
 	
 	public static final ResourceBundle conditionActionTitles = ResourceBundle.getBundle(ACTIONCONDITIONTITLES_PATH);
 
-	protected DisplayPanel(AuthoringEnvironmentManager AEM, MapManager myManager) {
+	protected DisplayPanel(AuthoringEnvironmentManager AEM) {
 		multipleCellsActiveProperty = new SimpleObjectProperty<Boolean>();
 		mySParameterTAI = new SpriteParameterTabsAndInfo();
 		mySInventoryTAI = new SpriteInventoryTabAndInfo(AEM);
@@ -360,9 +360,9 @@ public class DisplayPanel extends VBox {
 		// this.getChildren().add(myStateSP);
 	}
 
-	private void buttonInteraction() {
-		// TODO
-	}
+//	private void buttonInteraction() {
+//		// TODO
+//	}
 
 	// private void apply() {
 	//
@@ -389,22 +389,22 @@ public class DisplayPanel extends VBox {
 		myAEM.getSpriteParameterSidebarManager().apply();
 	}
 
-	private void addParameter() {
-		List<String> choices = new ArrayList<>();
-		choices.add("Boolean");
-		choices.add("String");
-		choices.add("Double");
+//	private void addParameter() {
+//		List<String> choices = new ArrayList<>();
+//		choices.add("Boolean");
+//		choices.add("String");
+//		choices.add("Double");
+//
+//		ChoiceDialog<String> dialog = new ChoiceDialog<>("Boolean", choices);
+//		dialog.setTitle("Add Parameter");
+//		dialog.setContentText("Choose parameter type:");
+//
+//		Optional<String> result = dialog.showAndWait();
+//		result.ifPresent(type -> createNewParameter(type));
+//	}
 
-		ChoiceDialog<String> dialog = new ChoiceDialog<>("Boolean", choices);
-		dialog.setTitle("Add Parameter");
-		dialog.setContentText("Choose parameter type:");
-
-		Optional<String> result = dialog.showAndWait();
-		result.ifPresent(type -> createNewParameter(type));
-	}
-
-	private void createNewParameter(String type) {
-
-	}
+//	private void createNewParameter(String type) {
+//
+//	}
 
 }

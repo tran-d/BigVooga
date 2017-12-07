@@ -26,6 +26,8 @@ public abstract class SpriteObjectGridManager {
 	protected SpriteGridHandler mySpriteGridHandler;
 	protected int myLayerNum;
 	Color myColor;
+	protected int temporaryRows;
+	protected int temporaryColumns;
 	
 	protected ObjectProperty<Integer> numRowsProperty;
 	protected ObjectProperty<Integer> numColumnsProperty;
@@ -92,21 +94,28 @@ public abstract class SpriteObjectGridManager {
 					}
 				}
 		});
-		
+		temporaryRows = rows;
+		temporaryColumns = cols;
 //		initializeGrid();
 
 		
 	}
 	
-	protected SpriteObjectGridManager(int rows, int columns, SpriteGridHandler SGH){
+	
+	public SpriteObjectGridManager(int rows, int columns, SpriteGridHandler SGH){
 		this(rows, columns);
-		mySpriteGridHandler = SGH;
-
+		
+		setSpriteGridHandler(SGH);
+		createMapLayer();
 //		myLayerNum = layerNum;
 //		createMapLayer();
-		createMapLayer();
+		
 		this.numRowsProperty.set(rows);
 		this.numColumnsProperty.set(columns);
+	}
+	
+	public void setSpriteGridHandler(SpriteGridHandler SGH){
+		mySpriteGridHandler = SGH;
 	}
 	
 	
@@ -129,7 +138,7 @@ public abstract class SpriteObjectGridManager {
 
 	
 	
-	protected abstract void createMapLayer();
+	public abstract void createMapLayer();
 	
 	public MapLayer getMapLayer(){
 		return this.myMapLayer;

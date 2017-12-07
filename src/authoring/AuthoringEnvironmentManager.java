@@ -40,6 +40,20 @@ public class AuthoringEnvironmentManager {
 		// defaultSprites = new ArrayList<SpriteObject>();
 		// userSprites = new ArrayList<SpriteObject>();
 	}
+	
+	public AuthoringEnvironmentManager(GameDataHandler GDH, DraggableGrid DG) {
+		myGDH = GDH;
+		//myGDH = new GameDataHandler(projectName);
+		defaultEmptySprite = new DefaultSpriteObject();
+		myGrid = DG;
+		// SOGM = new SpriteObjectGridManager();
+		SPSM = new SpriteParameterSidebarManager(myGrid);
+		initializeDefaultSprites();
+		initializeCustomSprites();
+		initializeInventorySprites();
+		// defaultSprites = new ArrayList<SpriteObject>();
+		// userSprites = new ArrayList<SpriteObject>();
+	}
 
 	public DraggableGrid getDraggableGrid() {
 		return myGrid;
@@ -170,6 +184,12 @@ public class AuthoringEnvironmentManager {
 		myCustomSprites.addNewSprite(SOI);
 
 	}
+	
+	public void addUserSprite(String category, SpriteObject SOI) throws Exception {
+
+		myCustomSprites.addNewSprite(category, SOI);
+
+	}
 
 	public void addUserSprite(ArrayList<SpriteObject> SOI_LIST) {
 		SOI_LIST.forEach(sprite -> {
@@ -198,7 +218,7 @@ public class AuthoringEnvironmentManager {
 		return SPSM.multipleActive();
 	}
 
-	public SpriteObjectGridManagerI getGridManager() {
-		return SOGM; // BTW THIS IS NEVER INITIALIZED. 
-	}
+//	public SpriteObjectGridManagerI getGridManager() {
+//		return SOGM; // BTW THIS IS NEVER INITIALIZED. 
+//	}
 }
