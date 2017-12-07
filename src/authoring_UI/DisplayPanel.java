@@ -6,12 +6,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import authoring.AbstractSpriteObject;
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObject;
 import authoring.SpriteParameterI;
 import authoring_actionconditions.ActionConditionTab;
 import authoring_actionconditions.ControllerConditionActionTabs;
 import gui.welcomescreen.WelcomeScreen;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
@@ -33,6 +36,7 @@ public class DisplayPanel extends VBox {
 	private SpriteInventoryTabAndInfo mySInventoryTAI;
 	private SpriteUtilityTabAndInfo mySUtilityTAI;
 	private SpriteAnimationSequenceTabsAndInfo mySAnimationSequenceTAI;
+	private ObjectProperty<Boolean> multipleCellsActiveProperty;
 
 	private VBox spriteEditorAndApplyButtonVBox;
 
@@ -43,6 +47,18 @@ public class DisplayPanel extends VBox {
 	public static final ResourceBundle conditionActionTitles = ResourceBundle.getBundle(ACTIONCONDITIONTITLES_PATH);
 
 	protected DisplayPanel(AuthoringEnvironmentManager AEM, MapManager myManager) {
+		multipleCellsActiveProperty = new SimpleObjectProperty<Boolean>();
+		mySParameterTAI = new SpriteParameterTabsAndInfo();
+		mySInventoryTAI = new SpriteInventoryTabAndInfo(AEM);
+		mySAnimationSequenceTAI = new SpriteAnimationSequenceTabsAndInfo();
+		mySUtilityTAI = new SpriteUtilityTabAndInfo();
+		System.out.println("made SPTAI in MENU");
+		myAEM = AEM;
+		setUpMenu();
+
+	}
+	protected DisplayPanel(AuthoringEnvironmentManager AEM) {
+		multipleCellsActiveProperty = new SimpleObjectProperty<Boolean>();
 		mySParameterTAI = new SpriteParameterTabsAndInfo();
 		mySInventoryTAI = new SpriteInventoryTabAndInfo(AEM);
 		mySAnimationSequenceTAI = new SpriteAnimationSequenceTabsAndInfo();
@@ -91,6 +107,10 @@ public class DisplayPanel extends VBox {
 //		System.out.println("MYAEMACTIVE: " + myAEM.getActiveCell());
 		return myAEM.getActiveCell();
 	}
+	
+	private void checkMultipleCellsActive(){
+		this.multipleCellsActiveProperty.set(myAEM.multipleActive());
+	}
 
 	private void setUpMenu() {
 		setErrorMessage();
@@ -122,25 +142,38 @@ public class DisplayPanel extends VBox {
 		Tab dialogue = new Tab("Dialogue");
 		dialogue.setContent(new TextArea("dialogue goes here"));
 		mySpriteTabs.getTabs().addAll(dialogue);
+		multipleCellsActiveProperty.addListener((observable, oldStatus, newStatus)->{
+			dialogue.setDisable(newStatus);
+		});
 	}
 	
 	private void createInventoryTab(){
 		Tab inventory = new Tab("Inventory");
 		inventory.setContent(mySInventoryTAI.getContainingVBox());
 		mySpriteTabs.getTabs().addAll(inventory);
+		multipleCellsActiveProperty.addListener((observable, oldStatus, newStatus)->{
+			inventory.setDisable(newStatus);
+		});
 	}
 	
 	private void createUtilityTab(){
 		Tab utility = new Tab("Utility");
 		utility.setContent(mySUtilityTAI.getScrollPane());
 		mySpriteTabs.getTabs().addAll(utility);
+		multipleCellsActiveProperty.addListener((observable, oldStatus, newStatus)->{
+			utility.setDisable(newStatus);
+		});
 	}
 	
 	private void createAnimationTab(){
 		Tab animations = new Tab("Animations");
 		animations.setContent(mySAnimationSequenceTAI.getScrollPane());
 		mySpriteTabs.getTabs().addAll(animations);
+		multipleCellsActiveProperty.addListener((observable, oldStatus, newStatus)->{
+			animations.setDisable(newStatus);
+		});
 	}
+	
 
 	private void createSpriteTabs() {
 		mySpriteTabs = new TabPane();
@@ -215,6 +248,8 @@ public class DisplayPanel extends VBox {
 //		myParamTabs.getTabs().clear();
 		mySParameterTAI.clearTabPane();
 		mySInventoryTAI.reset();
+//		mySUtilityTAI.reset();
+//		mySAnimationSequenceTAI.reset();
 	}
 
 	protected void removeSpriteEditorVBox() {
@@ -253,12 +288,18 @@ public class DisplayPanel extends VBox {
 
 		System.out.println("Updating....");
 		try {
+			AbstractSpriteObject activeCell = getActiveCell();
+			this.checkMultipleCellsActive();
 			clearAllSpriteEditorTabs();
 			removeSpriteEditorErrorMessage();
-			mySParameterTAI.create(getActiveCell());
-			mySInventoryTAI.setSpriteObjectAndUpdate(getActiveCell());
-			mySUtilityTAI.setSpriteObjectAndUpdate(getActiveCell());
-			mySAnimationSequenceTAI.setSpriteObject(getActiveCell());
+			mySParameterTAI.create(activeCell);
+			
+			if (!myAEM.multipleActive()){	
+				mySInventoryTAI.setSpriteObjectAndUpdate(activeCell);
+				mySUtilityTAI.setSpriteObjectAndUpdate(activeCell);
+				mySAnimationSequenceTAI.setSpriteObject(activeCell);
+			}
+			
 			// HashMap<String, ArrayList<SpriteParameterI>> params =
 			// getParametersOfActiveCells();
 			//
@@ -351,7 +392,10 @@ public class DisplayPanel extends VBox {
 
 	private void apply() {
 		mySParameterTAI.apply();
+		if (!myAEM.multipleActive()){
 		mySInventoryTAI.apply();
+		mySAnimationSequenceTAI.apply();
+		}
 //		OwensActiosn.apply()
 		myAEM.getSpriteParameterSidebarManager().apply();
 	}

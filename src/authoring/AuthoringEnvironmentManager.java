@@ -24,12 +24,12 @@ public class AuthoringEnvironmentManager {
 	private GameDataHandler myGDH;
 	private SpriteSet myDefaultSprites;
 	private SpriteSet myCustomSprites;
-
 	private SpriteSet myInventorySprites;
 	private DraggableGrid myGrid;
 
-	public AuthoringEnvironmentManager(String projectName) {
-		myGDH = new GameDataHandler(projectName);
+	public AuthoringEnvironmentManager(GameDataHandler GDH) {
+		myGDH = GDH;
+		// myGDH = new GameDataHandler(projectName);
 		defaultEmptySprite = new DefaultSpriteObject();
 		myGrid = new DraggableGrid();
 		// SOGM = new SpriteObjectGridManager();
@@ -45,8 +45,10 @@ public class AuthoringEnvironmentManager {
 		return myGrid;
 	}
 
-	public AuthoringEnvironmentManager() {
-		this("TestProject");
+	public void setOldDraggableGrid(DraggableGrid toSet) {
+		String projectName = myGDH.getProjectName();
+		myGrid = toSet;
+		// do stuff to get the saved data
 	}
 
 	public GameDataHandler getGameDataHandler() {
@@ -81,15 +83,15 @@ public class AuthoringEnvironmentManager {
 		return myInventorySprites;
 	}
 
-	public Map<String, ArrayList<AbstractSpriteObject>> getEveryTypeOfSprite(){
+	public Map<String, ArrayList<AbstractSpriteObject>> getEveryTypeOfSprite() {
 		Map<String, ArrayList<AbstractSpriteObject>> ret = new HashMap<String, ArrayList<AbstractSpriteObject>>();
 		ret.put("DefaultSprites", this.getDefaultGameSprites());
 		ret.put("CustomSprites", this.getUserDefinedSprites());
 		ret.put("InventorySprites", this.getInventorySprites());
 		return ret;
 	}
-	
-	public Map<String, ArrayList<Pane>> getEveryTypeOfSpriteAsThumbnails(){
+
+	public Map<String, ArrayList<Pane>> getEveryTypeOfSpriteAsThumbnails() {
 		Map<String, ArrayList<Pane>> ret = new HashMap<String, ArrayList<Pane>>();
 		ret.put("DefaultSprites", this.getDefaultGameSpritesAsThumbnail());
 		ret.put("CustomSprites", this.getUserDefinedSpritesAsThumbnail());
@@ -100,11 +102,11 @@ public class AuthoringEnvironmentManager {
 	private ArrayList<Pane> getDefaultGameSpritesAsThumbnail() {
 		return myDefaultSprites.getAllSpritesAsThumbnails();
 	}
-	
+
 	private ArrayList<Pane> getUserDefinedSpritesAsThumbnail() {
 		return myCustomSprites.getAllSpritesAsThumbnails();
 	}
-	
+
 	private ArrayList<Pane> getInventorySpritesAsThumbnail() {
 		return myInventorySprites.getAllSpritesAsThumbnails();
 	}
@@ -169,6 +171,12 @@ public class AuthoringEnvironmentManager {
 
 	}
 
+	public void addUserSprite(String category, SpriteObject SOI) throws Exception {
+
+		myCustomSprites.addNewSprite(SOI);
+
+	}
+
 	public void addUserSprite(ArrayList<SpriteObject> SOI_LIST) {
 		SOI_LIST.forEach(sprite -> {
 			try {
@@ -180,7 +188,6 @@ public class AuthoringEnvironmentManager {
 		});
 		// defaultSprites.addAll(SOI_LIST);
 	}
-
 	// public void addUserSprite(SpriteObject SOI) {
 	// userSprites.add(SOI);
 	// }
@@ -193,8 +200,11 @@ public class AuthoringEnvironmentManager {
 		return SPSM.getActiveSprite();
 	}
 
-	public SpriteObjectGridManagerI getGridManager() {
-		return SOGM;
+	public boolean multipleActive() {
+		return SPSM.multipleActive();
 	}
 
+	public SpriteObjectGridManagerI getGridManager() {
+		return SOGM; // BTW THIS IS NEVER INITIALIZED.
+	}
 }

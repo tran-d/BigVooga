@@ -46,7 +46,7 @@ public class OperationFactory {
 		List<String> types = new ArrayList<>();
 		try {
 			for (Class<?> parameterType : getConstructor(operationName).getParameterTypes()) {
-				types.add(parTypeToBasicName.get(parameterType.getName()));
+				types.add(parTypeToBasicName.get(parameterType.getSimpleName()));
 			}
 		} catch (ClassNotFoundException e) {
 			throw new VoogaException("ClassNotFoundFor", operationName);

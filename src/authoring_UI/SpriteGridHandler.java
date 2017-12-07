@@ -1,11 +1,13 @@
 package authoring_UI;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import authoring.AbstractSpriteObject;
 import authoring.InventoryObject;
 import authoring.SpriteObject;
 import authoring.SpriteObjectGridManagerI;
+import javafx.event.Event;
 import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Effect;
@@ -16,6 +18,8 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -27,7 +31,7 @@ public class SpriteGridHandler {
 	private DataFormat objectFormat;
 	// private SpriteObjectGridManagerI mySOGM;
 	private DisplayPanel myDP;
-	private ArrayList<AuthoringMapStackPane> activeGridCells;
+//	private ArrayList<AuthoringMapStackPane> activeGridCells;
 	// private ArrayList<StackPane> activeSpriteGridCells;
 //	private ArrayList<AbstractSpriteObject> activeSpriteGridCells;
 	private DraggableGrid myDG;
@@ -38,7 +42,7 @@ public class SpriteGridHandler {
 		// mySOGM = SOGM;
 		myDG = DG;
 //		activeSpriteGridCells = new ArrayList<AbstractSpriteObject>();
-		activeGridCells = new ArrayList<AuthoringMapStackPane>();
+//		activeGridCells = new ArrayList<AuthoringMapStackPane>();
 		// activeSpriteGridCells = new ArrayList<StackPane>();
 	}
 
@@ -87,8 +91,15 @@ public class SpriteGridHandler {
 
 	protected void addGridMouseClick(AuthoringMapStackPane pane) {
 		pane.setOnMouseClicked(e -> {
-			if (!pane.hasChild() && !pane.isCoveredByOtherSprite()) {
-				changeCellStatus(pane);
+			if (!pane.hasChild()){
+				if (!pane.isCoveredByOtherSprite()){
+					changeCellStatus(pane);
+				} else if (pane.isCoveredByOtherSprite()){
+					Event.fireEvent(pane.getCoveringSprite(), new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
+			                0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+			                true, true, true, true, true, true, null));
+				}
+				
 			}
 		});
 	}
@@ -104,9 +115,9 @@ public class SpriteGridHandler {
 	private void changeCellStatus(AuthoringMapStackPane pane) {
 		pane.switchActive();
 		if (pane.isActive()) {
-			activeGridCells.add(pane);
+			pane.getMapLayer().addActive(pane);
 		} else {
-			activeGridCells.remove(pane);
+			pane.getMapLayer().removeActive(pane);
 		}
 		// if(pane.getOpacity() == 1) {
 		// makeCellActive(pane);
@@ -134,9 +145,8 @@ public class SpriteGridHandler {
 			
 			if (s instanceof SpriteObject) {
 				
-				if (this.activeGridCells.size()>0){
+				if (myDG.getActiveGrid().getMapLayer().getActive().size()>0){
 					populateGridCells((SpriteObject) s);
-					removeActiveCells();
 				} else {
 				boolean activeStatus;
 				if (s.getPositionOnGrid() != null) {
@@ -211,22 +221,36 @@ public class SpriteGridHandler {
 	}
 
 	private void populateGridCells(SpriteObject s) {
-		activeGridCells.forEach(cell -> {
+		Iterator<AuthoringMapStackPane> it = myDG.getActiveGrid().getMapLayer().getActive().iterator();
+		
+		while (it.hasNext()){
+			AuthoringMapStackPane elem = it.next();
+			if (populateIndividualCell(elem, s)){
+				it.remove();
+			}
+		}
 
-			System.out.println("populating from SGH");
-			SpriteObject SO = s.newCopy();
-			// cell.setOpacity(1);
-			// cell.getChildren().clear();
-			// cell.getChildren().add(SO);
-			cell.addChild(SO);
-			cell.setInactive();
-			Integer[] cellPos = getStackPanePositionInGrid(cell);
-			myDG.getActiveGrid().populateCell(SO, cellPos);
-			SO.setPositionOnGrid(cellPos);
-			addSpriteMouseClick(SO);
-			addSpriteDrag(SO);			
-		});
-		activeGridCells.clear();
+		removeActiveCells();
+
+	}
+	
+	private boolean populateIndividualCell(AuthoringMapStackPane cell, SpriteObject s){
+		System.out.println("populating from SGH");
+		SpriteObject SO = s.newCopy();
+		// cell.setOpacity(1);
+		// cell.getChildren().clear();
+		// cell.getChildren().add(SO);
+		if (cell.addChild(SO)){
+		
+		cell.setInactive();
+		Integer[] cellPos = getStackPanePositionInGrid(cell);
+		myDG.getActiveGrid().populateCell(SO, cellPos);
+		SO.setPositionOnGrid(cellPos);
+		addSpriteMouseClick(SO);
+		addSpriteDrag(SO);
+		return true;
+		}
+		return false;
 	}
 
 	private Integer[] getStackPanePositionInGrid(AuthoringMapStackPane pane) {
@@ -237,9 +261,9 @@ public class SpriteGridHandler {
 		return row_col;
 	}
 
-	private void updateGridPane() {
-		myDG.getActiveGrid().getGrid();
-	}
+//	private void updateGridPane() {
+//		myDG.getActiveGrid().getGrid();
+//	}
 
 	protected void addDropHandling(AuthoringMapStackPane pane) {
 		pane.setOnDragOver(e -> {
@@ -251,7 +275,7 @@ public class SpriteGridHandler {
 		});
 
 		pane.setOnDragDropped(e -> {
-			if (!pane.isCoveredByOtherSprite()) {
+			if (pane.checkCanAcceptChild(draggingObject)) {
 				Dragboard db = e.getDragboard();
 				MapLayer ML = pane.getMapLayer();
 				System.out.println("MapLayer: " + ML.getName());
