@@ -16,24 +16,6 @@ import engine.GameMaster;
 import engine.GameObject;
 import engine.GameObjectFactory;
 import engine.GameWorld;
-import engine.archived.Actions.ChangeDouble;
-import engine.archived.Actions.Create;
-import engine.archived.Actions.Move;
-import engine.archived.Actions.MoveByVariable;
-import engine.archived.Actions.RemoveIntersection;
-import engine.archived.Actions.Rotate;
-import engine.archived.Actions.RotateTo;
-import engine.archived.Conditions.And;
-import engine.archived.Conditions.BeginStep;
-import engine.archived.Conditions.Collision;
-import engine.archived.Conditions.DoubleGreaterThan;
-import engine.archived.Conditions.KeyHeld;
-import engine.archived.Conditions.KeyPressed;
-import engine.archived.Conditions.KeyReleased;
-import engine.archived.Conditions.Not;
-import engine.archived.Conditions.ObjectClickHeld;
-import engine.archived.Conditions.Or;
-import engine.archived.Conditions.ScreenClickHeld;
 import engine.sprite.AnimationSequence;
 import engine.sprite.BoundedImage;
 import engine.sprite.Sprite;
@@ -83,19 +65,6 @@ public class EngineTester extends Application {
 		GameObject obj = new GameObject();
 		obj.setDoubleVariable("speed", 50);
 		obj.setCoords(200, 200);
-		List<Action> actions1 = new ArrayList<Action>();
-		actions1.add(new Move(-1, 0));
-		obj.addConditionAction(new ObjectClickHeld(1), actions1);
-		List<Action> actions2 = new ArrayList<Action>();
-		actions2.add(new Move(1, 0));
-		obj.addConditionAction(new KeyHeld(2,"Right"), actions2);
-		Sprite sprite = new Sprite();
-		List<BoundedImage> images = new ArrayList<>();
-		images.add(i);
-		AnimationSequence animation = new AnimationSequence("Animation", images);
-		sprite.addAnimationSequence(animation);
-		sprite.setAnimation("Animation");
-		obj.setSprite(sprite);
 
 		layer.addGameObject(obj1);
 		layer.addGameObject(obj2);
@@ -137,60 +106,14 @@ public class EngineTester extends Application {
 
 	private void conditionAction1(GameObject obj) {
 		List<Action> actions1 = new ArrayList<Action>();
-		actions1.add(new MoveByVariable("xSpeed", "ySpeed"));
-		obj.addConditionAction(new KeyHeld(1,"Left"), actions1);
-		actions1 = new ArrayList<Action>();
-		actions1.add(new Move(3, 0));
-		obj.addConditionAction(new KeyHeld(1,"Right"), actions1);
-		actions1 = new ArrayList<Action>();
-		actions1.add(new Move(0, -3));
-		obj.addConditionAction(new KeyHeld(1,"Up"), actions1);
-		actions1 = new ArrayList<Action>();
-		actions1.add(new Move(0, 3));
-		obj.addConditionAction(new KeyHeld(1,"Down"), actions1);
-		actions1 = new ArrayList<Action>();
-		actions1.add(new Rotate(1));
-		obj.addConditionAction(new ObjectClickHeld(1), actions1);
-		actions1 = new ArrayList<Action>();
-		actions1.add(new Rotate(-1));
-		obj.addConditionAction(new KeyHeld(1,"Z"), actions1);
-		actions1 = new ArrayList<Action>();
-		actions1.add(new Rotate(1));
-		obj.addConditionAction(new KeyHeld(1,"X"), actions1);
-		actions1 = new ArrayList<Action>();
-		actions1.add(new ChangeDouble("xSpeed", -10, false));
-		obj.addConditionAction(new And(1, new KeyHeld(1, "Q"), new KeyHeld(1, "Space")), actions1);
-		actions1 = new ArrayList<Action>();
-		actions1.add(new ChangeDouble("xSpeed", -3, false));
-		obj.addConditionAction(new Or(1, new KeyReleased(1, "Q"), new KeyReleased(1, "Space")), actions1);
-//		actions1 = new ArrayList<Action>();
-//		actions1.add(new RotateTo(45.0));
-//		obj.addConditionAction(new Not(1, new ScreenClickHeld(1)), actions1);
-//		actions1 = new ArrayList<Action>();
-//		actions1.add(new RotateTo(0));
-//		obj.addConditionAction(new ScreenClickHeld(1), actions1);
-//		actions1 = new ArrayList<Action>();
-//		actions1.add(new RotateTo(25));
-//		obj.addConditionAction(new DoubleGreaterThan(1, GameObject.X_COR, 300), actions1);
-		actions1 = new ArrayList<Action>();
-		actions1.add(new Create("Ob2", 500, 500, 20));
-		obj.addConditionAction(new KeyPressed(1,"C"), actions1);
 	}
 	
 	private void conditionAction2(GameObject obj) {
 		List<Action> actions1 = new ArrayList<Action>();
-		actions1.add(new RemoveIntersection());
-		obj.addConditionAction(new Collision(3, "Ob1"), actions1);
-		obj.addConditionAction(new Collision(4, "Ob2"), actions1);
-		obj.addConditionAction(new Collision(5, "Ob3"), actions1);
 	}
 	
 	private void conditionAction3(GameObject obj) {
 		List<Action> actions1 = new ArrayList<Action>();
-		actions1.add(new RemoveIntersection());
-		obj.addConditionAction(new Collision(3, "Ob1"), actions1);
-		obj.addConditionAction(new Collision(4, "Ob2"), actions1);
-		obj.addConditionAction(new Collision(5, "Ob3"), actions1);
 	}
 
 	private void testDrawer(Stage stage) throws IOException {
@@ -238,11 +161,6 @@ public class EngineTester extends Application {
 		g.getChildren().add(p1);
 		g.getChildren().add(p2);
 		stage.show();
-		
-//		long time = System.currentTimeMillis();
-//		for (int i = 0; i < 1000000; i++)
-//			poly1.checkCollision(poly2);
-//		System.out.println(System.currentTimeMillis() - time);
 		
 		scene.setOnKeyPressed(e->{
 		g.getChildren().remove(p2);

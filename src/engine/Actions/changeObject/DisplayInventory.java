@@ -49,7 +49,7 @@ public class DisplayInventory implements Action {
 		DoubleOperation y0 = new Difference(inventoryY, inventoryHeight);
 		DoubleOperation cellWidth = new Quotient(inventoryWidth, colSpan);
 		DoubleOperation cellHeight = new Quotient(inventoryHeight, rowSpan);
-		List<GameObject> inventory = (List)asking.getInventory().values();
+		List<InventoryObject> inventory = asking.getInventory().getFullInventory();
 		//place each game object in pane grid
 		int i = startIndex;
 		for(int r = 0; r < rowSpan.evaluate(asking, world); r++) {
