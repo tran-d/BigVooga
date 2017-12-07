@@ -11,6 +11,8 @@ import java.util.ResourceBundle;
 import authoring.AbstractSpriteObject;
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteNameManager;
+import authoring.SpriteObject;
+import authoring.SpriteParameterI;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
@@ -200,10 +202,23 @@ public class SpriteCreator extends TabPane {
 			Files.copy(file.toPath(), Paths.get(PATH + file.getName()), StandardCopyOption.REPLACE_EXISTING);
 			Image image = new Image(file.getName());
 			ImageView imageView = new ImageView(image);
+			
+			AbstractSpriteObject newSprite = new SpriteObject();
+			newSprite.setImageURL(file.getName());
+			
+			//add params
+			ArrayList<SpriteParameterI> myParams = new ArrayList<SpriteParameterI>();
+			
+			newSprite.setNumCellsWidthNoException(1);
+			newSprite.setNumCellsHeightNoException(1);
+			
 			// imageView.setFitHeight(WelcomeScreen.HEIGHT);
 			// imageView.setFitWidth(PANE_WIDTH/2-100);
-			myImageStack.getChildren().remove(0);
-			myImageStack.getChildren().add(imageView);
+			
+			myImageStack.getChildren().remove(1);
+			
+//			myImageStack.getChildren().add(imageView);
+			myImageStack.getChildren().add(newSprite);
 
 			// myStatePanel.getChildren().add(imageView);
 			System.out.println("image loaded");
@@ -231,10 +246,10 @@ public class SpriteCreator extends TabPane {
 				sp.setBorder(new Border(border));
 
 				ArrayList<AbstractSpriteObject> sprites = myAEM.getDefaultSpriteController().getAllSprites();
-				if (counter < sprites.size()) {
-					AbstractSpriteObject toLoad = sprites.get(counter);
-					sp.getChildren().add(toLoad);
-				}
+//				if (counter < sprites.size()) {
+//					AbstractSpriteObject toLoad = sprites.get(counter);
+//					sp.getChildren().add(toLoad);
+//				}
 				counter++;
 
 				gp.add(sp, j, i);
