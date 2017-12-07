@@ -148,6 +148,10 @@ public abstract class SpriteSet {
 	public void addNewSprite(AbstractSpriteObject SO) throws Exception {
 		addNewSprite("General", SO);
 	}
+	
+	public void setBooleanLoaded(Boolean b) {
+		loaded = b;
+	}
 
 	protected void addNewSprite(String category, AbstractSpriteObject SO) throws Exception {
 		if (!categoryExists(category)) {
