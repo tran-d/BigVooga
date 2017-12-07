@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.HBox;
@@ -22,6 +23,7 @@ import javafx.scene.layout.HBox;
  */
 public class ActionRow extends ActionConditionRow {
 
+	private static final double TREE_VIEW_WIDTH = 400;
 	private ActionFactory actionFactory;
 	private TreeView<HBox> actionTree;
 
@@ -30,7 +32,7 @@ public class ActionRow extends ActionConditionRow {
 	private TreeItem<HBox> parameterAction = new TreeItem<HBox>();
 
 	private TreeItem<HBox> categoryOperation = new TreeItem<HBox>();
-	private TreeItem<HBox> actionOperation = new TreeItem<HBox>();
+	// private TreeItem<HBox> actionOperation = new TreeItem<HBox>();
 	private TreeItem<HBox> parameterOperation = new TreeItem<HBox>();
 
 	private TreeView<HBox> actionTreeView;
@@ -51,10 +53,15 @@ public class ActionRow extends ActionConditionRow {
 		// actionTree = makeTreeView(makeActionChoiceBox("Movement"));
 		// this.getItems().add(actionTree);
 		actionTreeView = makeActionTreeView();
-		operationTreeView = makeOperationTreeView();
+		actionTreeView.setPrefWidth(TREE_VIEW_WIDTH);
+		// operationTreeView = makeOperationTreeView();
 
-		this.getItems().addAll(actionTreeView, operationTreeView);
+		this.getItems().addAll(actionTreeView);
 	}
+
+	/*********************************
+	 * ACTIONS
+	 *************************************/
 
 	private TreeView<HBox> makeActionTreeView() {
 		categoryAction = makeActionCategoryTreeItem();
@@ -64,7 +71,7 @@ public class ActionRow extends ActionConditionRow {
 
 	private TreeItem<HBox> makeActionCategoryTreeItem() {
 		HBox hb = new HBox();
-		hb.getChildren().add(makeActionCategoryChoiceBox());
+		hb.getChildren().addAll(new Label("Choose Action Category: "), makeActionCategoryChoiceBox());
 		TreeItem<HBox> ti = new TreeItem<HBox>(hb);
 		ti.setExpanded(true);
 		return ti;
@@ -73,7 +80,7 @@ public class ActionRow extends ActionConditionRow {
 	private ChoiceBox<String> makeActionCategoryChoiceBox() {
 		ObservableList<String> categories = FXCollections.observableList(actionFactory.getCategories());
 		ChoiceBox<String> cb = new ChoiceBox<>(categories);
-		System.out.println(categories);
+		System.out.println("cats: " + categories);
 
 		cb.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 
@@ -92,14 +99,16 @@ public class ActionRow extends ActionConditionRow {
 
 	private TreeItem<HBox> makeActionTreeItem(String category) {
 		HBox hb = new HBox();
-		hb.getChildren().add(makeActionChoiceBox(category));
-		return new TreeItem<HBox>(hb);
+		hb.getChildren().addAll(new Label("Choose Action: "), makeActionChoiceBox(category));
+		actionAction = new TreeItem<HBox>(hb);
+		actionAction.setExpanded(true);
+		return actionAction;
 	}
 
 	private ChoiceBox<String> makeActionChoiceBox(String category) {
 		ObservableList<String> actions = FXCollections.observableList(actionFactory.getActions(category));
 		ChoiceBox<String> cb = new ChoiceBox<>(actions);
-		System.out.println(actions);
+		System.out.println("Acts: " + actions);
 
 		cb.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 
@@ -118,14 +127,61 @@ public class ActionRow extends ActionConditionRow {
 
 	private TreeItem<HBox> makeActionParameterTreeItem(String action) {
 		HBox hb = new HBox();
-		hb.getChildren().add(makeActionParameterChoiceBox(action));
-		return new TreeItem<HBox>(hb);
+		hb.getChildren().add(new Label("Choose Action Parameter(s): "));
+
+		parameterAction = new TreeItem<HBox>(hb);
+		makeActionParameterChildren(action);
+		parameterAction.setExpanded(true);
+		return parameterAction;
 	}
 
-	private ChoiceBox<String> makeActionParameterChoiceBox(String action) {
+	private void makeActionParameterChildren(String action) {
 		ObservableList<String> parameters = FXCollections.observableList(actionFactory.getParameters(action));
-		ChoiceBox<String> cb = new ChoiceBox<>(parameters);
-		System.out.println(parameters);
+		System.out.println("Params: " + parameters);
+
+		for (String param : parameters) {
+			parameterAction.getChildren().add(makeOperationCategoryTreeItem(param));
+		}
+
+		// ChoiceBox<String> cb = new ChoiceBox<>(parameters);
+
+		// cb.getSelectionModel().selectedIndexProperty().addListener(new
+		// ChangeListener<Number>() {
+		//
+		// @Override
+		// public void changed(ObservableValue<? extends Number> observable, Number
+		// oldValue, Number newValue) {
+		//
+		// // System.out.println(actions.get(newValue.intValue()));
+		// // getItems().add(makeParameterChoiceBox(actions.get(newValue.intValue())));
+		// parameterAction.getChildren().clear();
+		// parameterAction.getChildren()
+		// .add(makeOperationCategoryTreeItem(parameters.get(cb.getSelectionModel().getSelectedIndex())));
+		// }
+		// });
+		// return cb;
+	}
+
+	/****************************** OPERATIONS ******************************/
+
+	// private TreeView<HBox> makeOperationTreeView() {
+	// categoryOperation = makeOperationCategoryTreeItem();
+	// TreeView<HBox> tv = new TreeView<HBox>(categoryOperation);
+	// return tv;
+	// }
+
+	private TreeItem<HBox> makeOperationCategoryTreeItem(String parameter) {
+		HBox hb = new HBox();
+		hb.getChildren().addAll(new Label("Choose Operation: "), makeOperationCategoryChoiceBox(parameter));
+		TreeItem<HBox> categoryOperation = new TreeItem<HBox>(hb);
+		categoryOperation.setExpanded(true);
+		return categoryOperation;
+	}
+
+	private ChoiceBox<String> makeOperationCategoryChoiceBox(String parameter) {
+		ObservableList<String> operations = FXCollections.observableList(operationFactory.getOperations("Boolean"));
+		ChoiceBox<String> cb = new ChoiceBox<>(operations);
+		System.out.println("ops: " + operations);
 
 		cb.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 
@@ -134,34 +190,28 @@ public class ActionRow extends ActionConditionRow {
 
 				// System.out.println(actions.get(newValue.intValue()));
 				// getItems().add(makeParameterChoiceBox(actions.get(newValue.intValue())));
-				parameterAction.getChildren().clear();
-				// parameterAction.getChildren().add(makeOperationTreeItem(parameters.get(cb.getSelectionModel().getSelectedIndex())));
+				System.out.println("Selected: " + operations.get(cb.getSelectionModel().getSelectedIndex()));
+				categoryOperation.getChildren().clear();
+				categoryOperation.getChildren()
+						.add(makeParameterOperationTreeItem(operations.get(cb.getSelectionModel().getSelectedIndex())));
 			}
 		});
 
 		return cb;
 	}
 
-	/**************************** OPERATIONS *****************************/
-
-	private TreeView<HBox> makeOperationTreeView() {
-		categoryOperation = makeOperationCategoryTreeItem();
-		TreeView<HBox> tv = new TreeView<HBox>(categoryOperation);
-		return tv;
-	}
-
-	private TreeItem<HBox> makeOperationCategoryTreeItem() {
+	private TreeItem<HBox> makeParameterOperationTreeItem(String operation) {
 		HBox hb = new HBox();
-		hb.getChildren().add(makeOperationCategoryChoiceBox());
-		TreeItem<HBox> ti = new TreeItem<HBox>(hb);
-		ti.setExpanded(true);
-		return ti;
+		hb.getChildren().add(makeParameterOperationChoiceBox(operation));
+		parameterOperation = new TreeItem<HBox>(hb);
+		parameterOperation.setExpanded(true);
+		return parameterOperation;
 	}
 
-	private ChoiceBox<String> makeOperationCategoryChoiceBox() {
-		// return new ChoiceBox<String>();
-		ObservableList<String> parameters = FXCollections.observableList(operationFactory.getOperations("Boolean"));
-		ChoiceBox<String> cb = new ChoiceBox<>(parameters);
+	private ChoiceBox<String> makeParameterOperationChoiceBox(String operation) {
+		ObservableList<String> operations = FXCollections.observableList(operationFactory.getOperations(operation));
+		ChoiceBox<String> cb = new ChoiceBox<>(operations);
+		System.out.println(operations);
 
 		cb.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 
@@ -170,22 +220,12 @@ public class ActionRow extends ActionConditionRow {
 
 				// System.out.println(actions.get(newValue.intValue()));
 				// getItems().add(makeParameterChoiceBox(actions.get(newValue.intValue())));
-				actionOperation.getChildren().clear();
-				actionOperation.getChildren()
-						.add(makeActionOperationTreeItem(parameters.get(cb.getSelectionModel().getSelectedIndex())));
+				parameterOperation.getChildren().clear();
+				// actionOperation.getChildren()
+				// .add(makeActionOperationTreeItem(operations.get(cb.getSelectionModel().getSelectedIndex())));
 			}
 		});
-
-		System.out.println(parameters);
 		return cb;
-	}
-	
-	private TreeItem<HBox> makeActionOperationTreeItem(String operation) {
-		HBox hb = new HBox();
-		hb.getChildren().add(makeOperationCategoryChoiceBox());
-		TreeItem<HBox> ti = new TreeItem<HBox>(hb);
-		ti.setExpanded(true);
-		return ti;
 	}
 
 	private void addBuildActionButton(EventHandler<ActionEvent> handler) {
