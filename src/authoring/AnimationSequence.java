@@ -139,7 +139,7 @@ public class AnimationSequence {
 
 	private void createContainerVbox() {
 		myContainerVbox = new VBox();
-		myContainerVbox.setPrefWidth(490);
+		myContainerVbox.setPrefWidth(500);
 	}
 
 	private void addAllAnimationSequenceImageThumbnails() {

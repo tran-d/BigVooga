@@ -16,6 +16,7 @@ public class SpritePanels extends VBox {
 		gameElementSelector = new GameElementSelector(mySGH, myAEM, mySOGM);
 		
 		this.getChildren().addAll(displayPanel, gameElementSelector);
+		this.setSpacing(5);
 		
 	}
 	

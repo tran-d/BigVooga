@@ -1,3 +1,7 @@
+* {
+    blue-color: #47BDFF;
+}
+
 .tool-bar {
 	-fx-background-color: #001E32;
 }
@@ -159,4 +163,16 @@
 
 #NumberSpinnerArrow {
     -fx-stroke: #47BDFF;
+}
+
+#MapGrid {
+	-fx-border-color: blue-color transparent blue-color transparent;
+}
+
+#MapGridAndLayers {
+	-fx-border-color: blue-color;
+}
+
+#InventoryTabPane {
+	-fx-border-color: blue-color blue-color transparent transparent;
 }

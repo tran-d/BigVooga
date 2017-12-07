@@ -73,7 +73,7 @@ public class DraggableGrid extends VBox {
 
 	private void makeTopInfo() {
 		topHbox = new HBox(10);
-		this.getChildren().add(0, topHbox);
+		this.getChildren().add(topHbox);
 	}
 
 	private void createGrid(SpriteGridHandler spriteGridHandler) {
@@ -91,13 +91,15 @@ public class DraggableGrid extends VBox {
 		addChangeRowsNumberSpinner();
 		addChangeColumnsNumberSpinner();
 		ScrollPane scrollGrid = new ScrollPane(myStackPane);
+		scrollGrid.setId("MapGrid");
 		scrollGrid.setPannable(true);
+		//scrollGrid.setPrefHeight(value);
 		//scrollGrid.setMaxWidth(MainAuthoringGUI.AUTHORING_WIDTH/2 + 170);
 //		scrollGrid.mouse
 		// spriteGridHandler.addGrid(gp);
 		this.getChildren().add(1, scrollGrid);
+		this.setId("MapGridAndLayers");
 		this.setMaxWidth(MainAuthoringGUI.AUTHORING_WIDTH/2 + 110);
-		this.setMaxHeight(WelcomeScreen.HEIGHT-75);
 	}
 	
 	public List<SpriteObjectGridManager> getGrids(){

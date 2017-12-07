@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 public class MainAuthoringGUI{
 	
 	public static final int AUTHORING_WIDTH = 1400;
-	private static final String AUTHORING_CSS = "Authoring.css";
+	public static final String AUTHORING_CSS = "Authoring.css";
 	private static final String BORDERPANE_ID = "borderpane";
 	
 	private Stage stage;

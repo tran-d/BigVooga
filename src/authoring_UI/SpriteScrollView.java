@@ -21,13 +21,15 @@ public class SpriteScrollView extends ScrollPane {
 	private Consumer<Pane> childOnClickAction;
 	private ArrayList<AbstractSpriteObject> spriteList;
 
-	SpriteScrollView() {
+	public SpriteScrollView() {
 		spriteList = new ArrayList<AbstractSpriteObject>();
 		createContainerVBox();
 		putContainerVBoxIntoScrollPane();
 		this.setChildOnClickAction(a -> {
 			// Nothing by default
 		});
+		this.setId("InventoryScrollPane");
+		this.getStylesheets().add(MainAuthoringGUI.class.getResource(MainAuthoringGUI.AUTHORING_CSS).toExternalForm());
 	}
 
 	SpriteScrollView(ArrayList<Pane> panes) {
@@ -43,6 +45,7 @@ public class SpriteScrollView extends ScrollPane {
 	public void addToVBox(Map<String, ArrayList<Pane>> panes) {
 		TabPane tp = new TabPane();
 		tp.setSide(Side.TOP);
+		tp.setId("InventoryTabPane");
 
 		panes.forEach((key, value) -> {
 			Tab tab = new Tab(key);
@@ -80,16 +83,17 @@ public class SpriteScrollView extends ScrollPane {
 	
 	public void removeFromVBox(Pane pane){
 		containerVBox.getChildren().remove(pane);
+		containerVBox.getChildren().remove(getSeparator());
 	}
 
 	public void addToVBox(Pane pane) {
-		if (containerVBox.getChildren().size() > 0) {
-			containerVBox.getChildren().add(getSeparator());
-		}
 		pane.setOnMouseClicked(click -> {
 			childOnClickAction.accept(pane);
 		});
 		containerVBox.getChildren().add(pane);
+		if (containerVBox.getChildren().size() > 0) {
+			containerVBox.getChildren().add(getSeparator());
+		}
 	}
 
 	private void createContainerVBox() {

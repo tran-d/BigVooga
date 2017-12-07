@@ -24,6 +24,7 @@ public class MapManager extends TabPane {
 	public static final int VIEW_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH;
 	public static final int VIEW_HEIGHT = WelcomeScreen.HEIGHT - 35;
 	private static final String TAB_TAG = "Map";
+	private static final String ADD_TAB = "+";
 	
 	private Stage stage;
 	private SingleSelectionModel<Tab> mySelectModel;
@@ -35,7 +36,6 @@ public class MapManager extends TabPane {
 	private SpriteObjectGridManagerI mySOGM;
 	private int myTabCount = 1;
 	private Tab currentTab;
-	private String addTabString;
 	private boolean oldProject;
 	private String projectName = "TestProject";
 	private GameDataHandler myGDH;
@@ -76,7 +76,7 @@ public class MapManager extends TabPane {
 		this.setSide(Side.TOP);
 		addTab = new Tab();
 		addTab.setClosable(false);
-		addTab.setText(addTabString);
+		addTab.setText(ADD_TAB);
 		addTab.setOnSelectionChanged(e -> {
 			createTab(myTabCount, world);
 			mySelectModel.select(currentTab);
@@ -88,7 +88,7 @@ public class MapManager extends TabPane {
 		this.setSide(Side.TOP);
 		addTab = new Tab();
 		addTab.setClosable(false);
-		addTab.setText(addTabString);
+		addTab.setText(ADD_TAB);
 		addTab.setOnSelectionChanged(e -> {
 			createTab(myTabCount);
 			mySelectModel.select(currentTab);
@@ -159,7 +159,7 @@ public class MapManager extends TabPane {
 	private List<AuthoringMapEnvironment> getAllMapEnvironments(){
 		List<AuthoringMapEnvironment> allMaps = new ArrayList<AuthoringMapEnvironment>();
 		for (Tab t: this.getTabs()) {
-			if (!t.getText().equals(addTabString)){
+			if (!t.getText().equals(ADD_TAB)){
 				AuthoringMapEnvironment AME = (AuthoringMapEnvironment) t.getContent();
 				allMaps.add(AME);
 			}
