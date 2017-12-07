@@ -28,10 +28,10 @@ public class DialogueManager {
 	private static final String SAVE_BUTTON_PROMPT = "Save";
 
 	private HBox hb;
-	private DialogueEditor dEditor;
+	private DialogueEditor currentEditor;
 	private DialogueTabPane dView;
 	private List<DialogueEditor> editorList;
-	private int currentEditor = 0;
+	private int currentEditorIndex = 0;
 	private DialogueExtractor dExtractor;
 	private DialogueListView listView;
 	
@@ -46,6 +46,8 @@ public class DialogueManager {
 		hb.setPrefSize(MapManager.VIEW_WIDTH, MapManager.VIEW_HEIGHT);
 		hb.getChildren().addAll(dView, createButtonPanel());
 
+		
+
 		// test
 		// addDefaultDialogueButton();
 		// addUserDialogueButton("blah", -1);
@@ -56,6 +58,7 @@ public class DialogueManager {
 
 	public void addDialogueListener(Tab dialoguesTab) {
 		mapDialoguesTab = dialoguesTab;
+		updateListView();
 	}
 	
 	public HBox getPane() {
@@ -70,12 +73,12 @@ public class DialogueManager {
 		listView = new DialogueListView(dExtractor.getDialogueList());
 		System.out.println(listView);
 		
-//		hb.getChildren().add(listView);
 		mapDialoguesTab.setContent(listView);
 	}
 	
+	// FIXXXX
 	private void save() {
-		if (dEditor != null && !dEditor.getName().trim().equals("")) {
+		if (currentEditor != null && !currentEditor.getName().trim().equals("")) {
 
 			// if (editorList.size() > currentEditor) {
 			// editorList.remove(currentEditor);
@@ -83,10 +86,15 @@ public class DialogueManager {
 			// }
 			// else
 			// editorList.add(editor);
-
-			editorList.add(dEditor);
-			addUserDialogueButton(dEditor.getName());
-			dEditor = null;
+		
+			if(editorList.contains(currentEditor)) {
+				editorList.remove(currentEditor);
+			}
+			editorList.add(currentEditorIndex, currentEditor);
+			
+//			editorList.add(currentEditor);
+			addUserDialogueButton(currentEditor.getName());
+//			currentEditor = null;
 		}
 		System.out.println("# editors: " + editorList.size());
 		
@@ -94,23 +102,26 @@ public class DialogueManager {
 	}
 
 	private void newEditor() {
-		dEditor = new DialogueEditor(name -> save());
-		loadEditor(editorList.size());
+		currentEditor = new DialogueEditor(e -> save());
+		currentEditorIndex = editorList.size();
+		
+		loadEditor(currentEditorIndex);
 	}
 
 	private void loadEditor(int index) {
+		
 		if (hb.getChildren().size() >= 3)
 			hb.getChildren().remove(3 - 1);
 
 		if (editorList.size() <= index) {
-			hb.getChildren().add(dEditor.getParent());
+			hb.getChildren().add(currentEditor.getParent());
 		} else {
 			hb.getChildren().add(editorList.get(index).getParent());
-			dEditor = editorList.get(index);
+			currentEditor = editorList.get(index);
 
 		}
 
-		currentEditor = index;
+		currentEditorIndex = index;
 	}
 
 	private VBox createButtonPanel() {
@@ -137,7 +148,7 @@ public class DialogueManager {
 	}
 
 	private void addUserDialogueButton(String name) {
-		int id = currentEditor;
+		int id = currentEditorIndex;
 		Button btn = new Button(name);
 		btn.setPrefSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 		btn.setOnAction(e -> loadEditor(id));
