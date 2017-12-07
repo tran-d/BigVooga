@@ -10,5 +10,7 @@ public interface ApplyButtonControllerI {
 	
 	public void updateActionConditionTabs(ConditionTab<ConditionRow> conditionTab,ActionTab<ActionRow> actionTab,AbstractSpriteObject spriteObject);
 	public void updateSpriteObject(ConditionTab<ConditionRow> conditionTab,ActionTab<ActionRow> actionTab,AbstractSpriteObject spriteObject);
+	public ConditionTab<ConditionRow> getUpdatedConditionTab();
+	public ActionTab<ActionRow> getUpdatedActionTab();
 
 }

@@ -19,6 +19,9 @@ public class ApplyButtonController implements ApplyButtonControllerI {
 	private static final int LABEL_INDEX = 0;
 	private static final int SELECTOR_LABEL_INDEX = 1;
 	private static final int SELECTOR_VALUE_INDEX = 2;
+	
+	private ConditionTab<ConditionRow> conditionTab;
+	private ActionTab<ActionRow> actionTab;
 
 	@Override
 	public void updateActionConditionTabs(ConditionTab<ConditionRow> conditionTab,ActionTab<ActionRow> actionTab,AbstractSpriteObject spriteObject) {
@@ -43,22 +46,24 @@ public class ApplyButtonController implements ApplyButtonControllerI {
 		ActionVBox<ActionRow> actionVBox = new ActionVBox<ActionRow>(actionTab.getSelectorLabel(),actionRows);
 		int rowAct = 0;
 		for(List<String> labels : actions) {
+			System.out.println(labels + " " + labels.get(LABEL_INDEX));
 			ActionRow actionRow = new ActionRow(rowAct,labels.get(LABEL_INDEX),labels.get(SELECTOR_LABEL_INDEX),
 					labels.get(SELECTOR_VALUE_INDEX),actionVBox);
 			actionRows.add(actionRow);
 			rowAct++;
 		}
-		System.out.println("Controller should be updating too");
-		conditionTab.setTopToolBar(topToolBarConditions);
-		conditionTab.setNoReturnActionConditionVBox(conditionVBox);
-		actionTab.setTopToolBar(topToolBarActions);
-		actionTab.setNoReturnActionConditionVBox(actionVBox);
+		this.conditionTab = new ConditionTab<ConditionRow>(ResourceBundleUtil.getTabTitle("ConditionsTabTitle"),conditionVBox,topToolBarConditions);
+		this.actionTab = new ActionTab<ActionRow>(ResourceBundleUtil.getTabTitle("ActionsTabTitle"),actionVBox,topToolBarActions);
+//		conditionTab.setTopToolBar(topToolBarConditions);
+//		conditionTab.setNoReturnActionConditionVBox(conditionVBox);
+//		actionTab.setTopToolBar(topToolBarActions);
+//		actionTab.setNoReturnActionConditionVBox(actionVBox);
 	}
+	
+	
 
 	@Override
 	public void updateSpriteObject(ConditionTab<ConditionRow> conditionTab,ActionTab<ActionRow> actionTab,AbstractSpriteObject spriteObject) {
-		System.out.println("Spriteobject should be updating");
-		System.out.println("condition remove options " + conditionTab.getTopToolBar().getRemoveRowVBoxOptions());
 		spriteObject.setAllConditions(conditionTab.getTopToolBar().getRemoveRowVBoxOptions());
 		spriteObject.setAllActions(actionTab.getTopToolBar().getRemoveRowVBoxOptions());
 		HashMap<List<String>,List<Integer>> conditions = new HashMap<List<String>,List<Integer>>();
@@ -79,6 +84,20 @@ public class ApplyButtonController implements ApplyButtonControllerI {
 		System.out.println(actions);
 		spriteObject.setCondidtionRows(conditions);
 		spriteObject.setActionRows(actions);
+	}
+
+
+
+	@Override
+	public ConditionTab<ConditionRow> getUpdatedConditionTab() {
+		return conditionTab;
+	}
+
+
+
+	@Override
+	public ActionTab<ActionRow> getUpdatedActionTab() {
+		return actionTab;
 	}
 
 }
