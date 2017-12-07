@@ -44,6 +44,7 @@ public class DisplayPanel extends VBox {
 	private SpriteAnimationSequenceTabsAndInfo mySAnimationSequenceTAI;
 	private ObjectProperty<Boolean> multipleCellsActiveProperty;
 	private VBox spriteEditorAndApplyButtonVBox;
+	private ControllerConditionActionTabs controllerConditionActionTabs;
 
 	private static final String ACTIONCONDITIONTITLES_PATH = "TextResources/ConditionActionTitles";
 	private static final double DISPLAY_PANEL_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH/2 - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH-155;
@@ -122,7 +123,7 @@ public class DisplayPanel extends VBox {
 	private void createActionConditionTabs() {
 		conditions = new ConditionTab<ConditionRow>(ResourceBundleUtil.getTabTitle("ConditionsTabTitle"));
 		actions = new ActionTab<ActionRow>(ResourceBundleUtil.getTabTitle("ActionsTabTitle"));
-		ControllerConditionActionTabs controllerConditionActionTabs = new ControllerConditionActionTabs(conditions,actions);
+		controllerConditionActionTabs = new ControllerConditionActionTabs(conditions,actions);
 		applyButtonController = new ApplyButtonController();
 		mySpriteTabs.getTabs().addAll(conditions,actions);
 	}
@@ -295,7 +296,7 @@ public class DisplayPanel extends VBox {
 //			mySParameterTAI.create(getActiveCell());
 			mySParameterTAI.create(activeCell);
 			applyButtonController.updateActionConditionTabs(conditions,actions,activeCell);
-			
+			controllerConditionActionTabs = new ControllerConditionActionTabs(conditions,actions);
 			if (!myAEM.multipleActive()){	
 //				mySInventoryTAI.setSpriteObjectAndUpdate(activeCell);
 //				mySUtilityTAI.setSpriteObjectAndUpdate(activeCell);
