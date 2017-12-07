@@ -40,7 +40,7 @@ public class ActionRow extends ActionConditionRow {
 
 	// private TreeItem<HBox> categoryOperation = new TreeItem<HBox>();
 	// private TreeItem<HBox> actionOperation = new TreeItem<HBox>();
-	private TreeItem<HBox> parameterOperation = new TreeItem<HBox>();
+//	private TreeItem<HBox> parameterOperation = new TreeItem<HBox>();
 
 	private TreeView<HBox> actionTreeView;
 	private TreeView<HBox> operationTreeView;
@@ -151,7 +151,7 @@ public class ActionRow extends ActionConditionRow {
 		for (String param : parameters) {
 			hb.getChildren().add(new Label(param + " "));
 
-			TreeItem<HBox> paramTV = makeOperationCategoryTreeItem(param);
+			TreeItem<HBox> paramTV = makeOperationNameTreeItem(param);
 
 			if (param.equals("Double")) {
 				TextField tf = new TextField();
@@ -203,7 +203,7 @@ public class ActionRow extends ActionConditionRow {
 	// return tv;
 	// }
 
-	private TreeItem<HBox> makeOperationCategoryTreeItem(String actionParameter) {
+	private TreeItem<HBox> makeOperationNameTreeItem(String actionParameter) {
 		HBox hb = new HBox();
 		hb.getChildren().addAll(new Label("Choose Operation: "));
 		TreeItem<HBox> categoryOperation = new TreeItem<HBox>(hb);
@@ -242,13 +242,13 @@ public class ActionRow extends ActionConditionRow {
 		HBox hb = new HBox();
 		hb.getChildren().add(new Label("Choose Operation Parameter(s): "));
 
-		parameterOperation = new TreeItem<HBox>(hb);
-		makeOperationParameterChildren(operation, hb);
+		TreeItem<HBox> parameterOperation = new TreeItem<HBox>(hb);
+		makeOperationParameterChildren(operation, parameterOperation, hb);
 		parameterOperation.setExpanded(true);
 		return parameterOperation;
 	}
 
-	private void makeOperationParameterChildren(String operation, HBox hb) {
+	private void makeOperationParameterChildren(String operation, TreeItem<HBox> parameterOperation, HBox hb) {
 		ObservableList<String> parameters = FXCollections.observableList(operationFactory.getParameters(operation));
 		System.out.println("Op Params: " + parameters);
 
@@ -266,7 +266,7 @@ public class ActionRow extends ActionConditionRow {
 		for (String param : parameters) {
 			hb.getChildren().add(new Label(param + " "));
 
-			TreeItem<HBox> paramTV = makeOperationCategoryTreeItem(param);
+			TreeItem<HBox> paramTV = makeOperationNameTreeItem(param);
 
 			if (param.equals("Double")) {
 				TextField tf = new TextField();
@@ -285,7 +285,7 @@ public class ActionRow extends ActionConditionRow {
 				});
 			}
 
-			parameterAction.getChildren().add(paramTV);
+			parameterOperation.getChildren().add(paramTV);
 
 		}
 
@@ -293,7 +293,7 @@ public class ActionRow extends ActionConditionRow {
 
 	}
 
-	private ChoiceBox<String> makeParameterOperationChoiceBox(String operation) {
+	private ChoiceBox<String> makeParameterOperationChoiceBox(String operation, TreeItem<HBox> parameterOperation) {
 		ObservableList<String> operations = FXCollections.observableList(operationFactory.getParameters(operation));
 		ChoiceBox<String> cb = new ChoiceBox<>(operations);
 		System.out.println(operations);
@@ -319,7 +319,7 @@ public class ActionRow extends ActionConditionRow {
 				Double.parseDouble(tf.getText());
 		} catch (NumberFormatException e) {
 			showError(INVALID_INPUT_MESSAGE, DOUBLE_INPUT_MESSAGE);
-			tf.clear();
+//			tf.clear();
 		}
 
 	}
