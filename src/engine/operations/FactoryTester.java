@@ -15,5 +15,6 @@ public class FactoryTester {
 		ActionFactory actFact = new ActionFactory();
 		System.out.println(actFact.getCategories());
 		System.out.println(actFact.getActions(actFact.getCategories().get(0)));
+		System.out.println(actFact.getParameters(actFact.getActions(actFact.getCategories().get(0)).get(0)));
 	}
 }
