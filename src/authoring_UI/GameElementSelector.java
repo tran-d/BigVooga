@@ -70,7 +70,7 @@ public class GameElementSelector extends TabPane implements Observer {
 		// SpriteSet mySS = new SpriteSetDefault(myGDH);
 		// SpriteSet myCustom = new SpriteSetUserDefined(myGDH);
 		myAEM.getDefaultSpriteController().getAllSprites().forEach(sprite->{
-			System.out.println("Sprite exists, name: "+sprite.getName());
+//			System.out.println("Sprite exists, name: "+sprite.getName());
 		});
 		mySprites = myAEM.getDefaultSpriteController().getSpritePanel(mySpriteGridHandler);
 		

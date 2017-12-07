@@ -123,7 +123,7 @@ public class DisplayPanel extends VBox {
 		conditions = new ConditionTab<ConditionRow>(ResourceBundleUtil.getTabTitle("ConditionsTabTitle"));
 		actions = new ActionTab<ActionRow>(ResourceBundleUtil.getTabTitle("ActionsTabTitle"));
 		ControllerConditionActionTabs controllerConditionActionTabs = new ControllerConditionActionTabs(conditions,actions);
-		applyButtonController = new ApplyButtonController(conditions,actions);
+		applyButtonController = new ApplyButtonController();
 		mySpriteTabs.getTabs().addAll(conditions,actions);
 	}
 	
@@ -294,9 +294,7 @@ public class DisplayPanel extends VBox {
 			removeSpriteEditorErrorMessage();
 //			mySParameterTAI.create(getActiveCell());
 			mySParameterTAI.create(activeCell);
-			applyButtonController.updateActionConditionTabs(activeCell);
-			mySpriteTabs.getTabs().add(applyButtonController.getConditionTab());
-			mySpriteTabs.getTabs().add(applyButtonController.getActionTab());
+			applyButtonController.updateActionConditionTabs(conditions,actions,activeCell);
 			
 			if (!myAEM.multipleActive()){	
 //				mySInventoryTAI.setSpriteObjectAndUpdate(activeCell);
@@ -401,7 +399,7 @@ public class DisplayPanel extends VBox {
 		mySInventoryTAI.apply();
 		mySAnimationSequenceTAI.apply();
 		}
-		applyButtonController.updateSpriteObject();
+		applyButtonController.updateSpriteObject(conditions,actions,getActiveCell());
 		myAEM.getSpriteParameterSidebarManager().apply();
 	}
 

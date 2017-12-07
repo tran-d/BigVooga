@@ -262,11 +262,11 @@ public class SpriteGridHandler {
 			if (!pane.isCoveredByOtherSprite()) {
 				Dragboard db = e.getDragboard();
 				MapLayer ML = pane.getMapLayer();
-				System.out.println("MapLayer: " + ML.getName());
+//				System.out.println("MapLayer: " + ML.getName());
 				int row = ML.getRowIndex(pane);
 				int col = ML.getColumnIndex(pane);
 				Integer[] row_col = new Integer[] { row, col };
-				System.out.println(row_col);
+//				System.out.println(row_col);
 
 				if (db.hasContent(objectFormat)) {
 					if (draggingObject instanceof SpriteObject) {

@@ -18,6 +18,7 @@ public class ActionTab<T> extends Tab implements ActionTabI<T> {
 	private TopToolBar buttons;
 	private ActionConditionVBox<T> actionConditionVBox;
 	private ResourceBundle actionTabResources;
+	private VBox mainVBox;
 	
 	public ActionTab(String title) {
 		super(title);
@@ -36,7 +37,7 @@ public class ActionTab<T> extends Tab implements ActionTabI<T> {
 	private void setUpActionConditionManager(String title) {
 		buttons = new TopToolBar(title);
 		actionConditionVBox = setActionConditionVBox();
-		VBox mainVBox = new VBox(SPACING);
+		mainVBox = new VBox(SPACING);
 		mainVBox.getChildren().addAll(buttons,actionConditionVBox);
 		actionConditionManager.setContent(mainVBox);
 	}
@@ -109,6 +110,20 @@ public class ActionTab<T> extends Tab implements ActionTabI<T> {
 	@Override
 	public ActionConditionVBox<T> setActionConditionVBox() {
 		return new ActionVBox<T>(getSelectorLabel());
+	}
+
+	@Override
+	public void setTopToolBar(TopToolBar topToolBar) {
+		mainVBox.getChildren().removeAll(buttons,actionConditionVBox);
+		buttons = topToolBar;
+		mainVBox.getChildren().addAll(buttons,actionConditionVBox);
+	}
+
+	@Override
+	public void setNoReturnActionConditionVBox(ActionConditionVBox<T> actionConditionVBoxNew) {
+		mainVBox.getChildren().remove(actionConditionVBox);
+		this.actionConditionVBox = actionConditionVBoxNew;
+		mainVBox.getChildren().add(actionConditionVBox);
 	}
 
 	
