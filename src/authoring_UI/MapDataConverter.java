@@ -13,6 +13,7 @@ import javafx.geometry.Point2D;
 public class MapDataConverter {
 	private final XStream SERIALIZER = setupXStream();
 	private String myName;
+	private String layerPath;
 	private List<SpriteObjectGridManager> gridManagers;
 	
 	public XStream setupXStream() {
@@ -37,17 +38,25 @@ public class MapDataConverter {
 		convertLayer(grids);
 	}
 	
+	public String getLayerPath() {
+		return layerPath;
+	}
+	
+	public void setLayerPath(String path) {
+		layerPath = path;
+	}
+	
 	public void convertLayer(DraggableGrid grids){
 		gridManagers = grids.getGrids();
 	}
 	
-	public List<LayerDataConverter> getLayersToConvert() {
-		List<LayerDataConverter> converters = new ArrayList<>();
-		for (SpriteObjectGridManager gridManager : gridManagers) {
-			converters.add(new LayerDataConverter(gridManager));
-		}
-		return converters;
-	}
+//	public List<LayerDataConverter> getLayersToConvert() {
+//		List<LayerDataConverter> converters = new ArrayList<>();
+//		for (SpriteObjectGridManager gridManager : gridManagers) {
+//			converters.add(new LayerDataConverter(gridManager));
+//		}
+//		return converters;
+//	}
 	
 	// create spriteobjectgrid manager list. 
 	

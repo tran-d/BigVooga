@@ -40,6 +40,7 @@ public class MapManager extends TabPane {
 	private String projectName = "TestProject";
 	private GameDataHandler myGDH;
 	private int numWorlds = 1;
+	private List<DraggableGrid> allWorlds = new ArrayList<DraggableGrid>();
 
 	private Pane mapEditor = new Pane();
 	private SpritePanels spritePanels;
@@ -84,6 +85,10 @@ public class MapManager extends TabPane {
 		this.getTabs().add(addTab);
 	}
 	
+	public GameDataHandler getGDH() {
+		return myGDH;
+	}
+	
 	private void setTab() {
 		this.setSide(Side.TOP);
 		addTab = new Tab();
@@ -126,6 +131,7 @@ public class MapManager extends TabPane {
 	private void setupFEAuthClasses() {
 		
 		DraggableGrid myGrid = myAEM.getDraggableGrid();
+		allWorlds.add(myGrid);
 		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, myGrid);
 		myGrid.construct(mySpriteGridHandler);
 		mySpriteGridHandler.addKeyPress(stage.getScene());
@@ -135,6 +141,9 @@ public class MapManager extends TabPane {
 		authMap.setGrid(myGrid);
 	}
 	
+	public List<DraggableGrid> getAllWorlds() {
+		return allWorlds;
+	}
 
 	private void createTab(int tabCount) {
 		currentTab = new Tab();

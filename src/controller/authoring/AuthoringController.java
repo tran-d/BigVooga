@@ -3,11 +3,13 @@ package controller.authoring;
 import java.util.HashMap;
 import java.util.Map;
 
+import authoring_UI.DraggableGrid;
 import authoring_UI.MapManager;
 import authoring_UI.SpriteCreator;
 import authoring_UI.ViewSideBar;
 import authoring_UI.HUD.HUDManager;
 import authoring_UI.dialogue.DialogueManager;
+import engine.utilities.data.GameDataHandler;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -26,13 +28,14 @@ public class AuthoringController {
 	private Pane authoringPane;
 	private Stage stage;
 	private Pane view;
+	private MapManager mapManager;
 	
 	public AuthoringController(Stage currentStage, Pane currentAuthoringPane) {
 		
 		stage = currentStage;
 		authoringPane = currentAuthoringPane;
 		
-		MapManager mapManager = new MapManager(stage);
+		mapManager = new MapManager(stage);
 		viewMap.put(MAP_EDITOR_KEY, mapManager.getPane());
 
 		SpriteCreator sc = new SpriteCreator();
@@ -59,6 +62,18 @@ public class AuthoringController {
 		view = viewMap.get(key);
 		authoringPane.getChildren().addAll(view, currentSideBar);
 		
+	}
+
+	public void saveWorlds() {
+		GameDataHandler existingGDH = mapManager.getGDH();
+		for (DraggableGrid DG : mapManager.getAllWorlds()) {
+			try {
+				existingGDH.saveWorld(DG);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 }

@@ -29,6 +29,7 @@ public class SceneController {
 	private Map<String, Scene> sceneMap = new HashMap<String, Scene>();
 	private Stage stage;
 	private Scene scene;
+	private MainAuthoringGUI authoringGUI;
 	
 	/**
 	 * Initializes all the scenes and puts them in the sceneMap.
@@ -49,7 +50,7 @@ public class SceneController {
 		scene = gameSelector.getScene();
 		sceneMap.put(GAME_SELECTOR_KEY, scene);
 		
-		MainAuthoringGUI authoringGUI = new MainAuthoringGUI(stage, this);
+		authoringGUI = new MainAuthoringGUI(stage, this);
 		authoringGUI.createAuthoringGUI();
 		scene = authoringGUI.getScene();
 		sceneMap.put(CREATE_KEY, scene);
@@ -63,7 +64,6 @@ public class SceneController {
 		settings.createSettings();
 		scene = settings.getScene();
 		sceneMap.put(SETTINGS_KEY, scene);
-		
 	}
 	
 	/**
@@ -74,5 +74,9 @@ public class SceneController {
 	public void switchScene (String key) {
 		stage.setScene(sceneMap.get(key));
 		stage.centerOnScreen();
+	}
+
+	public void saveWorlds() {
+		authoringGUI.saveWorlds();
 	}
 }
