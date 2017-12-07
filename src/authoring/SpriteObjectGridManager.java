@@ -8,16 +8,18 @@ import java.util.Set;
 
 import authoring_UI.MapLayer;
 import authoring_UI.SpriteGridHandler;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
-public abstract class SpriteObjectGridManager implements SpriteObjectGridManagerI {
+public abstract class SpriteObjectGridManager {
 	
 	protected ArrayList<ArrayList<SpriteObject>> spriteGrid;
 	private int MAX_ROWS = 15;
 	private int MAX_COLS = 15;
-	protected int CURR_ROWS;
-	protected int CURR_COLS;
+//	protected int CURR_ROWS;
+//	protected int CURR_COLS;
 	private SpriteObject defaultEmptySprite;
 	private Set<Integer []> activeCells;
 	protected MapLayer myMapLayer;
@@ -25,29 +27,8 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 	protected int myLayerNum;
 	Color myColor;
 	
-	protected SpriteObjectGridManager(int rows, int columns, SpriteGridHandler SGH){
-		this(rows, columns);
-		mySpriteGridHandler = SGH;
-//		myLayerNum = layerNum;
-		createMapLayer();
-	}
-	
-	
-	public Color getColor() {
-		return myColor;
-	}
-	
-	public int getNumRows() {
-		return CURR_ROWS;
-	}
-	
-	public int getNumCols() {
-		return CURR_COLS;
-	}
-	
-	public int getLayerNum() {
-		return myLayerNum;
-	}
+	protected ObjectProperty<Integer> numRowsProperty;
+	protected ObjectProperty<Integer> numColumnsProperty;
 	
 	public SpriteObjectGridManager(int rows, int columns, int layerNum, Color c){
 		this(rows, columns);
@@ -56,12 +37,96 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 	}
 	
 	public SpriteObjectGridManager(int rows, int cols) {
-		CURR_ROWS = rows;
-		CURR_COLS = cols;
 		setDefaultEmptySprite(new SpriteObject());
-		initializeGrid();
+		numRowsProperty = new SimpleObjectProperty<Integer>();
+		numColumnsProperty = new SimpleObjectProperty<Integer>();
+		numRowsProperty.set(1);
+		numColumnsProperty.set(1);
+		spriteGrid = new ArrayList<ArrayList<SpriteObject>>();
+		ArrayList<SpriteObject> row1 = new ArrayList<SpriteObject>();
+		row1.add(defaultEmptySprite.newCopy());
+		spriteGrid.add(row1);
 		activeCells = new HashSet<Integer[]>();
+
+		numRowsProperty.addListener((observable, oldNumRows, newNumRows)->{
+			System.out.println("newNumRows: "+newNumRows);
+			System.out.println("oldNumRows: "+oldNumRows);
+			if (this.getMapLayer()!=null){
+				this.getMapLayer().setNumRows(newNumRows);
+			}
+			Integer diff = newNumRows-oldNumRows;
+			if (diff>0){
+				for (int i=0; i<diff;i++){
+					ArrayList<SpriteObject> newRow = new ArrayList<SpriteObject>();
+					for (int j=0; j<numColumnsProperty.get(); j++){
+						newRow.add(defaultEmptySprite.newCopy());
+						}
+					spriteGrid.add(newRow);
+				}
+			} else if (diff<0){
+				for (int i=0; i>diff;i--){
+					spriteGrid.remove(oldNumRows-i-1);
+				}
+			}
+			System.out.println("spriteGridNuMRows: " +spriteGrid.size());
+			System.out.println("spriteGridNumCols: "+spriteGrid.get(0).size());
+		});
+		
+		numColumnsProperty.addListener((observable, oldNumColumns, newNumColumns)->{
+			System.out.println("newNumCols: "+newNumColumns);
+			System.out.println("oldNumCols: "+oldNumColumns);
+			if (this.getMapLayer()!=null){
+				this.getMapLayer().setNumCols(newNumColumns);
+			}
+			Integer diff = newNumColumns-oldNumColumns;
+			
+				for (ArrayList<SpriteObject> row: spriteGrid){
+					if (diff>0){
+						for (int i=0; i<diff;i++){
+							row.add(defaultEmptySprite.newCopy());
+					}
+						} else if (diff<0){
+						for (int i=0;i>diff;i--){
+							row.remove(oldNumColumns-i-1);
+						}
+					}
+				}
+		});
+		
+//		initializeGrid();
+
+		
 	}
+	
+	protected SpriteObjectGridManager(int rows, int columns, SpriteGridHandler SGH){
+		this(rows, columns);
+		mySpriteGridHandler = SGH;
+
+//		myLayerNum = layerNum;
+//		createMapLayer();
+		createMapLayer();
+		this.numRowsProperty.set(rows);
+		this.numColumnsProperty.set(columns);
+	}
+	
+	
+	public Color getColor() {
+		return myColor;
+	}
+	
+//	public int getNumRows() {
+//		return CURR_ROWS;
+//	}
+//	
+//	public int getNumCols() {
+//		return CURR_COLS;
+//	}
+	
+	public int getLayerNum() {
+		return myLayerNum;
+	}
+	
+
 	
 	
 	protected abstract void createMapLayer();
@@ -78,28 +143,28 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 		return getMapLayer().getName();
 	}
 
-	private void initializeGrid() {
-		spriteGrid = new ArrayList<ArrayList<SpriteObject>>();
-		for (int i=0; i<CURR_ROWS;i++){
-			spriteGrid.add(new ArrayList<SpriteObject>());
-			for (int j=0; j<CURR_COLS;j++){
-				spriteGrid.get(i).add(defaultEmptySprite.newCopy());
-			}
-		}
-	}
+//	private void initializeGrid() {
+//		spriteGrid = new ArrayList<ArrayList<SpriteObject>>();
+//		for (int i=0; i<CURR_ROWS;i++){
+//			spriteGrid.add(new ArrayList<SpriteObject>());
+//			for (int j=0; j<CURR_COLS;j++){
+//				spriteGrid.get(i).add(defaultEmptySprite.newCopy());
+//			}
+//		}
+//	}
 	
-	@Override
-	public ImageView[][] getGrid() {
-		ImageView [][] ret = new ImageView[CURR_ROWS][CURR_COLS];
-		for (int i=0;i<CURR_ROWS;i++){
-			for (int j=0; j<CURR_COLS;j++){
-				ret[i][j] = spriteGrid.get(i).get(j).getImageView();
-			}
-		}
-		return ret;
-	}
+//	@Override
+//	public ImageView[][] getGrid() {
+//		ImageView [][] ret = new ImageView[CURR_ROWS][CURR_COLS];
+//		for (int i=0;i<CURR_ROWS;i++){
+//			for (int j=0; j<CURR_COLS;j++){
+//				ret[i][j] = spriteGrid.get(i).get(j).getImageView();
+//			}
+//		}
+//		return ret;
+//	}
 	
-	@Override 
+ 
 	public ArrayList<SpriteObject> getEntireListOfSpriteObjects() {
 		ArrayList<SpriteObject> ret = new ArrayList<SpriteObject>();
 		for (ArrayList<SpriteObject> SOI_LIST: spriteGrid){
@@ -110,20 +175,20 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 		return ret;
 	}
 	
-	@Override
-	public ImageView[][] populateCell(SpriteObject spriteObject, Integer[] row_col) {
+
+	public void populateCell(SpriteObject spriteObject, Integer[] row_col) {
 		
 			setCell(spriteObject, row_col);
 		
-		return getGrid();
+//		return getGrid();
 	}
 
-	@Override
-	public ImageView[][] populateCell(SpriteObject spriteObject, ArrayList<Integer[]> row_col) {
+
+	public void populateCell(SpriteObject spriteObject, ArrayList<Integer[]> row_col) {
 		for (Integer [] loc: row_col) {
 			setCell(spriteObject, loc);
 		}
-		return getGrid();
+//		return getGrid();
 	}
 	
 	private void setCell(SpriteObject SOI, Integer[] loc) {
@@ -137,24 +202,24 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 		setCell(defaultEmptySprite.newCopy(), loc);
 	}
 
-	@Override
-	public ArrayList<SpriteParameterI> getSpriteParameters(ArrayList<Integer[]> row_col) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public ArrayList<SpriteParameterI> getSpriteParameters(ArrayList<Integer[]> row_col) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 	
 	public void setDefaultEmptySprite(SpriteObject SPI) {
 		defaultEmptySprite  = SPI.newCopy();
 	}
 	
-	@Override
+
 	public boolean switchCellActiveStatus(Integer[] makeActive){
 //		System.out.println(makeActive);
 		boolean ret = changeCellActiveStatus(makeActive);
 		return ret;
 	}
 	
-	@Override
+	
 	public void switchCellActiveStatus(ArrayList<Integer[]> makeActive){
 //		activeCells.addAll(makeActive);
 		makeActive.forEach(pos -> {
@@ -189,17 +254,25 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 		return true;	
 	}
 	
-	private void removeActiveCell(Integer [] in){
+	public void removeActiveCell(Integer [] in){
 		this.getCell(in).clearPossibleParameters();
 		activeCells.remove(in);
 	}
+	
+	public void addActiveCell(AbstractSpriteObject ASO){
+		activeCells.add(ASO.getPositionOnGrid());
+	}
+	
+	public void removeActiveCell(AbstractSpriteObject ASO){
+		removeActiveCell(ASO.getPositionOnGrid());
+	}
+	
 	
 //	@Override 
 //	public void switchCellActiveStatus(SpriteObjectI SOI){
 //		activeCells.add(SOI.getPositionOnGrid());
 //	}
 	
-	@Override
 	public void removeActiveCells(ArrayList<Integer[]> makeInactive){
 //		activeCells.removeAll(makeInactive);
 		makeInactive.forEach(a->{
@@ -207,13 +280,11 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 		});
 	}
 	
-	@Override
 	public void resetActiveCells() {
 		ArrayList<Integer []>  dummy = new ArrayList<Integer[]>(activeCells);
 		removeActiveCells(dummy);
 	}
 	
-	@Override
 	public ArrayList<SpriteObject> getActiveSpriteObjects(){
 		ArrayList<SpriteObject> ret = new ArrayList<SpriteObject>();
 		for (Integer[] loc: activeCells){
@@ -223,14 +294,14 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 		return ret;
 	}
 	
-	@Override
 	public void clearCells(ArrayList<Integer[]> cellsToClear){
-		System.out.println(cellsToClear);
+		
+		System.out.println("cellsToClear :" + cellsToClear);
 		removeActiveCells(cellsToClear);
+		getMapLayer().removeSpritesAtPositions(cellsToClear);
 		
 		for (Integer[] loc: cellsToClear){
 			System.out.println("clearCells loc loop: "+loc);
-			
 			setCellAsDefault(loc);	
 		}
 	}
@@ -239,10 +310,35 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 		return spriteGrid.get(loc[0]).get(loc[1]);
 	}
 
-	@Override
 	public void matchActiveCellsToSprite(SpriteObject firstSprite) {
 		for (SpriteObject SOI: getActiveSpriteObjects()){
 			SOI.applyParameterUpdate(firstSprite.getParameters());
 		}
 	}
+	
+	public void addRow(){
+		setNumCols(numRowsProperty.get()+1);
+	}
+	
+	public void setNumRows(Integer newRows){
+		System.out.println("Setting num rows: "+newRows);
+		this.numRowsProperty.set(newRows);
+	}
+	
+	public Integer getNumRows(){
+		return this.numRowsProperty.get();
+	}
+	
+	public void addColumn(){
+		setNumCols(numColumnsProperty.get()+1);
+	}
+	public Integer getNumCols(){
+		return this.numColumnsProperty.get();
+	}
+	
+	public void setNumCols(Integer newCols){
+		System.out.println("Setting num cols: "+newCols);
+		this.numColumnsProperty.set(newCols);
+	}
+	
 }

@@ -15,64 +15,29 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeType;
 
-public class SpriteThumbnail extends HBox{
+public class SpriteThumbnail extends Thumbnail{
 	
-	private int HEIGHT = 40;
-	private int WIDTH = 100;
 	private AbstractSpriteObject myASO;
 	private AbstractSpriteObject myASOCopy;
-	private boolean isClicked;
+	
+	public SpriteThumbnail(ImageView im, String name){
+		super(im, name);
+	}
+	
+	public SpriteThumbnail(AbstractSpriteObject ASO, Boolean showButton){
+		this(ASO, ASO.getName());
+		myASO = ASO;
+	}
 	
 	public SpriteThumbnail(AbstractSpriteObject ASO){
-		myASO = ASO;
-		setup(ASO);
-	}
-	
-	private void createLabel(AbstractSpriteObject ASO){
-		Label label = new Label(ASO.getName());
-		label.setAlignment(Pos.CENTER);
-		this.getChildren().add(label);
-	}
-	
-	private void createImageThumbnail(AbstractSpriteObject ASO){
-		int thumbnail_size = (int) Math.floor(HEIGHT*.8);
-		ImageView imView = new ImageView(ASO.snapshot(null, null));
-//		imView.setPreserveRatio(true);
-		imView.setFitHeight(thumbnail_size);
-		imView.setFitWidth(thumbnail_size);
-//		imView.wid
-		
-		this.getChildren().add(imView);
-	}
-	
-	public void setClicked(boolean in){
-		isClicked = in;
-		if (in){
-			this.setBackground(new Background(new BackgroundFill(Color.BEIGE, null, null)));
-//			this.setOpacity(50);
-		} else {
-			this.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
-//			this.setOpacity(100);
-		}
-	}
-	
-	public boolean isClicked(){
-		return isClicked;
-	}
-	
-	private void setup(AbstractSpriteObject ASO){
-		this.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY,BorderWidths.DEFAULT)));
-		this.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
-		this.setAlignment(Pos.CENTER);
-		createImageThumbnail(ASO);
-		createLabel(ASO);
+		this(ASO, false);
 	}
 	
 	public AbstractSpriteObject getSprite(){
-		if (myASOCopy==null){
-			myASOCopy = myASO.newCopy();
-		}
-		return myASOCopy;
+//		if (myASOCopy==null){
+//			myASOCopy = myASO.newCopy();
+//		}
+		return myASO;
 	}
 
 }

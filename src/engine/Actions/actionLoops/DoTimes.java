@@ -19,7 +19,7 @@ public class DoTimes implements Action {
 	
 	@Override
 	public void execute(GameObject asking, Layer world) {
-		for(int i = 0; i < times.evaluate(asking, world); i++) {
+		for(int i = 0; i < times.evaluate(asking, world); i++) { //times.evaluate BEFORE
 			actions.get(i).execute(asking, world);
 		}
 	}

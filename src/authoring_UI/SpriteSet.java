@@ -2,6 +2,7 @@ package authoring_UI;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -16,7 +17,7 @@ import javafx.scene.layout.Pane;
 
 public abstract class SpriteSet {
 
-	protected Map<String, ArrayList<AbstractSpriteObject>> categoryToSprites;
+	protected Map<String, List<AbstractSpriteObject>> categoryToSprites;
 	protected SpriteSelectPanel mySSP;
 	protected SpriteScrollView mySSV;
 	protected GameDataHandler myGDH;
@@ -26,13 +27,13 @@ public abstract class SpriteSet {
 
 	protected SpriteSet(GameDataHandler GDH) {
 		myGDH = GDH;
-		categoryToSprites = new HashMap<String, ArrayList<AbstractSpriteObject>>();
+		categoryToSprites = new HashMap<String, List<AbstractSpriteObject>>();
 		setFolderToLoad();
 		loadSprites();
 		toSave = new ArrayList<SpriteObject>();
 	}
 
-	protected Map<String, ArrayList<AbstractSpriteObject>> getCategoryToSprites() {
+	protected Map<String, List<AbstractSpriteObject>> getCategoryToSprites() {
 		return categoryToSprites;
 	}
 	
@@ -60,7 +61,7 @@ public abstract class SpriteSet {
 		return ret;
 	}
 
-	protected Map<String, ArrayList<AbstractSpriteObject>> getAllSpritesAsMap() {
+	protected Map<String, List<AbstractSpriteObject>> getAllSpritesAsMap() {
 //		System.out.println("Getting them");
 		if (!loaded) {
 			this.loadSprites();
@@ -85,7 +86,7 @@ public abstract class SpriteSet {
 
 	protected void loadSprites() {
 		if (categoryToSprites == null) {
-			categoryToSprites = new HashMap<String, ArrayList<AbstractSpriteObject>>();
+			categoryToSprites = new HashMap<String, List<AbstractSpriteObject>>();
 		}
 		// if (getFolderToLoad()==null){
 		// setFolderToLoad();
@@ -152,7 +153,7 @@ public abstract class SpriteSet {
 		if (!categoryExists(category)) {
 				addCategory(category);
 		}
-			ArrayList<AbstractSpriteObject> val = getCategoryToSprites().get(category);
+			List<AbstractSpriteObject> val = getCategoryToSprites().get(category);
 			val.add(SO);
 			getCategoryToSprites().put(category, val);
 //		}
@@ -171,8 +172,8 @@ public abstract class SpriteSet {
 	}
 
 	protected void saveAllSprites() throws Exception {
-		for (Entry<String, ArrayList<AbstractSpriteObject>> keyVal : getAllSpritesAsMap().entrySet()) {
-			ArrayList<AbstractSpriteObject> SO_LIST = keyVal.getValue();
+		for (Entry<String, List<AbstractSpriteObject>> keyVal : getAllSpritesAsMap().entrySet()) {
+			List<AbstractSpriteObject> SO_LIST = keyVal.getValue();
 			for (AbstractSpriteObject SO : SO_LIST) {
 				saveSprite(keyVal.getKey(), SO);
 			}

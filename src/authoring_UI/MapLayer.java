@@ -1,6 +1,13 @@
 package authoring_UI;
 
+import java.util.ArrayList;
+
+import authoring.AbstractSpriteObject;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -9,6 +16,8 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
@@ -20,16 +29,93 @@ public abstract class MapLayer extends GridPane {
 	private SpriteGridHandler mySGH;
 	private Color defaultColor;
 	private String myName;
+	static final int CELL_SIZE = 50;
+	protected ObjectProperty<Integer> numRowsProperty;
+	protected ObjectProperty<Integer> numColumnsProperty;
+	private ArrayList<AuthoringMapStackPane> activeGridCells;
 
 	MapLayer(int rows, int columns, int layerNum, SpriteGridHandler SGH, Color c) {
 		super();
 		defaultColor = c;
-		myRows = rows;
-		myColumns = columns;
+		activeGridCells = new ArrayList<AuthoringMapStackPane>();
+		numRowsProperty = new SimpleObjectProperty<Integer>();
+		numColumnsProperty = new SimpleObjectProperty<Integer>();
+		numRowsProperty.set(1);
+		numColumnsProperty.set(1);
+		
+//		myRows = rows;
+//		myColumns = columns;
+		numRowsProperty.addListener((observable, oldNumRows, newNumRows)->{
+			Integer diff = newNumRows-oldNumRows;
+			if (diff<0){
+				for (int i=0;i>diff;i--){
+					for (int col =0;col<numColumnsProperty.get();col++){
+						AuthoringMapStackPane AMSP = this.getChildAtPosition(oldNumRows-i-1, col);
+						if (AMSP.isActive()){
+							this.removeActive(AMSP);
+						}
+						if (AMSP.isCoveredByOtherSprite()){
+							AbstractSpriteObject ASO = AMSP.getCoveringSprite();
+							((AuthoringMapStackPane)ASO.getParent()).removeChild();
+//							AMSP.getCoveringSprite().setFitHeight(currFitHeight-this.CELL_SIZE);
+						}
+					this.getChildren().remove(AMSP);
+					}
+				}
+			} else if (diff>0){
+				for (int i=0;i<diff;i++){
+					for (int col =0;col<numColumnsProperty.get();col++){
+					this.addAuthoringStackPaneToPosition(oldNumRows+i, col);
+					}
+			}
+			}
+		});
+		
+		numColumnsProperty.addListener((observable, oldNumColumns, newNumColumns)->{
+			System.out.println("Layer num cols: "+newNumColumns);
+			Integer diff = newNumColumns-oldNumColumns;
+			if (diff<0){
+				for (int i=0;i>diff;i--){
+					for (int row =0;row<numRowsProperty.get();row++){
+						AuthoringMapStackPane AMSP = this.getChildAtPosition(row,oldNumColumns-i-1);
+						if (AMSP.isActive()){
+							this.removeActive(AMSP);
+						}
+						if (AMSP.isCoveredByOtherSprite()){
+							AbstractSpriteObject ASO = AMSP.getCoveringSprite();
+							((AuthoringMapStackPane)ASO.getParent()).removeChild();
+						}
+					this.getChildren().remove(AMSP);
+					}
+				}
+			} else if (diff>0){
+				for (int i=0;i<diff;i++){
+					for (int row =0;row<numRowsProperty.get();row++){
+					this.addAuthoringStackPaneToPosition(row, oldNumColumns+i);
+					}
+			}
+			}
+		});
+		
 		myLayerNumber = layerNum;
 		mySGH = SGH;
-		setup();
+		this.addAuthoringStackPaneToPosition(0,0);
+		this.setNumRows(rows);
+		this.setNumCols(columns);
+//		setup();
 
+	}
+	
+	public void addActive(AuthoringMapStackPane pane){
+		this.activeGridCells.add(pane);
+	}
+	
+	public ArrayList<AuthoringMapStackPane> getActive(){
+		return activeGridCells;
+	}
+	
+	public void removeActive(AuthoringMapStackPane pane){
+		this.activeGridCells.remove(pane);
 	}
 	
 	public String getName(){
@@ -51,26 +137,92 @@ public abstract class MapLayer extends GridPane {
 	protected Color getDefaultColor() {
 		return defaultColor;
 	}
+	
+	public void removeSpritesAtPositions(ArrayList<Integer[]>locs){
+		locs.forEach((pos)->{
+			this.getChildAtPosition(pos[0], pos[1]).removeChild();
+		});
+		
+	}
+	
+	protected AuthoringMapStackPane getChildAtPosition(int row, int col){
+		AuthoringMapStackPane result = null;
+		ObservableList<Node> childrens = this.getChildren();
 
-	protected void setup() {
-		for (int i = 0; i < myColumns; i++) {
-			for (int j = 0; j < myRows; j++) {
-				StackPane sp = new StackPane();
-				sp.setPrefHeight(50);
-				sp.setPrefWidth(50);
-				// "-fx-background-color: rgba(0, 100, 100, 0.5);
-				sp.setBackground(
-						new Background(new BackgroundFill(getDefaultColor(), CornerRadii.EMPTY, Insets.EMPTY)));
-				// sp.setStyle();
-				BorderStroke border = new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.DOTTED, CornerRadii.EMPTY,
-						BorderWidths.DEFAULT);
-				sp.setBorder(new Border(border));
-				this.add(sp, i, j);
-				mySGH.addDropHandling(sp);
-				mySGH.addGridMouseClick(sp);
-				mySGH.addGridMouseDrag(sp);
-			}
-		}
+	    for (Node node : childrens) {
+	        if(this.getRowIndex(node) == row && this.getColumnIndex(node) == col) {
+	            result = (AuthoringMapStackPane) node;
+	            break;
+	        }
+	    }
+	    return result;
+	}
+	
+	public int getCellSize(){
+		return CELL_SIZE;
+	}
+	
+	protected boolean hasChildAtPosition(int row, int column){
+		AuthoringMapStackPane child = getChildAtPosition(row, column);
+//		if (!(child instanceof AuthoringMapStackPane)){
+//	    	return true;
+//	    } else {
+//	    	AuthoringMapStackPane childStackPane = (AuthoringMapStackPane) child;
+	    	return child.hasChild();
+//	    }
+	}
+
+//	protected void setup() {
+//		for (int i = 0; i < myColumns; i++) {
+//			for (int j = 0; j < myRows; j++) {
+//				addAuthoringStackPaneToPosition(j,i);
+//			}
+//		}
+//	}
+	
+	private void addAuthoringStackPaneToPosition(int row, int col){
+		AuthoringMapStackPane sp = new AuthoringMapStackPane(this);
+		sp.setMinWidth(CELL_SIZE);
+		sp.setMaxWidth(CELL_SIZE);
+		sp.setPrefWidth(CELL_SIZE);
+		sp.setMinHeight(CELL_SIZE);
+		sp.setPrefHeight(CELL_SIZE);
+		sp.setMaxHeight(CELL_SIZE);
+		
+		// "-fx-background-color: rgba(0, 100, 100, 0.5);
+		sp.setBackground(
+				new Background(new BackgroundFill(getDefaultColor(), CornerRadii.EMPTY, Insets.EMPTY)));
+		// sp.setStyle();
+		BorderStroke border = new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.DOTTED, CornerRadii.EMPTY,
+				BorderWidths.DEFAULT);
+		sp.setBorder(new Border(border));
+//		GridPane.setColumnSpan(sp, 1);
+//		GridPane.setRowSpan(sp, 1);
+		GridPane.setHgrow(sp, Priority.NEVER);
+		GridPane.setVgrow(sp, Priority.NEVER);
+		this.add(sp, col, row);
+		sp.setColSpan(1);
+		sp.setRowSpan(1);
+//		System.out.println(this.getRowSpan(sp));
+		mySGH.addDropHandling(sp);
+		mySGH.addGridMouseClick(sp);
+		mySGH.addGridMouseDrag(sp);
+	}
+	
+	public void addRow(){
+		setNumCols(numRowsProperty.get()+1);
+	}
+	
+	public void setNumRows(Integer newRows){
+		this.numRowsProperty.set(newRows);
+	}
+	
+	public void addColumn(){
+		setNumCols(numColumnsProperty.get()+1);
+	}
+	
+	public void setNumCols(Integer newCols){
+		this.numColumnsProperty.set(newCols);
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import authoring_UI.DefaultSpriteObject;
 import authoring_UI.DraggableGrid;
 import authoring_UI.SpriteSet;
 import authoring_UI.SpriteSetDefault;
@@ -15,7 +16,7 @@ import javafx.scene.layout.VBox;
 
 public class AuthoringEnvironmentManager {
 
-	private SpriteObject defaultEmptySprite;
+	private AbstractSpriteObject defaultEmptySprite;
 	private SpriteParameterSidebarManager SPSM;
 	private SpriteObjectGridManagerI SOGM;
 	private ArrayList<SpriteObject> defaultSprites;
@@ -23,13 +24,13 @@ public class AuthoringEnvironmentManager {
 	private GameDataHandler myGDH;
 	private SpriteSet myDefaultSprites;
 	private SpriteSet myCustomSprites;
-
 	private SpriteSet myInventorySprites;
 	private DraggableGrid myGrid;
 
-	public AuthoringEnvironmentManager(String projectName) {
-		myGDH = new GameDataHandler(projectName);
-		defaultEmptySprite = new SpriteObject();
+	public AuthoringEnvironmentManager(GameDataHandler GDH) {
+		myGDH = GDH;
+		//myGDH = new GameDataHandler(projectName);
+		defaultEmptySprite = new DefaultSpriteObject();
 		myGrid = new DraggableGrid();
 		// SOGM = new SpriteObjectGridManager();
 		SPSM = new SpriteParameterSidebarManager(myGrid);
@@ -44,10 +45,12 @@ public class AuthoringEnvironmentManager {
 		return myGrid;
 	}
 
-	public AuthoringEnvironmentManager() {
-		this("TestProject");
+	public void setOldDraggableGrid(DraggableGrid toSet) {
+		String projectName = myGDH.getProjectName();
+		myGrid = toSet;
+		// do stuff to get the saved data
 	}
-
+	
 	public GameDataHandler getGameDataHandler() {
 		return myGDH;
 	}
@@ -179,21 +182,23 @@ public class AuthoringEnvironmentManager {
 		});
 		// defaultSprites.addAll(SOI_LIST);
 	}
-
 	// public void addUserSprite(SpriteObject SOI) {
 	// userSprites.add(SOI);
 	// }
 
-	public SpriteObject getDefaultEmptySprite() {
+	public AbstractSpriteObject getDefaultEmptySprite() {
 		return defaultEmptySprite;
 	}
 
 	public SpriteObject getActiveCell() throws Exception {
 		return SPSM.getActiveSprite();
 	}
-
-	public SpriteObjectGridManagerI getGridManager() {
-		return SOGM;
+	
+	public boolean multipleActive(){
+		return SPSM.multipleActive();
 	}
 
+	public SpriteObjectGridManagerI getGridManager() {
+		return SOGM; // BTW THIS IS NEVER INITIALIZED. 
+	}
 }

@@ -15,7 +15,7 @@ public class TerrainObjectGridManager extends SpriteObjectGridManager{
 	
 	@Override
 	protected void createMapLayer() {
-		myMapLayer = new TerrainLayer(CURR_ROWS, CURR_COLS, mySpriteGridHandler);
+		myMapLayer = new TerrainLayer(getNumRows(), getNumCols(), mySpriteGridHandler);
 	}
 	
 	@Override

@@ -2,10 +2,14 @@ package authoring_UI;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -36,12 +40,14 @@ public class SpriteDataConverter {
 	ArrayList<SpriteDataConverter> inventory;
 	Integer[] gridPos;
 	String name;
-	Double width;
-	Double height;
+	Integer width;
+	Integer height;
 	String UUID;
 	String imageURL;
 	String mySavePath;
 	String spriteType;
+//	Function<Integer, Boolean> heightFunction;
+//	Function<Integer, Boolean> widthFunction;
 
 	public SpriteDataConverter(AbstractSpriteObject ASO) {
 		convertSprite(ASO);
@@ -77,6 +83,8 @@ public class SpriteDataConverter {
 		ASO.getInventory().forEach(sprite -> {
 			inventory.add(new SpriteDataConverter(sprite));
 		});
+//		widthFunction = ASO.getWidthFunction();
+//		heightFunction = ASO.getHeightFunction();
 
 		if (ASO instanceof SpriteObject) {
 			spriteType = "SpriteObject";
@@ -86,8 +94,9 @@ public class SpriteDataConverter {
 	}
 
 	public AbstractSpriteObject createSprite() {
+		System.out.println("Trying to convert into sprite");
 		// SpriteObject ret = new SpriteObject(true);
-		AbstractSpriteObject ret;
+		AbstractSpriteObject ret = null;
 		if (spriteType.equals("SpriteObject")) {
 			ret = new SpriteObject(true);
 		} else if (spriteType.equals("InventoryObject")) {
@@ -96,22 +105,27 @@ public class SpriteDataConverter {
 			// Default
 			ret = new SpriteObject(true);
 		}
-
 		ret.setImageURL(imageURL);
 		ret.setParameterMap(catmap);
 		ret.setPositionOnGrid(gridPos);
-		ret.setNumCellsHeight(height);
-		ret.setNumCellsWidth(width);
+		ret.setNumCellsHeightNoException(height);
+		ret.setNumCellsWidthNoException(width);
 		ret.setUniqueID(UUID);
 		ret.setName(name);
 		ret.setSavePath(mySavePath);
-		ArrayList<AbstractSpriteObject> newInventory = new ArrayList<AbstractSpriteObject>();
+//		ret.setWidthFunction(widthFunction);
+//		ret.setHeightFunction(heightFunction);
+		List<AbstractSpriteObject> newInventory = new ArrayList<AbstractSpriteObject>();
 		inventory.forEach(SDC ->{
 			newInventory.add(SDC.createSprite());
 		});
 		ret.setInventory(newInventory);
 		System.out.println("spriteInventoryinSDC: "+ret.getInventory());
 		return ret;
-
 	}
+	
+//	private Object readResolve() throws java.io.ObjectStreamException{
+//			System.out.println("Resolving in spritedata converter");
+//	        return createSprite();   
+//	}
 }
