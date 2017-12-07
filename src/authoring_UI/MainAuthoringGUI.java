@@ -61,5 +61,9 @@ public class MainAuthoringGUI{
 	public Scene getScene() {
 		return scene;
 	}
+
+	public void saveWorlds() {
+		authoringController.saveWorlds();
+	}
 	
 }
