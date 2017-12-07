@@ -125,11 +125,11 @@ public class EngineTester2 extends Application {
 		List<Action> actions1 = new ArrayList<Action>();
 		
 		actions1.add(new MoveByVariable("xSpeed", "ySpeed"));
-		actions1.add(new ChangeDouble("ySpeed", .2, true));
+		actions1.add(new SetDouble("ySpeed", .2, true));
 		obj.addConditionAction(new BeginStep(), actions1);
 		actions1 = new ArrayList<Action>();
 		
-		actions1.add(new ChangeDouble("ySpeed", -5, false));
+		actions1.add(new SetDouble("ySpeed", -5, false));
 		obj.addConditionAction(new KeyPressed(-1, "Up"), actions1);
 		actions1 = new ArrayList<Action>();
 	}

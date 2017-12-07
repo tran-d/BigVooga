@@ -11,12 +11,12 @@ import engine.operations.stringops.StringOperation;
  * @author aaronpaskin
  *
  */
-public class ChangeDouble implements Action {
+public class SetDouble implements Action {
 
 	private StringOperation varName;
 	private DoubleOperation newDouble;
 	
-	public ChangeDouble(StringOperation varName, DoubleOperation newDouble) {
+	public SetDouble(StringOperation varName, DoubleOperation newDouble) {
 		this.varName = varName;
 		this.newDouble = newDouble;
 	}

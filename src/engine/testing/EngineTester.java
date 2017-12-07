@@ -9,13 +9,20 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import authoring.drawing.BoundingPolygonCreator;
-import authoring.drawing.ImageCanvas;
 import engine.Action;
+import engine.Condition;
 import engine.GameLayer;
 import engine.GameMaster;
 import engine.GameObject;
 import engine.GameObjectFactory;
 import engine.GameWorld;
+import engine.Actions.movement.Move;
+import engine.Actions.variableSetting.SetDouble;
+import engine.operations.booleanops.KeyPressed;
+import engine.operations.doubleops.Value;
+import engine.operations.gameobjectops.Self;
+import engine.operations.stringops.SelfString;
+import engine.operations.vectorops.HeadingOf;
 import engine.sprite.AnimationSequence;
 import engine.sprite.BoundedImage;
 import engine.sprite.Sprite;
@@ -45,34 +52,22 @@ public class EngineTester extends Application {
 	}
 	
 	public void generateGame() {	
-		generateGame("Test1", new BoundedImage("testImage.png"));
+		generateGame("Test1", new BoundedImage("testImage.gif"));
 	}
 	
 	public void generateGame(String name, BoundedImage i) {		
 		GameObjectFactory blueprints = new GameObjectFactory();
 		GameObject obj1 = makeObject("Ob1", i, 120, 150, this::conditionAction1);
 		obj1.addTag("Ob1");
-		GameObject obj2 = makeObject("Ob2", i.clone(), 350, 150, this::conditionAction2);
-		obj2.addTag("Ob2");
-		GameObject obj3 = makeObject("Ob3", i.clone(), 750, 500, this::conditionAction3);
 		
-		obj1.setDoubleVariable("xSpeed", -3);
-		obj1.setDoubleVariable("ySpeed", 0);
 		blueprints.addBlueprint(obj1);
-		
-		blueprints.addBlueprint(obj2);
-		GameLayer layer = new GameLayer("Layer");
-		GameObject obj = new GameObject();
-		obj.setDoubleVariable("speed", 50);
-		obj.setCoords(200, 200);
 
-		layer.addGameObject(obj1);
-		layer.addGameObject(obj2);
-		layer.addGameObject(obj3);
-		layer.setBlueprints(blueprints);
+		
+		GameLayer l = new GameLayer();
+		l.addGameObject(obj1);
 		
 		GameWorld w = new GameWorld("World");
-		w.addLayer(layer);
+		w.addLayer(l);
 		
 		GameMaster master = new GameMaster();
 		master.addWorld(w);
@@ -106,6 +101,15 @@ public class EngineTester extends Application {
 
 	private void conditionAction1(GameObject obj) {
 		List<Action> actions1 = new ArrayList<Action>();
+		actions1.add(new Move(new HeadingOf(new Self())));
+		obj.addConditionAction(new Condition(1, new KeyPressed(new SelfString("W"))), actions1);
+		
+
+		actions1 = new ArrayList<Action>();
+		actions1.add(new SetDouble(new SelfString("heading"), new Value(2)));
+		obj.addConditionAction(new Condition(1, new KeyPressed(new SelfString("W"))), actions1);
+		
+		
 	}
 	
 	private void conditionAction2(GameObject obj) {
