@@ -1,6 +1,7 @@
 package authoring_UI;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -19,7 +20,7 @@ public class SpriteScrollView extends ScrollPane {
 
 	private VBox containerVBox;
 	private Consumer<Pane> childOnClickAction;
-	private ArrayList<AbstractSpriteObject> spriteList;
+	private List<AbstractSpriteObject> spriteList;
 
 	SpriteScrollView() {
 		spriteList = new ArrayList<AbstractSpriteObject>();
@@ -30,17 +31,17 @@ public class SpriteScrollView extends ScrollPane {
 		});
 	}
 
-	SpriteScrollView(ArrayList<Pane> panes) {
+	SpriteScrollView(List<Pane> panes) {
 
 	}
 
-	public void addToVBox(ArrayList<Pane> panes) {
+	public void addToVBox(List<Pane> panes) {
 		panes.forEach(pane -> {
 			addToVBox(pane);
 		});
 	}
 
-	public void addToVBox(Map<String, ArrayList<Pane>> panes) {
+	public void addToVBox(Map<String, List<Pane>> panes) {
 		TabPane tp = new TabPane();
 		tp.setSide(Side.TOP);
 
@@ -69,7 +70,7 @@ public class SpriteScrollView extends ScrollPane {
 		spriteList.remove(ASO);
 	}
 
-	public ArrayList<AbstractSpriteObject> getSpriteList() {
+	public List<AbstractSpriteObject> getSpriteList() {
 		return spriteList;
 	}
 
@@ -107,5 +108,4 @@ public class SpriteScrollView extends ScrollPane {
 	public void setChildOnClickAction(Consumer<Pane> consumer) {
 		childOnClickAction = consumer;
 	}
-
 }

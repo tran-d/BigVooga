@@ -28,7 +28,6 @@ import tools.DisplayLanguage;
  *
  */
 public class GameSelector extends MenuOptionsTemplate {
-
 	private static final String SELECTOR_PATH = "Selector.gif";
 	private static final int SELECTOR_WIDTH = 125;
 	private static final int SELECTOR_HEIGHT = 125;
@@ -39,7 +38,6 @@ public class GameSelector extends MenuOptionsTemplate {
 	private static final int COLLAPSED_TREE_HEIGHT = 90;
 	private static final String NEW_GAME_TEXT = "NewGame";
 	private static final String CONTINUE_GAME_TEXT = "ContinueGame";
-
 	private Stage stage;
 	private SceneController sceneController;
 	private ScrollPane contentPane;
@@ -79,7 +77,6 @@ public class GameSelector extends MenuOptionsTemplate {
 
 	// creates an HBox for displaying the game title
 	private HBox createTitleItem(String gameTitle) {
-
 		HBox title = new HBox(new Label(gameTitle));
 		title.setAlignment(Pos.BASELINE_CENTER);
 		title.setId("title");
@@ -88,7 +85,6 @@ public class GameSelector extends MenuOptionsTemplate {
 
 	// creates an HBox for displaying buttons to play the game
 	private HBox createButtonPanel(String gameName) {
-
 		HBox buttonPanel = new HBox(ENTRY_SPACING);
 		Button newGame = createPlayGameButton(NEW_GAME_TEXT, e -> handleNewGame(gameName));
 		Button continueGame = createPlayGameButton(CONTINUE_GAME_TEXT, e -> handleContinueGame());

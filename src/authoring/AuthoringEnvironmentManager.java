@@ -2,6 +2,7 @@ package authoring;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import authoring_UI.DefaultSpriteObject;
@@ -29,16 +30,12 @@ public class AuthoringEnvironmentManager {
 
 	public AuthoringEnvironmentManager(GameDataHandler GDH) {
 		myGDH = GDH;
-		// myGDH = new GameDataHandler(projectName);
 		defaultEmptySprite = new DefaultSpriteObject();
 		myGrid = new DraggableGrid();
-		// SOGM = new SpriteObjectGridManager();
 		SPSM = new SpriteParameterSidebarManager(myGrid);
 		initializeDefaultSprites();
 		initializeCustomSprites();
 		initializeInventorySprites();
-		// defaultSprites = new ArrayList<SpriteObject>();
-		// userSprites = new ArrayList<SpriteObject>();
 	}
 
 	public DraggableGrid getDraggableGrid() {
@@ -83,44 +80,40 @@ public class AuthoringEnvironmentManager {
 		return myInventorySprites;
 	}
 
-	public Map<String, ArrayList<AbstractSpriteObject>> getEveryTypeOfSprite() {
-		Map<String, ArrayList<AbstractSpriteObject>> ret = new HashMap<String, ArrayList<AbstractSpriteObject>>();
+	public Map<String, List<AbstractSpriteObject>> getEveryTypeOfSprite() {
+		Map<String, List<AbstractSpriteObject>> ret = new HashMap<String, List<AbstractSpriteObject>>();
 		ret.put("DefaultSprites", this.getDefaultGameSprites());
 		ret.put("CustomSprites", this.getUserDefinedSprites());
 		ret.put("InventorySprites", this.getInventorySprites());
 		return ret;
 	}
 
-	public Map<String, ArrayList<Pane>> getEveryTypeOfSpriteAsThumbnails() {
-		Map<String, ArrayList<Pane>> ret = new HashMap<String, ArrayList<Pane>>();
+	public Map<String, List<Pane>> getEveryTypeOfSpriteAsThumbnails() {
+		Map<String, List<Pane>> ret = new HashMap<String, List<Pane>>();
 		ret.put("DefaultSprites", this.getDefaultGameSpritesAsThumbnail());
 		ret.put("CustomSprites", this.getUserDefinedSpritesAsThumbnail());
 		ret.put("InventorySprites", this.getInventorySpritesAsThumbnail());
 		return ret;
 	}
 
-	private ArrayList<Pane> getDefaultGameSpritesAsThumbnail() {
+	private List<Pane> getDefaultGameSpritesAsThumbnail() {
 		return myDefaultSprites.getAllSpritesAsThumbnails();
 	}
 
-	private ArrayList<Pane> getUserDefinedSpritesAsThumbnail() {
+	private List<Pane> getUserDefinedSpritesAsThumbnail() {
 		return myCustomSprites.getAllSpritesAsThumbnails();
 	}
 
-	private ArrayList<Pane> getInventorySpritesAsThumbnail() {
+	private List<Pane> getInventorySpritesAsThumbnail() {
 		return myInventorySprites.getAllSpritesAsThumbnails();
 	}
 
-	public ArrayList<AbstractSpriteObject> getInventorySprites() {
-		// return new ArrayList<SpriteObject>(defaultSprites);
+	public List<AbstractSpriteObject> getInventorySprites() {
 		return myInventorySprites.getAllSprites();
 	}
 
 	public void addInventorySprite(AbstractSpriteObject SOI) throws Exception {
-
 		myInventorySprites.addNewSprite(SOI);
-
-		// defaultSprites.add(SOI);
 	}
 
 	public void addInventorySprite(ArrayList<AbstractSpriteObject> SOI_LIST) {
@@ -132,19 +125,14 @@ public class AuthoringEnvironmentManager {
 				e.printStackTrace();
 			}
 		});
-		// defaultSprites.addAll(SOI_LIST);
 	}
 
-	public ArrayList<AbstractSpriteObject> getDefaultGameSprites() {
-		// return new ArrayList<SpriteObject>(defaultSprites);
+	public List<AbstractSpriteObject> getDefaultGameSprites() {
 		return myDefaultSprites.getAllSprites();
 	}
 
 	public void addDefaultSprite(SpriteObject SOI) throws Exception {
-
 		myDefaultSprites.addNewSprite(SOI);
-
-		// defaultSprites.add(SOI);
 	}
 
 	public void addDefaultSprite(ArrayList<SpriteObject> SOI_LIST) {
@@ -156,25 +144,19 @@ public class AuthoringEnvironmentManager {
 				e.printStackTrace();
 			}
 		});
-		// defaultSprites.addAll(SOI_LIST);
 	}
 
-	public ArrayList<AbstractSpriteObject> getUserDefinedSprites() {
+	public List<AbstractSpriteObject> getUserDefinedSprites() {
 		return myCustomSprites.getAllSprites();
-		// return new ArrayList<SpriteObject>(userSprites);
 
 	}
 
 	public void addUserSprite(SpriteObject SOI) throws Exception {
-
 		myCustomSprites.addNewSprite(SOI);
-
 	}
 
 	public void addUserSprite(String category, SpriteObject SOI) throws Exception {
-
 		myCustomSprites.addNewSprite(SOI);
-
 	}
 
 	public void addUserSprite(ArrayList<SpriteObject> SOI_LIST) {
@@ -186,11 +168,7 @@ public class AuthoringEnvironmentManager {
 				e.printStackTrace();
 			}
 		});
-		// defaultSprites.addAll(SOI_LIST);
 	}
-	// public void addUserSprite(SpriteObject SOI) {
-	// userSprites.add(SOI);
-	// }
 
 	public AbstractSpriteObject getDefaultEmptySprite() {
 		return defaultEmptySprite;

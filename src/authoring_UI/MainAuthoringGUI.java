@@ -12,7 +12,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class MainAuthoringGUI{
-	
 	public static final int AUTHORING_WIDTH = 1400;
 	private static final String AUTHORING_CSS = "Authoring.css";
 	private static final String BORDERPANE_ID = "borderpane";
@@ -22,15 +21,12 @@ public class MainAuthoringGUI{
 	private SceneController sceneController;
 	private BorderPane rootPane;
 	private ToolBar toolBar;
-	
 	private MenuButton fileOptions;
 	private MenuButton settings;
 	private Pane authoringPane;
 	private AuthoringController authoringController;
-	
 
 	public MainAuthoringGUI(Stage currentStage, SceneController currentSceneController) {
-		
 		stage = currentStage;
 		rootPane = new BorderPane();
 		rootPane.setId(BORDERPANE_ID);
@@ -38,7 +34,6 @@ public class MainAuthoringGUI{
 		scene = new Scene(rootPane, AUTHORING_WIDTH, WelcomeScreen.HEIGHT);
 		scene.getStylesheets().add(MainAuthoringGUI.class.getResource(AUTHORING_CSS).toExternalForm());
 		sceneController = currentSceneController;
-
 	}
 	
 	public void createAuthoringGUI() {
@@ -64,6 +59,5 @@ public class MainAuthoringGUI{
 
 	public void saveWorlds() {
 		authoringController.saveWorlds();
-	}
-	
+	}	
 }

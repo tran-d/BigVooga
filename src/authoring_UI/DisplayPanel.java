@@ -3,6 +3,7 @@ package authoring_UI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -77,29 +78,8 @@ public class DisplayPanel extends VBox {
 		spriteEditorAndApplyButtonVBox = new VBox(10);
 		spriteEditorAndApplyButtonVBox.getChildren().addAll(mySpriteTabs, this.makeApplyButton());
 	}
-	// protected void displayParams() {
-	// Map<String, ArrayList<SpriteParameterI>> paramMap = new HashMap<String,
-	// ArrayList<SpriteParameterI>>();
-	// try {
-	// paramMap = myAEM.getActiveCellParameters().getParameters();
-	// for (Map.Entry<String, ArrayList<SpriteParameterI>> entry :
-	// paramMap.entrySet()) {
-	// String category = entry.getKey();
-	// ArrayList<SpriteParameterI> newParams = entry.getValue();
-	// FEParameterFactory newFactory = new FEParameterFactory(newParams);
-	// myStateSP.setContent(newFactory);
-	// }
-	// } catch (Exception e1) {
-	// // TODO Auto-generated catch block
-	// e1.printStackTrace();
-	// myStateSP.setContent(new TextArea("No params to show"));
-	// }
-	//
-	//
-	// this.setPrefWidth(MENU_WIDTH);
-	// }
 
-	private HashMap<String, ArrayList<SpriteParameterI>> getParametersOfActiveCells() throws Exception {
+	private Map<String, List<SpriteParameterI>> getParametersOfActiveCells() throws Exception {
 		return myAEM.getActiveCell().getParameters();
 	}
 

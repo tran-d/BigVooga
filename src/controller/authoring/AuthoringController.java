@@ -14,7 +14,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class AuthoringController {
-	
 	public static final String MAP_EDITOR_KEY = "Map Editor";
 	public static final String SPRITE_CREATOR_KEY = "Sprite Creator";
 	public static final String CUSTOM_PANEL_KEY = "Custom Panel";
@@ -31,7 +30,6 @@ public class AuthoringController {
 	private MapManager mapManager;
 	
 	public AuthoringController(Stage currentStage, Pane currentAuthoringPane) {
-		
 		stage = currentStage;
 		authoringPane = currentAuthoringPane;
 		
@@ -41,17 +39,12 @@ public class AuthoringController {
 		SpriteCreator sc = new SpriteCreator(mapManager.getAEM());
 		viewMap.put(SPRITE_CREATOR_KEY, sc.getPane());
 		
-		//SpriteCreator mySpriteCreator = new SpriteCreator(stage, mySprites, myAEM);
-//		DialogueManager dc = new DialogueManager();
-//		viewMap.put(DIALOGUE_KEY, dc.getParent());
-		
 		DialogueManager dm = new DialogueManager();
 		dm.addDialogueListener(mapManager.getDialoguesTab());
 		viewMap.put(DIALOGUE_KEY, dm.getPane());
 		
 		HUDManager hudManager = new HUDManager();
 		viewMap.put(HUD_KEY, hudManager.getPane());
-		
 	}
 	
 	/**
@@ -63,7 +56,6 @@ public class AuthoringController {
 		authoringPane.getChildren().removeAll(view, currentSideBar);
 		view = viewMap.get(key);
 		authoringPane.getChildren().addAll(view, currentSideBar);
-		
 	}
 
 	public void saveWorlds() {
@@ -77,5 +69,4 @@ public class AuthoringController {
 			}
 		}
 	}
-	
 }

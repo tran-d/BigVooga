@@ -1,6 +1,7 @@
 package authoring_UI;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import authoring.AbstractSpriteObject;
 import authoring.SpriteObject;
@@ -28,7 +29,7 @@ public class SpriteSelectPanel extends VBox {
 		this.myName = myName;
 	}
 	
-	private void setDefaultSpriteVBox(ArrayList<AbstractSpriteObject> defaults) {
+	private void setDefaultSpriteVBox(List<AbstractSpriteObject> defaults) {
 		this.getChildren().clear();
 		defaults.forEach(SO -> {
 			this.getChildren().add(SO);
@@ -36,13 +37,13 @@ public class SpriteSelectPanel extends VBox {
 
 	}
 	
-	public void setupDefaultSprites(ArrayList<AbstractSpriteObject> defaults) {
-		setDefaultSpriteVBox(defaults);
-		makeDefaultSpritesDraggable(defaults);
-		makeDefaultSpritesClickable(defaults);
+	public void setupDefaultSprites(List<AbstractSpriteObject> list) {
+		setDefaultSpriteVBox(list);
+		makeDefaultSpritesDraggable(list);
+		makeDefaultSpritesClickable(list);
 	}
 	
-	private void makeDefaultSpritesDraggable(ArrayList<AbstractSpriteObject> defaults) {
+	private void makeDefaultSpritesDraggable(List<AbstractSpriteObject> defaults) {
 		defaults.forEach(SO -> {
 			makeSpriteDraggable(SO);
 		});
@@ -52,7 +53,7 @@ public class SpriteSelectPanel extends VBox {
 		mySGH.addSpriteDrag(SO);
 	}
 	
-	private void makeDefaultSpritesClickable(ArrayList<AbstractSpriteObject> defaults) {
+	private void makeDefaultSpritesClickable(List<AbstractSpriteObject> defaults) {
 		defaults.forEach(SO -> {
 			makeSpriteClickable(SO);
 		});

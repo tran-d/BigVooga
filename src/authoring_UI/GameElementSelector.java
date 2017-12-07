@@ -3,6 +3,7 @@ package authoring_UI;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -49,8 +50,8 @@ public class GameElementSelector extends TabPane implements Observer {
 
 	private AuthoringEnvironmentManager myAEM;
 	private SpriteParameterFactory mySPF;
-	private ArrayList<AbstractSpriteObject> mySpriteObjs = new ArrayList<AbstractSpriteObject>();
-	private ArrayList<SpriteObject> myUserSpriteObjs = new ArrayList<SpriteObject>();
+	private List<AbstractSpriteObject> mySpriteObjs = new ArrayList<AbstractSpriteObject>();
+	private List<SpriteObject> myUserSpriteObjs = new ArrayList<SpriteObject>();
 	private GameDataHandler myGDH;
 	private SpriteObjectGridManagerI mySOGM;
 	private SpriteGridHandler mySpriteGridHandler;
@@ -124,7 +125,7 @@ public class GameElementSelector extends TabPane implements Observer {
 
 	public void getUserSpriteParam(String url) {
 		SpriteObject userSprite = new SpriteObject(url);
-		ArrayList<SpriteParameterI> param = new ArrayList<SpriteParameterI>();
+		List<SpriteParameterI> param = new ArrayList<SpriteParameterI>();
 		param.add(mySPF.makeParameter("canFight", false));
 		param.add(mySPF.makeParameter("health", 17.0));
 		param.add(mySPF.makeParameter("name", "Ryan"));
@@ -175,15 +176,15 @@ public class GameElementSelector extends TabPane implements Observer {
 //	}
 
 	public void getParams(){
-		ArrayList<String> urls = new ArrayList<String>();
+		List<String> urls = new ArrayList<String>();
 		urls.add("/tree.png");
 		urls.add("/brick.png");
 		urls.add("/pikachu.png");
 		urls.add("/water.png");
 		 urls.add("/Link.png");
 		double i = 10.0;
-		ArrayList<String> s = new ArrayList<String>();
-		ArrayList<String> names = new ArrayList<String>();
+		List<String> s = new ArrayList<String>();
+		List<String> names = new ArrayList<String>();
 		int width = 1;
 		int height = 1;
 		names.add("tree");
@@ -197,7 +198,7 @@ public class GameElementSelector extends TabPane implements Observer {
 			AbstractSpriteObject SO = new SpriteObject();
 			SO.setImageURL(urls.get(h));
 			SO.setName(names.get(h));
-			ArrayList<SpriteParameterI> myParams = new ArrayList<SpriteParameterI>();
+			List<SpriteParameterI> myParams = new ArrayList<SpriteParameterI>();
 			myParams.add(mySPF.makeParameter("canFight", true));
 			myParams.add(mySPF.makeParameter("health", i));
 			myParams.add(mySPF.makeParameter("name", s.get(0)));
@@ -286,7 +287,7 @@ public class GameElementSelector extends TabPane implements Observer {
 		this.setSide(Side.TOP);
 	}
 	
-	private Tab createSubTab(String tabName, ArrayList<AbstractSpriteObject> sprites) {
+	private Tab createSubTab(String tabName, List<AbstractSpriteObject> sprites) {
 		Tab subTab = new Tab();
 		subTab.textProperty().bind(DisplayLanguage.createStringBinding(tabName));
 //		defaultSpriteTab.setContent(mySprites);
@@ -303,7 +304,7 @@ public class GameElementSelector extends TabPane implements Observer {
 		return elementTab;
 	}
 
-	private ScrollPane makeGrid(ArrayList<AbstractSpriteObject> sprites) {
+	private ScrollPane makeGrid(List<AbstractSpriteObject> sprites) {
 		GridPane gp = new GridPane();
 		int totalRows = (int) Math.ceil(sprites.size()/10);
 		int DEFAULT_MIN_ROWS = 15;

@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import authoring.AbstractSpriteObject;
@@ -47,7 +48,6 @@ import javafx.stage.Stage;
  */
 
 public class SpriteCreator extends TabPane {
-
 	private static final String PATH = "resources/";
 	private static final String SPRITECREATORRESOURCES_PATH = "TextResources/SpriteCreatorResources";
 	private static final int PANE_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH;
@@ -75,7 +75,6 @@ public class SpriteCreator extends TabPane {
 		this.setLayoutX(ViewSideBar.VIEW_MENU_HIDDEN_WIDTH);
 		Tab tab = makeTab();
 		this.getTabs().add(tab);
-
 	}
 
 	private Tab makeTab() {
@@ -90,7 +89,6 @@ public class SpriteCreator extends TabPane {
 		addToolBox(hb);
 
 		return tab;
-
 	}
 
 	private void addToolBox(HBox parentBox) {
@@ -104,7 +102,6 @@ public class SpriteCreator extends TabPane {
 
 	private void addImageStackPane(HBox parentBox) {
 		myImageStack = new StackPane();
-		// myImageStack.setPrefSize(PANE_WIDTH/2-100, WelcomeScreen.HEIGHT);
 		myImageStack.setMinWidth(PANE_WIDTH / 2 - 100);
 		myImageStack.setMaxSize(PANE_WIDTH / 2 - 100, WelcomeScreen.HEIGHT);
 		myImageStack.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -112,23 +109,17 @@ public class SpriteCreator extends TabPane {
 				BorderWidths.DEFAULT);
 		myImageStack.setBorder(new Border(border));
 
-		// ImageView test = new ImageView("pikachu.png");
 		newSprite = new SpriteObject();
 		nameBox = makeNameBox();
 
-		// myImageStack.getChildren().addAll(test, nameBox);
 		myImageStack.getChildren().addAll(newSprite, nameBox);
 		parentBox.getChildren().add(myImageStack);
-		// parentBox.getChildren().add(new Text("test"));
 	}
 
 	private HBox makeNameBox() {
 		HBox nameBox = new HBox(10);
 		Text enterName = new Text(spriteCreatorResources.getString("NameField"));
 		nameField = new TextField();
-
-		// Button confirm = new
-		// Button(spriteCreatorResources.getString("ConfirmButton"));
 
 		nameBox.getChildren().addAll(enterName, nameField);
 
@@ -146,21 +137,6 @@ public class SpriteCreator extends TabPane {
 				alert.showAndWait();
 			}
 		});
-
-		// confirm.setOnAction(e -> {
-		// System.out.println("name entered");
-		// if (mySNM.isNameValidTemplate(nameField.getText())) {
-		// // add to mySNM
-		// System.out.println("name is valid");
-		// } else {
-		// Alert alert = new Alert(AlertType.ERROR);
-		// alert.setTitle("Error");
-		// alert.setHeaderText("Name already exists");
-		// alert.setContentText("Change to a unique name");
-		// alert.showAndWait();
-		// }
-		// });
-
 		return nameBox;
 	}
 
@@ -178,7 +154,6 @@ public class SpriteCreator extends TabPane {
 		VBox stateBox = createStateBox();
 
 		TabPane spritePane = addSpriteTabs();
-//		ScrollPane sp = createGrid();
 
 		myStatePanel.getChildren().addAll(buttonBox, stateBox, spritePane);
 
@@ -190,7 +165,6 @@ public class SpriteCreator extends TabPane {
 		Tab defaultTab = makeTab("Default");
 		Tab userTab = makeTab("User");
 		Tab importTab = makeTab("Imported");
-
 
 		ScrollPane defaultSP = createGrid(myAEM.getDefaultSpriteController().getAllSprites());
 		defaultTab.setContent(defaultSP);
@@ -206,7 +180,6 @@ public class SpriteCreator extends TabPane {
 	}
 
 	private Tab makeTab(String tabName) {
-
 		return new Tab(tabName);
 	}
 
@@ -254,11 +227,8 @@ public class SpriteCreator extends TabPane {
 				alert.setContentText("Change to a unique name");
 				alert.showAndWait();
 			}
-
 		});
-
 		buttonBox.getChildren().addAll(loadImageButton, createSpriteButton);
-
 	}
 
 	private void openImage() throws IOException {
@@ -279,25 +249,12 @@ public class SpriteCreator extends TabPane {
 			newSprite.setImageURL(file.getName());
 			newSprite.setNumCellsWidthNoException(1);
 			newSprite.setNumCellsHeightNoException(1);
-
 			// add params
-			ArrayList<SpriteParameterI> myParams = new ArrayList<SpriteParameterI>();
-
-			// newSprite.setName("test_name");
-
-			// imageView.setFitHeight(WelcomeScreen.HEIGHT);
-			// imageView.setFitWidth(PANE_WIDTH/2-100);
+			List<SpriteParameterI> myParams = new ArrayList<SpriteParameterI>();
 
 			myImageStack.getChildren().addAll(newSprite, nameBox);
 
-			// myStatePanel.getChildren().add(imageView);
 			System.out.println("image loaded");
-			// System.out.println(file.getName());
-			// mySpriteObject.setImageURL(file.getName());
-			// setChanged();
-			// System.out.print(file.getName());
-			// notifyObservers(file.getName());
-			// System.out.println("image chosen");
 		}
 	}
 	
@@ -306,7 +263,7 @@ public class SpriteCreator extends TabPane {
 		return sp;
 	}
 
-	private ScrollPane createGrid(ArrayList<AbstractSpriteObject> sprites) {
+	private ScrollPane createGrid(List<AbstractSpriteObject> sprites) {
 		GridPane gp = new GridPane();
 
 		int counter = 0;
@@ -319,10 +276,6 @@ public class SpriteCreator extends TabPane {
 				BorderStroke border = new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.DOTTED, CornerRadii.EMPTY,
 						BorderWidths.DEFAULT);
 				sp.setBorder(new Border(border));
-
-//				ArrayList<AbstractSpriteObject> defaultSprites = myAEM.getDefaultSpriteController().getAllSprites();
-//				ArrayList<AbstractSpriteObject> userSprites = myAEM.getCustomSpriteController().getAllSprites();
-				// System.out.println(userSprites.size());
 
 				if (counter < sprites.size()) {
 					AbstractSpriteObject toLoad = sprites.get(counter);
@@ -337,7 +290,6 @@ public class SpriteCreator extends TabPane {
 				gp.add(sp, j, i);
 			}
 		}
-
 		ScrollPane sp = new ScrollPane(gp);
 		sp.setMaxHeight(WelcomeScreen.HEIGHT / 2);
 		return sp;

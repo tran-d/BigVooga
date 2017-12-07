@@ -61,7 +61,7 @@ public class SpriteInventoryTabAndInfo {
 			// Nothing by default
 		});
 		this.setButton("Add to inventory", action -> {
-			ArrayList<AbstractSpriteObject> newInventory = triggerPopUpOfInventoryToChoose();
+			List<AbstractSpriteObject> newInventory = triggerPopUpOfInventoryToChoose();
 			temporaryInventory.addAll(newInventory);
 			newInventory.forEach(sprite -> {
 				addInventory(sprite);
@@ -106,21 +106,10 @@ public class SpriteInventoryTabAndInfo {
 		});
 	}
 
-	private void setInventory(ArrayList<AbstractSpriteObject> newInventory) {
-//		myInventory.clear();
-//		myInventory.addAll(newInventory);
-//		System.out.println("Inventory: " + myInventory);
-//		myInventory.forEach(item -> {
-//			System.out.println("item : " + item);
-//		});
+	private void setInventory(List<AbstractSpriteObject> newInventory) {
 		temporaryInventory.clear();
 		temporaryInventory.addAll(newInventory);
 	}
-	
-//	private void removeFromInventory(AbstractSpriteObject ASO){
-//		myScrollPane.removeFromVBox();
-//		temporaryInventory.remove(ASO);
-//	}
 	
 	private void removeFromInventory(SpriteThumbnail ST){
 		myScrollPane.removeFromVBox(ST);
@@ -147,7 +136,7 @@ public class SpriteInventoryTabAndInfo {
 		return button;
 	}
 
-	private ArrayList<AbstractSpriteObject> triggerPopUpOfInventoryToChoose() {
+	private List<AbstractSpriteObject> triggerPopUpOfInventoryToChoose() {
 		// SpriteInventoryTabAndInfo dummy = new SpriteInventoryTabAndInfo();
 		SpriteScrollView SSV = new SpriteScrollView();
 		SSV.setChildOnClickAction(pane -> {
@@ -198,5 +187,4 @@ public class SpriteInventoryTabAndInfo {
 		System.out.println("myASO: "+myASO);
 		myASO.setInventory(temporaryInventory);
 	}
-
 }

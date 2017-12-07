@@ -1,6 +1,7 @@
 package authoring_UI;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import authoring.AbstractSpriteObject;
 import javafx.beans.property.ObjectProperty;
@@ -138,11 +139,10 @@ public abstract class MapLayer extends GridPane {
 		return defaultColor;
 	}
 	
-	public void removeSpritesAtPositions(ArrayList<Integer[]>locs){
-		locs.forEach((pos)->{
+	public void removeSpritesAtPositions(List<Integer[]> cellsToDelete){
+		cellsToDelete.forEach((pos)->{
 			this.getChildAtPosition(pos[0], pos[1]).removeChild();
 		});
-		
 	}
 	
 	protected AuthoringMapStackPane getChildAtPosition(int row, int col){

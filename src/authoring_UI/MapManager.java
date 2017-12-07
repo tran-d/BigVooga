@@ -20,7 +20,6 @@ import javafx.stage.Stage;
 import tools.DisplayLanguage;
 
 public class MapManager extends TabPane {	
-	
 	public static final int VIEW_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH;
 	public static final int VIEW_HEIGHT = WelcomeScreen.HEIGHT - 35;
 	private static final String TAB_TAG = "Map";
@@ -41,7 +40,6 @@ public class MapManager extends TabPane {
 	private GameDataHandler myGDH;
 	private int numWorlds = 1;
 	private List<DraggableGrid> allWorlds = new ArrayList<DraggableGrid>();
-
 	private Pane mapEditor = new Pane();
 	private SpritePanels spritePanels;
 
@@ -129,7 +127,6 @@ public class MapManager extends TabPane {
 	}
 	
 	private void setupFEAuthClasses() {
-		
 		DraggableGrid myGrid = myAEM.getDraggableGrid();
 		allWorlds.add(myGrid);
 		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, myGrid);

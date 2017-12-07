@@ -37,9 +37,7 @@ public class SceneController {
 	 * @param currentStage - The instance of the stage being passed
 	 */
 	public SceneController(Stage currentStage) {
-		
 		stage = currentStage;
-		
 		WelcomeScreen welcomeScreen = new WelcomeScreen (stage, this);
 		welcomeScreen.createWelcomeScreen();
 		scene = welcomeScreen.getScene();
