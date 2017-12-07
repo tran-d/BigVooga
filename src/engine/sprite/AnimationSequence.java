@@ -10,9 +10,12 @@ import java.util.List;
  *
  */
 public class AnimationSequence{
+	private static final int DEFAULT_STEPS_PER_FRAME = 20;
 	private int imageIndex = 0;
 	private List<BoundedImage> images;
 	private String name;
+	private int stepsPerFrame = DEFAULT_STEPS_PER_FRAME;
+	private int stepsInCurrentFrame = 0;
 	
 	public AnimationSequence(String name, List<BoundedImage> images) {
 		this.name = name;
@@ -23,10 +26,22 @@ public class AnimationSequence{
 		return name;
 	}
 
+	public void setStepsPerFrame(int n) {
+		stepsPerFrame = n;
+	}
+	
 	/**
 	 * Move to the next image
 	 */
 	public void increment() {
+		stepsInCurrentFrame++;
+		if(stepsInCurrentFrame >= stepsPerFrame) {
+			incrementImage();
+			stepsInCurrentFrame = 0;
+		}
+	}
+	
+	private void incrementImage() {
 		imageIndex++;
 		if(imageIndex >= images.size())
 			reset();

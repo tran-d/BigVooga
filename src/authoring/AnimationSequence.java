@@ -102,7 +102,7 @@ public class AnimationSequence {
 		if (this.outMostVbox==null){
 			outMostVbox  = new VBox(5);
 			outMostVbox.getChildren().add(getScrollPane());
-			outMostVbox.getChildren().add(new Separator());
+//			outMostVbox.getChildren().add(new Separator());
 			outMostVbox.getChildren().add(this.getAddImageButton());
 		}
 		return outMostVbox;

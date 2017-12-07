@@ -1,14 +1,14 @@
 package authoring_actionconditions;
 
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 public class BuildActionView {
-	private double WIDTH = 500;
-	private double HEIGHT = 500;
+	private static final double WIDTH = 800;
+	private static final double HEIGHT = 700;
+	
+	private static final double ROW_WIDTH = 700;
 
 	private Stage stage;
 	private Scene scene;
@@ -24,6 +24,7 @@ public class BuildActionView {
 		stage.show();
 
 		this.ACRow = ACRow;
+		this.ACRow.setPrefWidth(ROW_WIDTH);
 		this.ACVBox = ACVBox;
 
 		stage.setOnCloseRequest(e -> transportActionRow());
@@ -43,3 +44,4 @@ public class BuildActionView {
 
 	}
 }
+

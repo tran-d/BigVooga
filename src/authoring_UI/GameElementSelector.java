@@ -101,7 +101,7 @@ public class GameElementSelector extends TabPane implements Observer {
 		// mySpriteGridHandler);
 		// myUserSprites = myCustom.getSpritePanel(mySpriteGridHandler);
 		myUserSprites = myAEM.getCustomSpriteController().getSpritePanel(mySpriteGridHandler);
-		 getParams();
+//		 getParams();
 		// createSprites();
 		createSpriteTabs();
 		// myUserSprites.getChildren().add(sp);
