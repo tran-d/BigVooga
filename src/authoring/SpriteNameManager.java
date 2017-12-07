@@ -17,9 +17,6 @@ public class SpriteNameManager {
 	public SpriteNameManager() {
 		myTemplateNames = new ArrayList<String>();
 		myInstanceNames = new ArrayList<String>();
-		
-		myTemplateNames.add("tree");
-
 	}
 	public void addTemplateName(String name) {
 		myTemplateNames.add(name);

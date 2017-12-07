@@ -57,6 +57,17 @@ public class DisplayPanel extends VBox {
 		setUpMenu();
 
 	}
+	protected DisplayPanel(AuthoringEnvironmentManager AEM) {
+		multipleCellsActiveProperty = new SimpleObjectProperty<Boolean>();
+		mySParameterTAI = new SpriteParameterTabsAndInfo();
+		mySInventoryTAI = new SpriteInventoryTabAndInfo(AEM);
+		mySAnimationSequenceTAI = new SpriteAnimationSequenceTabsAndInfo();
+		mySUtilityTAI = new SpriteUtilityTabAndInfo();
+		System.out.println("made SPTAI in MENU");
+		myAEM = AEM;
+		setUpMenu();
+
+	}
 
 	private void setErrorMessage() {
 		myParameterErrorMessage = new TextArea("Either no active cells or active cells have different parameters");
