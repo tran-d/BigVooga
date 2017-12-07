@@ -170,15 +170,16 @@ public class ActionRow extends ActionConditionRow {
 	// return tv;
 	// }
 
-	private TreeItem<HBox> makeOperationCategoryTreeItem(String parameter) {
+	private TreeItem<HBox> makeOperationCategoryTreeItem(String actionParameter) {
 		HBox hb = new HBox();
-		hb.getChildren().addAll(new Label("Choose Operation: "), makeOperationCategoryChoiceBox(parameter));
-		TreeItem<HBox> categoryOperation = new TreeItem<HBox>(hb);
+		hb.getChildren().addAll(new Label("Choose Operation: "), makeOperationCategoryChoiceBox(actionParameter));
+		categoryOperation = new TreeItem<HBox>(hb);
 		categoryOperation.setExpanded(true);
 		return categoryOperation;
 	}
 
-	private ChoiceBox<String> makeOperationCategoryChoiceBox(String parameter) {
+	private ChoiceBox<String> makeOperationCategoryChoiceBox(String actionParameter) {
+		// TODO change "Boolean" to actionParameter
 		ObservableList<String> operations = FXCollections.observableList(operationFactory.getOperations("Boolean"));
 		ChoiceBox<String> cb = new ChoiceBox<>(operations);
 		System.out.println("ops: " + operations);
@@ -201,15 +202,28 @@ public class ActionRow extends ActionConditionRow {
 	}
 
 	private TreeItem<HBox> makeParameterOperationTreeItem(String operation) {
+
 		HBox hb = new HBox();
-		hb.getChildren().add(makeParameterOperationChoiceBox(operation));
+		hb.getChildren().add(new Label("Choose Operation Parameter(s): "));
+
 		parameterOperation = new TreeItem<HBox>(hb);
+		makeOperationParameterChildren(operation);
 		parameterOperation.setExpanded(true);
 		return parameterOperation;
 	}
 
+	private void makeOperationParameterChildren(String operation) {
+		ObservableList<String> parameters = FXCollections.observableList(operationFactory.getParameters(operation));
+		System.out.println("Op Params: " + parameters);
+
+		for (String param : parameters) {
+			parameterOperation.getChildren().add(makeOperationCategoryTreeItem(param));
+		}
+
+	}
+
 	private ChoiceBox<String> makeParameterOperationChoiceBox(String operation) {
-		ObservableList<String> operations = FXCollections.observableList(operationFactory.getOperations(operation));
+		ObservableList<String> operations = FXCollections.observableList(operationFactory.getParameters(operation));
 		ChoiceBox<String> cb = new ChoiceBox<>(operations);
 		System.out.println(operations);
 
@@ -221,7 +235,7 @@ public class ActionRow extends ActionConditionRow {
 				// System.out.println(actions.get(newValue.intValue()));
 				// getItems().add(makeParameterChoiceBox(actions.get(newValue.intValue())));
 				parameterOperation.getChildren().clear();
-				// actionOperation.getChildren()
+				// parameterOperation.getChildren()
 				// .add(makeActionOperationTreeItem(operations.get(cb.getSelectionModel().getSelectedIndex())));
 			}
 		});
@@ -238,23 +252,6 @@ public class ActionRow extends ActionConditionRow {
 		// if (view == null && actionOptions.getSelected() != null)
 		// view = new BuildActionView(ACVBox, (ActionConditionRow)
 		// ACVBox.getChildren().get(labelInt - 1));
-	}
-
-	private TreeView<HBox> makeTreeView(ChoiceBox<String> cb) {
-
-		// TreeItem<HBox> title = new TreeItem<HBox>(new HBox());
-		// TreeItem<HBox> buttons = new TreeItem<HBox>(createButtonPanel(gameTitle));
-		// title.getChildren().add(buttons);
-		// title.setExpanded(false);
-		//
-		// TreeView<HBox> entry = new TreeView<HBox>(title);
-		// entry.setOnMouseClicked(e -> resizeTree(title, entry));
-
-		return new TreeView<HBox>(makeTreeItem(cb));
-	}
-
-	private TreeItem<HBox> makeTreeItem(ChoiceBox<String> cb) {
-		return new TreeItem<HBox>(new HBox(cb));
 	}
 
 }
