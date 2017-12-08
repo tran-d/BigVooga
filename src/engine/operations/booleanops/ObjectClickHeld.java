@@ -22,7 +22,8 @@ public class ObjectClickHeld implements BooleanOperation {
 	@Override
 	public Boolean evaluate(GameObject asking, Layer world) {
 		BooleanOperation screenClickHeld = new ScreenClickHeld();
-		return screenClickHeld.evaluate(asking, world) && object.evaluate(asking, world).getBounds().checkCollision(
-				new BoundingPoint(world.getPlayerManager().getClickX(), world.getPlayerManager().getClickY())) != null;
+		return screenClickHeld.evaluate(asking, world) && object.evaluate(asking, world).getBounds()
+				.checkCollision(new BoundingPoint(world.getPlayerManager().getMouseXY().getX(),
+						world.getPlayerManager().getMouseXY().getY())) != null;
 	}
 }

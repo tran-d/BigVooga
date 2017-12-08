@@ -250,7 +250,6 @@ public class GameObject extends VariableContainer {
 	}
 
 	public void setSize(double width, double height) {
-		// TODO Auto-generated method stub
 		this.width = width;
 		this.height = height;
 	}

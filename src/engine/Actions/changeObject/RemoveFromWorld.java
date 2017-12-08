@@ -1,5 +1,7 @@
 package engine.Actions.changeObject;
 
+import java.util.Map;
+
 import engine.Action;
 import engine.GameObject;
 import engine.Layer;
@@ -7,14 +9,14 @@ import engine.operations.gameobjectops.GameObjectOperation;
 
 /**
  * 
- * @author aaronpaskin
+ * @author Aaron Paskin
  *
  */
-public class Destroy implements Action {
+public class RemoveFromWorld implements Action {
 
 	private GameObjectOperation objectToDestroy;
 	
-	public Destroy(GameObjectOperation objectToDestroy) {
+	public RemoveFromWorld(GameObjectOperation objectToDestroy) {
 		this.objectToDestroy = objectToDestroy;
 	}
 	

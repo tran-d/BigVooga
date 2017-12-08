@@ -1,6 +1,5 @@
 package engine.Actions.changeObject;
 
-import java.util.Collection;
 import java.util.List;
 
 import engine.Action;
@@ -10,45 +9,40 @@ import engine.Actions.movement.MoveTo;
 import engine.Actions.variableSetting.GiveInventory;
 import engine.operations.doubleops.Difference;
 import engine.operations.doubleops.DoubleOperation;
-import engine.operations.doubleops.Magnitude;
 import engine.operations.doubleops.Product;
 import engine.operations.doubleops.Quotient;
 import engine.operations.doubleops.Sum;
 import engine.operations.doubleops.Value;
-import engine.operations.gameobjectops.GameObjectOperation;
-import engine.operations.gameobjectops.Self;
 import engine.operations.gameobjectops.Get;
 
+//TODO: DisplayInventory
 public class DisplayInventory implements Action {
 
-	private GameObjectOperation inventoryDisplay;
-	private List<GameObjectOperation> scrollers;
-	private int startIndex;
-	private DoubleOperation rowSpan;
-	private DoubleOperation colSpan;
+	private GameObject inventoryDisplay;
+	private List<GameObject> scrollers;
 	
-	public DisplayInventory(GameObjectOperation inventoryDisplay, List<GameObjectOperation> scrollers, int startIndex, DoubleOperation rows, DoubleOperation cols) {
+	public DisplayInventory(GameObject inventoryDisplay, List<GameObject> scrollers) {
 		this.inventoryDisplay = inventoryDisplay;
 		this.scrollers = scrollers;
-		this.startIndex = startIndex;
-		this.rowSpan = rows;
-		this.colSpan = cols;
 	}
 	
 	@Override
 	public void execute(GameObject asking, Layer world) {
-		GameObject inventoryPane = inventoryDisplay.evaluate(asking, world);
-		GiveInventory transfer = new GiveInventory(new Get(inventoryPane));
+		GiveInventory transfer = new GiveInventory(new Get(inventoryDisplay));
 		transfer.execute(asking, world);
-		world.addGameObject(inventoryPane);
-		DoubleOperation inventoryX = new Value(inventoryPane.getX());
-		DoubleOperation inventoryY = new Value(inventoryPane.getY());
-		DoubleOperation inventoryWidth  = new Value(inventoryPane.getWidth());
-		DoubleOperation inventoryHeight = new Value(inventoryPane.getHeight());
+		world.addGameObject(inventoryDisplay);
+		DoubleOperation inventoryX = new Value(inventoryDisplay.getX());
+		DoubleOperation inventoryY = new Value(inventoryDisplay.getY());
+		DoubleOperation inventoryWidth  = new Value(inventoryDisplay.getWidth());
+		DoubleOperation inventoryHeight = new Value(inventoryDisplay.getHeight());
 		DoubleOperation x0 = new Difference(inventoryX, inventoryWidth);
 		DoubleOperation y0 = new Difference(inventoryY, inventoryHeight);
+		DoubleOperation rowSpan = new Value(inventoryDisplay.getDouble("rowSpan"));	//TODO: make constant
+		DoubleOperation colSpan = new Value(inventoryDisplay.getDouble("colSpan"));	//TODO: make constant
 		DoubleOperation cellWidth = new Quotient(inventoryWidth, colSpan);
 		DoubleOperation cellHeight = new Quotient(inventoryHeight, rowSpan);
+		List<GameObject> inventory = (List)asking.getInventory().values();
+		int i = (int)inventoryDisplay.getDouble("startIndex");						//TODO: make constant
 		List<InventoryObject> inventory = asking.getInventory().getFullInventory();
 		//place each game object in pane grid
 		int i = startIndex;
@@ -61,9 +55,8 @@ public class DisplayInventory implements Action {
 				i++;
 			}
 		}
-		for(GameObjectOperation o : scrollers) {
-			world.addGameObject(o.evaluate(asking, world));
-		}
+		for(GameObject o : scrollers)
+			world.addGameObject(o);
 	}
 
 }

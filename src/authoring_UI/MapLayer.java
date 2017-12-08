@@ -1,6 +1,9 @@
 package authoring_UI;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import authoring.AbstractSpriteObject;
 import javafx.beans.property.ObjectProperty;
@@ -32,12 +35,12 @@ public abstract class MapLayer extends GridPane {
 	static final int CELL_SIZE = 50;
 	protected ObjectProperty<Integer> numRowsProperty;
 	protected ObjectProperty<Integer> numColumnsProperty;
-	private ArrayList<AuthoringMapStackPane> activeGridCells;
+	private Set<AuthoringMapStackPane> activeGridCells;
 
-	MapLayer(int rows, int columns, int layerNum, SpriteGridHandler SGH, Color c) {
+	protected MapLayer(int rows, int columns, int layerNum, SpriteGridHandler SGH, Color c) {
 		super();
 		defaultColor = c;
-		activeGridCells = new ArrayList<AuthoringMapStackPane>();
+		activeGridCells = new HashSet<AuthoringMapStackPane>();
 		numRowsProperty = new SimpleObjectProperty<Integer>();
 		numColumnsProperty = new SimpleObjectProperty<Integer>();
 		numRowsProperty.set(1);
@@ -56,7 +59,10 @@ public abstract class MapLayer extends GridPane {
 						}
 						if (AMSP.isCoveredByOtherSprite()){
 							AbstractSpriteObject ASO = AMSP.getCoveringSprite();
-							((AuthoringMapStackPane)ASO.getParent()).removeChild();
+							AuthoringMapStackPane parentSP = (AuthoringMapStackPane)ASO.getParent();
+//							parentSP.removeChild();
+							parentSP.setRowSpan(parentSP.getRowSpan()-1);
+							
 //							AMSP.getCoveringSprite().setFitHeight(currFitHeight-this.CELL_SIZE);
 						}
 					this.getChildren().remove(AMSP);
@@ -77,13 +83,17 @@ public abstract class MapLayer extends GridPane {
 			if (diff<0){
 				for (int i=0;i>diff;i--){
 					for (int row =0;row<numRowsProperty.get();row++){
+						System.out.println("Row: "+row);
 						AuthoringMapStackPane AMSP = this.getChildAtPosition(row,oldNumColumns-i-1);
 						if (AMSP.isActive()){
 							this.removeActive(AMSP);
 						}
 						if (AMSP.isCoveredByOtherSprite()){
 							AbstractSpriteObject ASO = AMSP.getCoveringSprite();
-							((AuthoringMapStackPane)ASO.getParent()).removeChild();
+							AuthoringMapStackPane parentSP = (AuthoringMapStackPane)ASO.getParent();
+//							parentSP.removeChild();
+							parentSP.setColSpan(parentSP.getColSpan()-1);
+							
 						}
 					this.getChildren().remove(AMSP);
 					}
@@ -106,11 +116,15 @@ public abstract class MapLayer extends GridPane {
 
 	}
 	
+	public void setSpriteGridHandler(SpriteGridHandler SGH){
+		mySGH = SGH;
+	}
+	
 	public void addActive(AuthoringMapStackPane pane){
 		this.activeGridCells.add(pane);
 	}
 	
-	public ArrayList<AuthoringMapStackPane> getActive(){
+	public Set<AuthoringMapStackPane> getActive(){
 		return activeGridCells;
 	}
 	
@@ -138,11 +152,10 @@ public abstract class MapLayer extends GridPane {
 		return defaultColor;
 	}
 	
-	public void removeSpritesAtPositions(ArrayList<Integer[]>locs){
-		locs.forEach((pos)->{
+	public void removeSpritesAtPositions(List<Integer[]> cellsToDelete){
+		cellsToDelete.forEach((pos)->{
 			this.getChildAtPosition(pos[0], pos[1]).removeChild();
 		});
-		
 	}
 	
 	protected AuthoringMapStackPane getChildAtPosition(int row, int col){
@@ -150,6 +163,7 @@ public abstract class MapLayer extends GridPane {
 		ObservableList<Node> childrens = this.getChildren();
 
 	    for (Node node : childrens) {
+	    	System.out.println("rowIndex: "+this.getRowIndex(node)+", columnIndex: "+this.getColumnIndex(node));
 	        if(this.getRowIndex(node) == row && this.getColumnIndex(node) == col) {
 	            result = (AuthoringMapStackPane) node;
 	            break;
@@ -204,6 +218,7 @@ public abstract class MapLayer extends GridPane {
 		sp.setColSpan(1);
 		sp.setRowSpan(1);
 //		System.out.println(this.getRowSpan(sp));
+		
 		mySGH.addDropHandling(sp);
 		mySGH.addGridMouseClick(sp);
 		mySGH.addGridMouseDrag(sp);

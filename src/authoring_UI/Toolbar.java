@@ -7,7 +7,6 @@ import javafx.scene.control.ToolBar;
 import tools.DisplayLanguage;
 
 public class Toolbar extends ToolBar {
-	
 	private static final String FILE_STRING = "File";
 	private static final String LOAD_STRING = "Load";
 	private static final String SAVE_STRING = "Save";
@@ -24,19 +23,15 @@ public class Toolbar extends ToolBar {
 	private MenuButton views;
 
 	public Toolbar(SceneController currentSceneController) {
-		
 		sceneController = currentSceneController;
-		
 		createFileOptions();
 		createViews();
 		createSettings();
-		
 		this.getItems().addAll(
 				fileOptions,
 				views,
 				settings
 				);
-		
 	}
 	
 	private void createFileOptions() {
@@ -45,7 +40,7 @@ public class Toolbar extends ToolBar {
 		//TODO load.setOnAction(e -> ());
 		MenuItem save = new MenuItem();
 		save.textProperty().bind(DisplayLanguage.createStringBinding(SAVE_STRING));
-		//TODO save.setOnAction(e -> ());
+		//save.setOnAction(e -> sceneController.saveWorlds());
 		MenuItem importOption = new MenuItem();
 		importOption.textProperty().bind(DisplayLanguage.createStringBinding(IMPORT_STRING));
 		//TODO importOption.setOnAction(e -> ());
@@ -59,7 +54,6 @@ public class Toolbar extends ToolBar {
 	}
 	
 	private void createViews() {
-		
 		MenuItem elementViewer = new MenuItem();
 		elementViewer.textProperty().bind(DisplayLanguage.createStringBinding(ELEMENT_VIEWER_STRING));
 		elementViewer.setOnAction(e -> new ElementViewer());
@@ -70,13 +64,10 @@ public class Toolbar extends ToolBar {
 
 		views = new MenuButton (VIEWS_STRING, null, elementViewer, mapViewer);
 		views.textProperty().bind(DisplayLanguage.createStringBinding(VIEWS_STRING));
-		
 	}
 	
 	private void createSettings() {
-
 		settings = new MenuButton (SETTINGS_STRING, null);
 		settings.textProperty().bind(DisplayLanguage.createStringBinding(SETTINGS_STRING));
-		
 	}
 }

@@ -23,7 +23,7 @@ public abstract class SpriteSet {
 	protected GameDataHandler myGDH;
 	protected String folderToLoad;
 	protected boolean loaded = false;
-	protected ArrayList<SpriteObject> toSave;
+	protected List<SpriteObject> toSave;
 
 	protected SpriteSet(GameDataHandler GDH) {
 		myGDH = GDH;
@@ -37,21 +37,21 @@ public abstract class SpriteSet {
 		return categoryToSprites;
 	}
 	
-	public ArrayList<Pane> getAllSpritesAsThumbnails(){
-		ArrayList<AbstractSpriteObject> ASOs = getAllSprites();
-		ArrayList<Pane> ret = new ArrayList<Pane>();
+	public List<Pane> getAllSpritesAsThumbnails(){
+		List<AbstractSpriteObject> ASOs = getAllSprites();
+		List<Pane> ret = new ArrayList<Pane>();
 		ASOs.forEach(sprite->{
 			ret.add(new SpriteThumbnail(sprite));
 		});
 		return ret;
 	}
 
-	public ArrayList<AbstractSpriteObject> getAllSprites() {
+	public List<AbstractSpriteObject> getAllSprites() {
 		if (!loaded) {
 			this.loadSprites();
 		}
 //		System.out.println("Getting all");
-		ArrayList<AbstractSpriteObject> ret = new ArrayList<AbstractSpriteObject>();
+		List<AbstractSpriteObject> ret = new ArrayList<AbstractSpriteObject>();
 		getCategoryToSprites().values().forEach(list -> {
 			list.forEach(obj -> {
 //				System.out.println(obj);
@@ -130,7 +130,7 @@ public abstract class SpriteSet {
 		return getCategoryToSprites().keySet();
 	}
 
-	protected ArrayList<String> getAllCategoriesList() {
+	protected List<String> getAllCategoriesList() {
 		return new ArrayList<String>(getAllCategoriesSet());
 	}
 
@@ -153,7 +153,7 @@ public abstract class SpriteSet {
 		loaded = b;
 	}
 
-	protected void addNewSprite(String category, AbstractSpriteObject SO) throws Exception {
+	public void addNewSprite(String category, AbstractSpriteObject SO) throws Exception {
 		if (!categoryExists(category)) {
 				addCategory(category);
 		}

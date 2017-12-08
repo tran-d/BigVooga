@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import authoring_UI.MainAuthoringGUI;
+import gui.welcomescreen.FileSelector;
 import gui.welcomescreen.GameSelector;
 import gui.welcomescreen.Learn;
 import gui.welcomescreen.Settings;
@@ -22,7 +23,7 @@ public class SceneController {
 	public static final String WELCOME_SCREEN_KEY = "Welcome Screen";
 	public static final String GAME_SELECTOR_KEY = "Game Selector";
 	public static final String GAME_DISPLAY_KEY = "Game Display";
-	public static final String CREATE_KEY = "Create";
+	public static final String FILE_SELECTOR_KEY = "File Selector";
 	public static final String LEARN_KEY = "Learn";
 	public static final String SETTINGS_KEY = "Settings";
 	
@@ -36,9 +37,7 @@ public class SceneController {
 	 * @param currentStage - The instance of the stage being passed
 	 */
 	public SceneController(Stage currentStage) {
-		
 		stage = currentStage;
-		
 		WelcomeScreen welcomeScreen = new WelcomeScreen (stage, this);
 		welcomeScreen.createWelcomeScreen();
 		scene = welcomeScreen.getScene();
@@ -49,10 +48,10 @@ public class SceneController {
 		scene = gameSelector.getScene();
 		sceneMap.put(GAME_SELECTOR_KEY, scene);
 		
-		MainAuthoringGUI authoringGUI = new MainAuthoringGUI(stage, this);
-		authoringGUI.createAuthoringGUI();
-		scene = authoringGUI.getScene();
-		sceneMap.put(CREATE_KEY, scene);
+		FileSelector fileSelector = new FileSelector(stage, this);
+		fileSelector.createFileSelector();
+		scene = fileSelector.getScene();
+		sceneMap.put(FILE_SELECTOR_KEY, scene);
 		
 		Learn learn = new Learn(stage, this);
 		learn.createLearn();
@@ -63,7 +62,6 @@ public class SceneController {
 		settings.createSettings();
 		scene = settings.getScene();
 		sceneMap.put(SETTINGS_KEY, scene);
-		
 	}
 	
 	/**
