@@ -2,7 +2,7 @@
   <currentWorld>
     <worldLayers>
       <engine.GameLayer>
-        <worldName>llayer</worldName>
+        <worldName>Layer</worldName>
         <worldObjects>
           <engine.GameObject>
             <doubleVars>
@@ -33,7 +33,7 @@
               <entry>
                 <engine.Condition>
                   <priorityNum>1</priorityNum>
-                  <operation class="engine.operations.booleanops.KeyPressed">
+                  <operation class="engine.operations.booleanops.KeyHeld">
                     <check class="engine.operations.stringops.SelfString">
                       <stored>W</stored>
                     </check>
@@ -50,21 +50,21 @@
               <entry>
                 <engine.Condition>
                   <priorityNum>1</priorityNum>
-                  <operation class="engine.operations.booleanops.KeyPressed">
+                  <operation class="engine.operations.booleanops.KeyHeld">
                     <check class="engine.operations.stringops.SelfString">
-                      <stored>W</stored>
+                      <stored>A</stored>
                     </check>
                   </operation>
                 </engine.Condition>
                 <list>
-                  <engine.Actions.variableSetting.SetDouble>
+                  <engine.Actions.variableSetting.ChangeDouble>
                     <varName class="engine.operations.stringops.SelfString">
                       <stored>heading</stored>
                     </varName>
                     <newDouble class="engine.operations.doubleops.Value">
                       <value>2.0</value>
                     </newDouble>
-                  </engine.Actions.variableSetting.SetDouble>
+                  </engine.Actions.variableSetting.ChangeDouble>
                 </list>
               </entry>
             </events>
@@ -105,7 +105,7 @@
                             </geometry>
                           </engine.utilities.collisions.RelativeBoundingGeometry>
                         </relativeBounds>
-                        <fileName>testImage.gif</fileName>
+                        <fileName>C:\Users\nikbr\Desktop\eclipse\My_Workspace\voogasalad_bigvooga\data\UserCreatedGames\Test1\testImage.gif</fileName>
                         <xCenter>0.0</xCenter>
                         <yCenter>0.0</yCenter>
                         <xSize>0.0</xSize>

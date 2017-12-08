@@ -17,8 +17,8 @@ import engine.GameObject;
 import engine.GameObjectFactory;
 import engine.GameWorld;
 import engine.Actions.movement.Move;
-import engine.Actions.variableSetting.SetDouble;
-import engine.operations.booleanops.KeyPressed;
+import engine.Actions.variableSetting.ChangeDouble;
+import engine.operations.booleanops.KeyHeld;
 import engine.operations.doubleops.Value;
 import engine.operations.gameobjectops.Self;
 import engine.operations.stringops.SelfString;
@@ -52,18 +52,19 @@ public class EngineTester extends Application {
 	}
 	
 	public void generateGame() {	
-		generateGame("Test1", new BoundedImage("testImage.gif"));
+		generateGame("Test1", new BoundedImage("C:\\Users\\nikbr\\Desktop\\eclipse\\My_Workspace\\voogasalad_bigvooga\\data\\UserCreatedGames\\Test1\\testImage.gif"));
 	}
 	
 	public void generateGame(String name, BoundedImage i) {		
 		GameObjectFactory blueprints = new GameObjectFactory();
 		GameObject obj1 = makeObject("Ob1", i, 120, 150, this::conditionAction1);
 		obj1.addTag("Ob1");
+		obj1.setSize(200, 200);
 		
 		blueprints.addBlueprint(obj1);
 
 		
-		GameLayer l = new GameLayer();
+		GameLayer l = new GameLayer("Layer");
 		l.addGameObject(obj1);
 		
 		GameWorld w = new GameWorld("World");
@@ -102,12 +103,12 @@ public class EngineTester extends Application {
 	private void conditionAction1(GameObject obj) {
 		List<Action> actions1 = new ArrayList<Action>();
 		actions1.add(new Move(new HeadingOf(new Self())));
-		obj.addConditionAction(new Condition(1, new KeyPressed(new SelfString("W"))), actions1);
+		obj.addConditionAction(new Condition(1, new KeyHeld(new SelfString("W"))), actions1);
 		
 
 		actions1 = new ArrayList<Action>();
-		actions1.add(new SetDouble(new SelfString("heading"), new Value(2)));
-		obj.addConditionAction(new Condition(1, new KeyPressed(new SelfString("W"))), actions1);
+		actions1.add(new ChangeDouble(new SelfString("heading"), new Value(2)));
+		obj.addConditionAction(new Condition(1, new KeyHeld(new SelfString("A"))), actions1);
 		
 		
 	}
