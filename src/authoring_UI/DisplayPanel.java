@@ -18,12 +18,15 @@ import authoring_actionconditions.ControllerConditionActionTabs;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 
@@ -42,7 +45,7 @@ public class DisplayPanel extends VBox {
 
 	private static final String ACTIONCONDITIONTITLES_PATH = "TextResources/ConditionActionTitles";
 	private static final double DISPLAY_PANEL_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH/2 - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH-155;
-	private static final double DISPLAY_PANEL_HEIGHT = WelcomeScreen.HEIGHT/2;
+	private static final double DISPLAY_PANEL_HEIGHT = 495;
 	
 	public static final ResourceBundle conditionActionTitles = ResourceBundle.getBundle(ACTIONCONDITIONTITLES_PATH);
 	private SpriteSetHelper mySSH;
@@ -80,7 +83,7 @@ public class DisplayPanel extends VBox {
 	}
 
 	private void setSpriteInfoAndVBox() {
-		spriteEditorAndApplyButtonVBox = new VBox(10);
+		spriteEditorAndApplyButtonVBox = new VBox();
 		spriteEditorAndApplyButtonVBox.getChildren().addAll(mySpriteTabs, this.makeApplyButton());
 	}
 
@@ -162,6 +165,7 @@ public class DisplayPanel extends VBox {
 
 	private void createSpriteTabs() {
 		mySpriteTabs = new TabPane();
+		mySpriteTabs.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 		mySpriteTabs.setSide(Side.TOP);
 		createParameterTab();
 		createDialogueTab();
@@ -204,7 +208,7 @@ public class DisplayPanel extends VBox {
 	 */
 	private Button makeApplyButton(){
 		Button applyButton = new Button();
-		applyButton.textProperty().setValue("Apply Button");
+		applyButton.textProperty().setValue("Apply");
 		applyButton.setOnAction(e -> {
 			apply();
 		});
@@ -330,7 +334,7 @@ public class DisplayPanel extends VBox {
 
 		ChoiceDialog<String> dialog = new ChoiceDialog<>("Boolean", choices);
 		dialog.setTitle("Add Parameter");
-		dialog.setContentText("Choose parameter type:");
+		dialog.setContentText("Choose Parameter Type:");
 
 		Optional<String> result = dialog.showAndWait();
 		result.ifPresent(type -> createNewParameter(type));

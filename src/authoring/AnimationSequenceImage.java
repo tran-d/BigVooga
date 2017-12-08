@@ -12,7 +12,7 @@ public class AnimationSequenceImage {
 	}
 	
 	AnimationSequenceImage(AnimationSequenceImage ASE){
-		myImage = new AuthoringImageView(ASE.getImage());
+		myImage = new AuthoringImageView(ASE.getImage()); 
 	}
 	
 	public AuthoringImageView getImage(){

@@ -54,7 +54,7 @@ public class DraggableGrid extends VBox {
 
 	private void makeTopInfo() {
 		topHbox = new HBox(10);
-		this.getChildren().add(0, topHbox);
+		this.getChildren().add(topHbox);
 	}
 
 	private void createGrid(SpriteGridHandler spriteGridHandler) {
@@ -68,10 +68,12 @@ public class DraggableGrid extends VBox {
 		addChangeRowsNumberSpinner();
 		addChangeColumnsNumberSpinner();
 		ScrollPane scrollGrid = new ScrollPane(myStackPane);
+		scrollGrid.setId("MapGrid");
 		scrollGrid.setPannable(true);
+
 		this.getChildren().add(1, scrollGrid);
+		this.setId("MapGridAndLayers");
 		this.setMaxWidth(MainAuthoringGUI.AUTHORING_WIDTH/2 + 110);
-		this.setMaxHeight(WelcomeScreen.HEIGHT-75);
 	}
 	
 	public List<SpriteObjectGridManager> getGrids(){
@@ -117,6 +119,7 @@ public class DraggableGrid extends VBox {
 	
 	private void makeLayerButton(SpriteObjectGridManager ML) {
 		HBox hbox = new HBox(10);
+		hbox.setId("layerbox");
 		Label label = new Label(ML.getName());
 		label.setTextFill(Color.ANTIQUEWHITE);
 		
@@ -138,12 +141,18 @@ public class DraggableGrid extends VBox {
 	}
 	
 	private void addLayerButton(HBox in){
-		if (this.topHbox.getChildren().size()!=0){
-			Separator s = new Separator();
-			s.setOrientation(Orientation.VERTICAL);
-			topHbox.getChildren().add(s);
+		if (this.topHbox.getChildren().size()==0){
+		Separator s = new Separator();
+		
+		s.setOrientation(Orientation.VERTICAL);
+		topHbox.getChildren().add(s);
 		}
+		
 		topHbox.getChildren().add(in);
+		Separator s = new Separator();
+		
+		s.setOrientation(Orientation.VERTICAL);
+		topHbox.getChildren().add(s);
 	}
 	
 	private void addChangeRowsNumberSpinner(){

@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 public class MainAuthoringGUI{
 	public static final int AUTHORING_WIDTH = 1400;
-	private static final String AUTHORING_CSS = "Authoring.css";
+	public static final String AUTHORING_CSS = "Authoring.css";
 	private static final String BORDERPANE_ID = "borderpane";
 	
 	private Stage stage;
@@ -28,7 +28,8 @@ public class MainAuthoringGUI{
 	private AuthoringController authoringController;
 	private static final String TEMP_PROJECT_NAME = "Test Project 2";
 	
-	public MainAuthoringGUI(Stage currentStage, SceneController currentSceneController) {
+
+	public MainAuthoringGUI(Stage currentStage, SceneController currentSceneController, String projectName) {
 		stage = currentStage;
 		rootPane = new BorderPane();
 		rootPane.setId(BORDERPANE_ID);

@@ -1,4 +1,4 @@
-package authoring;
+package authoring; 
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;

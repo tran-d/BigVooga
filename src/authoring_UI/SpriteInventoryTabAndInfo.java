@@ -15,7 +15,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Separator;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -26,7 +25,7 @@ import javafx.stage.Stage;
 public class SpriteInventoryTabAndInfo {
 
 	private VBox containerVBox;
-	private SpriteScrollView myScrollPane;
+	private SpriteScrollView myTabPane;
 //	private ArrayList<AbstractSpriteObject> myInventory;
 	private AbstractSpriteObject myASO;
 	private final static double MENU_WIDTH = 400;
@@ -37,7 +36,6 @@ public class SpriteInventoryTabAndInfo {
 	private SpriteSetHelper mySSH;
 
 	private Set<AbstractSpriteObject> temporaryInventory;
-//	private List<AbstractSpriteObject> removedInventory;
 
 	SpriteInventoryTabAndInfo(SpriteSetHelper SSH) {
 		mySSH = SSH;
@@ -67,7 +65,7 @@ public class SpriteInventoryTabAndInfo {
 				addInventory(sprite);
 			});
 		});
-		containerVBox.getChildren().addAll(myScrollPane, makeAddInventoryButton());
+		containerVBox.getChildren().addAll(myTabPane, makeAddInventoryButton());
 	}
 
 	public void setSpriteObjectAndUpdate(AbstractSpriteObject ASO) {
@@ -95,7 +93,7 @@ public class SpriteInventoryTabAndInfo {
 		ST.setOnMouseClicked(event -> {
 			itemOnClickAction.accept(ST);
 		});
-		myScrollPane.addToVBox(ST);
+		myTabPane.addToVBox(ST);
 	}
 	
 
@@ -112,12 +110,12 @@ public class SpriteInventoryTabAndInfo {
 	}
 	
 	private void removeFromInventory(SpriteThumbnail ST){
-		myScrollPane.removeFromVBox(ST);
+		myTabPane.removeFromVBox(ST);
 		temporaryInventory.remove(ST.getSprite());
 	}
 
 	private void createBoundingScrollPane() {
-		myScrollPane = new SpriteScrollView();
+		myTabPane = new SpriteScrollView();
 	}
 
 	public VBox getContainingVBox() {
@@ -125,7 +123,7 @@ public class SpriteInventoryTabAndInfo {
 	}
 
 	public void resetScrollPane() {
-		myScrollPane.clearVBox();
+		myTabPane.clearVBox();
 	}
 
 	private Button makeAddInventoryButton() {
@@ -154,7 +152,7 @@ public class SpriteInventoryTabAndInfo {
 
 		final Stage dialog = new Stage();
 		dialog.initModality(Modality.APPLICATION_MODAL);
-		Node parent = myScrollPane.getParent();
+		Node parent = myTabPane.getParent();
 		Scene s = parent.getScene();
 		while (s == null) {
 			parent = parent.getParent();
@@ -163,7 +161,7 @@ public class SpriteInventoryTabAndInfo {
 		dialog.initOwner(s.getWindow());
 		// VBox dialogVbox = new VBox(20);
 		// dialogVbox.getChildren().add(new Text("This is a Dialog"));
-		Scene dialogScene = new Scene(SSV, 300, 200);
+		Scene dialogScene = new Scene(SSV, 600, 400);
 		dialog.setScene(dialogScene);
 		
 		// dialog.show();
