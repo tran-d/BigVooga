@@ -2,6 +2,7 @@ package authoring_UI;
 
 import controller.authoring.AuthoringController;
 import controller.welcomeScreen.SceneController;
+import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuButton;
@@ -25,7 +26,8 @@ public class MainAuthoringGUI{
 	private MenuButton settings;
 	private Pane authoringPane;
 	private AuthoringController authoringController;
-
+	private static final String TEMP_PROJECT_NAME = "Test Project 2";
+	
 	public MainAuthoringGUI(Stage currentStage, SceneController currentSceneController) {
 		stage = currentStage;
 		rootPane = new BorderPane();
@@ -41,7 +43,8 @@ public class MainAuthoringGUI{
 		rootPane.setTop(toolBar);
 		
 		authoringPane = new Pane();
-		authoringController = new AuthoringController(stage, authoringPane);
+		GameDataHandler GDH = new GameDataHandler(TEMP_PROJECT_NAME);
+		authoringController = new AuthoringController(stage, authoringPane, GDH);
 		ViewSideBar sideBar = new ViewSideBar(authoringController);
 		authoringController.switchView(AuthoringController.MAP_EDITOR_KEY, sideBar);
 		
@@ -58,6 +61,6 @@ public class MainAuthoringGUI{
 	}
 
 	public void saveWorlds() {
-		authoringController.saveWorlds();
+		//authoringController.saveWorlds();
 	}	
 }

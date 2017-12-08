@@ -3,6 +3,7 @@ package controller.authoring;
 import java.util.HashMap;
 import java.util.Map;
 
+import authoring.AuthoringEnvironmentManager;
 import authoring_UI.DraggableGrid;
 import authoring_UI.MapManager;
 import authoring_UI.SpriteCreator;
@@ -29,14 +30,15 @@ public class AuthoringController {
 	private Pane view;
 	private MapManager mapManager;
 	
-	public AuthoringController(Stage currentStage, Pane currentAuthoringPane) {
+	public AuthoringController(Stage currentStage, Pane currentAuthoringPane, GameDataHandler GDH) {
 		stage = currentStage;
 		authoringPane = currentAuthoringPane;
 		
-		mapManager = new MapManager(stage);
+		AuthoringEnvironmentManager AEM = new AuthoringEnvironmentManager(GDH, stage);
+		mapManager = new MapManager(AEM, stage, GDH);
 		viewMap.put(MAP_EDITOR_KEY, mapManager.getPane());
-
-		SpriteCreator sc = new SpriteCreator(mapManager.getAEM());
+		
+		SpriteCreator sc = new SpriteCreator(AEM);
 		viewMap.put(SPRITE_CREATOR_KEY, sc.getPane());
 		
 		DialogueManager dm = new DialogueManager();
@@ -49,7 +51,6 @@ public class AuthoringController {
 	
 	/**
 	 * Changes and sets the authoring view.
-	 * 
 	 * @param key - The key that extracts the correct view from the viewmap to use
 	 */
 	public void switchView (String key, ViewSideBar currentSideBar) {
@@ -58,15 +59,15 @@ public class AuthoringController {
 		authoringPane.getChildren().addAll(view, currentSideBar);
 	}
 
-	public void saveWorlds() {
-		GameDataHandler existingGDH = mapManager.getGDH();
-		for (DraggableGrid DG : mapManager.getAllWorlds()) {
-			try {
-				existingGDH.saveWorld(DG);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
+//	public void saveWorlds() {
+//		GameDataHandler existingGDH = mapManager.getGDH();
+//		for (DraggableGrid DG : mapManager.getAllWorlds()) {
+//			try {
+//				existingGDH.saveWorld(DG);
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+//	}
 }

@@ -8,6 +8,7 @@ import java.util.function.Consumer;
 
 import authoring.AbstractSpriteObject;
 import authoring.AuthoringEnvironmentManager;
+import authoring.SpriteSetHelper;
 import authoring.SpriteThumbnail;
 
 import javafx.scene.Node;
@@ -33,20 +34,19 @@ public class SpriteInventoryTabAndInfo {
 	private Consumer<Pane> itemOnClickAction;
 	private Consumer buttonAction;
 	private String buttonText;
-	private AuthoringEnvironmentManager myAEM;
+	private SpriteSetHelper mySSH;
 
 	private Set<AbstractSpriteObject> temporaryInventory;
 //	private List<AbstractSpriteObject> removedInventory;
 
-	SpriteInventoryTabAndInfo(AuthoringEnvironmentManager AEM) {
-		myAEM = AEM;
+	SpriteInventoryTabAndInfo(SpriteSetHelper SSH) {
+		mySSH = SSH;
 		createBoundingScrollPane();
 		initialize();
-
 	}
 
-	SpriteInventoryTabAndInfo(AbstractSpriteObject ASO, AuthoringEnvironmentManager AEM) {
-		this(AEM);
+	SpriteInventoryTabAndInfo(AbstractSpriteObject ASO, SpriteSetHelper SSH) {
+		this(SSH);
 		setSpriteObject(ASO);
 		remakeContainingVBoxFromNewInventory();
 	}
@@ -150,7 +150,7 @@ public class SpriteInventoryTabAndInfo {
 				}
 			}
 		});
-		SSV.addToVBox(myAEM.getEveryTypeOfSpriteAsThumbnails());
+		SSV.addToVBox(mySSH.getThumbnailSprites());
 
 		final Stage dialog = new Stage();
 		dialog.initModality(Modality.APPLICATION_MODAL);

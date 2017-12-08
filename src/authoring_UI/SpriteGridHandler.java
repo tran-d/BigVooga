@@ -41,6 +41,10 @@ public class SpriteGridHandler {
 	public void setDisplayPanel(SpritePanels spritePanels) {
 		myDP = spritePanels.getDisplayPanel();
 	}
+	
+	public DraggableGrid getDraggableGrid() {
+		return myDG;
+	}
 
 	protected void addKeyPress(Scene scene) {
 		scene.setOnKeyPressed(e -> {

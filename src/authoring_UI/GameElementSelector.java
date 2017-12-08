@@ -57,70 +57,20 @@ public class GameElementSelector extends TabPane implements Observer {
 	private SpriteGridHandler mySpriteGridHandler;
 	private Tab dialoguesTab;
 
-	protected GameElementSelector(SpriteGridHandler spriteGridHandler, AuthoringEnvironmentManager AEM,
-			SpriteObjectGridManagerI SOGM) {
+	protected GameElementSelector(SpriteGridHandler spriteGridHandler, AuthoringEnvironmentManager AEM) {
 		mySPF = new SpriteParameterFactory();
 		myAEM = AEM;
-		// mySpriteGridHandler = myAEM.getSpriteGridHandler();
 		mySpriteGridHandler = spriteGridHandler;
-		// mySpriteGridHandler = myAEM.getSpriteGridHandler();
-		// myAEM = AEM;
 		myGDH = AEM.getGameDataHandler();
-//		mySOGM = SOGM;
-		//mySprites = new SpriteSelectPanel("DEFAULT", mySpriteGridHandler);
-		// SpriteSet mySS = new SpriteSetDefault(myGDH);
-		// SpriteSet myCustom = new SpriteSetUserDefined(myGDH);
 		myAEM.getDefaultSpriteController().getAllSprites().forEach(sprite->{
 			System.out.println("Sprite exists, name: "+sprite.getName());
 		});
 		mySprites = myAEM.getDefaultSpriteController().getSpritePanel(mySpriteGridHandler);
-		
-//		mySprites.getSpritePanel
-		// mySS.getSpritePanel(mySpriteGridHandler);
-		// mySS.getAllSpritesAsMap().forEach((a,b)->{
-		// System.out.println("Key: "+a+ ", Value: "+b);
-		// b.forEach(s->{
-		// s.getImageURL();
-		// });
-		// myAEM.addDefaultSprite(b);
-		// });
-		// mySS.getAllSpritesAsMap().forEach((a,b)->{
-		// b.forEach(item->{
-		// try {
-		// myGDH.saveDefaultSprite(item);
-
-		// mySS.saveSprite(a, item);
-		// System.out.println("Saved: "+item);
-		// } catch (Exception e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// });
-
-		// });
-		// myUserSprites = new SpriteSelectPanel("USERDEFINED",
-		// mySpriteGridHandler);
-		// myUserSprites = myCustom.getSpritePanel(mySpriteGridHandler);
 		myUserSprites = myAEM.getCustomSpriteController().getSpritePanel(mySpriteGridHandler);
-//		 getParams();
-		// createSprites();
 		createSpriteTabs();
-		// myUserSprites.getChildren().add(sp);
-		// makeSpriteDraggable(sp);
-
 	}
 
 	private void createSprites() {
-		// SpriteObject s1 = mySpriteObjs.get(0);
-		// SpriteObject s2 = mySpriteObjs.get(1);
-		// SpriteObject s3 = mySpriteObjs.get(2);
-		// SpriteObject s4 = mySpriteObjs.get(3);
-		// myAEM.addDefaultSprite(s1);
-		// myAEM.addDefaultSprite(s2);
-		// myAEM.addDefaultSprite(s3);
-		// myAEM.addDefaultSprite(s4);
-//		setupDefaultSprites();
-//		setupUserDefinedSprites();
 	}
 
 	public void getUserSpriteParam(String url) {

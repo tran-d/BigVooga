@@ -21,7 +21,7 @@ public class SpriteParameterSidebarManager {
 	DraggableGrid myDG;
 	private boolean multipleCellsActive = false;
 
-	SpriteParameterSidebarManager(DraggableGrid DG) {
+	public SpriteParameterSidebarManager(DraggableGrid DG) {
 		myDG = DG;
 	}
 	

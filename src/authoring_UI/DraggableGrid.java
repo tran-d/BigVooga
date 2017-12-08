@@ -32,7 +32,6 @@ public class DraggableGrid extends VBox {
 	private GridPane terrainGrid;
 	private GridPane myGrid;
 	private List<SpriteObjectGridManager> allGrids;
-	private List<SpriteObjectGridManager> gridManagers;
 	private SpriteObjectGridManager activeGrid;
 	private StackPane myStackPane;
 	private HBox topHbox = new HBox(10);
@@ -41,6 +40,7 @@ public class DraggableGrid extends VBox {
 	private Integer cols;
 
 	public DraggableGrid() {
+		System.out.println("Draggable Grid constructor called (MAPMAN)");
 		rows = 20; // TODO HARDCODED
 		cols = 20;
 	}
@@ -60,7 +60,7 @@ public class DraggableGrid extends VBox {
 	private void createGrid(SpriteGridHandler spriteGridHandler) {
 		myStackPane = new StackPane();
 		myStackPane.setAlignment(Pos.CENTER);
-		for (SpriteObjectGridManager ml: gridManagers){
+		for (SpriteObjectGridManager ml: allGrids){
 			myStackPane.getChildren().add(ml.getMapLayer());
 			makeLayerButton(ml);
 			showLayer(ml);
@@ -80,41 +80,37 @@ public class DraggableGrid extends VBox {
 	}
 	
 	private void makeLayers(SpriteGridHandler spriteGridHandler){
-		gridManagers = new ArrayList<SpriteObjectGridManager>();
 		SpriteObjectGridManager terrain = new TerrainObjectGridManager(rows, cols, spriteGridHandler);
 		SpriteObjectGridManagerForSprites sprites = new SpriteObjectGridManagerForSprites(rows, cols, spriteGridHandler);
 		PanelObjectGridManager panels = new PanelObjectGridManager(rows, cols, spriteGridHandler);
-		gridManagers.add(terrain);
-		gridManagers.add(sprites);
-		gridManagers.add(panels);
 		allGrids = new ArrayList<SpriteObjectGridManager>();
-		gridManagers.forEach(item->{
-			allGrids.add(item);
-		});
+		allGrids.add(terrain);
+		allGrids.add(sprites);
+		allGrids.add(panels);
 	}
 	
 	public SpriteObjectGridManager getActiveGrid(){
-		gridManagers.sort(new Comparator<SpriteObjectGridManager>(){
+		allGrids.sort(new Comparator<SpriteObjectGridManager>(){
 			@Override
 			public int compare(SpriteObjectGridManager o1, SpriteObjectGridManager o2) {
 				return o2.getMapLayer().getLayerNumber()-o1.getMapLayer().getLayerNumber();
 			}
 		});
-		return gridManagers.get(0);
+		return allGrids.get(0);
 	}
 	
 	private void showLayer(SpriteObjectGridManager ML){
 		System.out.println("Adding layer: "+ML.getName());
-		if (!gridManagers.contains(ML)){
-			gridManagers.add(ML);
+		if (!allGrids.contains(ML)){
+			allGrids.add(ML);
 		}
 		ML.setVisible(true);
 	}
 	
 	private void hideLayer(SpriteObjectGridManager ML){
 		mySGH.removeActiveCells();
-		if (gridManagers.contains(ML)){
-			gridManagers.remove(ML);
+		if (allGrids.contains(ML)){
+			allGrids.remove(ML);
 		}
 		ML.setVisible(false);
 	}

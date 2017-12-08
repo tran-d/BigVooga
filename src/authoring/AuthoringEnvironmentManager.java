@@ -4,56 +4,36 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import authoring_UI.DefaultSpriteObject;
-import authoring_UI.DraggableGrid;
 import authoring_UI.SpriteSet;
 import authoring_UI.SpriteSetDefault;
 import authoring_UI.SpriteSetInventory;
 import authoring_UI.SpriteSetUserDefined;
 import engine.utilities.data.GameDataHandler;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class AuthoringEnvironmentManager {
 
 	private AbstractSpriteObject defaultEmptySprite;
-	private SpriteParameterSidebarManager SPSM;
 	private SpriteObjectGridManagerI SOGM;
-	private ArrayList<SpriteObject> defaultSprites;
-	private ArrayList<SpriteObject> userSprites;
+	private List<SpriteObject> userSprites;
 	private GameDataHandler myGDH;
 	private SpriteSet myDefaultSprites;
 	private SpriteSet myCustomSprites;
 	private SpriteSet myInventorySprites;
-	private DraggableGrid myGrid;
 
-	public AuthoringEnvironmentManager(GameDataHandler GDH) {
+	public AuthoringEnvironmentManager(GameDataHandler GDH, Stage stage) {
 		myGDH = GDH;
-		defaultEmptySprite = new DefaultSpriteObject();
-		myGrid = new DraggableGrid();
-		SPSM = new SpriteParameterSidebarManager(myGrid);
 		initializeDefaultSprites();
 		initializeCustomSprites();
 		initializeInventorySprites();
-	}
-
-	public DraggableGrid getDraggableGrid() {
-		return myGrid;
-	}
-
-	public void setOldDraggableGrid(DraggableGrid toSet) {
-		String projectName = myGDH.getProjectName();
-		myGrid = toSet;
-		// do stuff to get the saved data
-	}
-
-	public GameDataHandler getGameDataHandler() {
-		return myGDH;
-	}
-
-	public SpriteParameterSidebarManager getSpriteParameterSidebarManager() {
-		return SPSM;
+		defaultEmptySprite = new DefaultSpriteObject();
+		
+		System.out.println("init MAPMAN in AEM");
+		
+		if (myDefaultSprites == null) System.out.println("this was def initialized");
+		
 	}
 
 	private void initializeDefaultSprites() {
@@ -76,6 +56,7 @@ public class AuthoringEnvironmentManager {
 		return myCustomSprites;
 	}
 
+
 	public SpriteSet getInventoryController() {
 		return myInventorySprites;
 	}
@@ -90,6 +71,7 @@ public class AuthoringEnvironmentManager {
 
 	public Map<String, List<Pane>> getEveryTypeOfSpriteAsThumbnails() {
 		Map<String, List<Pane>> ret = new HashMap<String, List<Pane>>();
+		if (myDefaultSprites == null) System.out.println("THIS IS SO WEIRD");
 		ret.put("DefaultSprites", this.getDefaultGameSpritesAsThumbnail());
 		ret.put("CustomSprites", this.getUserDefinedSpritesAsThumbnail());
 		ret.put("InventorySprites", this.getInventorySpritesAsThumbnail());
@@ -97,6 +79,7 @@ public class AuthoringEnvironmentManager {
 	}
 
 	private List<Pane> getDefaultGameSpritesAsThumbnail() {
+		if (myDefaultSprites == null) System.out.println("wtf" );
 		return myDefaultSprites.getAllSpritesAsThumbnails();
 	}
 
@@ -159,7 +142,7 @@ public class AuthoringEnvironmentManager {
 		myCustomSprites.addNewSprite(SOI);
 	}
 
-	public void addUserSprite(ArrayList<SpriteObject> SOI_LIST) {
+	public void addUserSprite(List<SpriteObject> SOI_LIST) {
 		SOI_LIST.forEach(sprite -> {
 			try {
 				addUserSprite(sprite);
@@ -174,15 +157,7 @@ public class AuthoringEnvironmentManager {
 		return defaultEmptySprite;
 	}
 
-	public SpriteObject getActiveCell() throws Exception {
-		return SPSM.getActiveSprite();
-	}
-
-	public boolean multipleActive() {
-		return SPSM.multipleActive();
-	}
-
-	public SpriteObjectGridManagerI getGridManager() {
-		return SOGM; // BTW THIS IS NEVER INITIALIZED.
+	public GameDataHandler getGameDataHandler() {
+		return myGDH;
 	}
 }

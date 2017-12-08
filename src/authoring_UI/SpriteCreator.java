@@ -42,11 +42,8 @@ import javafx.stage.Stage;
 
 /**
  * Class for creating new sprites
- * 
  * @author taekwhunchung
- *
  */
-
 public class SpriteCreator extends TabPane {
 	private static final String PATH = "resources/";
 	private static final String SPRITECREATORRESOURCES_PATH = "TextResources/SpriteCreatorResources";
@@ -81,13 +78,10 @@ public class SpriteCreator extends TabPane {
 		Tab tab = new Tab();
 		tab.setText(spriteCreatorResources.getString("SpriteTab") + spriteCount);
 		spriteCount++;
-
 		HBox hb = addParentHBox(tab);
-
 		addStatePanel(hb);
 		addImageStackPane(hb);
 		addToolBox(hb);
-
 		return tab;
 	}
 
@@ -296,7 +290,7 @@ public class SpriteCreator extends TabPane {
 	}
 
 	private VBox createStateBox() {
-		myDP = new DisplayPanel(myAEM);
+		myDP = new DisplayPanel();
 		myDP.setMaxHeight(WelcomeScreen.HEIGHT / 2);
 		myDP.setPrefHeight(WelcomeScreen.HEIGHT / 2);
 		myDP.setPrefWidth(PANE_WIDTH / 2);
