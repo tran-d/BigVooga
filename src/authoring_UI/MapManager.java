@@ -47,15 +47,10 @@ public class MapManager extends TabPane {
 	private Pane mapEditor = new Pane();
 //	private SpritePanels spritePanels;
 
-<<<<<<< HEAD
-	public MapManager(Scene currentScene)  {
-		scene = currentScene;
-=======
 	public MapManager(AuthoringEnvironmentManager AEM, Stage currentStage)  {
 		myAEM = AEM;
 		myGDH = myAEM.getGameDataHandler();
 		stage = currentStage;
->>>>>>> 9fa9a0313bb6a9d14e87a8978799b598f46b2c28
 		mapEditor.getChildren().add(this);
 		mySelectModel = this.getSelectionModel();
 		this.setPrefWidth(VIEW_WIDTH);
@@ -99,20 +94,6 @@ public class MapManager extends TabPane {
 	}
 	
 	
-<<<<<<< HEAD
-	private void setupBEAuthClasses() {
-		myAEM = new AuthoringEnvironmentManager(myGDH);
-		mySOGM = myAEM.getGridManager();
-	}
-	
-	private void setupFEAuthClasses() {
-		
-		DraggableGrid myGrid = myAEM.getDraggableGrid();
-		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, myGrid);
-		myGrid.construct(mySpriteGridHandler);
-		mySpriteGridHandler.addKeyPress(scene);
-		spritePanels = new SpritePanels(this, mySpriteGridHandler, myAEM, mySOGM);
-=======
 	private HBox setupFEAuthClasses(DraggableGrid w) { 
 		System.out.println("setUpFE?");
 		// TODO if it's old project, want all possible worlds, so many worlds!
@@ -121,7 +102,6 @@ public class MapManager extends TabPane {
 		w.construct(mySpriteGridHandler);
 		mySpriteGridHandler.addKeyPress(stage.getScene());
 		SpritePanels spritePanels = new SpritePanels(mySpriteGridHandler, myAEM);
->>>>>>> 9fa9a0313bb6a9d14e87a8978799b598f46b2c28
 		mySpriteGridHandler.setDisplayPanel(spritePanels);
 		AuthoringMapEnvironment authMap = new AuthoringMapEnvironment(spritePanels, w);
 		return authMap;
