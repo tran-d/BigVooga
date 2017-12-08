@@ -8,7 +8,6 @@ public class SpriteSetHelper {
 	Map<String, List<Pane>> allSpritesAsThumbnails;
 
 	public SpriteSetHelper(Map<String, List<Pane>> everyTypeOfSpriteAsThumbnails) {
-		System.out.println("CHECK SPRITE SET HELPER" );
 		allSpritesAsThumbnails = everyTypeOfSpriteAsThumbnails;
 	}
 	
