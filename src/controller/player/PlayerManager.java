@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import engine.EngineController;
+import engine.sprite.Displayable;
 import engine.sprite.DisplayableImage;
 import gui.player.GameDisplay;
 import javafx.scene.input.KeyCode;
@@ -161,10 +162,10 @@ public class PlayerManager {
 	/**
 	 * Passes the images added to the game maps in authoring to the Game Display.
 	 * 
-	 * @param images - The list of images to be displayed
+	 * @param imageData - The list of images to be displayed
 	 */
-	public void setImageData(List<DisplayableImage> images) {
-		gameDisplay.setUpdatedImages(images);
+	public void setImageData(List<Displayable> imageData) {
+		gameDisplay.setUpdatedImages(imageData);
 	}
 	
 	/**

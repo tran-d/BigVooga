@@ -153,6 +153,10 @@
             <inventory>
               <objects/>
             </inventory>
+            <dialogueHandler>
+              <font>Times New Roman</font>
+              <size>12</size>
+            </dialogueHandler>
           </engine.GameObject>
         </worldObjects>
         <conditionPriorities class="java.util.concurrent.ConcurrentSkipListMap" serialization="custom">
