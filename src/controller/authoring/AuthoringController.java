@@ -35,10 +35,12 @@ public class AuthoringController {
 		MapManager mapManager = new MapManager(stage);
 		viewMap.put(MAP_EDITOR_KEY, mapManager.getPane());
 
-		SpriteCreator sc = new SpriteCreator();
+		SpriteCreator sc = new SpriteCreator(mapManager.getAEM());
 		viewMap.put(SPRITE_CREATOR_KEY, sc.getPane());
 		
 		//SpriteCreator mySpriteCreator = new SpriteCreator(stage, mySprites, myAEM);
+//		DialogueManager dc = new DialogueManager();
+//		viewMap.put(DIALOGUE_KEY, dc.getParent());
 		
 		DialogueManager dm = new DialogueManager();
 		dm.addDialogueListener(mapManager.getDialoguesTab());

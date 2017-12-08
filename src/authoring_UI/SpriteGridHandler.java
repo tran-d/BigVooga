@@ -1,7 +1,9 @@
 package authoring_UI;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import authoring.AbstractSpriteObject;
 import authoring.InventoryObject;
@@ -71,7 +73,7 @@ public class SpriteGridHandler {
 			System.out.println("row_col: " + row_col);
 			cellsToDelete.add(row_col);
 		});
-		deactivateActiveSprites();
+		resetActiveSprites();
 		myDP.removeSpriteEditorVBox();
 
 		System.out.println();
@@ -80,7 +82,7 @@ public class SpriteGridHandler {
 		// mySOGM.removeActiveCells(cellsToDelete);
 	}
 
-	private void deactivateActiveSprites() {
+	private void resetActiveSprites() {
 		// this.activeSpriteGridCells.clear();
 //		activeSpriteGridCells.forEach(spriteCell -> {
 //			((AuthoringMapStackPane) spriteCell.getParent()).removeChild();
@@ -105,20 +107,15 @@ public class SpriteGridHandler {
 	}
 
 	protected void addGridMouseDrag(AuthoringMapStackPane pane) {
-		pane.setOnMouseDragEntered(e -> {
-			if (pane.getChildren().size() == 0)
+		pane.setOnMouseDragOver(e -> {
+			if (!pane.hasChild()&&!pane.isCoveredByOtherSprite())
 				changeCellStatus(pane);
-			System.out.println("ENTERED BY MOUSE DRAG");
+				System.out.println("ENTERED BY MOUSE DRAG");
 		});
 	}
 
 	private void changeCellStatus(AuthoringMapStackPane pane) {
 		pane.switchActive();
-		if (pane.isActive()) {
-			pane.getMapLayer().addActive(pane);
-		} else {
-			pane.getMapLayer().removeActive(pane);
-		}
 		// if(pane.getOpacity() == 1) {
 		// makeCellActive(pane);
 		// } else {
@@ -195,7 +192,7 @@ public class SpriteGridHandler {
 		return glow;
 	}
 
-	public void removeActiveCells() {
+	public void deactivateActiveSprites() {
 		System.out.println("RMEOVING ACTIVE CELLS");
 		// activeGridCells.forEach(e->{
 		// System.out.println(this.getStackPanePositionInGrid(e));
@@ -205,34 +202,41 @@ public class SpriteGridHandler {
 		myDG.getActiveGrid().getActiveSpriteObjects().forEach(sprite -> {
 			sprite.setEffect(null);
 		});
-		this.deactivateActiveSprites();
+		this.resetActiveSprites();
 //		this.myDG.getActiveGrid().resetActiveCells();
 
 		myDP.removeSpriteEditorVBox();
 
 	}
 	
-	public void makeCellInactive(){
-		
-	}
-
-	public void addSpriteSizeChangeListener() {
-
-	}
+//	public void makeCellInactive(){
+//		
+//	}
+//
+//	public void addSpriteSizeChangeListener() {
+//
+//	}
 
 	private void populateGridCells(SpriteObject s) {
 		Iterator<AuthoringMapStackPane> it = myDG.getActiveGrid().getMapLayer().getActive().iterator();
+		Set<AuthoringMapStackPane> currentActiveCells = new HashSet<AuthoringMapStackPane>();
+		myDG.getActiveGrid().getMapLayer().getActive().forEach((item)->{currentActiveCells.add(item);});
 		
-		while (it.hasNext()){
-			AuthoringMapStackPane elem = it.next();
-			if (populateIndividualCell(elem, s)){
-				it.remove();
-			}
-		}
+		currentActiveCells.forEach((item)->{
+			populateIndividualCell(item, s);
+		});
+//		Set<AuthoringMapStackPane> currentActiveCells = new HashSet<AuthoringMapStackPane>()
+//		while (it.hasNext()){
+//			AuthoringMapStackPane elem = it.next();
+//			if (){
+//				it.remove();
+//			}
+		
 
-		removeActiveCells();
+		deactivateActiveSprites();
+}
 
-	}
+	
 	
 	private boolean populateIndividualCell(AuthoringMapStackPane cell, SpriteObject s){
 		System.out.println("populating from SGH");

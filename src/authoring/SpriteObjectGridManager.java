@@ -321,6 +321,7 @@ public abstract class SpriteObjectGridManager {
 
 	public void matchActiveCellsToSprite(SpriteObject firstSprite) {
 		for (SpriteObject SOI: getActiveSpriteObjects()){
+			System.out.println("Active Sprite Params: "+SOI.getParameters());
 			SOI.applyParameterUpdate(firstSprite.getParameters());
 		}
 	}

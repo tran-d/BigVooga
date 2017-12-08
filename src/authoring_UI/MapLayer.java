@@ -1,6 +1,8 @@
 package authoring_UI;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import authoring.AbstractSpriteObject;
 import javafx.beans.property.ObjectProperty;
@@ -32,12 +34,12 @@ public abstract class MapLayer extends GridPane {
 	static final int CELL_SIZE = 50;
 	protected ObjectProperty<Integer> numRowsProperty;
 	protected ObjectProperty<Integer> numColumnsProperty;
-	private ArrayList<AuthoringMapStackPane> activeGridCells;
+	private Set<AuthoringMapStackPane> activeGridCells;
 
 	protected MapLayer(int rows, int columns, int layerNum, SpriteGridHandler SGH, Color c) {
 		super();
 		defaultColor = c;
-		activeGridCells = new ArrayList<AuthoringMapStackPane>();
+		activeGridCells = new HashSet<AuthoringMapStackPane>();
 		numRowsProperty = new SimpleObjectProperty<Integer>();
 		numColumnsProperty = new SimpleObjectProperty<Integer>();
 		numRowsProperty.set(1);
@@ -121,7 +123,7 @@ public abstract class MapLayer extends GridPane {
 		this.activeGridCells.add(pane);
 	}
 	
-	public ArrayList<AuthoringMapStackPane> getActive(){
+	public Set<AuthoringMapStackPane> getActive(){
 		return activeGridCells;
 	}
 	
@@ -161,6 +163,7 @@ public abstract class MapLayer extends GridPane {
 		ObservableList<Node> childrens = this.getChildren();
 
 	    for (Node node : childrens) {
+	    	System.out.println("rowIndex: "+this.getRowIndex(node)+", columnIndex: "+this.getColumnIndex(node));
 	        if(this.getRowIndex(node) == row && this.getColumnIndex(node) == col) {
 	            result = (AuthoringMapStackPane) node;
 	            break;
@@ -215,6 +218,7 @@ public abstract class MapLayer extends GridPane {
 		sp.setColSpan(1);
 		sp.setRowSpan(1);
 //		System.out.println(this.getRowSpan(sp));
+		
 		mySGH.addDropHandling(sp);
 		mySGH.addGridMouseClick(sp);
 		mySGH.addGridMouseDrag(sp);

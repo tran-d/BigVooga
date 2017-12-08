@@ -9,6 +9,7 @@ import java.util.function.Function;
 
 import authoring.NumberSpinner;
 import authoring.SpriteObjectGridManager;
+import authoring.SpriteParameterSidebarManager;
 import authoring.TerrainObjectGridManager;
 import engine.Layer;
 import gui.welcomescreen.WelcomeScreen;
@@ -168,7 +169,7 @@ public class DraggableGrid extends VBox {
 	
 	private void hideLayer(SpriteObjectGridManager ML){
 //		myStackPane.getChildren().remove(ML);
-		mySGH.removeActiveCells();
+		mySGH.deactivateActiveSprites();
 		if (gridManagers.contains(ML)){
 			gridManagers.remove(ML);
 		}

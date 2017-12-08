@@ -10,6 +10,7 @@ import authoring.AbstractSpriteObject;
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObject;
 import authoring.SpriteParameterI;
+import authoring.SpriteParameterSidebarManager;
 import authoring_actionconditions.ActionConditionTab;
 import authoring_actionconditions.ControllerConditionActionTabs;
 import gui.welcomescreen.WelcomeScreen;
@@ -46,17 +47,16 @@ public class DisplayPanel extends VBox {
 	
 	public static final ResourceBundle conditionActionTitles = ResourceBundle.getBundle(ACTIONCONDITIONTITLES_PATH);
 
-	protected DisplayPanel(AuthoringEnvironmentManager AEM) {
+	public DisplayPanel(SpriteParameterSidebarManager SPSM){
 		multipleCellsActiveProperty = new SimpleObjectProperty<Boolean>();
 		mySParameterTAI = new SpriteParameterTabsAndInfo();
 		mySInventoryTAI = new SpriteInventoryTabAndInfo(AEM);
 		mySAnimationSequenceTAI = new SpriteAnimationSequenceTabsAndInfo();
 		mySUtilityTAI = new SpriteUtilityTabAndInfo();
 		System.out.println("made SPTAI in MENU");
-		myAEM = AEM;
 		setUpMenu();
-
 	}
+	
 
 	private void setErrorMessage() {
 		myParameterErrorMessage = new TextArea("Either no active cells or active cells have different parameters");

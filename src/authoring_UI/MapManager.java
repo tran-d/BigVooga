@@ -170,6 +170,10 @@ public class MapManager extends TabPane {
 		return allMaps;
 	}
 	
+	public AuthoringEnvironmentManager getAEM() {
+		return myAEM;
+	}
+	
 	public Pane getPane() {
 		return mapEditor;
 	}
@@ -182,9 +186,6 @@ public class MapManager extends TabPane {
 		return this.mySpriteGridHandler;
 	}
 	
-	public AuthoringEnvironmentManager getAEM(){
-		return this.myAEM;
-	}
 	
 	public SpritePanels getSpritePanels(){
 		return this.spritePanels;

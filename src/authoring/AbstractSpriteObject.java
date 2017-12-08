@@ -478,7 +478,25 @@ public abstract class AbstractSpriteObject extends ImageView {
 
 	protected void replaceCategoryMap(HashMap<String, ArrayList<SpriteParameterI>> newParams) {
 //		System.out.println("Replacing cat map");
-		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(newParams);
+
+
+		this.categoryMap = getNewCopyOfCategoryMap(newParams);
+//		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(newParams);
+//		System.out.println("new hashmap: "+categoryMap.toString());
+	}
+	
+	protected HashMap<String, ArrayList<SpriteParameterI>> getNewCopyOfCategoryMap(HashMap<String, ArrayList<SpriteParameterI>> newParams){
+		HashMap<String, ArrayList<SpriteParameterI>> newCategoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();
+		if (newParams!=null){
+			newParams.forEach((key, value)->{
+				ArrayList<SpriteParameterI> params = new ArrayList<SpriteParameterI>();
+				value.forEach((SpriteParam)->{
+					params.add(SpriteParam.newCopy());
+				});
+				newCategoryMap.put(key, params);
+			});
+		}
+		return newCategoryMap;
 	}
 
 	public boolean isSame(AbstractSpriteObject other) {

@@ -29,7 +29,7 @@ public class AuthoringEnvironmentManager {
 
 	public AuthoringEnvironmentManager(GameDataHandler GDH) {
 		myGDH = GDH;
-		//myGDH = new GameDataHandler(projectName);
+		// myGDH = new GameDataHandler(projectName);
 		defaultEmptySprite = new DefaultSpriteObject();
 		myGrid = new DraggableGrid();
 		// SOGM = new SpriteObjectGridManager();
@@ -47,7 +47,7 @@ public class AuthoringEnvironmentManager {
 		defaultEmptySprite = new DefaultSpriteObject();
 		myGrid = DG;
 		// SOGM = new SpriteObjectGridManager();
-		SPSM = new SpriteParameterSidebarManager(myGrid);
+		
 		initializeDefaultSprites();
 		initializeCustomSprites();
 		initializeInventorySprites();
@@ -64,7 +64,7 @@ public class AuthoringEnvironmentManager {
 		myGrid = toSet;
 		// do stuff to get the saved data
 	}
-	
+
 	public GameDataHandler getGameDataHandler() {
 		return myGDH;
 	}
@@ -97,15 +97,15 @@ public class AuthoringEnvironmentManager {
 		return myInventorySprites;
 	}
 
-	public Map<String, ArrayList<AbstractSpriteObject>> getEveryTypeOfSprite(){
+	public Map<String, ArrayList<AbstractSpriteObject>> getEveryTypeOfSprite() {
 		Map<String, ArrayList<AbstractSpriteObject>> ret = new HashMap<String, ArrayList<AbstractSpriteObject>>();
 		ret.put("DefaultSprites", this.getDefaultGameSprites());
 		ret.put("CustomSprites", this.getUserDefinedSprites());
 		ret.put("InventorySprites", this.getInventorySprites());
 		return ret;
 	}
-	
-	public Map<String, ArrayList<Pane>> getEveryTypeOfSpriteAsThumbnails(){
+
+	public Map<String, ArrayList<Pane>> getEveryTypeOfSpriteAsThumbnails() {
 		Map<String, ArrayList<Pane>> ret = new HashMap<String, ArrayList<Pane>>();
 		ret.put("DefaultSprites", this.getDefaultGameSpritesAsThumbnail());
 		ret.put("CustomSprites", this.getUserDefinedSpritesAsThumbnail());
@@ -116,11 +116,11 @@ public class AuthoringEnvironmentManager {
 	private ArrayList<Pane> getDefaultGameSpritesAsThumbnail() {
 		return myDefaultSprites.getAllSpritesAsThumbnails();
 	}
-	
+
 	private ArrayList<Pane> getUserDefinedSpritesAsThumbnail() {
 		return myCustomSprites.getAllSpritesAsThumbnails();
 	}
-	
+
 	private ArrayList<Pane> getInventorySpritesAsThumbnail() {
 		return myInventorySprites.getAllSpritesAsThumbnails();
 	}
@@ -213,12 +213,8 @@ public class AuthoringEnvironmentManager {
 	public SpriteObject getActiveCell() throws Exception {
 		return SPSM.getActiveSprite();
 	}
-	
-	public boolean multipleActive(){
+
+	public boolean multipleActive() {
 		return SPSM.multipleActive();
 	}
-
-//	public SpriteObjectGridManagerI getGridManager() {
-//		return SOGM; // BTW THIS IS NEVER INITIALIZED. 
-//	}
 }

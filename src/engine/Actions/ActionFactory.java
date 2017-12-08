@@ -60,7 +60,7 @@ public class ActionFactory {
 		List<String> types = new ArrayList<>();
 		try {
 			for (Class<?> parameterType : getConstructor(actionName).getParameterTypes())
-				types.add(operationTypeMap.get(parameterType.getName()));
+				types.add(operationTypeMap.get(parameterType.getSimpleName()));
 		} catch (ClassNotFoundException e) {
 			throw new VoogaException("ActionNotFound", actionName);
 		}
