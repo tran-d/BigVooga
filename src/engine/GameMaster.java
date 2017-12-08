@@ -5,9 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import controller.player.PlayerManager;
-import engine.sprite.BoundedImage;
 import engine.sprite.Displayable;
-import engine.sprite.DisplayableImage;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -114,7 +112,7 @@ public class GameMaster implements EngineController{
 				cameraYTranslate = o.getDouble(GameObject.Y_COR);
 			}
 		}
-		Collections.sort(imageData);
+		Collections.sort(imageData, (i1, i2)->i1.getDrawingPriority()-i2.getDrawingPriority());
 		playerManager.setImageData(imageData, cameraXTranslate, cameraYTranslate);
 	}
 

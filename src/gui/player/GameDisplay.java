@@ -7,19 +7,22 @@ import controller.player.PlayerManager;
 import controller.welcomeScreen.SceneController;
 import engine.sprite.Displayable;
 import engine.sprite.DisplayableImage;
+import engine.sprite.DisplayableText;
 import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -132,7 +135,7 @@ public class GameDisplay {
 		camera.relocate(cameraXTranslate, cameraYTranslate);
 	}
 
-	public void updateImages(DisplayableImage image) {
+	public void displayImage(DisplayableImage image) {
 		ImageView gameImage = null;
 		try {
 			gameImage = new ImageView(gameDataHandler.getImage(image.getFileName()));
@@ -147,6 +150,17 @@ public class GameDisplay {
 		gameImage.setX(image.getX() - image.getWidth() / 2);
 		gameImage.setY(image.getY() - image.getHeight() / 2);
 		gamePane.getChildren().add(gameImage);
+	}
+	
+	public void displayText(DisplayableText displayableText) {
+		Text text = new Text();
+		text.setX(displayableText.getX()-displayableText.getWidth()/2);
+		text.setY(displayableText.getY()-displayableText.getHeight()/2);
+		text.setWrappingWidth(displayableText.getWidth());
+		text.setFont(new Font(displayableText.getFont(), displayableText.getFontSize()));
+		text.setRotate(displayableText.getHeading());
+		text.setStroke(Color.web(displayableText.getColor()));
+		gamePane.getChildren().add(text);
 	}
 
 	/**

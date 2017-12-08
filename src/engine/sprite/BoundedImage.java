@@ -109,11 +109,6 @@ public class BoundedImage extends BoundingSet implements DisplayableImage{
 	public int getDrawingPriority() {
 		return depth;
 	}
-
-	@Override
-	public int compareTo(DisplayableImage other) {
-		return depth - other.getDrawingPriority();
-	}
 	
 	public BoundedImage clone() {
 		BoundedImage i =  new BoundedImage(fileName, relativeBounds);
@@ -126,7 +121,6 @@ public class BoundedImage extends BoundingSet implements DisplayableImage{
 
 	@Override
 	public void visit(GameDisplay display) {
-		// TODO Auto-generated method stub
-		display.updateImages(this);
+		display.displayImage(this);
 	}
 }

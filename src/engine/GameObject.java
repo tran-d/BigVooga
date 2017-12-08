@@ -6,12 +6,14 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeSet;
+
 import engine.sprite.BoundedImage;
+import engine.sprite.CompositeImage;
 import engine.sprite.Displayable;
+import engine.sprite.DisplayableText;
 import engine.sprite.Sprite;
 import engine.utilities.collisions.CollisionEvent;
 import javafx.geometry.Point2D;
@@ -24,7 +26,7 @@ import javafx.geometry.Point2D;
  * Step() calls the Object's conditions and actions, which evaluate and modify
  * its current state based on the conditions of the game.
  * 
- * @author Nikolas Bramblett, ...
+ * @author Nikolas Bramblett, Ian Eldridge-Allegra
  *
  */
 public class GameObject extends VariableContainer {
@@ -39,7 +41,7 @@ public class GameObject extends VariableContainer {
 	private int uniqueID;
 
 	private Inventory inventory;
-	private TextHandler dialogueHandler;
+	private DisplayableText dialogueHandler;
 
 	private static final String DEFAULT_NAME = "unnamed";
 	private static final String DEFAULT_TAG = "default";
@@ -65,7 +67,6 @@ public class GameObject extends VariableContainer {
 		tagSet.add(DEFAULT_TAG);
 
 		inventory = new Inventory();
-		dialogueHandler = new TextHandler();
 	}
 
 	public String getName() {
@@ -135,7 +136,7 @@ public class GameObject extends VariableContainer {
 		doubleVars.put(X_COR, x);
 		doubleVars.put(Y_COR, y);
 	}
-	
+
 	public void setLocation(Point2D loc) {
 		setCoords(loc.getX(), loc.getY());
 	}
@@ -197,10 +198,11 @@ public class GameObject extends VariableContainer {
 		result.setSize(width, height);
 		return result;
 	}
-	
-	public Displayable getImage()
-	{
-		return dialogueHandler.makeComposite(getBounds());
+
+	public Displayable getImage() {
+		if (dialogueHandler == null)
+			return getBounds();
+		return new CompositeImage(getBounds(), dialogueHandler);
 	}
 
 	/**
@@ -265,13 +267,19 @@ public class GameObject extends VariableContainer {
 	public Inventory getInventory() {
 		return inventory;
 	}
+
 	public void addToInventory(InventoryObject o) {
 		inventory.addObject(o);
 	}
-	
-	public void setDialogue(String s)
-	{
-		dialogueHandler.setDialogue(s);
+
+	public void setDialogue(DisplayableText text) {
+		dialogueHandler = text;
 	}
-	
+
+	public void setDialogue(String s) {
+		if (dialogueHandler == null)
+			dialogueHandler = DisplayableText.DEFAULT;
+		dialogueHandler = dialogueHandler.getWithMessage(s);
+	}
+
 }

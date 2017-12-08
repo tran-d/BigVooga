@@ -7,47 +7,33 @@ import gui.player.GameDisplay;
  * @author Nikolas Bramblett
  *
  */
-public class CompositeImage implements Displayable<CompositeImage> {
+public class CompositeImage implements Displayable {
 
-	private DisplayableText message;
-	private DisplayableImage sprite;
+	private Displayable displayable1;
+	private Displayable displayable2;
 
-	private int size;
-	private String font;
-
-	public CompositeImage(String font, int size) {
-		// TODO Auto-generated constructor stub
-		message = null;
-		sprite = null;
-
-		this.font = font;
-		this.size = size;
-	}
-
-	public void setDialogue(String dialogue) {
-		message = new DisplayableText(dialogue);
-	}
-
-	public void setImage(DisplayableImage i) {
-		sprite = i;
+	public CompositeImage(Displayable bottom, Displayable top) {
+		displayable1 = bottom;
+		displayable2 = top;
 	}
 
 	@Override
 	public void visit(GameDisplay display) {
-		// TODO Auto-generated method stub
-
-		sprite.visit(display);
-
-		//TODO: Make text overlay onto the sprite properly.
-		if(message != null)
-			message.visit(display);
+		if (displayable1 != null)
+			displayable1.visit(display);
+		if (displayable2 != null)
+			displayable2.visit(display);
 	}
 
-	//No idea if these should even compare properly
 	@Override
-	public int compareTo(CompositeImage o) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getDrawingPriority() {
+		int first = Integer.MAX_VALUE;
+		int second = Integer.MAX_VALUE;
+		if(displayable1 != null)
+			first = displayable1.getDrawingPriority();
+		if(displayable2 != null)
+			second = Integer.MAX_VALUE;
+		return Math.min(first, second);
 	}
 
 }
