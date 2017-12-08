@@ -279,7 +279,9 @@ public class GameDataHandler {
 	}
 	private static void makeDirectory(String path) {
 		File file = new File(path);
+		if (!file.exists()){
 		file.mkdirs();
+		}
 	}
 
 	private boolean directoryExists(String path) {
@@ -507,6 +509,18 @@ public class GameDataHandler {
 		}
 		return ret;
 	}
+	
+	public List<DraggableGrid> loadWorldsFromWorldDirectory(){
+		List<DraggableGrid> DG_LIST = new ArrayList<DraggableGrid>();
+		try{
+			DG_LIST = loadWorldsFromDirectoryName(this.getWorldDirectoryPath());
+		} catch (Exception e){
+			DG_LIST = new ArrayList<DraggableGrid>();
+		}
+		return DG_LIST;
+		
+	}
+	
 	
 	public List<DraggableGrid> loadWorldsFromDirectoryName(String filePath) throws Exception {
 		File directory = new File(filePath);

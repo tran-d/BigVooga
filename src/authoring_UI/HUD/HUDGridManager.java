@@ -9,6 +9,7 @@ public class HUDGridManager extends SpriteObjectGridManager {
 	private static int ROWS = 2;
 	private static int COLUMNS = 20;
 	
+	
 	public HUDGridManager(SpriteGridHandler SGH){
 		super(ROWS, COLUMNS, SGH);
 	}

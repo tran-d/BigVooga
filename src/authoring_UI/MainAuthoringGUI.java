@@ -27,9 +27,11 @@ public class MainAuthoringGUI{
 	private Pane authoringPane;
 	private AuthoringController authoringController;
 	private static final String TEMP_PROJECT_NAME = "TestProject";
+	private String myProjectName;
 	
 
 	public MainAuthoringGUI(Stage currentStage, SceneController currentSceneController, String projectName) {
+		myProjectName = projectName;
 		stage = currentStage;
 		rootPane = new BorderPane();
 		rootPane.setId(BORDERPANE_ID);
@@ -44,7 +46,7 @@ public class MainAuthoringGUI{
 		rootPane.setTop(toolBar);
 		
 		authoringPane = new Pane();
-		GameDataHandler GDH = new GameDataHandler(TEMP_PROJECT_NAME);
+		GameDataHandler GDH = new GameDataHandler(myProjectName);
 		authoringController = new AuthoringController(stage, authoringPane, GDH);
 		ViewSideBar sideBar = new ViewSideBar(authoringController);
 		authoringController.switchView(AuthoringController.MAP_EDITOR_KEY, sideBar);

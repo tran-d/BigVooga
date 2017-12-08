@@ -33,8 +33,7 @@ public class DraggableGrid extends VBox {
 	private GridPane terrainGrid;
 	private GridPane myGrid;
 	private List<SpriteObjectGridManager> allGrids;
-	private List<SpriteObjectGridManager> gridManagers;
-	private SpriteObjectGridManager activeGrid;
+	private List<SpriteObjectGridManager> showingGrids;
 	private StackPane myStackPane;
 	private HBox topHbox = new HBox(10);
 	private SpriteGridHandler mySGH;
@@ -47,28 +46,22 @@ public class DraggableGrid extends VBox {
 		cols = 20;
 	}
 	
-//	public DraggableGrid(SpriteGridHandler SGH){
-//		mySGH = SGH;
-//		
-//	}
-	
-	public void construct(SpriteGridHandler spriteGridHandler, SpriteObjectGridManager SGM){
-		ArrayList<SpriteObjectGridManager> dummy = new ArrayList<SpriteObjectGridManager>();
-		dummy.add(SGM);
-		construct(spriteGridHandler, dummy);
-	}
-	
-	public void construct(SpriteGridHandler spriteGridHandler, ArrayList<SpriteObjectGridManager> SGMs){
+	public DraggableGrid(List<SpriteObjectGridManager> SGMs) {
+		this();
 		allGrids = SGMs;
+	}
+
+	
+	public void construct(SpriteGridHandler spriteGridHandler){
+		if (allGrids == null){
+			allGrids = new ArrayList<SpriteObjectGridManager>();
+		}
 		mySGH = spriteGridHandler;
 		makeTopInfo();
 		makeLayers(spriteGridHandler);
 		createGrid(spriteGridHandler);
 	}
-	
-	public void construct(SpriteGridHandler spriteGridHandler) {
-		construct(spriteGridHandler, new ArrayList<SpriteObjectGridManager>());
-	}
+
 
 	private void makeTopInfo() {
 		topHbox = new HBox(10);
@@ -99,24 +92,33 @@ public class DraggableGrid extends VBox {
 		return allGrids;
 	}
 	
+	public void setAllGrids(ArrayList<SpriteObjectGridManager> SGMs){
+		allGrids = SGMs;
+	}
+	
+	public void setAllGrids(SpriteObjectGridManager SGM){
+		allGrids = new ArrayList<SpriteObjectGridManager>();
+		allGrids.add(SGM);
+	}
+	
 	private void makeLayers(SpriteGridHandler spriteGridHandler){
-		gridManagers = new ArrayList<SpriteObjectGridManager>();
+		showingGrids = new ArrayList<SpriteObjectGridManager>();
 		if (allGrids.size()==0){
 		SpriteObjectGridManager terrain = new TerrainObjectGridManager(rows, cols, spriteGridHandler);
 		SpriteObjectGridManagerForSprites sprites = new SpriteObjectGridManagerForSprites(rows, cols, spriteGridHandler);
 		PanelObjectGridManager panels = new PanelObjectGridManager(rows, cols, spriteGridHandler);
-		gridManagers.add(terrain);
-		gridManagers.add(sprites);
-		gridManagers.add(panels);
-		gridManagers.forEach(item->{
+		showingGrids.add(terrain);
+		showingGrids.add(sprites);
+		showingGrids.add(panels);
+		showingGrids.forEach(item->{
 			allGrids.add(item);
 		});
 		} else {
 			allGrids.forEach(item->{
 				item.setSpriteGridHandler(spriteGridHandler);
 				item.createMapLayer();
-				item.getMapLayer().setSpriteGridHandler(spriteGridHandler);
-				gridManagers.add(item);
+//				item.getMapLayer().setSpriteGridHandler();
+				showingGrids.add(item);
 			});
 		}
 //		allGrids = new ArrayList<SpriteObjectGridManager>(gridManagers);
@@ -143,8 +145,8 @@ public class DraggableGrid extends VBox {
 	private void hideLayer(SpriteObjectGridManager ML){
 //		myStackPane.getChildren().remove(ML);
 		mySGH.deactivateActiveSprites();
-		if (gridManagers.contains(ML)){
-			gridManagers.remove(ML);
+		if (showingGrids.contains(ML)){
+			showingGrids.remove(ML);
 		}
 		ML.setVisible(false);
 	}
