@@ -55,6 +55,7 @@ public class GameDisplay {
 		sceneController = currentSceneController;
 		scene = new Scene(rootPane, WelcomeScreen.WIDTH, WelcomeScreen.HEIGHT);
 		camera = new ParallelCamera();
+		scene.setCamera(camera);
 	}
 	
 	/**
@@ -113,9 +114,10 @@ public class GameDisplay {
 	 * 
 	 * @param images - The list of objects for the player to display
 	 */
-	public void setUpdatedImages (List<DisplayableImage> images) {
+	public void setUpdatedImages (List<DisplayableImage> images, double cameraXTranslate, double cameraYTranslate) {
 		//TODO; takes in new image file name, location, and size for all objects
 		gamePane.getChildren().clear();
+		camera.relocate(cameraXTranslate, cameraYTranslate);
 		ImageView gameImage = null;
 		for (DisplayableImage image : images) {
 			try {

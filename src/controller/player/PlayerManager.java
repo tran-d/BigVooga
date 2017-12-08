@@ -15,7 +15,7 @@ import javafx.scene.input.KeyCode;
  * contains the GameMaster engine class) and communication-specific methods within them to pass any user input from the player, handle it
  * accordingly in the engine, and then pass the changed objects back to the player.
  * 
- * @author Samarth and Ian
+ * @author Samarth, Ian, and Aaron
  *
  */
 public class PlayerManager {
@@ -166,8 +166,8 @@ public class PlayerManager {
 	 * 
 	 * @param images - The list of images to be displayed
 	 */
-	public void setImageData(List<DisplayableImage> images) {
-		gameDisplay.setUpdatedImages(images);
+	public void setImageData(List<DisplayableImage> images, double cameraXTranslate, double cameraYTranslate) {
+		gameDisplay.setUpdatedImages(images, cameraXTranslate, cameraYTranslate);
 	}
 	
 	/**
