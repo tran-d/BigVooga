@@ -49,13 +49,14 @@ public class DisplayPanel extends VBox {
 	private static final double DISPLAY_PANEL_HEIGHT = 495;
 	
 	public static final ResourceBundle conditionActionTitles = ResourceBundle.getBundle(ACTIONCONDITIONTITLES_PATH);
-	private SpriteSetHelper mySSH;
+//	private SpriteSetHelper mySSH;
 	
-	protected DisplayPanel(SpriteParameterSidebarManager SPSM) {
+	protected DisplayPanel(SpriteParameterSidebarManager SPSM, AuthoringEnvironmentManager AEM) {
 		mySPSM = SPSM;
+		myAEM = AEM;
 		multipleCellsActiveProperty = new SimpleObjectProperty<Boolean>();
 		mySParameterTAI = new SpriteParameterTabsAndInfo();
-		mySInventoryTAI = new SpriteInventoryTabAndInfo(mySSH);
+		mySInventoryTAI = new SpriteInventoryTabAndInfo(myAEM);
 		mySAnimationSequenceTAI = new SpriteAnimationSequenceTabsAndInfo();
 		mySUtilityTAI = new SpriteUtilityTabAndInfo();
 		System.out.println("made SPTAI in MENU");

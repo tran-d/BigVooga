@@ -33,18 +33,18 @@ public class SpriteInventoryTabAndInfo {
 	private Consumer<Pane> itemOnClickAction;
 	private Consumer buttonAction;
 	private String buttonText;
-	private SpriteSetHelper mySSH;
+	private AuthoringEnvironmentManager myAEM;
 
 	private Set<AbstractSpriteObject> temporaryInventory;
 
-	SpriteInventoryTabAndInfo(SpriteSetHelper SSH) {
-		mySSH = SSH;
+	SpriteInventoryTabAndInfo(AuthoringEnvironmentManager AEM) {
+		myAEM = AEM;
 		createBoundingScrollPane();
 		initialize();
 	}
 
-	SpriteInventoryTabAndInfo(AbstractSpriteObject ASO, SpriteSetHelper SSH) {
-		this(SSH);
+	SpriteInventoryTabAndInfo(AbstractSpriteObject ASO, AuthoringEnvironmentManager AEM) {
+		this(AEM);
 		setSpriteObject(ASO);
 		remakeContainingVBoxFromNewInventory();
 	}
@@ -148,7 +148,7 @@ public class SpriteInventoryTabAndInfo {
 				}
 			}
 		});
-		SSV.addToVBox(mySSH.getThumbnailSprites());
+		SSV.addToVBox(myAEM.getEveryTypeOfSpriteAsThumbnails());
 
 		final Stage dialog = new Stage();
 		dialog.initModality(Modality.APPLICATION_MODAL);
