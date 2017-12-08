@@ -3,7 +3,7 @@ package engine.Actions.changeObject;
 import engine.Action;
 import engine.GameObject;
 import engine.Layer;
-import engine.operations.stringops.StringOperation;
+import engine.operations.gameobjectops.GameObjectOperation;
 
 /**
  * 
@@ -12,14 +12,14 @@ import engine.operations.stringops.StringOperation;
  */
 public class Destroy implements Action {
 
-	private StringOperation objectToDestroy;
+	private GameObjectOperation objectToDestroy;
 	
-	public Destroy(StringOperation objectToDestroy) {
+	public Destroy(GameObjectOperation objectToDestroy) {
 		this.objectToDestroy = objectToDestroy;
 	}
 	
 	@Override
 	public void execute(GameObject asking, Layer world) {
-		world.removeGameObject(world.getWithName(objectToDestroy.evaluate(asking, world)));
+		world.removeGameObject(objectToDestroy.evaluate(asking, world));
 	}
 }

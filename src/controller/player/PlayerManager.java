@@ -165,7 +165,7 @@ public class PlayerManager {
 	 * @param imageData - The list of images to be displayed
 	 */
 	public void setImageData(List<Displayable> imageData) {
-		gameDisplay.setUpdatedImages(imageData);
+		gameDisplay.setUpdatedDisplayables(imageData);
 	}
 	
 	/**

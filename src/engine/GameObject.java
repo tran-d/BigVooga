@@ -14,6 +14,7 @@ import engine.sprite.BoundedImage;
 import engine.sprite.Displayable;
 import engine.sprite.Sprite;
 import engine.utilities.collisions.CollisionEvent;
+import javafx.geometry.Point2D;
 
 /**
  * The core of the game. Everything visible will be a GameObject. GameObjects
@@ -134,6 +135,10 @@ public class GameObject extends VariableContainer {
 		doubleVars.put(X_COR, x);
 		doubleVars.put(Y_COR, y);
 	}
+	
+	public void setLocation(Point2D loc) {
+		setCoords(loc.getX(), loc.getY());
+	}
 
 	public double getX() {
 		return doubleVars.get(X_COR);
@@ -186,7 +191,6 @@ public class GameObject extends VariableContainer {
 	 * @return BoundedImage
 	 */
 	public BoundedImage getBounds() {
-		// TODO width and height?
 		BoundedImage result = currentSprite.getImage();
 		result.setPosition(doubleVars.get(X_COR), doubleVars.get(Y_COR));
 		result.setHeading(doubleVars.get(HEADING));
@@ -270,5 +274,5 @@ public class GameObject extends VariableContainer {
 	{
 		dialogueHandler.setDialogue(s);
 	}
-
+	
 }

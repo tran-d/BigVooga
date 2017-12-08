@@ -123,8 +123,7 @@ public class GameDisplay {
 	 * @param imageData
 	 *            - The list of objects for the player to display
 	 */
-	public void setUpdatedImages(List<Displayable> imageData) {
-		// TODO; takes in new image file name, location, and size for all objects
+	public void setUpdatedDisplayables(List<Displayable> imageData) {
 		gamePane.getChildren().clear();
 
 		for (Displayable d : imageData) {

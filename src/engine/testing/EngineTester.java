@@ -22,7 +22,7 @@ import engine.operations.booleanops.KeyHeld;
 import engine.operations.doubleops.Value;
 import engine.operations.gameobjectops.Self;
 import engine.operations.stringops.SelfString;
-import engine.operations.vectorops.HeadingOf;
+import engine.operations.vectorops.VectorHeadingOf;
 import engine.operations.vectorops.VectorScale;
 import engine.sprite.AnimationSequence;
 import engine.sprite.BoundedImage;
@@ -103,7 +103,7 @@ public class EngineTester extends Application {
 
 	private void conditionAction1(GameObject obj) {
 		List<Action> actions1 = new ArrayList<Action>();
-		actions1.add(new Move(new VectorScale(new HeadingOf(new Self()), new Value(5))));
+		actions1.add(new Move(new VectorScale(new VectorHeadingOf(new Self()), new Value(5))));
 		obj.addConditionAction(new Condition(1, new KeyHeld(new SelfString("W"))), actions1);
 
 		actions1 = new ArrayList<Action>();
