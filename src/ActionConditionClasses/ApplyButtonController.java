@@ -93,8 +93,6 @@ public class ApplyButtonController implements ApplyButtonControllerI {
 		return conditionTab;
 	}
 
-
-
 	@Override
 	public ActionTab<ActionRow> getUpdatedActionTab() {
 		return actionTab;
