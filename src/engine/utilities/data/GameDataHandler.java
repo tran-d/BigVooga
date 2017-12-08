@@ -279,7 +279,9 @@ public class GameDataHandler {
 	}
 	private static void makeDirectory(String path) {
 		File file = new File(path);
+		if (!file.exists()){
 		file.mkdirs();
+		}
 	}
 
 	private boolean directoryExists(String path) {
@@ -300,13 +302,15 @@ public class GameDataHandler {
 		SpriteDataConverter SDC = new SpriteDataConverter(SO);
 		saveSprite(SDC, path);	
 		//TODO WHY DO WE HAVE THE NEXT 4 LINES WHEN THAT HAPPENS IN SAVESPRITE
-		 String toSave = SERIALIZER.toXML(SDC);
-		 FileWriter writer = new FileWriter(path);
-		 writer.write(toSave);
-		 writer.close();
+//		 String toSave = SERIALIZER.toXML(SDC);
+//		 FileWriter writer = new FileWriter(path);
+//		 writer.write(toSave);
+//		 writer.close();
 	}
 
 	private void saveSprite(SpriteDataConverter SO, String path) throws IOException {
+		//TODO: make category folder
+		
 		String toSave = SERIALIZER.toXML(SO);
 		FileWriter writer = new FileWriter(path);
 		writer.write(toSave);
@@ -506,6 +510,18 @@ public class GameDataHandler {
 		return ret;
 	}
 	
+	public List<DraggableGrid> loadWorldsFromWorldDirectory(){
+		List<DraggableGrid> DG_LIST = new ArrayList<DraggableGrid>();
+		try{
+			DG_LIST = loadWorldsFromDirectoryName(this.getWorldDirectoryPath());
+		} catch (Exception e){
+			DG_LIST = new ArrayList<DraggableGrid>();
+		}
+		return DG_LIST;
+		
+	}
+	
+	
 	public List<DraggableGrid> loadWorldsFromDirectoryName(String filePath) throws Exception {
 		File directory = new File(filePath);
 		return loadWorldsFromDirectory(directory);
@@ -521,7 +537,7 @@ public class GameDataHandler {
 		if (!isValidDirectory(file)) {
 			return null;
 		}
-		System.out.println("Still going");
+		System.out.println("Still going, root directory: "+rootDirectory);
 		Map<String, List<AbstractSpriteObject>> ret = new HashMap<String, List<AbstractSpriteObject>>();
 		File[] files = file.listFiles();
 		for (File f : files) {

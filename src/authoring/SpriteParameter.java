@@ -96,5 +96,7 @@ public abstract class SpriteParameter implements SpriteParameterI {
 	
 	@Override 
 	public abstract boolean checkError(Object value) throws Exception;
+	
+	public abstract SpriteParameter newCopy();
 
 }
