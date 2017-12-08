@@ -1,7 +1,7 @@
 package engine;
 import java.util.List;
 
-import player.PlayerManager;
+import controller.player.PlayerManager;
 
 public interface Layer{
 	
@@ -17,6 +17,9 @@ public interface Layer{
 	//The World should have its own name to make things easily distinguishable.
 	public boolean isNamed(String tag);
 	
+	/**
+	 * Calls Step() on each GameObject. Should never be called directly.
+	 */
 	public void step();
 	
 	public void addGlobalVars(GlobalVariables gv);

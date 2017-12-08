@@ -15,12 +15,16 @@ import engine.sprite.Sprite;
 import engine.utilities.collisions.CollisionEvent;
 
 /**
+ * The core of the game. Everything visible will be a GameObject. GameObjects have 2 paradigms:
+ * Variables are just named quantities unique to each instance of an object, such as names or coordinates.
+ * 
+ * Step() calls the Object's conditions and actions, which evaluate and modify its current state based on the conditions of the game.
  * 
  * @author Nikolas Bramblett, ...
  *
  */
 public class GameObject extends VariableContainer {
-	private final String DEFAULT_TAG = "unnamed";
+	
 	private String name;
 	private Set<String> tagSet;
 	private Map<Condition, List<Action>> events;
@@ -29,13 +33,22 @@ public class GameObject extends VariableContainer {
 	private double width = 200; //TODO Sizes
 	private double height = 200; //TODO Sizes
 	private int uniqueID;
+	
+	private Inventory inventory;
 
+	private static final String DEFAULT_NAME = "unnamed";
+	private static final String DEFAULT_TAG = "default";
 	public static final String X_COR = "xCor";
 	public static final String Y_COR = "yCor";
 	public static final String HEADING = "heading";
 	
+	
+	
 	public GameObject() {
-		name = DEFAULT_TAG;
+		this(DEFAULT_NAME);
+	}
+
+	public GameObject(String name) {
 		tagSet = new HashSet<String>();
 		doubleVars = new HashMap<String, Double>();
 		doubleVars.put(X_COR, 0.0);
@@ -44,11 +57,11 @@ public class GameObject extends VariableContainer {
 		booleanVars = new HashMap<String, Boolean>();
 		stringVars = new HashMap<String, String>();
 		events = new HashMap<>();
-	}
-
-	public GameObject(String name) {
-		this();
 		this.name = name;
+		tagSet.add(name);
+		tagSet.add(DEFAULT_TAG);
+		
+		inventory = new Inventory();
 	}
 
 	public String getName() {
@@ -108,8 +121,7 @@ public class GameObject extends VariableContainer {
 	}
 
 	/**
-	 * This is meant for the frontend to use for the purpose of placing a new
-	 * instance of an object into the world.
+	 * Setter for x and y Coordinates
 	 * 
 	 * @param x, y
 	 */
@@ -135,6 +147,10 @@ public class GameObject extends VariableContainer {
 		return doubleVars.get(HEADING);
 	}
 
+	/**
+	 * Compiles all priorities of Conditions into an iterable set. Used by Layer to call Events in proper order.
+	 * @return {Set<Integer>} priorities
+	 */
 	public Set<Integer> getPriorities() {
 		Set<Integer> priorities = new TreeSet<Integer>();
 		for (Condition c : events.keySet()) {
@@ -158,7 +174,7 @@ public class GameObject extends VariableContainer {
 	public void setSprite(Sprite set) {
 		currentSprite = set;
 	}
-
+	
 	public void addParameter(String name, Object o) throws VoogaException {
 		try {
 			getClass().getDeclaredMethod(
@@ -171,6 +187,7 @@ public class GameObject extends VariableContainer {
 	}
 
 	/**
+	 * Returns the current image of this Object.
 	 * @return BoundedImage
 	 */
 	public BoundedImage getImage() {
@@ -181,12 +198,16 @@ public class GameObject extends VariableContainer {
 		result.setSize(width, height);
 		return result;
 	}
-
+	
+	/**
+	 * Creates a new instance of this game object, which has the same values (but can take new values)
+	 */
 	public GameObject clone() {
 		GameObject copy = new GameObject(name);
 		copy.setCoords(doubleVars.get(X_COR), doubleVars.get(Y_COR));
 		copy.setHeading(doubleVars.get(HEADING));
 		copy.currentSprite = currentSprite.clone();
+		copy.setSize(width, height);
 		for (String tag : tagSet)
 			copy.addTag(tag);
 		for (String var : stringVars.keySet())
@@ -235,6 +256,10 @@ public class GameObject extends VariableContainer {
 	public double getHeight()
 	{
 		return height;
+	}
+	
+	public Inventory getInventory() {
+		return inventory;
 	}
 	
 }

@@ -5,10 +5,23 @@ import java.util.HashSet;
 
 import javafx.geometry.Point2D;
 
+/**
+ * Represents multiple BoundingGeometries -- collisions can be checked against
+ * other bounding sets or bounding geometries.
+ * 
+ * @author Ian Eldridge-Allegra
+ * 
+ */
 public abstract class BoundingSet {
-	
+
 	protected abstract Collection<BoundingGeometry> getGeometry();
-	
+
+	/**
+	 * @param other
+	 *            The other BoundingSet to check collisions against.
+	 * @return The maximum overlap resolution vector for all geometry collisions
+	 *         between the sets.
+	 */
 	public Point2D checkCollision(BoundingSet other) {
 		Point2D result = null;
 		double maxMagnitude = 0;
@@ -26,7 +39,10 @@ public abstract class BoundingSet {
 		}
 		return result;
 	}
-	
+
+	/**
+	 * @see #checkCollision(BoundingSet)
+	 */
 	public Point2D checkCollision(BoundingGeometry other) {
 		return checkCollision(new SingleSet(other));
 	}
@@ -38,7 +54,7 @@ public abstract class BoundingSet {
 			set = new HashSet<BoundingGeometry>();
 			set.add(element);
 		}
-		
+
 		@Override
 		protected Collection<BoundingGeometry> getGeometry() {
 			return set;

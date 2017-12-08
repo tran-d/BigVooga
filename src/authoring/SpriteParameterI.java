@@ -1,12 +1,13 @@
 package authoring;
 
+import java.io.Externalizable;
 import java.util.ArrayList;
 import java.util.Observer;
 
 import javafx.scene.control.Control;
 import javafx.scene.layout.Pane;
 
-public interface SpriteParameterI{
+public interface SpriteParameterI extends Externalizable{
 	
 	void updateName(String name);
 	String getName();

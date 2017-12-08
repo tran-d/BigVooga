@@ -1,5 +1,6 @@
 package default_pkg;
 
+import controller.welcomeScreen.SceneController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

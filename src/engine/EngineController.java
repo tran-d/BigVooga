@@ -1,10 +1,10 @@
 package engine;
 
-import player.PlayerManager;
+import controller.player.PlayerManager;
 
 public interface EngineController {
 	public void start();
-	public void addListener(Runnable listener);
+	public void stop();
 	public void setCurrentWorld(String s);
 	public void setPlayerManager(PlayerManager currentPlayerManager);
 	public void addWorld(GameWorld w);

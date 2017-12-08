@@ -6,10 +6,13 @@ import java.util.List;
 import engine.utilities.collisions.BoundingGeometry;
 import engine.utilities.collisions.BoundingSet;
 import engine.utilities.collisions.RelativeBoundingGeometry;
+import gui.player.GameDisplay;
 
 /**
+ * Represents an Image with relative bounds. 
+ * 
  * @author Ian Eldridge-Allegra
- *
+ * 
  */
 public class BoundedImage extends BoundingSet implements DisplayableImage{
 
@@ -115,5 +118,11 @@ public class BoundedImage extends BoundingSet implements DisplayableImage{
 		i.setDrawPriority(depth);
 		i.setSize(xSize, ySize);
 		return i;
+	}
+
+	@Override
+	public void visit(GameDisplay display) {
+		// TODO Auto-generated method stub
+		
 	}
 }
