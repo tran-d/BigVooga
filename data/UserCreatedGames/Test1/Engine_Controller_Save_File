@@ -41,10 +41,35 @@
                 </engine.Condition>
                 <list>
                   <engine.Actions.movement.Move>
-                    <increment class="engine.operations.vectorops.HeadingOf">
-                      <object class="engine.operations.gameobjectops.Self"/>
+                    <increment class="engine.operations.vectorops.VectorScale">
+                      <vector class="engine.operations.vectorops.HeadingOf">
+                        <object class="engine.operations.gameobjectops.Self"/>
+                      </vector>
+                      <scalar class="engine.operations.doubleops.Value">
+                        <value>5.0</value>
+                      </scalar>
                     </increment>
                   </engine.Actions.movement.Move>
+                </list>
+              </entry>
+              <entry>
+                <engine.Condition>
+                  <priorityNum>1</priorityNum>
+                  <operation class="engine.operations.booleanops.KeyHeld">
+                    <check class="engine.operations.stringops.SelfString">
+                      <stored>D</stored>
+                    </check>
+                  </operation>
+                </engine.Condition>
+                <list>
+                  <engine.Actions.variableSetting.ChangeDouble>
+                    <varName class="engine.operations.stringops.SelfString">
+                      <stored>heading</stored>
+                    </varName>
+                    <newDouble class="engine.operations.doubleops.Value">
+                      <value>2.0</value>
+                    </newDouble>
+                  </engine.Actions.variableSetting.ChangeDouble>
                 </list>
               </entry>
               <entry>
@@ -62,7 +87,7 @@
                       <stored>heading</stored>
                     </varName>
                     <newDouble class="engine.operations.doubleops.Value">
-                      <value>2.0</value>
+                      <value>-2.0</value>
                     </newDouble>
                   </engine.Actions.variableSetting.ChangeDouble>
                 </list>
@@ -123,7 +148,7 @@
               <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
             </currentSprite>
             <width>200.0</width>
-            <height>200.0</height>
+            <height>100.0</height>
             <uniqueID>0</uniqueID>
             <inventory>
               <objects/>
