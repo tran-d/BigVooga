@@ -300,13 +300,15 @@ public class GameDataHandler {
 		SpriteDataConverter SDC = new SpriteDataConverter(SO);
 		saveSprite(SDC, path);	
 		//TODO WHY DO WE HAVE THE NEXT 4 LINES WHEN THAT HAPPENS IN SAVESPRITE
-		 String toSave = SERIALIZER.toXML(SDC);
-		 FileWriter writer = new FileWriter(path);
-		 writer.write(toSave);
-		 writer.close();
+//		 String toSave = SERIALIZER.toXML(SDC);
+//		 FileWriter writer = new FileWriter(path);
+//		 writer.write(toSave);
+//		 writer.close();
 	}
 
 	private void saveSprite(SpriteDataConverter SO, String path) throws IOException {
+		//TODO: make category folder
+		
 		String toSave = SERIALIZER.toXML(SO);
 		FileWriter writer = new FileWriter(path);
 		writer.write(toSave);

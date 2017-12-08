@@ -14,7 +14,7 @@ public class SpriteObjectGridManagerForSprites extends SpriteObjectGridManager{
 	}
 
 	@Override
-	protected void createMapLayer() {
+	public void createMapLayer() {
 		myMapLayer = new SpriteLayer(getNumRows(), getNumCols(), mySpriteGridHandler);
 	}
 	

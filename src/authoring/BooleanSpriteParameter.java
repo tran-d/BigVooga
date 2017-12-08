@@ -91,6 +91,10 @@ public class BooleanSpriteParameter extends SpriteParameter {
 		myName = (String)in.readObject();
 		myValue = (Boolean)in.readObject();
 	}
+	
+	public BooleanSpriteParameter newCopy(){
+		return new BooleanSpriteParameter(new String(this.getName()), new Boolean(((Boolean)this.getValue())));
+	}
 
 
 }

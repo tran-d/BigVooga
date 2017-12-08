@@ -52,7 +52,7 @@ public class GameElementSelector extends TabPane implements Observer {
 	private SpriteParameterFactory mySPF;
 	private List<AbstractSpriteObject> mySpriteObjs = new ArrayList<AbstractSpriteObject>();
 	private List<SpriteObject> myUserSpriteObjs = new ArrayList<SpriteObject>();
-	private GameDataHandler myGDH;
+//	private GameDataHandler myGDH;
 	private SpriteObjectGridManagerI mySOGM;
 	private SpriteGridHandler mySpriteGridHandler;
 	private Tab dialoguesTab;
@@ -61,7 +61,7 @@ public class GameElementSelector extends TabPane implements Observer {
 		mySPF = new SpriteParameterFactory();
 		myAEM = AEM;
 		mySpriteGridHandler = spriteGridHandler;
-		myGDH = AEM.getGameDataHandler();
+//		myGDH = AEM.getGameDataHandler();
 		myAEM.getDefaultSpriteController().getAllSprites().forEach(sprite->{
 			System.out.println("Sprite exists, name: "+sprite.getName());
 		});
@@ -174,7 +174,7 @@ public class GameElementSelector extends TabPane implements Observer {
 			
 			
 			try {
-				myGDH.saveDefaultSprite(SO);
+//				myGDH.saveDefaultSprite(SO);
 				System.out.println("Saved " + SO.getImageURL());
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -189,7 +189,7 @@ public class GameElementSelector extends TabPane implements Observer {
 		SO.setImageURL(urls.get(4));
 		
 		try {
-			myGDH.saveDefaultSprite(SO);
+//			myGDH.saveDefaultSprite(SO);
 			System.out.println("Saved " + SO.getImageURL());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
