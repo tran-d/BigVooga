@@ -60,6 +60,7 @@ public class GameDisplay {
 		sceneController = currentSceneController;
 		scene = new Scene(rootPane, WelcomeScreen.WIDTH, WelcomeScreen.HEIGHT);
 		camera = new ParallelCamera();
+		scene.setCamera(camera);
 	}
 
 	/**
@@ -70,7 +71,7 @@ public class GameDisplay {
 		scene.setOnKeyReleased(e -> playerManager.setKeyReleased(e.getCode()));
 		scene.setOnMousePressed(e -> playerManager.setPrimaryButtonDown(e.getX(), e.getY()));
 		scene.setOnMouseReleased(e -> playerManager.setPrimaryButtonUp(e.getX(), e.getY()));
-
+		scene.setOnMouseMoved(e -> playerManager.setMouseXY(e.getX(), e.getY()));
 		scene.setCamera(camera);
 
 		createBack();
@@ -123,13 +124,13 @@ public class GameDisplay {
 	 * @param imageData
 	 *            - The list of objects for the player to display
 	 */
-	public void setUpdatedImages(List<Displayable> imageData) {
-		// TODO; takes in new image file name, location, and size for all objects
+	public void setUpdatedImages (List<Displayable> images, double cameraXTranslate, double cameraYTranslate) {
+		//TODO; takes in new image file name, location, and size for all objects
 		gamePane.getChildren().clear();
-
-		for (Displayable d : imageData) {
+		for (Displayable d : images) {
 			d.visit(this);
 		}
+		camera.relocate(cameraXTranslate, cameraYTranslate);
 	}
 
 	public void updateImages(DisplayableImage image) {
