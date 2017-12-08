@@ -34,9 +34,13 @@ public class SpriteObject extends AbstractSpriteObject{
 			ret.setupImageURLAndView(this.myImageURL);
 		}
 		ret.setName(this.getName());
-		ret.setNumCellsHeightNoException(this.getNumCellsHeight());
-		ret.setNumCellsWidthNoException(this.getNumCellsWidth());
+		Integer newHeight = this.getNumCellsHeight()!=null ? new Integer(this.getNumCellsHeight()) : null;
+		ret.setNumCellsHeightNoException(newHeight);
+		Integer newWidth = this.getNumCellsWidth()!=null ? new Integer(this.getNumCellsWidth()) : null;
+		ret.setNumCellsWidthNoException(newWidth);
+		HashMap<String, ArrayList<SpriteParameterI>> newCategoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();
 		ret.replaceCategoryMap(this.categoryMap);
+		
 		ret.setInventory(new ArrayList<AbstractSpriteObject>(this.getInventory()));
 		return ret;
 	}

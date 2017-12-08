@@ -46,7 +46,7 @@ public class Learn extends MenuOptionsTemplate {
 	 */
 	public Learn(Stage currentStage, SceneController sceneController) {
 		super(currentStage, sceneController);
-		createOptionScreen(CRYSTAL_PATH, CRYSTAL_WIDTH, CRYSTAL_HEIGHT, 0);
+		createOptionScreen(CRYSTAL_PATH, CRYSTAL_WIDTH, CRYSTAL_HEIGHT, 0, MenuOptionsTemplate.CONTENT_INSET_SIZE, WelcomeScreen.HEIGHT-150);
 	}
 	
 	/**

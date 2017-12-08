@@ -16,5 +16,6 @@ public interface SpriteParameterI extends Externalizable{
 	boolean isSame(SpriteParameterI other);
 	void update(String name, Object value);
 	boolean checkError(Object value) throws Exception;
+	SpriteParameter newCopy();
 	
 }

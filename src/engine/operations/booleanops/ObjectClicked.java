@@ -18,7 +18,7 @@ public class ObjectClicked implements BooleanOperation {
 	public Boolean evaluate(GameObject asking, Layer world) {
 		BooleanOperation screenClicked = new ScreenClicked();
 		BooleanOperation objectClickHeld = new ObjectClickHeld();
-		BooleanOperation and = new And(0, screenClicked, objectClickHeld);
+		BooleanOperation and = new And(screenClicked, objectClickHeld);
 		return and.evaluate(asking, world);
 	}
 
