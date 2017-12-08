@@ -3,11 +3,11 @@ package authoring.drawing;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import engine.sprite.BoundedImage;
-import engine.utilities.collisions.BoundingGeometry;
 import engine.utilities.collisions.BoundingPolygon;
-import engine.utilities.collisions.RelativeBoundingGeometry;
+import engine.utilities.collisions.RelativeBoundingPolygon;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,18 +25,39 @@ public class BoundingPolygonCreator extends Pane {
 
 	private static final double PHANTOM_OPACITY = .5;
 	private static final double LINE_WIDTH = 3;
-	private List<RelativeBoundingGeometry> geometries = new ArrayList<>();
+	private List<RelativeBoundingPolygon> geometries = new ArrayList<>();
 	private List<Point2D> vertices = new ArrayList<>();
 	private Line phantomLine;
 	private Consumer<BoundedImage> consumer;
 	private String imageName;
+
+	public BoundingPolygonCreator(Function<String, Image> imageLoader, BoundedImage boundedImage,
+			Consumer<BoundedImage> consumer) {
+		this(imageLoader.apply(boundedImage.getFileName()), boundedImage, consumer);
+	}
+
+	public BoundingPolygonCreator(Image image, BoundedImage boundedImage, Consumer<BoundedImage> consumer) {
+		this(image, boundedImage.getFileName(), consumer);
+		for (RelativeBoundingPolygon geometry : boundedImage.getRelativeGeometries()) {
+			geometries.add(geometry);
+			List<Point2D> points = geometry
+					.getBoundingGeometry(getWidth() / 2, getHeight() / 2, getWidth(), getHeight(), 0).getVertices();
+			for (int i = 0; i < points.size() - 1; i++) {
+				addLine(generateLine(points.get(i), points.get(i + 1)));
+			}
+			addLine(generateLine(points.get(0), points.get(points.size() - 1)));
+		}
+	}
 
 	public BoundingPolygonCreator(Image image, String imageName, Consumer<BoundedImage> consumer) {
 		getChildren().add(new ImageView(image));
 		this.imageName = imageName;
 		this.consumer = consumer;
 		setup();
-		requestFocus();
+	}
+	
+	public void save() {
+		consumer.accept(new BoundedImage(imageName, geometries));
 	}
 
 	private void setup() {
@@ -99,10 +120,6 @@ public class BoundingPolygonCreator extends Pane {
 	}
 
 	private void rightClick(MouseEvent event) {
-		if (vertices.isEmpty()) {
-			consumer.accept(new BoundedImage(imageName, geometries));
-			return;
-		}
 		addLine(generateLine(lastPoint(), vertices.get(0)));
 		changePhantomLine(null);
 
@@ -110,9 +127,9 @@ public class BoundingPolygonCreator extends Pane {
 	}
 
 	private void generateRelativeGeometry() {
-		BoundingGeometry poly = new BoundingPolygon(vertices);
-		poly = poly.getScaled(1.0 / getWidth(), 1.0 / getHeight()).getTranslated(-.5, -.5);
-		geometries.add(new RelativeBoundingGeometry(poly));
+		BoundingPolygon poly = new BoundingPolygon(vertices);
+		poly = (BoundingPolygon) poly.getScaled(1.0 / getWidth(), 1.0 / getHeight()).getTranslated(-.5, -.5);
+		geometries.add(new RelativeBoundingPolygon(poly));
 		vertices.clear();
 		System.out.println(geometries);
 	}

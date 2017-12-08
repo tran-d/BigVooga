@@ -12,32 +12,32 @@ import javafx.geometry.Point2D;
  * @author Ian Eldridge-Allegra
  * 
  */
-public class RelativeBoundingGeometry {
-	public static final RelativeBoundingGeometry DEFAULT = defaultRectangle();
+public class RelativeBoundingPolygon {
+	public static final RelativeBoundingPolygon DEFAULT = defaultRectangle();
 
-	private static RelativeBoundingGeometry defaultRectangle() {
+	private static RelativeBoundingPolygon defaultRectangle() {
 		List<Point2D> points = new ArrayList<Point2D>();
 		points.add(new Point2D(-.5, -.5));
 		points.add(new Point2D(.5, -.5));
 		points.add(new Point2D(.5, .5));
 		points.add(new Point2D(-.5, .5));
-		return new RelativeBoundingGeometry(new BoundingPolygon(points));
+		return new RelativeBoundingPolygon(new BoundingPolygon(points));
 	}
 
-	private BoundingGeometry geometry;
+	private BoundingPolygon geometry;
 
 	/**
 	 * @param geometry
 	 *            Geometry given in relative coordinates from -0.5 to .5 in both
 	 *            directions
 	 */
-	public RelativeBoundingGeometry(BoundingGeometry geometry) {
+	public RelativeBoundingPolygon(BoundingPolygon geometry) {
 		this.geometry = geometry;
 	}
 
-	public BoundingGeometry getBoundingGeometry(double xCenter, double yCenter, double xSize, double ySize,
+	public BoundingPolygon getBoundingGeometry(double xCenter, double yCenter, double xSize, double ySize,
 			double rotation) {
-		return geometry.getScaled(xSize, ySize).getRotated(rotation).getTranslated(xCenter, yCenter);
+		return (BoundingPolygon) geometry.getScaled(xSize, ySize).getRotated(rotation).getTranslated(xCenter, yCenter);
 	}
 
 	public String toString() {
