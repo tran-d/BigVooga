@@ -9,7 +9,7 @@ import gui.player.GameDisplay;
  */
 public class CompositeImage implements Displayable<CompositeImage> {
 
-	private String message;
+	private DisplayableText message;
 	private DisplayableImage sprite;
 
 	private int size;
@@ -17,7 +17,7 @@ public class CompositeImage implements Displayable<CompositeImage> {
 
 	public CompositeImage(String font, int size) {
 		// TODO Auto-generated constructor stub
-		message = "";
+		message = null;
 		sprite = null;
 
 		this.font = font;
@@ -25,7 +25,7 @@ public class CompositeImage implements Displayable<CompositeImage> {
 	}
 
 	public void setDialogue(String dialogue) {
-		message = dialogue;
+		message = new DisplayableText(dialogue);
 	}
 
 	public void setImage(DisplayableImage i) {
@@ -39,7 +39,7 @@ public class CompositeImage implements Displayable<CompositeImage> {
 		// Draw Image first, then text.
 	}
 
-	//Dialogue Boxes should probably always be drawn last.
+	//No idea if these should even compare properly
 	@Override
 	public int compareTo(CompositeImage o) {
 		// TODO Auto-generated method stub
