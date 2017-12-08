@@ -28,12 +28,12 @@ public class AuthoringEnvironmentManager {
 		initializeDefaultSprites();
 		initializeCustomSprites();
 		initializeInventorySprites();
+
 		defaultEmptySprite = new DefaultSpriteObject();
 		
 		System.out.println("init MAPMAN in AEM");
 		
 		if (myDefaultSprites == null) System.out.println("this was def initialized");
-		
 	}
 
 	private void initializeDefaultSprites() {
@@ -137,9 +137,11 @@ public class AuthoringEnvironmentManager {
 	public void addUserSprite(SpriteObject SOI) throws Exception {
 		myCustomSprites.addNewSprite(SOI);
 	}
-
+	
 	public void addUserSprite(String category, SpriteObject SOI) throws Exception {
-		myCustomSprites.addNewSprite(SOI);
+
+		myCustomSprites.addNewSprite(category, SOI);
+
 	}
 
 	public void addUserSprite(List<SpriteObject> SOI_LIST) {
@@ -157,7 +159,9 @@ public class AuthoringEnvironmentManager {
 		return defaultEmptySprite;
 	}
 
+
 	public GameDataHandler getGameDataHandler() {
 		return myGDH;
 	}
 }
+

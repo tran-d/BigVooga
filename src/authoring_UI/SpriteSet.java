@@ -153,7 +153,7 @@ public abstract class SpriteSet {
 		loaded = b;
 	}
 
-	protected void addNewSprite(String category, AbstractSpriteObject SO) throws Exception {
+	public void addNewSprite(String category, AbstractSpriteObject SO) throws Exception {
 		if (!categoryExists(category)) {
 				addCategory(category);
 		}

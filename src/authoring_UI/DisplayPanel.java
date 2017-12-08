@@ -42,6 +42,7 @@ public class DisplayPanel extends VBox {
 	private ObjectProperty<Boolean> multipleCellsActiveProperty;
 	private SpriteParameterSidebarManager mySPSM;
 	private VBox spriteEditorAndApplyButtonVBox;
+	private AuthoringEnvironmentManager myAEM;
 
 	private static final String ACTIONCONDITIONTITLES_PATH = "TextResources/ConditionActionTitles";
 	private static final double DISPLAY_PANEL_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH/2 - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH-155;
@@ -50,8 +51,7 @@ public class DisplayPanel extends VBox {
 	public static final ResourceBundle conditionActionTitles = ResourceBundle.getBundle(ACTIONCONDITIONTITLES_PATH);
 	private SpriteSetHelper mySSH;
 	
-	protected DisplayPanel(SpriteParameterSidebarManager SPSM, MapManager myManager, SpriteSetHelper SSH) {
-		mySSH = SSH;
+	protected DisplayPanel(SpriteParameterSidebarManager SPSM) {
 		mySPSM = SPSM;
 		multipleCellsActiveProperty = new SimpleObjectProperty<Boolean>();
 		mySParameterTAI = new SpriteParameterTabsAndInfo();
@@ -62,21 +62,11 @@ public class DisplayPanel extends VBox {
 		setUpMenu();
 	}
 	
-	protected DisplayPanel(SpriteParameterSidebarManager SPSM, SpriteSetHelper SSH) {
-		mySPSM = SPSM;
-		mySSH = SSH;
-		multipleCellsActiveProperty = new SimpleObjectProperty<Boolean>();
-		mySParameterTAI = new SpriteParameterTabsAndInfo();
-		mySInventoryTAI = new SpriteInventoryTabAndInfo(mySSH);
-		mySAnimationSequenceTAI = new SpriteAnimationSequenceTabsAndInfo();
-		mySUtilityTAI = new SpriteUtilityTabAndInfo();
-		System.out.println("made SPTAI in MENU");
-		setUpMenu();
-	}
 
 	public DisplayPanel() {
 		// TODO Auto-generated constructor stub
 	}
+	
 
 	private void setErrorMessage() {
 		myParameterErrorMessage = new TextArea("Either no active cells or active cells have different parameters");
@@ -312,9 +302,9 @@ public class DisplayPanel extends VBox {
 		return myStateSP_dummy;
 	}
 
-	private void buttonInteraction() {
-		// TODO
-	}
+//	private void buttonInteraction() {
+//		// TODO
+//	}
 
 	private void apply() {
 		mySParameterTAI.apply();

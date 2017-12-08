@@ -35,7 +35,7 @@ public class AuthoringController {
 		authoringPane = currentAuthoringPane;
 		
 		AuthoringEnvironmentManager AEM = new AuthoringEnvironmentManager(GDH, stage);
-		mapManager = new MapManager(AEM, stage, GDH);
+		mapManager = new MapManager(AEM, stage);
 		viewMap.put(MAP_EDITOR_KEY, mapManager.getPane());
 		
 		SpriteCreator sc = new SpriteCreator(AEM);
@@ -45,7 +45,7 @@ public class AuthoringController {
 		dm.addDialogueListener(mapManager.getDialoguesTab());
 		viewMap.put(DIALOGUE_KEY, dm.getPane());
 		
-		HUDManager hudManager = new HUDManager();
+		HUDManager hudManager = new HUDManager(AEM);
 		viewMap.put(HUD_KEY, hudManager.getPane());
 	}
 	

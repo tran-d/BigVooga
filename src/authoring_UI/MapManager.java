@@ -6,6 +6,7 @@ import java.util.Map;
 
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObjectGridManagerI;
+import authoring_UI.HUD.HUDManager;
 import authoring.SpriteSetHelper;
 import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.WelcomeScreen;
@@ -44,9 +45,8 @@ public class MapManager extends TabPane {
 	private Pane mapEditor = new Pane();
 	private SpritePanels spritePanels;
 
-	public MapManager(AuthoringEnvironmentManager AEM, Stage currentStage, GameDataHandler GDH)  {
+	public MapManager(AuthoringEnvironmentManager AEM, Stage currentStage)  {
 		myAEM = AEM;
-		myGDH = GDH;
 		stage = currentStage;
 		mapEditor.getChildren().add(this);
 		mySelectModel = this.getSelectionModel();
@@ -59,9 +59,6 @@ public class MapManager extends TabPane {
 		// which creates new Authoring Environment Manager
 	}
 	
-	public GameDataHandler getGDH() {
-		return myGDH;
-	}
 	
 	private void setTab() {
 		this.setSide(Side.TOP);
