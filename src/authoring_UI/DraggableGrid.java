@@ -46,6 +46,11 @@ public class DraggableGrid extends VBox {
 		cols = 20;
 	}
 	
+	public DraggableGrid(int row, int col) {
+		rows = row;
+		cols = col;
+	}
+	
 	public DraggableGrid(List<SpriteObjectGridManager> SGMs) {
 		this();
 		allGrids = SGMs;
