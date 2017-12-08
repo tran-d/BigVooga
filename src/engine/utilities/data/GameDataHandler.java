@@ -32,7 +32,9 @@ import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 import authoring.AbstractSpriteObject;
 import authoring.InventoryObject;
 import authoring.SpriteObject;
+import authoring.SpriteObjectGridManager;
 import authoring_UI.DraggableGrid;
+import authoring_UI.LayerDataConverter;
 import authoring_UI.MapDataConverter;
 import authoring_UI.SpriteDataConverter;
 import engine.EngineController;
@@ -61,7 +63,8 @@ public class GameDataHandler {
 	private static final String SELECTOR_TITLE = "Open Resource File";
 	private static final String KNOWN_PROJECTS_PATH = "resources/" + KNOWN_PROJECTS + ".properties";
 	private static final String PROJECT_USER_SPRITE_PATH = "Sprites/";
-	private static final String WORLD_PATH = "Worlds/";
+	private static final String PROJECT_WORLD_PATH = "Worlds/";
+	private static final String PROJECT_LAYER_PATH = "Layers/";
 	private static final String DEFAULT_SPRITE_FOLDER = "DefaultSprites/";
 	private static final String CUSTOM_SPRITE_FOLDER = "CustomSprites/";
 	private final String INVENTORY_SPRITE_FOLDER = "InventorySprites/";
@@ -92,6 +95,7 @@ public class GameDataHandler {
 		this.projectPath = PATH + projectName + "/";
 		makeDirectory(projectPath);
 		makeSpriteDirectories();
+		makeWorldAndLayerDirectories();
 	}
 
 	public String getProjectName() {
@@ -407,7 +411,12 @@ public class GameDataHandler {
 	}
 	
 	public String getWorldDirectoryPath() {
-		String ret = projectPath + WORLD_PATH;
+		String ret = projectPath + PROJECT_WORLD_PATH;
+		return ret;
+	}
+	
+	public String getLayerDirectoryPath() {
+		String ret = this.getWorldDirectoryPath() + PROJECT_LAYER_PATH;
 		return ret;
 	}
 	
@@ -418,13 +427,34 @@ public class GameDataHandler {
 		 writer.close();
 	}
 	
-	public void saveWorld(DraggableGrid DG) throws Exception { // we need to create a path
+	public void saveWorld(DraggableGrid DG) throws Exception { 
+		List<SpriteObjectGridManager> SOGMList = DG.getGrids();
 		String worldPath = makeValidFileName(getWorldDirectoryPath());
+		this.saveLayers(SOGMList);
 		saveWorld(DG, worldPath);
+	}
+	
+	public void saveLayers(List<SpriteObjectGridManager> SOGMList) throws Exception {
+		for (SpriteObjectGridManager SOGM : SOGMList) {
+			saveLayer(SOGM);
+		}
+	}
+	
+	private void saveLayer(SpriteObjectGridManager SOGM) throws Exception {
+		LayerDataConverter LDC = new LayerDataConverter(SOGM);
+		saveLayer(LDC, getLayerDirectoryPath());
+	}
+	
+	private void saveLayer(LayerDataConverter LDC, String path) throws Exception {
+		 String toSave = SERIALIZER.toXML(LDC);
+		 FileWriter writer = new FileWriter(path);
+		 writer.write(toSave);
+		 writer.close();
 	}
 	
 	public void saveWorld(DraggableGrid DG, String path) throws Exception { // didn't check for null path
 		MapDataConverter MDC = new MapDataConverter(DG);
+		MDC.setLayerPath(getLayerDirectoryPath());
 		saveWorld(MDC, path);
 	}
 	
@@ -509,13 +539,23 @@ public class GameDataHandler {
 		}
 		return ret;
 	}
+	
+	private void makeWorldAndLayerDirectories() {
+		File file1 = new File(getWorldDirectoryPath());
+		File file2 = new File(getLayerDirectoryPath());
+		if (! file1.exists()) {
+			makeDirectory(getWorldDirectoryPath());
+		}
+		if (! file2.exists()) {
+			makeDirectory(getLayerDirectoryPath());
+		}
+	}
 
 	private void makeSpriteDirectories() {
 		List<String> pathsToMake = new ArrayList<String>();
 		pathsToMake.add(getDefaultSpriteDirectoryPath());
 		pathsToMake.add(getCustomSpriteDirectoryPath());
 		pathsToMake.add(getInventorySpriteDirectoryPath());
-
 		for (String s : pathsToMake) {
 			File file = new File(s);
 			if (!file.exists()) {

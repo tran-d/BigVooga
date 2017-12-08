@@ -3,6 +3,7 @@ package authoring_UI;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -49,9 +50,9 @@ public class GameElementSelector extends TabPane implements Observer {
 
 	private AuthoringEnvironmentManager myAEM;
 	private SpriteParameterFactory mySPF;
-	private ArrayList<AbstractSpriteObject> mySpriteObjs = new ArrayList<AbstractSpriteObject>();
-	private ArrayList<SpriteObject> myUserSpriteObjs = new ArrayList<SpriteObject>();
-	private GameDataHandler myGDH;
+	private List<AbstractSpriteObject> mySpriteObjs = new ArrayList<AbstractSpriteObject>();
+	private List<SpriteObject> myUserSpriteObjs = new ArrayList<SpriteObject>();
+//	private GameDataHandler myGDH;
 	private SpriteObjectGridManagerI mySOGM;
 	private SpriteGridHandler mySpriteGridHandler;
 	private Tab dialoguesTab;
@@ -59,71 +60,22 @@ public class GameElementSelector extends TabPane implements Observer {
 	protected GameElementSelector(SpriteGridHandler spriteGridHandler, AuthoringEnvironmentManager AEM) {
 		mySPF = new SpriteParameterFactory();
 		myAEM = AEM;
-		// mySpriteGridHandler = myAEM.getSpriteGridHandler();
 		mySpriteGridHandler = spriteGridHandler;
-		// mySpriteGridHandler = myAEM.getSpriteGridHandler();
-		// myAEM = AEM;
-		myGDH = AEM.getGameDataHandler();
-//		mySOGM = SOGM;
-		//mySprites = new SpriteSelectPanel("DEFAULT", mySpriteGridHandler);
-		// SpriteSet mySS = new SpriteSetDefault(myGDH);
-		// SpriteSet myCustom = new SpriteSetUserDefined(myGDH);
+//		myGDH = AEM.getGameDataHandler();
 		myAEM.getDefaultSpriteController().getAllSprites().forEach(sprite->{
 			System.out.println("Sprite exists, name: "+sprite.getName());
 		});
 		mySprites = myAEM.getDefaultSpriteController().getSpritePanel(mySpriteGridHandler);
-		
-//		mySprites.getSpritePanel
-		// mySS.getSpritePanel(mySpriteGridHandler);
-		// mySS.getAllSpritesAsMap().forEach((a,b)->{
-		// System.out.println("Key: "+a+ ", Value: "+b);
-		// b.forEach(s->{
-		// s.getImageURL();
-		// });
-		// myAEM.addDefaultSprite(b);
-		// });
-		// mySS.getAllSpritesAsMap().forEach((a,b)->{
-		// b.forEach(item->{
-		// try {
-		// myGDH.saveDefaultSprite(item);
-
-		// mySS.saveSprite(a, item);
-		// System.out.println("Saved: "+item);
-		// } catch (Exception e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// });
-
-		// });
-		// myUserSprites = new SpriteSelectPanel("USERDEFINED",
-		// mySpriteGridHandler);
-		// myUserSprites = myCustom.getSpritePanel(mySpriteGridHandler);
 		myUserSprites = myAEM.getCustomSpriteController().getSpritePanel(mySpriteGridHandler);
-//		 getParams();
-		// createSprites();
 		createSpriteTabs();
-		// myUserSprites.getChildren().add(sp);
-		// makeSpriteDraggable(sp);
-
 	}
 
 	private void createSprites() {
-		// SpriteObject s1 = mySpriteObjs.get(0);
-		// SpriteObject s2 = mySpriteObjs.get(1);
-		// SpriteObject s3 = mySpriteObjs.get(2);
-		// SpriteObject s4 = mySpriteObjs.get(3);
-		// myAEM.addDefaultSprite(s1);
-		// myAEM.addDefaultSprite(s2);
-		// myAEM.addDefaultSprite(s3);
-		// myAEM.addDefaultSprite(s4);
-//		setupDefaultSprites();
-//		setupUserDefinedSprites();
 	}
 
 	public void getUserSpriteParam(String url) {
 		SpriteObject userSprite = new SpriteObject(url);
-		ArrayList<SpriteParameterI> param = new ArrayList<SpriteParameterI>();
+		List<SpriteParameterI> param = new ArrayList<SpriteParameterI>();
 		param.add(mySPF.makeParameter("canFight", false));
 		param.add(mySPF.makeParameter("health", 17.0));
 		param.add(mySPF.makeParameter("name", "Ryan"));
@@ -174,15 +126,15 @@ public class GameElementSelector extends TabPane implements Observer {
 //	}
 
 	public void getParams(){
-		ArrayList<String> urls = new ArrayList<String>();
+		List<String> urls = new ArrayList<String>();
 		urls.add("/tree.png");
 		urls.add("/brick.png");
 		urls.add("/pikachu.png");
 		urls.add("/water.png");
 		 urls.add("/Link.png");
 		double i = 10.0;
-		ArrayList<String> s = new ArrayList<String>();
-		ArrayList<String> names = new ArrayList<String>();
+		List<String> s = new ArrayList<String>();
+		List<String> names = new ArrayList<String>();
 		int width = 1;
 		int height = 1;
 		names.add("tree");
@@ -196,7 +148,7 @@ public class GameElementSelector extends TabPane implements Observer {
 			AbstractSpriteObject SO = new SpriteObject();
 			SO.setImageURL(urls.get(h));
 			SO.setName(names.get(h));
-			ArrayList<SpriteParameterI> myParams = new ArrayList<SpriteParameterI>();
+			List<SpriteParameterI> myParams = new ArrayList<SpriteParameterI>();
 			myParams.add(mySPF.makeParameter("canFight", true));
 			myParams.add(mySPF.makeParameter("health", i));
 			myParams.add(mySPF.makeParameter("name", s.get(0)));
@@ -222,7 +174,7 @@ public class GameElementSelector extends TabPane implements Observer {
 			
 			
 			try {
-				myGDH.saveDefaultSprite(SO);
+//				myGDH.saveDefaultSprite(SO);
 				System.out.println("Saved " + SO.getImageURL());
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -237,7 +189,7 @@ public class GameElementSelector extends TabPane implements Observer {
 		SO.setImageURL(urls.get(4));
 		
 		try {
-			myGDH.saveDefaultSprite(SO);
+//			myGDH.saveDefaultSprite(SO);
 			System.out.println("Saved " + SO.getImageURL());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -285,7 +237,7 @@ public class GameElementSelector extends TabPane implements Observer {
 		this.setSide(Side.TOP);
 	}
 	
-	private Tab createSubTab(String tabName, ArrayList<AbstractSpriteObject> sprites) {
+	private Tab createSubTab(String tabName, List<AbstractSpriteObject> sprites) {
 		Tab subTab = new Tab();
 		subTab.textProperty().bind(DisplayLanguage.createStringBinding(tabName));
 //		defaultSpriteTab.setContent(mySprites);
@@ -302,7 +254,7 @@ public class GameElementSelector extends TabPane implements Observer {
 		return elementTab;
 	}
 
-	private ScrollPane makeGrid(ArrayList<AbstractSpriteObject> sprites) {
+	private ScrollPane makeGrid(List<AbstractSpriteObject> sprites) {
 		GridPane gp = new GridPane();
 		int totalRows = (int) Math.ceil(sprites.size()/10);
 		int DEFAULT_MIN_ROWS = 15;

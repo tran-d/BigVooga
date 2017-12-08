@@ -3,6 +3,7 @@ package authoring_UI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -11,50 +12,59 @@ import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObject;
 import authoring.SpriteParameterI;
 import authoring.SpriteParameterSidebarManager;
+import authoring.SpriteSetHelper;
 import authoring_actionconditions.ActionConditionTab;
 import authoring_actionconditions.ControllerConditionActionTabs;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 
 public class DisplayPanel extends VBox {
-	
-	private AuthoringEnvironmentManager myAEM;
 	private TabPane myParamTabs;
 	private TabPane mySpriteTabs;
 	private VBox myParamTabVBox;
 	private TextArea myParameterErrorMessage;
-
 	private SpriteParameterTabsAndInfo mySParameterTAI;
 	private SpriteInventoryTabAndInfo mySInventoryTAI;
 	private SpriteUtilityTabAndInfo mySUtilityTAI;
 	private SpriteAnimationSequenceTabsAndInfo mySAnimationSequenceTAI;
 	private ObjectProperty<Boolean> multipleCellsActiveProperty;
-
+	private SpriteParameterSidebarManager mySPSM;
 	private VBox spriteEditorAndApplyButtonVBox;
+	private AuthoringEnvironmentManager myAEM;
 
 	private static final String ACTIONCONDITIONTITLES_PATH = "TextResources/ConditionActionTitles";
 	private static final double DISPLAY_PANEL_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH/2 - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH-155;
-	private static final double DISPLAY_PANEL_HEIGHT = WelcomeScreen.HEIGHT/2;
+	private static final double DISPLAY_PANEL_HEIGHT = 495;
 	
 	public static final ResourceBundle conditionActionTitles = ResourceBundle.getBundle(ACTIONCONDITIONTITLES_PATH);
-
-	public DisplayPanel(SpriteParameterSidebarManager SPSM){
+	private SpriteSetHelper mySSH;
+	
+	protected DisplayPanel(SpriteParameterSidebarManager SPSM) {
+		mySPSM = SPSM;
 		multipleCellsActiveProperty = new SimpleObjectProperty<Boolean>();
 		mySParameterTAI = new SpriteParameterTabsAndInfo();
-		mySInventoryTAI = new SpriteInventoryTabAndInfo(AEM);
+		mySInventoryTAI = new SpriteInventoryTabAndInfo(mySSH);
 		mySAnimationSequenceTAI = new SpriteAnimationSequenceTabsAndInfo();
 		mySUtilityTAI = new SpriteUtilityTabAndInfo();
 		System.out.println("made SPTAI in MENU");
 		setUpMenu();
+	}
+	
+
+	public DisplayPanel() {
+		// TODO Auto-generated constructor stub
 	}
 	
 
@@ -63,42 +73,21 @@ public class DisplayPanel extends VBox {
 	}
 
 	private void setSpriteInfoAndVBox() {
-		spriteEditorAndApplyButtonVBox = new VBox(10);
+		spriteEditorAndApplyButtonVBox = new VBox();
 		spriteEditorAndApplyButtonVBox.getChildren().addAll(mySpriteTabs, this.makeApplyButton());
 	}
-	// protected void displayParams() {
-	// Map<String, ArrayList<SpriteParameterI>> paramMap = new HashMap<String,
-	// ArrayList<SpriteParameterI>>();
-	// try {
-	// paramMap = myAEM.getActiveCellParameters().getParameters();
-	// for (Map.Entry<String, ArrayList<SpriteParameterI>> entry :
-	// paramMap.entrySet()) {
-	// String category = entry.getKey();
-	// ArrayList<SpriteParameterI> newParams = entry.getValue();
-	// FEParameterFactory newFactory = new FEParameterFactory(newParams);
-	// myStateSP.setContent(newFactory);
-	// }
-	// } catch (Exception e1) {
-	// // TODO Auto-generated catch block
-	// e1.printStackTrace();
-	// myStateSP.setContent(new TextArea("No params to show"));
-	// }
-	//
-	//
-	// this.setPrefWidth(MENU_WIDTH);
-	// }
 
-	private HashMap<String, ArrayList<SpriteParameterI>> getParametersOfActiveCells() throws Exception {
-		return myAEM.getActiveCell().getParameters();
+	private Map<String, List<SpriteParameterI>> getParametersOfActiveCells() throws Exception {
+		return mySPSM.getActiveSprite().getParameters();
 	}
 
 	private SpriteObject getActiveCell() throws Exception {
 //		System.out.println("MYAEMACTIVE: " + myAEM.getActiveCell());
-		return myAEM.getActiveCell();
+		return mySPSM.getActiveSprite();
 	}
 	
 	private void checkMultipleCellsActive(){
-		this.multipleCellsActiveProperty.set(myAEM.multipleActive());
+		this.multipleCellsActiveProperty.set(mySPSM.multipleActive());
 	}
 
 	private void setUpMenu() {
@@ -166,6 +155,7 @@ public class DisplayPanel extends VBox {
 
 	private void createSpriteTabs() {
 		mySpriteTabs = new TabPane();
+		mySpriteTabs.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 		mySpriteTabs.setSide(Side.TOP);
 		createParameterTab();
 		createDialogueTab();
@@ -208,7 +198,7 @@ public class DisplayPanel extends VBox {
 	 */
 	private Button makeApplyButton(){
 		Button applyButton = new Button();
-		applyButton.textProperty().setValue("Apply Button");
+		applyButton.textProperty().setValue("Apply");
 		applyButton.setOnAction(e -> {
 			apply();
 		});
@@ -283,36 +273,16 @@ public class DisplayPanel extends VBox {
 			removeSpriteEditorErrorMessage();
 			mySParameterTAI.create(activeCell);
 			
-			if (!myAEM.multipleActive()){	
+			if (!mySPSM.multipleActive()){	
 				mySInventoryTAI.setSpriteObjectAndUpdate(activeCell);
 				mySUtilityTAI.setSpriteObjectAndUpdate(activeCell);
 				mySAnimationSequenceTAI.setSpriteObject(activeCell);
 			}
-			
-			// HashMap<String, ArrayList<SpriteParameterI>> params =
-			// getParametersOfActiveCells();
-			//
-			// for (Map.Entry<String, ArrayList<SpriteParameterI>> entry :
-			// params.entrySet()) {
-			//
-			// String category = entry.getKey();
-			// System.out.println(category);
-			// ArrayList<SpriteParameterI> newParams = entry.getValue();
-			// FEParameterFactory newFactory = new
-			// FEParameterFactory(newParams);
-			//
-			// Tab newCategory = new Tab(category);
-			// newCategory.setContent(createStatePane(newFactory));
-			// newCategory.setClosable(false);
-			// myParamTabs.getTabs().add(newCategory);
-
-			// }
 			addSpriteEditorVBox();
 		} catch (Exception e) {
 			// throw new RuntimeException();
 			e.printStackTrace();
 			setDefaultErrorNoSpriteTabPane();
-
 		}
 		this.setPrefWidth(DISPLAY_PANEL_WIDTH);
 	}
@@ -320,91 +290,46 @@ public class DisplayPanel extends VBox {
 	private void formatParametersVBox(VBox in) {
 		in.setPrefWidth(500);
 		in.setPrefHeight(500);
-		// return in;
 	}
-
-	/*private void createSpriteCreator() {
-
-		Button createSpriteButton = new Button("Create Sprite");
-
-		createSpriteButton.setOnAction(e -> {
-//			System.out.println("Button pressed");
-			SpriteCreator mySpriteCreatorClass = myMapManager.createNewSpriteCreator();
-			VBox mySpriteCreator = mySpriteCreatorClass.getVBox();
-			this.getChildren().remove(createSpriteButton);
-			this.getChildren().add(mySpriteCreator);
-			mySpriteCreatorClass.onCreate(f -> {
-				this.getChildren().remove(mySpriteCreator);
-				this.getChildren().add(createSpriteButton);
-			});
-
-		});
-
-		// container.getChildren().add(mySpriteCreator);
-		// this.getChildren().add(mySpriteCreator);
-		this.getChildren().add(createSpriteButton);
-	}*/
 
 	private ScrollPane createStatePane(VBox temp) {
 		ScrollPane myStateSP_dummy = new ScrollPane();
 		myStateSP_dummy.setPrefSize(DISPLAY_PANEL_WIDTH, DISPLAY_PANEL_HEIGHT);
 		myStateSP_dummy.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 		myStateSP_dummy.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-		// VBox temp = new VBox();
-		// temp.getChildren().add(new Text("states go here"));
-		// temp.setPrefWidth(500);
-		// temp.setPrefHeight(500);
 		formatParametersVBox(temp);
 		myStateSP_dummy.setContent(temp);
 		return myStateSP_dummy;
-		// this.getChildren().add(myStateSP);
 	}
 
 //	private void buttonInteraction() {
 //		// TODO
 //	}
 
-	// private void apply() {
-	//
-	// for (Tab t: myParamTabs.getTabs()){
-	// ScrollPane SP = (ScrollPane) t.getContent();
-	// VBox paramsVbox = (VBox) SP.getContent();
-	// for (Node node: paramsVbox.getChildren()){
-	// FEParameter FEP = (FEParameter) node;
-	// FEP.updateParameter();
-	// myAEM.getSpriteParameterSidebarManager().apply();
-	// }
-	//
-	// }
-	//
-	// }
-
 	private void apply() {
 		mySParameterTAI.apply();
-		if (!myAEM.multipleActive()){
+		if (!mySPSM.multipleActive()){
 		mySInventoryTAI.apply();
 		mySAnimationSequenceTAI.apply();
 		}
 //		OwensActiosn.apply()
-		myAEM.getSpriteParameterSidebarManager().apply();
+		mySPSM.apply();
 	}
 
-//	private void addParameter() {
-//		List<String> choices = new ArrayList<>();
-//		choices.add("Boolean");
-//		choices.add("String");
-//		choices.add("Double");
-//
-//		ChoiceDialog<String> dialog = new ChoiceDialog<>("Boolean", choices);
-//		dialog.setTitle("Add Parameter");
-//		dialog.setContentText("Choose parameter type:");
-//
-//		Optional<String> result = dialog.showAndWait();
-//		result.ifPresent(type -> createNewParameter(type));
-//	}
+	private void addParameter() {
+		List<String> choices = new ArrayList<>();
+		choices.add("Boolean");
+		choices.add("String");
+		choices.add("Double");
 
-//	private void createNewParameter(String type) {
-//
-//	}
+		ChoiceDialog<String> dialog = new ChoiceDialog<>("Boolean", choices);
+		dialog.setTitle("Add Parameter");
+		dialog.setContentText("Choose Parameter Type:");
 
+		Optional<String> result = dialog.showAndWait();
+		result.ifPresent(type -> createNewParameter(type));
+	}
+
+	private void createNewParameter(String type) {
+	}
 }

@@ -39,6 +39,7 @@ public class MenuOptionsTemplate {
 	private Image backStaticImage;
 	private Image backImage;
 	private ImageView back;
+	private Insets contentPadding;	
 
 	/**
 	 * 
@@ -54,11 +55,12 @@ public class MenuOptionsTemplate {
 		scene.getStylesheets().add(MenuOptionsTemplate.class.getResource(SCROLLPANE_CSS).toExternalForm());
 	}
 
-	public void createOptionScreen(String titleLogoPath, int titleLogoWidth, int titleLogoHeight, int topAndBottomPadding) {
+	public void createOptionScreen(String titleLogoPath, int titleLogoWidth, int titleLogoHeight,
+			int topAndBottomPadding, int rightAndLeftPadding, int contentPaneHeight) {
+		contentPadding = new Insets(0, rightAndLeftPadding, rightAndLeftPadding, rightAndLeftPadding);
 		rootPane.setStyle(WelcomeScreen.SET_BACKGROUND_COLOR + WelcomeScreen.BACKGROUND_COLOR);
 		rootPane.setTop(createHeading(titleLogoPath, titleLogoWidth, titleLogoHeight, topAndBottomPadding));
-		rootPane.setCenter(createContentBox());
-
+		rootPane.setBottom(createContentBox(contentPaneHeight));
 	}
 	
 	private HBox createHeading(String titleLogoPath, int titleLogoWidth, int titleLogoHeight, int topAndBottomPadding) {
@@ -115,12 +117,12 @@ public class MenuOptionsTemplate {
 
 	}
 	
-	private ScrollPane createContentBox() {		
+	private ScrollPane createContentBox(int contentPaneHeight) {		
 		contentPane = new ScrollPane();
 		contentPane.setPrefWidth(WelcomeScreen.WIDTH);
-		contentPane.setPrefHeight(WelcomeScreen.HEIGHT);
+		contentPane.setPrefHeight(contentPaneHeight);
 		contentPane.setStyle(GUITools.styleBox(WelcomeScreen.BORDER_COLOR));
-		contentPane.setPadding(CONTENT_PADDING);
+		contentPane.setPadding(contentPadding);
 		BorderPane.setMargin(contentPane, CONTENT_PADDING);
 		return contentPane;
 	}
@@ -131,5 +133,9 @@ public class MenuOptionsTemplate {
 	
 	public Scene getScene() {
 		return scene;
+	}
+	
+	public BorderPane getBorderPane() {
+		return rootPane;
 	}
 }

@@ -60,14 +60,13 @@ public class HUDManager {
 	private SpritePanels SPanels;
 	private GameDataHandler myGDH;
 
-	public HUDManager(GameDataHandler GDH) {
-		myGDH = GDH;
+	public HUDManager(AuthoringEnvironmentManager AEM) {
+//		myGDH = GDH;
 		DraggableGrid DG = new DraggableGrid();
-		
+		myAEM = AEM;
 		SGH = new SpriteGridHandler(2001, DG);
 		HUDGridBE = new HUDGridManager();
 		DG.construct(SGH, HUDGridBE);
-		myAEM = new AuthoringEnvironmentManager(GDH, DG);
 		
 //		this.SGH = SGH;
 		
@@ -89,9 +88,7 @@ public class HUDManager {
 		// addUserDialogueButton("blah", -1);
 
 	}
-
-	/*************************** PUBLIC METHODS **********************************/
-
+	
 	public HBox getPane() {
 		return hb;
 	}
@@ -111,7 +108,7 @@ public class HUDManager {
 		return tp;
 	}
 	
-	private Tab createSubTab(String tabName, ArrayList<AbstractSpriteObject> sprites) {
+	private Tab createSubTab(String tabName, List<AbstractSpriteObject> sprites) {
 		Tab subTab = new Tab();
 		subTab.textProperty().bind(DisplayLanguage.createStringBinding(tabName));
 //		defaultSpriteTab.setContent(mySprites);
@@ -120,7 +117,7 @@ public class HUDManager {
 		return subTab;
 	}
 	
-	private ScrollPane makeGrid(ArrayList<AbstractSpriteObject> sprites) {
+	private ScrollPane makeGrid(List<AbstractSpriteObject> sprites) {
 		GridPane gp = new GridPane();
 		int totalRows = (int) Math.ceil(sprites.size()/10);
 		int DEFAULT_MIN_ROWS = 15;
@@ -224,5 +221,7 @@ public class HUDManager {
 		btn.setOnAction(e -> loadEditor(id));
 		dView.addUserDialogueButton(id, btn);
 	}
+	
+	
 	
 }
