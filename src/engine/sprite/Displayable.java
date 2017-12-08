@@ -8,7 +8,6 @@ import gui.player.GameDisplay;
  *
  * @param <T>
  */
-public interface Displayable<T> extends Comparable<T>{
-
+public interface Displayable extends Comparable {
 	public void visit(GameDisplay display);
 }

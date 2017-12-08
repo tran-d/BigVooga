@@ -33,12 +33,12 @@ public class ChangeWorld implements Action {
 	@Override
 	public void execute(GameObject asking, Layer world) {
 		List<GameObject> players = world.getWithTag(GameLayer.PLAYER_TAG);
-		world.removeGameObjects(players);
+		world.removeElements(players);
 		MoveTo moveTo = new MoveTo(newPlayerX, newPlayerY);
 		for(GameObject player : players) {
 			moveTo.execute(player, newWorld);
 		}
-		newWorld.addGameObjects(players);
+		newWorld.addElement(players);
 		//world.setNextWorld(newWorld);
 	}
 

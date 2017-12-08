@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import engine.sprite.BoundedImage;
 import engine.sprite.Displayable;
+import engine.sprite.DisplayableImage;
 import engine.sprite.Sprite;
 import engine.utilities.collisions.CollisionEvent;
 
@@ -26,7 +27,7 @@ import engine.utilities.collisions.CollisionEvent;
  * @author Nikolas Bramblett, ...
  *
  */
-public class GameObject extends VariableContainer {
+public class GameObject extends VariableContainer implements Element {
 
 	private String name;
 	private Set<String> tagSet;
@@ -62,8 +63,7 @@ public class GameObject extends VariableContainer {
 		this.name = name;
 		tagSet.add(name);
 		tagSet.add(DEFAULT_TAG);
-
-		inventory = new Inventory();
+		inventory = new Inventory(this);
 		dialogueHandler = new TextHandler();
 	}
 
@@ -112,7 +112,11 @@ public class GameObject extends VariableContainer {
 		events.put(c, a);
 	}
 
-	public void step(Layer w, int priorityNum, List<Runnable> runnables) {
+	/**
+	 * Steps animation and checks/executes events in order of priority
+	 */
+	@Override
+	public void step(int priorityNum, Layer w, List<Runnable> runnables) {
 		currentSprite.step();
 		for (Condition c : events.keySet()) {
 			if (c.getPriority() == priorityNum && c.isTrue(this, w)) {
@@ -126,8 +130,7 @@ public class GameObject extends VariableContainer {
 	/**
 	 * Setter for x and y Coordinates
 	 * 
-	 * @param x,
-	 *            y
+	 * @param x, y
 	 */
 	public void setCoords(double x, double y) {
 		// TODO Trigger listeners here
@@ -181,7 +184,7 @@ public class GameObject extends VariableContainer {
 	}
 
 	/**
-	 * Returns the current image of this Object.
+	 * Returns the current BoundedImage of this Object.
 	 * 
 	 * @return BoundedImage
 	 */
@@ -194,8 +197,8 @@ public class GameObject extends VariableContainer {
 		return result;
 	}
 	
-	public Displayable getImage()
-	{
+	@Override
+	public Displayable getDisplayable() {
 		return dialogueHandler.makeComposite(getBounds());
 	}
 
@@ -261,13 +264,12 @@ public class GameObject extends VariableContainer {
 	public Inventory getInventory() {
 		return inventory;
 	}
-	public void addToInventory(InventoryObject o) {
+	
+	public void addToInventory(Holdable o) {
 		inventory.addObject(o);
 	}
 	
-	public void setDialogue(String s)
-	{
+	public void setDialogue(String s) {
 		dialogueHandler.setDialogue(s);
 	}
-
 }

@@ -82,7 +82,7 @@ public class EngineTester2 extends Application {
 		GameLayer layer = new GameLayer("Layer");
 
 		layer.setBlueprints(blueprints);
-		layer.addGameObject(obj1);
+		layer.addElement(obj1);
 		
 		for(int j = 0; j < 50; j++)
 		{
@@ -90,7 +90,7 @@ public class EngineTester2 extends Application {
 			temp.setSize(temp.getWidth(), temp.getHeight()*(Math.random()+.5)*2);
 			temp.setCoords(1000+(400*j), 400*(j%2)+temp.getHeight()/2);
 			temp.setHeading(0);
-			layer.addGameObject(temp);
+			layer.addElement(temp);
 		}
 		
 		GameWorld w = new GameWorld("World");

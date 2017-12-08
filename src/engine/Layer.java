@@ -14,7 +14,6 @@ public interface Layer{
 	public List<GameObject> getWithTag(String tag);
 	public GameObject getWithName(String name);
 	
-	//The World should have its own name to make things easily distinguishable.
 	public boolean isNamed(String tag);
 	
 	/**

@@ -108,7 +108,7 @@ public class GameMaster implements EngineController{
 		double cameraYTranslate = 0;
 		List<Displayable> imageData = new ArrayList<>();
 		for(GameObject o: currentWorld.getAllObjects()){
-			imageData.add(o.getImage());
+			imageData.add(o.getDisplayable());
 			if(o.getTags().contains("Player")) {		//TODO: make constant
 				cameraXTranslate = o.getDouble(GameObject.X_COR);
 				cameraYTranslate = o.getDouble(GameObject.Y_COR);

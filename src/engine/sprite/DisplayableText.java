@@ -7,7 +7,7 @@ import gui.player.GameDisplay;
  * @author Nikolas Bramblett
  *
  */
-public class DisplayableText implements Displayable<Displayable>{
+public class DisplayableText implements Displayable {
 
 	private String drawing;
 	public DisplayableText(String s) {
@@ -17,7 +17,7 @@ public class DisplayableText implements Displayable<Displayable>{
 
 	//Text should always be drawn last to avoid overwrites
 	@Override
-	public int compareTo(Displayable o) {
+	public int compareTo(Object o) {
 		// TODO Auto-generated method stub
 		return -1;
 	}

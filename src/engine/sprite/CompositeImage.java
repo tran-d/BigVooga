@@ -7,7 +7,7 @@ import gui.player.GameDisplay;
  * @author Nikolas Bramblett
  *
  */
-public class CompositeImage implements Displayable<CompositeImage> {
+public class CompositeImage implements Displayable {
 
 	private DisplayableText message;
 	private DisplayableImage sprite;
@@ -45,7 +45,7 @@ public class CompositeImage implements Displayable<CompositeImage> {
 
 	//No idea if these should even compare properly
 	@Override
-	public int compareTo(CompositeImage o) {
+	public int compareTo(Object o) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

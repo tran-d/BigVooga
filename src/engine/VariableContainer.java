@@ -77,9 +77,6 @@ public abstract class VariableContainer {
 		return DEFAULT_BOOLEAN;
 	}
 
-
-	
-
 	public void setDoubleVariable(String name, double val) {
 		doubleVars.put(name, val);
 	}

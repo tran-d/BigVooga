@@ -1,8 +1,10 @@
 package engine;
 
-import engine.sprite.DisplayableImage;
+import java.util.List;
+
+import engine.sprite.Displayable;
 
 public interface Element {
-
-	public DisplayableImage getImage();
+	public Displayable getDisplayable();
+	public void step(int priorityNumber, Layer w, List<Runnable> runnables);
 }

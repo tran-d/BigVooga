@@ -14,7 +14,7 @@ import gui.player.GameDisplay;
  * @author Ian Eldridge-Allegra
  * 
  */
-public class BoundedImage extends BoundingSet implements DisplayableImage{
+public class BoundedImage extends BoundingSet implements DisplayableImage {
 
 	private final int DEFAULT_DEPTH = 10;
 	
@@ -52,18 +52,21 @@ public class BoundedImage extends BoundingSet implements DisplayableImage{
 		return geometry;
 	}
 
+	@Override
 	public void setPosition(double x, double y) {
 		xCenter = x;
 		yCenter = y;
 	}
 
-	public void setHeading(double heading) {
-		this.heading = heading;
-	}
-
+	@Override
 	public void setSize(double width, double height) {
 		xSize = width;
 		ySize = height;
+	}
+	
+	@Override
+	public void setHeading(double heading) {
+		this.heading = heading;
 	}
 
 	@Override
@@ -111,8 +114,8 @@ public class BoundedImage extends BoundingSet implements DisplayableImage{
 	}
 
 	@Override
-	public int compareTo(DisplayableImage other) {
-		return depth - other.getDrawingPriority();
+	public int compareTo(Object other) {
+		return depth - ((DisplayableImage)other).getDrawingPriority();
 	}
 	
 	public BoundedImage clone() {
@@ -126,7 +129,7 @@ public class BoundedImage extends BoundingSet implements DisplayableImage{
 
 	@Override
 	public void visit(GameDisplay display) {
-		// TODO Auto-generated method stub
 		display.updateImages(this);
 	}
+
 }

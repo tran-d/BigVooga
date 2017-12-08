@@ -40,7 +40,6 @@ public class GameLayer implements Layer {
 
 	@Override
 	public void addGameObject(GameObject obj) {
-		// TODO Auto-generated method stub
 		worldObjects.add(obj);
 		idToGameObject.put(obj.getUniqueID(), obj);
 		for(Integer i : obj.getPriorities()) {
@@ -108,7 +107,7 @@ public class GameLayer implements Layer {
 		try {
 			for(Integer i: conditionPriorities.keySet()) {
 				for(GameObject obj : conditionPriorities.get(i)) {
-					obj.step(this, i, runnables);
+					obj.step(i, this, runnables);
 				}
 				for(Runnable r : runnables) {
 					r.run();
