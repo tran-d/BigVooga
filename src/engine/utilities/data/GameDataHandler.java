@@ -523,7 +523,7 @@ public class GameDataHandler {
 		if (!isValidDirectory(file)) {
 			return null;
 		}
-		System.out.println("Still going");
+		System.out.println("Still going, root directory: "+rootDirectory);
 		Map<String, List<AbstractSpriteObject>> ret = new HashMap<String, List<AbstractSpriteObject>>();
 		File[] files = file.listFiles();
 		for (File f : files) {
