@@ -1,8 +1,8 @@
 package authoring_UI;
 
-public class DisplayPanelForGridSprites extends DisplayPanel{
+public class DisplayPanelA extends DisplayPanel{
 	
-	DisplayPanelForGridSprites(){
+	DisplayPanelA(){
 		
 	}
 
