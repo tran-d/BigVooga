@@ -81,6 +81,7 @@ private	void resetActiveSprites() {
 				if (!pane.isCoveredByOtherSprite()){
 					changeCellStatus(pane);
 				} else if (pane.isCoveredByOtherSprite()){
+//					pane.se
 					Event.fireEvent(pane.getCoveringSprite(), new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
 			                0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
 			                true, true, true, true, true, true, null));
@@ -90,11 +91,41 @@ private	void resetActiveSprites() {
 	}
 
 	protected void addGridMouseDrag(AuthoringMapStackPane pane) {
-		pane.setOnMouseDragOver(e -> {
-			if (!pane.hasChild()&&!pane.isCoveredByOtherSprite())
-				changeCellStatus(pane);
-				System.out.println("ENTERED BY MOUSE DRAG");
-		});
+//		pane.setOnMouseDragged(e -> {
+//			if (pane.isCoveredByOtherSprite()){
+////				Event.fireEvent(pane.getCoveringSprite(), new MouseEvent(MouseEvent.));
+////				pane.getCoveringSprite()
+//				Event.fireEvent(pane.getCoveringSprite(), new MouseEvent(MouseEvent.DRAG_DETECTED, 0,
+//		                0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+//		                true, true, true, true, true, true, null));
+//			} else {
+//				pane.switchActive();
+//			}
+//		});
+//		pane.setOnMouseDragOver(e->{
+//			System.out.println("Dragged over");
+//			pane.switchActive();
+//		});
+		
+//		pane.setOnDragOver(event->{
+//			System.out.println("Dragover");
+//			pane.switchActive();
+//			
+//		});
+		
+//		pane.setOnKeyTyped(value->{
+//			System.out.println(value.getCode());
+//		});
+		
+//		pane.setOnMouseDragEntered(e->{
+//			System.out.println("Drag entered");
+//			pane.switchActive();
+//		});
+		
+//		pane.setOnDragDetected(event->{
+//			Dragboard db = pane.startDragAndDrop(TransferMode.MOVE);
+//			System.out.println("DragDetected");
+//		});
 	}
 
 	private void changeCellStatus(AuthoringMapStackPane pane) {
