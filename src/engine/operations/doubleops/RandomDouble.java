@@ -3,18 +3,24 @@ package engine.operations.doubleops;
 import engine.GameObject;
 import engine.Layer;
 
-public class Cos implements DoubleOperation{
-	
-	private DoubleOperation angle;
-	public Cos( DoubleOperation angle) {
+/**
+ * 
+ * @author Nikolas Bramblett
+ *
+ */
+public class RandomDouble implements DoubleOperation{
+
+	public RandomDouble() {
 		// TODO Auto-generated constructor stub
-		this.angle = angle;
 	}
 
 	@Override
+	/**
+	 * Returns a random value between 0 (inclusive) and 1 (noninclusive).
+	 */
 	public Double evaluate(GameObject asking, Layer world) {
 		// TODO Auto-generated method stub
-		return Math.cos(Math.toRadians(angle.evaluate(asking, world)));
+		return Math.random();
 	}
 
 }

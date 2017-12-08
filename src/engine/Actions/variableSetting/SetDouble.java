@@ -6,18 +6,24 @@ import engine.Layer;
 import engine.operations.doubleops.DoubleOperation;
 import engine.operations.stringops.StringOperation;
 
-public class ChangeDouble implements Action {
+/**
+ * 
+ * @author aaronpaskin
+ *
+ */
+public class SetDouble implements Action {
 
 	private StringOperation varName;
 	private DoubleOperation newDouble;
 	
-	public ChangeDouble(StringOperation varName, DoubleOperation newDouble) {
+	public SetDouble(StringOperation varName, DoubleOperation newDouble) {
 		this.varName = varName;
 		this.newDouble = newDouble;
 	}
 	
 	@Override
 	public void execute(GameObject asking, Layer world) {
-		asking.setDoubleVariable(varName.evaluate(asking, world), newDouble.evaluate(asking, world)+asking.getDouble(varName.evaluate(asking, world)));
+		asking.setDoubleVariable(varName.evaluate(asking, world), newDouble.evaluate(asking, world));
 	}
+	
 }

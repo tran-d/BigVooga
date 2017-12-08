@@ -15,6 +15,7 @@ import engine.operations.doubleops.Sum;
 import engine.operations.doubleops.Value;
 import engine.operations.gameobjectops.Get;
 
+//TODO: DisplayInventory
 public class DisplayInventory implements Action {
 
 	private GameObject inventoryDisplay;
@@ -42,6 +43,9 @@ public class DisplayInventory implements Action {
 		DoubleOperation cellHeight = new Quotient(inventoryHeight, rowSpan);
 		List<GameObject> inventory = (List)asking.getInventory().values();
 		int i = (int)inventoryDisplay.getDouble("startIndex");						//TODO: make constant
+		List<InventoryObject> inventory = asking.getInventory().getFullInventory();
+		//place each game object in pane grid
+		int i = startIndex;
 		for(int r = 0; r < rowSpan.evaluate(asking, world); r++) {
 			for(int c = 0; c < colSpan.evaluate(asking, world); c++) {
 				GameObject o = inventory.get(i);

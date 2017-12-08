@@ -26,7 +26,7 @@ public class Collision implements BooleanOperation {
 			if(g == asking)
 				continue;
 			
-			Point2D intersectionVector = g.getImage().checkCollision(asking.getImage());
+			Point2D intersectionVector = g.getBounds().checkCollision(asking.getBounds());
 			if(intersectionVector != null) {
 				asking.setLastCollisionChecked(new CollisionEvent(g, intersectionVector));
 				return true;

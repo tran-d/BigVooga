@@ -6,6 +6,7 @@ import java.util.List;
 
 import controller.player.PlayerManager;
 import engine.sprite.BoundedImage;
+import engine.sprite.Displayable;
 import engine.sprite.DisplayableImage;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -103,9 +104,9 @@ public class GameMaster implements EngineController{
 	 * Used in step.
 	 */
 	private void imageUpdate() {
-		List<DisplayableImage> imageData = new ArrayList<>();
 		double cameraXTranslate = 0;
 		double cameraYTranslate = 0;
+		List<Displayable> imageData = new ArrayList<>();
 		for(GameObject o: currentWorld.getAllObjects()){
 			imageData.add(o.getImage());
 			if(o.getTags().contains("Player")) {		//TODO: make constant
