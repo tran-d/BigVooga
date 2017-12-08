@@ -34,7 +34,7 @@ public class GameSelector extends MenuOptionsTemplate {
 	private static final int SELECTOR_HEIGHT = 125;
 	private static final int HEADING_PADDING = 0;
 	private static final int ENTRY_SPACING = 25;
-	private static final int TREE_WIDTH = 890;
+	private static final int TREE_WIDTH = WelcomeScreen.WIDTH-20;
 	private static final int EXPANDED_TREE_HEIGHT = 150;
 	private static final int COLLAPSED_TREE_HEIGHT = 90;
 	private static final String NEW_GAME_TEXT = "NewGame";
@@ -55,7 +55,7 @@ public class GameSelector extends MenuOptionsTemplate {
 	 */
 	public GameSelector(Stage currentStage, SceneController currentSceneController) {
 		super(currentStage, currentSceneController);
-		createOptionScreen(SELECTOR_PATH, SELECTOR_WIDTH, SELECTOR_HEIGHT, HEADING_PADDING);
+		createOptionScreen(SELECTOR_PATH, SELECTOR_WIDTH, SELECTOR_HEIGHT, 0, 0, WelcomeScreen.HEIGHT-150);
 
 		stage = currentStage;
 		sceneController = currentSceneController;

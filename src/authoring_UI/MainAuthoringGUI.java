@@ -29,7 +29,7 @@ public class MainAuthoringGUI{
 	private AuthoringController authoringController;
 	
 
-	public MainAuthoringGUI(Stage currentStage, SceneController currentSceneController) {
+	public MainAuthoringGUI(Stage currentStage, SceneController currentSceneController, String projectName) {
 		
 		stage = currentStage;
 		rootPane = new BorderPane();

@@ -24,10 +24,11 @@ import tools.DisplayLanguage;
  */
 public class Settings extends MenuOptionsTemplate{
 
+	public static final int HEADING_PADDING = 10;
+	private static final String SETTINGS_BUTTON_STYLE_CSS = "SettingsButtonStyle.css";
 	private static final String GEARS_PATH = "Gears.gif";
 	private static final int GEARS_WIDTH = 125;
 	private static final int GEARS_HEIGHT = 125;
-	private static final int HEADING_PADDING = 10;
 	private static final String LANGUAGE_PATH = "Language_Static.png";
 	private static final int LANGUAGE_WIDTH = 100;
 	private static final int LANGUAGE_HEIGHT = 100;
@@ -50,7 +51,7 @@ public class Settings extends MenuOptionsTemplate{
 	 */
 	public Settings(Stage currentStage, SceneController sceneController) {
 		super(currentStage, sceneController);
-		createOptionScreen(GEARS_PATH, GEARS_WIDTH, GEARS_HEIGHT, HEADING_PADDING);
+		createOptionScreen(GEARS_PATH, GEARS_WIDTH, GEARS_HEIGHT, HEADING_PADDING, MenuOptionsTemplate.CONTENT_INSET_SIZE, WelcomeScreen.HEIGHT-155);
 	}
 	
 	/**
@@ -124,7 +125,7 @@ public class Settings extends MenuOptionsTemplate{
 		RadioButton languageButton = new RadioButton(languageType);
 		languageButton.getStyleClass().remove("radio-button");
 		languageButton.getStyleClass().add("toggle-button");
-		languageButton.getStylesheets().add(Settings.class.getResource("SettingsButtonStyle.css").toExternalForm());
+		languageButton.getStylesheets().add(Settings.class.getResource(SETTINGS_BUTTON_STYLE_CSS).toExternalForm());
 		languageButton.setToggleGroup(languageGroup);
 		languageButton.textProperty().bind(DisplayLanguage.createStringBinding(languageType));
 		languageButton.setOnAction(e -> DisplayLanguage.setLocale(language));
