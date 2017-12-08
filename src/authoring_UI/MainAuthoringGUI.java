@@ -2,6 +2,7 @@ package authoring_UI;
 
 import controller.authoring.AuthoringController;
 import controller.welcomeScreen.SceneController;
+import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuButton;
@@ -12,9 +13,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class MainAuthoringGUI{
-	
 	public static final int AUTHORING_WIDTH = 1400;
-	private static final String AUTHORING_CSS = "Authoring.css";
+	public static final String AUTHORING_CSS = "Authoring.css";
 	private static final String BORDERPANE_ID = "borderpane";
 	
 	private Stage stage;
@@ -22,15 +22,16 @@ public class MainAuthoringGUI{
 	private SceneController sceneController;
 	private BorderPane rootPane;
 	private ToolBar toolBar;
-	
 	private MenuButton fileOptions;
 	private MenuButton settings;
 	private Pane authoringPane;
 	private AuthoringController authoringController;
+	private static final String TEMP_PROJECT_NAME = "TestProject";
+	private String myProjectName;
 	
 
-	public MainAuthoringGUI(Stage currentStage, SceneController currentSceneController) {
-		
+	public MainAuthoringGUI(Stage currentStage, SceneController currentSceneController, String projectName) {
+		myProjectName = projectName;
 		stage = currentStage;
 		rootPane = new BorderPane();
 		rootPane.setId(BORDERPANE_ID);
@@ -38,7 +39,6 @@ public class MainAuthoringGUI{
 		scene = new Scene(rootPane, AUTHORING_WIDTH, WelcomeScreen.HEIGHT);
 		scene.getStylesheets().add(MainAuthoringGUI.class.getResource(AUTHORING_CSS).toExternalForm());
 		sceneController = currentSceneController;
-
 	}
 	
 	public void createAuthoringGUI() {
@@ -46,7 +46,12 @@ public class MainAuthoringGUI{
 		rootPane.setTop(toolBar);
 		
 		authoringPane = new Pane();
+<<<<<<< HEAD
 		authoringController = new AuthoringController(scene, authoringPane);
+=======
+		GameDataHandler GDH = new GameDataHandler(myProjectName);
+		authoringController = new AuthoringController(stage, authoringPane, GDH);
+>>>>>>> 9fa9a0313bb6a9d14e87a8978799b598f46b2c28
 		ViewSideBar sideBar = new ViewSideBar(authoringController);
 		authoringController.switchView(AuthoringController.MAP_EDITOR_KEY, sideBar);
 		
@@ -61,5 +66,8 @@ public class MainAuthoringGUI{
 	public Scene getScene() {
 		return scene;
 	}
-	
+
+	public void saveWorlds() {
+		//authoringController.saveWorlds();
+	}	
 }

@@ -19,7 +19,7 @@ public class DialogueTabPane extends TabPane {
 	public DialogueTabPane() {
 		
 		defaultTab = new DefaultDialogueTab(DEFAULT);
-		userTab = new UserDialogueTab(DEFAULT);
+		userTab = new UserDialogueTab(USER);
 		this.getTabs().addAll(defaultTab, userTab);
 	}
 	

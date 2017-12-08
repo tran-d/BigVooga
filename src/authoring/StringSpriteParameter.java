@@ -90,4 +90,8 @@ public class StringSpriteParameter extends SpriteParameter {
 		myName = (String)in.readObject();
 		myValue = (String)in.readObject();
 	}
+	
+	public StringSpriteParameter newCopy(){
+		return new StringSpriteParameter(new String(this.getName()), new String(((String)this.getValue())));
+	}
 }

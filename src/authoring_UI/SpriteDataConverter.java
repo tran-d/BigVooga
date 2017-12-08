@@ -36,8 +36,8 @@ public class SpriteDataConverter {
 		return xstream;
 	}
 
-	HashMap<String, ArrayList<SpriteParameterI>> catmap;
-	ArrayList<SpriteDataConverter> inventory;
+	Map<String, List<SpriteParameterI>> catmap;
+	List<SpriteDataConverter> inventory;
 	Integer[] gridPos;
 	String name;
 	Integer width;
