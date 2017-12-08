@@ -46,7 +46,7 @@ public class MainAuthoringGUI{
 		rootPane.setTop(toolBar);
 		
 		authoringPane = new Pane();
-		authoringController = new AuthoringController(stage, authoringPane);
+		authoringController = new AuthoringController(scene, authoringPane);
 		ViewSideBar sideBar = new ViewSideBar(authoringController);
 		authoringController.switchView(AuthoringController.MAP_EDITOR_KEY, sideBar);
 		

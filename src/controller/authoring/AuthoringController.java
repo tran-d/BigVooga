@@ -10,6 +10,7 @@ import authoring_UI.HUD.HUDManager;
 import authoring_UI.dialogue.DialogueManager;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.scene.*;
 
 public class AuthoringController {
 	
@@ -25,14 +26,15 @@ public class AuthoringController {
 	private Map<String, Pane> viewMap = new HashMap<String, Pane>();
 	private Pane authoringPane;
 	private Stage stage;
+	private Scene scene;
 	private Pane view;
 	
-	public AuthoringController(Stage currentStage, Pane currentAuthoringPane) {
+	public AuthoringController(Scene currentScene, Pane currentAuthoringPane) {
 		
-		stage = currentStage;
+		scene = currentScene;
 		authoringPane = currentAuthoringPane;
 		
-		MapManager mapManager = new MapManager(stage);
+		MapManager mapManager = new MapManager(scene);
 		viewMap.put(MAP_EDITOR_KEY, mapManager.getPane());
 
 		SpriteCreator sc = new SpriteCreator(mapManager.getAEM());

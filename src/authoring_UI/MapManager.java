@@ -11,6 +11,7 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Side;
+import javafx.scene.Scene;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -26,6 +27,7 @@ public class MapManager extends TabPane {
 	private static final String TAB_TAG = "Map";
 	
 	private Stage stage;
+	private Scene scene;
 	private SingleSelectionModel<Tab> mySelectModel;
 	private Tab addTab;
 	private AuthoringMapEnvironment authMap;
@@ -44,8 +46,8 @@ public class MapManager extends TabPane {
 	private Pane mapEditor = new Pane();
 	private SpritePanels spritePanels;
 
-	public MapManager(Stage currentStage)  {
-		stage = currentStage;
+	public MapManager(Scene currentScene)  {
+		scene = currentScene;
 		mapEditor.getChildren().add(this);
 		mySelectModel = this.getSelectionModel();
 		this.setPrefWidth(VIEW_WIDTH);
@@ -128,7 +130,7 @@ public class MapManager extends TabPane {
 		DraggableGrid myGrid = myAEM.getDraggableGrid();
 		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, myGrid);
 		myGrid.construct(mySpriteGridHandler);
-		mySpriteGridHandler.addKeyPress(stage.getScene());
+		mySpriteGridHandler.addKeyPress(scene);
 		spritePanels = new SpritePanels(this, mySpriteGridHandler, myAEM, mySOGM);
 		mySpriteGridHandler.setDisplayPanel(spritePanels);
 		authMap.setPanels(spritePanels);
