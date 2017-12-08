@@ -13,7 +13,7 @@ public class And implements BooleanOperation {
 	private BooleanOperation boolOp1;
 	private BooleanOperation boolOp2;
 	
-	public And(int priorityNum, BooleanOperation boolOp1, BooleanOperation boolOp2) {
+	public And(BooleanOperation boolOp1, BooleanOperation boolOp2) {
 		this.boolOp1 = boolOp1;
 		this.boolOp2 = boolOp2;
 	}

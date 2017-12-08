@@ -5,7 +5,7 @@ import java.util.List;
 
 import engine.utilities.collisions.BoundingGeometry;
 import engine.utilities.collisions.BoundingSet;
-import engine.utilities.collisions.RelativeBoundingGeometry;
+import engine.utilities.collisions.RelativeBoundingPolygon;
 
 /**
  * Represents an Image with relative bounds. 
@@ -17,7 +17,7 @@ public class BoundedImage extends BoundingSet implements DisplayableImage{
 
 	private final int DEFAULT_DEPTH = 10;
 	
-	private List<RelativeBoundingGeometry> relativeBounds;
+	private List<RelativeBoundingPolygon> relativeBounds;
 	private String fileName;
 	private double xCenter;
 	private double yCenter;
@@ -29,19 +29,23 @@ public class BoundedImage extends BoundingSet implements DisplayableImage{
 	public BoundedImage(String fileName) {
 		this.fileName = fileName;
 		relativeBounds = new ArrayList<>();
-		relativeBounds.add(RelativeBoundingGeometry.DEFAULT);
+		relativeBounds.add(RelativeBoundingPolygon.DEFAULT);
 		depth = DEFAULT_DEPTH;
 	}
 
-	public BoundedImage(String fileName, List<RelativeBoundingGeometry> bounds) {
+	public BoundedImage(String fileName, List<RelativeBoundingPolygon> bounds) {
 		this.fileName = fileName;
 		relativeBounds = bounds;
 		depth = DEFAULT_DEPTH;
 	}
 	
+	public List<RelativeBoundingPolygon> getRelativeGeometries() {
+		return new ArrayList<>(relativeBounds);
+	}
+	
 	protected List<BoundingGeometry> getGeometry() {
 		List<BoundingGeometry> geometry = new ArrayList<>(relativeBounds.size());
-		for (RelativeBoundingGeometry rg : relativeBounds) {
+		for (RelativeBoundingPolygon rg : relativeBounds) {
 			geometry.add(rg.getBoundingGeometry(xCenter, yCenter, xSize, ySize, heading));
 		}
 		return geometry;
