@@ -65,8 +65,10 @@ public class HUDManager {
 		DraggableGrid DG = new DraggableGrid();
 		myAEM = AEM;
 		SGH = new SpriteGridHandler(2001, DG);
+		
 		HUDGridBE = new HUDGridManager();
-		DG.construct(SGH, HUDGridBE);
+		DG.setAllGrids(HUDGridBE);
+		DG.construct(SGH);
 		
 //		this.SGH = SGH;
 		
