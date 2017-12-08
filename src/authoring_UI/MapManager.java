@@ -2,9 +2,11 @@ package authoring_UI;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObjectGridManagerI;
+import authoring.SpriteSetHelper;
 import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.beans.binding.Bindings;
@@ -20,7 +22,6 @@ import javafx.stage.Stage;
 import tools.DisplayLanguage;
 
 public class MapManager extends TabPane {	
-	
 	public static final int VIEW_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH;
 	public static final int VIEW_HEIGHT = WelcomeScreen.HEIGHT - 35;
 	private static final String TAB_TAG = "Map";
@@ -33,7 +34,6 @@ public class MapManager extends TabPane {
 	private ViewSideBar sideBar;
 	private GameElementSelector mySprites;
 	private AuthoringEnvironmentManager myAEM;
-	private SpriteObjectGridManagerI mySOGM;
 	private int myTabCount = 1;
 	private Tab currentTab;
 	private boolean oldProject;
@@ -41,48 +41,22 @@ public class MapManager extends TabPane {
 	private GameDataHandler myGDH;
 	private int numWorlds = 1;
 	private List<DraggableGrid> allWorlds = new ArrayList<DraggableGrid>();
-
 	private Pane mapEditor = new Pane();
 	private SpritePanels spritePanels;
 
-	public MapManager(Stage currentStage)  {
+	public MapManager(AuthoringEnvironmentManager AEM, Stage currentStage, GameDataHandler GDH)  {
+		myAEM = AEM;
+		myGDH = GDH;
 		stage = currentStage;
 		mapEditor.getChildren().add(this);
 		mySelectModel = this.getSelectionModel();
 		this.setPrefWidth(VIEW_WIDTH);
 		this.setPrefHeight(VIEW_HEIGHT);
 		this.setLayoutX(ViewSideBar.VIEW_MENU_HIDDEN_WIDTH);
-		if (oldProject) {
-			projectName = "OLD PROJECT NAME"; // TODO. where to get new project name from?
-		}
-		myGDH = new GameDataHandler(projectName); 
-		if (oldProject) {
-			try {
-				for (DraggableGrid myWorld : myGDH.loadWorldsFromDirectoryName(projectName)) {
-					setTab(myWorld);
-				}
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		else {
-			setTab(); 
-		}
+		setTab();
+		// TODO REDO LOGIC ^^^ 
 		// calls createTab, which calls setUpScene, which calls set up auth classes, 
 		// which creates new Authoring Environment Manager
-	}
-	
-	private void setTab(DraggableGrid world) {
-		this.setSide(Side.TOP);
-		addTab = new Tab();
-		addTab.setClosable(false);
-		addTab.setText(ADD_TAB);
-		addTab.setOnSelectionChanged(e -> {
-			createTab(myTabCount, world);
-			mySelectModel.select(currentTab);
-		});
-		this.getTabs().add(addTab);
 	}
 	
 	public GameDataHandler getGDH() {
@@ -108,41 +82,24 @@ public class MapManager extends TabPane {
 		return authMap;
 	}
 	
-	private HBox setupScene(DraggableGrid world) {
-		authMap = new AuthoringMapEnvironment();
-		setupBEAuthClasses(world);
-		setupFEAuthClasses();
-		return authMap;
-	}
-	
-	private void setupBEAuthClasses(DraggableGrid world) {
-		myAEM = new AuthoringEnvironmentManager(myGDH);
-		if (oldProject) {
-			myAEM.setOldDraggableGrid(world); //TODO FILL THIS IN
-		}
-		mySOGM = myAEM.getGridManager();
-	}
-	
 	private void setupBEAuthClasses() {
-		myAEM = new AuthoringEnvironmentManager(myGDH);
-		mySOGM = myAEM.getGridManager();
+		//myAEM = new AuthoringEnvironmentManager(myGDH);
+		
+		//mySOGM = myAEM.getGridManager();
 	}
 	
-	private void setupFEAuthClasses() {
-		
-		DraggableGrid myGrid = myAEM.getDraggableGrid();
-		allWorlds.add(myGrid);
-		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, myGrid);
+	private void setupFEAuthClasses() { 
+		System.out.println("setUpFE?");
+		// TODO if it's old project, want all possible worlds, so many worlds!
+		DraggableGrid myGrid = new DraggableGrid(); //myAEM.getDraggableGrid();
+		allWorlds.add(myGrid); // TODO unsure if needed
+		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, myGrid); //MY TAB COUNT IS 1
 		myGrid.construct(mySpriteGridHandler);
 		mySpriteGridHandler.addKeyPress(stage.getScene());
-		spritePanels = new SpritePanels(this, mySpriteGridHandler, myAEM, mySOGM);
+		spritePanels = new SpritePanels(mySpriteGridHandler, myAEM);
 		mySpriteGridHandler.setDisplayPanel(spritePanels);
 		authMap.setPanels(spritePanels);
 		authMap.setGrid(myGrid);
-	}
-	
-	public List<DraggableGrid> getAllWorlds() {
-		return allWorlds;
 	}
 
 	private void createTab(int tabCount) {
@@ -151,16 +108,6 @@ public class MapManager extends TabPane {
 		tabMap.bind(Bindings.concat(DisplayLanguage.createStringBinding(TAB_TAG)).concat(" " + Integer.toString(tabCount)));
 		currentTab.textProperty().bind(tabMap);
 		currentTab.setContent(setupScene());
-		this.getTabs().add(this.getTabs().size() - 1, currentTab);
-		myTabCount++;
-	}
-	
-	private void createTab(int tabCount, DraggableGrid DG) {
-		currentTab = new Tab();
-		StringProperty tabMap = new SimpleStringProperty();
-		tabMap.bind(Bindings.concat(DisplayLanguage.createStringBinding(TAB_TAG)).concat(" " + Integer.toString(tabCount)));
-		currentTab.textProperty().bind(tabMap);
-		currentTab.setContent(setupScene(DG));
 		this.getTabs().add(this.getTabs().size() - 1, currentTab);
 		myTabCount++;
 	}
@@ -176,15 +123,15 @@ public class MapManager extends TabPane {
 		return allMaps;
 	}
 	
-	public AuthoringEnvironmentManager getAEM() {
-		return myAEM;
-	}
-	
 	public Pane getPane() {
 		return mapEditor;
 	}
 	
 	public Tab getDialoguesTab() {
 		return spritePanels.getDialoguesTab();
+	}
+	
+	public List<DraggableGrid> getAllWorlds() {
+		return allWorlds;
 	}
 }

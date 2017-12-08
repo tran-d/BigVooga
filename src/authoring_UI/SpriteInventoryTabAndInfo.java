@@ -8,6 +8,7 @@ import java.util.function.Consumer;
 
 import authoring.AbstractSpriteObject;
 import authoring.AuthoringEnvironmentManager;
+import authoring.SpriteSetHelper;
 import authoring.SpriteThumbnail;
 
 import javafx.scene.Node;
@@ -32,20 +33,18 @@ public class SpriteInventoryTabAndInfo {
 	private Consumer<Pane> itemOnClickAction;
 	private Consumer buttonAction;
 	private String buttonText;
-	private AuthoringEnvironmentManager myAEM; 
+	private SpriteSetHelper mySSH;
 
 	private Set<AbstractSpriteObject> temporaryInventory;
-//	private List<AbstractSpriteObject> removedInventory;
 
-	SpriteInventoryTabAndInfo(AuthoringEnvironmentManager AEM) {
-		myAEM = AEM;
+	SpriteInventoryTabAndInfo(SpriteSetHelper SSH) {
+		mySSH = SSH;
 		createBoundingScrollPane();
 		initialize();
-
 	}
 
-	SpriteInventoryTabAndInfo(AbstractSpriteObject ASO, AuthoringEnvironmentManager AEM) {
-		this(AEM);
+	SpriteInventoryTabAndInfo(AbstractSpriteObject ASO, SpriteSetHelper SSH) {
+		this(SSH);
 		setSpriteObject(ASO);
 		remakeContainingVBoxFromNewInventory();
 	}
@@ -60,7 +59,7 @@ public class SpriteInventoryTabAndInfo {
 			// Nothing by default
 		});
 		this.setButton("Add to inventory", action -> {
-			ArrayList<AbstractSpriteObject> newInventory = triggerPopUpOfInventoryToChoose();
+			List<AbstractSpriteObject> newInventory = triggerPopUpOfInventoryToChoose();
 			temporaryInventory.addAll(newInventory);
 			newInventory.forEach(sprite -> {
 				addInventory(sprite);
@@ -105,21 +104,10 @@ public class SpriteInventoryTabAndInfo {
 		});
 	}
 
-	private void setInventory(ArrayList<AbstractSpriteObject> newInventory) {
-//		myInventory.clear();
-//		myInventory.addAll(newInventory);
-//		System.out.println("Inventory: " + myInventory);
-//		myInventory.forEach(item -> {
-//			System.out.println("item : " + item);
-//		});
+	private void setInventory(List<AbstractSpriteObject> newInventory) {
 		temporaryInventory.clear();
 		temporaryInventory.addAll(newInventory);
 	}
-	
-//	private void removeFromInventory(AbstractSpriteObject ASO){
-//		myScrollPane.removeFromVBox();
-//		temporaryInventory.remove(ASO);
-//	}
 	
 	private void removeFromInventory(SpriteThumbnail ST){
 		myTabPane.removeFromVBox(ST);
@@ -146,7 +134,7 @@ public class SpriteInventoryTabAndInfo {
 		return button;
 	}
 
-	private ArrayList<AbstractSpriteObject> triggerPopUpOfInventoryToChoose() {
+	private List<AbstractSpriteObject> triggerPopUpOfInventoryToChoose() {
 		// SpriteInventoryTabAndInfo dummy = new SpriteInventoryTabAndInfo();
 		SpriteScrollView SSV = new SpriteScrollView();
 		SSV.setChildOnClickAction(pane -> {
@@ -160,7 +148,7 @@ public class SpriteInventoryTabAndInfo {
 				}
 			}
 		});
-		SSV.addToVBox(myAEM.getEveryTypeOfSpriteAsThumbnails());
+		SSV.addToVBox(mySSH.getThumbnailSprites());
 
 		final Stage dialog = new Stage();
 		dialog.initModality(Modality.APPLICATION_MODAL);
@@ -197,5 +185,4 @@ public class SpriteInventoryTabAndInfo {
 		System.out.println("myASO: "+myASO);
 		myASO.setInventory(temporaryInventory);
 	}
-
 }
