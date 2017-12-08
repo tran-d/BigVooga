@@ -123,6 +123,6 @@ public class BoundedImage extends BoundingSet implements DisplayableImage{
 	@Override
 	public void visit(GameDisplay display) {
 		// TODO Auto-generated method stub
-		
+		display.updateImages(this);
 	}
 }

@@ -36,7 +36,11 @@ public class CompositeImage implements Displayable<CompositeImage> {
 	public void visit(GameDisplay display) {
 		// TODO Auto-generated method stub
 
-		// Draw Image first, then text.
+		sprite.visit(display);
+
+		//TODO: Make text overlay onto the sprite properly.
+		if(message != null)
+			message.visit(display);
 	}
 
 	//No idea if these should even compare properly

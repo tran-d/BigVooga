@@ -74,7 +74,7 @@ public class EngineTester2 extends Application {
 		obj1.setDoubleVariable("xSpeed", 0);
 		obj1.setDoubleVariable("ySpeed", 0);
 		obj1.setSize(64, 64);
-		System.out.println(obj1.getImage().getWidth());
+		System.out.println(obj1.getBounds().getWidth());
 		
 		blueprints.addBlueprint(obj1);
 		obj2.addTag("Pillar");
