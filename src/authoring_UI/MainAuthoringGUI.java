@@ -26,7 +26,7 @@ public class MainAuthoringGUI{
 	private MenuButton settings;
 	private Pane authoringPane;
 	private AuthoringController authoringController;
-	private static final String TEMP_PROJECT_NAME = "Test Project";
+	private static final String TEMP_PROJECT_NAME = "TestProject";
 	
 
 	public MainAuthoringGUI(Stage currentStage, SceneController currentSceneController, String projectName) {
