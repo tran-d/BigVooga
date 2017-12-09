@@ -66,7 +66,7 @@ public class EngineTester extends Application {
 		blueprints.addBlueprint(obj1);
 
 		GameLayer l = new GameLayer("Layer");
-		l.addGameObject(obj1);
+		l.addElement(obj1);
 
 		GameWorld w = new GameWorld("World");
 		w.addLayer(l);

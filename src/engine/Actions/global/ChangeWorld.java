@@ -31,13 +31,14 @@ public class ChangeWorld implements Action {
 	
 	@Override
 	public void execute(GameObject asking, Layer world) {
-		List<GameObject> players = world.getWithTag(GameLayer.PLAYER_TAG);
-		world.removeGameObjects(players);
-		MoveTo moveTo = new MoveTo(newLocation);
-		for(GameObject player : players) {
-			moveTo.execute(player, newWorld);
-		}
-		newWorld.addGameObjects(players);
+//		List<GameObject> players = world.getWithTag(GameLayer.PLAYER_TAG);
+//		world.removeElements(players);
+////		MoveTo moveTo = new MoveTo(newPlayerX, newPlayerY);
+////		MoveTo moveTo = new MoveTo(newLocation);
+//		for(GameObject player : players) {
+//			moveTo.execute(player, newWorld);
+//		}
+//		newWorld.addElements(players);
 		//world.setNextWorld(newWorld);
 	}
 

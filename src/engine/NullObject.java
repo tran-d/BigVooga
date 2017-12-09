@@ -133,10 +133,10 @@ public class NullObject extends GameObject {
 	}
 
 	public Inventory getInventory() {
-		return new Inventory();
+		return null;
 	}
 
-	public void addToInventory(InventoryObject o) {
+	public void addToInventory(Element o) {
 	}
 
 	public void setDialogue(DisplayableText text) {
