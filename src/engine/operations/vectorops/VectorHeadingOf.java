@@ -9,11 +9,11 @@ import javafx.geometry.Point2D;
  * @author Ian Eldridge-Allegra
  *
  */
-public class HeadingOf implements VectorOperation {
+public class VectorHeadingOf implements VectorOperation {
 
 	private GameObjectOperation object;
 
-	public HeadingOf(GameObjectOperation object) {
+	public VectorHeadingOf(GameObjectOperation object) {
 		this.object = object;
 	}
 	

@@ -82,7 +82,7 @@ public class OperationFactory {
 	}
 	
 	public static Map<String, ResourceBundle> getOperationsByType() {
-		return getFromBundle((key, properties)->new Pair<>(key, ResourceBundle.getBundle(PACKAGE + "." + properties[FILE_LOCATION_INDEX])));
+		return getFromBundle((key, properties)->new Pair<>(key, ResourceBundle.getBundle(properties[FILE_LOCATION_INDEX])));
 	}
 	
 	private static <T> Map<String, T> getFromBundle(BiFunction<String, String[], Pair<String, T>> function) {

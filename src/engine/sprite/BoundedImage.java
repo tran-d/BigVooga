@@ -6,6 +6,7 @@ import java.util.List;
 import engine.utilities.collisions.BoundingGeometry;
 import engine.utilities.collisions.BoundingSet;
 import engine.utilities.collisions.RelativeBoundingPolygon;
+import gui.player.GameDisplay;
 
 /**
  * Represents an Image with relative bounds. 
@@ -108,11 +109,6 @@ public class BoundedImage extends BoundingSet implements DisplayableImage{
 	public int getDrawingPriority() {
 		return depth;
 	}
-
-	@Override
-	public int compareTo(DisplayableImage other) {
-		return depth - other.getDrawingPriority();
-	}
 	
 	public BoundedImage clone() {
 		BoundedImage i =  new BoundedImage(fileName, relativeBounds);
@@ -121,5 +117,10 @@ public class BoundedImage extends BoundingSet implements DisplayableImage{
 		i.setDrawPriority(depth);
 		i.setSize(xSize, ySize);
 		return i;
+	}
+
+	@Override
+	public void visit(GameDisplay display) {
+		display.displayImage(this);
 	}
 }

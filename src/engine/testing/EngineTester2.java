@@ -74,7 +74,7 @@ public class EngineTester2 extends Application {
 		obj1.setDoubleVariable("xSpeed", 0);
 		obj1.setDoubleVariable("ySpeed", 0);
 		obj1.setSize(64, 64);
-		System.out.println(obj1.getImage().getWidth());
+		System.out.println(obj1.getBounds().getWidth());
 		
 		blueprints.addBlueprint(obj1);
 		obj2.addTag("Pillar");
@@ -125,11 +125,11 @@ public class EngineTester2 extends Application {
 		List<Action> actions1 = new ArrayList<Action>();
 		
 		actions1.add(new MoveByVariable("xSpeed", "ySpeed"));
-		actions1.add(new ChangeDouble("ySpeed", .2, true));
+		actions1.add(new SetDouble("ySpeed", .2, true));
 		obj.addConditionAction(new BeginStep(), actions1);
 		actions1 = new ArrayList<Action>();
 		
-		actions1.add(new ChangeDouble("ySpeed", -5, false));
+		actions1.add(new SetDouble("ySpeed", -5, false));
 		obj.addConditionAction(new KeyPressed(-1, "Up"), actions1);
 		actions1 = new ArrayList<Action>();
 	}
@@ -137,7 +137,7 @@ public class EngineTester2 extends Application {
 	private void conditionAction2(GameObject obj) {
 		List<Action> actions1 = new ArrayList<Action>();
 		actions1.add(new Destroy("Birb"));
-		obj.addConditionAction(new Collision(3, "Player"), actions1);
+		obj.addConditionAction(new CollisionByTag(3, "Player"), actions1);
 		actions1 = new ArrayList<Action>();
 		
 		actions1.add(new Move(-2, 0));
