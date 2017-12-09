@@ -32,12 +32,19 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 
 	public void extract() {
 
-		for (OperationNameTreeItem opItem : opNameTreeItemList) {
-//			System.out.println("user inputted op: " + opItem.getSelectedOperation());
-			opItem.makeOperation();
-//			System.out.println(opItem.makeOperation());
+		 for (OperationNameTreeItem opItem : opNameTreeItemList) {
+		// System.out.println("user inputted op: " + opItem.getSelectedOperation());
+		 opItem.makeOperation();
+		// System.out.println(opItem.makeOperation());
+		
+		 }
 
-		}
+//		actionFactory.makeAction("Rotate To", new ArrayList<String>() {
+//			{
+//				add("Self");
+//				add("90");
+//			}
+//		});
 
 		// try {
 		// for (String s : actionParameterTypes) {

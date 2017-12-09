@@ -31,48 +31,23 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 	}
 
 	public Object makeOperation() {
-		// if (selectedOperation.equals(INPUT_A_DOUBLE) ||
-		// selectedOperation.equals(INPUT_A_STRING)) {
-		//// System.out.println(operationParameterTreeItem.getParameter());
-		// operationFactory.makeOperation(selectedOperation,
-		// operationParameterTreeItem.getParameter());
-		// }
-		// else {
-		//
-		// }
 
 		if (operationParameterTreeItem.getNumberOfParameters() == 0) {
 			return operationParameterTreeItem.getParameter();
 		} else {
+			// operationParameterTreeItem.makeOperation();
+			System.out.println("atleast 1 parameter");
+			return operationParameterTreeItem.makeOperation();
 			
-			// fix this 
-			System.out.println("Fact: "
-					+ operationFactory.makeOperation(selectedOperation, operationParameterTreeItem.getParameter()));
-			return operationFactory.makeOperation(selectedOperation, operationParameterTreeItem.getParameter());
+			
+			// fix this
+			// System.out.println("Fact: "
+			// + operationFactory.makeOperation(selectedOperation,
+			// operationParameterTreeItem.getParameter()));
+			// return operationFactory.makeOperation(selectedOperation,
+			// operationParameterTreeItem.getParameter());
+
 		}
-
-		// // user inputted text
-		// if (selectedOperation.equals(INPUT_A_DOUBLE) ||
-		// selectedOperation.equals(INPUT_A_STRING)) {
-		// return operationParameterTreeItem.getParameter();
-		// }
-		// // user selected an operation
-		// else {
-		// // the operation had no parameters
-		// if (operationParameterTreeItem.getParameter().equals("")) {
-		// System.out.println(selectedOperation);
-		// return selectedOperation;
-		// }
-		// // the operation had parameters
-		// else {
-		// return operationFactory.makeOperation(selectedOperation,
-		// operationParameterTreeItem.getParameter());
-		// }
-		// }
-
-		// if (!operationParameterTreeItem.getParameter().equals(""))
-		// operationFactory.makeOperation(selectedOperation,
-		// operationParameterTreeItem.getParameter());
 
 	}
 
@@ -85,31 +60,6 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 			// operationFactory.makeOperation(selectedOperation, );
 			return "not input a double/string";
 		}
-
-		// return operationParameterTreeItem.getParameter();
-
-		// List<String> opParams = new ArrayList<>();
-		// // can return null
-		// for (OperationParameterTreeItem operationParameterTreeItem : opParameterList)
-		// {
-		// opParams.add(operationParameterTreeItem.getParameter());
-		// System.out.println("Operation Name and Parameter: " + selectedOperation + " "
-		// + operationParameterTreeItem.getItem());
-		// }
-		//
-		//
-		//
-		// if (!opParams.isEmpty()) {
-		// if (!selectedOperation.equals(INPUT_A_DOUBLE) &&
-		// !selectedOperation.equals(INPUT_A_STRING)) {
-		// return operationFactory.makeOperation(selectedOperation,
-		// opParams).toString();
-		// }
-		// return
-		// }
-		// return "";
-
-		// return operationParameterTreeItem.getItem();
 	}
 
 	private TreeItem<HBox> makeOperationNameTreeItem(String actionParameter) {

@@ -26,7 +26,7 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 	private OperationNameTreeItem operationNameTreeItem;
 	private ObservableList<String> operationParameters;
 	private String selectedOperation;
-	private List<OperationNameTreeItem> listOfParams = new ArrayList<>();
+	private List<OperationNameTreeItem> listOfOperations = new ArrayList<>();
 
 	private OperationFactory operationFactory = new OperationFactory();
 
@@ -37,43 +37,38 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 
 	public String getParameter() {
 
-		if (this.getNumberOfParameters() == 0) {
-
-			if (doubleParameterTF != null) {
-				System.out.println("Double was inputted: " + doubleParameterTF.getText());
-				return doubleParameterTF.getText();
-			} else if (stringParameterTF != null) {
-				System.out.println("String was inputted: " + stringParameterTF.getText());
-				return stringParameterTF.getText();
-			} else {
-				System.out.println(selectedOperation);
-				return selectedOperation;
-			}
+		if (doubleParameterTF != null) {
+			System.out.println("Double was inputted: " + doubleParameterTF.getText());
+			return doubleParameterTF.getText();
+		} else if (stringParameterTF != null) {
+			System.out.println("String was inputted: " + stringParameterTF.getText());
+			return stringParameterTF.getText();
 		} else {
-			
-//			List<OperationNameTreeItem> listOfStringParams = new ArrayList<>();
-//			
-//			for (OperationNameTreeItem op : listOfParams) {
-//
-//				listOfStringParams.add()
-//			}
-			return operationNameTreeItem.getSelectedOperation();
+			System.out.println(selectedOperation);
+			return selectedOperation;
 		}
 
-		// if (doubleParameterTF != null) {
-		// System.out.println("Double was inputted: " + doubleParameterTF.getText());
-		// return doubleParameterTF.getText();
-		// } else if (stringParameterTF != null) {
-		// System.out.println("String was inputted: " + stringParameterTF.getText());
-		// return stringParameterTF.getText();
-		// } else if (operationNameTreeItem != null) {
-		// return operationNameTreeItem.getSelectedOperation();
-		// } else
-		// return "";
+	}
+
+	public String makeOperation() {
+		List<String> listOfStringParams = new ArrayList<>();
+
+		for (OperationNameTreeItem op : listOfOperations) {
+
+			listOfStringParams.add((String) op.makeOperation());
+		}
+		
+		for (String param : listOfStringParams) {
+			System.out.println("Selected operation w/ param: " + selectedOperation + " " + param);
+		}
+
+//		operationFactory.makeOperation(selectedOperation, listOfStringParams);
+
+		return selectedOperation;
 	}
 
 	public int getNumberOfParameters() {
-		return listOfParams.size();
+		return listOfOperations.size();
 	}
 
 	private TreeItem<HBox> makeParameterOperationTreeItem(String selectedOperation) {
@@ -100,7 +95,7 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 			operationParameters = FXCollections.observableList(operationFactory.getParameters(selectedOperation));
 			System.out.println("Op Params: " + operationParameters);
 
-			listOfParams = new ArrayList<>();
+			listOfOperations = new ArrayList<>();
 
 			if (!operationParameters.isEmpty()) {
 
@@ -113,7 +108,7 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 					hb.getChildren().add(new Label(opParam + " "));
 
 					operationNameTreeItem = new OperationNameTreeItem(opParam);
-					listOfParams.add(operationNameTreeItem);
+					listOfOperations.add(operationNameTreeItem);
 					operationParameter.getChildren().add(operationNameTreeItem);
 				}
 
