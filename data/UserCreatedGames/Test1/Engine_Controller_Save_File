@@ -1,196 +1,260 @@
 <engine.GameMaster>
-  <currentWorld>
-    <worldLayers>
-      <engine.GameLayer>
-        <worldName>Layer</worldName>
-        <worldObjects>
-          <engine.GameObject>
-            <doubleVars>
-              <entry>
-                <string>yCor</string>
-                <double>150.0</double>
-              </entry>
-              <entry>
-                <string>heading</string>
-                <double>0.0</double>
-              </entry>
-              <entry>
-                <string>xCor</string>
-                <double>120.0</double>
-              </entry>
-            </doubleVars>
-            <doubleListVars/>
-            <vectorVars/>
-            <stringVars/>
-            <stringListVars/>
-            <booleanVars/>
-            <name>Ob1</name>
-            <tagSet>
-              <string>default</string>
-              <string>Ob1</string>
-            </tagSet>
-            <events>
-              <entry>
-                <engine.Condition>
-                  <priorityNum>1</priorityNum>
-                  <operation class="engine.operations.booleanops.KeyHeld">
-                    <check class="engine.operations.stringops.SelfString">
-                      <stored>W</stored>
-                    </check>
-                  </operation>
-                </engine.Condition>
-                <list>
-                  <engine.Actions.movement.Move>
-                    <increment class="engine.operations.vectorops.VectorScale">
-                      <vector class="engine.operations.vectorops.HeadingOf">
-                        <object class="engine.operations.gameobjectops.Self"/>
-                      </vector>
-                      <scalar class="engine.operations.doubleops.Value">
-                        <value>5.0</value>
-                      </scalar>
-                    </increment>
-                  </engine.Actions.movement.Move>
-                </list>
-              </entry>
-              <entry>
-                <engine.Condition>
-                  <priorityNum>1</priorityNum>
-                  <operation class="engine.operations.booleanops.KeyHeld">
-                    <check class="engine.operations.stringops.SelfString">
-                      <stored>D</stored>
-                    </check>
-                  </operation>
-                </engine.Condition>
-                <list>
-                  <engine.Actions.variableSetting.ChangeDouble>
-                    <varName class="engine.operations.stringops.SelfString">
-                      <stored>heading</stored>
-                    </varName>
-                    <newDouble class="engine.operations.doubleops.Value">
-                      <value>2.0</value>
-                    </newDouble>
-                  </engine.Actions.variableSetting.ChangeDouble>
-                </list>
-              </entry>
-              <entry>
-                <engine.Condition>
-                  <priorityNum>1</priorityNum>
-                  <operation class="engine.operations.booleanops.KeyHeld">
-                    <check class="engine.operations.stringops.SelfString">
-                      <stored>A</stored>
-                    </check>
-                  </operation>
-                </engine.Condition>
-                <list>
-                  <engine.Actions.variableSetting.ChangeDouble>
-                    <varName class="engine.operations.stringops.SelfString">
-                      <stored>heading</stored>
-                    </varName>
-                    <newDouble class="engine.operations.doubleops.Value">
-                      <value>-2.0</value>
-                    </newDouble>
-                  </engine.Actions.variableSetting.ChangeDouble>
-                </list>
-              </entry>
-            </events>
-            <currentSprite>
-              <animations>
-                <entry>
-                  <string>Animation</string>
-                  <engine.sprite.AnimationSequence>
-                    <imageIndex>0</imageIndex>
-                    <images>
-                      <engine.sprite.BoundedImage>
-                        <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
-                        <relativeBounds>
-                          <engine.utilities.collisions.RelativeBoundingGeometry>
-                            <geometry class="engine.utilities.collisions.BoundingPolygon">
-                              <vertices>
-                                <javafx.geometry.Point2D>
-                                  <x>-0.5</x>
-                                  <y>-0.5</y>
-                                  <hash>0</hash>
-                                </javafx.geometry.Point2D>
-                                <javafx.geometry.Point2D>
-                                  <x>0.5</x>
-                                  <y>-0.5</y>
-                                  <hash>0</hash>
-                                </javafx.geometry.Point2D>
-                                <javafx.geometry.Point2D>
-                                  <x>0.5</x>
-                                  <y>0.5</y>
-                                  <hash>0</hash>
-                                </javafx.geometry.Point2D>
-                                <javafx.geometry.Point2D>
-                                  <x>-0.5</x>
-                                  <y>0.5</y>
-                                  <hash>0</hash>
-                                </javafx.geometry.Point2D>
-                              </vertices>
-                            </geometry>
-                          </engine.utilities.collisions.RelativeBoundingGeometry>
-                        </relativeBounds>
-                        <fileName>C:\Users\nikbr\Desktop\eclipse\My_Workspace\voogasalad_bigvooga\data\UserCreatedGames\Test1\testImage.gif</fileName>
-                        <xCenter>0.0</xCenter>
-                        <yCenter>0.0</yCenter>
-                        <xSize>0.0</xSize>
-                        <ySize>0.0</ySize>
-                        <heading>0.0</heading>
-                        <depth>10</depth>
-                      </engine.sprite.BoundedImage>
-                    </images>
-                    <name>Animation</name>
-                    <stepsPerFrame>20</stepsPerFrame>
-                    <stepsInCurrentFrame>0</stepsInCurrentFrame>
-                  </engine.sprite.AnimationSequence>
-                </entry>
-              </animations>
-              <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-            </currentSprite>
-            <width>200.0</width>
-            <height>100.0</height>
-            <uniqueID>0</uniqueID>
-            <inventory>
-              <objects/>
-            </inventory>
-            <dialogueHandler>
-              <font>Times New Roman</font>
-              <size>12</size>
-            </dialogueHandler>
-          </engine.GameObject>
-        </worldObjects>
-        <conditionPriorities class="java.util.concurrent.ConcurrentSkipListMap" serialization="custom">
-          <unserializable-parents/>
-          <java.util.concurrent.ConcurrentSkipListMap>
-            <default/>
-            <int>1</int>
-            <list>
-              <engine.GameObject reference="../../../../worldObjects/engine.GameObject"/>
-            </list>
-            <null/>
-          </java.util.concurrent.ConcurrentSkipListMap>
-        </conditionPriorities>
-        <idToGameObject>
-          <entry>
-            <int>0</int>
-            <engine.GameObject reference="../../../worldObjects/engine.GameObject"/>
-          </entry>
-        </idToGameObject>
-      </engine.GameLayer>
-    </worldLayers>
-    <nextWorld reference=".."/>
-    <worldName>World</worldName>
-    <globalVars>
-      <doubleVars/>
-      <doubleListVars/>
-      <vectorVars/>
-      <stringVars/>
-      <stringListVars/>
-      <booleanVars/>
-    </globalVars>
-  </currentWorld>
   <madeWorlds>
-    <engine.GameWorld reference="../../currentWorld"/>
+    <engine.GameWorld>
+      <worldName>World</worldName>
+      <worldLayers>
+        <engine.GameLayer>
+          <worldName>Layer</worldName>
+          <worldElements>
+            <engine.GameObject>
+              <doubleVars/>
+              <doubleListVars/>
+              <vectorVars/>
+              <stringVars/>
+              <stringListVars/>
+              <booleanVars/>
+              <inventory defined-in="engine.VariableContainer"/>
+              <events>
+                <entry>
+                  <engine.Condition>
+                    <priorityNum>2</priorityNum>
+                    <operation class="engine.operations.booleanops.KeyPressed">
+                      <check class="engine.operations.stringops.SelfString">
+                        <stored>W</stored>
+                      </check>
+                    </operation>
+                  </engine.Condition>
+                  <list>
+                    <engine.Actions.movement.Move>
+                      <increment class="engine.operations.vectorops.VectorHeadingOf">
+                        <object class="engine.operations.gameobjectops.Self"/>
+                      </increment>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.movement.Move>
+                  </list>
+                </entry>
+                <entry>
+                  <engine.Condition>
+                    <priorityNum>2</priorityNum>
+                    <operation class="engine.operations.booleanops.KeyPressed">
+                      <check class="engine.operations.stringops.SelfString">
+                        <stored>I</stored>
+                      </check>
+                    </operation>
+                  </engine.Condition>
+                  <list>
+                    <engine.Actions.changeObject.DisplayInventory>
+                      <obj class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.changeObject.DisplayInventory>
+                  </list>
+                </entry>
+              </events>
+              <currentSprite>
+                <animations>
+                  <entry>
+                    <string>Animation</string>
+                    <engine.sprite.AnimationSequence>
+                      <imageIndex>0</imageIndex>
+                      <images>
+                        <engine.sprite.BoundedImage>
+                          <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                          <relativeBounds>
+                            <engine.utilities.collisions.RelativeBoundingPolygon>
+                              <geometry>
+                                <vertices>
+                                  <javafx.geometry.Point2D>
+                                    <x>-0.5</x>
+                                    <y>-0.5</y>
+                                    <hash>0</hash>
+                                  </javafx.geometry.Point2D>
+                                  <javafx.geometry.Point2D>
+                                    <x>0.5</x>
+                                    <y>-0.5</y>
+                                    <hash>0</hash>
+                                  </javafx.geometry.Point2D>
+                                  <javafx.geometry.Point2D>
+                                    <x>0.5</x>
+                                    <y>0.5</y>
+                                    <hash>0</hash>
+                                  </javafx.geometry.Point2D>
+                                  <javafx.geometry.Point2D>
+                                    <x>-0.5</x>
+                                    <y>0.5</y>
+                                    <hash>0</hash>
+                                  </javafx.geometry.Point2D>
+                                </vertices>
+                              </geometry>
+                            </engine.utilities.collisions.RelativeBoundingPolygon>
+                          </relativeBounds>
+                          <fileName>C:\Users\nikbr\Desktop\eclipse\My_Workspace\voogasalad_bigvooga\data\UserCreatedGames\Test1\testImage.gif</fileName>
+                          <xCenter>0.0</xCenter>
+                          <yCenter>0.0</yCenter>
+                          <xSize>0.0</xSize>
+                          <ySize>0.0</ySize>
+                          <heading>0.0</heading>
+                          <depth>10</depth>
+                        </engine.sprite.BoundedImage>
+                      </images>
+                      <name>Animation</name>
+                      <stepsPerFrame>20</stepsPerFrame>
+                      <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                    </engine.sprite.AnimationSequence>
+                  </entry>
+                </animations>
+                <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+              </currentSprite>
+              <uniqueID>0</uniqueID>
+              <name>Ob1</name>
+              <tagSet>
+                <string>default</string>
+                <string>Ob1</string>
+              </tagSet>
+              <inventory>
+                <objects>
+                  <engine.Holdable>
+                    <doubleVars/>
+                    <doubleListVars/>
+                    <vectorVars/>
+                    <stringVars/>
+                    <stringListVars/>
+                    <booleanVars/>
+                    <inventory/>
+                    <useOptions/>
+                    <selectActions/>
+                    <sprite>
+                      <animations>
+                        <entry>
+                          <string>hi</string>
+                          <engine.sprite.AnimationSequence>
+                            <imageIndex>0</imageIndex>
+                            <images>
+                              <engine.sprite.BoundedImage>
+                                <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                                <relativeBounds>
+                                  <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                                </relativeBounds>
+                                <fileName>C:\Users\nikbr\Desktop\eclipse\My_Workspace\voogasalad_bigvooga\data\UserCreatedGames\Test1\skeptical.jpg</fileName>
+                                <xCenter>0.0</xCenter>
+                                <yCenter>0.0</yCenter>
+                                <xSize>0.0</xSize>
+                                <ySize>0.0</ySize>
+                                <heading>0.0</heading>
+                                <depth>10</depth>
+                              </engine.sprite.BoundedImage>
+                            </images>
+                            <name>hi</name>
+                            <stepsPerFrame>20</stepsPerFrame>
+                            <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                          </engine.sprite.AnimationSequence>
+                        </entry>
+                      </animations>
+                      <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+                    </sprite>
+                  </engine.Holdable>
+                  <engine.Holdable>
+                    <doubleVars/>
+                    <doubleListVars/>
+                    <vectorVars/>
+                    <stringVars/>
+                    <stringListVars/>
+                    <booleanVars/>
+                    <inventory/>
+                    <useOptions/>
+                    <selectActions/>
+                    <sprite>
+                      <animations>
+                        <entry>
+                          <string>hi</string>
+                          <engine.sprite.AnimationSequence>
+                            <imageIndex>0</imageIndex>
+                            <images>
+                              <engine.sprite.BoundedImage>
+                                <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                                <relativeBounds>
+                                  <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                                </relativeBounds>
+                                <fileName>C:\Users\nikbr\Desktop\eclipse\My_Workspace\voogasalad_bigvooga\data\UserCreatedGames\Test1\skeptical.jpg</fileName>
+                                <xCenter>0.0</xCenter>
+                                <yCenter>0.0</yCenter>
+                                <xSize>0.0</xSize>
+                                <ySize>0.0</ySize>
+                                <heading>0.0</heading>
+                                <depth>10</depth>
+                              </engine.sprite.BoundedImage>
+                            </images>
+                            <name>hi</name>
+                            <stepsPerFrame>20</stepsPerFrame>
+                            <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                          </engine.sprite.AnimationSequence>
+                        </entry>
+                      </animations>
+                      <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+                    </sprite>
+                  </engine.Holdable>
+                </objects>
+                <scrollers/>
+                <pane>
+                  <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                  <relativeBounds>
+                    <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                  </relativeBounds>
+                  <fileName>C:\Users\nikbr\Desktop\eclipse\My_Workspace\voogasalad_bigvooga\data\UserCreatedGames\Test1\pane.png</fileName>
+                  <xCenter>200.0</xCenter>
+                  <yCenter>200.0</yCenter>
+                  <xSize>400.0</xSize>
+                  <ySize>400.0</ySize>
+                  <heading>0.0</heading>
+                  <depth>10</depth>
+                </pane>
+                <holder reference="../.."/>
+                <rowSpan>5</rowSpan>
+                <colSpan>5</colSpan>
+                <startIndex>0</startIndex>
+              </inventory>
+              <heading>0.0</heading>
+              <ithDerivative>
+                <javafx.geometry.Point2D>
+                  <x>120.0</x>
+                  <y>150.0</y>
+                  <hash>0</hash>
+                </javafx.geometry.Point2D>
+              </ithDerivative>
+              <width>200.0</width>
+              <height>100.0</height>
+            </engine.GameObject>
+          </worldElements>
+          <objects>
+            <engine.GameObject reference="../../worldElements/engine.GameObject"/>
+          </objects>
+          <conditionPriorities class="java.util.concurrent.ConcurrentSkipListMap" serialization="custom">
+            <unserializable-parents/>
+            <java.util.concurrent.ConcurrentSkipListMap>
+              <default/>
+              <int>2</int>
+              <list>
+                <engine.GameObject reference="../../../../worldElements/engine.GameObject"/>
+              </list>
+              <null/>
+            </java.util.concurrent.ConcurrentSkipListMap>
+          </conditionPriorities>
+          <idToGameObject>
+            <entry>
+              <int>0</int>
+              <engine.GameObject reference="../../../worldElements/engine.GameObject"/>
+            </entry>
+          </idToGameObject>
+        </engine.GameLayer>
+      </worldLayers>
+    </engine.GameWorld>
   </madeWorlds>
-  <globalVars reference="../currentWorld/globalVars"/>
+  <globalVars>
+    <doubleVars/>
+    <doubleListVars/>
+    <vectorVars/>
+    <stringVars/>
+    <stringListVars/>
+    <booleanVars/>
+    <inventory/>
+  </globalVars>
+  <nextWorld>World</nextWorld>
 </engine.GameMaster>
