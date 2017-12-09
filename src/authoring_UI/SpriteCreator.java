@@ -15,11 +15,16 @@ import authoring.SpriteNameManager;
 import authoring.SpriteObject;
 import authoring.SpriteParameterI;
 import gui.welcomescreen.WelcomeScreen;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
+import javafx.geometry.Side;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
@@ -39,50 +44,78 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import tools.DisplayLanguage;
 
 /**
  * Class for creating new sprites
+ * 
  * @author taekwhunchung
+ *
  */
+
 public class SpriteCreator extends TabPane {
+
 	private static final String PATH = "resources/";
 	private static final String SPRITECREATORRESOURCES_PATH = "TextResources/SpriteCreatorResources";
 	private static final int PANE_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH;
+	private static final String ADD_TAB = "+";
+	private static final String TAB_TAG = "Sprite";
 
+	
+	private Stage myStage;
+	private Tab addTab;
+	private Tab currentTab;
 	private TextField nameField;
+	private TextField categoryField;
 	private String fileName;
 	private SpriteObject newSprite;
 	private ResourceBundle spriteCreatorResources;
 	private DisplayPanel myDP;
 	private AuthoringEnvironmentManager myAEM;
 	private SpriteNameManager mySNM;
+	private SingleSelectionModel <Tab> mySelectModel;
+	private List<DraggableGrid> allWorlds = new ArrayList<DraggableGrid>();
 	private Pane myPane;
 	private HBox nameBox;
 	private VBox myStatePanel;
 	private StackPane myImageStack;
 	private int spriteCount = 1;
+	private int myTabCount = 1;
 
-	public SpriteCreator(AuthoringEnvironmentManager AEM) {
+	public SpriteCreator(Stage stage, AuthoringEnvironmentManager AEM) {
+		setup(stage, AEM);
+		SpriteTab tab = new SpriteTab(AEM);
+		this.getTabs().add(tab);
+
+	}
+
+	private void setup(Stage stage, AuthoringEnvironmentManager AEM) {
+		myStage = stage;
 		spriteCreatorResources = ResourceBundle.getBundle(SPRITECREATORRESOURCES_PATH);
 		myAEM = AEM;
-		mySNM = new SpriteNameManager();
+//		mySNM = new SpriteNameManager();
 		myPane = new Pane();
 		myPane.getChildren().add(this);
+		mySelectModel = this.getSelectionModel();
 		this.setWidth(PANE_WIDTH);
 		this.setLayoutX(ViewSideBar.VIEW_MENU_HIDDEN_WIDTH);
-		Tab tab = makeTab();
-		this.getTabs().add(tab);
 	}
 
 	private Tab makeTab() {
 		Tab tab = new Tab();
 		tab.setText(spriteCreatorResources.getString("SpriteTab") + spriteCount);
 		spriteCount++;
+
 		HBox hb = addParentHBox(tab);
-		addStatePanel(hb);
+		
+		myStatePanel = new SpriteStatePanel(myAEM);
+		hb.getChildren().add(myStatePanel);
+		
 		addImageStackPane(hb);
 		addToolBox(hb);
+
 		return tab;
+
 	}
 
 	private void addToolBox(HBox parentBox) {
@@ -95,42 +128,124 @@ public class SpriteCreator extends TabPane {
 	}
 
 	private void addImageStackPane(HBox parentBox) {
+		VBox imageBox = new VBox();
+
+		HBox buttonBox = new HBox(10);
+		addButtons(buttonBox);
+
 		myImageStack = new StackPane();
-		myImageStack.setMinWidth(PANE_WIDTH / 2 - 100);
-		myImageStack.setMaxSize(PANE_WIDTH / 2 - 100, WelcomeScreen.HEIGHT);
+		// myImageStack.setPrefSize(PANE_WIDTH/2-100, WelcomeScreen.HEIGHT);
+		myImageStack.setMinWidth(PANE_WIDTH / 2 - 300);
+		myImageStack.setMinHeight(500);
+		myImageStack.setMaxSize(PANE_WIDTH / 2 - 300, WelcomeScreen.HEIGHT);
 		myImageStack.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 		BorderStroke border = new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.DOTTED, CornerRadii.EMPTY,
 				BorderWidths.DEFAULT);
+		myImageStack.setStyle("-fx-background-color: transparent;");
 		myImageStack.setBorder(new Border(border));
 
+		// ImageView test = new ImageView("pikachu.png");
+//		DraggableGrid myDG = new DraggableGrid(5,5);
+//		setTab();
+//		createTab(spriteCount, myDG);
+		
+		
 		newSprite = new SpriteObject();
 		nameBox = makeNameBox();
 
-		myImageStack.getChildren().addAll(newSprite, nameBox);
-		parentBox.getChildren().add(myImageStack);
+		// myImageStack.getChildren().addAll(test, nameBox);
+		myImageStack.getChildren().addAll(nameBox, newSprite);
+
+		imageBox.getChildren().addAll(buttonBox, myImageStack);
+		parentBox.getChildren().add(imageBox);
+		// parentBox.getChildren().add(new Text("test"));
+	}
+	private void setTab() { //?
+		this.setSide(Side.TOP);
+		addTab = new Tab();
+		addTab.setClosable(false);
+		addTab.setText(ADD_TAB);
+		addTab.setOnSelectionChanged(e -> {
+			createTab(myTabCount, new DraggableGrid());
+			mySelectModel.select(currentTab);
+		});
+		this.getTabs().add(addTab);
+	}
+
+	private HBox setupScene(DraggableGrid w) { 
+		return setupFEAuthClasses(w);
+//		return authMap;
+	}
+	
+	
+	private HBox setupFEAuthClasses(DraggableGrid w) { 
+		System.out.println("setUpFE?");
+		// TODO if it's old project, want all possible worlds, so many worlds!
+		allWorlds.add(w); // TODO unsure if needed
+		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, w, 1); 
+		w.construct(mySpriteGridHandler);
+		mySpriteGridHandler.addKeyPress(myStage.getScene());
+		SpritePanels spritePanels = new SpritePanels(mySpriteGridHandler, myAEM);
+		mySpriteGridHandler.setDisplayPanel(spritePanels);
+		AuthoringMapEnvironment authMap = new AuthoringMapEnvironment(spritePanels, w);
+		return authMap;
+	}
+
+	private void createTab(int tabCount, DraggableGrid w) { //?
+		currentTab = new Tab();
+		StringProperty tabMap = new SimpleStringProperty();
+		tabMap.bind(Bindings.concat(DisplayLanguage.createStringBinding(TAB_TAG)).concat(" " + Integer.toString(tabCount)));
+		
+		currentTab.textProperty().bind(tabMap);
+//		currentTab.textProperty().set(//TODO: World Name);
+		currentTab.setContent(setupScene(w));
+		this.getTabs().add(this.getTabs().size() - 1, currentTab);
+		myTabCount++;
 	}
 
 	private HBox makeNameBox() {
 		HBox nameBox = new HBox(10);
 		Text enterName = new Text(spriteCreatorResources.getString("NameField"));
+		enterName.setStroke(Color.WHITE);
 		nameField = new TextField();
+		Text enterCategory = new Text(spriteCreatorResources.getString("CategoryField"));
+		enterCategory.setStroke(Color.WHITE);
+		categoryField = new TextField();
 
-		nameBox.getChildren().addAll(enterName, nameField);
+		// Button confirm = new
+		// Button(spriteCreatorResources.getString("ConfirmButton"));
 
-		nameField.setOnAction(e -> {
-			System.out.println("name entered");
-			if (mySNM.isNameValidTemplate(nameField.getText())) {
-				// add to mySNM
-				mySNM.addTemplateName(nameField.getText());
-				System.out.println("name is valid");
-			} else {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Input Error");
-				alert.setHeaderText("Name already exists");
-				alert.setContentText("Change to a unique name");
-				alert.showAndWait();
-			}
-		});
+		nameBox.getChildren().addAll(enterName, nameField, enterCategory, categoryField);
+
+		// nameField.setOnAction(e -> {
+		// System.out.println("name entered");
+		// if (mySNM.isNameValidTemplate(nameField.getText())) {
+		// // add to mySNM
+		// mySNM.addTemplateName(nameField.getText());
+		// System.out.println("name is valid");
+		// } else {
+		// Alert alert = new Alert(AlertType.ERROR);
+		// alert.setTitle("Input Error");
+		// alert.setHeaderText("Name already exists");
+		// alert.setContentText("Change to a unique name");
+		// alert.showAndWait();
+		// }
+		// });
+
+		// confirm.setOnAction(e -> {
+		// System.out.println("name entered");
+		// if (mySNM.isNameValidTemplate(nameField.getText())) {
+		// // add to mySNM
+		// System.out.println("name is valid");
+		// } else {
+		// Alert alert = new Alert(AlertType.ERROR);
+		// alert.setTitle("Error");
+		// alert.setHeaderText("Name already exists");
+		// alert.setContentText("Change to a unique name");
+		// alert.showAndWait();
+		// }
+		// });
+
 		return nameBox;
 	}
 
@@ -140,16 +255,16 @@ public class SpriteCreator extends TabPane {
 		myStatePanel.setMaxWidth(PANE_WIDTH / 2);
 		myStatePanel.setPrefHeight(WelcomeScreen.HEIGHT);
 		myStatePanel.setMaxWidth(PANE_WIDTH);
-		myStatePanel.setStyle("-fx-background-color: #ffaadd;");
+		myStatePanel.setStyle("-fx-background-color: transparent;");
 
-		HBox buttonBox = new HBox(10);
-
-		addButtons(buttonBox);
+		// HBox buttonBox = new HBox(10);
+		// addButtons(buttonBox);
 		VBox stateBox = createStateBox();
 
 		TabPane spritePane = addSpriteTabs();
+		// ScrollPane sp = createGrid();
 
-		myStatePanel.getChildren().addAll(buttonBox, stateBox, spritePane);
+		myStatePanel.getChildren().addAll(stateBox, spritePane);
 
 		parentBox.getChildren().add(myStatePanel);
 	}
@@ -174,6 +289,7 @@ public class SpriteCreator extends TabPane {
 	}
 
 	private Tab makeTab(String tabName) {
+
 		return new Tab(tabName);
 	}
 
@@ -196,7 +312,12 @@ public class SpriteCreator extends TabPane {
 			if (mySNM.isNameValidTemplate(spriteName)) {
 				try {
 					newSprite.setName(spriteName);
-					myAEM.addUserSprite(newSprite);
+					if (categoryField.getText() == null) {
+						myAEM.addUserSprite(newSprite);
+					} else {
+						myAEM.addUserSprite(categoryField.getText(), newSprite);
+					}
+
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -207,12 +328,14 @@ public class SpriteCreator extends TabPane {
 				mySNM.addTemplateName(spriteName);
 
 				nameField.clear();
+				categoryField.clear();
+
 				myImageStack.getChildren().removeAll(newSprite, nameBox);
 				newSprite = new SpriteObject();
 
 				myImageStack.getChildren().addAll(newSprite, nameBox);
 
-				myStatePanel.getChildren().remove(2);
+				myStatePanel.getChildren().remove(1);
 				myStatePanel.getChildren().add(addSpriteTabs());
 			} else {
 				Alert alert = new Alert(AlertType.ERROR);
@@ -221,8 +344,11 @@ public class SpriteCreator extends TabPane {
 				alert.setContentText("Change to a unique name");
 				alert.showAndWait();
 			}
+
 		});
+
 		buttonBox.getChildren().addAll(loadImageButton, createSpriteButton);
+
 	}
 
 	private void openImage() throws IOException {
@@ -236,6 +362,7 @@ public class SpriteCreator extends TabPane {
 
 			fileName = file.getName();
 			nameField.setText(fileName.substring(0, fileName.indexOf(".")));
+			categoryField.setText("General");
 
 			myImageStack.getChildren().removeAll(newSprite, nameBox);
 
@@ -243,15 +370,28 @@ public class SpriteCreator extends TabPane {
 			newSprite.setImageURL(file.getName());
 			newSprite.setNumCellsWidthNoException(1);
 			newSprite.setNumCellsHeightNoException(1);
+
 			// add params
-			List<SpriteParameterI> myParams = new ArrayList<SpriteParameterI>();
+			ArrayList<SpriteParameterI> myParams = new ArrayList<SpriteParameterI>();
+
+			// newSprite.setName("test_name");
+
+			// imageView.setFitHeight(WelcomeScreen.HEIGHT);
+			// imageView.setFitWidth(PANE_WIDTH/2-100);
 
 			myImageStack.getChildren().addAll(newSprite, nameBox);
 
+			// myStatePanel.getChildren().add(imageView);
 			System.out.println("image loaded");
+			// System.out.println(file.getName());
+			// mySpriteObject.setImageURL(file.getName());
+			// setChanged();
+			// System.out.print(file.getName());
+			// notifyObservers(file.getName());
+			// System.out.println("image chosen");
 		}
 	}
-	
+
 	private ScrollPane createDefaultGrid() {
 		ScrollPane sp = new ScrollPane();
 		return sp;
@@ -259,9 +399,11 @@ public class SpriteCreator extends TabPane {
 
 	private ScrollPane createGrid(List<AbstractSpriteObject> sprites) {
 		GridPane gp = new GridPane();
-
+		int totalRows = (int) Math.ceil(sprites.size() / 10);
+		int DEFAULT_MIN_ROWS = 15;
+		totalRows = (totalRows < DEFAULT_MIN_ROWS) ? DEFAULT_MIN_ROWS : totalRows;
 		int counter = 0;
-		for (int i = 0; i < 1; i++) {
+		for (int i = 0; i < totalRows; i++) {
 			for (int j = 0; j < 10; j++) {
 				StackPane sp = new StackPane();
 				sp.setPrefHeight(50);
@@ -276,6 +418,7 @@ public class SpriteCreator extends TabPane {
 					toLoad.setOnMouseClicked(e -> {
 						System.out.println("SPRITE CLICKED");
 						myDP.addSpriteEditorVBox();
+						// myDP.updateParameterTab();
 					});
 					sp.getChildren().add(toLoad);
 				}
@@ -284,6 +427,7 @@ public class SpriteCreator extends TabPane {
 				gp.add(sp, j, i);
 			}
 		}
+
 		ScrollPane sp = new ScrollPane(gp);
 		sp.setMaxHeight(WelcomeScreen.HEIGHT / 2);
 		return sp;
@@ -294,13 +438,13 @@ public class SpriteCreator extends TabPane {
 		myDP.setMaxHeight(WelcomeScreen.HEIGHT / 2);
 		myDP.setPrefHeight(WelcomeScreen.HEIGHT / 2);
 		myDP.setPrefWidth(PANE_WIDTH / 2);
-		myDP.setStyle("-fx-background-color: #ffaadd;");
+		myDP.setStyle("-fx-background-color: transparent;");
 		return myDP;
 	}
 
 	private HBox addParentHBox(Tab tab) {
 		HBox hb = new HBox();
-		hb.setStyle("-fx-background-color: #FFFFFF;");
+		hb.setStyle("-fx-background-color: transparent;");
 		hb.setPrefWidth(PANE_WIDTH);
 		hb.setPrefHeight(WelcomeScreen.HEIGHT);
 		tab.setContent(hb);
