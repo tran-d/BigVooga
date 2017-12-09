@@ -1,7 +1,7 @@
 package engine.operations.booleanops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.doubleops.DoubleOperation;
 
 /**
@@ -20,7 +20,7 @@ public class DoubleEquals implements BooleanOperation {
 	}
 	
 	@Override
-	public Boolean evaluate(GameObject asking, Layer world) {
+	public Boolean evaluate(GameObject asking, GameObjectEnvironment world) {
 		return Math.abs(first.evaluate(asking, world) - second.evaluate(asking, world)) <= ERROR;
 	}
 

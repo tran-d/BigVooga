@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import engine.Actions.ActionFactory;
+import engine.Actions.changeObject.Create;
 import engine.operations.stringops.StringOperation;
 
 public class FactoryTesterJUnit {
@@ -34,6 +35,15 @@ public class FactoryTesterJUnit {
 		System.out.println(actFact.getActions("Loops"));
 		assertTrue(actFact.getParameters("Do Times").contains("Action"));
 		assertTrue(factory.getOperations(actFact.getParameters("Do Times").get(1)).contains("Do Times"));
+	}
+	
+	@Test
+	public void testParameterNames() {
+		assertEquals(Create.class.getConstructors()[0].getParameters()[1].getName(), "location");
+		
+		OperationFactory factory = new OperationFactory();
+		ActionFactory actFact = new ActionFactory();
+		System.out.println("Parameters with Names: " + factory.getParametersWithNames("Nearest (by Tag)"));
 	}
 
 }

@@ -1,7 +1,7 @@
 package engine.operations.booleanops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.gameobjectops.GameObjectOperation;
 import engine.utilities.collisions.BoundingPoint;
 
@@ -20,7 +20,7 @@ public class ObjectClickHeld implements BooleanOperation {
 	}
 
 	@Override
-	public Boolean evaluate(GameObject asking, Layer world) {
+	public Boolean evaluate(GameObject asking, GameObjectEnvironment world) {
 		BooleanOperation screenClickHeld = new ScreenClickHeld();
 		return screenClickHeld.evaluate(asking, world) && object.evaluate(asking, world).getBounds()
 				.checkCollision(new BoundingPoint(world.getPlayerManager().getMouseXY().getX(),

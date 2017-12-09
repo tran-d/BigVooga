@@ -86,7 +86,7 @@ public class RPGDemo extends Application {
 		
 		GameLayer layer = new GameLayer("Layer");
 		layer.setBlueprints(blueprints);
-		layer.addGameObject(obj1);
+		layer.addElement(obj1);
 		for(int j = 0; j < 8; j++)
 		{
 			layer.addGameObject("Wall", 32, 32+64*j, 0);
@@ -103,7 +103,7 @@ public class RPGDemo extends Application {
 		
 		GameMaster master = new GameMaster();
 		master.addWorld(w);
-		master.setCurrentWorld("World");
+		master.setNextWorld("World");
 		try {
 			new GameDataHandler("Demo_RPG").saveGame(master);
 		} catch (IOException e) {

@@ -2,7 +2,7 @@
 package engine.operations.vectorops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.gameobjectops.GameObjectOperation;
 import engine.operations.stringops.StringOperation;
 import javafx.geometry.Point2D;
@@ -22,7 +22,7 @@ public class VectorVariableOf implements VectorOperation {
 	}
 
 	@Override
-	public Point2D evaluate(GameObject asking, Layer world) {
+	public Point2D evaluate(GameObject asking, GameObjectEnvironment world) {
 		return object.evaluate(asking, world).getVector(varName.evaluate(asking, world));
 	}
 

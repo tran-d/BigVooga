@@ -24,6 +24,6 @@ public interface Action{
 	 * @param asking
 	 * @param world
 	 */
-	public void execute(GameObject asking, Layer world);
+	public void execute(GameObject asking, GameObjectEnvironment world);
 	
 }

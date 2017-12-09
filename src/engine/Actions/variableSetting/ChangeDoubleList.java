@@ -4,7 +4,7 @@ import java.util.List;
 
 import engine.Action;
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.gameobjectops.GameObjectOperation;
 import engine.operations.stringops.StringOperation;
 
@@ -26,7 +26,7 @@ public class ChangeDoubleList implements Action {
 	}
 	
 	@Override
-	public void execute(GameObject asking, Layer world) {
+	public void execute(GameObject asking, GameObjectEnvironment world) {
 		object.evaluate(asking, world).setDoubleListVariable(varName.evaluate(asking, world), newDoubleList);
 	}
 	

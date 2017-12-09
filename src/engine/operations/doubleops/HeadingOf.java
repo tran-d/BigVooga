@@ -1,7 +1,7 @@
 package engine.operations.doubleops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.gameobjectops.GameObjectOperation;
 
 public class HeadingOf implements DoubleOperation {
@@ -13,7 +13,7 @@ public class HeadingOf implements DoubleOperation {
 	}
 	
 	@Override
-	public Double evaluate(GameObject asking, Layer world) {
+	public Double evaluate(GameObject asking, GameObjectEnvironment world) {
 		return object.evaluate(asking, world).getHeading();
 	}
 
