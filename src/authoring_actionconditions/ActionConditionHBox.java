@@ -9,11 +9,14 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Separator;
 import javafx.scene.control.ToolBar;
+import javafx.scene.layout.HBox;
 
-public class TopToolBar extends ToolBar implements TopToolBarI {
+public class ActionConditionHBox extends HBox implements TopToolBarI {
 
 	private ResourceBundle tabResources;
 	private Button addButton;
@@ -23,11 +26,14 @@ public class TopToolBar extends ToolBar implements TopToolBarI {
 	private EditChoiceBoxVBox editRowVBox;
 	private Button editButton;
 
-	public TopToolBar(ResourceBundle resourceBundle, String addButtonTitle, String optionsTitle, String selectorLabel,
+	public ActionConditionHBox(ResourceBundle resourceBundle, String addButtonTitle, String optionsTitle, String selectorLabel,
 			String edit, String remove) {
 		super();
 		
-		
+		this.setAlignment(Pos.CENTER);
+		this.setPadding(new Insets(5, 0, 5, 5));
+		this.setSpacing(5);
+		this.setPrefWidth(560);
 		tabResources = resourceBundle;
 		addButton = new Button(tabResources.getString(addButtonTitle));
 		ObservableList<String> additionOptions = ActionConditionTabUtil
@@ -44,7 +50,7 @@ public class TopToolBar extends ToolBar implements TopToolBarI {
 //		editRowVBox = new EditChoiceBoxVBox(tabResources.getString("EditLabel"),
 //				FXCollections.observableList(new LinkedList<Integer>()));
 		
-		getItems().addAll(addButton, selectorVBox, separator, removeButton, removeRowVBox);
+		this.getChildren().addAll(addButton, selectorVBox, separator, removeButton, removeRowVBox);
 	}
 
 	protected ObservableList<Integer> getRemoveRowVBoxOptions() {

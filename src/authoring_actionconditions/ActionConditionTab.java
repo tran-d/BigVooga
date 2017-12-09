@@ -7,6 +7,7 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
@@ -17,7 +18,7 @@ public class ActionConditionTab extends Tab implements ActionConditionTabI {
 	
 	private ResourceBundle actionTabResources;
 	private ScrollPane actionConditionManager;
-	private TopToolBar buttons;
+	private ActionConditionHBox buttons;
 	private ActionConditionVBox actionConditionVBox;
 	private boolean isConditionTab;
 	
@@ -32,8 +33,7 @@ public class ActionConditionTab extends Tab implements ActionConditionTabI {
 	}
 
 	private void setUpActionConditionManager() {
-		buttons = new TopToolBar(actionTabResources,"AddButtonLabel","Options","SelectorLabel","EditButtonLabel","RemoveButtonLabel");
-		
+		buttons = new ActionConditionHBox(actionTabResources,"AddButtonLabel","Options","SelectorLabel","EditButtonLabel","RemoveButtonLabel");
 		actionConditionVBox = new ActionConditionVBox(actionTabResources.getString("SelectorLabel"),isConditionTab);
 		VBox mainVBox = new VBox(SPACING);
 		mainVBox.getChildren().addAll(buttons,actionConditionVBox);

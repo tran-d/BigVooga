@@ -64,7 +64,7 @@ public class GameElementSelector extends TabPane implements Observer {
 //		mySPF = new SpriteParameterFactory();
 		myAEM = AEM;
 		mySpriteGridHandler = spriteGridHandler;
-		this.setPrefHeight(275);
+		this.setPrefHeight(280);
 //		myGDH = AEM.getGameDataHandler();
 //		myAEM.getDefaultSpriteController().getAllSprites().forEach(sprite->{
 //			System.out.println("Sprite exists, name: "+sprite.getName());
