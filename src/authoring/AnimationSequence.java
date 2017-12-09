@@ -96,12 +96,11 @@ public class AnimationSequence {
 		return myImages;
 	}
 	
-	public Pane getUIContent(){
+	public VBox getUIContent(){
 		showUI();
 		if (this.outMostVbox==null){
-			outMostVbox  = new VBox();
+			outMostVbox = new VBox();
 			outMostVbox.getChildren().add(getScrollPane());
-			outMostVbox.getChildren().add(this.getAddImageButton());
 		}
 		return outMostVbox;
 	}
@@ -122,6 +121,7 @@ public class AnimationSequence {
 	private void createScrollPane() {
 		myScrollPane = new ScrollPane();
 		myScrollPane.setPrefHeight(200);
+		myScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 		
 	}
 	
@@ -139,7 +139,7 @@ public class AnimationSequence {
 
 	private void createContainerVbox() {
 		myContainerVbox = new VBox();
-		myContainerVbox.setPrefWidth(500);
+		myContainerVbox.setPrefWidth(520);
 	}
 
 	private void addAllAnimationSequenceImageThumbnails() {
@@ -206,7 +206,7 @@ public class AnimationSequence {
 		});
 	}
 	
-	private Button getAddImageButton(){
+	public Button getAddImageButton(){
 		if (addNewImage==null){
 			createAddImageButton();
 		}

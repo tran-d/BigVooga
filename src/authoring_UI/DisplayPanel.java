@@ -46,7 +46,7 @@ public class DisplayPanel extends VBox {
 
 	private static final String ACTIONCONDITIONTITLES_PATH = "TextResources/ConditionActionTitles";
 	private static final double DISPLAY_PANEL_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH/2 - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH-155;
-	private static final double DISPLAY_PANEL_HEIGHT = 495;
+	private static final double DISPLAY_PANEL_HEIGHT = 347;
 	
 	public static final ResourceBundle conditionActionTitles = ResourceBundle.getBundle(ACTIONCONDITIONTITLES_PATH);
 	private SpriteSetHelper mySSH;
@@ -145,7 +145,7 @@ public class DisplayPanel extends VBox {
 	
 	private void createAnimationTab(){
 		Tab animations = new Tab("Animations");
-		animations.setContent(mySAnimationSequenceTAI.getScrollPane());
+		animations.setContent(mySAnimationSequenceTAI.getTabPane());
 		mySpriteTabs.getTabs().addAll(animations);
 		multipleCellsActiveProperty.addListener((observable, oldStatus, newStatus)->{
 			animations.setDisable(newStatus);
@@ -287,17 +287,11 @@ public class DisplayPanel extends VBox {
 		this.setPrefWidth(DISPLAY_PANEL_WIDTH);
 	}
 
-	private void formatParametersVBox(VBox in) {
-		in.setPrefWidth(500);
-		in.setPrefHeight(500);
-	}
-
 	private ScrollPane createStatePane(VBox temp) {
 		ScrollPane myStateSP_dummy = new ScrollPane();
 		myStateSP_dummy.setPrefSize(DISPLAY_PANEL_WIDTH, DISPLAY_PANEL_HEIGHT);
 		myStateSP_dummy.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 		myStateSP_dummy.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-		formatParametersVBox(temp);
 		myStateSP_dummy.setContent(temp);
 		return myStateSP_dummy;
 	}

@@ -2,6 +2,7 @@ package authoring_UI;
 
 import authoring.SpriteParameterI;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -27,7 +28,8 @@ public class FEBooleanParameter extends FEParameter {
 		myValue = (Boolean) myParam.getValue();
 		myCheckBox.setSelected(myValue);
 		this.getChildren().addAll(myName, myCheckBox);
-		this.setSpacing(3);
+		this.setAlignment(Pos.CENTER_LEFT);
+		this.setSpacing(10);
 
 		handleValueChange();
 	}
