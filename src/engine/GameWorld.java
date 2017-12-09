@@ -62,15 +62,6 @@ public class GameWorld {
 		return els;
 	}
 
-	public List<GameObject> getAllObjects() {
-		// TODO Auto-generated method stub
-		List<GameObject> objects = new ArrayList<>();
-		for (GameLayer l : worldLayers) {
-			objects.addAll(l.getAllObjects());
-		}
-		return objects;
-	}
-
 	public void setPlayerManager(PlayerManager input) {
 		for (GameLayer l : worldLayers) {
 			l.setPlayerManager(input);

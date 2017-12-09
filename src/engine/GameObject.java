@@ -13,6 +13,7 @@ import java.util.TreeSet;
 import engine.sprite.BoundedImage;
 import engine.sprite.CompositeImage;
 import engine.sprite.Displayable;
+import engine.sprite.DisplayableImage;
 import engine.sprite.DisplayableText;
 import engine.sprite.Sprite;
 import engine.utilities.collisions.CollisionEvent;
@@ -62,8 +63,7 @@ public class GameObject extends VariableContainer implements Element {
 		this.name = name;
 		tagSet.add(name);
 		tagSet.add(DEFAULT_TAG);
-
-		inventory = new Inventory();
+		inventory = new Inventory(this);
 	}
 
 	public String getName() {
@@ -86,7 +86,11 @@ public class GameObject extends VariableContainer implements Element {
 		events.put(c, a);
 	}
 
-	public void step(Layer w, int priorityNum, List<Runnable> runnables) {
+	/**
+	 * Steps animation and checks/executes events in order of priority
+	 */
+	@Override
+	public void step(int priorityNum, Layer w, List<Runnable> runnables) {
 		currentSprite.step();
 		for (Condition c : events.keySet()) {
 			if (c.getPriority() == priorityNum && c.isTrue(this, w)) {
@@ -100,8 +104,7 @@ public class GameObject extends VariableContainer implements Element {
 	/**
 	 * Setter for x and y Coordinates
 	 * 
-	 * @param x,
-	 *            y
+	 * @param x, y
 	 */
 	public void setCoords(double x, double y) {
 		this.x = x;
@@ -134,6 +137,7 @@ public class GameObject extends VariableContainer implements Element {
 	 * 
 	 * @return {Set<Integer>} priorities
 	 */
+	@Override
 	public Set<Integer> getPriorities() {
 		Set<Integer> priorities = new TreeSet<Integer>();
 		for (Condition c : events.keySet()) {
@@ -158,7 +162,7 @@ public class GameObject extends VariableContainer implements Element {
 	}
 
 	/**
-	 * Returns the current image of this Object.
+	 * Returns the current BoundedImage of this Object.
 	 * 
 	 * @return BoundedImage
 	 */
@@ -169,7 +173,8 @@ public class GameObject extends VariableContainer implements Element {
 		result.setSize(width, height);
 		return result;
 	}
-
+	
+	@Override
 	public Displayable getDisplayable() {
 		if (dialogueHandler == null)
 			return getBounds();
@@ -215,6 +220,7 @@ public class GameObject extends VariableContainer implements Element {
 	/**
 	 * @return the uniqueID
 	 */
+	@Override
 	public int getUniqueID() {
 		return uniqueID;
 	}
@@ -223,6 +229,7 @@ public class GameObject extends VariableContainer implements Element {
 	 * @param uniqueID
 	 *            the uniqueID to set
 	 */
+	@Override
 	public void setUniqueID(int uniqueID) {
 		this.uniqueID = uniqueID;
 	}
@@ -243,8 +250,8 @@ public class GameObject extends VariableContainer implements Element {
 	public Inventory getInventory() {
 		return inventory;
 	}
-
-	public void addToInventory(InventoryObject o) {
+	
+	public void addToInventory(Holdable o) {
 		inventory.addObject(o);
 	}
 
@@ -257,5 +264,4 @@ public class GameObject extends VariableContainer implements Element {
 			dialogueHandler = DisplayableText.DEFAULT;
 		dialogueHandler = dialogueHandler.getWithMessage(s);
 	}
-
 }

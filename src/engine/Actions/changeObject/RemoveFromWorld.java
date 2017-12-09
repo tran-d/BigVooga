@@ -1,7 +1,5 @@
 package engine.Actions.changeObject;
 
-import java.util.Map;
-
 import engine.Action;
 import engine.GameObject;
 import engine.Layer;
@@ -22,6 +20,6 @@ public class RemoveFromWorld implements Action {
 	
 	@Override
 	public void execute(GameObject asking, Layer world) {
-		world.removeGameObject(objectToDestroy.evaluate(asking, world));
+		world.removeElement(world.getWithName(objectToDestroy.evaluate(asking, world).getName()));
 	}
 }

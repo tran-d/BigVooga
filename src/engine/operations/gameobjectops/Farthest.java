@@ -4,7 +4,6 @@ import java.util.List;
 
 import engine.GameObject;
 import engine.Layer;
-import engine.NullObject;
 import engine.operations.doubleops.Magnitude;
 import engine.operations.stringops.StringOperation;
 import engine.operations.vectorops.LocationOf;
@@ -20,7 +19,7 @@ public class Farthest implements GameObjectOperation{
 	
 	@Override
 	public GameObject evaluate(GameObject asking, Layer world) {
-		List<GameObject> otherObjects = world.getWithTag(tag.evaluate(asking, world));
+		List<GameObject> otherObjects = world.getObjectsWithTag(tag.evaluate(asking, world));
 		double distance = Double.MIN_VALUE;
 		GameObject nearest = null;
 		for(GameObject obj : otherObjects) {
