@@ -46,7 +46,7 @@ public class ActionConditionRow extends ToolBar implements ActionConditionRowI {
 				+ actionConditionVBoxResources.getString("OptionsTag"))); 
 		implementationSelectorVBox = new ChoiceBoxVBox<String>(selectorLabel, actionConditionOptions);
 		implementationSelectorVBox.setValue(selectedConditionAction);
-		getItems().addAll(IDlabel,separator,this.label,implementationSelectorVBox);
+		getItems().addAll(IDlabel,separator,this.label);
 	}
 
 		// if (isConditionRow) {

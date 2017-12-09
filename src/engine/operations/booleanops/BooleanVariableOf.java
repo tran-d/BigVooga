@@ -1,7 +1,7 @@
 package engine.operations.booleanops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.gameobjectops.GameObjectOperation;
 import engine.operations.stringops.StringOperation;
 
@@ -16,7 +16,7 @@ public class BooleanVariableOf implements BooleanOperation {
 	}
 	
 	@Override
-	public Boolean evaluate(GameObject asking, Layer world) {
+	public Boolean evaluate(GameObject asking, GameObjectEnvironment world) {
 		return object.evaluate(asking, world).getBoolean(varName.evaluate(asking, world));
 	}
 

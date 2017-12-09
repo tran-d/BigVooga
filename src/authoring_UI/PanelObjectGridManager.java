@@ -13,8 +13,8 @@ public class PanelObjectGridManager extends SpriteObjectGridManager{
 	}
 
 	@Override
-	protected void createMapLayer() {
-		myMapLayer = new PanelLayer(CURR_ROWS, CURR_COLS, mySpriteGridHandler);
+	public void createMapLayer() {
+		myMapLayer = new PanelLayer(getNumRows(), getNumCols(), mySpriteGridHandler);
 	}
 	
 	@Override

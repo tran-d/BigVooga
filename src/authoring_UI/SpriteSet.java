@@ -23,7 +23,7 @@ public abstract class SpriteSet {
 	protected GameDataHandler myGDH;
 	protected String folderToLoad;
 	protected boolean loaded = false;
-	protected ArrayList<SpriteObject> toSave;
+	protected List<SpriteObject> toSave;
 
 	protected SpriteSet(GameDataHandler GDH) {
 		myGDH = GDH;
@@ -34,27 +34,36 @@ public abstract class SpriteSet {
 	}
 
 	protected Map<String, List<AbstractSpriteObject>> getCategoryToSprites() {
-		return categoryToSprites;
+		Map<String, List<AbstractSpriteObject>> catSpritesMap = new HashMap<String, List<AbstractSpriteObject>>();
+		categoryToSprites.forEach((key, val)->{
+			catSpritesMap.put(key,new ArrayList<AbstractSpriteObject>());
+			val.forEach((sprite)->{
+				List currVals = catSpritesMap.get(key);
+				currVals.add(sprite.newCopy());
+				catSpritesMap.put(key, currVals);
+			});
+		});
+		return catSpritesMap;
 	}
-	
-	public ArrayList<Pane> getAllSpritesAsThumbnails(){
-		ArrayList<AbstractSpriteObject> ASOs = getAllSprites();
-		ArrayList<Pane> ret = new ArrayList<Pane>();
-		ASOs.forEach(sprite->{
+
+	public List<Pane> getAllSpritesAsThumbnails() {
+		List<AbstractSpriteObject> ASOs = getAllSprites();
+		List<Pane> ret = new ArrayList<Pane>();
+		ASOs.forEach(sprite -> {
 			ret.add(new SpriteThumbnail(sprite));
 		});
 		return ret;
 	}
 
-	public ArrayList<AbstractSpriteObject> getAllSprites() {
+	public List<AbstractSpriteObject> getAllSprites() {
 		if (!loaded) {
 			this.loadSprites();
 		}
-//		System.out.println("Getting all");
-		ArrayList<AbstractSpriteObject> ret = new ArrayList<AbstractSpriteObject>();
+		// System.out.println("Getting all");
+		List<AbstractSpriteObject> ret = new ArrayList<AbstractSpriteObject>();
 		getCategoryToSprites().values().forEach(list -> {
 			list.forEach(obj -> {
-//				System.out.println(obj);
+				// System.out.println(obj);
 				ret.add(obj.newCopy());
 			});
 		});
@@ -62,7 +71,7 @@ public abstract class SpriteSet {
 	}
 
 	protected Map<String, List<AbstractSpriteObject>> getAllSpritesAsMap() {
-//		System.out.println("Getting them");
+		// System.out.println("Getting them");
 		if (!loaded) {
 			this.loadSprites();
 		}
@@ -70,7 +79,7 @@ public abstract class SpriteSet {
 	}
 
 	protected String getFolderToLoad() {
-//		System.out.println("folderToLoad: " + folderToLoad);
+		// System.out.println("folderToLoad: " + folderToLoad);
 		return folderToLoad;
 	}
 
@@ -93,6 +102,11 @@ public abstract class SpriteSet {
 		// }
 		loaded = true;
 		categoryToSprites = myGDH.loadSpritesFromNestedDirectories(getFolderToLoad());
+		if (!getFolderToLoad().equals("")) {
+			categoryToSprites = myGDH.loadSpritesFromNestedDirectories(getFolderToLoad());
+			System.out.println("!!!!!!!!!!!!!!");
+			System.out.println(categoryToSprites);
+		}
 	}
 
 	protected SpriteScrollView getSpriteScrollView() {
@@ -101,12 +115,10 @@ public abstract class SpriteSet {
 		}
 		return mySSV;
 	}
-	
-	/*protected SpriteSamarthGrid getSamarthGrid() {
-		mySG == null {
-			make
-		}
-	}*/
+
+	/*
+	 * protected SpriteSamarthGrid getSamarthGrid() { mySG == null { make } }
+	 */
 
 	protected void makeSpriteScrollView() {
 		mySSV = new SpriteScrollView();
@@ -116,9 +128,9 @@ public abstract class SpriteSet {
 	protected abstract void makeSpritePanel(SpriteGridHandler SGH);
 
 	protected SpriteSelectPanel getSpritePanel(SpriteGridHandler SGH) {
-//		System.out.println("Getting sprite panel");
+		// System.out.println("Getting sprite panel");
 		if (mySSP == null) {
-//			System.out.println("SSP is null");
+			// System.out.println("SSP is null");
 			makeSpritePanel(SGH);
 		}
 		return mySSP;
@@ -128,7 +140,7 @@ public abstract class SpriteSet {
 		return getCategoryToSprites().keySet();
 	}
 
-	protected ArrayList<String> getAllCategoriesList() {
+	protected List<String> getAllCategoriesList() {
 		return new ArrayList<String>(getAllCategoriesSet());
 	}
 
@@ -147,14 +159,18 @@ public abstract class SpriteSet {
 		addNewSprite("General", SO);
 	}
 
-	protected void addNewSprite(String category, AbstractSpriteObject SO) throws Exception {
+	public void setBooleanLoaded(Boolean b) {
+		loaded = b;
+	}
+
+	public void addNewSprite(String category, AbstractSpriteObject SO) throws Exception {
 		if (!categoryExists(category)) {
-				addCategory(category);
+			addCategory(category);
 		}
-			List<AbstractSpriteObject> val = getCategoryToSprites().get(category);
-			val.add(SO);
-			getCategoryToSprites().put(category, val);
-//		}
+		List<AbstractSpriteObject> val = getCategoryToSprites().get(category);
+		val.add(SO);
+		getCategoryToSprites().put(category, val);
+		// }
 		if (mySSP != null) {
 			mySSP.addNewDefaultSprite(SO);
 		}
@@ -165,7 +181,7 @@ public abstract class SpriteSet {
 	}
 
 	protected void saveSprite(String category, AbstractSpriteObject SO) throws Exception {
-		String folderToSaveTo = getFolderToLoad() + category + "/"+SO.getName();
+		String folderToSaveTo = getFolderToLoad() + category + "/" + SO.getName();
 		myGDH.saveSprite(SO, folderToSaveTo);
 	}
 

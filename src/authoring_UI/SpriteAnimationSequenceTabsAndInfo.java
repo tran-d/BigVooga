@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import authoring.AbstractSpriteObject;
 import authoring.AnimationSequence;
 import javafx.geometry.Side;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -102,7 +103,8 @@ public class SpriteAnimationSequenceTabsAndInfo {
 //		if (addAnimationSequenceHbox==null){
 //			this.createAddAnimationSequenceHbox();
 //		}
-		containerVbox.getChildren().addAll(containerTabPane, new Separator(), addAnimationSequenceHbox);
+		
+		containerVbox.getChildren().addAll(containerTabPane, addAnimationSequenceHbox);
 	}
 	
 	private void addToVBox(Pane pane){
@@ -143,7 +145,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	
 	
 	private void createAddAnimationSequenceButton(){
-		addAnimationSequenceButton = new Button("Add Animation Sequence");
+		addAnimationSequenceButton = new Button("Create Animation Sequence");
 		addAnimationSequenceButton.setOnAction(event->{
 			this.removeAddAnimationSequenceButtonFromHbox();
 			this.addPromptNewNameAndCreateButtonToHbox();
@@ -152,12 +154,12 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	}
 	
 	private void createCreateAnimationSequenceButton(){
-		createAnimationSequenceButton = new Button("Create Animation Sequence");
+		createAnimationSequenceButton = new Button("Create");
 		createAnimationSequenceButton.setOnAction(event->{
 			
 			String animationSeqName = promptNewName.getText();
 			if (!nameIsValid(animationSeqName)){
-				promptNewName.setText("This name already used");
+				promptNewName.setText("This Name Already Used");
 			} else {
 				AnimationSequence newSequence = new AnimationSequence(animationSeqName);
 				Tab newTab = addAnimationSequence(newSequence);
@@ -190,7 +192,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	}
 	
 	private void createPromptNameLabel(){
-		promptNameLabel = new Label("AnimationSequence Name:");
+		promptNameLabel = new Label("Animation Sequence Name:");
 		
 	}
 	

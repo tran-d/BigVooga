@@ -4,7 +4,6 @@ import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -28,7 +27,7 @@ public class Thumbnail extends HBox{
 		setup(im, name);
 	}
 	
-	public Thumbnail(ImageView im, String name, Boolean showSideButton){
+	public Thumbnail(ImageView im, String name, Boolean showSideButton){ 
 		this(im, name);
 		if (showSideButton){
 			this.addSideButton();
@@ -50,6 +49,7 @@ public class Thumbnail extends HBox{
 //		imView.wid
 		
 		this.getChildren().add(imView);
+		this.setSpacing(30);
 	}
 	
 	public void isClicked(boolean in){
@@ -68,13 +68,11 @@ public class Thumbnail extends HBox{
 	}
 	
 	private void setup(ImageView im, String name){
+		this.setSpacing(30);
 		this.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY,BorderWidths.DEFAULT)));
 		this.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
 		this.setAlignment(Pos.CENTER);
 		createImageThumbnail(im);
-		Separator s = new Separator();
-		s.setOrientation(Orientation.VERTICAL);
-		this.getChildren().add(s);
 		createLabel(name);
 		onButtonClick = new Runnable(){
 			@Override

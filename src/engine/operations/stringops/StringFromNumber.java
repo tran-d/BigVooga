@@ -1,7 +1,7 @@
 package engine.operations.stringops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.doubleops.DoubleOperation;
 
 /**
@@ -17,7 +17,7 @@ public class StringFromNumber implements StringOperation {
 	}
 	
 	@Override
-	public String evaluate(GameObject asking, Layer world) {
+	public String evaluate(GameObject asking, GameObjectEnvironment world) {
 		return ""+number.evaluate(asking, world);
 	}
 

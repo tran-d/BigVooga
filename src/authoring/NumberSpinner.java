@@ -1,4 +1,4 @@
-package authoring;
+package authoring; 
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
@@ -24,7 +24,10 @@ import javax.swing.JSpinner;
 /**
  * 
  *  * Open source code for a custom NumberSpinner to go along with a NumberTextField
- *  No code was written -- this code is used as is with all credit gone to Thomas Bolz.
+ *  No code was written -- this code is used with some modifications to enable
+ *  error checking of the field's new value. This is done by a Function that is set by another class.
+ *  If the Function returns true then the number text correctly updates. Otherwise, nothing changes.
+ *  Credit gone to Thomas Bolz.
  * 
  * Accessed via: https://dzone.com/articles/javafx-numbertextfield-and
  * 

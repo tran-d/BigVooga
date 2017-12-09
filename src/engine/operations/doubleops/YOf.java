@@ -1,7 +1,7 @@
 package engine.operations.doubleops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.vectorops.VectorOperation;
 
 /**
@@ -17,7 +17,7 @@ public class YOf implements DoubleOperation {
 	}
 	
 	@Override
-	public Double evaluate(GameObject asking, Layer world) {
+	public Double evaluate(GameObject asking, GameObjectEnvironment world) {
 		return vector.evaluate(asking, world).getY();
 	}
 

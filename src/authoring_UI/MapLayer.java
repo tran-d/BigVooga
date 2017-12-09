@@ -1,10 +1,19 @@
 package authoring_UI;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import authoring.AbstractSpriteObject;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -27,16 +36,112 @@ public abstract class MapLayer extends GridPane {
 	private Color defaultColor;
 	private String myName;
 	static final int CELL_SIZE = 50;
+	protected ObjectProperty<Integer> numRowsProperty;
+	protected ObjectProperty<Integer> numColumnsProperty;
+	private Set<AuthoringMapStackPane> activeGridCells;
 
-	MapLayer(int rows, int columns, int layerNum, SpriteGridHandler SGH, Color c) {
+	protected MapLayer(int rows, int columns, int layerNum, SpriteGridHandler SGH, Color c) {
 		super();
 		defaultColor = c;
-		myRows = rows;
-		myColumns = columns;
+		activeGridCells = new HashSet<AuthoringMapStackPane>();
+		numRowsProperty = new SimpleObjectProperty<Integer>();
+		numColumnsProperty = new SimpleObjectProperty<Integer>();
+		numRowsProperty.set(1);
+		numColumnsProperty.set(1);
+		
+//		myRows = rows;
+//		myColumns = columns;
+		numRowsProperty.addListener((observable, oldNumRows, newNumRows)->{
+			Integer diff = newNumRows-oldNumRows;
+			if (diff<0){
+				for (int i=0;i>diff;i--){
+					for (int col =0;col<numColumnsProperty.get();col++){
+						AuthoringMapStackPane AMSP = this.getChildAtPosition(oldNumRows-i-1, col);
+						if (AMSP.isActive()){
+							this.removeActive(AMSP);
+						}
+						if (AMSP.isCoveredByOtherSprite()){
+							AbstractSpriteObject ASO = AMSP.getCoveringSprite();
+							AuthoringMapStackPane parentSP = (AuthoringMapStackPane)ASO.getParent();
+//							parentSP.removeChild();
+							parentSP.setRowSpan(parentSP.getRowSpan()-1);
+							
+//							AMSP.getCoveringSprite().setFitHeight(currFitHeight-this.CELL_SIZE);
+						}
+					this.getChildren().remove(AMSP);
+					}
+				}
+			} else if (diff>0){
+				for (int i=0;i<diff;i++){
+					for (int col =0;col<numColumnsProperty.get();col++){
+					this.addAuthoringStackPaneToPosition(oldNumRows+i, col);
+					}
+			}
+			}
+		});
+		
+		numColumnsProperty.addListener((observable, oldNumColumns, newNumColumns)->{
+			System.out.println("Layer num cols: "+newNumColumns);
+			Integer diff = newNumColumns-oldNumColumns;
+			if (diff<0){
+				for (int i=0;i>diff;i--){
+					for (int row =0;row<numRowsProperty.get();row++){
+						System.out.println("Row: "+row);
+						AuthoringMapStackPane AMSP = this.getChildAtPosition(row,oldNumColumns-i-1);
+						if (AMSP.isActive()){
+							this.removeActive(AMSP);
+						}
+						if (AMSP.isCoveredByOtherSprite()){
+							AbstractSpriteObject ASO = AMSP.getCoveringSprite();
+							AuthoringMapStackPane parentSP = (AuthoringMapStackPane)ASO.getParent();
+//							parentSP.removeChild();
+							parentSP.setColSpan(parentSP.getColSpan()-1);
+							
+						}
+					this.getChildren().remove(AMSP);
+					}
+				}
+			} else if (diff>0){
+				for (int i=0;i<diff;i++){
+					for (int row =0;row<numRowsProperty.get();row++){
+					this.addAuthoringStackPaneToPosition(row, oldNumColumns+i);
+					}
+			}
+			}
+		});
+		
 		myLayerNumber = layerNum;
 		mySGH = SGH;
-		setup();
-
+		this.addAuthoringStackPaneToPosition(0,0);
+		this.setNumRows(rows);
+		this.setNumCols(columns);
+//		setup();
+		
+//		this.setMouseTransparent(true);
+//		this.setPickOnBounds(false);
+//		this.setOnMouseDragged(e->{
+//			AuthoringMapStackPane n = (AuthoringMapStackPane) e.getSource();
+//			n.switchActive();
+////			Event.fireEvent(n, new MouseEvent(MouseEvent.MOUSE_DRAGGED, 0,
+////	                0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+////	                true, true, true, true, true, true, null));
+//		});
+	}
+	
+	public void setSpriteGridHandler(SpriteGridHandler SGH){
+		mySGH = SGH;
+	}
+	
+	public void addActive(AuthoringMapStackPane pane){
+		this.activeGridCells.add(pane);
+	}
+	
+	public Set<AuthoringMapStackPane> getActive(){
+		return activeGridCells;
+	}
+	
+	public void removeActive(AuthoringMapStackPane pane){
+		this.activeGridCells.remove(pane);
 	}
 	
 	public String getName(){
@@ -59,11 +164,10 @@ public abstract class MapLayer extends GridPane {
 		return defaultColor;
 	}
 	
-	public void removeSpritesAtPositions(ArrayList<Integer[]>locs){
-		locs.forEach((pos)->{
+	public void removeSpritesAtPositions(List<Integer[]> cellsToDelete){
+		cellsToDelete.forEach((pos)->{
 			this.getChildAtPosition(pos[0], pos[1]).removeChild();
 		});
-		
 	}
 	
 	protected AuthoringMapStackPane getChildAtPosition(int row, int col){
@@ -71,6 +175,7 @@ public abstract class MapLayer extends GridPane {
 		ObservableList<Node> childrens = this.getChildren();
 
 	    for (Node node : childrens) {
+//	    	System.out.println("rowIndex: "+this.getRowIndex(node)+", columnIndex: "+this.getColumnIndex(node));
 	        if(this.getRowIndex(node) == row && this.getColumnIndex(node) == col) {
 	            result = (AuthoringMapStackPane) node;
 	            break;
@@ -93,39 +198,58 @@ public abstract class MapLayer extends GridPane {
 //	    }
 	}
 
-	protected void setup() {
-		for (int i = 0; i < myColumns; i++) {
-			for (int j = 0; j < myRows; j++) {
-				AuthoringMapStackPane sp = new AuthoringMapStackPane(this);
-				
-				
-				sp.setMinWidth(CELL_SIZE);
-				sp.setMaxWidth(CELL_SIZE);
-				sp.setPrefWidth(CELL_SIZE);
-				sp.setMinHeight(CELL_SIZE);
-				sp.setPrefHeight(CELL_SIZE);
-				sp.setMaxHeight(CELL_SIZE);
-				
-				// "-fx-background-color: rgba(0, 100, 100, 0.5);
-				sp.setBackground(
-						new Background(new BackgroundFill(getDefaultColor(), CornerRadii.EMPTY, Insets.EMPTY)));
-				// sp.setStyle();
-				BorderStroke border = new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.DOTTED, CornerRadii.EMPTY,
-						BorderWidths.DEFAULT);
-				sp.setBorder(new Border(border));
-//				GridPane.setColumnSpan(sp, 1);
-//				GridPane.setRowSpan(sp, 1);
-				GridPane.setHgrow(sp, Priority.NEVER);
-				GridPane.setVgrow(sp, Priority.NEVER);
-				this.add(sp, i, j);
-				sp.setColSpan(1);
-				sp.setRowSpan(1);
-//				System.out.println(this.getRowSpan(sp));
-				mySGH.addDropHandling(sp);
-				mySGH.addGridMouseClick(sp);
-				mySGH.addGridMouseDrag(sp);
-			}
-		}
+//	protected void setup() {
+//		for (int i = 0; i < myColumns; i++) {
+//			for (int j = 0; j < myRows; j++) {
+//				addAuthoringStackPaneToPosition(j,i);
+//			}
+//		}
+//	}
+	
+	private void addAuthoringStackPaneToPosition(int row, int col){
+		AuthoringMapStackPane sp = new AuthoringMapStackPane(this);
+		sp.setMinWidth(CELL_SIZE);
+		sp.setMaxWidth(CELL_SIZE);
+		sp.setPrefWidth(CELL_SIZE);
+		sp.setMinHeight(CELL_SIZE);
+		sp.setPrefHeight(CELL_SIZE);
+		sp.setMaxHeight(CELL_SIZE);
+		
+		// "-fx-background-color: rgba(0, 100, 100, 0.5);
+		sp.setBackground(
+				new Background(new BackgroundFill(getDefaultColor(), CornerRadii.EMPTY, Insets.EMPTY)));
+		// sp.setStyle();
+		BorderStroke border = new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.DOTTED, CornerRadii.EMPTY,
+				BorderWidths.DEFAULT);
+		sp.setBorder(new Border(border));
+//		GridPane.setColumnSpan(sp, 1);
+//		GridPane.setRowSpan(sp, 1);
+		GridPane.setHgrow(sp, Priority.NEVER);
+		GridPane.setVgrow(sp, Priority.NEVER);
+		this.add(sp, col, row);
+		sp.setColSpan(1);
+		sp.setRowSpan(1);
+//		System.out.println(this.getRowSpan(sp));
+		
+		mySGH.addDropHandling(sp);
+		mySGH.addGridMouseClick(sp);
+		mySGH.addGridMouseDrag(sp);
+	}
+	
+	public void addRow(){
+		setNumCols(numRowsProperty.get()+1);
+	}
+	
+	public void setNumRows(Integer newRows){
+		this.numRowsProperty.set(newRows);
+	}
+	
+	public void addColumn(){
+		setNumCols(numColumnsProperty.get()+1);
+	}
+	
+	public void setNumCols(Integer newCols){
+		this.numColumnsProperty.set(newCols);
 	}
 
 }

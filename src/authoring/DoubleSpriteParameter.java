@@ -169,5 +169,9 @@ public class DoubleSpriteParameter extends SpriteParameter {
 		myValue = (Double)in.readObject();
 	}
 	
+	public DoubleSpriteParameter newCopy(){
+		return new DoubleSpriteParameter(new String(this.getName()), new Double(((Double)this.getValue())));
+	}
+	
 
 }

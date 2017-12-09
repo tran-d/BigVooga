@@ -1,7 +1,7 @@
 package engine.operations.stringops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 
 /**
  * @author Ian Eldridge-Allegra
@@ -18,7 +18,7 @@ public class Concatenate implements StringOperation{
 	}
 
 	@Override
-	public String evaluate(GameObject asking, Layer world) {
+	public String evaluate(GameObject asking, GameObjectEnvironment world) {
 		return first.evaluate(asking, world)+second.evaluate(asking, world);
 	}
 }

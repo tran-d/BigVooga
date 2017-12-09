@@ -1,7 +1,7 @@
 package engine.operations.stringops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.gameobjectops.GameObjectOperation;
 
 /**
@@ -18,7 +18,7 @@ public class StringVariableOf implements StringOperation {
 	}
 
 	@Override
-	public String evaluate(GameObject asking, Layer world) {
+	public String evaluate(GameObject asking, GameObjectEnvironment world) {
 		return object.evaluate(asking, world).getString(varName.evaluate(asking, world));
 	}
 }

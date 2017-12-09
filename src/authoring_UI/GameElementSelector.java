@@ -3,6 +3,8 @@ package authoring_UI;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -41,99 +43,51 @@ public class GameElementSelector extends TabPane implements Observer {
 	private static final String DEFAULT = "Default";
 	private static final String USER = "User";
 	private static final String IMPORTED = "Imported";
+	private static final String IMPORTEDINVENTORY = "Imported Inventory";
+	private static final String INVENTORY = "Inventory";
 	
 	private DraggableGrid myGrid;
-	private SpriteSelectPanel mySprites;
-	private SpriteSelectPanel myUserSprites;
+//	private SpriteSelectPanel mySprites;
+//	private SpriteSelectPanel myUserSprites;
 	private final int NUM_COLUMNS = 10;
 
 	private AuthoringEnvironmentManager myAEM;
-	private SpriteParameterFactory mySPF;
-	private ArrayList<AbstractSpriteObject> mySpriteObjs = new ArrayList<AbstractSpriteObject>();
-	private ArrayList<SpriteObject> myUserSpriteObjs = new ArrayList<SpriteObject>();
-	private GameDataHandler myGDH;
-	private SpriteObjectGridManagerI mySOGM;
+//	private SpriteParameterFactory mySPF;
+//	private List<AbstractSpriteObject> mySpriteObjs = new ArrayList<AbstractSpriteObject>();
+//	private List<SpriteObject> myUserSpriteObjs = new ArrayList<SpriteObject>();
+//	private GameDataHandler myGDH;
+//	private SpriteObjectGridManagerI mySOGM;
 	private SpriteGridHandler mySpriteGridHandler;
 	private Tab dialoguesTab;
 
-	protected GameElementSelector(SpriteGridHandler spriteGridHandler, AuthoringEnvironmentManager AEM,
-			SpriteObjectGridManagerI SOGM) {
-		mySPF = new SpriteParameterFactory();
+	protected GameElementSelector(SpriteGridHandler spriteGridHandler, AuthoringEnvironmentManager AEM) {
+//		mySPF = new SpriteParameterFactory();
 		myAEM = AEM;
-		// mySpriteGridHandler = myAEM.getSpriteGridHandler();
 		mySpriteGridHandler = spriteGridHandler;
-		// mySpriteGridHandler = myAEM.getSpriteGridHandler();
-		// myAEM = AEM;
-		myGDH = AEM.getGameDataHandler();
-//		mySOGM = SOGM;
-		//mySprites = new SpriteSelectPanel("DEFAULT", mySpriteGridHandler);
-		// SpriteSet mySS = new SpriteSetDefault(myGDH);
-		// SpriteSet myCustom = new SpriteSetUserDefined(myGDH);
-		myAEM.getDefaultSpriteController().getAllSprites().forEach(sprite->{
+//		myGDH = AEM.getGameDataHandler();
+//		myAEM.getDefaultSpriteController().getAllSprites().forEach(sprite->{
 //			System.out.println("Sprite exists, name: "+sprite.getName());
-		});
-		mySprites = myAEM.getDefaultSpriteController().getSpritePanel(mySpriteGridHandler);
-		
-//		mySprites.getSpritePanel
-		// mySS.getSpritePanel(mySpriteGridHandler);
-		// mySS.getAllSpritesAsMap().forEach((a,b)->{
-		// System.out.println("Key: "+a+ ", Value: "+b);
-		// b.forEach(s->{
-		// s.getImageURL();
-		// });
-		// myAEM.addDefaultSprite(b);
-		// });
-		// mySS.getAllSpritesAsMap().forEach((a,b)->{
-		// b.forEach(item->{
-		// try {
-		// myGDH.saveDefaultSprite(item);
-
-		// mySS.saveSprite(a, item);
-		// System.out.println("Saved: "+item);
-		// } catch (Exception e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// });
-
-		// });
-		// myUserSprites = new SpriteSelectPanel("USERDEFINED",
-		// mySpriteGridHandler);
-		// myUserSprites = myCustom.getSpritePanel(mySpriteGridHandler);
-		myUserSprites = myAEM.getCustomSpriteController().getSpritePanel(mySpriteGridHandler);
-//		 getParams();
-		// createSprites();
+//		});
+//		mySprites = myAEM.getDefaultSpriteController().getSpritePanel(mySpriteGridHandler);
+//		myUserSprites = myAEM.getCustomSpriteController().getSpritePanel(mySpriteGridHandler);
 		createSpriteTabs();
-		// myUserSprites.getChildren().add(sp);
-		// makeSpriteDraggable(sp);
-
 	}
 
-	private void createSprites() {
-		// SpriteObject s1 = mySpriteObjs.get(0);
-		// SpriteObject s2 = mySpriteObjs.get(1);
-		// SpriteObject s3 = mySpriteObjs.get(2);
-		// SpriteObject s4 = mySpriteObjs.get(3);
-		// myAEM.addDefaultSprite(s1);
-		// myAEM.addDefaultSprite(s2);
-		// myAEM.addDefaultSprite(s3);
-		// myAEM.addDefaultSprite(s4);
-//		setupDefaultSprites();
-//		setupUserDefinedSprites();
-	}
+//	private void createSprites() {
+//	}
 
-	public void getUserSpriteParam(String url) {
-		SpriteObject userSprite = new SpriteObject(url);
-		ArrayList<SpriteParameterI> param = new ArrayList<SpriteParameterI>();
-		param.add(mySPF.makeParameter("canFight", false));
-		param.add(mySPF.makeParameter("health", 17.0));
-		param.add(mySPF.makeParameter("name", "Ryan"));
-		for (SpriteParameterI SP : param) {
-			userSprite.addParameter(SP);
-		}
-		myUserSpriteObjs.add(userSprite);
-		createUserSprite(userSprite);
-	}
+//	public void getUserSpriteParam(String url) {
+//		SpriteObject userSprite = new SpriteObject(url);
+//		List<SpriteParameterI> param = new ArrayList<SpriteParameterI>();
+//		param.add(mySPF.makeParameter("canFight", false));
+//		param.add(mySPF.makeParameter("health", 17.0));
+//		param.add(mySPF.makeParameter("name", "Ryan"));
+//		for (SpriteParameterI SP : param) {
+//			userSprite.addParameter(SP);
+//		}
+//		myUserSpriteObjs.add(userSprite);
+//		createUserSprite(userSprite);
+//	}
 
 	/**
 	 * creates new user sprite
@@ -160,9 +114,9 @@ public class GameElementSelector extends TabPane implements Observer {
 	// mySprites.addNewDefaultSprite(sp);
 	// }
 
-	private void addNewUserDefinedSprite(SpriteObject sp, int spLocation) {
-		myUserSprites.addNewDefaultSprite(sp, spLocation);
-	}
+//	private void addNewUserDefinedSprite(SpriteObject sp, int spLocation) {
+//		myUserSprites.addNewDefaultSprite(sp, spLocation);
+//	}
 
 //	public void setupDefaultSprites() {
 //		ArrayList<SpriteObject> defaults = myAEM.getDefaultGameSprites();
@@ -174,55 +128,76 @@ public class GameElementSelector extends TabPane implements Observer {
 //		myUserSprites.setupDefaultSprites(defaults);
 //	}
 
-	public void getParams(){
-		ArrayList<String> urls = new ArrayList<String>();
-		urls.add("/tree.png");
-		urls.add("/brick.png");
-		urls.add("/pikachu.png");
-		urls.add("/water.png");
-		 urls.add("/Link.png");
-		double i = 10.0;
-		ArrayList<String> s = new ArrayList<String>();
-		ArrayList<String> names = new ArrayList<String>();
-		int width = 1;
-		int height = 1;
-		names.add("tree");
-		names.add("brick");
-		names.add("pikachu");
-		names.add("water");
-		s.add("hello");
-		s.add("world");
-		s.add("bye");
-		for (int h = 0; h < 4; h++) {
-			AbstractSpriteObject SO = new SpriteObject();
-			SO.setImageURL(urls.get(h));
-			SO.setName(names.get(h));
-			ArrayList<SpriteParameterI> myParams = new ArrayList<SpriteParameterI>();
-			myParams.add(mySPF.makeParameter("canFight", true));
-			myParams.add(mySPF.makeParameter("health", i));
-			myParams.add(mySPF.makeParameter("name", s.get(0)));
-			for (SpriteParameterI SP : myParams) {
-				SO.addParameter(SP);
-			}
-			SO.setNumCellsWidthNoException(width);
-			SO.setNumCellsHeightNoException(height);
-			mySpriteObjs.add(SO);
-	
-		}
-		SpriteObject SO = new SpriteObject();
-		SO.setName("testinginventory");
-		SO.addParameter(mySPF.makeParameter("hellothere" , "aweaponforalesscivilizedage"));
-		SO.setInventory(mySpriteObjs);
-		SO.setNumCellsHeightNoException(2);
-		SO.setNumCellsWidthNoException(2);
-		SO.setImageURL(urls.get(4));
-		try {
-			myGDH.saveDefaultSprite(SO);
-			System.out.println("Saved " + SO.getImageURL());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//	public void getParams(){
+//		List<String> urls = new ArrayList<String>();
+//		urls.add("/tree.png");
+//		urls.add("/brick.png");
+//		urls.add("/pikachu.png");
+//		urls.add("/water.png");
+//		 urls.add("/Link.png");
+//		double i = 10.0;
+//		List<String> s = new ArrayList<String>();
+//		List<String> names = new ArrayList<String>();
+//		int width = 1;
+//		int height = 1;
+//		names.add("tree");
+//		names.add("brick");
+//		names.add("pikachu");
+//		names.add("water");
+//		s.add("hello");
+//		s.add("world");
+//		s.add("bye");
+//		for (int h = 0; h < 4; h++) {
+//			AbstractSpriteObject SO = new SpriteObject();
+//			SO.setImageURL(urls.get(h));
+//			SO.setName(names.get(h));
+//			List<SpriteParameterI> myParams = new ArrayList<SpriteParameterI>();
+//			myParams.add(mySPF.makeParameter("canFight", true));
+//			myParams.add(mySPF.makeParameter("health", i));
+//			myParams.add(mySPF.makeParameter("name", s.get(0)));
+//			for (SpriteParameterI SP : myParams) {
+//				SO.addParameter(SP);
+//			}
+//			SO.setNumCellsWidthNoException(width);
+//			SO.setNumCellsHeightNoException(height);
+//			mySpriteObjs.add(SO);
+//			
+//
+//			
+//			
+//			
+//		
+//			// try {
+//			// throw new IOException("Dont break");
+//			
+//			// } catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			// e.printStackTrace();
+//			// }
+//			
+//			
+//			try {
+////				myGDH.saveDefaultSprite(SO);
+//				System.out.println("Saved " + SO.getImageURL());
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		SpriteObject SO = new SpriteObject();
+//		SO.setName("testinginventory");
+//		SO.addParameter(mySPF.makeParameter("hellothere" , "aweaponforalesscivilizedage"));
+//		SO.setInventory(mySpriteObjs);
+//		SO.setNumCellsHeightNoException(2);
+//		SO.setNumCellsWidthNoException(2);
+//		SO.setImageURL(urls.get(4));
+//		
+//		try {
+////			myGDH.saveDefaultSprite(SO);
+//			System.out.println("Saved " + SO.getImageURL());
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		
 		
@@ -242,14 +217,17 @@ public class GameElementSelector extends TabPane implements Observer {
 		// }
 		// mySpriteObjs.add(SO);
 
-	}
+//	}
 
 	private void createSpriteTabs() {
 		TabPane spritesTabPane = new TabPane();
 		TabPane dialoguesTabPane = new TabPane();
-		Tab defaultSpriteTab = createSubTab(DEFAULT, myAEM.getDefaultSpriteController().getAllSprites());
-		Tab userSpriteTab = createSubTab(USER, myAEM.getCustomSpriteController().getAllSprites());
-		Tab importedSpriteTab = createSubTab(IMPORTED, new ArrayList<AbstractSpriteObject>());
+		TabPane inventoryTabPane = new TabPane();
+		Tab defaultSpriteTab = createSubTab(DEFAULT, myAEM.getDefaultSpriteController());
+		Tab userSpriteTab = createSubTab(USER, myAEM.getCustomSpriteController());
+		Tab importedSpriteTab = createSubTab(IMPORTED, myAEM.getImportedSpriteController());
+		Tab inventorySpriteTab = createSubTab(INVENTORY, myAEM.getInventoryController());
+		Tab importedInventorySpriteTab = createSubTab(IMPORTEDINVENTORY, myAEM.getImportedInventorySpriteController());
 //		Tab defaultDialogueTab = createSubTab(DEFAULT);
 //		Tab userDialogueTab = createSubTab(USER);
 //		Tab importedDialogueTab = createSubTab(IMPORTED);
@@ -257,30 +235,64 @@ public class GameElementSelector extends TabPane implements Observer {
 		spritesTabPane.setSide(Side.RIGHT);
 //		dialoguesTabPane.getTabs().addAll(defaultDialogueTab, userDialogueTab, importedDialogueTab);
 		dialoguesTabPane.setSide(Side.RIGHT);
+		
+		inventoryTabPane.setSide(Side.RIGHT);
+		inventoryTabPane.getTabs().addAll(inventorySpriteTab, importedInventorySpriteTab);
+		
 		Tab spritesTab = createElementTab(SPRITES, spritesTabPane);
+		spritesTab.setClosable(false);
 		dialoguesTab = createElementTab(DIALOGUES, dialoguesTabPane);
-		this.getTabs().addAll(spritesTab, dialoguesTab);
+		dialoguesTab.setClosable(false);
+		Tab inventoryTab = createElementTab(INVENTORY, inventoryTabPane);
+		inventoryTab.setClosable(false);
+		this.getTabs().addAll(spritesTab, dialoguesTab, inventoryTab);
+		
 		this.setSide(Side.TOP);
 	}
 	
-	private Tab createSubTab(String tabName, ArrayList<AbstractSpriteObject> sprites) {
+	private Tab createSubTab(String tabName, SpriteSet controller) {
 		Tab subTab = new Tab();
-		subTab.textProperty().bind(DisplayLanguage.createStringBinding(tabName));
+		subTab.setText(tabName);
+//		subTab.textProperty().bind(DisplayLanguage.createStringBinding(tabName));
 //		defaultSpriteTab.setContent(mySprites);
-		subTab.setContent(makeGrid(sprites));
+		subTab.setContent(makeCategoryTabPane(controller));
+		subTab.setOnSelectionChanged((event)->{
+			if (subTab.isSelected()){
+				subTab.setContent(makeCategoryTabPane(controller));
+			}
+		});
 		subTab.setClosable(false);
 		return subTab;
 	}
 	
+	private TabPane makeCategoryTabPane(SpriteSet controller){
+		TabPane categoryTabPane = new TabPane();
+		categoryTabPane.setSide(Side.LEFT);
+		for (Entry<String, List<AbstractSpriteObject>> cat: controller.getAllSpritesAsMap().entrySet()){
+			Tab catTab = new Tab();
+			catTab.setClosable(false);
+			catTab.setText(cat.getKey());
+			catTab.setContent(makeGrid(cat.getValue()));
+			catTab.setOnSelectionChanged(event->{
+				if (catTab.isSelected()){
+					catTab.setContent(makeGrid(cat.getValue()));
+				}
+			});
+			categoryTabPane.getTabs().add(catTab);
+		}
+		return categoryTabPane;
+	}
+	
 	private Tab createElementTab(String tabName, TabPane tabPane) {
 		Tab elementTab = new Tab();
-		elementTab.textProperty().bind(DisplayLanguage.createStringBinding(tabName));
+		elementTab.setText(tabName);
+//		elementTab.textProperty().bind(DisplayLanguage.createStringBinding(tabName));
 		elementTab.setContent(tabPane);
 		elementTab.setClosable(false);
 		return elementTab;
 	}
 
-	private ScrollPane makeGrid(ArrayList<AbstractSpriteObject> sprites) {
+	private ScrollPane makeGrid(List<AbstractSpriteObject> sprites) {
 		GridPane gp = new GridPane();
 		int totalRows = (int) Math.ceil(sprites.size()/10);
 		int DEFAULT_MIN_ROWS = 15;
@@ -342,8 +354,8 @@ public class GameElementSelector extends TabPane implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		System.out.println(arg);
-		System.out.println("notified observer");
-		System.out.println(mySprites);
+//		System.out.println("notified observer");
+//		System.out.println(mySprites);
 		createUserSprite(arg);
 	}
 	

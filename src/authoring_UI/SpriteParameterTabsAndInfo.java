@@ -2,6 +2,7 @@ package authoring_UI;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import authoring.AbstractSpriteObject;
@@ -30,9 +31,9 @@ public class SpriteParameterTabsAndInfo {
 	private final static double MENU_WIDTH = 400;
 	private final static double MENU_HEIGHT = 500;
 	private int categoryCounter = 1;
-	private HashMap<String, Integer> counters;
+	private Map<String, Integer> counters;
 	private AbstractSpriteObject mySO;
-	private HashMap<String, String> catNames;
+	private Map<String, String> catNames;
 	private SingleSelectionModel<Tab> mySelectModel;
 	private Tab currentTab;
 
@@ -98,16 +99,16 @@ public class SpriteParameterTabsAndInfo {
 	public void createFromSO(AbstractSpriteObject SO) {
 		categoryCounter = 1;
 		this.catNames.clear();
-		HashMap<String, ArrayList<SpriteParameterI>> params = SO.getParameters();
+		Map<String, List<SpriteParameterI>> params = SO.getParameters();
 //		System.out.println(params);
 		boolean loopedOnce = false;
-		for (Map.Entry<String, ArrayList<SpriteParameterI>> entry : params.entrySet()) {
+		for (Map.Entry<String, List<SpriteParameterI>> entry : params.entrySet()) {
 //			System.out.println("Loading entry");
 
 			String category = entry.getKey();
 //			System.out.println("Loading entry category: " + category);
 			// this.catNames.put(category, category);
-			ArrayList<SpriteParameterI> newParams = entry.getValue();
+			List<SpriteParameterI> newParams = entry.getValue();
 //			System.out.println("Loading entry val: " + newParams);
 			FEParameterFactory newFactory = new FEParameterFactory(newParams);
 //			System.out.println("Loading entry");

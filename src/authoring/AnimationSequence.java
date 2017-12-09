@@ -12,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -100,9 +99,8 @@ public class AnimationSequence {
 	public Pane getUIContent(){
 		showUI();
 		if (this.outMostVbox==null){
-			outMostVbox  = new VBox(5);
+			outMostVbox  = new VBox();
 			outMostVbox.getChildren().add(getScrollPane());
-			outMostVbox.getChildren().add(new Separator());
 			outMostVbox.getChildren().add(this.getAddImageButton());
 		}
 		return outMostVbox;
@@ -123,6 +121,7 @@ public class AnimationSequence {
 
 	private void createScrollPane() {
 		myScrollPane = new ScrollPane();
+		myScrollPane.setPrefHeight(200);
 		
 	}
 	
@@ -139,7 +138,8 @@ public class AnimationSequence {
 	}
 
 	private void createContainerVbox() {
-		myContainerVbox = new VBox(10);
+		myContainerVbox = new VBox();
+		myContainerVbox.setPrefWidth(500);
 	}
 
 	private void addAllAnimationSequenceImageThumbnails() {
@@ -170,15 +170,17 @@ public class AnimationSequence {
 		int vboxSize = myContainerVbox.getChildren().size();
 		System.out.println("Adding to AnSeq");
 		Thumbnail th = new Thumbnail(ASI.getImage(), "Image "+Integer.toString(vboxSize));
+		VBox animationBox = new VBox();
+		animationBox.getChildren().addAll(th, new Separator());
 		th.addSideButton("Remove from animation");
 		th.setSideButtonRunnable(()->{
 			if(!(this.getName().equals("Default")&&this.myContainerVbox.getChildren().size()==1)){
-			myContainerVbox.getChildren().remove(th);
+			myContainerVbox.getChildren().remove(animationBox);
 			this.myImages.remove(ASI);
 			}
 		});
 		
-		myContainerVbox.getChildren().add(th);
+		myContainerVbox.getChildren().add(animationBox);
 	}
 	
 	private void createAddImageButton(){
@@ -199,7 +201,7 @@ public class AnimationSequence {
 			
 			String testFile = File.separator+file.getName();
 			System.out.println(testFile);
-			AuthoringImageView AIV = new AuthoringImageView(testFile);
+			AuthoringImageView AIV = new AuthoringImageView(testFile); 
 			addNewAuthoringImageViewToSequence(AIV);
 		});
 	}
