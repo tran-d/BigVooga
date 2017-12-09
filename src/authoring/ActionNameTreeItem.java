@@ -21,24 +21,42 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 
 	private ActionFactory actionFactory = new ActionFactory();
 	private List<String> actionParameterTypes;
-	private List<OperationNameTreeItem> opItemList = new ArrayList<>();
+	private List<OperationNameTreeItem> opNameTreeItemList;
+
+	// private OperationNameTreeItem operationNameTreeItem1;
+	// private OperationNameTreeItem operationNameTreeItem2;
 
 	public ActionNameTreeItem(String actionCategory) {
 		this.makeActionTreeItem(actionCategory);
 	}
 
 	public void extract() {
-//		try {
-//			for (String s : actionParameterTypes) {
-//				System.out.println(s);
+
+		 for (OperationNameTreeItem opItem : opNameTreeItemList) {
+		// System.out.println("user inputted op: " + opItem.getSelectedOperation());
+		 opItem.makeOperation();
+		// System.out.println(opItem.makeOperation());
+		
+		 }
+
+//		actionFactory.makeAction("Rotate To", new ArrayList<String>() {
+//			{
+//				add("Self");
+//				add("90");
 //			}
-//
-//			for (OperationNameTreeItem opItem : opItemList)
-//				System.out.println("selected op: " + opItem.getSelectedOperation());
-//
-//		} catch (Exception e) {
-//			showError(e.getMessage(), "blah");
-//		}
+//		});
+
+		// try {
+		// for (String s : actionParameterTypes) {
+		// System.out.println(s);
+		// }
+		//
+		// for (OperationNameTreeItem opItem : opItemList)
+		// System.out.println("selected op: " + opItem.getSelectedOperation());
+		//
+		// } catch (Exception e) {
+		// showError(e.getMessage(), "blah");
+		// }
 	}
 
 	private TreeItem<HBox> makeActionTreeItem(String actionCategory) {
@@ -80,19 +98,20 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 	}
 
 	private void makeActionParameterChildren(String action, TreeItem<HBox> parameterAction, HBox hb) {
-		ObservableList<String> parameters = FXCollections.observableList(actionFactory.getParameters(action));
-		actionParameterTypes = parameters;
-		System.out.println("Params: " + parameters);
+		ObservableList<String> actionParameterTypes = FXCollections.observableList(actionFactory.getParameters(action));
+		this.actionParameterTypes = actionParameterTypes;
+		System.out.println("Params: " + actionParameterTypes);
+		opNameTreeItemList = new ArrayList<>();
 
 		hb.getChildren().add(new Label("[ "));
 
-		for (String param : parameters) {
+		for (String param : actionParameterTypes) {
 			hb.getChildren().add(new Label(param + " "));
 
-			OperationNameTreeItem opItem = new OperationNameTreeItem(param);
-			opItemList.add(opItem);
+			OperationNameTreeItem opNameTreeItem = new OperationNameTreeItem(param);
+			opNameTreeItemList.add(opNameTreeItem);
 
-			parameterAction.getChildren().add(opItem);
+			parameterAction.getChildren().add(opNameTreeItem);
 
 		}
 

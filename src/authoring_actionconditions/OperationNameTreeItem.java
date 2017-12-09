@@ -1,5 +1,8 @@
 package authoring_actionconditions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import engine.operations.OperationFactory;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -16,20 +19,52 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 
 	private OperationFactory operationFactory = new OperationFactory();
 	private ChoiceBox<String> operationCB;
-	
-	
+	private OperationParameterTreeItem operationParameterTreeItem;
+
+	private List<OperationParameterTreeItem> opParameterList = new ArrayList<>();
+
+	private String selectedOperation;
+
 	public OperationNameTreeItem(String actionParameter) {
 
 		this.makeOperationNameTreeItem(actionParameter);
 	}
-	
+
+	public Object makeOperation() {
+
+		if (operationParameterTreeItem.getNumberOfParameters() == 0) {
+			return operationParameterTreeItem.getParameter();
+		} else {
+			// operationParameterTreeItem.makeOperation();
+			System.out.println("atleast 1 parameter");
+			return operationParameterTreeItem.makeOperation();
+			
+			
+			// fix this
+			// System.out.println("Fact: "
+			// + operationFactory.makeOperation(selectedOperation,
+			// operationParameterTreeItem.getParameter()));
+			// return operationFactory.makeOperation(selectedOperation,
+			// operationParameterTreeItem.getParameter());
+
+		}
+
+	}
+
 	public String getSelectedOperation() {
-		return operationCB.getSelectionModel().getSelectedItem().toString();
+		// return operationCB.getSelectionModel().getSelectedItem().toString();
+
+		if (selectedOperation.equals(INPUT_A_DOUBLE) || selectedOperation.equals(INPUT_A_STRING)) {
+			return operationParameterTreeItem.getParameter();
+		} else {
+			// operationFactory.makeOperation(selectedOperation, );
+			return "not input a double/string";
+		}
 	}
 
 	private TreeItem<HBox> makeOperationNameTreeItem(String actionParameter) {
 		HBox hb = new HBox();
-//		hb.getChildren().addAll(new Label("Choose Operation: "));
+		// hb.getChildren().addAll(new Label("Choose Operation: "));
 
 		hb.getChildren().add(makeOperationNameChoiceBox(actionParameter, this));
 		this.setValue(hb);
@@ -56,8 +91,12 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 
 				System.out.println("Selected: " + operations.get(operationCB.getSelectionModel().getSelectedIndex()));
 				operationName.getChildren().clear();
-				operationName.getChildren()
-						.add(new OperationParameterTreeItem(operations.get(operationCB.getSelectionModel().getSelectedIndex())));
+
+				selectedOperation = operations.get(operationCB.getSelectionModel().getSelectedIndex());
+				operationParameterTreeItem = new OperationParameterTreeItem(
+						operations.get(operationCB.getSelectionModel().getSelectedIndex()));
+				opParameterList.add(operationParameterTreeItem);
+				operationName.getChildren().add(operationParameterTreeItem);
 			}
 		});
 
