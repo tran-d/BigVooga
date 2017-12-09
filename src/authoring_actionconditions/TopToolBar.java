@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 import ActionConditionClasses.ChoiceBoxVBox;
+import ActionConditionClasses.ResourceBundleUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -20,33 +21,26 @@ public class TopToolBar extends ToolBar implements TopToolBarI {
 	private ChoiceBoxVBox<String> selectorVBox;
 	private Button removeButton;
 	private RemoveChoiceBoxVBox removeRowVBox;
-	private EditChoiceBoxVBox editRowVBox;
-	private Button editButton;
-
-	public TopToolBar(ResourceBundle resourceBundle, String addButtonTitle, String optionsTitle, String selectorLabel,
-			String edit, String remove) {
+	
+	public TopToolBar(String tabType) {
 		super();
-		
-		tabResources = resourceBundle;
-		addButton = new Button(tabResources.getString(addButtonTitle));
-		ObservableList<String> additionOptions = ActionConditionTabUtil
-				.convertToObservableList(tabResources.getString(optionsTitle));
-		
-		selectorVBox = new ChoiceBoxVBox<String>(tabResources.getString(selectorLabel), additionOptions);
+		tabResources = ResourceBundleUtil.getResourceBundle(tabType);
+		addButton = new Button(tabResources.getString("AddButtonLabel"));
+		ObservableList<String> additionOptions = ActionConditionTabUtil.convertToObservableList(tabResources.getString("Options"));
+		selectorVBox = new ChoiceBoxVBox<String>(tabResources.getString("SelectorLabel"), additionOptions);
 		Separator separator = ActionConditionTabUtil.makeVerticalSeparator();
-		
-		removeButton = new Button(tabResources.getString(remove));
-		removeRowVBox = new RemoveChoiceBoxVBox(tabResources.getString("RemoverLabel"),
-				FXCollections.observableList(new LinkedList<Integer>()));
-		
-//		editButton = new Button(tabResources.getString(edit));
-//		editRowVBox = new EditChoiceBoxVBox(tabResources.getString("EditLabel"),
-//				FXCollections.observableList(new LinkedList<Integer>()));
-		
-		getItems().addAll(addButton, selectorVBox, separator,removeButton, removeRowVBox);
+		removeButton = new Button(tabResources.getString("RemoveButtonLabel"));
+		removeRowVBox = new RemoveChoiceBoxVBox(tabResources.getString("RemoverLabel"),FXCollections.observableList(new LinkedList<Integer>()));
+		getItems().addAll(addButton,selectorVBox,separator,removeButton,removeRowVBox);
 	}
-
-	protected ObservableList<Integer> getRemoveRowVBoxOptions() {
+	
+	public TopToolBar(String tabType,ObservableList<Integer> actions) {
+		this(tabType);
+		removeRowVBox.setNewOptions(actions);
+	}
+	
+	@Override
+	public ObservableList<Integer> getRemoveRowVBoxOptions() {
 		return removeRowVBox.getOptions();
 	}
 
@@ -56,7 +50,6 @@ public class TopToolBar extends ToolBar implements TopToolBarI {
 
 	@Override
 	public Integer getRemoveValue() {
-		System.out.println("current value " + removeRowVBox.getCurrentValue());
 		return (Integer) removeRowVBox.getCurrentValue();
 	}
 

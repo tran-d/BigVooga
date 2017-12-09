@@ -91,9 +91,9 @@ public class ActionConditionDemo extends Application {
 		sprite.addAnimationSequence(animation);
 		sprite.setAnimation("Animation");
 
-		layer.addGameObject(obj1);
-		layer.addGameObject(obj2);
-		layer.addGameObject(obj3);
+		layer.addElement(obj1);
+		layer.addElement(obj2);
+		layer.addElement(obj3);
 		layer.setBlueprints(blueprints);
 		
 		GameWorld w = new GameWorld("World");
@@ -101,7 +101,7 @@ public class ActionConditionDemo extends Application {
 		
 		GameMaster master = new GameMaster();
 		master.addWorld(w);
-		master.setCurrentWorld("World");
+		master.setNextWorld("World");
 		try {
 			new GameDataHandler("Actions Conditions Demo").saveGame(master);
 		} catch (IOException e) {
@@ -109,7 +109,7 @@ public class ActionConditionDemo extends Application {
 		}
 		
 		try {
-			new GameDataHandler("Actions Conditions Demo").loadGame().setCurrentWorld("World");
+			new GameDataHandler("Actions Conditions Demo").loadGame().setNextWorld("World");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -155,10 +155,10 @@ public class ActionConditionDemo extends Application {
 		actions1.add(new Rotate(1));
 		obj.addConditionAction(new ObjectClickHeld(1), actions1);
 		actions1 = new ArrayList<Action>();
-		actions1.add(new ChangeDouble("xSpeed", -10, false));
+		actions1.add(new SetDouble("xSpeed", -10, false));
 		obj.addConditionAction(new And(1, new KeyHeld(1, "Q"), new KeyHeld(1, "Space")), actions1);
 		actions1 = new ArrayList<Action>();
-		actions1.add(new ChangeDouble("xSpeed", -3, false));
+		actions1.add(new SetDouble("xSpeed", -3, false));
 		obj.addConditionAction(new Or(1, new KeyReleased(1, "Q"), new KeyReleased(1, "Space")), actions1);
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Create("Ob2", 500, 500, 20));
@@ -181,17 +181,17 @@ public class ActionConditionDemo extends Application {
 	private void conditionAction2(GameObject obj) {
 		List<Action> actions1 = new ArrayList<Action>();
 		actions1.add(new RemoveIntersection());
-		obj.addConditionAction(new Collision(3, "Ob1"), actions1);
-		obj.addConditionAction(new Collision(4, "Ob2"), actions1);
-		obj.addConditionAction(new Collision(5, "Ob3"), actions1);
+		obj.addConditionAction(new CollisionByTag(3, "Ob1"), actions1);
+		obj.addConditionAction(new CollisionByTag(4, "Ob2"), actions1);
+		obj.addConditionAction(new CollisionByTag(5, "Ob3"), actions1);
 	}
 	
 	private void conditionAction3(GameObject obj) {
 		List<Action> actions1 = new ArrayList<Action>();
 		actions1.add(new RemoveIntersection());
-		obj.addConditionAction(new Collision(3, "Ob1"), actions1);
-		obj.addConditionAction(new Collision(4, "Ob2"), actions1);
-		obj.addConditionAction(new Collision(5, "Ob3"), actions1);
+		obj.addConditionAction(new CollisionByTag(3, "Ob1"), actions1);
+		obj.addConditionAction(new CollisionByTag(4, "Ob2"), actions1);
+		obj.addConditionAction(new CollisionByTag(5, "Ob3"), actions1);
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Destroy("Ob3"));
 		obj.addConditionAction(new ObjectClicked(1), actions1);

@@ -1,10 +1,7 @@
 package engine.operations.stringops;
 
 import engine.GameObject;
-/**
- * @author Nikolas Bramblett
- */
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.doubleops.DoubleOperation;
 
 public class CharAt implements StringOperation{
@@ -18,7 +15,7 @@ public class CharAt implements StringOperation{
 	}
 
 	@Override
-	public String evaluate(GameObject asking, Layer world) {
+	public String evaluate(GameObject asking, GameObjectEnvironment world) {
 		// TODO Auto-generated method stub
 		return ""+string.evaluate(asking, world).charAt(charAt.evaluate(asking, world).intValue());
 	}

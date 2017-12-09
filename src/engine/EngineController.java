@@ -5,7 +5,7 @@ import controller.player.PlayerManager;
 public interface EngineController {
 	public void start();
 	public void stop();
-	public void setCurrentWorld(String s);
+	public void setNextWorld(String s);
 	public void setPlayerManager(PlayerManager currentPlayerManager);
 	public void addWorld(GameWorld w);
 	

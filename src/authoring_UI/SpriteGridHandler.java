@@ -50,7 +50,7 @@ public class SpriteGridHandler {
 
 	protected void addKeyPress(Scene scene) {
 		scene.setOnKeyPressed(e -> {
-			System.out.println("Key pressed: "+ e.getCode());
+//			System.out.println("Key pressed: "+ e.getCode());
 			if (e.getCode().equals(KeyCode.BACK_SPACE)) {
 				deleteSelectedSprites();
 			}
@@ -61,13 +61,11 @@ public class SpriteGridHandler {
 		List<Integer[]> cellsToDelete = new ArrayList<Integer[]>();
 		myDG.getActiveGrid().getActiveSpriteObjects().forEach(s -> {
 			Integer[] row_col = s.getPositionOnGrid();
-			System.out.println("row_col: " + row_col);
+//			System.out.println("row_col: " + row_col);
 			cellsToDelete.add(row_col);
 		});
 		resetActiveSprites();
 		myDP.removeSpriteEditorVBox();
-
-		System.out.println();
 		myDG.getActiveGrid().clearCells(cellsToDelete);
 	}
 
@@ -263,11 +261,11 @@ private	void resetActiveSprites() {
 			if (pane.checkCanAcceptChild(draggingObject)) {
 				Dragboard db = e.getDragboard();
 				MapLayer ML = pane.getMapLayer();
-				System.out.println("MapLayer: " + ML.getName());
+//				System.out.println("MapLayer: " + ML.getName());
 				int row = ML.getRowIndex(pane);
 				int col = ML.getColumnIndex(pane);
 				Integer[] row_col = new Integer[] { row, col };
-				System.out.println(row_col);
+//				System.out.println(row_col);
 
 				if (db.hasContent(objectFormat)) {
 					if (draggingObject instanceof SpriteObject) {

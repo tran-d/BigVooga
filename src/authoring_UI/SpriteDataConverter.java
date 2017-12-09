@@ -85,6 +85,8 @@ public class SpriteDataConverter {
 		});
 //		widthFunction = ASO.getWidthFunction();
 //		heightFunction = ASO.getHeightFunction();
+		////////////////////////////////////////////////////////////////////////////////////////////////////////myCondAct = So>getconditionAction();
+
 
 		if (ASO instanceof SpriteObject) {
 			spriteType = "SpriteObject";
@@ -113,6 +115,7 @@ public class SpriteDataConverter {
 		ret.setUniqueID(UUID);
 		ret.setName(name);
 		ret.setSavePath(mySavePath);
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////ret.setCondAct(private var)
 //		ret.setWidthFunction(widthFunction);
 //		ret.setHeightFunction(heightFunction);
 		List<AbstractSpriteObject> newInventory = new ArrayList<AbstractSpriteObject>();

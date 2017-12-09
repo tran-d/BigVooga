@@ -100,7 +100,7 @@ public class SpriteObjectGridToEngineController {
 	
 	private void addAllGameObjectsToLayer(List<GameObject> GO_LIST, GameLayer layer) {
 		for (GameObject GO: GO_LIST) {
-			layer.addGameObject(GO);
+			layer.addElement(GO);
 		}
 	}
 	

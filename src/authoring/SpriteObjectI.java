@@ -2,7 +2,9 @@ package authoring;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import javafx.collections.ObservableList;
 import javafx.scene.image.ImageView;
 
 public interface SpriteObjectI {
@@ -19,6 +21,13 @@ public interface SpriteObjectI {
 	String getName();
 	void setName(String name);
 	void updateCategoryName(String prev, String next);
+	public void setAllActions(ObservableList<Integer> allActions);
+	public void setCondidtionRows(HashMap<List<String>,List<Integer>> conditionRows);
+	public void setActionRows(List<List<String>> actionRows);
+	public ObservableList<Integer> getAllActions();
+	public HashMap<List<String>,List<Integer>> getConditionRows();
+	public List<List<String>> getActionRows();
+	
 	
 }
 

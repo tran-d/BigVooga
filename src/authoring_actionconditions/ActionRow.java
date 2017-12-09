@@ -1,5 +1,8 @@
 package authoring_actionconditions;
 
+import java.util.ArrayList;
+import java.util.List;
+import authoring.ActionNameTreeItem;
 import engine.Actions.ActionFactory;
 import engine.operations.OperationFactory;
 import javafx.beans.value.ChangeListener;
@@ -27,50 +30,89 @@ import tools.DisplayLanguage;
  */
 public class ActionRow extends ActionConditionRow {
 
-	private static final double TREE_VIEW_WIDTH = 400;
+	private static final double ROW_WIDTH = 800;
+	private static final double TREE_VIEW_WIDTH = 600;
+	private static final double EXPANDED_HEIGHT = 500;
+	private static final double COLLAPSED_HEIGHT = 25;
+	private static final String INPUT_A_DOUBLE = "Input a Double";
+	private static final String INPUT_A_STRING = "Input a String";
+
 	private static final String INVALID_INPUT_MESSAGE = "InvalidInput";
 	private static final String DOUBLE_INPUT_MESSAGE = "EnterDouble";
 
 	private ActionFactory actionFactory;
-	private TreeView<HBox> actionTree;
-
-	private TreeItem<HBox> categoryAction = new TreeItem<HBox>();
-	private TreeItem<HBox> actionAction = new TreeItem<HBox>();
-	private TreeItem<HBox> parameterAction = new TreeItem<HBox>();
-
-	// private TreeItem<HBox> categoryOperation = new TreeItem<HBox>();
-	// private TreeItem<HBox> actionOperation = new TreeItem<HBox>();
-//	private TreeItem<HBox> parameterOperation = new TreeItem<HBox>();
-
-	private TreeView<HBox> actionTreeView;
-	private TreeView<HBox> operationTreeView;
 	private OperationFactory operationFactory;
 
-	public ActionRow(int ID, String label, String selectorLabel, boolean isConditionRow,
-			ObservableList<Integer> newActionOptions, ActionConditionVBox ACVBox) {
+	private TreeView<HBox> actionTreeView;
+	private TreeItem<HBox> categoryAction = new TreeItem<HBox>();
+	private TreeItem<HBox> actionAction = new TreeItem<HBox>();
 
-		super(ID, label, selectorLabel, newActionOptions, ACVBox);
+	private ActionNameTreeItem actionName;
+	private List<OperationNameTreeItem> opItemList = new ArrayList<>();
 
-		// addBuildActionButton(e -> openBuildWindow());
+	private List<String> actionParameterTypes;
+
+	// private TreeItem<HBox> parameterAction = new TreeItem<HBox>();
+	// private TreeItem<HBox> categoryOperation = new TreeItem<HBox>();
+	// private TreeItem<HBox> actionOperation = new TreeItem<HBox>();
+	// private TreeItem<HBox> parameterOperation = new TreeItem<HBox>();
+
+	public ActionRow(int ID, String label, String selectorLabel,String selectedAction, ActionVBox<ActionRow> ACVBox) {
+		super(ID, label, selectorLabel, selectedAction, ACVBox);
+
+		this.setPrefSize(ROW_WIDTH, EXPANDED_HEIGHT);
 
 		actionFactory = new ActionFactory();
 		operationFactory = new OperationFactory();
 
-		// this.getItems().add(makeActionChoiceBox("Movement"));
-		// actionTree = makeTreeView(makeActionChoiceBox("Movement"));
-		// this.getItems().add(actionTree);
-		actionTreeView = makeActionTreeView();
-		actionTreeView.setPrefWidth(TREE_VIEW_WIDTH);
-		// operationTreeView = makeOperationTreeView();
+		actionTreeView = makeTreeView();
+		actionTreeView.setPrefSize(TREE_VIEW_WIDTH, EXPANDED_HEIGHT);
 
 		this.getItems().addAll(actionTreeView);
 	}
 
-	/*********************************
-	 * ACTIONS
-	 *************************************/
+	/********************** PUBLIC METHODS ***********************/
 
-	private TreeView<HBox> makeActionTreeView() {
+	public TreeItem<HBox> getRootTreeItem() {
+		return categoryAction;
+	}
+
+	public TreeView<HBox> getTreeView() {
+		return actionTreeView;
+	}
+
+	public void changeRowTVSize() {
+		if (categoryAction.isExpanded()) {
+			this.setPrefHeight(EXPANDED_HEIGHT);
+			actionTreeView.setPrefHeight(EXPANDED_HEIGHT);
+		} else {
+			this.setPrefHeight(COLLAPSED_HEIGHT);
+			actionTreeView.setPrefHeight(COLLAPSED_HEIGHT);
+		}
+	}
+
+	public void extract() {
+		// ActionProcessor p = new ActionProcessor(actionTreeView, categoryAction,
+		// actionAction);
+		actionName.extract();
+//		try {
+//
+//			for (String s : actionParameterTypes) {
+//				System.out.println(s);
+//			}
+//
+//			for (OperationNameTreeItem opItem : opItemList)
+//				System.out.println("selected op: " + opItem.getSelectedOperation());
+//
+//		} catch (Exception e) {
+//			showError(e.getMessage(), "blah");
+//		}
+
+	}
+
+	/***************************** ACTIONS ******************************/
+
+	private TreeView<HBox> makeTreeView() {
 		categoryAction = makeActionCategoryTreeItem();
 		TreeView<HBox> tv = new TreeView<HBox>(categoryAction);
 		return tv;
@@ -81,6 +123,7 @@ public class ActionRow extends ActionConditionRow {
 		hb.getChildren().addAll(new Label("Choose Action Category: "), makeActionCategoryChoiceBox());
 		TreeItem<HBox> ti = new TreeItem<HBox>(hb);
 		ti.setExpanded(true);
+		ti.expandedProperty().addListener(e -> changeRowTVSize());
 		return ti;
 	}
 
@@ -97,22 +140,22 @@ public class ActionRow extends ActionConditionRow {
 				// System.out.println(actions.get(newValue.intValue()));
 				// getItems().add(makeParameterChoiceBox(actions.get(newValue.intValue())));
 				categoryAction.getChildren().clear();
-				categoryAction.getChildren()
-						.add(makeActionTreeItem(categories.get(cb.getSelectionModel().getSelectedIndex())));
+				actionName = new ActionNameTreeItem(categories.get(cb.getSelectionModel().getSelectedIndex()));
+				categoryAction.getChildren().add(actionName);
 			}
 		});
 		return cb;
 	}
 
-	private TreeItem<HBox> makeActionTreeItem(String category) {
+	private TreeItem<HBox> makeActionNameTreeItem(String category) {
 		HBox hb = new HBox();
-		hb.getChildren().addAll(new Label("Choose Action: "), makeActionChoiceBox(category));
+		hb.getChildren().addAll(new Label("Choose Action: "), makeActionNameChoiceBox(category));
 		actionAction = new TreeItem<HBox>(hb);
 		actionAction.setExpanded(true);
 		return actionAction;
 	}
 
-	private ChoiceBox<String> makeActionChoiceBox(String category) {
+	private ChoiceBox<String> makeActionNameChoiceBox(String category) {
 		ObservableList<String> actions = FXCollections.observableList(actionFactory.getActions(category));
 		ChoiceBox<String> cb = new ChoiceBox<>(actions);
 		System.out.println("Acts: " + actions);
@@ -134,7 +177,7 @@ public class ActionRow extends ActionConditionRow {
 
 	private TreeItem<HBox> makeActionParameterTreeItem(String action) {
 		HBox hb = new HBox();
-		hb.getChildren().add(new Label("Choose Action Parameter(s): "));
+		hb.getChildren().add(new Label("Choose Action Parameter(s)/Operation(s): "));
 
 		TreeItem<HBox> parameterAction = new TreeItem<HBox>(hb);
 		makeActionParameterChildren(action, parameterAction, hb);
@@ -144,6 +187,7 @@ public class ActionRow extends ActionConditionRow {
 
 	private void makeActionParameterChildren(String action, TreeItem<HBox> parameterAction, HBox hb) {
 		ObservableList<String> parameters = FXCollections.observableList(actionFactory.getParameters(action));
+		actionParameterTypes = parameters;
 		System.out.println("Params: " + parameters);
 
 		hb.getChildren().add(new Label("[ "));
@@ -151,57 +195,17 @@ public class ActionRow extends ActionConditionRow {
 		for (String param : parameters) {
 			hb.getChildren().add(new Label(param + " "));
 
-			TreeItem<HBox> paramTV = makeOperationNameTreeItem(param);
+			OperationNameTreeItem opItem = new OperationNameTreeItem(param);
+			opItemList.add(opItem);
 
-			if (param.equals("Double")) {
-				TextField tf = new TextField();
-				TreeItem<HBox> tfTreeItem = new TreeItem<HBox>(new HBox(new Label("Insert Double: "), tf));
-				parameterAction.getChildren().add(tfTreeItem);
-				tf.setOnKeyReleased(e -> {
-					checkDoubleInput(tf);
-					checkEmptyInput(tf, parameterAction, paramTV, parameterAction.getChildren().indexOf(tfTreeItem));
-				});
-			} else if (param.equals("String")) {
-				TextField tf = new TextField();
-				TreeItem<HBox> tfTreeItem = new TreeItem<HBox>(new HBox(new Label("Insert String: "), tf));
-				parameterAction.getChildren().add(tfTreeItem);
-				tf.setOnKeyReleased(e -> {
-					checkEmptyInput(tf, parameterAction, paramTV, parameterAction.getChildren().indexOf(tfTreeItem));
-				});
-			}
-
-			parameterAction.getChildren().add(paramTV);
+			parameterAction.getChildren().add(opItem);
 
 		}
 
 		hb.getChildren().add(new Label("]"));
-
-		// ChoiceBox<String> cb = new ChoiceBox<>(parameters);
-
-		// cb.getSelectionModel().selectedIndexProperty().addListener(new
-		// ChangeListener<Number>() {
-		//
-		// @Override
-		// public void changed(ObservableValue<? extends Number> observable, Number
-		// oldValue, Number newValue) {
-		//
-		// // System.out.println(actions.get(newValue.intValue()));
-		// // getItems().add(makeParameterChoiceBox(actions.get(newValue.intValue())));
-		// parameterAction.getChildren().clear();
-		// parameterAction.getChildren()
-		// .add(makeOperationCategoryTreeItem(parameters.get(cb.getSelectionModel().getSelectedIndex())));
-		// }
-		// });
-		// return cb;
 	}
 
 	/****************************** OPERATIONS ******************************/
-
-	// private TreeView<HBox> makeOperationTreeView() {
-	// categoryOperation = makeOperationCategoryTreeItem();
-	// TreeView<HBox> tv = new TreeView<HBox>(categoryOperation);
-	// return tv;
-	// }
 
 	private TreeItem<HBox> makeOperationNameTreeItem(String actionParameter) {
 		HBox hb = new HBox();
@@ -215,9 +219,15 @@ public class ActionRow extends ActionConditionRow {
 	}
 
 	private ChoiceBox<String> makeOperationCategoryChoiceBox(String actionParameter, TreeItem<HBox> categoryOperation) {
-		// TODO change "Boolean" to actionParameter
-		ObservableList<String> operations = FXCollections.observableList(operationFactory.getOperations("Boolean"));
+		ObservableList<String> operations = FXCollections
+				.observableList(operationFactory.getOperations(actionParameter));
 		ChoiceBox<String> cb = new ChoiceBox<>(operations);
+
+		if (actionParameter.equals("Double"))
+			operations.add(0, INPUT_A_DOUBLE);
+		else if (actionParameter.equals("String"))
+			operations.add(0, (INPUT_A_STRING));
+
 		System.out.println("ops: " + operations);
 
 		cb.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
@@ -230,66 +240,80 @@ public class ActionRow extends ActionConditionRow {
 				System.out.println("Selected: " + operations.get(cb.getSelectionModel().getSelectedIndex()));
 				categoryOperation.getChildren().clear();
 				categoryOperation.getChildren()
-						.add(makeParameterOperationTreeItem(operations.get(cb.getSelectionModel().getSelectedIndex())));
+						.add(new OperationParameterTreeItem(operations.get(cb.getSelectionModel().getSelectedIndex())));
 			}
 		});
 
 		return cb;
 	}
 
-	private TreeItem<HBox> makeParameterOperationTreeItem(String operation) {
+	private TreeItem<HBox> makeParameterOperationTreeItem(String selectedOperation) {
 
 		HBox hb = new HBox();
 		hb.getChildren().add(new Label("Choose Operation Parameter(s): "));
 
 		TreeItem<HBox> parameterOperation = new TreeItem<HBox>(hb);
-		makeOperationParameterChildren(operation, parameterOperation, hb);
+		makeOperationParameterChildren(selectedOperation, parameterOperation, hb);
 		parameterOperation.setExpanded(true);
 		return parameterOperation;
 	}
 
-	private void makeOperationParameterChildren(String operation, TreeItem<HBox> parameterOperation, HBox hb) {
-		ObservableList<String> parameters = FXCollections.observableList(operationFactory.getParameters(operation));
-		System.out.println("Op Params: " + parameters);
+	private void makeOperationParameterChildren(String selectedOperation, TreeItem<HBox> parameterOperation, HBox hb) {
 
-//		hb.getChildren().add(new Label("[ "));
-//
-//		for (String param : parameters) {
-//			hb.getChildren().add(new Label(param + " "));
-//			parameterOperation.getChildren().add(makeOperationCategoryTreeItem(param));
-//		}
-//	
-//		hb.getChildren().add(new Label("]"));
-		
-		hb.getChildren().add(new Label("[ "));
+		if (selectedOperation.equals(INPUT_A_DOUBLE))
+			addDoubleTextField(parameterOperation);
+		else if (selectedOperation.equals(INPUT_A_STRING))
+			addStringTextField(parameterOperation);
 
-		for (String param : parameters) {
-			hb.getChildren().add(new Label(param + " "));
+		else {
+			ObservableList<String> parameters = FXCollections
+					.observableList(operationFactory.getParameters(selectedOperation));
 
-			TreeItem<HBox> paramTV = makeOperationNameTreeItem(param);
+			System.out.println("Op Params: " + parameters);
 
-			if (param.equals("Double")) {
-				TextField tf = new TextField();
-				TreeItem<HBox> tfTreeItem = new TreeItem<HBox>(new HBox(new Label("Insert Double: "), tf));
-				parameterOperation.getChildren().add(tfTreeItem);
-				tf.setOnKeyReleased(e -> {
-					checkDoubleInput(tf);
-					checkEmptyInput(tf, parameterOperation, paramTV, parameterOperation.getChildren().indexOf(tfTreeItem));
-				});
-			} else if (param.equals("String")) {
-				TextField tf = new TextField();
-				TreeItem<HBox> tfTreeItem = new TreeItem<HBox>(new HBox(new Label("Insert String: "), tf));
-				parameterOperation.getChildren().add(tfTreeItem);
-				tf.setOnKeyReleased(e -> {
-					checkEmptyInput(tf, parameterOperation, paramTV, parameterOperation.getChildren().indexOf(tfTreeItem));
-				});
+			// hb.getChildren().add(new Label("[ "));
+			//
+			// for (String param : parameters) {
+			// hb.getChildren().add(new Label(param + " "));
+			// parameterOperation.getChildren().add(makeOperationCategoryTreeItem(param));
+			// }
+			//
+			// hb.getChildren().add(new Label("]"));
+
+			hb.getChildren().add(new Label("[ "));
+
+			for (String param : parameters) {
+				hb.getChildren().add(new Label(param + " "));
+
+				TreeItem<HBox> paramTV = new OperationNameTreeItem(param);
+
+				// if (param.equals("Double")) {
+				// TextField tf = new TextField();
+				// TreeItem<HBox> tfTreeItem = new TreeItem<HBox>(new HBox(new Label("Insert
+				// Double: "), tf));
+				// parameterOperation.getChildren().add(tfTreeItem);
+				// tf.setOnKeyReleased(e -> {
+				// checkDoubleInput(tf);
+				// checkEmptyInput(tf, parameterOperation, paramTV,
+				// parameterOperation.getChildren().indexOf(tfTreeItem));
+				// });
+				// } else if (param.equals("String")) {
+				// TextField tf = new TextField();
+				// TreeItem<HBox> tfTreeItem = new TreeItem<HBox>(new HBox(new Label("Insert
+				// String: "), tf));
+				// parameterOperation.getChildren().add(tfTreeItem);
+				// tf.setOnKeyReleased(e -> {
+				// checkEmptyInput(tf, parameterOperation, paramTV,
+				// parameterOperation.getChildren().indexOf(tfTreeItem));
+				// });
+				// }
+
+				parameterOperation.getChildren().add(paramTV);
+
 			}
 
-			parameterOperation.getChildren().add(paramTV);
-
+			hb.getChildren().add(new Label("]"));
 		}
-
-		hb.getChildren().add(new Label("]"));
 
 	}
 
@@ -313,13 +337,36 @@ public class ActionRow extends ActionConditionRow {
 		return cb;
 	}
 
+	private void addDoubleTextField(TreeItem<HBox> treeItem) {
+		TextField tf = new TextField();
+		TreeItem<HBox> tfTreeItem = new TreeItem<HBox>(new HBox(new Label("Insert Double: "), tf));
+		treeItem.getChildren().add(tfTreeItem);
+		tf.setOnKeyReleased(e -> {
+			checkDoubleInput(tf);
+			// checkEmptyInput(tf, parameterAction, paramTV,
+			// parameterAction.getChildren().indexOf(tfTreeItem));
+		});
+
+	}
+
+	private void addStringTextField(TreeItem<HBox> treeItem) {
+		TextField tf = new TextField();
+		TreeItem<HBox> tfTreeItem = new TreeItem<HBox>(new HBox(new Label("Insert String: "), tf));
+		treeItem.getChildren().add(tfTreeItem);
+		tf.setOnKeyReleased(e -> {
+			// checkEmptyInput(tf, parameterAction, paramTV,
+			// parameterAction.getChildren().indexOf(tfTreeItem));
+		});
+
+	}
+
 	private void checkDoubleInput(TextField tf) {
 		try {
 			if (!tf.getText().equals(""))
 				Double.parseDouble(tf.getText());
 		} catch (NumberFormatException e) {
 			showError(INVALID_INPUT_MESSAGE, DOUBLE_INPUT_MESSAGE);
-//			tf.clear();
+			tf.clear();
 		}
 
 	}
@@ -351,11 +398,4 @@ public class ActionRow extends ActionConditionRow {
 		buildActionButton.setOnAction(handler);
 		getItems().add(buildActionButton);
 	}
-
-	private void openBuildWindow() {
-		// if (view == null && actionOptions.getSelected() != null)
-		// view = new BuildActionView(ACVBox, (ActionConditionRow)
-		// ACVBox.getChildren().get(labelInt - 1));
-	}
-
 }

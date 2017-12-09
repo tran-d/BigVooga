@@ -198,8 +198,6 @@ public class GameElementSelector extends TabPane implements Observer {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-	
-
 		
 		
 		

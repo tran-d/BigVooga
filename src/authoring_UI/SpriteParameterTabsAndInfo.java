@@ -315,7 +315,7 @@ public class SpriteParameterTabsAndInfo {
 		for (Tab t : myTabPane.getTabs()) {
 //			System.out.println("Tab t: " + t.getText());
 		}
-		System.out.println("Created add category");
+//		System.out.println("Created add category");
 		newCategory.setOnSelectionChanged(e -> {
 //			System.out.println("On change occured");
 			addEmptyCategoryTab();

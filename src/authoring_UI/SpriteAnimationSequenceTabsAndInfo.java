@@ -219,7 +219,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	}
 	
 	public void apply(){
-		mySO.setAnimationSequences(this.animationsSequences);
+		//mySO.setAnimationSequences(this.animationsSequences);
 	}
 	
 	

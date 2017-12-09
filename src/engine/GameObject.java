@@ -6,39 +6,50 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeSet;
+
 import engine.sprite.BoundedImage;
+import engine.sprite.CompositeImage;
+import engine.sprite.Displayable;
+import engine.sprite.DisplayableText;
 import engine.sprite.Sprite;
 import engine.utilities.collisions.CollisionEvent;
+import javafx.geometry.Point2D;
 
 /**
- * The core of the game. Everything visible will be a GameObject. GameObjects have 2 paradigms:
- * Variables are just named quantities unique to each instance of an object, such as names or coordinates.
+ * The core of the game. Everything visible will be a GameObject. GameObjects
+ * have 2 paradigms: Variables are just named quantities unique to each instance
+ * of an object, such as names or coordinates.
  * 
- * Step() calls the Object's conditions and actions, which evaluate and modify its current state based on the conditions of the game.
+ * Step() calls the Object's conditions and actions, which evaluate and modify
+ * its current state based on the conditions of the game.
  * 
- * @author Nikolas Bramblett, ...
+ * @author Nikolas Bramblett, Ian Eldridge-Allegra
  *
  */
-public class GameObject extends VariableContainer {
-	
-	private String name;
-	private Set<String> tagSet;
-	private Map<Condition, List<Action>> events;
-	private Sprite currentSprite;
-	private CollisionEvent lastCollision;
-	private double width = 200; //TODO Sizes
-	private double height = 200; //TODO Sizes
-	private int uniqueID;
+public class GameObject extends VariableContainer implements Element {
 
+	private static final double DEFAULT_SIZE = 200;
 	private static final String DEFAULT_NAME = "unnamed";
 	private static final String DEFAULT_TAG = "default";
-	public static final String X_COR = "xCor";
-	public static final String Y_COR = "yCor";
-	public static final String HEADING = "heading";
+	
+	private Map<Condition, List<Action>> events;
+	private Sprite currentSprite;
+	
+	private int uniqueID;
+	private String name;
+	private Set<String> tagSet;
+	
+	private CollisionEvent lastCollision;
+	private Inventory inventory;
+	private DisplayableText dialogueHandler;
+
+	private double heading;
+	private List<Point2D> ithDerivative;
+	private double width = DEFAULT_SIZE;
+	private double height = DEFAULT_SIZE;
 	
 	public GameObject() {
 		this(DEFAULT_NAME);
@@ -47,15 +58,15 @@ public class GameObject extends VariableContainer {
 	public GameObject(String name) {
 		tagSet = new HashSet<String>();
 		doubleVars = new HashMap<String, Double>();
-		doubleVars.put(X_COR, 0.0);
-		doubleVars.put(Y_COR, 0.0);
-		doubleVars.put(HEADING, 0.0);
 		booleanVars = new HashMap<String, Boolean>();
 		stringVars = new HashMap<String, String>();
 		events = new HashMap<>();
 		this.name = name;
 		tagSet.add(name);
 		tagSet.add(DEFAULT_TAG);
+		inventory = new Inventory(this);
+		ithDerivative = new ArrayList<>();
+		ithDerivative.add(new Point2D(0,0));
 	}
 
 	public String getName() {
@@ -70,47 +81,28 @@ public class GameObject extends VariableContainer {
 		return tagSet.contains(tag);
 	}
 
-	public List<String> getTags() {
-		return new ArrayList<String>(tagSet);
-	}
-
-	public void setGlobal(String variableName, Layer w) {
-		GlobalVariables currentGlobals = w.getGlobalVars();
-		if (doubleVars.containsKey(variableName)) {
-			currentGlobals.putDouble(variableName, doubleVars.get(variableName));
-		}
-		if (stringVars.containsKey(variableName)) {
-			currentGlobals.putString(variableName, stringVars.get(variableName));
-		}
-		if (booleanVars.containsKey(variableName)) {
-			currentGlobals.putBoolean(variableName, booleanVars.get(variableName));
-		}
-	}
-
-	public void makeAllGlobal(Layer w) {
-		makeAllGlobalHelper(booleanVars.keySet(), w);
-		makeAllGlobalHelper(doubleVars.keySet(), w);
-		makeAllGlobalHelper(stringVars.keySet(), w);
-	}
-
-	private void makeAllGlobalHelper(Set<String> s, Layer w) {
-		for (String key : s) {
-			setGlobal(key, w);
-		}
-	}
-
 	public void addConditionAction(Condition c, List<Action> a) {
 		events.put(c, a);
 	}
 
-	public void step(Layer w, int priorityNum, List<Runnable> runnables) {
-		currentSprite.step();
+	/**
+	 * Steps animation and checks/executes events in order of priority
+	 */
+	public void step(int priorityNum, GameObjectEnvironment w, List<Runnable> runnables) {
 		for (Condition c : events.keySet()) {
-			if(c.getPriority() == priorityNum && c.isTrue(this, w)) {
+			if (c.getPriority() == priorityNum && c.isTrue(this, w)) {
 				for (Action a : events.get(c)) {
 					runnables.add(() -> a.execute(this, w));
 				}
 			}
+		}
+	}
+	
+	@Override
+	public void step(GameObjectEnvironment w) {
+		currentSprite.step();
+		for(int i = ithDerivative.size()-1; i > 0; i--) {
+			ithDerivative.set(i-1, ithDerivative.get(i-1).add(ithDerivative.get(i)));
 		}
 	}
 
@@ -120,29 +112,55 @@ public class GameObject extends VariableContainer {
 	 * @param x, y
 	 */
 	public void setCoords(double x, double y) {
-		// TODO Trigger listeners here
-		doubleVars.put(X_COR, x);
-		doubleVars.put(Y_COR, y);
+		setLocation(new Point2D(x,y));
+	}
+
+	public void setLocation(Point2D loc) {
+		setDerivative(0, loc);
+	}
+
+	public Point2D getLocation() {
+		return getDerivative(0);
+	}
+	
+	public Point2D getDerivative(int i) {
+		if(i < ithDerivative.size())
+			return ithDerivative.get(i);
+		return new Point2D(0,0);
+	}
+	
+	public void setDerivative(int i, Point2D vector) {
+		while(ithDerivative.size() <= i) {
+			ithDerivative.add(new Point2D(0,0));
+		}
+		ithDerivative.set(i, vector);
+	}
+	
+	public void stop() {
+		while(ithDerivative.size() > 1)
+			ithDerivative.remove(ithDerivative.size()-1);
 	}
 
 	public double getX() {
-		return doubleVars.get(X_COR);
+		return getLocation().getX();
 	}
 
 	public double getY() {
-		return doubleVars.get(Y_COR);
+		return getLocation().getY();
 	}
 
 	public void setHeading(double newHeading) {
-		doubleVars.put(HEADING, newHeading);
+		heading = newHeading;
 	}
 
 	public double getHeading() {
-		return doubleVars.get(HEADING);
+		return heading;
 	}
 
 	/**
-	 * Compiles all priorities of Conditions into an iterable set. Used by Layer to call Events in proper order.
+	 * Compiles all priorities of Conditions into an iterable set. Used by Layer to
+	 * call Events in proper order.
+	 * 
 	 * @return {Set<Integer>} priorities
 	 */
 	public Set<Integer> getPriorities() {
@@ -153,22 +171,10 @@ public class GameObject extends VariableContainer {
 		return priorities;
 	}
 
-	public void setDoubleVariable(String name, Double value) {
-		doubleVars.put(name, value);
-	}
-
-	public void setBooleanVariable(String name, Boolean value) {
-		booleanVars.put(name, value);
-	}
-
-	public void setStringVariable(String name, String value) {
-		stringVars.put(name, value);
-	}
-
 	public void setSprite(Sprite set) {
 		currentSprite = set;
 	}
-	
+
 	public void addParameter(String name, Object o) throws VoogaException {
 		try {
 			getClass().getDeclaredMethod(
@@ -181,25 +187,38 @@ public class GameObject extends VariableContainer {
 	}
 
 	/**
-	 * Returns the current image of this Object.
+	 * Returns the current BoundedImage of this Object.
+	 * 
 	 * @return BoundedImage
 	 */
-	public BoundedImage getImage() {
-		//TODO width and height?
+	public BoundedImage getBounds() {
 		BoundedImage result = currentSprite.getImage();
-		result.setPosition(doubleVars.get(X_COR), doubleVars.get(Y_COR));
-		result.setHeading(doubleVars.get(HEADING));
+		result.setPosition(getX(), getY());
+		result.setHeading(heading);
 		result.setSize(width, height);
 		return result;
 	}
 	
+	@Override
+	public Displayable getDisplayable() {
+		if (dialogueHandler == null)
+			return getBounds();
+		dialogueHandler.setHeading(getHeading());
+		dialogueHandler.setHeight(getHeight());
+		dialogueHandler.setWidth(getWidth());
+		dialogueHandler.setX(getX());
+		dialogueHandler.setY(getY());
+		return new CompositeImage(getBounds(), dialogueHandler);
+	}
+
 	/**
-	 * Creates a new instance of this game object, which has the same values (but can take new values)
+	 * Creates a new instance of this game object, which has the same values (but
+	 * can take new values)
 	 */
 	public GameObject clone() {
 		GameObject copy = new GameObject(name);
-		copy.setCoords(doubleVars.get(X_COR), doubleVars.get(Y_COR));
-		copy.setHeading(doubleVars.get(HEADING));
+		copy.setLocation(getLocation());
+		copy.setHeading(heading);
 		copy.currentSprite = currentSprite.clone();
 		copy.setSize(width, height);
 		for (String tag : tagSet)
@@ -214,7 +233,7 @@ public class GameObject extends VariableContainer {
 			copy.addConditionAction(c, new ArrayList<>(events.get(c)));
 		return copy;
 	}
-	
+
 	public CollisionEvent getLastCollisionChecked() {
 		return lastCollision;
 	}
@@ -231,25 +250,41 @@ public class GameObject extends VariableContainer {
 	}
 
 	/**
-	 * @param uniqueID the uniqueID to set
+	 * @param uniqueID
+	 *            the uniqueID to set
 	 */
 	public void setUniqueID(int uniqueID) {
 		this.uniqueID = uniqueID;
 	}
 
 	public void setSize(double width, double height) {
-		// TODO Auto-generated method stub
 		this.width = width;
 		this.height = height;
 	}
-	
-	public double getWidth()
-	{
+
+	public double getWidth() {
 		return width;
 	}
-	public double getHeight()
-	{
+
+	public double getHeight() {
 		return height;
 	}
+
+	public Inventory getInventory() {
+		return inventory;
+	}
 	
+	public void addToInventory(Holdable o) {
+		inventory.addObject(o);
+	}
+
+	public void setDialogue(DisplayableText text) {
+		dialogueHandler = text;
+	}
+
+	public void setDialogue(String s) {
+		if (dialogueHandler == null)
+			dialogueHandler = DisplayableText.DEFAULT;
+		dialogueHandler = dialogueHandler.getWithMessage(s);
+	}
 }

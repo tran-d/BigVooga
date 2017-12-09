@@ -55,7 +55,6 @@ public class SpriteParameterSidebarManager {
 			}
 		} else {
 			setNoCellsActive();
-			System.out.println("No cells active");
 		}
 	}
 

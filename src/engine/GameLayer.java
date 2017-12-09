@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentSkipListMap;
-
-import controller.player.PlayerManager;
 /**
  * 
  * @author Nikolas Bramblett, ...
@@ -19,29 +17,23 @@ public class GameLayer implements Layer {
 	public final static String PLAYER_TAG = "Player";
 	
 	private String worldName;
-	private List<GameObject> worldObjects;
+	private List<Element> worldElements;
+	private List<GameObject> objects = new ArrayList<>();
 	private Map<Integer, List<GameObject>> conditionPriorities = new ConcurrentSkipListMap<>();
 	private Map<Integer, GameObject> idToGameObject = new HashMap<>();
-	private GlobalVariables globalVars;
-	//private GameObjectFactory GameObjectFactory;
-	private PlayerManager input;
-	
-	private GameObjectFactory blueprints;
 
 	public GameLayer() {
-		// TODO Auto-generated constructor stub
 		this(DEFAULT_NAME);
 	}
 	
 	public GameLayer(String name) {
 		worldName = name;
-		worldObjects = new ArrayList<>();
+		worldElements = new ArrayList<>();
 	}
-
-	@Override
+	
 	public void addGameObject(GameObject obj) {
-		// TODO Auto-generated method stub
-		worldObjects.add(obj);
+		addElement(obj);
+		objects.add(obj);
 		idToGameObject.put(obj.getUniqueID(), obj);
 		for(Integer i : obj.getPriorities()) {
 			if(conditionPriorities.containsKey(i)) {
@@ -56,15 +48,21 @@ public class GameLayer implements Layer {
 	}
 	
 	@Override
-	public void addGameObjects(List<GameObject> obj) {
-		for(GameObject o : obj) {
-			addGameObject(o);
+	public void addElement(Element obj) {
+		worldElements.add(obj);
+	}
+	
+	@Override
+	public void addElements(List<Element> obj) {
+		for(Element o : obj) {
+			addElement(o);
 		}
 	}
 
 	@Override
 	public void removeGameObject(GameObject obj) {
-		worldObjects.remove(obj);
+		removeElement(obj);
+		objects.remove(obj);
 		idToGameObject.remove(obj.getUniqueID());
 		for(Integer i : obj.getPriorities()) {
 			conditionPriorities.get(i).remove(obj);
@@ -75,27 +73,28 @@ public class GameLayer implements Layer {
 	}
 	
 	@Override
-	public void removeGameObjects(List<GameObject> obj) {
-		for(GameObject o : obj) {
-			removeGameObject(o);
+	public void removeElement(Element obj) {
+		worldElements.remove(obj);
+	}
+	
+	@Override
+	public void removeElements(List<Element> obj) {
+		for(Element o : obj) {
+			removeElement(o);
 		}
 	}
-
+	
 	@Override
-	public List<GameObject> getWithTag(String tag) {
+	public List<GameObject> getObjectsWithTag(String tag) {
 		List<GameObject> tempList = new ArrayList<>();
-		for (GameObject o : worldObjects) {
-			for (String s : o.getTags()) {
-				if (s.equals(tag)) {
-					tempList.add(o);
-					break;
-				}
-			}
+		for (GameObject o : objects) {
+			if (o.is(tag))
+				tempList.add(o);
 		}
 		return tempList;
 	}
 	
-	public GameObject getByID(int id) {
+	public Element getByID(int id) {
 		return idToGameObject.get(id);
 	}
 	
@@ -103,12 +102,16 @@ public class GameLayer implements Layer {
 		return worldName.equals(tag);
 	}
 	
-	public void step() {
+	public void step(ConcreteGameObjectEnvironment environment) {
 		List<Runnable> runnables = new ArrayList<>();
+		environment.setLayer(this);
 		try {
+			for(Element obj : worldElements) {
+				obj.step(environment);
+			}
 			for(Integer i: conditionPriorities.keySet()) {
 				for(GameObject obj : conditionPriorities.get(i)) {
-					obj.step(this, i, runnables);
+					obj.step(i, environment, runnables);
 				}
 				for(Runnable r : runnables) {
 					r.run();
@@ -122,59 +125,17 @@ public class GameLayer implements Layer {
 	}
 	
 	@Override
-	public GlobalVariables getGlobalVars() {
-		return globalVars;
-	}
-
-	@Override
-	public void addGlobalVars(GlobalVariables gv) {
-		// TODO Auto-generated method stub
-
-		globalVars = gv;
-		
-	}
-	
-	@Override
-	public PlayerManager getPlayerManager() {
-		return input;
-	}
-	
-	public List<GameObject> getAllObjects()
-	{
-		return worldObjects;
-	}
-
-	@Override
-	public void setPlayerManager(PlayerManager input) {
-		// TODO Auto-generated method stub
-		this.input = input;
+	public List<Element> getAllElements() {
+		return worldElements;
 	}
 
 	@Override
 	public GameObject getWithName(String name) {
-		for(GameObject go : worldObjects) {
+		for(GameObject go : objects) {
 			if(go.getName().equals(name))
 				return go;
 		}
 		throw new RuntimeException("None by name "+name);//TODO
 	}
 
-	@Override
-	public void setBlueprints(GameObjectFactory f) {
-		// TODO Auto-generated method stub
-		blueprints = f;
-	}
-
-	@Override
-	public void addGameObject(String name, double x, double y, double heading) {
-		// TODO Auto-generated method stub
-		GameObject temp = blueprints.getInstanceOf(name);
-		temp.setCoords(x, y);
-		temp.setHeading(heading);
-		addGameObject(temp);
-	}
-	
-	
-	
-	
 }

@@ -6,14 +6,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
+import ActionConditionClasses.ApplyButtonController;
+import ActionConditionClasses.ResourceBundleUtil;
 import authoring.AbstractSpriteObject;
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObject;
 import authoring.SpriteParameterI;
+import authoring_actionconditions.ActionRow;
+import authoring_actionconditions.ActionTab;
+import authoring_actionconditions.ConditionRow;
+import authoring_actionconditions.ConditionTab;
 import authoring.SpriteParameterSidebarManager;
 import authoring.SpriteSetHelper;
-import authoring_actionconditions.ActionConditionTab;
 import authoring_actionconditions.ControllerConditionActionTabs;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.beans.property.ObjectProperty;
@@ -35,18 +39,23 @@ public class DisplayPanel extends VBox {
 	private TabPane mySpriteTabs;
 	private VBox myParamTabVBox;
 	private TextArea myParameterErrorMessage;
+	private ConditionTab<ConditionRow> conditions;
+	private ActionTab<ActionRow> actions;
+	private ApplyButtonController applyButtonController;
 	private SpriteParameterTabsAndInfo mySParameterTAI;
 	private SpriteInventoryTabAndInfo mySInventoryTAI;
 	private SpriteUtilityTabAndInfo mySUtilityTAI;
 	private SpriteAnimationSequenceTabsAndInfo mySAnimationSequenceTAI;
 	private ObjectProperty<Boolean> multipleCellsActiveProperty;
-	private SpriteParameterSidebarManager mySPSM;
 	private VBox spriteEditorAndApplyButtonVBox;
-	private AuthoringEnvironmentManager myAEM;
-
+	private ControllerConditionActionTabs controllerConditionActionTabs;
 	private static final String ACTIONCONDITIONTITLES_PATH = "TextResources/ConditionActionTitles";
 	private static final double DISPLAY_PANEL_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH/2 - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH-155;
 	private static final double DISPLAY_PANEL_HEIGHT = 495;
+	private static final int CONDITIONTAB_INDEX = 2;
+	private static final int ACTIONTAB_INDEX = 3;
+	private SpriteParameterSidebarManager mySPSM;
+	private AuthoringEnvironmentManager myAEM;
 	
 	public static final ResourceBundle conditionActionTitles = ResourceBundle.getBundle(ACTIONCONDITIONTITLES_PATH);
 //	private SpriteSetHelper mySSH;
@@ -105,9 +114,10 @@ public class DisplayPanel extends VBox {
 	
 	
 	private void createActionConditionTabs() {
-		ActionConditionTab conditions = new ActionConditionTab(conditionActionTitles.getString("ConditionsTabTitle"));
-		ActionConditionTab actions = new ActionConditionTab(conditionActionTitles.getString("ActionsTabTitle"));
-		ControllerConditionActionTabs controllerConditionActionTabs = new ControllerConditionActionTabs(conditions,actions);
+		conditions = new ConditionTab<ConditionRow>(ResourceBundleUtil.getTabTitle("ConditionsTabTitle"));
+		actions = new ActionTab<ActionRow>(ResourceBundleUtil.getTabTitle("ActionsTabTitle"));
+		controllerConditionActionTabs = new ControllerConditionActionTabs(conditions,actions);
+		applyButtonController = new ApplyButtonController();
 		mySpriteTabs.getTabs().addAll(conditions,actions);
 	}
 	
@@ -201,7 +211,12 @@ public class DisplayPanel extends VBox {
 		Button applyButton = new Button();
 		applyButton.textProperty().setValue("Apply");
 		applyButton.setOnAction(e -> {
-			apply();
+			try {
+				apply();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		});
 		return applyButton;
 	}
@@ -274,8 +289,12 @@ public class DisplayPanel extends VBox {
 			this.checkMultipleCellsActive();
 			clearAllSpriteEditorTabs();
 			removeSpriteEditorErrorMessage();
+//			mySParameterTAI.create(getActiveCell());
 			mySParameterTAI.create(activeCell);
-			
+			applyButtonController.updateActionConditionTabs(conditions,actions,activeCell);
+			controllerConditionActionTabs = new ControllerConditionActionTabs(conditions,actions);
+			mySpriteTabs.getTabs().set(CONDITIONTAB_INDEX,conditions);
+			mySpriteTabs.getTabs().set(ACTIONTAB_INDEX, actions);
 			if (!mySPSM.multipleActive()){	
 				mySInventoryTAI.setSpriteObjectAndUpdate(activeCell);
 				mySUtilityTAI.setSpriteObjectAndUpdate(activeCell);
@@ -309,13 +328,14 @@ public class DisplayPanel extends VBox {
 //		// TODO
 //	}
 
-	private void apply() {
+	private void apply() throws Exception {
 		mySParameterTAI.apply();
+		System.out.println("SHOULD BE APPLYING");
 		if (!mySPSM.multipleActive()){
 		mySInventoryTAI.apply();
 		mySAnimationSequenceTAI.apply();
 		}
-//		OwensActiosn.apply()
+		applyButtonController.updateSpriteObject(conditions,actions,getActiveCell());
 		mySPSM.apply();
 	}
 

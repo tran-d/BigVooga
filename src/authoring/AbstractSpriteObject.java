@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -23,6 +24,8 @@ import authoring_UI.AuthoringImageView;
 import authoring_UI.SpriteDataConverter;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
@@ -77,13 +80,24 @@ public abstract class AbstractSpriteObject extends ImageView {
 
 //	@IsLockedUtility(readableName = "Save File", getMethod = "getSavePath")
 	protected String mySavePath;
-	
+	private ObservableList<Integer> allConditions;
+	private ObservableList<Integer> allActions;
+	private HashMap<List<String>,List<Integer>> conditionRows;
+	private List<List<String>> actionRows;
 	protected List<AnimationSequence> myAnimationSequences;
 
 	public AbstractSpriteObject() {
 		super();
 		initializeVariables();
 		setUniqueID();
+		initializeActionConditions();
+	}
+	
+	private void initializeActionConditions() {
+		allConditions = FXCollections.observableArrayList();
+		allActions = FXCollections.observableArrayList();
+		conditionRows = new HashMap<List<String>,List<Integer>>();
+		actionRows = new LinkedList<List<String>>();
 	}
 
 	private void initializeVariables() {
@@ -451,7 +465,6 @@ public abstract class AbstractSpriteObject extends ImageView {
 			});
 		}
 		return newCategoryMap;
-
 	}
 
 	public boolean isSame(AbstractSpriteObject other) {
@@ -486,6 +499,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 				return false;
 			}
 		}
+		if(!(conditionRows.equals(other.getConditionRows()) && actionRows.equals(other.getActionRows()))) return false; 
 		return true;
 	}
 
@@ -581,4 +595,40 @@ public abstract class AbstractSpriteObject extends ImageView {
 								.get();
 		return AS;
 	}
+	
+	public void setAllConditions(ObservableList<Integer> allConditions) {
+		this.allConditions = allConditions;
+	}
+	
+	public void setAllActions(ObservableList<Integer> allActions) {
+		this.allActions = allActions;
+	}
+
+	public void setCondidtionRows(HashMap<List<String>, List<Integer>> conditionRows) {
+		this.conditionRows = conditionRows;
+	}
+
+	public void setActionRows(List<List<String>> actionRows) {
+		this.actionRows = actionRows;
+	}
+	
+	public ObservableList<Integer> getAllConditions() {
+		return allConditions;
+	}
+
+	public ObservableList<Integer> getAllActions() {
+		return allActions;
+	}
+
+	public HashMap<List<String>, List<Integer>> getConditionRows() {
+		return conditionRows;
+	}
+
+	public List<List<String>> getActionRows() {
+		return actionRows;
+	}
+
+	
+//	protected abstract Object writeReplace() throws ObjectStreamException;
+
 }

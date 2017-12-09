@@ -1,7 +1,7 @@
 package engine.operations.booleanops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 
 /**
  * 
@@ -19,7 +19,7 @@ public class Or implements BooleanOperation {
 	}
 	
 	@Override
-	public Boolean evaluate(GameObject asking, Layer world) {
+	public Boolean evaluate(GameObject asking, GameObjectEnvironment world) {
 		return boolOp1.evaluate(asking, world) || boolOp2.evaluate(asking, world);
 	}
 

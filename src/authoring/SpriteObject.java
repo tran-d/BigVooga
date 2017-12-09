@@ -24,6 +24,7 @@ public class SpriteObject extends AbstractSpriteObject{
 	public SpriteObject(String fileURL){
 		super(fileURL);
 	}
+
 	
 	
 	@Override

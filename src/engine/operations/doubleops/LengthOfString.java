@@ -1,7 +1,7 @@
 package engine.operations.doubleops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.stringops.StringOperation;
 
 /**
@@ -17,7 +17,7 @@ public class LengthOfString implements DoubleOperation{
 	}
 
 	@Override
-	public Double evaluate(GameObject asking, Layer world) {
+	public Double evaluate(GameObject asking, GameObjectEnvironment world) {
 		return (double) string.evaluate(asking, world).length();
 	}
 }

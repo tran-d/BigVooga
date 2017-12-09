@@ -101,6 +101,7 @@ public abstract class SpriteSet {
 		// setFolderToLoad();
 		// }
 		loaded = true;
+		categoryToSprites = myGDH.loadSpritesFromNestedDirectories(getFolderToLoad());
 		if (!getFolderToLoad().equals("")) {
 			categoryToSprites = myGDH.loadSpritesFromNestedDirectories(getFolderToLoad());
 			System.out.println("!!!!!!!!!!!!!!");
