@@ -1,7 +1,7 @@
 package engine.operations.vectorops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.doubleops.DoubleOperation;
 import javafx.geometry.Point2D;
 
@@ -16,7 +16,7 @@ public class BasicVector implements VectorOperation {
 	}
 	
 	@Override
-	public Point2D evaluate(GameObject asking, Layer world) {
+	public Point2D evaluate(GameObject asking, GameObjectEnvironment world) {
 		return new Point2D(x.evaluate(asking, world), y.evaluate(asking, world));
 	}
 

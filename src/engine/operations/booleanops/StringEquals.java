@@ -1,7 +1,7 @@
 package engine.operations.booleanops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.stringops.StringOperation;
 
 /**
@@ -21,7 +21,7 @@ public class StringEquals implements BooleanOperation {
 	}
 
 	@Override
-	public Boolean evaluate(GameObject asking, Layer world) {
+	public Boolean evaluate(GameObject asking, GameObjectEnvironment world) {
 		return first.evaluate(asking, world).equals(second.evaluate(asking, world));
 	}
 

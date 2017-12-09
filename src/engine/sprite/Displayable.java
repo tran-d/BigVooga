@@ -7,9 +7,7 @@ import gui.player.GameDisplay;
  * @author Nikolas Bramblett
  *
  */
-public interface Displayable {
-
+public interface Displayable extends Comparable {
 	public void visit(GameDisplay display);
-
 	public int getDrawingPriority();
 }

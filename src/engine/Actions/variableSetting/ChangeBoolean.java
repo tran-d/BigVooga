@@ -2,7 +2,7 @@ package engine.Actions.variableSetting;
 
 import engine.Action;
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.booleanops.BooleanOperation;
 import engine.operations.gameobjectops.GameObjectOperation;
 import engine.operations.stringops.StringOperation;
@@ -25,7 +25,7 @@ public class ChangeBoolean implements Action {
 	}
 	
 	@Override
-	public void execute(GameObject asking, Layer world) {
+	public void execute(GameObject asking, GameObjectEnvironment world) {
 		object.evaluate(asking, world).setBooleanVariable(varName.evaluate(asking, world), newBooleanOperation.evaluate(asking, world));
 	}
 	

@@ -2,7 +2,7 @@ package engine.Actions.movement;
 
 import engine.Action;
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.gameobjectops.GameObjectOperation;
 import engine.operations.vectorops.VectorOperation;
 
@@ -22,7 +22,7 @@ public class MoveTo implements Action {
 	}
 	
 	@Override
-	public void execute(GameObject asking, Layer world) {
+	public void execute(GameObject asking, GameObjectEnvironment world) {
 		object.evaluate(asking, world).setLocation(newLocation.evaluate(asking, world));
 	}
 

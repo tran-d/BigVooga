@@ -1,7 +1,7 @@
 package engine.operations.doubleops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 
 public class Cos implements DoubleOperation {
 
@@ -12,7 +12,7 @@ public class Cos implements DoubleOperation {
 	}
 
 	@Override
-	public Double evaluate(GameObject asking, Layer world) {
+	public Double evaluate(GameObject asking, GameObjectEnvironment world) {
 		return Math.cos(Math.toRadians(angle.evaluate(asking, world)));
 	}
 

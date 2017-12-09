@@ -1,7 +1,7 @@
 package engine.operations.booleanops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 
 /**
  * 
@@ -17,7 +17,7 @@ public class Not implements BooleanOperation {
 	}
 
 	@Override
-	public Boolean evaluate(GameObject asking, Layer world) {
+	public Boolean evaluate(GameObject asking, GameObjectEnvironment world) {
 		return !boolOp.evaluate(asking, world);
 	}
 

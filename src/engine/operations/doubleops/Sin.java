@@ -1,7 +1,7 @@
 package engine.operations.doubleops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 
 /**
  * 
@@ -17,7 +17,7 @@ public class Sin implements DoubleOperation {
 	}
 
 	@Override
-	public Double evaluate(GameObject asking, Layer world) {
+	public Double evaluate(GameObject asking, GameObjectEnvironment world) {
 		return Math.sin(Math.toRadians(angle.evaluate(asking, world)));
 	}
 

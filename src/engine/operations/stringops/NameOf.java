@@ -1,7 +1,7 @@
 package engine.operations.stringops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.gameobjectops.GameObjectOperation;
 
 public class NameOf implements StringOperation {
@@ -13,7 +13,7 @@ public class NameOf implements StringOperation {
 	}
 	
 	@Override
-	public String evaluate(GameObject asking, Layer world) {
+	public String evaluate(GameObject asking, GameObjectEnvironment world) {
 		return object.evaluate(asking, world).getName();
 	}
 

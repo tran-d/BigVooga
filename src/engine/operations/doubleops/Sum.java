@@ -1,7 +1,7 @@
 package engine.operations.doubleops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 
 /**
  * @author Ian Eldridge-Allegra
@@ -18,7 +18,7 @@ public class Sum implements DoubleOperation {
 	}
 
 	@Override
-	public Double evaluate(GameObject asking, Layer world) {
+	public Double evaluate(GameObject asking, GameObjectEnvironment world) {
 		return first.evaluate(asking, world) + second.evaluate(asking, world);
 	}
 

@@ -1,7 +1,7 @@
 package engine.operations.booleanops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 
 /**
  * 
@@ -16,7 +16,7 @@ public class ScreenClickHeld implements BooleanOperation {
 	 * Returns true if the primary mouse button is down, regardless of whether or not it was down in the previous step
 	 */
 	@Override
-	public Boolean evaluate(GameObject asking, Layer world) {
+	public Boolean evaluate(GameObject asking, GameObjectEnvironment world) {
 		return world.getPlayerManager().isPrimaryButtonDown();
 	}
 	

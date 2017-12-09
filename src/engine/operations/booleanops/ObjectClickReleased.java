@@ -1,7 +1,7 @@
 package engine.operations.booleanops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.gameobjectops.GameObjectOperation;
 import engine.utilities.collisions.BoundingPoint;
 
@@ -22,7 +22,7 @@ public class ObjectClickReleased implements BooleanOperation {
 	}
 
 	@Override
-	public Boolean evaluate(GameObject asking, Layer world) {
+	public Boolean evaluate(GameObject asking, GameObjectEnvironment world) {
 		BooleanOperation screenClickReleased = new ScreenClickReleased();
 		return screenClickReleased.evaluate(asking, world) && object.evaluate(asking, world).getBounds().checkCollision(
 				new BoundingPoint(world.getPlayerManager().getClickX(), world.getPlayerManager().getClickY())) != null;

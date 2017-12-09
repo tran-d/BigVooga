@@ -2,7 +2,7 @@ package engine.Actions.actionLoops;
 
 import engine.Action;
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 
 /**
  * @author Ian Eldridge-Allegra
@@ -19,7 +19,7 @@ public class PairOfActions implements Action {
 	}
 	
 	@Override
-	public void execute(GameObject asking, Layer world) {
+	public void execute(GameObject asking, GameObjectEnvironment world) {
 		first.execute(asking, world);
 		second.execute(asking, world);
 	}
