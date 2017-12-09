@@ -15,13 +15,19 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 	private static final String INPUT_A_STRING = "Input a String";
 
 	private OperationFactory operationFactory = new OperationFactory();
-
+	private ChoiceBox<String> operationCB;
+	
+	
 	public OperationNameTreeItem(String actionParameter) {
 
 		this.makeOperationNameTreeItem(actionParameter);
 	}
+	
+	public String getSelectedOperation() {
+		return operationCB.getSelectionModel().getSelectedItem().toString();
+	}
 
-	public TreeItem<HBox> makeOperationNameTreeItem(String actionParameter) {
+	private TreeItem<HBox> makeOperationNameTreeItem(String actionParameter) {
 		HBox hb = new HBox();
 //		hb.getChildren().addAll(new Label("Choose Operation: "));
 
@@ -34,7 +40,7 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 	private ChoiceBox<String> makeOperationNameChoiceBox(String actionParameter, TreeItem<HBox> operationName) {
 		ObservableList<String> operations = FXCollections
 				.observableList(operationFactory.getOperations(actionParameter));
-		ChoiceBox<String> cb = new ChoiceBox<>(operations);
+		operationCB = new ChoiceBox<>(operations);
 
 		if (actionParameter.equals("Double"))
 			operations.add(0, INPUT_A_DOUBLE);
@@ -43,19 +49,19 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 
 		System.out.println("ops: " + operations);
 
-		cb.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+		operationCB.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 
-				System.out.println("Selected: " + operations.get(cb.getSelectionModel().getSelectedIndex()));
+				System.out.println("Selected: " + operations.get(operationCB.getSelectionModel().getSelectedIndex()));
 				operationName.getChildren().clear();
 				operationName.getChildren()
-						.add(new OperationParameterTreeItem(operations.get(cb.getSelectionModel().getSelectedIndex())));
+						.add(new OperationParameterTreeItem(operations.get(operationCB.getSelectionModel().getSelectedIndex())));
 			}
 		});
 
-		return cb;
+		return operationCB;
 	}
 
 }

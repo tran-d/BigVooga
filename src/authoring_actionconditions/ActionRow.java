@@ -1,5 +1,8 @@
 package authoring_actionconditions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import engine.Actions.ActionFactory;
 import engine.operations.OperationFactory;
 import javafx.beans.value.ChangeListener;
@@ -43,6 +46,10 @@ public class ActionRow extends ActionConditionRow {
 	private TreeView<HBox> actionTreeView;
 	private TreeItem<HBox> categoryAction = new TreeItem<HBox>();
 	private TreeItem<HBox> actionAction = new TreeItem<HBox>();
+	
+	private List<OperationNameTreeItem> opItemList = new ArrayList<>();
+	
+	private List<String> actionParameterTypes;
 
 	// private TreeItem<HBox> parameterAction = new TreeItem<HBox>();
 	// private TreeItem<HBox> categoryOperation = new TreeItem<HBox>();
@@ -87,7 +94,21 @@ public class ActionRow extends ActionConditionRow {
 
 	public void extract() {
 //		ActionProcessor p = new ActionProcessor(actionTreeView, categoryAction, actionAction);
+		try {
+			for (String s : actionParameterTypes) {
+				System.out.println(s);
+			}
+			
+			for (OperationNameTreeItem opItem : opItemList)
+				System.out.println("selected op: " + opItem.getSelectedOperation());
+			
+		} catch (Exception e) {
+			showError(e.getMessage(), "blah");
+		}
+			
 	}
+	
+	
 
 	/***************************** ACTIONS ******************************/
 
@@ -156,7 +177,7 @@ public class ActionRow extends ActionConditionRow {
 
 	private TreeItem<HBox> makeActionParameterTreeItem(String action) {
 		HBox hb = new HBox();
-		hb.getChildren().add(new Label("Choose Action Parameter(s): "));
+		hb.getChildren().add(new Label("Choose Action Parameter(s)/Operation(s): "));
 
 		TreeItem<HBox> parameterAction = new TreeItem<HBox>(hb);
 		makeActionParameterChildren(action, parameterAction, hb);
@@ -166,6 +187,7 @@ public class ActionRow extends ActionConditionRow {
 
 	private void makeActionParameterChildren(String action, TreeItem<HBox> parameterAction, HBox hb) {
 		ObservableList<String> parameters = FXCollections.observableList(actionFactory.getParameters(action));
+		actionParameterTypes = parameters;
 		System.out.println("Params: " + parameters);
 
 		hb.getChildren().add(new Label("[ "));
@@ -173,7 +195,8 @@ public class ActionRow extends ActionConditionRow {
 		for (String param : parameters) {
 			hb.getChildren().add(new Label(param + " "));
 
-			TreeItem<HBox> paramTV = new OperationNameTreeItem(param);
+			OperationNameTreeItem opItem = new OperationNameTreeItem(param);
+			opItemList.add(opItem);
 
 			// if (param.equals("Double")) {
 			// TextField tf = new TextField();
@@ -196,7 +219,7 @@ public class ActionRow extends ActionConditionRow {
 			// });
 			// }
 
-			parameterAction.getChildren().add(paramTV);
+			parameterAction.getChildren().add(opItem);
 
 		}
 
