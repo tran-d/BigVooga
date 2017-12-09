@@ -34,6 +34,13 @@ public class ConcreteGameObjectEnvironment implements GameObjectEnvironment {
 		obj.setHeading(heading);
 		layer.addGameObject(obj);
 	}
+	
+	@Override
+	public void addGameObjects(List<GameObject> objects) {
+		for(GameObject obj : objects) {
+			layer.addGameObject(obj);
+		}
+	}
 
 	@Override
 	public GameObject getWithName(String name) {
@@ -59,6 +66,11 @@ public class ConcreteGameObjectEnvironment implements GameObjectEnvironment {
 	public void transfer(GameObject gameObject, String newWorld) {
 		//TODO ?? master.getWorldWithName(newWorld).addToLayer(gameObject, layer.number()??) ??  
 				//It's unclear how to resolve this in a reasonable way
+	}
+	
+	@Override
+	public void addElement(Element e) {
+		layer.addElement(e);
 	}
 
 }
