@@ -57,7 +57,7 @@ public class ConcreteGameObjectEnvironment implements GameObjectEnvironment {
 
 	@Override
 	public void transfer(GameObject gameObject, String newWorld) {
-		?? master.getWorldWithName(newWorld).addToLayer(gameObject, layer.number()??) ??  
+		//TODO ?? master.getWorldWithName(newWorld).addToLayer(gameObject, layer.number()??) ??  
 				//It's unclear how to resolve this in a reasonable way
 	}
 

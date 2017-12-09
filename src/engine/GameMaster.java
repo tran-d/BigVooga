@@ -125,6 +125,6 @@ public class GameMaster implements EngineController{
 
 	public GameWorld getWorldWithName(String newWorld) {
 		// TODO Auto-generated method stub
-		??
+		return null;
 	}
 }
