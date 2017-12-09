@@ -3,6 +3,7 @@ package authoring_actionconditions;
 import java.util.ArrayList;
 import java.util.List;
 
+import authoring.ActionNameTreeItem;
 import engine.Actions.ActionFactory;
 import engine.operations.OperationFactory;
 import javafx.beans.value.ChangeListener;
@@ -46,9 +47,10 @@ public class ActionRow extends ActionConditionRow {
 	private TreeView<HBox> actionTreeView;
 	private TreeItem<HBox> categoryAction = new TreeItem<HBox>();
 	private TreeItem<HBox> actionAction = new TreeItem<HBox>();
-	
+
+	private ActionNameTreeItem actionName;
 	private List<OperationNameTreeItem> opItemList = new ArrayList<>();
-	
+
 	private List<String> actionParameterTypes;
 
 	// private TreeItem<HBox> parameterAction = new TreeItem<HBox>();
@@ -93,22 +95,23 @@ public class ActionRow extends ActionConditionRow {
 	}
 
 	public void extract() {
-//		ActionProcessor p = new ActionProcessor(actionTreeView, categoryAction, actionAction);
-		try {
-			for (String s : actionParameterTypes) {
-				System.out.println(s);
-			}
-			
-			for (OperationNameTreeItem opItem : opItemList)
-				System.out.println("selected op: " + opItem.getSelectedOperation());
-			
-		} catch (Exception e) {
-			showError(e.getMessage(), "blah");
-		}
-			
+		// ActionProcessor p = new ActionProcessor(actionTreeView, categoryAction,
+		// actionAction);
+//		actionName.extract();
+//		try {
+//
+//			for (String s : actionParameterTypes) {
+//				System.out.println(s);
+//			}
+//
+//			for (OperationNameTreeItem opItem : opItemList)
+//				System.out.println("selected op: " + opItem.getSelectedOperation());
+//
+//		} catch (Exception e) {
+//			showError(e.getMessage(), "blah");
+//		}
+
 	}
-	
-	
 
 	/***************************** ACTIONS ******************************/
 
@@ -140,8 +143,8 @@ public class ActionRow extends ActionConditionRow {
 				// System.out.println(actions.get(newValue.intValue()));
 				// getItems().add(makeParameterChoiceBox(actions.get(newValue.intValue())));
 				categoryAction.getChildren().clear();
-				categoryAction.getChildren()
-						.add(makeActionTreeItem(categories.get(cb.getSelectionModel().getSelectedIndex())));
+				actionName = new ActionNameTreeItem(categories.get(cb.getSelectionModel().getSelectedIndex()));
+				categoryAction.getChildren().add(actionName);
 			}
 		});
 		return cb;
@@ -197,27 +200,6 @@ public class ActionRow extends ActionConditionRow {
 
 			OperationNameTreeItem opItem = new OperationNameTreeItem(param);
 			opItemList.add(opItem);
-
-			// if (param.equals("Double")) {
-			// TextField tf = new TextField();
-			// TreeItem<HBox> tfTreeItem = new TreeItem<HBox>(new HBox(new Label("Insert
-			// Double: "), tf));
-			// parameterAction.getChildren().add(tfTreeItem);
-			// tf.setOnKeyReleased(e -> {
-			// checkDoubleInput(tf);
-			// checkEmptyInput(tf, parameterAction, paramTV,
-			// parameterAction.getChildren().indexOf(tfTreeItem));
-			// });
-			// } else if (param.equals("String")) {
-			// TextField tf = new TextField();
-			// TreeItem<HBox> tfTreeItem = new TreeItem<HBox>(new HBox(new Label("Insert
-			// String: "), tf));
-			// parameterAction.getChildren().add(tfTreeItem);
-			// tf.setOnKeyReleased(e -> {
-			// checkEmptyInput(tf, parameterAction, paramTV,
-			// parameterAction.getChildren().indexOf(tfTreeItem));
-			// });
-			// }
 
 			parameterAction.getChildren().add(opItem);
 
