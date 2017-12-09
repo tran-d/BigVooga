@@ -1,7 +1,7 @@
 package engine.operations.booleanops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.stringops.StringOperation;
 
 /**
@@ -18,7 +18,7 @@ public class KeyReleased implements BooleanOperation {
 	}
 
 	@Override
-	public Boolean evaluate(GameObject asking, Layer world) {
+	public Boolean evaluate(GameObject asking, GameObjectEnvironment world) {
 		return !world.getPlayerManager().getKeysDown().contains(check.evaluate(asking, world)) && world.getPlayerManager().getPrevKeysDown().contains(check.evaluate(asking, world));	
 	}
 

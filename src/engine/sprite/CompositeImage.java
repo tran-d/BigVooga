@@ -26,6 +26,11 @@ public class CompositeImage implements Displayable {
 	}
 
 	@Override
+	public int compareTo(Object o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+		
 	public int getDrawingPriority() {
 		int first = Integer.MAX_VALUE;
 		int second = Integer.MAX_VALUE;

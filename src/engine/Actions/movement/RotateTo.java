@@ -2,7 +2,7 @@ package engine.Actions.movement;
 
 import engine.Action;
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.doubleops.DoubleOperation;
 import engine.operations.gameobjectops.GameObjectOperation;
 
@@ -22,7 +22,7 @@ public class RotateTo implements Action {
 	}
 	
 	@Override
-	public void execute(GameObject asking, Layer world) {
+	public void execute(GameObject asking, GameObjectEnvironment world) {
 		object.evaluate(asking, world).setHeading(newHeading.evaluate(asking, world));
 	}
 

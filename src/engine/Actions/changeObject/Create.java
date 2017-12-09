@@ -2,7 +2,7 @@ package engine.Actions.changeObject;
 
 import engine.Action;
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.doubleops.DoubleOperation;
 import engine.operations.stringops.StringOperation;
 import engine.operations.vectorops.VectorOperation;
@@ -26,7 +26,7 @@ public class Create implements Action {
 	}
 
 	@Override
-	public void execute(GameObject asking, Layer world) {
+	public void execute(GameObject asking, GameObjectEnvironment world) {
 		Point2D loc = location.evaluate(asking, world);
 		world.addGameObject(name.evaluate(asking, world), loc.getX(), loc.getY(), heading.evaluate(asking, world));
 	}

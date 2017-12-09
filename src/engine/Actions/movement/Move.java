@@ -2,7 +2,7 @@ package engine.Actions.movement;
 
 import engine.Action;
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.gameobjectops.GameObjectOperation;
 import engine.operations.vectorops.VectorOperation;
 import javafx.geometry.Point2D;
@@ -23,7 +23,7 @@ public class Move implements Action {
 	}
 	
 	@Override
-	public void execute(GameObject asking, Layer world) {
+	public void execute(GameObject asking, GameObjectEnvironment world) {
 		Point2D vector = increment.evaluate(asking,world);
 		GameObject obj = object.evaluate(asking, world);
 		obj.setCoords(obj.getX() + vector.getX(), obj.getY() + vector.getY());

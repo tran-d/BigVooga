@@ -36,7 +36,7 @@ public class Condition implements Comparable<Condition> {
 	 * @param world
 	 * @return
 	 */
-	public boolean isTrue(GameObject asking, Layer world) {
+	public boolean isTrue(GameObject asking, GameObjectEnvironment world) {
 		return operation.evaluate(asking, world);
 	}
 	

@@ -1,7 +1,7 @@
 package engine.operations.doubleops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.vectorops.VectorOperation;
 
 /**
@@ -19,7 +19,7 @@ public class DotProduct implements DoubleOperation {
 	}
 	
 	@Override
-	public Double evaluate(GameObject asking, Layer world) {
+	public Double evaluate(GameObject asking, GameObjectEnvironment world) {
 		return firstVector.evaluate(asking, world).dotProduct(secondVector.evaluate(asking, world));
 	}
 

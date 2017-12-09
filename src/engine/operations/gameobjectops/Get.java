@@ -1,7 +1,7 @@
 package engine.operations.gameobjectops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 
 public class Get implements GameObjectOperation {
 
@@ -12,7 +12,7 @@ public class Get implements GameObjectOperation {
 	}
 	
 	@Override
-	public GameObject evaluate(GameObject asking, Layer world) {
+	public GameObject evaluate(GameObject asking, GameObjectEnvironment world) {
 		return value;
 	}
 
