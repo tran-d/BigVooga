@@ -58,7 +58,7 @@ public class ActionConditionRow extends ToolBar implements ActionCheckBoxVBoxI {
 		ObservableList<String> actionConditionOptions = ActionConditionTabUtil.convertToObservableList(
 				actionConditionVBoxResources.getString(label + actionConditionVBoxResources.getString("OptionsTag")));
 		actionOptions = new ChoiceBoxVBox<String>(selectorLabel, actionConditionOptions);
-		getItems().addAll(IDlabel, separator, new Label(label), actionOptions);
+		getItems().addAll(IDlabel, separator, new Label(label));
 
 		// if (isConditionRow) {
 		// addActionCheckBox();

@@ -6,17 +6,17 @@ import javafx.stage.Stage;
 
 public class BuildActionView {
 	private static final double WIDTH = 800;
-	private static final double HEIGHT = 700;
-	
-	private static final double ROW_WIDTH = 700;
+	private static final double HEIGHT = 500;
+
+	private static final double COLLAPSED_ROW_HEIGHT = 50;
 
 	private Stage stage;
 	private Scene scene;
 	private Group root;
 	ActionConditionVBox ACVBox;
-	private ActionConditionRow ACRow;
+	private ActionRow ACRow;
 
-	public BuildActionView(ActionConditionVBox ACVBox, ActionConditionRow ACRow) {
+	public BuildActionView(ActionConditionVBox ACVBox, ActionRow ACRow) {
 		root = new Group();
 		scene = new Scene(root, WIDTH, HEIGHT);
 		stage = new Stage();
@@ -24,7 +24,7 @@ public class BuildActionView {
 		stage.show();
 
 		this.ACRow = ACRow;
-		this.ACRow.setPrefWidth(ROW_WIDTH);
+//		this.ACRow.setPrefSize(ROW_WIDTH, ROW_HEIGHT);
 		this.ACVBox = ACVBox;
 
 		stage.setOnCloseRequest(e -> transportActionRow());
@@ -33,10 +33,16 @@ public class BuildActionView {
 	}
 
 	private void transportActionRow() {
+
+		ACRow.getRootTreeItem().setExpanded(false);
+
+		ACRow.setPrefHeight(COLLAPSED_ROW_HEIGHT);
+		ACRow.getTreeView().setPrefHeight(COLLAPSED_ROW_HEIGHT);
+
 		if (ACVBox.getChildren().size() >= ACRow.getRowID())
 			ACVBox.getChildren().remove(ACRow.getRowID() - 1);
 		ACVBox.getChildren().add(ACRow.getRowID() - 1, ACRow);
-		
+
 		stage.close();
 	}
 
@@ -44,4 +50,3 @@ public class BuildActionView {
 
 	}
 }
-
