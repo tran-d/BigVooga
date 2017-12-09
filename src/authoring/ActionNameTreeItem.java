@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import authoring_actionconditions.OperationNameTreeItem;
+import engine.Action;
 import engine.Actions.ActionFactory;
+import engine.operations.Operation;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -22,6 +24,9 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 	private ActionFactory actionFactory = new ActionFactory();
 	private List<String> actionParameterTypes;
 	private List<OperationNameTreeItem> opNameTreeItemList;
+	private List<Operation<?>> operationList = new ArrayList<>();
+	private String selectedAction;
+	private Action action;
 
 	// private OperationNameTreeItem operationNameTreeItem1;
 	// private OperationNameTreeItem operationNameTreeItem2;
@@ -32,19 +37,13 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 
 	public void extract() {
 
-		 for (OperationNameTreeItem opItem : opNameTreeItemList) {
-		// System.out.println("user inputted op: " + opItem.getSelectedOperation());
-		 opItem.makeOperation();
-		// System.out.println(opItem.makeOperation());
-		
-		 }
+		for (OperationNameTreeItem opItem : opNameTreeItemList) {
+			operationList.add((Operation<?>) opItem.makeOperation());
 
-//		actionFactory.makeAction("Rotate To", new ArrayList<String>() {
-//			{
-//				add("Self");
-//				add("90");
-//			}
-//		});
+		}
+		System.out.println("Making action...");
+		action = actionFactory.makeAction(selectedAction, operationList.toArray());
+		System.out.println(action);
 
 		// try {
 		// for (String s : actionParameterTypes) {
@@ -80,8 +79,9 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 				// System.out.println(actions.get(newValue.intValue()));
 				// getItems().add(makeParameterChoiceBox(actions.get(newValue.intValue())));
 				actionTreeItem.getChildren().clear();
+				selectedAction = actions.get(cb.getSelectionModel().getSelectedIndex());
 				actionTreeItem.getChildren()
-						.add(makeActionParameterTreeItem(actions.get(cb.getSelectionModel().getSelectedIndex())));
+						.add(makeActionParameterTreeItem(selectedAction));
 			}
 		});
 		return cb;

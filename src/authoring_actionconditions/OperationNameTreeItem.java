@@ -38,8 +38,7 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 			// operationParameterTreeItem.makeOperation();
 			System.out.println("atleast 1 parameter");
 			return operationParameterTreeItem.makeOperation();
-			
-			
+
 			// fix this
 			// System.out.println("Fact: "
 			// + operationFactory.makeOperation(selectedOperation,
@@ -49,17 +48,6 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 
 		}
 
-	}
-
-	public String getSelectedOperation() {
-		// return operationCB.getSelectionModel().getSelectedItem().toString();
-
-		if (selectedOperation.equals(INPUT_A_DOUBLE) || selectedOperation.equals(INPUT_A_STRING)) {
-			return operationParameterTreeItem.getParameter();
-		} else {
-			// operationFactory.makeOperation(selectedOperation, );
-			return "not input a double/string";
-		}
 	}
 
 	private TreeItem<HBox> makeOperationNameTreeItem(String actionParameter) {

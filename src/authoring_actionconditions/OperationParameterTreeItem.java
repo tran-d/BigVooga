@@ -3,6 +3,7 @@ package authoring_actionconditions;
 import java.util.ArrayList;
 import java.util.List;
 
+import engine.operations.Operation;
 import engine.operations.OperationFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,36 +36,36 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 		this.makeParameterOperationTreeItem(selectedOperation);
 	}
 
-	public String getParameter() {
+	public Object getParameter() {
 
 		if (doubleParameterTF != null) {
 			System.out.println("Double was inputted: " + doubleParameterTF.getText());
-			return doubleParameterTF.getText();
+			return operationFactory.wrap(Double.parseDouble(doubleParameterTF.getText()));
 		} else if (stringParameterTF != null) {
 			System.out.println("String was inputted: " + stringParameterTF.getText());
-			return stringParameterTF.getText();
+			return operationFactory.wrap(stringParameterTF.getText());
 		} else {
 			System.out.println(selectedOperation);
-			return selectedOperation;
+			return operationFactory.makeOperation(selectedOperation, new Object[0]);
 		}
 
 	}
 
-	public String makeOperation() {
-		List<String> listOfStringParams = new ArrayList<>();
+	public Operation<?> makeOperation() {
+		List<Object> listOfStringParams = new ArrayList<>();
 
 		for (OperationNameTreeItem op : listOfOperations) {
 
-			listOfStringParams.add((String) op.makeOperation());
+			listOfStringParams.add(op.makeOperation());
 		}
 		
-		for (String param : listOfStringParams) {
-			System.out.println("Selected operation w/ param: " + selectedOperation + " " + param);
+		for (Object param : listOfStringParams) {
+			System.out.println("Selected operation w/ param: " + selectedOperation + " " + param.toString());
 		}
 
-//		operationFactory.makeOperation(selectedOperation, listOfStringParams);
+		System.out.println("Making Operation...");
+		return operationFactory.makeOperation(selectedOperation, listOfStringParams.toArray());
 
-		return selectedOperation;
 	}
 
 	public int getNumberOfParameters() {
