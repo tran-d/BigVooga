@@ -23,24 +23,25 @@ public class Inventory implements Element{
 	//TODO: Make scrollers
 	
 	private List<Holdable> objects;
-	private Holdable selected;
 	private BoundedImage pane;
 	private GameObject holder;
 	private int rowSpan, colSpan;
+	private int startIndex;
 	
 	public static final int DEFAULT_ROWSPAN = 5;
 	public static final int DEFAULT_COLSPAN = 5;
 
 	public Inventory(GameObject holder) {
-		this(holder, holder.getName() + "Inventory", DEFAULT_ROWSPAN, DEFAULT_COLSPAN);
+		this(holder, holder.getName() + "Inventory", DEFAULT_ROWSPAN, DEFAULT_COLSPAN, 0);
 	}
 	
-	public Inventory(GameObject holder, String name, int rowSpan, int colSpan) {
+	public Inventory(GameObject holder, String name, int rowSpan, int colSpan, int startIndex) {
 		setPane(pane);
 		objects = new ArrayList<Holdable>();
 		this.holder = holder;
 		this.rowSpan = rowSpan;
 		this.colSpan = colSpan;
+		this.startIndex = startIndex;
 	}
 	
 	public void setPane(BoundedImage pane) {
@@ -57,14 +58,10 @@ public class Inventory implements Element{
 
 	}
 
-	public void select(Holdable thatObject) {
-		selected = thatObject;
-	}
-
 	@Override
 	public Displayable getDisplayable() {
 		List<List<DisplayableImage>> ret = new ArrayList<>();
-		int i = 0;
+		int i = startIndex;
 		for(int r = 0; r < rowSpan; r++) {
 			List<DisplayableImage> row = new ArrayList<>();
 			for(int c = 0; c < colSpan; c++) {
@@ -83,8 +80,7 @@ public class Inventory implements Element{
 			pane.checkCollision(new BoundingPoint(w.getPlayerManager().getMouseXY().getX(), w.getPlayerManager().getMouseXY().getY())) != null) {
 			for(Holdable h : objects) {
 				if(h.getDisplayable().checkCollision(new BoundingPoint(w.getPlayerManager().getMouseXY().getX(), w.getPlayerManager().getMouseXY().getY())) != null) {
-					selected = h;
-					selected.use(Holdable.SELECTED, holder, w);
+					h.select(holder, w);
 				}
 			}
 		}
@@ -95,6 +91,14 @@ public class Inventory implements Element{
 		Set<Integer> ret = new HashSet<>();
 		ret.add(Integer.MAX_VALUE);
 		return ret;
+	}
+	
+	public int getStartIndex() {
+		return startIndex;
+	}
+	
+	public void setStartIndex(int startIndex) {
+		this.startIndex = startIndex;
 	}
 
 }

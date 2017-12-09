@@ -16,13 +16,12 @@ import engine.sprite.Sprite;
 public class Holdable extends VariableContainer {
 
 	private Map<String, List<Action>> useOptions;
+	private List<Action> selectActions;
 	private Sprite sprite;
-	
-	public static final String SELECTED = "Selected";
 
 	public Holdable(Sprite sprite) {
 		useOptions = new HashMap<String, List<Action>>();
-		addUseOption(SELECTED, new ArrayList<Action>());
+		selectActions = new ArrayList<>();
 		this.sprite = sprite;
 	}
 
@@ -46,6 +45,16 @@ public class Holdable extends VariableContainer {
 	
 	public BoundedImage getDisplayable() {
 		return sprite.getImage();
+	}
+	
+	public void setSelectActions(List<Action> selectActions) {
+		this.selectActions = selectActions;
+	} 
+	
+	public void select(GameObject keeper, Layer world) {
+		for(Action a : selectActions) {
+			a.execute(keeper, world);
+		}
 	}
 
 }
