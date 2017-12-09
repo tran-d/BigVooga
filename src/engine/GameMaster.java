@@ -5,8 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import controller.player.PlayerManager;
-import engine.sprite.BoundedImage;
-import engine.sprite.DisplayableImage;
+import engine.sprite.Displayable;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -103,12 +102,18 @@ public class GameMaster implements EngineController{
 	 * Used in step.
 	 */
 	private void imageUpdate() {
-		List<DisplayableImage> imageData = new ArrayList<>();
-		for(GameObject o: currentWorld.getAllObjects()){
-			imageData.add(o.getImage());
+		double cameraXTranslate = 0;
+		double cameraYTranslate = 0;
+		List<Displayable> imageData = new ArrayList<>();
+		for(Element e: currentWorld.getAllElements()){
+			imageData.add(e.getDisplayable());
+			if(e instanceof GameObject && ((GameObject)e).getTags().contains("Player")) {		//TODO: make constant
+				cameraXTranslate = ((GameObject)e).getDouble(GameObject.X_COR);
+				cameraYTranslate = ((GameObject)e).getDouble(GameObject.Y_COR);
+			}
 		}
-		Collections.sort(imageData);
-		playerManager.setImageData(imageData);
+		Collections.sort(imageData, (i1, i2)->i1.getDrawingPriority()-i2.getDrawingPriority());
+		playerManager.setImageData(imageData, cameraXTranslate, cameraYTranslate);
 	}
 
 	@Override

@@ -6,40 +6,50 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeSet;
+
 import engine.sprite.BoundedImage;
+import engine.sprite.CompositeImage;
+import engine.sprite.Displayable;
+import engine.sprite.DisplayableText;
 import engine.sprite.Sprite;
 import engine.utilities.collisions.CollisionEvent;
+import javafx.geometry.Point2D;
 
 /**
- * The core of the game. Everything visible will be a GameObject. GameObjects have 2 paradigms:
- * Variables are just named quantities unique to each instance of an object, such as names or coordinates.
+ * The core of the game. Everything visible will be a GameObject. GameObjects
+ * have 2 paradigms: Variables are just named quantities unique to each instance
+ * of an object, such as names or coordinates.
  * 
- * Step() calls the Object's conditions and actions, which evaluate and modify its current state based on the conditions of the game.
+ * Step() calls the Object's conditions and actions, which evaluate and modify
+ * its current state based on the conditions of the game.
  * 
- * @author Nikolas Bramblett, ...
+ * @author Nikolas Bramblett, Ian Eldridge-Allegra
  *
  */
-public class GameObject extends VariableContainer {
-	
+public class GameObject extends VariableContainer implements Element {
+
+	private static final double DEFAULT_SIZE = 200;
 	private String name;
 	private Set<String> tagSet;
 	private Map<Condition, List<Action>> events;
 	private Sprite currentSprite;
 	private CollisionEvent lastCollision;
-	private double width = 200; //TODO Sizes
-	private double height = 200; //TODO Sizes
+	private double width = DEFAULT_SIZE; 
+	private double height = DEFAULT_SIZE; 
 	private int uniqueID;
+
+	private Inventory inventory;
+	private DisplayableText dialogueHandler;
 
 	private static final String DEFAULT_NAME = "unnamed";
 	private static final String DEFAULT_TAG = "default";
 	public static final String X_COR = "xCor";
 	public static final String Y_COR = "yCor";
 	public static final String HEADING = "heading";
-	
+
 	public GameObject() {
 		this(DEFAULT_NAME);
 	}
@@ -56,6 +66,8 @@ public class GameObject extends VariableContainer {
 		this.name = name;
 		tagSet.add(name);
 		tagSet.add(DEFAULT_TAG);
+
+		inventory = new Inventory();
 	}
 
 	public String getName() {
@@ -106,7 +118,7 @@ public class GameObject extends VariableContainer {
 	public void step(Layer w, int priorityNum, List<Runnable> runnables) {
 		currentSprite.step();
 		for (Condition c : events.keySet()) {
-			if(c.getPriority() == priorityNum && c.isTrue(this, w)) {
+			if (c.getPriority() == priorityNum && c.isTrue(this, w)) {
 				for (Action a : events.get(c)) {
 					runnables.add(() -> a.execute(this, w));
 				}
@@ -117,12 +129,17 @@ public class GameObject extends VariableContainer {
 	/**
 	 * Setter for x and y Coordinates
 	 * 
-	 * @param x, y
+	 * @param x,
+	 *            y
 	 */
 	public void setCoords(double x, double y) {
 		// TODO Trigger listeners here
 		doubleVars.put(X_COR, x);
 		doubleVars.put(Y_COR, y);
+	}
+
+	public void setLocation(Point2D loc) {
+		setCoords(loc.getX(), loc.getY());
 	}
 
 	public double getX() {
@@ -142,7 +159,9 @@ public class GameObject extends VariableContainer {
 	}
 
 	/**
-	 * Compiles all priorities of Conditions into an iterable set. Used by Layer to call Events in proper order.
+	 * Compiles all priorities of Conditions into an iterable set. Used by Layer to
+	 * call Events in proper order.
+	 * 
 	 * @return {Set<Integer>} priorities
 	 */
 	public Set<Integer> getPriorities() {
@@ -153,22 +172,10 @@ public class GameObject extends VariableContainer {
 		return priorities;
 	}
 
-	public void setDoubleVariable(String name, Double value) {
-		doubleVars.put(name, value);
-	}
-
-	public void setBooleanVariable(String name, Boolean value) {
-		booleanVars.put(name, value);
-	}
-
-	public void setStringVariable(String name, String value) {
-		stringVars.put(name, value);
-	}
-
 	public void setSprite(Sprite set) {
 		currentSprite = set;
 	}
-	
+
 	public void addParameter(String name, Object o) throws VoogaException {
 		try {
 			getClass().getDeclaredMethod(
@@ -182,19 +189,31 @@ public class GameObject extends VariableContainer {
 
 	/**
 	 * Returns the current image of this Object.
+	 * 
 	 * @return BoundedImage
 	 */
-	public BoundedImage getImage() {
-		//TODO width and height?
+	public BoundedImage getBounds() {
 		BoundedImage result = currentSprite.getImage();
 		result.setPosition(doubleVars.get(X_COR), doubleVars.get(Y_COR));
 		result.setHeading(doubleVars.get(HEADING));
 		result.setSize(width, height);
 		return result;
 	}
-	
+
+	public Displayable getDisplayable() {
+		if (dialogueHandler == null)
+			return getBounds();
+		dialogueHandler.setHeading(getHeading());
+		dialogueHandler.setHeight(getHeight());
+		dialogueHandler.setWidth(getWidth());
+		dialogueHandler.setX(getX());
+		dialogueHandler.setY(getY());
+		return new CompositeImage(getBounds(), dialogueHandler);
+	}
+
 	/**
-	 * Creates a new instance of this game object, which has the same values (but can take new values)
+	 * Creates a new instance of this game object, which has the same values (but
+	 * can take new values)
 	 */
 	public GameObject clone() {
 		GameObject copy = new GameObject(name);
@@ -214,7 +233,7 @@ public class GameObject extends VariableContainer {
 			copy.addConditionAction(c, new ArrayList<>(events.get(c)));
 		return copy;
 	}
-	
+
 	public CollisionEvent getLastCollisionChecked() {
 		return lastCollision;
 	}
@@ -231,25 +250,42 @@ public class GameObject extends VariableContainer {
 	}
 
 	/**
-	 * @param uniqueID the uniqueID to set
+	 * @param uniqueID
+	 *            the uniqueID to set
 	 */
 	public void setUniqueID(int uniqueID) {
 		this.uniqueID = uniqueID;
 	}
 
 	public void setSize(double width, double height) {
-		// TODO Auto-generated method stub
 		this.width = width;
 		this.height = height;
 	}
-	
-	public double getWidth()
-	{
+
+	public double getWidth() {
 		return width;
 	}
-	public double getHeight()
-	{
+
+	public double getHeight() {
 		return height;
 	}
-	
+
+	public Inventory getInventory() {
+		return inventory;
+	}
+
+	public void addToInventory(InventoryObject o) {
+		inventory.addObject(o);
+	}
+
+	public void setDialogue(DisplayableText text) {
+		dialogueHandler = text;
+	}
+
+	public void setDialogue(String s) {
+		if (dialogueHandler == null)
+			dialogueHandler = DisplayableText.DEFAULT;
+		dialogueHandler = dialogueHandler.getWithMessage(s);
+	}
+
 }

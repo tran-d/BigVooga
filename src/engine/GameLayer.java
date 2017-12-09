@@ -19,7 +19,8 @@ public class GameLayer implements Layer {
 	public final static String PLAYER_TAG = "Player";
 	
 	private String worldName;
-	private List<GameObject> worldObjects;
+	private List<Element> elements = new ArrayList<>();
+	private List<GameObject> worldObjects = new ArrayList<>();
 	private Map<Integer, List<GameObject>> conditionPriorities = new ConcurrentSkipListMap<>();
 	private Map<Integer, GameObject> idToGameObject = new HashMap<>();
 	private GlobalVariables globalVars;
@@ -29,19 +30,21 @@ public class GameLayer implements Layer {
 	private GameObjectFactory blueprints;
 
 	public GameLayer() {
-		// TODO Auto-generated constructor stub
 		this(DEFAULT_NAME);
 	}
 	
 	public GameLayer(String name) {
 		worldName = name;
-		worldObjects = new ArrayList<>();
 	}
 
+	public void addElement(Element e) {
+		elements.add(e);
+	}
+	
 	@Override
 	public void addGameObject(GameObject obj) {
-		// TODO Auto-generated method stub
 		worldObjects.add(obj);
+		elements.add(obj);
 		idToGameObject.put(obj.getUniqueID(), obj);
 		for(Integer i : obj.getPriorities()) {
 			if(conditionPriorities.containsKey(i)) {
@@ -139,14 +142,17 @@ public class GameLayer implements Layer {
 		return input;
 	}
 	
+	public List<Element> getAllElements() {
+		return new ArrayList<>(elements);
+	}
+	
 	public List<GameObject> getAllObjects()
 	{
-		return worldObjects;
+		return new ArrayList<>(worldObjects);
 	}
 
 	@Override
 	public void setPlayerManager(PlayerManager input) {
-		// TODO Auto-generated method stub
 		this.input = input;
 	}
 

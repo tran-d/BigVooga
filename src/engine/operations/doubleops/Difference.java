@@ -7,7 +7,7 @@ import engine.Layer;
  * @author Ian Eldridge-Allegra
  *
  */
-public class Difference implements DoubleOperation { 
+public class Difference implements DoubleOperation {
 	private DoubleOperation number;
 	private DoubleOperation toSubtract;
 
@@ -15,7 +15,7 @@ public class Difference implements DoubleOperation {
 		this.number = number;
 		this.toSubtract = toSubtract;
 	}
-	
+
 	@Override
 	public Double evaluate(GameObject asking, Layer world) {
 		return number.evaluate(asking, world) - toSubtract.evaluate(asking, world);

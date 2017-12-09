@@ -6,6 +6,13 @@ import engine.Layer;
 import engine.operations.gameobjectops.GameObjectOperation;
 import engine.operations.gameobjectops.Self;
 
+/**
+ *
+ * 
+ * @author aaronpaskin
+ *
+ */
+//TODO: GiveInventory
 public class GiveInventory implements Action {
 
 	private GameObjectOperation obj;
@@ -16,8 +23,8 @@ public class GiveInventory implements Action {
 	
 	@Override
 	public void execute(GameObject asking, Layer world) {
-		for(String key : asking.getInventory().keySet())
-			obj.evaluate(asking, world).setGameObjectVariable(key, asking.getGameObject(key));
+		//for(String key : asking.getInventory().keySet())
+		//	obj.evaluate(asking, world).setGameObjectVariable(key, asking.getGameObject(key));
 	}
 
 }
