@@ -27,6 +27,7 @@ public class TopToolBar extends ToolBar implements TopToolBarI {
 			String edit, String remove) {
 		super();
 		
+		
 		tabResources = resourceBundle;
 		addButton = new Button(tabResources.getString(addButtonTitle));
 		ObservableList<String> additionOptions = ActionConditionTabUtil
@@ -43,7 +44,7 @@ public class TopToolBar extends ToolBar implements TopToolBarI {
 //		editRowVBox = new EditChoiceBoxVBox(tabResources.getString("EditLabel"),
 //				FXCollections.observableList(new LinkedList<Integer>()));
 		
-		getItems().addAll(addButton, selectorVBox, separator,removeButton, removeRowVBox);
+		getItems().addAll(addButton, selectorVBox, separator, removeButton, removeRowVBox);
 	}
 
 	protected ObservableList<Integer> getRemoveRowVBoxOptions() {

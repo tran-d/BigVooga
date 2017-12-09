@@ -63,10 +63,9 @@ public class MapManager extends TabPane {
 			System.out.println("Grid: " + w);
 			setTab();
 			createTab(myTabCount, w);
-		}
+			}
 		} else {
 			setTab();
-			createTab(myTabCount, new DraggableGrid());
 		}
 		
 //		setTab();
