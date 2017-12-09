@@ -2,7 +2,7 @@ package engine.Actions.actionLoops;
 
 import engine.Action;
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.doubleops.DoubleOperation;
 
 /**
@@ -20,7 +20,7 @@ public class DoTimes implements Action {
 	}
 	
 	@Override
-	public void execute(GameObject asking, Layer world) {
+	public void execute(GameObject asking, GameObjectEnvironment world) {
 		int num = (int)Math.round(times.evaluate(asking, world));
 		for(int i = 0; i < num; i++) { 
 			action.execute(asking, world);

@@ -98,7 +98,7 @@ public class EngineTester2 extends Application {
 		
 		GameMaster master = new GameMaster();
 		master.addWorld(w);
-		master.setCurrentWorld("World");
+		master.setNextWorld("World");
 		try {
 			GameDataHandler saver = new GameDataHandler("Flappy_Birb");
 			saver.saveGame(master);

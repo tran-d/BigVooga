@@ -33,7 +33,7 @@ public class Holdable extends VariableContainer {
 			useOptions.put(useName, actions);
 	}
 
-	public void use(String useCase, GameObject keeper, Layer world) {
+	public void use(String useCase, GameObject keeper, GameObjectEnvironment world) {
 		for (Action a : useOptions.get(useCase)) {
 			a.execute(keeper, world);
 		}
@@ -51,7 +51,7 @@ public class Holdable extends VariableContainer {
 		this.selectActions = selectActions;
 	} 
 	
-	public void select(GameObject keeper, Layer world) {
+	public void select(GameObject keeper, GameObjectEnvironment world) {
 		for(Action a : selectActions) {
 			a.execute(keeper, world);
 		}

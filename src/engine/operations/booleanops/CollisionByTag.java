@@ -1,7 +1,7 @@
 package engine.operations.booleanops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.gameobjectops.Get;
 import engine.operations.stringops.StringOperation;
 
@@ -19,7 +19,7 @@ public class CollisionByTag implements BooleanOperation {
 	}
 
 	@Override
-	public Boolean evaluate(GameObject asking, Layer world) {
+	public Boolean evaluate(GameObject asking, GameObjectEnvironment world) {
 		for(GameObject g : world.getObjectsWithTag(tag.evaluate(asking, world))) {
 			if(g == asking)
 				continue;

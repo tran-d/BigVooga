@@ -2,7 +2,7 @@ package engine.Actions.global;
 
 import engine.Action;
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.gameobjectops.GameObjectOperation;
 import engine.operations.stringops.StringOperation;
 
@@ -17,8 +17,8 @@ public class TransferObjectToWorld implements Action {
 	}
 	
 	@Override
-	public void execute(GameObject asking, Layer world) {
-		akydk
+	public void execute(GameObject asking, GameObjectEnvironment world) {
+		world.transfer(gameObject.evaluate(asking, world), worldName.evaluate(asking, world));
 	}
 	
 }

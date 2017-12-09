@@ -1,7 +1,7 @@
 package engine.operations.booleanops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.doubleops.DoubleOperation;
 
 public class GreaterThanOrEqualTo implements BooleanOperation {
@@ -15,7 +15,7 @@ public class GreaterThanOrEqualTo implements BooleanOperation {
 	}
 	
 	@Override
-	public Boolean evaluate(GameObject asking, Layer world) {
+	public Boolean evaluate(GameObject asking, GameObjectEnvironment world) {
 		return first.evaluate(asking, world) >= second.evaluate(asking, world);
 	}
 	

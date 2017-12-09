@@ -1,7 +1,7 @@
 package engine.operations.stringops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.doubleops.DoubleOperation;
 
 public class Substring implements StringOperation {
@@ -17,7 +17,7 @@ public class Substring implements StringOperation {
 	}
 
 	@Override
-	public String evaluate(GameObject asking, Layer world) {
+	public String evaluate(GameObject asking, GameObjectEnvironment world) {
 		String s = string.evaluate(asking, world);
 		int first = (int) Math.round(start.evaluate(asking, world));
 		int last  = (int) Math.round(end.evaluate(asking, world));

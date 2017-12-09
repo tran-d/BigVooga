@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentSkipListMap;
-
-import controller.player.PlayerManager;
 /**
  * 
  * @author Nikolas Bramblett, ...
@@ -21,13 +19,8 @@ public class GameLayer implements Layer {
 	private String worldName;
 	private List<Element> worldElements;
 	private List<GameObject> objects = new ArrayList<>();
-	private Map<Integer, List<Element>> conditionPriorities = new ConcurrentSkipListMap<>();
+	private Map<Integer, List<GameObject>> conditionPriorities = new ConcurrentSkipListMap<>();
 	private Map<Integer, GameObject> idToGameObject = new HashMap<>();
-	private GlobalVariables globalVars;
-	private PlayerManager input;
-	
-	private GameObjectFactory blueprints;
-	private String nextWorld;
 
 	public GameLayer() {
 		this(DEFAULT_NAME);
@@ -42,21 +35,21 @@ public class GameLayer implements Layer {
 		addElement(obj);
 		objects.add(obj);
 		idToGameObject.put(obj.getUniqueID(), obj);
-	}
-	
-	@Override
-	public void addElement(Element obj) {
-		worldElements.add(obj);
 		for(Integer i : obj.getPriorities()) {
 			if(conditionPriorities.containsKey(i)) {
 				conditionPriorities.get(i).add(obj);
 			}
 			else {
-				List<Element> objects = new ArrayList<>();
+				List<GameObject> objects = new ArrayList<>();
 				objects.add(obj);
 				conditionPriorities.put(i, objects);
 			}
 		}
+	}
+	
+	@Override
+	public void addElement(Element obj) {
+		worldElements.add(obj);
 	}
 	
 	@Override
@@ -66,21 +59,22 @@ public class GameLayer implements Layer {
 		}
 	}
 
+	@Override
 	public void removeGameObject(GameObject obj) {
 		removeElement(obj);
 		objects.remove(obj);
 		idToGameObject.remove(obj.getUniqueID());
-	}
-	
-	@Override
-	public void removeElement(Element obj) {
-		worldElements.remove(obj);
 		for(Integer i : obj.getPriorities()) {
 			conditionPriorities.get(i).remove(obj);
 			if(conditionPriorities.get(i).isEmpty()) {
 				conditionPriorities.remove(i);
 			}
 		}
+	}
+	
+	@Override
+	public void removeElement(Element obj) {
+		worldElements.remove(obj);
 	}
 	
 	@Override
@@ -94,12 +88,8 @@ public class GameLayer implements Layer {
 	public List<GameObject> getObjectsWithTag(String tag) {
 		List<GameObject> tempList = new ArrayList<>();
 		for (GameObject o : objects) {
-			for (String s : o.getTags()) {
-				if (s.equals(tag)) {
-					tempList.add(o);
-					break;
-				}
-			}
+			if (o.is(tag))
+				tempList.add(o);
 		}
 		return tempList;
 	}
@@ -112,12 +102,16 @@ public class GameLayer implements Layer {
 		return worldName.equals(tag);
 	}
 	
-	public void step() {
+	public void step(ConcreteGameObjectEnvironment environment) {
 		List<Runnable> runnables = new ArrayList<>();
+		environment.setLayer(this);
 		try {
+			for(Element obj : worldElements) {
+				obj.step(environment);
+			}
 			for(Integer i: conditionPriorities.keySet()) {
-				for(Element obj : conditionPriorities.get(i)) {
-					obj.step(i, this, runnables);
+				for(GameObject obj : conditionPriorities.get(i)) {
+					obj.step(i, environment, runnables);
 				}
 				for(Runnable r : runnables) {
 					r.run();
@@ -131,28 +125,8 @@ public class GameLayer implements Layer {
 	}
 	
 	@Override
-	public GlobalVariables getGlobalVars() {
-		return globalVars;
-	}
-
-	@Override
-	public void addGlobalVars(GlobalVariables gv) {
-		globalVars = gv;
-	}
-	
-	@Override
-	public PlayerManager getPlayerManager() {
-		return input;
-	}
-	
-	@Override
 	public List<Element> getAllElements() {
 		return worldElements;
-	}
-
-	@Override
-	public void setPlayerManager(PlayerManager input) {
-		this.input = input;
 	}
 
 	@Override
@@ -162,30 +136,6 @@ public class GameLayer implements Layer {
 				return go;
 		}
 		throw new RuntimeException("None by name "+name);//TODO
-	}
-
-	@Override
-	public void setBlueprints(GameObjectFactory f) {
-		// TODO Auto-generated method stub
-		blueprints = f;
-	}
-
-	@Override
-	public void addGameObject(String name, double x, double y, double heading) {
-		// TODO Auto-generated method stub
-		GameObject temp = blueprints.getInstanceOf(name);
-		temp.setCoords(x, y);
-		temp.setHeading(heading);
-		addElement(temp);
-	}
-	
-	@Override
-	public void setNextWorld(String nextWorld) {
-		this.nextWorld = nextWorld;
-	}
-
-	public String getNextWorld() {
-		return nextWorld;
 	}
 
 }

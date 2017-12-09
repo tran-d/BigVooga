@@ -7,23 +7,22 @@ import engine.operations.gameobjectops.GameObjectOperation;
 import engine.operations.vectorops.VectorOperation;
 
 /**
- * 
- * @author aaronpaskin
+ * @author Ian Eldridge-Allegra
  *
  */
-public class MoveTo implements Action {
+public class SetVelocity implements Action {
 
-	private VectorOperation newLocation;
 	private GameObjectOperation object;
-	
-	public MoveTo(GameObjectOperation object, VectorOperation newLocation) {
+	private VectorOperation velocity;
+
+	public SetVelocity(GameObjectOperation object, VectorOperation velocity) {
 		this.object = object;
-		this.newLocation = newLocation;
+		this.velocity = velocity;
 	}
-	
+
 	@Override
 	public void execute(GameObject asking, GameObjectEnvironment world) {
-		object.evaluate(asking, world).setLocation(newLocation.evaluate(asking, world));
+		object.evaluate(asking, world).setDerivative(1, velocity.evaluate(asking, world));
 	}
-
+	
 }

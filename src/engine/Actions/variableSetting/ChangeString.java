@@ -2,7 +2,7 @@ package engine.Actions.variableSetting;
 
 import engine.Action;
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.gameobjectops.GameObjectOperation;
 import engine.operations.stringops.StringOperation;
 
@@ -24,7 +24,7 @@ public class ChangeString implements Action {
 	}
 	
 	@Override
-	public void execute(GameObject asking, Layer world) {
+	public void execute(GameObject asking, GameObjectEnvironment world) {
 		object.evaluate(asking, world).setStringVariable(varName.evaluate(asking, world), newString.evaluate(asking, world));
 	}
 	

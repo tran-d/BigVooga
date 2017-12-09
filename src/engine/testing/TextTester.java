@@ -11,13 +11,20 @@ import engine.GameLayer;
 import engine.GameMaster;
 import engine.GameObject;
 import engine.GameWorld;
-import engine.Actions.movement.Move;
 import engine.Actions.movement.Rotate;
-import engine.Actions.variableSetting.ChangeDouble;
+import engine.Actions.movement.SetAcceleration;
+import engine.Actions.movement.SetVelocity;
+import engine.Actions.movement.StopObject;
+import engine.operations.booleanops.BooleanValue;
 import engine.operations.booleanops.KeyHeld;
 import engine.operations.doubleops.Value;
 import engine.operations.gameobjectops.Self;
 import engine.operations.stringops.SelfString;
+import engine.operations.vectorops.BasicVector;
+import engine.operations.vectorops.LocationOf;
+import engine.operations.vectorops.MouseLocation;
+import engine.operations.vectorops.UnitVector;
+import engine.operations.vectorops.VectorDifference;
 import engine.operations.vectorops.VectorHeadingOf;
 import engine.operations.vectorops.VectorScale;
 import engine.sprite.AnimationSequence;
@@ -59,7 +66,7 @@ public class TextTester extends Application {
 
 		GameMaster master = new GameMaster();
 		master.addWorld(w);
-		master.setCurrentWorld("World");
+		master.setNextWorld("World");
 		try {
 			new GameDataHandler(name).saveGame(master);
 		} catch (IOException e) {
@@ -83,15 +90,20 @@ public class TextTester extends Application {
 
 	private void condAct(GameObject object) {
 		List<Action> actions1 = new ArrayList<Action>();
-		actions1.add(new Move(new Self(), new VectorScale(new VectorHeadingOf(new Self()), new Value(5))));
-		object.addConditionAction(new Condition(1, new KeyHeld(new SelfString("W"))), actions1);
+		actions1.add(new SetAcceleration(new Self(), new UnitVector(new VectorDifference(new MouseLocation(),new LocationOf(new Self())))));
+		object.addConditionAction(new Condition(1, new BooleanValue(true)), actions1);
+		
+		actions1 = new ArrayList<Action>();
+		actions1.add(new StopObject(new Self()));
+		actions1.add(new SetVelocity(new Self(), new VectorScale(new VectorHeadingOf(new Self()), new Value(10))));
+		object.addConditionAction(new Condition(2, new KeyHeld(new SelfString("W"))), actions1);
 
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Rotate(new Self(), new Value(-2)));
-		object.addConditionAction(new Condition(1, new KeyHeld(new SelfString("Left"))), actions1);
+		object.addConditionAction(new Condition(2, new KeyHeld(new SelfString("A"))), actions1);
 		actions1 = new ArrayList<Action>();
 
 		actions1.add(new Rotate(new Self(), new Value(2)));
-		object.addConditionAction(new Condition(1, new KeyHeld(new SelfString("Right"))), actions1);
+		object.addConditionAction(new Condition(2, new KeyHeld(new SelfString("D"))), actions1);
 	}
 }

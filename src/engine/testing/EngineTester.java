@@ -73,7 +73,7 @@ public class EngineTester extends Application {
 
 		GameMaster master = new GameMaster();
 		master.addWorld(w);
-		master.setCurrentWorld("World");
+		master.setNextWorld("World");
 		try {
 			new GameDataHandler(name).saveGame(master);
 		} catch (IOException e) {
@@ -81,7 +81,7 @@ public class EngineTester extends Application {
 		}
 
 		try {
-			new GameDataHandler(name).loadGame().setCurrentWorld("World");
+			new GameDataHandler(name).loadGame().setNextWorld("World");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

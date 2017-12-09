@@ -1,9 +1,7 @@
 package engine;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import engine.operations.booleanops.BooleanOperation;
 import engine.operations.booleanops.ScreenClickHeld;
@@ -74,7 +72,7 @@ public class Inventory implements Element{
 	}
 
 	@Override
-	public void step(int priorityNumber, Layer w, List<Runnable> runnables) {
+	public void step(GameObjectEnvironment w) {
 		BooleanOperation screenClickHeld = new ScreenClickHeld();
 		if(screenClickHeld.evaluate(null, w) &&
 			pane.checkCollision(new BoundingPoint(w.getPlayerManager().getMouseXY().getX(), w.getPlayerManager().getMouseXY().getY())) != null) {
@@ -84,13 +82,6 @@ public class Inventory implements Element{
 				}
 			}
 		}
-	}
-	
-	@Override
-	public Set<Integer> getPriorities() {
-		Set<Integer> ret = new HashSet<>();
-		ret.add(Integer.MAX_VALUE);
-		return ret;
 	}
 	
 	public int getStartIndex() {

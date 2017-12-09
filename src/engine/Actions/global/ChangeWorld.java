@@ -2,7 +2,7 @@ package engine.Actions.global;
 
 import engine.Action;
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.stringops.StringOperation;
 
 
@@ -21,7 +21,7 @@ public class ChangeWorld implements Action {
 	}
 	
 	@Override
-	public void execute(GameObject asking, Layer world) {
+	public void execute(GameObject asking, GameObjectEnvironment world) {
 		world.setNextWorld(nameOfWorld.evaluate(asking, world));
 	}
 

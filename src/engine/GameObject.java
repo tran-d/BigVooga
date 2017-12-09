@@ -13,7 +13,6 @@ import java.util.TreeSet;
 import engine.sprite.BoundedImage;
 import engine.sprite.CompositeImage;
 import engine.sprite.Displayable;
-import engine.sprite.DisplayableImage;
 import engine.sprite.DisplayableText;
 import engine.sprite.Sprite;
 import engine.utilities.collisions.CollisionEvent;
@@ -33,23 +32,25 @@ import javafx.geometry.Point2D;
 public class GameObject extends VariableContainer implements Element {
 
 	private static final double DEFAULT_SIZE = 200;
-	private String name;
-	private Set<String> tagSet;
+	private static final String DEFAULT_NAME = "unnamed";
+	private static final String DEFAULT_TAG = "default";
+	
 	private Map<Condition, List<Action>> events;
 	private Sprite currentSprite;
-	private CollisionEvent lastCollision;
-	private double width = DEFAULT_SIZE;
-	private double height = DEFAULT_SIZE;
+	
 	private int uniqueID;
-
+	private String name;
+	private Set<String> tagSet;
+	
+	private CollisionEvent lastCollision;
 	private Inventory inventory;
 	private DisplayableText dialogueHandler;
 
-	private static final String DEFAULT_NAME = "unnamed";
-	private static final String DEFAULT_TAG = "default";
-
-	private double x, y, heading;
-
+	private double heading;
+	private List<Point2D> ithDerivative;
+	private double width = DEFAULT_SIZE;
+	private double height = DEFAULT_SIZE;
+	
 	public GameObject() {
 		this(DEFAULT_NAME);
 	}
@@ -64,6 +65,8 @@ public class GameObject extends VariableContainer implements Element {
 		tagSet.add(name);
 		tagSet.add(DEFAULT_TAG);
 		inventory = new Inventory(this);
+		ithDerivative = new ArrayList<>();
+		ithDerivative.add(new Point2D(0,0));
 	}
 
 	public String getName() {
@@ -78,10 +81,6 @@ public class GameObject extends VariableContainer implements Element {
 		return tagSet.contains(tag);
 	}
 
-	public List<String> getTags() {
-		return new ArrayList<String>(tagSet);
-	}
-
 	public void addConditionAction(Condition c, List<Action> a) {
 		events.put(c, a);
 	}
@@ -89,15 +88,21 @@ public class GameObject extends VariableContainer implements Element {
 	/**
 	 * Steps animation and checks/executes events in order of priority
 	 */
-	@Override
-	public void step(int priorityNum, Layer w, List<Runnable> runnables) {
-		currentSprite.step();
+	public void step(int priorityNum, GameObjectEnvironment w, List<Runnable> runnables) {
 		for (Condition c : events.keySet()) {
 			if (c.getPriority() == priorityNum && c.isTrue(this, w)) {
 				for (Action a : events.get(c)) {
 					runnables.add(() -> a.execute(this, w));
 				}
 			}
+		}
+	}
+	
+	@Override
+	public void step(GameObjectEnvironment w) {
+		currentSprite.step();
+		for(int i = ithDerivative.size()-1; i > 0; i--) {
+			ithDerivative.set(i-1, ithDerivative.get(i-1).add(ithDerivative.get(i)));
 		}
 	}
 
@@ -107,20 +112,41 @@ public class GameObject extends VariableContainer implements Element {
 	 * @param x, y
 	 */
 	public void setCoords(double x, double y) {
-		this.x = x;
-		this.y = y;
+		setLocation(new Point2D(x,y));
 	}
 
 	public void setLocation(Point2D loc) {
-		setCoords(loc.getX(), loc.getY());
+		setDerivative(0, loc);
+	}
+
+	public Point2D getLocation() {
+		return getDerivative(0);
+	}
+	
+	public Point2D getDerivative(int i) {
+		if(i < ithDerivative.size())
+			return ithDerivative.get(i);
+		return new Point2D(0,0);
+	}
+	
+	public void setDerivative(int i, Point2D vector) {
+		while(ithDerivative.size() <= i) {
+			ithDerivative.add(new Point2D(0,0));
+		}
+		ithDerivative.set(i, vector);
+	}
+	
+	public void stop() {
+		while(ithDerivative.size() > 1)
+			ithDerivative.remove(ithDerivative.size()-1);
 	}
 
 	public double getX() {
-		return x;
+		return getLocation().getX();
 	}
 
 	public double getY() {
-		return y;
+		return getLocation().getY();
 	}
 
 	public void setHeading(double newHeading) {
@@ -137,7 +163,6 @@ public class GameObject extends VariableContainer implements Element {
 	 * 
 	 * @return {Set<Integer>} priorities
 	 */
-	@Override
 	public Set<Integer> getPriorities() {
 		Set<Integer> priorities = new TreeSet<Integer>();
 		for (Condition c : events.keySet()) {
@@ -168,7 +193,7 @@ public class GameObject extends VariableContainer implements Element {
 	 */
 	public BoundedImage getBounds() {
 		BoundedImage result = currentSprite.getImage();
-		result.setPosition(x, y);
+		result.setPosition(getX(), getY());
 		result.setHeading(heading);
 		result.setSize(width, height);
 		return result;
@@ -192,7 +217,7 @@ public class GameObject extends VariableContainer implements Element {
 	 */
 	public GameObject clone() {
 		GameObject copy = new GameObject(name);
-		copy.setCoords(x, y);
+		copy.setLocation(getLocation());
 		copy.setHeading(heading);
 		copy.currentSprite = currentSprite.clone();
 		copy.setSize(width, height);

@@ -1,7 +1,7 @@
 package engine.operations.booleanops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.gameobjectops.GameObjectOperation;
 import engine.utilities.collisions.CollisionEvent;
 import javafx.geometry.Point2D;
@@ -17,7 +17,7 @@ public class Collision implements BooleanOperation {
 	}
 
 	@Override
-	public Boolean evaluate(GameObject asking, Layer world) {
+	public Boolean evaluate(GameObject asking, GameObjectEnvironment world) {
 		GameObject obj1 = first.evaluate(asking, world);
 		GameObject obj2 = second.evaluate(asking, world);
 		Point2D intersectionVector = obj1.getBounds().checkCollision(obj2.getBounds());

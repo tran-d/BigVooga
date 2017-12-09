@@ -4,7 +4,7 @@ import java.util.List;
 
 import engine.Action;
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 
 //TODO: DisplayInventory
 public class DisplayInventory implements Action {
@@ -18,7 +18,7 @@ public class DisplayInventory implements Action {
 	}
 	
 	@Override
-	public void execute(GameObject asking, Layer world) {
+	public void execute(GameObject asking, GameObjectEnvironment world) {
 		
 	}
 

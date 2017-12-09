@@ -3,7 +3,7 @@ package engine.operations.gameobjectops;
 import java.util.List;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.doubleops.Magnitude;
 import engine.operations.stringops.StringOperation;
 import engine.operations.vectorops.LocationOf;
@@ -18,7 +18,7 @@ public class Nearest implements GameObjectOperation{
 	}
 	
 	@Override
-	public GameObject evaluate(GameObject asking, Layer world) {
+	public GameObject evaluate(GameObject asking, GameObjectEnvironment world) {
 		List<GameObject> otherObjects = world.getObjectsWithTag(tag.evaluate(asking, world));
 		double distance = Double.MAX_VALUE;
 		GameObject nearest = null;

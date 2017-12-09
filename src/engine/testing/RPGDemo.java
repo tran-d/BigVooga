@@ -103,7 +103,7 @@ public class RPGDemo extends Application {
 		
 		GameMaster master = new GameMaster();
 		master.addWorld(w);
-		master.setCurrentWorld("World");
+		master.setNextWorld("World");
 		try {
 			new GameDataHandler("Demo_RPG").saveGame(master);
 		} catch (IOException e) {

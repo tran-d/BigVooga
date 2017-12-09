@@ -3,8 +3,6 @@ package engine;
 import java.util.ArrayList;
 import java.util.List;
 
-import controller.player.PlayerManager;
-
 /**
  * Holds Layers, which hold GameObjects. An Example of a GameWorld would be a
  * tavern room or a dark forest.
@@ -14,17 +12,12 @@ import controller.player.PlayerManager;
  */
 public class GameWorld {
 
-	private List<GameLayer> worldLayers;
-	private String nextWorld;
-
 	private final static String DEFAULT_NAME = "layer";
 
 	private String worldName;
-	private GlobalVariables globalVars;
-	// private GameObjectFactory GameObjectFactory;
-
+	private List<GameLayer> worldLayers;
+	
 	public GameWorld() {
-		// TODO Auto-generated constructor stub
 		this(DEFAULT_NAME);
 	}
 
@@ -39,19 +32,12 @@ public class GameWorld {
 
 	/**
 	 * Calls step() on each layer
+	 * @param environment 
 	 */
-	public void step() {
+	public void step(ConcreteGameObjectEnvironment environment) {
+		environment.setGameWorld(this);
 		for (GameLayer l : worldLayers)
-			l.step();
-	}
-
-	public void addGlobalVars(GlobalVariables gv) {
-
-		globalVars = gv;
-	}
-
-	public GlobalVariables getGlobalVars() {
-		return globalVars;
+			l.step(environment);
 	}
 
 	public List<Element> getAllElements() {
@@ -60,16 +46,6 @@ public class GameWorld {
 			els.addAll(l.getAllElements());
 		}
 		return els;
-	}
-
-	public void setPlayerManager(PlayerManager input) {
-		for (GameLayer l : worldLayers) {
-			l.setPlayerManager(input);
-			if(l.getNextWorld() != null) {
-				nextWorld = l.getNextWorld();
-				l.setNextWorld(null);
-			}
-		}
 	}
 
 	public void addLayer(GameLayer layer) {
@@ -85,10 +61,6 @@ public class GameWorld {
 		}
 		// Placeholder for error I guess?
 		System.out.println("No such world");
-	}
-	
-	public String getNextWorld() {
-		return nextWorld;
 	}
 
 }
