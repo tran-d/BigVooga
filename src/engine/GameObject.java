@@ -220,7 +220,6 @@ public class GameObject extends VariableContainer implements Element {
 	/**
 	 * @return the uniqueID
 	 */
-	@Override
 	public int getUniqueID() {
 		return uniqueID;
 	}
@@ -229,7 +228,6 @@ public class GameObject extends VariableContainer implements Element {
 	 * @param uniqueID
 	 *            the uniqueID to set
 	 */
-	@Override
 	public void setUniqueID(int uniqueID) {
 		this.uniqueID = uniqueID;
 	}

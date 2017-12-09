@@ -156,8 +156,8 @@ public class GameLayer implements Layer {
 	}
 
 	@Override
-	public Element getWithName(String name) {
-		for(Element go : worldElements) {
+	public GameObject getWithName(String name) {
+		for(GameObject go : objects) {
 			if(go.getName().equals(name))
 				return go;
 		}
