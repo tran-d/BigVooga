@@ -37,8 +37,8 @@ public class GameObject extends VariableContainer implements Element {
 	private Map<Condition, List<Action>> events;
 	private Sprite currentSprite;
 	private CollisionEvent lastCollision;
-	private double width = DEFAULT_SIZE; 
-	private double height = DEFAULT_SIZE; 
+	private double width = DEFAULT_SIZE;
+	private double height = DEFAULT_SIZE;
 	private int uniqueID;
 
 	private Inventory inventory;
@@ -46,9 +46,8 @@ public class GameObject extends VariableContainer implements Element {
 
 	private static final String DEFAULT_NAME = "unnamed";
 	private static final String DEFAULT_TAG = "default";
-	public static final String X_COR = "xCor";
-	public static final String Y_COR = "yCor";
-	public static final String HEADING = "heading";
+
+	private double x, y, heading;
 
 	public GameObject() {
 		this(DEFAULT_NAME);
@@ -57,9 +56,6 @@ public class GameObject extends VariableContainer implements Element {
 	public GameObject(String name) {
 		tagSet = new HashSet<String>();
 		doubleVars = new HashMap<String, Double>();
-		doubleVars.put(X_COR, 0.0);
-		doubleVars.put(Y_COR, 0.0);
-		doubleVars.put(HEADING, 0.0);
 		booleanVars = new HashMap<String, Boolean>();
 		stringVars = new HashMap<String, String>();
 		events = new HashMap<>();
@@ -86,31 +82,6 @@ public class GameObject extends VariableContainer implements Element {
 		return new ArrayList<String>(tagSet);
 	}
 
-	public void setGlobal(String variableName, Layer w) {
-		GlobalVariables currentGlobals = w.getGlobalVars();
-		if (doubleVars.containsKey(variableName)) {
-			currentGlobals.putDouble(variableName, doubleVars.get(variableName));
-		}
-		if (stringVars.containsKey(variableName)) {
-			currentGlobals.putString(variableName, stringVars.get(variableName));
-		}
-		if (booleanVars.containsKey(variableName)) {
-			currentGlobals.putBoolean(variableName, booleanVars.get(variableName));
-		}
-	}
-
-	public void makeAllGlobal(Layer w) {
-		makeAllGlobalHelper(booleanVars.keySet(), w);
-		makeAllGlobalHelper(doubleVars.keySet(), w);
-		makeAllGlobalHelper(stringVars.keySet(), w);
-	}
-
-	private void makeAllGlobalHelper(Set<String> s, Layer w) {
-		for (String key : s) {
-			setGlobal(key, w);
-		}
-	}
-
 	public void addConditionAction(Condition c, List<Action> a) {
 		events.put(c, a);
 	}
@@ -133,9 +104,8 @@ public class GameObject extends VariableContainer implements Element {
 	 *            y
 	 */
 	public void setCoords(double x, double y) {
-		// TODO Trigger listeners here
-		doubleVars.put(X_COR, x);
-		doubleVars.put(Y_COR, y);
+		this.x = x;
+		this.y = y;
 	}
 
 	public void setLocation(Point2D loc) {
@@ -143,19 +113,19 @@ public class GameObject extends VariableContainer implements Element {
 	}
 
 	public double getX() {
-		return doubleVars.get(X_COR);
+		return x;
 	}
 
 	public double getY() {
-		return doubleVars.get(Y_COR);
+		return y;
 	}
 
 	public void setHeading(double newHeading) {
-		doubleVars.put(HEADING, newHeading);
+		heading = newHeading;
 	}
 
 	public double getHeading() {
-		return doubleVars.get(HEADING);
+		return heading;
 	}
 
 	/**
@@ -194,8 +164,8 @@ public class GameObject extends VariableContainer implements Element {
 	 */
 	public BoundedImage getBounds() {
 		BoundedImage result = currentSprite.getImage();
-		result.setPosition(doubleVars.get(X_COR), doubleVars.get(Y_COR));
-		result.setHeading(doubleVars.get(HEADING));
+		result.setPosition(x, y);
+		result.setHeading(heading);
 		result.setSize(width, height);
 		return result;
 	}
@@ -217,8 +187,8 @@ public class GameObject extends VariableContainer implements Element {
 	 */
 	public GameObject clone() {
 		GameObject copy = new GameObject(name);
-		copy.setCoords(doubleVars.get(X_COR), doubleVars.get(Y_COR));
-		copy.setHeading(doubleVars.get(HEADING));
+		copy.setCoords(x, y);
+		copy.setHeading(heading);
 		copy.currentSprite = currentSprite.clone();
 		copy.setSize(width, height);
 		for (String tag : tagSet)

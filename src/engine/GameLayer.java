@@ -28,6 +28,7 @@ public class GameLayer implements Layer {
 	private PlayerManager input;
 	
 	private GameObjectFactory blueprints;
+	private String nextWorld;
 
 	public GameLayer() {
 		this(DEFAULT_NAME);
@@ -179,8 +180,13 @@ public class GameLayer implements Layer {
 		temp.setHeading(heading);
 		addGameObject(temp);
 	}
-	
-	
-	
-	
+
+	@Override
+	public void setNextWorld(String nextWorld) {
+		this.nextWorld = nextWorld;
+	}
+
+	public String getNextWorld() {
+		return nextWorld;
+	}
 }

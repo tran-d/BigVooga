@@ -33,4 +33,6 @@ public interface Layer{
 	public void setBlueprints(GameObjectFactory f);
 	
 	public List<GameObject> getAllObjects();
+	
+	public void setNextWorld(String evaluate);
 }

@@ -15,7 +15,7 @@ import controller.player.PlayerManager;
 public class GameWorld {
 
 	private List<GameLayer> worldLayers;
-	private GameWorld nextWorld;
+	private String nextWorld;
 
 	private final static String DEFAULT_NAME = "layer";
 
@@ -29,7 +29,6 @@ public class GameWorld {
 	}
 
 	public GameWorld(String name) {
-		nextWorld = this;
 		worldName = name;
 		worldLayers = new ArrayList<>();
 	}
@@ -55,15 +54,6 @@ public class GameWorld {
 		return globalVars;
 	}
 
-	public void setNextWorld(GameWorld w) {
-		nextWorld = w;
-
-	}
-
-	public GameWorld getNextWorld() {
-		return nextWorld;
-	}
-
 	public List<Element> getAllElements() {
 		List<Element> els = new ArrayList<>();
 		for (GameLayer l : worldLayers) {
@@ -82,8 +72,13 @@ public class GameWorld {
 	}
 
 	public void setPlayerManager(PlayerManager input) {
-		for (GameLayer l : worldLayers)
+		for (GameLayer l : worldLayers) {
 			l.setPlayerManager(input);
+			if(l.getNextWorld() != null) {
+				nextWorld = l.getNextWorld();
+				l.setNextWorld(null);
+			}
+		}
 	}
 
 	public void addLayer(GameLayer layer) {
@@ -99,6 +94,10 @@ public class GameWorld {
 		}
 		// Placeholder for error I guess?
 		System.out.println("No such world");
+	}
+	
+	public String getNextWorld() {
+		return nextWorld;
 	}
 
 }

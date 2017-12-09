@@ -82,7 +82,14 @@ public class GameMaster implements EngineController{
 	}
 	
 	private void step() {
-		currentWorld = currentWorld.getNextWorld();
+		String next = currentWorld.getNextWorld();
+		if(next != null) {
+			for(GameWorld world : madeWorlds) {
+				if(world.isNamed(next))
+					currentWorld = world;
+			}
+		}
+		
 		currentWorld.step();
 		imageUpdate();
 		playerManager.step();
@@ -108,8 +115,8 @@ public class GameMaster implements EngineController{
 		for(Element e: currentWorld.getAllElements()){
 			imageData.add(e.getDisplayable());
 			if(e instanceof GameObject && ((GameObject)e).getTags().contains("Player")) {		//TODO: make constant
-				cameraXTranslate = ((GameObject)e).getDouble(GameObject.X_COR);
-				cameraYTranslate = ((GameObject)e).getDouble(GameObject.Y_COR);
+				cameraXTranslate = ((GameObject)e).getX();
+				cameraYTranslate = ((GameObject)e).getY();
 			}
 		}
 		Collections.sort(imageData, (i1, i2)->i1.getDrawingPriority()-i2.getDrawingPriority());
