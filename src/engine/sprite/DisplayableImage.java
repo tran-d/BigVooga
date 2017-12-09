@@ -1,6 +1,6 @@
 package engine.sprite;
 
-public interface DisplayableImage extends Comparable<DisplayableImage>{
+public interface DisplayableImage extends Displayable{
 	public double getX();
 	public double getY();
 	public double getWidth();

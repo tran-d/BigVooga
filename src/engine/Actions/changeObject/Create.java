@@ -5,6 +5,8 @@ import engine.GameObject;
 import engine.Layer;
 import engine.operations.doubleops.DoubleOperation;
 import engine.operations.stringops.StringOperation;
+import engine.operations.vectorops.VectorOperation;
+import javafx.geometry.Point2D;
 
 /**
  * 
@@ -14,20 +16,19 @@ import engine.operations.stringops.StringOperation;
 public class Create implements Action {
 
 	private StringOperation name;
-	DoubleOperation x, y, heading;
-	
-	public Create(StringOperation name, DoubleOperation x, DoubleOperation y, DoubleOperation heading) {
+	private DoubleOperation heading;
+	private VectorOperation location;
+
+	public Create(StringOperation name, VectorOperation location, DoubleOperation heading) {
 		this.name = name;
-		this.x = x;
-		this.y = y;
+		this.location = location;
 		this.heading = heading;
 	}
-	
-//TODO: second constructor that takes in a GameObjectOperation
-	
+
 	@Override
 	public void execute(GameObject asking, Layer world) {
-		world.addGameObject(name.evaluate(asking, world), x.evaluate(asking, world), y.evaluate(asking, world), heading.evaluate(asking, world));
+		Point2D loc = location.evaluate(asking, world);
+		world.addGameObject(name.evaluate(asking, world), loc.getX(), loc.getY(), heading.evaluate(asking, world));
 	}
-	
+
 }

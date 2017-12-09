@@ -16,10 +16,10 @@ public class Sum implements DoubleOperation {
 		this.first = first;
 		this.second = second;
 	}
-	
+
 	@Override
 	public Double evaluate(GameObject asking, Layer world) {
-		return first.evaluate(asking, world)+second.evaluate(asking, world);
+		return first.evaluate(asking, world) + second.evaluate(asking, world);
 	}
 
 }

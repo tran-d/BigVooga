@@ -14,6 +14,7 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Side;
+import javafx.scene.Scene;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -29,6 +30,7 @@ public class MapManager extends TabPane {
 	private static final String ADD_TAB = "+";
 	
 	private Stage stage;
+	private Scene scene;
 	private SingleSelectionModel<Tab> mySelectModel;
 	private Tab addTab;
 //	private AuthoringMapEnvironment authMap;

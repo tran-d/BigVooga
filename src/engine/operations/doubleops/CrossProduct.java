@@ -8,7 +8,7 @@ import engine.operations.vectorops.VectorOperation;
  * @author Ian Eldridge-Allegra
  *
  */
-public class CrossProduct implements DoubleOperation{
+public class CrossProduct implements DoubleOperation {
 
 	private VectorOperation firstVector;
 	private VectorOperation secondVector;
@@ -17,7 +17,7 @@ public class CrossProduct implements DoubleOperation{
 		this.firstVector = firstVector;
 		this.secondVector = secondVector;
 	}
-	
+
 	@Override
 	public Double evaluate(GameObject asking, Layer world) {
 		return firstVector.evaluate(asking, world).crossProduct(secondVector.evaluate(asking, world)).getZ();

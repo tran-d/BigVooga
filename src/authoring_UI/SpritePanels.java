@@ -23,7 +23,7 @@ public class SpritePanels extends VBox {
 //		mySpriteSetHelper = new SpriteSetHelper(thumbnailSprites);
 		System.out.println("CHECK");
 		SPSM = new SpriteParameterSidebarManager(mySGH.getDraggableGrid());
-		displayPanel = new DisplayPanel(SPSM); // DOES NOT NEED AEM.
+		displayPanel = new DisplayPanel(SPSM, myAEM);  
 		gameElementSelector = new GameElementSelector(mySGH, myAEM);
 		this.getChildren().addAll(displayPanel, gameElementSelector);
 		this.setSpacing(5);
