@@ -3,6 +3,8 @@ package engine.Actions.changeObject;
 import engine.Action;
 import engine.GameObject;
 import engine.GameObjectEnvironment;
+import engine.operations.VoogaAnnotation;
+import engine.operations.VoogaType;
 import engine.operations.doubleops.DoubleOperation;
 import engine.operations.stringops.StringOperation;
 import engine.operations.vectorops.VectorOperation;
@@ -19,7 +21,9 @@ public class Create implements Action {
 	private DoubleOperation heading;
 	private VectorOperation location;
 
-	public Create(StringOperation name, VectorOperation location, DoubleOperation heading) {
+	public Create(@VoogaAnnotation(name = "Sprite Name", type = VoogaType.OBJECTNAME) StringOperation name,
+			@VoogaAnnotation(name = "Starting Location", type = VoogaType.VECTOR) VectorOperation location,
+			@VoogaAnnotation(name = "Starting Heading", type = VoogaType.DOUBLE) DoubleOperation heading) {
 		this.name = name;
 		this.location = location;
 		this.heading = heading;

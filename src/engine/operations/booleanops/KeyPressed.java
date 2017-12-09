@@ -2,6 +2,8 @@ package engine.operations.booleanops;
 
 import engine.GameObject;
 import engine.GameObjectEnvironment;
+import engine.operations.VoogaAnnotation;
+import engine.operations.VoogaType;
 import engine.operations.stringops.StringOperation;
 
 /**
@@ -13,7 +15,7 @@ public class KeyPressed implements BooleanOperation {
 
 	private StringOperation check;
 	
-	public KeyPressed(StringOperation check) {
+	public KeyPressed(@VoogaAnnotation(name = "Key", type = VoogaType.KEY) StringOperation check) {
 		this.check = check;
 	}
 

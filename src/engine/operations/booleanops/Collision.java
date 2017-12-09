@@ -2,6 +2,8 @@ package engine.operations.booleanops;
 
 import engine.GameObject;
 import engine.GameObjectEnvironment;
+import engine.operations.VoogaAnnotation;
+import engine.operations.VoogaType;
 import engine.operations.gameobjectops.GameObjectOperation;
 import engine.utilities.collisions.CollisionEvent;
 import javafx.geometry.Point2D;
@@ -11,7 +13,8 @@ public class Collision implements BooleanOperation {
 	private GameObjectOperation first;
 	private GameObjectOperation second;
 
-	public Collision(GameObjectOperation first, GameObjectOperation second) {
+	public Collision(@VoogaAnnotation(name = "First Sprite", type = VoogaType.GAMEOBJECT) GameObjectOperation first,
+			@VoogaAnnotation(name = "Second Sprite", type = VoogaType.GAMEOBJECT) GameObjectOperation second) {
 		this.first = first;
 		this.second = second;
 	}

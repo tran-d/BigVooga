@@ -3,6 +3,8 @@ package engine.Actions.movement;
 import engine.Action;
 import engine.GameObject;
 import engine.GameObjectEnvironment;
+import engine.operations.VoogaAnnotation;
+import engine.operations.VoogaType;
 import engine.operations.gameobjectops.GameObjectOperation;
 import engine.operations.vectorops.VectorOperation;
 import javafx.geometry.Point2D;
@@ -17,7 +19,7 @@ public class Move implements Action {
 	private VectorOperation increment;
 	private GameObjectOperation object;
 	
-	public Move(GameObjectOperation object, VectorOperation increment) {
+	public Move(@VoogaAnnotation(name = "Sprite", type = VoogaType.GAMEOBJECT) GameObjectOperation object, VectorOperation increment) {
 		this.object = object;
 		this.increment = increment;
 	}

@@ -21,6 +21,7 @@ public class Inventory implements Element{
 	//TODO: Make scrollers
 	
 	private List<Holdable> objects;
+	private List<GameObject> scrollers;
 	private BoundedImage pane;
 	private GameObject holder;
 	private int rowSpan, colSpan;
@@ -34,8 +35,8 @@ public class Inventory implements Element{
 	}
 	
 	public Inventory(GameObject holder, String name, int rowSpan, int colSpan, int startIndex) {
-		setPane(pane);
 		objects = new ArrayList<Holdable>();
+		scrollers = new ArrayList<GameObject>();
 		this.holder = holder;
 		this.rowSpan = rowSpan;
 		this.colSpan = colSpan;
@@ -63,6 +64,9 @@ public class Inventory implements Element{
 		for(int r = 0; r < rowSpan; r++) {
 			List<DisplayableImage> row = new ArrayList<>();
 			for(int c = 0; c < colSpan; c++) {
+				if(i >= objects.size()) {
+					break;
+				}
 				row.add(objects.get(i).getDisplayable());
 				i++;
 			}
