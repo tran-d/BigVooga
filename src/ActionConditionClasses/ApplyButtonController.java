@@ -16,48 +16,50 @@ import javafx.collections.ObservableList;
 
 public class ApplyButtonController implements ApplyButtonControllerI {
 	
+	private ConditionTab<ConditionRow> conditionTab;
+	private ActionTab<ActionRow> actionTab;
+	
 	private static final int LABEL_INDEX = 0;
 	private static final int SELECTOR_LABEL_INDEX = 1;
 	private static final int SELECTOR_VALUE_INDEX = 2;
-	
-	private ConditionTab<ConditionRow> conditionTab;
-	private ActionTab<ActionRow> actionTab;
 
 	@Override
 	public void updateActionConditionTabs(ConditionTab<ConditionRow> conditionTab,ActionTab<ActionRow> actionTab,AbstractSpriteObject spriteObject) {
-		System.out.println("Sprite actions" + spriteObject.getAllConditions());
 		HashMap<List<String>,List<Integer>> conditions = spriteObject.getConditionRows();
-		System.out.println("Sprite conditions" + spriteObject.getAllConditions());
+		System.out.println("Sprite conditions " + conditions);
 		List<List<String>> actions = spriteObject.getActionRows();
+		System.out.println("Sprite actions " + actions);
 		ObservableList<Integer> allConditions = spriteObject.getAllConditions();
 		ObservableList<Integer> allActions = spriteObject.getAllActions();
 		TopToolBar topToolBarConditions = new TopToolBar(ResourceBundleUtil.getTabTitle("ConditionsTabTitle"),allConditions);
 		TopToolBar topToolBarActions = new TopToolBar(ResourceBundleUtil.getTabTitle("ActionsTabTitle"),allActions);
-		int rowCond = 0;
+		int rowCond = 1;
 		List<ConditionRow> conditionRows = new LinkedList<ConditionRow>();
-		ConditionVBox<ConditionRow> conditionVBox = new ConditionVBox<ConditionRow>(conditionTab.getSelectorLabel(),conditionRows);
+		ConditionVBox<ConditionRow> conditionVBox = new ConditionVBox<ConditionRow>(conditionTab.getSelectorLabel());
 		for(List<String> labels : conditions.keySet()) {
+			System.out.println("Row " + rowCond);
 			ConditionRow conditionRow = new ConditionRow(rowCond,labels.get(LABEL_INDEX),labels.get(SELECTOR_LABEL_INDEX),
 					labels.get(SELECTOR_VALUE_INDEX),allConditions,conditions.get(labels),conditionVBox);
 			conditionRows.add(conditionRow);
 			rowCond++;
 		}
+		conditionVBox = new ConditionVBox<ConditionRow>(conditionTab.getSelectorLabel(),conditionRows);
 		List<ActionRow> actionRows = new LinkedList<ActionRow>();
-		ActionVBox<ActionRow> actionVBox = new ActionVBox<ActionRow>(actionTab.getSelectorLabel(),actionRows);
-		int rowAct = 0;
+		ActionVBox<ActionRow> actionVBox = new ActionVBox<ActionRow>(actionTab.getSelectorLabel());
+		int rowAct = 1;
 		for(List<String> labels : actions) {
-			System.out.println(labels + " " + labels.get(LABEL_INDEX));
+//			System.out.println("rowAct " + rowAct);
+//			System.out.println("Label " + labels);
 			ActionRow actionRow = new ActionRow(rowAct,labels.get(LABEL_INDEX),labels.get(SELECTOR_LABEL_INDEX),
 					labels.get(SELECTOR_VALUE_INDEX),actionVBox);
 			actionRows.add(actionRow);
 			rowAct++;
 		}
-		this.conditionTab = new ConditionTab<ConditionRow>(ResourceBundleUtil.getTabTitle("ConditionsTabTitle"),conditionVBox,topToolBarConditions);
-		this.actionTab = new ActionTab<ActionRow>(ResourceBundleUtil.getTabTitle("ActionsTabTitle"),actionVBox,topToolBarActions);
-//		conditionTab.setTopToolBar(topToolBarConditions);
-//		conditionTab.setNoReturnActionConditionVBox(conditionVBox);
-//		actionTab.setTopToolBar(topToolBarActions);
-//		actionTab.setNoReturnActionConditionVBox(actionVBox);
+		actionVBox = new ActionVBox<ActionRow>(actionTab.getSelectorLabel(),actionRows);
+		conditionTab.setTopToolBar(topToolBarConditions);
+		conditionTab.setNoReturnActionConditionVBox(conditionVBox);
+		actionTab.setTopToolBar(topToolBarActions);
+		actionTab.setNoReturnActionConditionVBox(actionVBox);
 	}
 	
 	
@@ -73,7 +75,7 @@ public class ApplyButtonController implements ApplyButtonControllerI {
 					row.getImplementationSelectorVBoxValue()));
 			conditions.put(conditionLabels, (List<Integer>) row.getSelectedActions());
 		});
-		System.out.println(conditions);
+		System.out.println("conditions " + conditions);
 		List<List<String>> actions = new LinkedList<List<String>>();
 		actionTab.getActionConditionVBox().getRows().forEach(row -> {
 			List<String> actionLabels = new LinkedList<String>();
@@ -81,7 +83,7 @@ public class ApplyButtonController implements ApplyButtonControllerI {
 					((ActionRow) row).getImplementationSelectorVBoxValue()));
 			actions.add(actionLabels);
 		});
-		System.out.println(actions);
+		System.out.println("actions " + actions);
 		spriteObject.setCondidtionRows(conditions);
 		spriteObject.setActionRows(actions);
 	}

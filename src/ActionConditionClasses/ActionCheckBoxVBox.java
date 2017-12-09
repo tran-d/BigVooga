@@ -23,11 +23,18 @@ public class ActionCheckBoxVBox<T> extends VBoxList<T> implements ActionCheckBox
 	
 	public ActionCheckBoxVBox(ObservableList<T> options,List<T> selectedOptions) {
 		this(options);
+		System.out.println("Starting, with selected options " + selectedOptions);
+		ObservableList<CheckBox> tempCheckBoxes = FXCollections.observableArrayList(checkBoxes);
 		for(T selectedOption : selectedOptions) {
-			for(CheckBox checkBox : checkBoxes) {
-				if(checkBox.getText().equals(selectedOption.toString())) checkBox.setSelected(true);
-				break;
-			}
+			int selInt = Integer.parseInt((String) selectedOption);
+			System.out.println("selInt " + selInt);
+			tempCheckBoxes.get(selInt - 1).setSelected(true);
+			System.out.println(tempCheckBoxes.size());
+		}
+		checkBoxes.setAll(tempCheckBoxes);
+		System.out.println("Starting, seeing private checkbox list");
+		for(CheckBox checkBox : checkBoxes) {
+			System.out.println("checkbox is selected" + checkBox.isSelected());
 		}
 	}
 

@@ -30,8 +30,10 @@ public class ActionTab<T> extends Tab implements ActionTabI<T> {
 	
 	public ActionTab(String title,ActionConditionVBox<T> actionConditionVBox,TopToolBar topToolBar) {
 		this(title);
+		mainVBox.getChildren().removeAll(this.actionConditionVBox,this.buttons);
 		this.actionConditionVBox = actionConditionVBox;
 		buttons = topToolBar;
+		mainVBox.getChildren().addAll(this.buttons,this.actionConditionVBox);
 	}
                                                                                                                                                                                                                                                                           
 	private void setUpActionConditionManager(String title) {

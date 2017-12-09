@@ -24,7 +24,9 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 	public ConditionRow(int ID,String label,String selectorLabel, String selectedCondition, ObservableList<Integer> newActionOptions,
 			List<Integer> selectedActionOptions,ConditionVBox<ConditionRow> ACVBox) {
 		this(ID,label,selectorLabel,selectedCondition,newActionOptions,ACVBox);
+		getItems().remove(actionCheckBoxVBox);
 		actionCheckBoxVBox = new ActionCheckBoxVBox<Integer>(newActionOptions,selectedActionOptions);
+		getItems().add(actionCheckBoxVBox);
 	}
 	
 	@Override

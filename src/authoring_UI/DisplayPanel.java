@@ -49,6 +49,8 @@ public class DisplayPanel extends VBox {
 	private static final String ACTIONCONDITIONTITLES_PATH = "TextResources/ConditionActionTitles";
 	private static final double DISPLAY_PANEL_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH/2 - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH-155;
 	private static final double DISPLAY_PANEL_HEIGHT = WelcomeScreen.HEIGHT/2;
+	private static final int CONDITIONTAB_INDEX = 2;
+	private static final int ACTIONTAB_INDEX = 3;
 	
 	public static final ResourceBundle conditionActionTitles = ResourceBundle.getBundle(ACTIONCONDITIONTITLES_PATH);
 
@@ -297,6 +299,9 @@ public class DisplayPanel extends VBox {
 			mySParameterTAI.create(activeCell);
 			applyButtonController.updateActionConditionTabs(conditions,actions,activeCell);
 			controllerConditionActionTabs = new ControllerConditionActionTabs(conditions,actions);
+			mySpriteTabs.getTabs().set(CONDITIONTAB_INDEX,conditions);
+			mySpriteTabs.getTabs().set(ACTIONTAB_INDEX, actions);
+			
 			if (!myAEM.multipleActive()){	
 //				mySInventoryTAI.setSpriteObjectAndUpdate(activeCell);
 //				mySUtilityTAI.setSpriteObjectAndUpdate(activeCell);
