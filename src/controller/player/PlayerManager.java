@@ -8,6 +8,7 @@ import engine.EngineController;
 import engine.sprite.Displayable;
 import engine.sprite.DisplayableImage;
 import gui.player.GameDisplay;
+import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 
 /**
@@ -15,7 +16,7 @@ import javafx.scene.input.KeyCode;
  * contains the GameMaster engine class) and communication-specific methods within them to pass any user input from the player, handle it
  * accordingly in the engine, and then pass the changed objects back to the player.
  * 
- * @author Samarth and Ian
+ * @author Samarth, Ian, and Aaron
  *
  */
 public class PlayerManager {
@@ -30,6 +31,8 @@ public class PlayerManager {
 	private boolean prevPrimaryButtonDown = false;
 	private double clickX;
 	private double clickY;
+	private double mouseX;
+	private double mouseY;
 	private int id;
 	
 	/**
@@ -164,8 +167,8 @@ public class PlayerManager {
 	 * 
 	 * @param imageData - The list of images to be displayed
 	 */
-	public void setImageData(List<Displayable> imageData) {
-		gameDisplay.setUpdatedImages(imageData);
+	public void setImageData(List<Displayable> images, double cameraXTranslate, double cameraYTranslate) {
+		gameDisplay.setUpdatedDisplayables(images, cameraXTranslate, cameraYTranslate);
 	}
 	
 	/**
@@ -182,6 +185,28 @@ public class PlayerManager {
 	 */
 	public void stop() {
 		engineController.stop();
+	}
+
+	/**
+	 * Sets the current position of the mouse.
+	 * 
+	 * Called by GameDisplay any time the mouse moves.
+	 * 
+	 * @param x
+	 * @param y
+	 */
+	public void setMouseXY(double x, double y) {
+		mouseX = x;
+		mouseY = y;
+	}
+	
+	/**
+	 * Returns a vector of the xy-coordinates of the mouse.
+	 * 
+	 * @return Vector of xy-coordinates of the mouse.
+	 */
+	public Point2D getMouseXY() {
+		return new Point2D(mouseX, mouseY);
 	}
 	
 }

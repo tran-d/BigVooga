@@ -28,6 +28,9 @@ public abstract class VariableContainer {
 	protected Map<String, List<String>> stringListVars;
 
 	protected Map<String, Boolean> booleanVars;
+	
+	protected Map<String, GameObject> inventory;
+	protected VariableContainer holder;
 
 	public VariableContainer() {
 		doubleVars = new HashMap<String, Double>();
@@ -39,7 +42,9 @@ public abstract class VariableContainer {
 		stringListVars = new HashMap<String, List<String>>();
 
 		booleanVars = new HashMap<String, Boolean>();
-
+		
+		inventory = new HashMap<String, GameObject>();
+		holder = null;
 	}
 
 	public double getDouble(String key) {
@@ -72,9 +77,6 @@ public abstract class VariableContainer {
 		return DEFAULT_BOOLEAN;
 	}
 
-
-	
-
 	public void setDoubleVariable(String name, double val) {
 		doubleVars.put(name, val);
 	}
@@ -98,5 +100,12 @@ public abstract class VariableContainer {
 	public void setBooleanVariable(String name, boolean val) {
 		booleanVars.put(name, val);
 	}
-
+	
+	public void setGameObjectVariable(String name, GameObject val) {
+		inventory.put(name, val);
+	}
+	
+	public void setHolder(VariableContainer holder) {
+		this.holder = holder;
+	}
 }

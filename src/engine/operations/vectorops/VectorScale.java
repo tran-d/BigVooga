@@ -1,7 +1,7 @@
 package engine.operations.vectorops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import engine.operations.doubleops.DoubleOperation;
 import javafx.geometry.Point2D;
 
@@ -21,7 +21,7 @@ public class VectorScale implements VectorOperation{
 	}
 
 	@Override
-	public Point2D evaluate(GameObject asking, Layer world) {
+	public Point2D evaluate(GameObject asking, GameObjectEnvironment world) {
 		// TODO Auto-generated method stub
 		return vector.evaluate(asking, world).multiply(scalar.evaluate(asking, world));
 	}

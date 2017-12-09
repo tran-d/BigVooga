@@ -86,7 +86,7 @@ public class RPGDemo extends Application {
 		
 		GameLayer layer = new GameLayer("Layer");
 		layer.setBlueprints(blueprints);
-		layer.addGameObject(obj1);
+		layer.addElement(obj1);
 		for(int j = 0; j < 8; j++)
 		{
 			layer.addGameObject("Wall", 32, 32+64*j, 0);
@@ -103,7 +103,7 @@ public class RPGDemo extends Application {
 		
 		GameMaster master = new GameMaster();
 		master.addWorld(w);
-		master.setCurrentWorld("World");
+		master.setNextWorld("World");
 		try {
 			new GameDataHandler("Demo_RPG").saveGame(master);
 		} catch (IOException e) {
@@ -149,22 +149,22 @@ public class RPGDemo extends Application {
 		
 		actions1 = new ArrayList<Action>();
 		actions1.add(new RemoveIntersection());
-		obj.addConditionAction(new Collision(2, "Solid"), actions1);
+		obj.addConditionAction(new CollisionByTag(2, "Solid"), actions1);
 		actions1 = new ArrayList<Action>();
 		actions1.add(new RemoveIntersection());
-		obj.addConditionAction(new Collision(3, "Solid"), actions1);
+		obj.addConditionAction(new CollisionByTag(3, "Solid"), actions1);
 		actions1 = new ArrayList<Action>();
 		actions1.add(new RemoveIntersection());
-		obj.addConditionAction(new Collision(4, "Solid"), actions1);
+		obj.addConditionAction(new CollisionByTag(4, "Solid"), actions1);
 		
 		
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Create("Brick", 272, 640, 0));
-		obj.addConditionAction(new And(1, new KeyPressed(1, "Space"), new Collision(1,"Solid")), actions1);
+		obj.addConditionAction(new And(1, new KeyPressed(1, "Space"), new CollisionByTag(1,"Solid")), actions1);
 		
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Create("Empty", 272, 640, 0));
-		obj.addConditionAction(new And(1, new KeyPressed(1, "Space"), new Not(1, new Collision(1,"Solid"))), actions1);
+		obj.addConditionAction(new And(1, new KeyPressed(1, "Space"), new Not(1, new CollisionByTag(1,"Solid"))), actions1);
 		
 
 	}
@@ -172,8 +172,8 @@ public class RPGDemo extends Application {
 	private void conditionAction2(GameObject obj) {
 		List<Action> actions1 = new ArrayList<Action>();
 		actions1.add(new RemoveIntersection());
-		obj.addConditionAction(new Collision(3, "Ob1"), actions1);
-		obj.addConditionAction(new Collision(4, "Ob2"), actions1);
+		obj.addConditionAction(new CollisionByTag(3, "Ob1"), actions1);
+		obj.addConditionAction(new CollisionByTag(4, "Ob2"), actions1);
 	}
 	
 	private void conditionAction3(GameObject obj)

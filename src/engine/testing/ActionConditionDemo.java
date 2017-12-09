@@ -91,9 +91,9 @@ public class ActionConditionDemo extends Application {
 		sprite.addAnimationSequence(animation);
 		sprite.setAnimation("Animation");
 
-		layer.addGameObject(obj1);
-		layer.addGameObject(obj2);
-		layer.addGameObject(obj3);
+		layer.addElement(obj1);
+		layer.addElement(obj2);
+		layer.addElement(obj3);
 		layer.setBlueprints(blueprints);
 		
 		GameWorld w = new GameWorld("World");
@@ -101,7 +101,7 @@ public class ActionConditionDemo extends Application {
 		
 		GameMaster master = new GameMaster();
 		master.addWorld(w);
-		master.setCurrentWorld("World");
+		master.setNextWorld("World");
 		try {
 			new GameDataHandler("Actions Conditions Demo").saveGame(master);
 		} catch (IOException e) {
@@ -109,7 +109,7 @@ public class ActionConditionDemo extends Application {
 		}
 		
 		try {
-			new GameDataHandler("Actions Conditions Demo").loadGame().setCurrentWorld("World");
+			new GameDataHandler("Actions Conditions Demo").loadGame().setNextWorld("World");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -181,17 +181,17 @@ public class ActionConditionDemo extends Application {
 	private void conditionAction2(GameObject obj) {
 		List<Action> actions1 = new ArrayList<Action>();
 		actions1.add(new RemoveIntersection());
-		obj.addConditionAction(new Collision(3, "Ob1"), actions1);
-		obj.addConditionAction(new Collision(4, "Ob2"), actions1);
-		obj.addConditionAction(new Collision(5, "Ob3"), actions1);
+		obj.addConditionAction(new CollisionByTag(3, "Ob1"), actions1);
+		obj.addConditionAction(new CollisionByTag(4, "Ob2"), actions1);
+		obj.addConditionAction(new CollisionByTag(5, "Ob3"), actions1);
 	}
 	
 	private void conditionAction3(GameObject obj) {
 		List<Action> actions1 = new ArrayList<Action>();
 		actions1.add(new RemoveIntersection());
-		obj.addConditionAction(new Collision(3, "Ob1"), actions1);
-		obj.addConditionAction(new Collision(4, "Ob2"), actions1);
-		obj.addConditionAction(new Collision(5, "Ob3"), actions1);
+		obj.addConditionAction(new CollisionByTag(3, "Ob1"), actions1);
+		obj.addConditionAction(new CollisionByTag(4, "Ob2"), actions1);
+		obj.addConditionAction(new CollisionByTag(5, "Ob3"), actions1);
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Destroy("Ob3"));
 		obj.addConditionAction(new ObjectClicked(1), actions1);

@@ -1,7 +1,7 @@
 package engine.operations.vectorops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 import javafx.geometry.Point2D;
 
 /**
@@ -18,7 +18,7 @@ public class VectorDifference implements VectorOperation {
 	}
 
 	@Override
-	public Point2D evaluate(GameObject asking, Layer world) {
+	public Point2D evaluate(GameObject asking, GameObjectEnvironment world) {
 		return first.evaluate(asking, world).subtract(second.evaluate(asking, world));
 	}
 }

@@ -450,7 +450,7 @@ public class WelcomeScreen {
 	 */
 	private void handleCreateSelection() {
 		if (!clickEnabled) { return; }
-		sceneController.switchScene(SceneController.CREATE_KEY);
+		sceneController.switchScene(SceneController.FILE_SELECTOR_KEY);
 	}
 	
 	/**

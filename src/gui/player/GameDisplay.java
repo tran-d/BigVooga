@@ -7,19 +7,24 @@ import controller.player.PlayerManager;
 import controller.welcomeScreen.SceneController;
 import engine.sprite.Displayable;
 import engine.sprite.DisplayableImage;
+import engine.sprite.DisplayableText;
 import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.WelcomeScreen;
+import javafx.scene.Group;
 import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -60,6 +65,7 @@ public class GameDisplay {
 		sceneController = currentSceneController;
 		scene = new Scene(rootPane, WelcomeScreen.WIDTH, WelcomeScreen.HEIGHT);
 		camera = new ParallelCamera();
+		scene.setCamera(camera);
 	}
 
 	/**
@@ -70,7 +76,7 @@ public class GameDisplay {
 		scene.setOnKeyReleased(e -> playerManager.setKeyReleased(e.getCode()));
 		scene.setOnMousePressed(e -> playerManager.setPrimaryButtonDown(e.getX(), e.getY()));
 		scene.setOnMouseReleased(e -> playerManager.setPrimaryButtonUp(e.getX(), e.getY()));
-
+		scene.setOnMouseMoved(e -> playerManager.setMouseXY(e.getX(), e.getY()));
 		scene.setCamera(camera);
 
 		createBack();
@@ -123,16 +129,15 @@ public class GameDisplay {
 	 * @param imageData
 	 *            - The list of objects for the player to display
 	 */
-	public void setUpdatedImages(List<Displayable> imageData) {
-		// TODO; takes in new image file name, location, and size for all objects
+	public void setUpdatedDisplayables(List<Displayable> images, double cameraXTranslate, double cameraYTranslate) {
 		gamePane.getChildren().clear();
-
-		for (Displayable d : imageData) {
+		for (Displayable d : images) {
 			d.visit(this);
 		}
+		camera.relocate(cameraXTranslate, cameraYTranslate);
 	}
 
-	public void updateImages(DisplayableImage image) {
+	public void displayImage(DisplayableImage image) {
 		ImageView gameImage = null;
 		try {
 			gameImage = new ImageView(gameDataHandler.getImage(image.getFileName()));
@@ -147,6 +152,21 @@ public class GameDisplay {
 		gameImage.setX(image.getX() - image.getWidth() / 2);
 		gameImage.setY(image.getY() - image.getHeight() / 2);
 		gamePane.getChildren().add(gameImage);
+	}
+	
+	public void displayText(DisplayableText displayableText) {
+		Text text = new Text(displayableText.getText());
+		text.setWrappingWidth(displayableText.getWidth());
+		text.setRotate(displayableText.getHeading());
+		text.setFont(new Font(displayableText.getFont(), displayableText.getFontSize()));
+		text.setStroke(Color.web(displayableText.getColor()));
+		HBox box = new HBox(text);
+		Group g = new Group(box);
+		g.applyCss();
+	    g.layout();
+		g.setLayoutX(displayableText.getX()-box.getWidth()/2);
+		g.setLayoutY(displayableText.getY()-box.getHeight()/2);
+		gamePane.getChildren().add(g);
 	}
 
 	/**
