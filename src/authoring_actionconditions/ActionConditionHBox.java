@@ -30,7 +30,7 @@ public class ActionConditionHBox extends HBox implements TopToolBarI {
 			String edit, String remove) {
 		super();
 		
-		this.setAlignment(Pos.CENTER);
+		this.setAlignment(Pos.BOTTOM_CENTER);
 		this.setPadding(new Insets(5, 0, 5, 5));
 		this.setSpacing(5);
 		this.setPrefWidth(560);

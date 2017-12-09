@@ -75,7 +75,7 @@ public class HUDManager {
 		SPanels = new SpritePanels(SGH, myAEM);
 		SGH.setDisplayPanel(SPanels);
 		spriteSideGridScrollPane = new ScrollPane();
-		spriteSideVbox = new VBox(10);
+		spriteSideVbox = new VBox();
 		editorList = new ArrayList<>();
 		hb = new HBox(NODE_SPACING);
 		hb.setPrefSize(MapManager.VIEW_WIDTH, MapManager.VIEW_HEIGHT);

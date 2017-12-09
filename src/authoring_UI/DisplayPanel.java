@@ -1,7 +1,6 @@
 package authoring_UI;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -12,18 +11,14 @@ import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObject;
 import authoring.SpriteParameterI;
 import authoring.SpriteParameterSidebarManager;
-import authoring.SpriteSetHelper;
 import authoring_actionconditions.ActionConditionTab;
 import authoring_actionconditions.ControllerConditionActionTabs;
-import gui.welcomescreen.WelcomeScreen;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
@@ -216,7 +211,7 @@ public class DisplayPanel extends VBox {
 	private void createParameterCategoryTabs() {
 		// mySPTAI.createCategoryTabs();
 		myParamTabs = mySParameterTAI.getTabPane();
-
+		
 		// myParamTabs = new TabPane();
 		// myParamTabs.setSide(Side.RIGHT);
 		// myParamTabs.setPrefHeight(500);

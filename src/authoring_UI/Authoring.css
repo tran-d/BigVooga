@@ -86,10 +86,6 @@
     -fx-background-insets: 0 0 0.5px 0;
 }
 
-.text{
-	-fx-text-fill: #47BDFF;
-}
-
 .menu-button{
 	-fx-border-color: #47BDFF;
 	-fx-background-color: transparent;
@@ -175,4 +171,5 @@
 
 #InventoryTabPane {
 	-fx-border-color: blue-color blue-color transparent transparent;
+	-fx-background-color: #001E32;
 }
