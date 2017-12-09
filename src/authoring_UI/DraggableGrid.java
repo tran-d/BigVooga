@@ -19,6 +19,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -71,11 +72,18 @@ public class DraggableGrid extends VBox {
 	private void createGrid(SpriteGridHandler spriteGridHandler) {
 		myStackPane = new StackPane();
 		myStackPane.setAlignment(Pos.CENTER);
+		
 		for (SpriteObjectGridManager ml: allGrids){
 			myStackPane.getChildren().add(ml.getMapLayer());
 			makeLayerButton(ml);
 			showLayer(ml);
 		}
+//		Image image = new Image("pikachu.png");
+//		ImageView iv = new ImageView(image);
+//		iv.setFitHeight(myStackPane.getHeight());
+//		iv.setFitWidth(myStackPane.getWidth());
+//		myStackPane.getChildren().add(iv);
+		
 		addChangeRowsNumberSpinner();
 		addChangeColumnsNumberSpinner();
 		ScrollPane scrollGrid = new ScrollPane(myStackPane);

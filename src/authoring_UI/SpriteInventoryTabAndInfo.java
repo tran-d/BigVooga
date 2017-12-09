@@ -3,6 +3,7 @@ package authoring_UI;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
@@ -10,11 +11,12 @@ import authoring.AbstractSpriteObject;
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteSetHelper;
 import authoring.SpriteThumbnail;
-
+import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -136,8 +138,29 @@ public class SpriteInventoryTabAndInfo {
 
 	private List<AbstractSpriteObject> triggerPopUpOfInventoryToChoose() {
 		// SpriteInventoryTabAndInfo dummy = new SpriteInventoryTabAndInfo();
-		SpriteScrollView SSV = new SpriteScrollView();
-		SSV.setChildOnClickAction(pane -> {
+//		SpriteScrollView SSV = new SpriteScrollView();
+//		SSV.setChildOnClickAction(pane -> {
+//			if (pane instanceof SpriteThumbnail) {
+//				SpriteThumbnail ST = (SpriteThumbnail) pane;
+//				ST.isClicked(!ST.isClicked());
+//				if (ST.isClicked()) {
+//					SSV.addToSpriteList(ST.getSprite());
+//				} else {
+//					SSV.removeFromSpriteList(ST.getSprite());
+//				}
+//			}
+//		});
+//		SSV.addToVBox(myAEM.getEveryTypeOfSpriteAsThumbnails());
+//		VBox vb = new VBox(10);
+		TabPane tp = new TabPane();
+		tp.setSide(Side.TOP);
+		tp.setId("InventoryTabPane");
+		Map<String, List<Pane>> panes = myAEM.getEveryTypeOfSpriteAsThumbnails();
+		panes.forEach((key, value) -> {
+			Tab tab = new Tab(key);
+			SpriteScrollView SSV = new SpriteScrollView();
+			SSV.addToVBox(value);
+			SSV.setChildOnClickAction(pane -> {
 			if (pane instanceof SpriteThumbnail) {
 				SpriteThumbnail ST = (SpriteThumbnail) pane;
 				ST.isClicked(!ST.isClicked());
@@ -148,7 +171,17 @@ public class SpriteInventoryTabAndInfo {
 				}
 			}
 		});
-		SSV.addToVBox(myAEM.getEveryTypeOfSpriteAsThumbnails());
+		tab.setContent(SSV);
+			tp.getTabs().add(tab);
+			// ScrollPane SP = new ScrollPane();
+			// VBox VB = new VBox(5);
+			// value.forEach(pane->);
+		});
+//		vb.getChildren().add(tp);
+		
+		
+		
+		
 
 		final Stage dialog = new Stage();
 		dialog.initModality(Modality.APPLICATION_MODAL);
@@ -161,13 +194,18 @@ public class SpriteInventoryTabAndInfo {
 		dialog.initOwner(s.getWindow());
 		// VBox dialogVbox = new VBox(20);
 		// dialogVbox.getChildren().add(new Text("This is a Dialog"));
-		Scene dialogScene = new Scene(SSV, 600, 400);
+		Scene dialogScene = new Scene(tp, 600, 400);
 		dialog.setScene(dialogScene);
 		
 		// dialog.show();
 		dialog.showAndWait();
 		// dialog.setOnCloseRequest
-		return SSV.getSpriteList();
+		List<AbstractSpriteObject>  ret = new ArrayList<AbstractSpriteObject>();
+		tp.getTabs().forEach((tab)->{
+			SpriteScrollView SSV = (SpriteScrollView) tab.getContent();
+			ret.addAll(SSV.getSpriteList());
+		});
+		return ret;
 
 	}
 
