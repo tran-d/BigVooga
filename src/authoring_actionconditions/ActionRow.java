@@ -68,7 +68,7 @@ public class ActionRow extends ActionConditionRow {
 		actionFactory = new ActionFactory();
 		operationFactory = new OperationFactory();
 
-		actionTreeView = makeActionTreeView();
+		actionTreeView = makeTreeView();
 		actionTreeView.setPrefSize(TREE_VIEW_WIDTH, EXPANDED_HEIGHT);
 
 		this.getItems().addAll(actionTreeView);
@@ -97,7 +97,7 @@ public class ActionRow extends ActionConditionRow {
 	public void extract() {
 		// ActionProcessor p = new ActionProcessor(actionTreeView, categoryAction,
 		// actionAction);
-//		actionName.extract();
+		actionName.extract();
 //		try {
 //
 //			for (String s : actionParameterTypes) {
@@ -115,7 +115,7 @@ public class ActionRow extends ActionConditionRow {
 
 	/***************************** ACTIONS ******************************/
 
-	private TreeView<HBox> makeActionTreeView() {
+	private TreeView<HBox> makeTreeView() {
 		categoryAction = makeActionCategoryTreeItem();
 		TreeView<HBox> tv = new TreeView<HBox>(categoryAction);
 		return tv;
@@ -150,7 +150,7 @@ public class ActionRow extends ActionConditionRow {
 		return cb;
 	}
 
-	private TreeItem<HBox> makeActionTreeItem(String category) {
+	private TreeItem<HBox> makeActionNameTreeItem(String category) {
 		HBox hb = new HBox();
 		hb.getChildren().addAll(new Label("Choose Action: "), makeActionNameChoiceBox(category));
 		actionAction = new TreeItem<HBox>(hb);

@@ -9,6 +9,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.layout.HBox;
 import tools.DisplayLanguage;
 
@@ -19,8 +20,10 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 	private static final String INVALID_INPUT_MESSAGE = "InvalidInput";
 	private static final String DOUBLE_INPUT_MESSAGE = "EnterDouble";
 
-	private TextField doubleTF;
-	private TextField stringTF;
+	private TextField doubleParameterTF;
+	private TextField stringParameterTF;
+	private OperationNameTreeItem operationNameTreeItem;
+	private ObservableList<String> operationParameters;
 
 	private OperationFactory operationFactory = new OperationFactory();
 
@@ -28,9 +31,19 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 
 		this.makeParameterOperationTreeItem(selectedOperation);
 	}
-	
-	public Node getItem() {
-		return null;
+
+	public String getParameter() {
+
+		// can return null
+
+		if (doubleParameterTF != null)
+			return doubleParameterTF.getText();
+		else if (stringParameterTF != null)
+			return stringParameterTF.getText();
+		else if (operationNameTreeItem != null)
+			return operationNameTreeItem.getSelectedOperation();
+		else
+			return "";
 	}
 
 	private TreeItem<HBox> makeParameterOperationTreeItem(String selectedOperation) {
@@ -42,79 +55,45 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 		return this;
 	}
 
-	private void makeOperationParameterChildren(String selectedOperation, TreeItem<HBox> parameterOperation, HBox hb) {
+	private void makeOperationParameterChildren(String selectedOperation, TreeItem<HBox> operationParameter, HBox hb) {
 
 		if (selectedOperation.equals(INPUT_A_DOUBLE)) {
-			doubleTF = createDoubleTextField(parameterOperation);
-			hb.getChildren().addAll(doubleTF);
+			doubleParameterTF = createDoubleTextField(operationParameter);
+			hb.getChildren().addAll(doubleParameterTF);
 
 		} else if (selectedOperation.equals(INPUT_A_STRING)) {
-			stringTF = createStringTextField(parameterOperation);
-			hb.getChildren().addAll(stringTF);
+			stringParameterTF = createStringTextField(operationParameter);
+			hb.getChildren().addAll(stringParameterTF);
 		}
 
 		else {
-			hb.getChildren().add(new Label("Choose Operation Parameter(s): "));
+			operationParameters = FXCollections.observableList(operationFactory.getParameters(selectedOperation));
+			System.out.println("Op Params: " + operationParameters);
 
-			ObservableList<String> parameters = FXCollections
-					.observableList(operationFactory.getParameters(selectedOperation));
+			if (!operationParameters.isEmpty()) {
 
-			System.out.println("Op Params: " + parameters);
+				hb.getChildren().add(new Label("Choose Operation Parameter(s): "));
 
-			// hb.getChildren().add(new Label("[ "));
-			//
-			// for (String param : parameters) {
-			// hb.getChildren().add(new Label(param + " "));
-			// parameterOperation.getChildren().add(makeOperationCategoryTreeItem(param));
-			// }
-			//
-			// hb.getChildren().add(new Label("]"));
+				hb.getChildren().add(new Label("[ "));
 
-			hb.getChildren().add(new Label("[ "));
+				for (String opParam : operationParameters) {
 
-			for (String param : parameters) {
-				hb.getChildren().add(new Label(param + " "));
+					hb.getChildren().add(new Label(opParam + " "));
 
-				TreeItem<HBox> paramTV = new OperationNameTreeItem(param);
+					operationNameTreeItem = new OperationNameTreeItem(opParam);
+					operationParameter.getChildren().add(operationNameTreeItem);
+				}
 
-				// if (param.equals("Double")) {
-				// TextField tf = new TextField();
-				// TreeItem<HBox> tfTreeItem = new TreeItem<HBox>(new HBox(new Label("Insert
-				// Double: "), tf));
-				// parameterOperation.getChildren().add(tfTreeItem);
-				// tf.setOnKeyReleased(e -> {
-				// checkDoubleInput(tf);
-				// checkEmptyInput(tf, parameterOperation, paramTV,
-				// parameterOperation.getChildren().indexOf(tfTreeItem));
-				// });
-				// } else if (param.equals("String")) {
-				// TextField tf = new TextField();
-				// TreeItem<HBox> tfTreeItem = new TreeItem<HBox>(new HBox(new Label("Insert
-				// String: "), tf));
-				// parameterOperation.getChildren().add(tfTreeItem);
-				// tf.setOnKeyReleased(e -> {
-				// checkEmptyInput(tf, parameterOperation, paramTV,
-				// parameterOperation.getChildren().indexOf(tfTreeItem));
-				// });
-				// }
-
-				parameterOperation.getChildren().add(paramTV);
-
+				hb.getChildren().add(new Label("]"));
 			}
 
-			hb.getChildren().add(new Label("]"));
 		}
-
 	}
 
 	private TextField createDoubleTextField(TreeItem<HBox> treeItem) {
 		TextField tf = new TextField();
-		// TreeItem<HBox> tfTreeItem = new TreeItem<HBox>(new HBox(tf));
-		// treeItem.getChildren().add(tfTreeItem);
 		tf.setOnKeyReleased(e -> {
 			checkDoubleInput(tf);
-			// checkEmptyInput(tf, parameterAction, paramTV,
-			// parameterAction.getChildren().indexOf(tfTreeItem));
 		});
 
 		return tf;
@@ -123,11 +102,7 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 
 	private TextField createStringTextField(TreeItem<HBox> treeItem) {
 		TextField tf = new TextField();
-		// TreeItem<HBox> tfTreeItem = new TreeItem<HBox>(new HBox(tf));
-		// treeItem.getChildren().add(tfTreeItem);
-		tf.setOnKeyReleased(e -> {
-			// checkEmptyInput(tf, parameterAction, paramTV,
-			// parameterAction.getChildren().indexOf(tfTreeItem));
+		tf.setOnKeyReleased(e -> { // do nothing
 		});
 
 		return tf;
