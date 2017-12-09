@@ -23,7 +23,6 @@ public class DisplayablePane implements Displayable {
 	@Override
 	public void visit(GameDisplay display) {
 		display.displayImage(paneImage);
-		
 		Double inventoryX = paneImage.getX();
 		Double inventoryY = paneImage.getY();
 		Double inventoryWidth  = paneImage.getWidth();
@@ -41,6 +40,7 @@ public class DisplayablePane implements Displayable {
 				display.displayImage(h);
 			}
 		}
+		
 		//TODO: display scrollers
 	}
 
