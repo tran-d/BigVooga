@@ -3,6 +3,8 @@ package engine.Actions.changeObject;
 import engine.Action;
 import engine.GameObject;
 import engine.GameObjectEnvironment;
+import engine.operations.VoogaAnnotation;
+import engine.operations.VoogaType;
 import engine.operations.gameobjectops.GameObjectOperation;
 
 /**
@@ -14,7 +16,7 @@ public class RemoveFromWorld implements Action {
 
 	private GameObjectOperation objectToDestroy;
 	
-	public RemoveFromWorld(GameObjectOperation objectToDestroy) {
+	public RemoveFromWorld(@VoogaAnnotation(name = "Sprite", type = VoogaType.GAMEOBJECT) GameObjectOperation objectToDestroy) {
 		this.objectToDestroy = objectToDestroy;
 	}
 	

@@ -2,6 +2,8 @@ package engine.operations.booleanops;
 
 import engine.GameObject;
 import engine.GameObjectEnvironment;
+import engine.operations.VoogaAnnotation;
+import engine.operations.VoogaType;
 import engine.operations.gameobjectops.Get;
 import engine.operations.stringops.StringOperation;
 
@@ -14,7 +16,7 @@ public class CollisionByTag implements BooleanOperation {
 
 	private StringOperation tag;
 	
-	public CollisionByTag(StringOperation tag) {
+	public CollisionByTag(@VoogaAnnotation(name = "Tag", type = VoogaType.TAG) StringOperation tag) {
 		this.tag = tag;
 	}
 

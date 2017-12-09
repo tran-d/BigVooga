@@ -2,6 +2,7 @@ package engine.Actions;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -12,6 +13,8 @@ import java.util.ResourceBundle;
 import engine.Action;
 import engine.VoogaException;
 import engine.operations.OperationFactory;
+import engine.operations.VoogaAnnotation;
+import engine.operations.VoogaParameter;
 
 /**
  * @author Ian Eldridge-Allegra
@@ -56,11 +59,25 @@ public class ActionFactory {
 		}
 	}
 
+	@Deprecated
 	public List<String> getParameters(String actionName) {
 		List<String> types = new ArrayList<>();
 		try {
 			for (Class<?> parameterType : getConstructor(actionName).getParameterTypes())
 				types.add(operationTypeMap.get(parameterType.getSimpleName()));
+		} catch (ClassNotFoundException e) {
+			throw new VoogaException("ActionNotFound", actionName);
+		}
+		return types;
+	}
+
+	public List<VoogaParameter> getParametersWithNames(String actionName) {
+		List<VoogaParameter> types = new ArrayList<>();
+		try {
+			for (Parameter parameter : getConstructor(actionName).getParameters()) {
+				types.add(new VoogaParameter(parameter.getAnnotation(VoogaAnnotation.class).name(),
+						parameter.getAnnotation(VoogaAnnotation.class).type()));
+			}
 		} catch (ClassNotFoundException e) {
 			throw new VoogaException("ActionNotFound", actionName);
 		}

@@ -46,6 +46,7 @@ public class OperationFactory {
 		}
 	}
 
+	@Deprecated
 	public List<String> getParameters(String operationName) throws VoogaException {
 		List<String> types = new ArrayList<>();
 		try {
@@ -58,28 +59,38 @@ public class OperationFactory {
 		return types;
 	}
 	
-	public List<Pair<String,String>> getParametersWithNames(String operationName) throws VoogaException {
-		List<Pair<String,String>> types = new ArrayList<>();
+	public List<VoogaParameter> getParametersWithNames(String operationName) throws VoogaException {
+		List<VoogaParameter> types = new ArrayList<>();
 		try {
 			for (Parameter parameter : getConstructor(operationName).getParameters()) {
-				types.add(new Pair<>(parTypeToBasicName.get(parameter.getType().getSimpleName()), decamel(parameter.getName())));
+				types.add(new VoogaParameter(parameter.getAnnotation(VoogaAnnotation.class).name(), parameter.getAnnotation(VoogaAnnotation.class).type()));
 			}
 		} catch (ClassNotFoundException e) {
 			throw new VoogaException("ClassNotFoundFor", operationName);
 		}
 		return types;
 	}
+	
+//
+//	private String decamel(String name) {
+//		name = name.replaceAll("([a-z])([A-Z])", "$1 $2");
+//		name = name.substring(0, 1).toUpperCase()+name.substring(1);
+//		return name;
+//	}
 
-	private String decamel(String name) {
-		name = name.replaceAll("([a-z])([A-Z])", "$1 $2");
-		name = name.substring(0, 1).toUpperCase()+name.substring(1);
-		return name;
-	}
-
+	@Deprecated
 	public List<String> getOperations(String operationType) {
+		return operations(operationType);
+	}
+	
+	private List<String> operations(String operationType) {
 		if (operationsByType.containsKey(operationType))
 			return Collections.list(operationsByType.get(operationType).getKeys());
 		return new ArrayList<>();
+	}
+	
+	public List<String> getOperations(VoogaParameter parameter) {
+		return operations(parameter.getType().getEngineType());
 	}
 
 	private void populateMaps() {
