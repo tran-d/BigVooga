@@ -19,9 +19,9 @@ public class GameLayer implements Layer {
 	public final static String PLAYER_TAG = "Player";
 	
 	private String worldName;
-	private List<GameObject> worldObjects;
-	private Map<Integer, List<GameObject>> conditionPriorities = new ConcurrentSkipListMap<>();
-	private Map<Integer, GameObject> idToGameObject = new HashMap<>();
+	private List<Element> worldElements;
+	private Map<Integer, List<Element>> conditionPriorities = new ConcurrentSkipListMap<>();
+	private Map<Integer, Element> idToGameObject = new HashMap<>();
 	private GlobalVariables globalVars;
 	//private GameObjectFactory GameObjectFactory;
 	private PlayerManager input;
@@ -35,19 +35,19 @@ public class GameLayer implements Layer {
 	
 	public GameLayer(String name) {
 		worldName = name;
-		worldObjects = new ArrayList<>();
+		worldElements = new ArrayList<>();
 	}
 
 	@Override
-	public void addGameObject(GameObject obj) {
-		worldObjects.add(obj);
+	public void addElement(Element obj) {
+		worldElements.add(obj);
 		idToGameObject.put(obj.getUniqueID(), obj);
 		for(Integer i : obj.getPriorities()) {
 			if(conditionPriorities.containsKey(i)) {
 				conditionPriorities.get(i).add(obj);
 			}
 			else {
-				List<GameObject> objects = new ArrayList<>();
+				List<Element> objects = new ArrayList<>();
 				objects.add(obj);
 				conditionPriorities.put(i, objects);
 			}
@@ -55,15 +55,15 @@ public class GameLayer implements Layer {
 	}
 	
 	@Override
-	public void addGameObjects(List<GameObject> obj) {
-		for(GameObject o : obj) {
-			addGameObject(o);
+	public void addElements(List<Element> obj) {
+		for(Element o : obj) {
+			addElement(o);
 		}
 	}
 
 	@Override
-	public void removeGameObject(GameObject obj) {
-		worldObjects.remove(obj);
+	public void removeElement(Element obj) {
+		worldElements.remove(obj);
 		idToGameObject.remove(obj.getUniqueID());
 		for(Integer i : obj.getPriorities()) {
 			conditionPriorities.get(i).remove(obj);
@@ -74,16 +74,16 @@ public class GameLayer implements Layer {
 	}
 	
 	@Override
-	public void removeGameObjects(List<GameObject> obj) {
-		for(GameObject o : obj) {
-			removeGameObject(o);
+	public void removeElements(List<Element> obj) {
+		for(Element o : obj) {
+			removeElement(o);
 		}
 	}
 
 	@Override
-	public List<GameObject> getWithTag(String tag) {
-		List<GameObject> tempList = new ArrayList<>();
-		for (GameObject o : worldObjects) {
+	public List<Element> getWithTag(String tag) {
+		List<Element> tempList = new ArrayList<>();
+		for (Element o : worldElements) {
 			for (String s : o.getTags()) {
 				if (s.equals(tag)) {
 					tempList.add(o);
@@ -94,7 +94,7 @@ public class GameLayer implements Layer {
 		return tempList;
 	}
 	
-	public GameObject getByID(int id) {
+	public Element getByID(int id) {
 		return idToGameObject.get(id);
 	}
 	
@@ -106,7 +106,7 @@ public class GameLayer implements Layer {
 		List<Runnable> runnables = new ArrayList<>();
 		try {
 			for(Integer i: conditionPriorities.keySet()) {
-				for(GameObject obj : conditionPriorities.get(i)) {
+				for(Element obj : conditionPriorities.get(i)) {
 					obj.step(i, this, runnables);
 				}
 				for(Runnable r : runnables) {
@@ -138,9 +138,9 @@ public class GameLayer implements Layer {
 		return input;
 	}
 	
-	public List<GameObject> getAllObjects()
-	{
-		return worldObjects;
+	@Override
+	public List<Element> getAllElements() {
+		return worldElements;
 	}
 
 	@Override
@@ -150,8 +150,8 @@ public class GameLayer implements Layer {
 	}
 
 	@Override
-	public GameObject getWithName(String name) {
-		for(GameObject go : worldObjects) {
+	public Element getWithName(String name) {
+		for(Element go : worldElements) {
 			if(go.getName().equals(name))
 				return go;
 		}
@@ -170,10 +170,7 @@ public class GameLayer implements Layer {
 		GameObject temp = blueprints.getInstanceOf(name);
 		temp.setCoords(x, y);
 		temp.setHeading(heading);
-		addGameObject(temp);
+		addElement(temp);
 	}
-	
-	
-	
 	
 }

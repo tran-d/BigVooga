@@ -67,7 +67,7 @@ public class GameWorld {
 		// TODO Auto-generated method stub
 		List<GameObject> objects = new ArrayList<>();
 		for(GameLayer l: worldLayers){
-			objects.addAll(l.getAllObjects());
+			objects.addAll(l.getAllElements());
 		}
 		return objects;
 	}

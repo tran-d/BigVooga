@@ -44,7 +44,7 @@ public class Holdable extends VariableContainer {
 		return new ArrayList<String>(useOptions.keySet());
 	}
 	
-	public BoundedImage getBounds() {
+	public BoundedImage getDisplayable() {
 		return sprite.getImage();
 	}
 
