@@ -38,6 +38,7 @@ public class ActionRow extends ActionConditionRow {
 	private static final String INPUT_A_DOUBLE = "Input a Double";
 	private static final String INPUT_A_STRING = "Input a String";
 
+	private static String EMPTY_CHOICEBOX = "EmptyChoiceBox";
 	private static final String INVALID_INPUT_MESSAGE = "InvalidInput";
 	private static final String DOUBLE_INPUT_MESSAGE = "EnterDouble";
 
@@ -95,21 +96,11 @@ public class ActionRow extends ActionConditionRow {
 	}
 
 	public void extract() {
-		// ActionProcessor p = new ActionProcessor(actionTreeView, categoryAction,
-		// actionAction);
-		actionName.extract();
-//		try {
-//
-//			for (String s : actionParameterTypes) {
-//				System.out.println(s);
-//			}
-//
-//			for (OperationNameTreeItem opItem : opItemList)
-//				System.out.println("selected op: " + opItem.getSelectedOperation());
-//
-//		} catch (Exception e) {
-//			showError(e.getMessage(), "blah");
-//		}
+		try {
+			actionName.extract();
+		} catch (NullPointerException e) {
+			showError(INVALID_INPUT_MESSAGE, EMPTY_CHOICEBOX);
+		}
 
 	}
 
@@ -391,8 +382,8 @@ public class ActionRow extends ActionConditionRow {
 
 	private void showError(String header, String content) {
 		Alert alert = new Alert(AlertType.ERROR);
-		alert.contentTextProperty().bind(DisplayLanguage.createStringBinding(header));
-		alert.headerTextProperty().bind(DisplayLanguage.createStringBinding(content));
+		alert.headerTextProperty().bind(DisplayLanguage.createStringBinding(header));
+		alert.contentTextProperty().bind(DisplayLanguage.createStringBinding(content));
 		alert.show();
 	}
 

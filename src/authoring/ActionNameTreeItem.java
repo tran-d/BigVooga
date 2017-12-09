@@ -12,17 +12,20 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 import tools.DisplayLanguage;
 
 public class ActionNameTreeItem extends TreeItem<HBox> {
 
+	private static String EMPTY_CHOICEBOX = "EmptyChoiceBox";
+	private static final String INVALID_INPUT_MESSAGE = "InvalidInput";
+	private static final String INPUT_A_DOUBLE = "InputInteger";
+
 	private ActionFactory actionFactory = new ActionFactory();
-	private List<String> actionParameterTypes;
 	private List<OperationNameTreeItem> opNameTreeItemList;
 	private List<Operation<?>> operationList = new ArrayList<>();
 	private String selectedAction;
@@ -37,25 +40,20 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 
 	public void extract() {
 
-		for (OperationNameTreeItem opItem : opNameTreeItemList) {
-			operationList.add((Operation<?>) opItem.makeOperation());
+		try {
+			for (OperationNameTreeItem opItem : opNameTreeItemList) {
 
+				operationList.add((Operation<?>) opItem.makeOperation());
+
+			}
+			System.out.println("Making action...");
+			action = actionFactory.makeAction(selectedAction, operationList.toArray());
+			System.out.println(action);
+		} catch (NullPointerException e) {
+			showError(INVALID_INPUT_MESSAGE, EMPTY_CHOICEBOX);
+		} catch (NumberFormatException e) {
+			showError(INVALID_INPUT_MESSAGE, INPUT_A_DOUBLE);
 		}
-		System.out.println("Making action...");
-		action = actionFactory.makeAction(selectedAction, operationList.toArray());
-		System.out.println(action);
-
-		// try {
-		// for (String s : actionParameterTypes) {
-		// System.out.println(s);
-		// }
-		//
-		// for (OperationNameTreeItem opItem : opItemList)
-		// System.out.println("selected op: " + opItem.getSelectedOperation());
-		//
-		// } catch (Exception e) {
-		// showError(e.getMessage(), "blah");
-		// }
 	}
 
 	private TreeItem<HBox> makeActionTreeItem(String actionCategory) {
@@ -80,8 +78,7 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 				// getItems().add(makeParameterChoiceBox(actions.get(newValue.intValue())));
 				actionTreeItem.getChildren().clear();
 				selectedAction = actions.get(cb.getSelectionModel().getSelectedIndex());
-				actionTreeItem.getChildren()
-						.add(makeActionParameterTreeItem(selectedAction));
+				actionTreeItem.getChildren().add(makeActionParameterTreeItem(selectedAction));
 			}
 		});
 		return cb;
@@ -99,7 +96,6 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 
 	private void makeActionParameterChildren(String action, TreeItem<HBox> parameterAction, HBox hb) {
 		ObservableList<String> actionParameterTypes = FXCollections.observableList(actionFactory.getParameters(action));
-		this.actionParameterTypes = actionParameterTypes;
 		System.out.println("Params: " + actionParameterTypes);
 		opNameTreeItemList = new ArrayList<>();
 

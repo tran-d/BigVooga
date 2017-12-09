@@ -22,14 +22,13 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 	private static final String INVALID_INPUT_MESSAGE = "InvalidInput";
 	private static final String DOUBLE_INPUT_MESSAGE = "EnterDouble";
 
+	private OperationFactory operationFactory = new OperationFactory();
 	private TextField doubleParameterTF;
 	private TextField stringParameterTF;
 	private OperationNameTreeItem operationNameTreeItem;
 	private ObservableList<String> operationParameters;
 	private String selectedOperation;
 	private List<OperationNameTreeItem> listOfOperations = new ArrayList<>();
-
-	private OperationFactory operationFactory = new OperationFactory();
 
 	public OperationParameterTreeItem(String selectedOperation) {
 		this.selectedOperation = selectedOperation;
@@ -58,7 +57,7 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 
 			listOfStringParams.add(op.makeOperation());
 		}
-		
+
 		for (Object param : listOfStringParams) {
 			System.out.println("Selected operation w/ param: " + selectedOperation + " " + param.toString());
 		}

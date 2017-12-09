@@ -20,10 +20,7 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 	private OperationFactory operationFactory = new OperationFactory();
 	private ChoiceBox<String> operationCB;
 	private OperationParameterTreeItem operationParameterTreeItem;
-
 	private List<OperationParameterTreeItem> opParameterList = new ArrayList<>();
-
-	private String selectedOperation;
 
 	public OperationNameTreeItem(String actionParameter) {
 
@@ -35,17 +32,8 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 		if (operationParameterTreeItem.getNumberOfParameters() == 0) {
 			return operationParameterTreeItem.getParameter();
 		} else {
-			// operationParameterTreeItem.makeOperation();
-			System.out.println("atleast 1 parameter");
+			System.out.println("there's atleast operation parameter choicebox");
 			return operationParameterTreeItem.makeOperation();
-
-			// fix this
-			// System.out.println("Fact: "
-			// + operationFactory.makeOperation(selectedOperation,
-			// operationParameterTreeItem.getParameter()));
-			// return operationFactory.makeOperation(selectedOperation,
-			// operationParameterTreeItem.getParameter());
-
 		}
 
 	}
@@ -80,7 +68,7 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 				System.out.println("Selected: " + operations.get(operationCB.getSelectionModel().getSelectedIndex()));
 				operationName.getChildren().clear();
 
-				selectedOperation = operations.get(operationCB.getSelectionModel().getSelectedIndex());
+//				selectedOperation = operations.get(operationCB.getSelectionModel().getSelectedIndex());
 				operationParameterTreeItem = new OperationParameterTreeItem(
 						operations.get(operationCB.getSelectionModel().getSelectedIndex()));
 				opParameterList.add(operationParameterTreeItem);
