@@ -13,21 +13,33 @@ import javafx.scene.layout.VBox;
 
 public class SpritePanels extends VBox {
 
-	private DisplayPanel displayPanel;
-	private GameElementSelector gameElementSelector;
-	private SpriteParameterSidebarManager SPSM;
+	protected DisplayPanel displayPanel;
+	protected GameElementSelector gameElementSelector;
+	protected SpriteParameterSidebarManager SPSM;
 //	private SpriteSetHelper mySpriteSetHelper;
+	
+	public SpritePanels(){
+		
+	}
 
 	public SpritePanels(SpriteGridHandler mySGH, AuthoringEnvironmentManager myAEM) {
 //		Map<String, List<Pane>> thumbnailSprites = myAEM.getEveryTypeOfSpriteAsThumbnails();
 //		mySpriteSetHelper = new SpriteSetHelper(thumbnailSprites);
 		System.out.println("CHECK");
 		SPSM = new SpriteParameterSidebarManager(mySGH.getDraggableGrid());
-		displayPanel = new DisplayPanel(SPSM, myAEM);  
-		gameElementSelector = new GameElementSelector(mySGH, myAEM);
+		makeDisplayPanel(myAEM);
+		makeElementSelector(mySGH, myAEM);
 		this.getChildren().addAll(displayPanel, gameElementSelector);
 		this.setSpacing(5);
 		
+	}
+	
+	public void makeDisplayPanel(AuthoringEnvironmentManager myAEM){
+		displayPanel = new DisplayPanel(SPSM, myAEM);  
+	}
+	
+	public void makeElementSelector(SpriteGridHandler mySGH, AuthoringEnvironmentManager myAEM){
+		gameElementSelector = new GameElementSelector(mySGH, myAEM);
 	}
 	
 	public DisplayPanel getDisplayPanel() {

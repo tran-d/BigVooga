@@ -28,7 +28,7 @@ import javafx.scene.paint.Color;
 public class SpriteAnimationSequenceTabsAndInfo {
 	
 	private AbstractSpriteObject mySO;
-	private ScrollPane containerScrollPane;
+	private VBox containerScrollPane;
 	private ArrayList<AnimationSequence> animationsSequences;
 	private VBox containerVbox;
 	private TabPane containerTabPane;
@@ -127,16 +127,16 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	
 	private void createScrollPane(){
 		System.out.println("Container Scroll Pane");
-		containerScrollPane = new ScrollPane();
+		containerScrollPane = new VBox();
 	}
-	public ScrollPane getScrollPane(){
+	public VBox getScrollPane(){
 		System.out.println("getting scroll pane");
-		System.out.println("Content: "+((VBox)containerScrollPane.getContent()).getChildren());
+		System.out.println("Content: "+containerScrollPane.getChildren());
 		return containerScrollPane;
 	}
 	
 	public void putVBoxIntoScrollPane(){
-		containerScrollPane.setContent(getContainerVBox());
+		containerScrollPane.getChildren().add(getContainerVBox());
 	}
 	
 	private void createAddAnimationSequenceHbox(){

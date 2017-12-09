@@ -18,11 +18,11 @@ public class SpriteSetImported extends SpriteSet {
 		setFolderToLoad("");
 	}
 
-	@Override
-	protected void makeSpritePanel(SpriteGridHandler SGH) {
-		mySSP = new SpriteSelectPanel("IMPORTEDSPRITES", SGH);
-		mySSP.setupDefaultSprites(getAllSprites());
-	}
+//	@Override
+//	protected void makeSpritePanel(SpriteGridHandler SGH) {
+//		mySSP = new SpriteSelectPanel("IMPORTEDSPRITES", SGH);
+//		mySSP.setupDefaultSprites(getAllSprites());
+//	}
 	
 	public void changeFolderPath(String newFolder){
 		

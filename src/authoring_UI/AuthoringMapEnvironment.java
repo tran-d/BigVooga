@@ -4,7 +4,7 @@ import javafx.scene.layout.HBox;
 
 public class AuthoringMapEnvironment extends HBox{
 	
-	AuthoringMapEnvironment(SpritePanels SP, DraggableGrid DG){
+	public AuthoringMapEnvironment(SpritePanels SP, DraggableGrid DG){
 		setPanels(SP);
 		setGrid(DG);
 	}

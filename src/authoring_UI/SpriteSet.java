@@ -124,16 +124,16 @@ public abstract class SpriteSet {
 		// mySSV.setupSprites()
 	}
 
-	protected abstract void makeSpritePanel(SpriteGridHandler SGH);
+//	protected abstract void makeSpritePanel(SpriteGridHandler SGH);
 
-	protected SpriteSelectPanel getSpritePanel(SpriteGridHandler SGH) {
-		// System.out.println("Getting sprite panel");
-		if (mySSP == null) {
-			// System.out.println("SSP is null");
-			makeSpritePanel(SGH);
-		}
-		return mySSP;
-	}
+//	protected SpriteSelectPanel getSpritePanel(SpriteGridHandler SGH) {
+//		// System.out.println("Getting sprite panel");
+//		if (mySSP == null) {
+//			// System.out.println("SSP is null");
+//			makeSpritePanel(SGH);
+//		}
+//		return mySSP;
+//	}
 
 	protected Set<String> getAllCategoriesSet() {
 		return getCategoryToSprites().keySet();

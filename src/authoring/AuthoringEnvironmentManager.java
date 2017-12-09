@@ -24,6 +24,7 @@ public class AuthoringEnvironmentManager {
 	private SpriteSet myInventorySprites;
 	private SpriteSet myImportedSprites;
 	private SpriteSet myImportedInventorySprites;
+	private SpriteSet myInventoryTemplates;
 
 	public AuthoringEnvironmentManager(GameDataHandler GDH, Stage stage) {
 		myGDH = GDH;
@@ -31,6 +32,7 @@ public class AuthoringEnvironmentManager {
 		initializeCustomSprites();
 		initializeInventorySprites();
 		initializeImportedSprites();
+		initializeInventoryTemplates();
 
 		initializeImportedInventorySprites();
 		defaultEmptySprite = new DefaultSpriteObject();
@@ -38,6 +40,10 @@ public class AuthoringEnvironmentManager {
 		System.out.println("init MAPMAN in AEM");
 		
 		if (myDefaultSprites == null) System.out.println("this was def initialized");
+	}
+	
+	private void initializeInventoryTemplates() {
+		myInventoryTemplates = new SpriteSetInventoryTemplate(myGDH);
 	}
 
 	private void initializeDefaultSprites() {
@@ -79,6 +85,10 @@ public class AuthoringEnvironmentManager {
 
 	public SpriteSet getInventoryController() {
 		return myInventorySprites;
+	}
+	
+	public SpriteSet getInventoryTemplateController(){
+		return myInventoryTemplates;
 	}
 
 	public Map<String, List<AbstractSpriteObject>> getEveryTypeOfSprite() {

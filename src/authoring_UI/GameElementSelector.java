@@ -46,18 +46,18 @@ public class GameElementSelector extends TabPane implements Observer {
 	private static final String IMPORTEDINVENTORY = "Imported Inventory";
 	private static final String INVENTORY = "Inventory";
 	
-	private DraggableGrid myGrid;
+	protected DraggableGrid myGrid;
 //	private SpriteSelectPanel mySprites;
 //	private SpriteSelectPanel myUserSprites;
 	private final int NUM_COLUMNS = 10;
 
-	private AuthoringEnvironmentManager myAEM;
+	protected AuthoringEnvironmentManager myAEM;
 //	private SpriteParameterFactory mySPF;
 //	private List<AbstractSpriteObject> mySpriteObjs = new ArrayList<AbstractSpriteObject>();
 //	private List<SpriteObject> myUserSpriteObjs = new ArrayList<SpriteObject>();
 //	private GameDataHandler myGDH;
 //	private SpriteObjectGridManagerI mySOGM;
-	private SpriteGridHandler mySpriteGridHandler;
+	protected SpriteGridHandler mySpriteGridHandler;
 	private Tab dialoguesTab;
 
 	protected GameElementSelector(SpriteGridHandler spriteGridHandler, AuthoringEnvironmentManager AEM) {
@@ -221,7 +221,7 @@ public class GameElementSelector extends TabPane implements Observer {
 
 //	}
 
-	private void createSpriteTabs() {
+	protected void createSpriteTabs() {
 		TabPane spritesTabPane = new TabPane();
 		TabPane dialoguesTabPane = new TabPane();
 		TabPane inventoryTabPane = new TabPane();
@@ -252,7 +252,7 @@ public class GameElementSelector extends TabPane implements Observer {
 		this.setSide(Side.TOP);
 	}
 	
-	private Tab createSubTab(String tabName, SpriteSet controller) {
+	protected Tab createSubTab(String tabName, SpriteSet controller) {
 		Tab subTab = new Tab();
 		subTab.setText(tabName);
 //		subTab.textProperty().bind(DisplayLanguage.createStringBinding(tabName));

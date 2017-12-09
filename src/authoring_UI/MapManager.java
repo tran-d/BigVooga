@@ -64,13 +64,19 @@ public class MapManager extends TabPane {
 		}
 		} else {
 			setTab();
-			createTab(myTabCount, new DraggableGrid());
+			DraggableGrid DG = makeDraggableGrid();
+			createTab(myTabCount, DG);
 		}
+		
 		
 //		setTab();
 		// TODO REDO LOGIC ^^^ 
 		// calls createTab, which calls setUpScene, which calls set up auth classes, 
 		// which creates new Authoring Environment Manager
+	}
+	
+	private DraggableGrid makeDraggableGrid(){
+		return new DraggableGrid();
 	}
 	
 	
@@ -95,8 +101,8 @@ public class MapManager extends TabPane {
 	private HBox setupFEAuthClasses(DraggableGrid w) { 
 		System.out.println("setUpFE?");
 		// TODO if it's old project, want all possible worlds, so many worlds!
-		allWorlds.add(w); // TODO unsure if needed
-		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, w); 
+//		allWorlds.add(w); // TODO unsure if needed
+		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler("MapManager", myTabCount, w); 
 		w.construct(mySpriteGridHandler);
 		mySpriteGridHandler.addKeyPress(stage.getScene());
 		SpritePanels spritePanels = new SpritePanels(mySpriteGridHandler, myAEM);

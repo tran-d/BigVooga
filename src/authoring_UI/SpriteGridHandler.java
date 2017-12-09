@@ -35,8 +35,8 @@ public class SpriteGridHandler {
 	private DisplayPanel myDP;
 	private DraggableGrid myDG;
 
-	public SpriteGridHandler(int mapCount, DraggableGrid DG) {
-		objectFormat = new DataFormat("MyObject" + Integer.toString(mapCount));
+	public SpriteGridHandler(String parent, int mapCount, DraggableGrid DG) {
+		objectFormat = new DataFormat("MyObject" + parent+ Integer.toString(mapCount));
 		myDG = DG;
 	}
 

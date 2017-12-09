@@ -32,6 +32,9 @@ public class SpriteParameterSidebarManager {
 	public SpriteObject getActiveSprite() throws Exception {
 		List<SpriteObject> sprites = myDG.getActiveGrid().getActiveSpriteObjects();
 		checkActiveCellsMatch(sprites);
+		if (firstSprite==null){
+			throw new Exception("No active cells");
+		}
 		return firstSprite;
 	}
 

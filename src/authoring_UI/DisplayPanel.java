@@ -269,6 +269,8 @@ public class DisplayPanel extends VBox {
 		System.out.println("Updating....");
 		try {
 			AbstractSpriteObject activeCell = getActiveCell();
+			System.out.println("Did i get here?");
+			
 			this.checkMultipleCellsActive();
 			clearAllSpriteEditorTabs();
 			removeSpriteEditorErrorMessage();

@@ -16,10 +16,10 @@ public class SpriteSetInventory extends SpriteSet {
 
 	}
 
-	@Override
-	protected void makeSpritePanel(SpriteGridHandler SGH) {
-		mySSP = new SpriteSelectPanel("INVENTORYSPRITES", SGH);
-		mySSP.setupDefaultSprites(getAllSprites());
-	}
+//	@Override
+//	protected void makeSpritePanel(SpriteGridHandler SGH) {
+//		mySSP = new SpriteSelectPanel("INVENTORYSPRITES", SGH);
+//		mySSP.setupDefaultSprites(getAllSprites());
+//	}
 
 }

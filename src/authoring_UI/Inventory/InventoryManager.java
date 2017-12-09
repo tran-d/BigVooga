@@ -1,4 +1,4 @@
-package authoring_UI.HUD;
+package authoring_UI.Inventory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,9 @@ import java.util.List;
 import authoring.AbstractSpriteObject;
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteObjectGridManager;
+import authoring_UI.AuthoringMapEnvironment;
 import authoring_UI.DraggableGrid;
+import authoring_UI.InventorySpritePanels;
 import authoring_UI.MapManager;
 import authoring_UI.SpriteGridHandler;
 import authoring_UI.SpritePanels;
@@ -36,7 +38,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import tools.DisplayLanguage;
 
-public class HUDManager extends MapManager{
+public class InventoryManager {
 
 	private static final double NODE_SPACING = 20;
 	private static final double BUTTON_WIDTH = 300;
@@ -53,58 +55,35 @@ public class HUDManager extends MapManager{
 	private ScrollPane spriteSideGridScrollPane;
 	private List<DialogueEditor> editorList;
 	private int currentEditor = 0;
-	private SpriteObjectGridManager HUDGridBE;
+	private SpriteObjectGridManager InventoryGridBE;
 	private SpriteGridHandler SGH;
 	private AuthoringEnvironmentManager myAEM;
 	private VBox spriteSideVbox;
 	private SpritePanels SPanels;
 	private GameDataHandler myGDH;
-
-	public HUDManager(AuthoringEnvironmentManager AEM) {
-//		myGDH = GDH;
-		DraggableGrid DG = makeDraggableGrid();
-		HUDGridBE = new HUDGridManager();
-		DG.setAllGrids(HUDGridBE);
+	private AuthoringMapEnvironment myAME;
+	
+	public InventoryManager(AuthoringEnvironmentManager AEM) {
+		DraggableGrid DG = new DraggableGrid();
 		myAEM = AEM;
-		SGH = new SpriteGridHandler("HUDManager", 2001, DG);
+		SGH = new SpriteGridHandler("InventoryManager", 1, DG);
 		
-		
+		InventoryGridBE = new InventoryGridManager();
+		DG.setAllGrids(InventoryGridBE);
 		DG.construct(SGH);
 		
-//		this.SGH = SGH;
 		
-		SPanels = new SpritePanels(SGH, myAEM);
+		SPanels = new InventorySpritePanels(SGH, myAEM);
 		SGH.setDisplayPanel(SPanels);
-		spriteSideGridScrollPane = new ScrollPane();
-		spriteSideVbox = new VBox(10);
-		editorList = new ArrayList<>();
-		hb = new HBox(NODE_SPACING);
-		hb.setPrefSize(MapManager.VIEW_WIDTH, MapManager.VIEW_HEIGHT);
+		myAME = new AuthoringMapEnvironment(SPanels, DG);
 		
-		
-//		spriteSideVbox.getChildren().add(loadSpritesIn());
-		
-		hb.getChildren().addAll(SPanels, HUDGridBE.getMapLayer());
 
-		// test
-		// addDefaultDialogueButton();
-		// addUserDialogueButton("blah", -1);
-
-	}
-	
-	@Override 
-	private DraggableGrid makeDraggableGrid(){
-		DraggableGrid ret = new DraggableGrid();
-		HUDGridBE = new HUDGridManager();
-		ret.setAllGrids(HUDGridBE);
-		return ret;
 	}
 	
 	public HBox getPane() {
-		return hb;
+		return myAME;
 	}
 	
-}
-
-
 	
+
+}
