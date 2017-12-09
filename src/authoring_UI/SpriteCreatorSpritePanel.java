@@ -1,30 +1,40 @@
 package authoring_UI;
 
 import authoring.AuthoringEnvironmentManager;
-import authoring.SpriteParameterSidebarManager;
+import authoring.SpriteCreatorSpriteManager;
 import javafx.scene.layout.VBox;
 
 public class SpriteCreatorSpritePanel extends VBox {
-	private DisplayPanel displayPanel;
+	private SpriteCreatorDisplayPanel displayPanel;
 	private SpriteCreatorSpriteSelector spriteSelector;
-	private SpriteParameterSidebarManager SPSM;
+	private SpriteCreatorSpriteManager mySM;
 	// private SpriteSetHelper mySpriteSetHelper;
 
-	public SpriteCreatorSpritePanel(SpriteGridHandler mySGH, AuthoringEnvironmentManager myAEM) {
+	public SpriteCreatorSpritePanel(SpriteCreatorGridHandler mySGH, AuthoringEnvironmentManager myAEM, SpriteCreatorSpriteManager SM) {
 		// Map<String, List<Pane>> thumbnailSprites =
 		// myAEM.getEveryTypeOfSpriteAsThumbnails();
 		// mySpriteSetHelper = new SpriteSetHelper(thumbnailSprites);
 		System.out.println("CHECK");
 		// SPSM = new SpriteParameterSidebarManager(mySGH.getDraggableGrid());
-		displayPanel = new DisplayPanel(SPSM, myAEM);
-		spriteSelector = new SpriteCreatorSpriteSelector(mySGH, myAEM);
+//		
+//		ADD DISPLAYPANEL FOR SPRITECREATOR
+		mySM = SM;
+		displayPanel = new SpriteCreatorDisplayPanel(mySM,myAEM);
+//		displayPanel = new DisplayPanel(SPSM, myAEM);
+		spriteSelector = new SpriteCreatorSpriteSelector(mySM, mySGH, myAEM);
+		mySM.setSpriteSelector(spriteSelector);
+		
+		//change where displayPanel and spriteSelector gets added. 
 		this.getChildren().addAll(displayPanel, spriteSelector);
 		this.setSpacing(5);
 
 	}
 
-	public DisplayPanel getDisplayPanel() {
+	public SpriteCreatorDisplayPanel getDisplayPanel() {
 		return displayPanel;
 	}
 
+	public SpriteCreatorSpriteSelector getSpriteSelector() {
+		return spriteSelector;
+	}
 }

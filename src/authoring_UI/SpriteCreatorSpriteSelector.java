@@ -7,6 +7,7 @@ import java.util.Observer;
 
 import authoring.AbstractSpriteObject;
 import authoring.AuthoringEnvironmentManager;
+import authoring.SpriteCreatorSpriteManager;
 import authoring.SpriteObject;
 import javafx.geometry.Insets;
 import javafx.geometry.Side;
@@ -38,11 +39,13 @@ public class SpriteCreatorSpriteSelector extends TabPane implements Observer {
 	private final int NUM_COLUMNS = 10;
 
 	private AuthoringEnvironmentManager myAEM;
-	private SpriteGridHandler mySpriteGridHandler;
+	private SpriteCreatorSpriteManager mySM;
+	private SpriteCreatorGridHandler mySpriteGridHandler;
 	private Tab dialoguesTab;
 
-	protected SpriteCreatorSpriteSelector(SpriteGridHandler spriteGridHandler, AuthoringEnvironmentManager AEM) {
+	protected SpriteCreatorSpriteSelector(SpriteCreatorSpriteManager SM, SpriteCreatorGridHandler spriteGridHandler, AuthoringEnvironmentManager AEM) {
 		myAEM = AEM;
+		mySM = SM;
 		mySpriteGridHandler = spriteGridHandler;
 		createSpriteTabs();
 	}
@@ -70,26 +73,15 @@ public class SpriteCreatorSpriteSelector extends TabPane implements Observer {
 
 	private void createSpriteTabs() {
 		TabPane spritesTabPane = new TabPane();
-//		TabPane dialoguesTabPane = new TabPane();
-//		TabPane inventoryTabPane = new TabPane();
 		Tab defaultSpriteTab = createSubTab(DEFAULT, myAEM.getDefaultSpriteController());
 		Tab userSpriteTab = createSubTab(USER, myAEM.getCustomSpriteController());
 		Tab importedSpriteTab = createSubTab(IMPORTED, myAEM.getImportedSpriteController());
-//		Tab inventorySpriteTab = createSubTab(INVENTORY, myAEM.getInventoryController());
-//		Tab importedInventorySpriteTab = createSubTab(IMPORTEDINVENTORY, myAEM.getImportedInventorySpriteController());
 		spritesTabPane.getTabs().addAll(defaultSpriteTab, userSpriteTab, importedSpriteTab);
 		spritesTabPane.setSide(Side.RIGHT);
-//		dialoguesTabPane.setSide(Side.RIGHT);
 
-//		inventoryTabPane.setSide(Side.RIGHT);
-//		inventoryTabPane.getTabs().addAll(inventorySpriteTab, importedInventorySpriteTab);
 //
 		Tab spritesTab = createElementTab(SPRITES, spritesTabPane);
 		spritesTab.setClosable(false);
-//		dialoguesTab = createElementTab(DIALOGUES, dialoguesTabPane);
-//		dialoguesTab.setClosable(false);
-//		Tab inventoryTab = createElementTab(INVENTORY, inventoryTabPane);
-//		inventoryTab.setClosable(false);
 		this.getTabs().add(spritesTab);
 
 		this.setSide(Side.TOP);
@@ -152,7 +144,6 @@ public class SpriteCreatorSpriteSelector extends TabPane implements Observer {
 				if (counter < sprites.size()) {
 					AbstractSpriteObject toPopulate = sprites.get(counter);
 					System.out.println("Adding " + toPopulate);
-					this.mySpriteGridHandler.addSpriteDrag(toPopulate);
 					this.mySpriteGridHandler.addSpriteMouseClick(toPopulate);
 					sp.getChildren().add(toPopulate);
 					counter++;

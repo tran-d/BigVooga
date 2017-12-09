@@ -12,10 +12,11 @@ public class SpriteStatePanel extends VBox {
 	private static final int PANE_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH;
 	private VBox stateBox;
 	private TabPane spritePane;
-	private DisplayPanel myDP;
+	private SpriteCreatorDisplayPanel myDP;
 	private AuthoringEnvironmentManager myAEM;
+	private SpriteCreatorManager mySCM;
 
-	protected SpriteStatePanel(AuthoringEnvironmentManager AEM) {
+	protected SpriteStatePanel(AuthoringEnvironmentManager AEM, SpriteCreatorManager SCM) {
 		this.setPrefWidth(PANE_WIDTH / 2);
 		this.setMaxWidth(PANE_WIDTH / 2);
 		this.setPrefHeight(WelcomeScreen.HEIGHT);
@@ -23,9 +24,11 @@ public class SpriteStatePanel extends VBox {
 		this.setStyle("-fx-background-color: transparent;");
 
 		myAEM = AEM;
-
+		mySCM = SCM;
+		
+		
 		stateBox = createStateBox();
-		spritePane = addCategoryTabs();
+		spritePane = mySCM.getSpriteSelector();
 		
 		this.getChildren().addAll(stateBox,spritePane);
 	}
@@ -57,7 +60,7 @@ public class SpriteStatePanel extends VBox {
 	}
 
 	private VBox createStateBox() {
-		myDP = new DisplayPanel();
+		myDP = mySCM.getDisplayPanel();
 		myDP.setMaxHeight(WelcomeScreen.HEIGHT / 2);
 		myDP.setPrefHeight(WelcomeScreen.HEIGHT / 2);
 		myDP.setPrefWidth(PANE_WIDTH / 2);

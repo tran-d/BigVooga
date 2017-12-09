@@ -6,6 +6,7 @@ import java.util.Map;
 import authoring.AuthoringEnvironmentManager;
 import authoring_UI.MapManager;
 import authoring_UI.SpriteCreator;
+import authoring_UI.SpriteCreatorImageGrid;
 import authoring_UI.SpriteCreatorManager;
 import authoring_UI.ViewSideBar;
 import authoring_UI.HUD.HUDManager;
@@ -38,8 +39,9 @@ public class AuthoringController {
 		mapManager = new MapManager(AEM, stage);
 		viewMap.put(MAP_EDITOR_KEY, mapManager.getPane());
 		
-		mySCM = new SpriteCreatorManager(AEM, stage);
-		SpriteCreator sc = new SpriteCreator(currentStage, AEM);
+		SpriteCreatorImageGrid imageGrid = new SpriteCreatorImageGrid();
+		mySCM = new SpriteCreatorManager(AEM, stage, imageGrid);
+		SpriteCreator sc = new SpriteCreator(currentStage, AEM, mySCM, imageGrid);
 		viewMap.put(SPRITE_CREATOR_KEY, sc.getPane());
 		
 //		DialogueManager dm = new DialogueManager();

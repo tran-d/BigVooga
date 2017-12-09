@@ -56,7 +56,7 @@ public class SpriteImagePanel extends VBox {
 	private SpriteCreatorImageGrid myImageGrid;
 	private AuthoringEnvironmentManager myAEM;
 
-	protected SpriteImagePanel(AuthoringEnvironmentManager AEM) {
+	protected SpriteImagePanel(AuthoringEnvironmentManager AEM, SpriteCreatorImageGrid imageGrid) {
 		spriteCreatorResources = ResourceBundle.getBundle(SPRITECREATORRESOURCES_PATH);
 
 		this.setMinWidth(PANE_WIDTH / 2 - 300);
@@ -73,13 +73,13 @@ public class SpriteImagePanel extends VBox {
 		buttonBox = new HBox(10);
 		imageBox = new HBox();
 		addButtons();
-		addImageStack();
+		addImageGrid(imageGrid);
 
 		this.getChildren().addAll(buttonBox, imageBox);
 	}
 
-	private void addImageStack() {
-		myImageGrid = new SpriteCreatorImageGrid(); 
+	private void addImageGrid(SpriteCreatorImageGrid imageGrid) {
+		myImageGrid = imageGrid; 
 		imageBox.getChildren().add(myImageGrid);
 
 	}
@@ -150,15 +150,23 @@ public class SpriteImagePanel extends VBox {
 			Files.copy(file.toPath(), Paths.get(PATH + file.getName()), StandardCopyOption.REPLACE_EXISTING);
 
 			fileName = file.getName();
-			nameField.setText(fileName.substring(0, fileName.indexOf(".")));
-			categoryField.setText("General");
-
-			this.getChildren().removeAll(newSprite, nameBox);
+//			nameField.setText(fileName.substring(0, fileName.indexOf(".")));
+//			categoryField.setText("General");
 
 			newSprite = new SpriteObject();
 			newSprite.setImageURL(file.getName());
 			newSprite.setNumCellsWidthNoException(1);
 			newSprite.setNumCellsHeightNoException(1);
+			
+			if (myImageGrid.getSprite() == null) {
+				myImageGrid.setSprite(newSprite);
+			}
+			else {
+				myImageGrid.getChildren().remove(myImageGrid.getSprite());
+				myImageGrid.setSprite(newSprite);
+			}
+//			this.getChildren().removeAll(newSprite, nameBox);
+
 
 			// add params
 			ArrayList<SpriteParameterI> myParams = new ArrayList<SpriteParameterI>();

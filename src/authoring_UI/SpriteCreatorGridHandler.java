@@ -8,13 +8,13 @@ import java.util.Set;
 
 import authoring.AbstractSpriteObject;
 import authoring.InventoryObject;
+import authoring.SpriteCreatorSpriteManager;
 import authoring.SpriteObject;
 import javafx.event.Event;
 import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Effect;
 import javafx.scene.effect.Glow;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.KeyCode;
@@ -26,13 +26,16 @@ import javafx.scene.paint.Color;
 
 public class SpriteCreatorGridHandler {
 	private AbstractSpriteObject draggingObject;
+	private SpriteCreatorSpriteManager mySM;
 	private DataFormat objectFormat;
-	private DisplayPanel myDP;
+	private SpriteCreatorDisplayPanel myDP;
 	private DraggableGrid myDG;
+	private SpriteCreatorImageGrid myImageGrid;
 
-	public SpriteCreatorGridHandler(int mapCount, DraggableGrid DG) {
-//		objectFormat = new DataFormat("MyObject" + Integer.toString(mapCount));
-//		myDG = DG;
+	public SpriteCreatorGridHandler(int mapCount, SpriteCreatorSpriteManager SM, SpriteCreatorImageGrid imageGrid) {
+		mySM = SM;
+		myImageGrid = imageGrid;
+
 	}
 
 	public SpriteCreatorGridHandler(int mapCount, DraggableGrid DG, int sprite) {
@@ -40,7 +43,7 @@ public class SpriteCreatorGridHandler {
 		myDG = DG;
 	}
 
-	public void setDisplayPanel(SpritePanels spritePanels) {
+	public void setDisplayPanel(SpriteCreatorSpritePanel spritePanels) {
 		myDP = spritePanels.getDisplayPanel();
 	}
 
@@ -152,33 +155,45 @@ public class SpriteCreatorGridHandler {
 		s.setOnMouseClicked(e -> {
 			System.out.println("I clicked sprite : " + s);
 			if (s instanceof SpriteObject) {
-				if (myDG.getActiveGrid().getMapLayer().getActive().size() > 0) {
-					populateGridCells((SpriteObject) s);
-				} else {
-					boolean activeStatus;
-					if (s.getPositionOnGrid() != null) {
-						activeStatus = myDG.getActiveGrid().switchCellActiveStatus(s.getPositionOnGrid());
-						if (activeStatus) {
-							s.setEffect(makeSpriteEffect());
-							myDG.getActiveGrid().addActiveCell(s);
-						} else {
-							s.setEffect(null);
-							myDG.getActiveGrid().removeActiveCell(s);
-						}
-
-						if (myDG.getActiveGrid().getActiveSpriteObjects().size() == 0) {
-							myDP.removeSpriteEditorVBox();
-						} else {
-							myDP.addSpriteEditorVBox();
-							myDP.updateParameterTab();
-						}
-					}
+				if (mySM.getActiveSprite()==null) {
+					mySM.setActiveSprite(s);
+					myImageGrid.setSprite(s.newCopy());
 				}
-			} else if (s instanceof InventoryObject) {
-				// TODO: what if it is an inventory object?
+				else {
+					myImageGrid.getImageStack().getChildren().remove(0);
+					mySM.setActiveSprite(s);
+					myImageGrid.setSprite(s.newCopy());
+				}
+
 			}
+			myDP.addSpriteEditorVBox();
+			myDP.updateParameterTab(s);
 		});
 	}
+	// add to grid
+
+//	}else{
+//
+//	boolean activeStatus;if(s.getPositionOnGrid()!=null)
+//	{
+//		activeStatus = myDG.getActiveGrid().switchCellActiveStatus(s.getPositionOnGrid());
+//		if (activeStatus) {
+//			s.setEffect(makeSpriteEffect());
+//			myDG.getActiveGrid().addActiveCell(s);
+//		} else {
+//			s.setEffect(null);
+//			myDG.getActiveGrid().removeActiveCell(s);
+//		}
+//
+//		if (myDG.getActiveGrid().getActiveSpriteObjects().size() == 0) {
+//			myDP.removeSpriteEditorVBox();
+//		} else {
+//			myDP.addSpriteEditorVBox();
+//			myDP.updateParameterTab();
+//		}
+//	}
+//	}}else if(s instanceof InventoryObject){
+//	// TODO: what if it is an inventory object?
 
 	private Effect makeSpriteEffect() {
 		DropShadow dropShadow = new DropShadow();
@@ -241,7 +256,7 @@ public class SpriteCreatorGridHandler {
 			myDG.getActiveGrid().populateCell(SO, cellPos);
 			SO.setPositionOnGrid(cellPos);
 			addSpriteMouseClick(SO);
-//			addSpriteDrag(SO);
+			// addSpriteDrag(SO);
 			return true;
 		}
 		return false;
@@ -278,7 +293,7 @@ public class SpriteCreatorGridHandler {
 							StackPane SP = (StackPane) draggingObject.getParent();
 							SP.getChildren().clear();
 							AbstractSpriteObject SO = draggingObject.newCopy();
-//							this.addSpriteDrag(SO);
+							// this.addSpriteDrag(SO);
 							this.addSpriteMouseClick(SO);
 							SP.getChildren().add(SO);
 						} else if (draggingObject.getParent() instanceof AuthoringMapStackPane) {
@@ -298,16 +313,16 @@ public class SpriteCreatorGridHandler {
 		});
 	}
 
-//	public void addSpriteDrag(AbstractSpriteObject s) {
-//		s.setOnDragDetected(e -> {
-//			if (!myDG.getActiveGrid().getActiveSpriteObjects().contains(s)) {
-//				Dragboard db = s.startDragAndDrop(TransferMode.MOVE);
-//				db.setDragView(s.snapshot(null, null));
-//				ClipboardContent cc = new ClipboardContent();
-//				cc.put(objectFormat, " ");
-//				db.setContent(cc);
-//				draggingObject = s;
-//			}
-//		});
-//	}
+	// public void addSpriteDrag(AbstractSpriteObject s) {
+	// s.setOnDragDetected(e -> {
+	// if (!myDG.getActiveGrid().getActiveSpriteObjects().contains(s)) {
+	// Dragboard db = s.startDragAndDrop(TransferMode.MOVE);
+	// db.setDragView(s.snapshot(null, null));
+	// ClipboardContent cc = new ClipboardContent();
+	// cc.put(objectFormat, " ");
+	// db.setContent(cc);
+	// draggingObject = s;
+	// }
+	// });
+	// }
 }

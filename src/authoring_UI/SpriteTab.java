@@ -24,17 +24,19 @@ public class SpriteTab extends Tab {
 	private SpriteImagePanel myImagePanel;
 	private SpriteToolPanel myToolBoxPanel;
 	private AuthoringEnvironmentManager myAEM;
+	private SpriteCreatorManager mySCM;
 
-	protected SpriteTab(AuthoringEnvironmentManager AEM) {
+	protected SpriteTab(AuthoringEnvironmentManager AEM, SpriteCreatorManager SCM, SpriteCreatorImageGrid imageGrid) {
 		spriteCreatorResources = ResourceBundle.getBundle(SPRITECREATORRESOURCES_PATH);
 		this.setText(spriteCreatorResources.getString("SpriteTab"));
 		myAEM = AEM;
+		mySCM = SCM;
 
 		parentBox = addParentHBox();
 		this.setContent(parentBox);
 
-		myStatePanel = new SpriteStatePanel(myAEM);
-		myImagePanel = new SpriteImagePanel(myAEM);
+		myStatePanel = new SpriteStatePanel(myAEM,SCM);
+		myImagePanel = new SpriteImagePanel(myAEM,imageGrid);
 		myToolBoxPanel = new SpriteToolPanel();
 		
 		
