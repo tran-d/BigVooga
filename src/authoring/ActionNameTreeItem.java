@@ -33,7 +33,9 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 	public void extract() {
 
 		for (OperationNameTreeItem opItem : opNameTreeItemList) {
-			System.out.println("user inputted op: " + opItem.getSelectedOperation());
+//			System.out.println("user inputted op: " + opItem.getSelectedOperation());
+			opItem.makeOperation();
+//			System.out.println(opItem.makeOperation());
 
 		}
 
