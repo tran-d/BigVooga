@@ -35,9 +35,7 @@ public class BuildActionView {
 	private void transportActionRow() {
 
 		ACRow.getRootTreeItem().setExpanded(false);
-
-		ACRow.setPrefHeight(COLLAPSED_ROW_HEIGHT);
-		ACRow.getTreeView().setPrefHeight(COLLAPSED_ROW_HEIGHT);
+		ACRow.changeRowTVSize();
 
 		if (ACVBox.getChildren().size() >= ACRow.getRowID())
 			ACVBox.getChildren().remove(ACRow.getRowID() - 1);
