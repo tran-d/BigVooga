@@ -10,6 +10,7 @@ import engine.GameLayer;
 import engine.Layer;
 import engine.Actions.movement.MoveTo;
 import engine.operations.doubleops.DoubleOperation;
+import engine.operations.vectorops.VectorOperation;
 
 
 /**
@@ -21,24 +22,23 @@ import engine.operations.doubleops.DoubleOperation;
 public class ChangeWorld implements Action {
 
 	private Layer newWorld;
-	private DoubleOperation newPlayerX;
-	private DoubleOperation newPlayerY;
+	private VectorOperation newLocation;
 	
-	public ChangeWorld(Layer newWorld, DoubleOperation newPlayerX, DoubleOperation newPlayerY) {
+	public ChangeWorld(Layer newWorld, VectorOperation newLocation) {
 		this.newWorld = newWorld;
-		this.newPlayerX = newPlayerX;
-		this.newPlayerY = newPlayerY;
+		this.newLocation = newLocation;
 	}
 	
 	@Override
 	public void execute(GameObject asking, Layer world) {
-		List<GameObject> players = world.getWithTag(GameLayer.PLAYER_TAG);
-		world.removeElements(players);
-		MoveTo moveTo = new MoveTo(newPlayerX, newPlayerY);
-		for(GameObject player : players) {
-			moveTo.execute(player, newWorld);
-		}
-		newWorld.addElement(players);
+//		List<GameObject> players = world.getWithTag(GameLayer.PLAYER_TAG);
+//		world.removeElements(players);
+////		MoveTo moveTo = new MoveTo(newPlayerX, newPlayerY);
+////		MoveTo moveTo = new MoveTo(newLocation);
+//		for(GameObject player : players) {
+//			moveTo.execute(player, newWorld);
+//		}
+//		newWorld.addElements(players);
 		//world.setNextWorld(newWorld);
 	}
 

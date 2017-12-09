@@ -29,7 +29,6 @@ public class GameLayer implements Layer {
 	private GameObjectFactory blueprints;
 
 	public GameLayer() {
-		// TODO Auto-generated constructor stub
 		this(DEFAULT_NAME);
 	}
 	
@@ -37,7 +36,7 @@ public class GameLayer implements Layer {
 		worldName = name;
 		worldElements = new ArrayList<>();
 	}
-
+	
 	@Override
 	public void addElement(Element obj) {
 		worldElements.add(obj);
@@ -145,7 +144,6 @@ public class GameLayer implements Layer {
 
 	@Override
 	public void setPlayerManager(PlayerManager input) {
-		// TODO Auto-generated method stub
 		this.input = input;
 	}
 

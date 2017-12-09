@@ -22,7 +22,7 @@ public class DisplayablePane implements Displayable {
 
 	@Override
 	public void visit(GameDisplay display) {
-		display.updateImages(paneImage);
+		display.displayImage(paneImage);
 		
 		Double inventoryX = paneImage.getX();
 		Double inventoryY = paneImage.getY();
@@ -38,9 +38,14 @@ public class DisplayablePane implements Displayable {
 			for(int c = 0; c < colSpan; c++) {
 				DisplayableImage h = holdableImages.get(r).get(c);
 				h.setPosition(x0 + ((cellWidth * c) - (0.5 * cellWidth)), y0 + ((cellHeight * r) - (0.5 * cellWidth)));
-				display.updateImages(h);
+				display.displayImage(h);
 			}
 		}
 		//TODO: display scrollers
+	}
+
+	@Override
+	public int getDrawingPriority() {
+		return Integer.MAX_VALUE;
 	}
 }

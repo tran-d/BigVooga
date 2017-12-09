@@ -137,7 +137,7 @@ public class EngineTester2 extends Application {
 	private void conditionAction2(GameObject obj) {
 		List<Action> actions1 = new ArrayList<Action>();
 		actions1.add(new Destroy("Birb"));
-		obj.addConditionAction(new Collision(3, "Player"), actions1);
+		obj.addConditionAction(new CollisionByTag(3, "Player"), actions1);
 		actions1 = new ArrayList<Action>();
 		
 		actions1.add(new Move(-2, 0));

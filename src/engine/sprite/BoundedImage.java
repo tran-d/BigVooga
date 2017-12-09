@@ -129,7 +129,7 @@ public class BoundedImage extends BoundingSet implements DisplayableImage {
 
 	@Override
 	public void visit(GameDisplay display) {
-		display.updateImages(this);
+		display.displayImage(this);
 	}
 
 }

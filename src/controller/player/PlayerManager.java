@@ -168,7 +168,7 @@ public class PlayerManager {
 	 * @param imageData - The list of images to be displayed
 	 */
 	public void setImageData(List<Displayable> images, double cameraXTranslate, double cameraYTranslate) {
-		gameDisplay.setUpdatedImages(images, cameraXTranslate, cameraYTranslate);
+		gameDisplay.setUpdatedDisplayables(images, cameraXTranslate, cameraYTranslate);
 	}
 	
 	/**

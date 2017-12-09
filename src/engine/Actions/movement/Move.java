@@ -3,10 +3,9 @@ package engine.Actions.movement;
 import engine.Action;
 import engine.GameObject;
 import engine.Layer;
-import engine.operations.doubleops.DoubleOperation;
-import engine.operations.doubleops.XOf;
-import engine.operations.doubleops.YOf;
+import engine.operations.gameobjectops.GameObjectOperation;
 import engine.operations.vectorops.VectorOperation;
+import javafx.geometry.Point2D;
 
 /**
  * 
@@ -15,17 +14,19 @@ import engine.operations.vectorops.VectorOperation;
  */
 public class Move implements Action {
 
-	private DoubleOperation xIncrement;
-	private DoubleOperation yIncrement;
 	private VectorOperation increment;
-	public Move(VectorOperation increment) {
-
+	private GameObjectOperation object;
+	
+	public Move(GameObjectOperation object, VectorOperation increment) {
+		this.object = object;
 		this.increment = increment;
 	}
 	
 	@Override
 	public void execute(GameObject asking, Layer world) {
-		asking.setCoords(asking.getX() + (new XOf(increment)).evaluate(asking,world), asking.getY() + (new YOf(increment)).evaluate(asking, world));
+		Point2D vector = increment.evaluate(asking,world);
+		GameObject obj = object.evaluate(asking, world);
+		obj.setCoords(obj.getX() + vector.getX(), obj.getY() + vector.getY());
 	}
 
 }

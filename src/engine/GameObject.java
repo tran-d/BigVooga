@@ -6,15 +6,18 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeSet;
+
 import engine.sprite.BoundedImage;
+import engine.sprite.CompositeImage;
 import engine.sprite.Displayable;
 import engine.sprite.DisplayableImage;
+import engine.sprite.DisplayableText;
 import engine.sprite.Sprite;
 import engine.utilities.collisions.CollisionEvent;
+import javafx.geometry.Point2D;
 
 /**
  * The core of the game. Everything visible will be a GameObject. GameObjects
@@ -24,22 +27,23 @@ import engine.utilities.collisions.CollisionEvent;
  * Step() calls the Object's conditions and actions, which evaluate and modify
  * its current state based on the conditions of the game.
  * 
- * @author Nikolas Bramblett, ...
+ * @author Nikolas Bramblett, Ian Eldridge-Allegra
  *
  */
 public class GameObject extends VariableContainer implements Element {
 
+	private static final double DEFAULT_SIZE = 200;
 	private String name;
 	private Set<String> tagSet;
 	private Map<Condition, List<Action>> events;
 	private Sprite currentSprite;
 	private CollisionEvent lastCollision;
-	private double width = 200; // TODO Sizes
-	private double height = 200; // TODO Sizes
+	private double width = DEFAULT_SIZE; 
+	private double height = DEFAULT_SIZE; 
 	private int uniqueID;
 
 	private Inventory inventory;
-	private TextHandler dialogueHandler;
+	private DisplayableText dialogueHandler;
 
 	private static final String DEFAULT_NAME = "unnamed";
 	private static final String DEFAULT_TAG = "default";
@@ -64,7 +68,6 @@ public class GameObject extends VariableContainer implements Element {
 		tagSet.add(name);
 		tagSet.add(DEFAULT_TAG);
 		inventory = new Inventory(this);
-		dialogueHandler = new TextHandler();
 	}
 
 	public String getName() {
@@ -138,6 +141,10 @@ public class GameObject extends VariableContainer implements Element {
 		doubleVars.put(Y_COR, y);
 	}
 
+	public void setLocation(Point2D loc) {
+		setCoords(loc.getX(), loc.getY());
+	}
+
 	public double getX() {
 		return doubleVars.get(X_COR);
 	}
@@ -190,7 +197,6 @@ public class GameObject extends VariableContainer implements Element {
 	 * @return BoundedImage
 	 */
 	public BoundedImage getBounds() {
-		// TODO width and height?
 		BoundedImage result = currentSprite.getImage();
 		result.setPosition(doubleVars.get(X_COR), doubleVars.get(Y_COR));
 		result.setHeading(doubleVars.get(HEADING));
@@ -200,7 +206,14 @@ public class GameObject extends VariableContainer implements Element {
 	
 	@Override
 	public Displayable getDisplayable() {
-		return dialogueHandler.makeComposite(getBounds());
+		if (dialogueHandler == null)
+			return getBounds();
+		dialogueHandler.setHeading(getHeading());
+		dialogueHandler.setHeight(getHeight());
+		dialogueHandler.setWidth(getWidth());
+		dialogueHandler.setX(getX());
+		dialogueHandler.setY(getY());
+		return new CompositeImage(getBounds(), dialogueHandler);
 	}
 
 	/**
@@ -271,8 +284,14 @@ public class GameObject extends VariableContainer implements Element {
 	public void addToInventory(Holdable o) {
 		inventory.addObject(o);
 	}
-	
+
+	public void setDialogue(DisplayableText text) {
+		dialogueHandler = text;
+	}
+
 	public void setDialogue(String s) {
-		dialogueHandler.setDialogue(s);
+		if (dialogueHandler == null)
+			dialogueHandler = DisplayableText.DEFAULT;
+		dialogueHandler = dialogueHandler.getWithMessage(s);
 	}
 }

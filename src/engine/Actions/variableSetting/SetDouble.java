@@ -4,6 +4,7 @@ import engine.Action;
 import engine.GameObject;
 import engine.Layer;
 import engine.operations.doubleops.DoubleOperation;
+import engine.operations.gameobjectops.GameObjectOperation;
 import engine.operations.stringops.StringOperation;
 
 /**
@@ -15,15 +16,17 @@ public class SetDouble implements Action {
 
 	private StringOperation varName;
 	private DoubleOperation newDouble;
+	private GameObjectOperation object;
 	
-	public SetDouble(StringOperation varName, DoubleOperation newDouble) {
+	public SetDouble(GameObjectOperation object, StringOperation varName, DoubleOperation newDouble) {
+		this.object = object;
 		this.varName = varName;
 		this.newDouble = newDouble;
 	}
 	
 	@Override
 	public void execute(GameObject asking, Layer world) {
-		asking.setDoubleVariable(varName.evaluate(asking, world), newDouble.evaluate(asking, world));
+		object.evaluate(asking, world).setDoubleVariable(varName.evaluate(asking, world), newDouble.evaluate(asking, world));
 	}
 	
 }

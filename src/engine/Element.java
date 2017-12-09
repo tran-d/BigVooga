@@ -2,6 +2,7 @@ package engine;
 
 import java.util.List;
 import java.util.Set;
+import engine.sprite.Displayable;
 
 import engine.sprite.Displayable;
 
