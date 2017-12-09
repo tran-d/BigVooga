@@ -279,7 +279,9 @@ public class GameDataHandler {
 	}
 	private static void makeDirectory(String path) {
 		File file = new File(path);
+		if (!file.exists()){
 		file.mkdirs();
+		}
 	}
 
 	private boolean directoryExists(String path) {
@@ -508,6 +510,18 @@ public class GameDataHandler {
 		return ret;
 	}
 	
+	public List<DraggableGrid> loadWorldsFromWorldDirectory(){
+		List<DraggableGrid> DG_LIST = new ArrayList<DraggableGrid>();
+		try{
+			DG_LIST = loadWorldsFromDirectoryName(this.getWorldDirectoryPath());
+		} catch (Exception e){
+			DG_LIST = new ArrayList<DraggableGrid>();
+		}
+		return DG_LIST;
+		
+	}
+	
+	
 	public List<DraggableGrid> loadWorldsFromDirectoryName(String filePath) throws Exception {
 		File directory = new File(filePath);
 		return loadWorldsFromDirectory(directory);
@@ -523,7 +537,7 @@ public class GameDataHandler {
 		if (!isValidDirectory(file)) {
 			return null;
 		}
-		System.out.println("Still going");
+		System.out.println("Still going, root directory: "+rootDirectory);
 		Map<String, List<AbstractSpriteObject>> ret = new HashMap<String, List<AbstractSpriteObject>>();
 		File[] files = file.listFiles();
 		for (File f : files) {
