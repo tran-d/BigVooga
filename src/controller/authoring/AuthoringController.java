@@ -4,12 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import authoring.AuthoringEnvironmentManager;
-import authoring_UI.DraggableGrid;
 import authoring_UI.MapManager;
 import authoring_UI.SpriteCreator;
+import authoring_UI.SpriteCreatorManager;
 import authoring_UI.ViewSideBar;
 import authoring_UI.HUD.HUDManager;
-import authoring_UI.dialogue.DialogueManager;
 import engine.utilities.data.GameDataHandler;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -29,6 +28,7 @@ public class AuthoringController {
 	private Stage stage;
 	private Pane view;
 	private MapManager mapManager;
+	private SpriteCreatorManager mySCM;
 	
 	public AuthoringController(Stage currentStage, Pane currentAuthoringPane, GameDataHandler GDH) {
 		stage = currentStage;
@@ -38,6 +38,7 @@ public class AuthoringController {
 		mapManager = new MapManager(AEM, stage);
 		viewMap.put(MAP_EDITOR_KEY, mapManager.getPane());
 		
+		mySCM = new SpriteCreatorManager(AEM, stage);
 		SpriteCreator sc = new SpriteCreator(currentStage, AEM);
 		viewMap.put(SPRITE_CREATOR_KEY, sc.getPane());
 		
