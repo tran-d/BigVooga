@@ -38,7 +38,9 @@ public class ActionRow extends ActionConditionRow {
 	private static final String DOUBLE_INPUT_MESSAGE = "EnterDouble";
 
 	private ActionFactory actionFactory;
+	private OperationFactory operationFactory;
 
+	private TreeView<HBox> actionTreeView;
 	private TreeItem<HBox> categoryAction = new TreeItem<HBox>();
 	private TreeItem<HBox> actionAction = new TreeItem<HBox>();
 
@@ -47,29 +49,23 @@ public class ActionRow extends ActionConditionRow {
 	// private TreeItem<HBox> actionOperation = new TreeItem<HBox>();
 	// private TreeItem<HBox> parameterOperation = new TreeItem<HBox>();
 
-	private TreeView<HBox> actionTreeView;
-	private OperationFactory operationFactory;
-
 	public ActionRow(int ID, String label, String selectorLabel, boolean isConditionRow,
 			ObservableList<Integer> newActionOptions, ActionConditionVBox ACVBox) {
 
 		super(ID, label, selectorLabel, newActionOptions, ACVBox);
 
-		// addBuildActionButton(e -> openBuildWindow());
 		this.setPrefSize(ROW_WIDTH, EXPANDED_HEIGHT);
 
 		actionFactory = new ActionFactory();
 		operationFactory = new OperationFactory();
 
-		// this.getItems().add(makeActionChoiceBox("Movement"));
-		// actionTree = makeTreeView(makeActionChoiceBox("Movement"));
-		// this.getItems().add(actionTree);
 		actionTreeView = makeActionTreeView();
 		actionTreeView.setPrefSize(TREE_VIEW_WIDTH, EXPANDED_HEIGHT);
-		// operationTreeView = makeOperationTreeView();
 
 		this.getItems().addAll(actionTreeView);
 	}
+
+	/********************** PUBLIC METHODS ***********************/
 
 	public TreeItem<HBox> getRootTreeItem() {
 		return categoryAction;
@@ -87,6 +83,10 @@ public class ActionRow extends ActionConditionRow {
 			this.setPrefHeight(COLLAPSED_HEIGHT);
 			actionTreeView.setPrefHeight(COLLAPSED_HEIGHT);
 		}
+	}
+
+	public void extract() {
+//		ActionProcessor p = new ActionProcessor(actionTreeView, categoryAction, actionAction);
 	}
 
 	/***************************** ACTIONS ******************************/
@@ -128,13 +128,13 @@ public class ActionRow extends ActionConditionRow {
 
 	private TreeItem<HBox> makeActionTreeItem(String category) {
 		HBox hb = new HBox();
-		hb.getChildren().addAll(new Label("Choose Action: "), makeActionChoiceBox(category));
+		hb.getChildren().addAll(new Label("Choose Action: "), makeActionNameChoiceBox(category));
 		actionAction = new TreeItem<HBox>(hb);
 		actionAction.setExpanded(true);
 		return actionAction;
 	}
 
-	private ChoiceBox<String> makeActionChoiceBox(String category) {
+	private ChoiceBox<String> makeActionNameChoiceBox(String category) {
 		ObservableList<String> actions = FXCollections.observableList(actionFactory.getActions(category));
 		ChoiceBox<String> cb = new ChoiceBox<>(actions);
 		System.out.println("Acts: " + actions);
@@ -173,7 +173,7 @@ public class ActionRow extends ActionConditionRow {
 		for (String param : parameters) {
 			hb.getChildren().add(new Label(param + " "));
 
-			TreeItem<HBox> paramTV = makeOperationNameTreeItem(param);
+			TreeItem<HBox> paramTV = new OperationNameTreeItem(param);
 
 			// if (param.equals("Double")) {
 			// TextField tf = new TextField();
@@ -201,33 +201,9 @@ public class ActionRow extends ActionConditionRow {
 		}
 
 		hb.getChildren().add(new Label("]"));
-
-		// ChoiceBox<String> cb = new ChoiceBox<>(parameters);
-
-		// cb.getSelectionModel().selectedIndexProperty().addListener(new
-		// ChangeListener<Number>() {
-		//
-		// @Override
-		// public void changed(ObservableValue<? extends Number> observable, Number
-		// oldValue, Number newValue) {
-		//
-		// // System.out.println(actions.get(newValue.intValue()));
-		// // getItems().add(makeParameterChoiceBox(actions.get(newValue.intValue())));
-		// parameterAction.getChildren().clear();
-		// parameterAction.getChildren()
-		// .add(makeOperationCategoryTreeItem(parameters.get(cb.getSelectionModel().getSelectedIndex())));
-		// }
-		// });
-		// return cb;
 	}
 
 	/****************************** OPERATIONS ******************************/
-
-	// private TreeView<HBox> makeOperationTreeView() {
-	// categoryOperation = makeOperationCategoryTreeItem();
-	// TreeView<HBox> tv = new TreeView<HBox>(categoryOperation);
-	// return tv;
-	// }
 
 	private TreeItem<HBox> makeOperationNameTreeItem(String actionParameter) {
 		HBox hb = new HBox();
@@ -241,7 +217,6 @@ public class ActionRow extends ActionConditionRow {
 	}
 
 	private ChoiceBox<String> makeOperationCategoryChoiceBox(String actionParameter, TreeItem<HBox> categoryOperation) {
-		// TODO change "Boolean" to actionParameter
 		ObservableList<String> operations = FXCollections
 				.observableList(operationFactory.getOperations(actionParameter));
 		ChoiceBox<String> cb = new ChoiceBox<>(operations);
@@ -263,7 +238,7 @@ public class ActionRow extends ActionConditionRow {
 				System.out.println("Selected: " + operations.get(cb.getSelectionModel().getSelectedIndex()));
 				categoryOperation.getChildren().clear();
 				categoryOperation.getChildren()
-						.add(makeParameterOperationTreeItem(operations.get(cb.getSelectionModel().getSelectedIndex())));
+						.add(new OperationParameterTreeItem(operations.get(cb.getSelectionModel().getSelectedIndex())));
 			}
 		});
 
@@ -308,7 +283,7 @@ public class ActionRow extends ActionConditionRow {
 			for (String param : parameters) {
 				hb.getChildren().add(new Label(param + " "));
 
-				TreeItem<HBox> paramTV = makeOperationNameTreeItem(param);
+				TreeItem<HBox> paramTV = new OperationNameTreeItem(param);
 
 				// if (param.equals("Double")) {
 				// TextField tf = new TextField();
@@ -389,7 +364,7 @@ public class ActionRow extends ActionConditionRow {
 				Double.parseDouble(tf.getText());
 		} catch (NumberFormatException e) {
 			showError(INVALID_INPUT_MESSAGE, DOUBLE_INPUT_MESSAGE);
-			 tf.clear();
+			tf.clear();
 		}
 
 	}
@@ -421,11 +396,4 @@ public class ActionRow extends ActionConditionRow {
 		buildActionButton.setOnAction(handler);
 		getItems().add(buildActionButton);
 	}
-
-	private void openBuildWindow() {
-		// if (view == null && actionOptions.getSelected() != null)
-		// view = new BuildActionView(ACVBox, (ActionConditionRow)
-		// ACVBox.getChildren().get(labelInt - 1));
-	}
-
 }

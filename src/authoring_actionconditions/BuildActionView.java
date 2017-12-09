@@ -24,7 +24,6 @@ public class BuildActionView {
 		stage.show();
 
 		this.ACRow = ACRow;
-//		this.ACRow.setPrefSize(ROW_WIDTH, ROW_HEIGHT);
 		this.ACVBox = ACVBox;
 
 		stage.setOnCloseRequest(e -> transportActionRow());
@@ -42,6 +41,9 @@ public class BuildActionView {
 		ACVBox.getChildren().add(ACRow.getRowID() - 1, ACRow);
 
 		stage.close();
+
+		// test
+		ACRow.extract();
 	}
 
 	public void createParameterChoiceBox() {
