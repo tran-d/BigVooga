@@ -1,5 +1,6 @@
 package engine.sprite;
 
+import engine.Element;
 import gui.player.GameDisplay;
 
 /**
@@ -7,7 +8,7 @@ import gui.player.GameDisplay;
  * @author Ian Eldridge-Allegra and Nikolas Bramblett
  *
  */
-public class DisplayableText implements Displayable{
+public class DisplayableText implements Displayable, Element{
 
 	public static final DisplayableText DEFAULT = new DisplayableText(Integer.MAX_VALUE, "", "Arial", 12, "#000000");
 	private String string;
@@ -16,6 +17,10 @@ public class DisplayableText implements Displayable{
 	private int drawingPriority;
 	private double x, y, heading, width, height;
 	private String color;
+	
+	public DisplayableText(String string, String font, int fontSize, String webColor) {
+		this(Integer.MAX_VALUE, string, font, fontSize, webColor);
+	}
 	
 	public DisplayableText(int drawingPriority, String string, String font, int fontSize, String webColor) {
 		this.string = string;
@@ -61,6 +66,26 @@ public class DisplayableText implements Displayable{
 	public double getHeight() {
 		return height;
 	}
+	
+	public void setX(double x) {
+		this.x = x;
+	}
+	
+	public void setY(double y) {
+		this.y = y;
+	}
+	
+	public void setHeading(double heading) {
+		this.heading = heading;
+	}
+	
+	public void setWidth(double width) {
+		this.width = width;
+	}
+	
+	public void setHeight(double height) {
+		this.height = height;
+	}
 
 	@Override
 	public int getDrawingPriority() {
@@ -73,5 +98,10 @@ public class DisplayableText implements Displayable{
 
 	public DisplayableText getWithMessage(String dialogue) {
 		return new DisplayableText(drawingPriority, dialogue, font, fontSize, color);
+	}
+
+	@Override
+	public Displayable getDisplayable() {
+		return this;
 	}
 }

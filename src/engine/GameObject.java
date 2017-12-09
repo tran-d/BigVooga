@@ -29,15 +29,16 @@ import javafx.geometry.Point2D;
  * @author Nikolas Bramblett, Ian Eldridge-Allegra
  *
  */
-public class GameObject extends VariableContainer {
+public class GameObject extends VariableContainer implements Element {
 
+	private static final double DEFAULT_SIZE = 200;
 	private String name;
 	private Set<String> tagSet;
 	private Map<Condition, List<Action>> events;
 	private Sprite currentSprite;
 	private CollisionEvent lastCollision;
-	private double width = 200; // TODO Sizes
-	private double height = 200; // TODO Sizes
+	private double width = DEFAULT_SIZE; 
+	private double height = DEFAULT_SIZE; 
 	private int uniqueID;
 
 	private Inventory inventory;
@@ -199,9 +200,14 @@ public class GameObject extends VariableContainer {
 		return result;
 	}
 
-	public Displayable getImage() {
+	public Displayable getDisplayable() {
 		if (dialogueHandler == null)
 			return getBounds();
+		dialogueHandler.setHeading(getHeading());
+		dialogueHandler.setHeight(getHeight());
+		dialogueHandler.setWidth(getWidth());
+		dialogueHandler.setX(getX());
+		dialogueHandler.setY(getY());
 		return new CompositeImage(getBounds(), dialogueHandler);
 	}
 

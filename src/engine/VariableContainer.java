@@ -44,7 +44,7 @@ public abstract class VariableContainer {
 		booleanVars = new HashMap<String, Boolean>();
 		
 		inventory = new HashMap<String, GameObject>();
-		holder = new NullObject();
+		holder = null;
 	}
 
 	public double getDouble(String key) {
@@ -76,9 +76,6 @@ public abstract class VariableContainer {
 			return booleanVars.get(key);
 		return DEFAULT_BOOLEAN;
 	}
-
-
-	
 
 	public void setDoubleVariable(String name, double val) {
 		doubleVars.put(name, val);

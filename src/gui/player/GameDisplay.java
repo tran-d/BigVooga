@@ -10,6 +10,7 @@ import engine.sprite.DisplayableImage;
 import engine.sprite.DisplayableText;
 import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.WelcomeScreen;
+import javafx.scene.Group;
 import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -19,6 +20,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -153,14 +155,18 @@ public class GameDisplay {
 	}
 	
 	public void displayText(DisplayableText displayableText) {
-		Text text = new Text();
-		text.setX(displayableText.getX()-displayableText.getWidth()/2);
-		text.setY(displayableText.getY()-displayableText.getHeight()/2);
+		Text text = new Text(displayableText.getText());
 		text.setWrappingWidth(displayableText.getWidth());
-		text.setFont(new Font(displayableText.getFont(), displayableText.getFontSize()));
 		text.setRotate(displayableText.getHeading());
+		text.setFont(new Font(displayableText.getFont(), displayableText.getFontSize()));
 		text.setStroke(Color.web(displayableText.getColor()));
-		gamePane.getChildren().add(text);
+		HBox box = new HBox(text);
+		Group g = new Group(box);
+		g.applyCss();
+	    g.layout();
+		g.setLayoutX(displayableText.getX()-box.getWidth()/2);
+		g.setLayoutY(displayableText.getY()-box.getHeight()/2);
+		gamePane.getChildren().add(g);
 	}
 
 	/**

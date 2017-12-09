@@ -26,7 +26,7 @@ public class Move implements Action {
 	public void execute(GameObject asking, Layer world) {
 		Point2D vector = increment.evaluate(asking,world);
 		GameObject obj = object.evaluate(asking, world);
-		asking.setCoords(obj.getX() + vector.getX(), obj.getY() + vector.getY());
+		obj.setCoords(obj.getX() + vector.getX(), obj.getY() + vector.getY());
 	}
 
 }
