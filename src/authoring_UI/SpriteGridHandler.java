@@ -32,7 +32,7 @@ public class SpriteGridHandler {
 	private DataFormat objectFormat;
 	private DisplayPanel myDP;
 	private DraggableGrid myDG;
-
+	
 	public SpriteGridHandler(String parent, int mapCount, DraggableGrid DG) {
 		objectFormat = new DataFormat("MyObject" + parent+ Integer.toString(mapCount));
 		System.out.println("SGH made with objForm: "+objectFormat);

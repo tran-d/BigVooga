@@ -33,7 +33,7 @@ public class ActionConditionHBox extends HBox implements TopToolBarI {
 		this.setAlignment(Pos.BOTTOM_CENTER);
 		this.setPadding(new Insets(5, 0, 5, 5));
 		this.setSpacing(5);
-		this.setPrefWidth(560);
+		this.setPrefWidth(530);
 				
 //		editButton = new Button(tabResources.getString(edit));
 //		editRowVBox = new EditChoiceBoxVBox(tabResources.getString("EditLabel"),
@@ -49,7 +49,7 @@ public class ActionConditionHBox extends HBox implements TopToolBarI {
 		removeButton = new Button(tabResources.getString("RemoveButtonLabel"));
 		removeRowVBox = new RemoveChoiceBoxVBox(tabResources.getString("RemoverLabel"),
 				FXCollections.observableList(new LinkedList<Integer>()));
-		getChildren().addAll(addButton, selectorVBox, separator, removeRowVBox);
+		getChildren().addAll(addButton, selectorVBox, separator, removeRowVBox, removeButton);
 	}
 
 	public ActionConditionHBox(String tabType, ObservableList<Integer> actions) {
