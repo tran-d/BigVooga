@@ -1,8 +1,14 @@
 package authoring_UI.HUD;
 
-import authoring.SpriteObjectGridManager;
-import authoring_UI.PanelLayer;
-import authoring_UI.SpriteGridHandler;
+import authoring.GridManagers.*;
+import authoring.Sprite.*;
+import authoring.SpriteManagers.*;
+import authoring.SpritePanels.*;
+import authoring.util.*;
+import authoring_UI.Map.*;
+import authoring_UI.*;
+import authoring.*;
+import authoring_UI.Inventory.*;
 
 public class HUDGridManager extends SpriteObjectGridManager {
 	

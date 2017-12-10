@@ -9,11 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import authoring.AbstractSpriteObject;
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteNameManager;
-import authoring.SpriteObject;
-import authoring.SpriteParameterI;
+import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.SpriteObject;
+import authoring.Sprite.Parameters.SpriteParameterI;
+import authoring.SpritePanels.DisplayPanel;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;

@@ -27,9 +27,9 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.security.NullPermission;
 import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
-import authoring.AbstractSpriteObject;
-import authoring.SpriteObject;
-import authoring.SpriteObjectGridManager;
+import authoring.GridManagers.SpriteObjectGridManager;
+import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.SpriteObject;
 import authoring_UI.DraggableGrid;
 import authoring_UI.LayerDataConverter;
 import authoring_UI.MapDataConverter;
@@ -199,7 +199,7 @@ public class GameDataHandler {
 		if (cache.containsKey(fileName)){
 			return cache.get(fileName);
 		}
-		String path = new File(projectPath+fileName).toURI().toString();
+		String path = new File(fileName).toURI().toString();
 		Image i = new Image(path);
 		cache.put(fileName, i);
 		return i;
@@ -309,6 +309,31 @@ public class GameDataHandler {
 			path = this.makeValidFileName(path);
 			SO.setSavePath(path);
 		}
+		/////////////////////////////////////////////////////////////////////////////////////////////////////check this out 
+//		
+//		if (SO instanceof SpriteObject){
+//		SpriteObject sprite = (SpriteObject) SO;
+//		System.out.println("class of sprite: "+sprite.getClass());
+//		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path));
+//        oos.writeObject(sprite);
+//        oos.close();
+//		} else if(SO instanceof InventoryObject){
+//			InventoryObject inventory = (InventoryObject) SO;
+//			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path));
+//	        oos.writeObject(inventory);
+//	        oos.close();
+//		} else {
+//			throw new Exception("Not a valid Sprite class to serialize");
+//		}
+		
+		
+		
+//		String toSave = SERIALIZER.toXML(SO);
+//		FileWriter writer = new FileWriter(path);
+//		writer.write(toSave);
+//		writer.close();
+		
+//		If proxy fails uncomment next two lines
 		SpriteDataConverter SDC = new SpriteDataConverter(SO);
 		saveSprite(SDC, path);	
 		//TODO WHY DO WE HAVE THE NEXT 4 LINES WHEN THAT HAPPENS IN SAVESPRITE
@@ -324,6 +349,7 @@ public class GameDataHandler {
 		String toSave = SERIALIZER.toXML(SO);
 		FileWriter writer = new FileWriter(path);
 		writer.write(toSave);
+		///////////////////////////////////////////////////////////////////////////////////////////////////may need to write to a new file
 		writer.close();
 	}
 
@@ -509,8 +535,10 @@ public class GameDataHandler {
 		List<AbstractSpriteObject> ret = new ArrayList<AbstractSpriteObject>();
 		for (File f : files) {
 			try {
+				
 				AbstractSpriteObject dummy = loadSprite(f);
 				ret.add(dummy);
+				System.out.println(dummy);
 
 			} catch (Exception e) {
 //				e.printStackTrace();

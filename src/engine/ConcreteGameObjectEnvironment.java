@@ -54,9 +54,18 @@ public class ConcreteGameObjectEnvironment implements GameObjectEnvironment {
 	}
 
 	@Override
-	public void transfer(GameObject gameObject, String newWorld) {
+	public void transfer(GameObject gameObject, String newWorld, String layerName) {
 		//TODO ?? master.getWorldWithName(newWorld).addToLayer(gameObject, layer.number()??) ??  
 				//It's unclear how to resolve this in a reasonable way
+		GameWorld world = master.getWorldWithName(newWorld);
+		for(Layer l: world.getLayers())
+		{
+			if(l.isNamed(layerName))
+			{
+				layer.removeGameObject(gameObject);
+				l.addGameObject(gameObject);
+			}
+		}
 	}
 	
 	@Override

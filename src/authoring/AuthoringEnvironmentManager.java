@@ -4,11 +4,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import authoring_UI.DefaultSpriteObject;
-import authoring_UI.SpriteSet;
-import authoring_UI.SpriteSetDefault;
-import authoring_UI.SpriteSetInventory;
-import authoring_UI.SpriteSetUserDefined;
+
+import authoring.GridManagers.SpriteObjectGridManagerI;
+import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.DefaultSpriteObject;
+import authoring.Sprite.SpriteObject;
+import authoring.SpriteManagers.SpriteSet;
+import authoring.SpriteManagers.SpriteSetDefault;
+import authoring.SpriteManagers.SpriteSetImported;
+import authoring.SpriteManagers.SpriteSetImportedInventory;
+import authoring.SpriteManagers.SpriteSetInventory;
+import authoring.SpriteManagers.SpriteSetInventoryTemplate;
+import authoring.SpriteManagers.SpriteSetMenuTemplate;
+import authoring.SpriteManagers.SpriteSetUserDefined;
 import engine.utilities.data.GameDataHandler;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -24,6 +32,8 @@ public class AuthoringEnvironmentManager {
 	private SpriteSet myInventorySprites;
 	private SpriteSet myImportedSprites;
 	private SpriteSet myImportedInventorySprites;
+	private SpriteSet myInventoryTemplates;
+	private SpriteSet myMenuTemplates;
 
 	public AuthoringEnvironmentManager(GameDataHandler GDH, Stage stage) {
 		myGDH = GDH;
@@ -31,13 +41,23 @@ public class AuthoringEnvironmentManager {
 		initializeCustomSprites();
 		initializeInventorySprites();
 		initializeImportedSprites();
-
+		initializeInventoryTemplates();
+		initializeMenuTemplates();
 		initializeImportedInventorySprites();
+		
 		defaultEmptySprite = new DefaultSpriteObject();
 		
 		System.out.println("init MAPMAN in AEM");
 		
 		if (myDefaultSprites == null) System.out.println("this was def initialized");
+	}
+	
+	private void initializeInventoryTemplates() {
+		myInventoryTemplates = new SpriteSetInventoryTemplate(myGDH);
+	}
+	
+	private void initializeMenuTemplates() {
+		myMenuTemplates = new SpriteSetMenuTemplate(myGDH);
 	}
 
 	private void initializeDefaultSprites() {
@@ -45,7 +65,9 @@ public class AuthoringEnvironmentManager {
 	}
 	
 	private void initializeImportedSprites() {
+		
 		myImportedSprites = new SpriteSetImported(myGDH);
+		System.out.println("Made imported sprites");
 	}
 	
 	private void initializeImportedInventorySprites() {
@@ -80,6 +102,14 @@ public class AuthoringEnvironmentManager {
 	public SpriteSet getInventoryController() {
 		return myInventorySprites;
 	}
+	
+	public SpriteSet getInventoryTemplateController(){
+		return myInventoryTemplates;
+	}
+	
+	public SpriteSet getMenuTemplateController(){
+		return myMenuTemplates;
+	}
 
 	public Map<String, List<AbstractSpriteObject>> getEveryTypeOfSprite() {
 		Map<String, List<AbstractSpriteObject>> ret = new HashMap<String, List<AbstractSpriteObject>>();
@@ -88,6 +118,8 @@ public class AuthoringEnvironmentManager {
 		ret.put("InventorySprites", this.getInventorySprites());
 		ret.put("ImportedSprites", this.getImportedSprites());
 		ret.put("ImportedInventorySprites", this.getImportedInventorySprites());
+//		ret.put("InventoryTemplates", this.getInventoryTemplates());
+//		ret.put("MenuTemplates", this.getMenuTemplates());
 		return ret;
 	}
 

@@ -10,7 +10,7 @@ import engine.operations.stringops.StringOperation;
 
 /**
  * 
- * @author aaronpaskin
+ * @author Aaron Paskin
  *
  */
 public class ChangeString implements Action {
