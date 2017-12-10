@@ -1,6 +1,5 @@
 package engine.sprite;
 
-public interface DisplayableImage extends Displayable {
+public interface DisplayableImage extends Displayable, Positionable {
 	public String getFileName();
-	public int getDrawingPriority();
 }

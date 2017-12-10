@@ -11,8 +11,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -69,6 +69,7 @@ public class GameDataHandler {
 	private static final String DEFAULT_CATEGORY = "General/";
 	private static final String RESOURCES = "resources/";
 	private static final String CONTROLLER_DIRECTORY = "SAVES/";
+	private static final String DELIMITER = ", ";
 	private static  Path RESOURCES_PATH;
 	private Map<String, Image> cache = new HashMap<>();
 	private String projectPath;
@@ -108,9 +109,9 @@ public class GameDataHandler {
 	 */
 	public void saveGame(EngineController controller) {
 		saveGame(controller, CONTROLLER_FILE);
-		addToKnownProjects();
+		clearKnown();
 	}
-	
+
 	public void saveGame(EngineController controller, String gameName) {
 		String toSave = SERIALIZER.toXML(controller);
 		FileWriter writer;
@@ -121,6 +122,7 @@ public class GameDataHandler {
 		} catch (IOException e) {
 			throw new VoogaException("SaveFail");
 		}
+		addToKnownProjects(gameName);
 	}
 
 	/**
@@ -132,7 +134,34 @@ public class GameDataHandler {
 	 * 
 	 * @throws IOException
 	 */
-	private void addToKnownProjects() {
+	private void addToKnownProjects(String saveName) {
+		Properties prop = new Properties();
+
+		if(knownProjects().containsKey(projectName)) {
+			if(knownProjects().get(projectName).contains(saveName))
+				return;
+			try {
+				FileInputStream in = new FileInputStream(KNOWN_PROJECTS_PATH);
+				prop.load(in);
+				in.close();
+			} catch (IOException e) {
+				// Intentionally Blank
+			}
+			prop.put(projectName, prop.get(projectName) + DELIMITER + saveName);
+		}
+		else
+			prop.put(projectName, saveName);
+		
+		try {
+			FileOutputStream out = new FileOutputStream(KNOWN_PROJECTS_PATH);
+			prop.store(out, null);
+			out.close();
+		} catch (IOException e) {
+			throw new RuntimeException("KNOWN PROJECTS NOT FOUND");
+		}
+	}
+	
+	private void clearKnown() {
 		Properties prop = new Properties();
 
 		try {
@@ -142,30 +171,31 @@ public class GameDataHandler {
 		} catch (IOException e) {
 			// Intentionally Blank
 		}
-		prop.put(projectName, "Modified " + LocalDateTime.now());
-
+		
+		prop.put(projectName,"");
+		
 		try {
 			FileOutputStream out = new FileOutputStream(KNOWN_PROJECTS_PATH);
 			prop.store(out, null);
 			out.close();
 		} catch (IOException e) {
-			throw new RuntimeException("KNOWN PROJECTS NOT FOUND");// TODO
-																	// improve
-																	// this
+			throw new RuntimeException("KNOWN PROJECTS NOT FOUND");
 		}
 	}
 
-	/**
-	 * @return A map of all project names to the modified date.
-	 */
-	public static Map<String, String> knownProjectsWithDateModified() {
-		Map<String, String> result = new HashMap<>();
+	public static Map<String, List<String>> knownProjects() {
+		Map<String, List<String>> result = new HashMap<>();
 		try {
 			ResourceBundle bundle = ResourceBundle.getBundle(KNOWN_PROJECTS);
 			Enumeration<String> projects = bundle.getKeys();
 			while (projects.hasMoreElements()) {
 				String p = projects.nextElement();
-				result.put(p, bundle.getString(p));
+				List<String> saves = new ArrayList<>(Arrays.asList(bundle.getString(p).split(DELIMITER)));
+				for(int i = saves.size()-1; i >= 0; i--) {
+					if(saves.get(i).matches("\\s*"))
+						saves.remove(i);
+				}
+				result.put(p, saves);
 			}
 		} catch (MissingResourceException e) {
 			// Intentionally Blank
@@ -199,7 +229,7 @@ public class GameDataHandler {
 		if (cache.containsKey(fileName)){
 			return cache.get(fileName);
 		}
-		String path = new File(fileName).toURI().toString();
+		String path = new File(projectPath + fileName).toURI().toString();
 		Image i = new Image(path);
 		cache.put(fileName, i);
 		return i;
@@ -233,13 +263,7 @@ public class GameDataHandler {
 		fileChooser.setTitle(SELECTOR_TITLE);
 		return fileChooser.showOpenDialog(stage);
 	}
-
-	private void makeProjectDirectory() {
-		if (!directoryExists(projectPath)) {
-			makeDirectory(projectPath);
-		}
-	}
-
+	
 	/**
 	 * @param stage
 	 *            To present dialog
