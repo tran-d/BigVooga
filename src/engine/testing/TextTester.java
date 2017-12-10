@@ -11,9 +11,10 @@ import engine.GameLayer;
 import engine.GameMaster;
 import engine.GameObject;
 import engine.GameWorld;
+import engine.Actions.dialog.ClearTyped;
+import engine.Actions.dialog.PlaceTextOn;
 import engine.Actions.global.SaveGame;
 import engine.Actions.movement.Rotate;
-import engine.Actions.movement.SetAcceleration;
 import engine.Actions.movement.SetVelocity;
 import engine.Actions.movement.StopObject;
 import engine.operations.booleanops.BooleanValue;
@@ -22,11 +23,7 @@ import engine.operations.booleanops.KeyReleased;
 import engine.operations.doubleops.Value;
 import engine.operations.gameobjectops.Self;
 import engine.operations.stringops.SelfString;
-import engine.operations.vectorops.BasicVector;
-import engine.operations.vectorops.LocationOf;
-import engine.operations.vectorops.MouseLocation;
-import engine.operations.vectorops.UnitVector;
-import engine.operations.vectorops.VectorDifference;
+import engine.operations.stringops.TypedString;
 import engine.operations.vectorops.VectorHeadingOf;
 import engine.operations.vectorops.VectorScale;
 import engine.sprite.AnimationSequence;
@@ -35,6 +32,7 @@ import engine.sprite.DisplayableText;
 import engine.sprite.Sprite;
 import engine.utilities.data.GameDataHandler;
 import javafx.application.Application;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 public class TextTester extends Application {
@@ -50,12 +48,10 @@ public class TextTester extends Application {
 		DisplayableText text = new DisplayableText(0,
 				"Testing some really long string, " + "because I want to see if the line wrapping works properly.",
 				"Comic Sans", 12, "#008000");
-		text.setX(300);
-		text.setY(300);
-		text.setWidth(300);
-		text.setHeight(100);
+		text.setPosition(300, 300);
+		text.setSize(300, 100);
 
-		GameDataHandler gdh = new GameDataHandler(name);
+		GameDataHandler gdh = new GameDataHandler(name, stage);
 		GameObject object = makeObject("Box", new BoundedImage(gdh.addChosenFileToProject(stage).getName()),
 				100, 100, this::condAct);
 
@@ -100,19 +96,28 @@ public class TextTester extends Application {
 		
 		new ArrayList<Action>();
 		actions1.add(new StopObject(new Self()));
-		object.addConditionAction(new Condition(2, new KeyReleased(new SelfString("W"))), actions1);
+		object.addConditionAction(new Condition(2, new KeyReleased(new SelfString("Space"))), actions1);
 
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Rotate(new Self(), new Value(-2)));
-		object.addConditionAction(new Condition(2, new KeyHeld(new SelfString("A"))), actions1);
+		object.addConditionAction(new Condition(2, new KeyHeld(new SelfString("Left"))), actions1);
 		actions1 = new ArrayList<Action>();
 
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Rotate(new Self(), new Value(2)));
-		object.addConditionAction(new Condition(2, new KeyHeld(new SelfString("D"))), actions1);
+		object.addConditionAction(new Condition(2, new KeyHeld(new SelfString("Right"))), actions1);
 		
 		actions1 = new ArrayList<Action>();
 		actions1.add(new SaveGame(new Value(1000)));
-		object.addConditionAction(new Condition(2, new KeyHeld(new SelfString("S"))), actions1);
+		object.addConditionAction(new Condition(2, new KeyHeld(new SelfString("Down"))), actions1);
+		
+		actions1 = new ArrayList<Action>();
+		actions1.add(new ClearTyped());
+		object.addConditionAction(new Condition(3, new KeyHeld(new SelfString(KeyCode.ESCAPE.getName()))), actions1);
+		
+		actions1 = new ArrayList<Action>();
+		actions1.add(new PlaceTextOn(new Self(), new TypedString()));
+		object.addConditionAction(new Condition(4, new BooleanValue(true)), actions1);
+		
 	}
 }

@@ -22,6 +22,6 @@ public class RemoveFromWorld implements Action {
 	
 	@Override
 	public void execute(GameObject asking, GameObjectEnvironment world) {
-		world.removeGameObject(world.getWithName(objectToDestroy.evaluate(asking, world).getName()));
+		world.removeGameObject(objectToDestroy.evaluate(asking, world));
 	}
 }

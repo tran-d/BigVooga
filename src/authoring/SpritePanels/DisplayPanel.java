@@ -53,7 +53,7 @@ public class DisplayPanel extends VBox {
 	private ControllerConditionActionTabs controllerConditionActionTabs;
 	private static final String ACTIONCONDITIONTITLES_PATH = "TextResources/ConditionActionTitles";
 	private static final double DISPLAY_PANEL_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH/2 - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH-155;
-	private static final double DISPLAY_PANEL_HEIGHT = 495;
+	private static final double DISPLAY_PANEL_HEIGHT = 347;
 	private static final int CONDITIONTAB_INDEX = 2;
 	private static final int ACTIONTAB_INDEX = 3;
 	private SpriteParameterSidebarManager mySPSM;
@@ -158,8 +158,8 @@ public class DisplayPanel extends VBox {
 	
 	private void createAnimationTab(){
 		Tab animations = new Tab("Animations");
-		animations.setContent(mySAnimationSequenceTAI.getScrollPane());
-		mySpriteTabs.getTabs().addAll(animations);
+		animations.setContent(mySAnimationSequenceTAI.getAnimationBox());
+		mySpriteTabs.getTabs().add(animations);
 		multipleCellsActiveProperty.addListener((observable, oldStatus, newStatus)->{
 			animations.setDisable(newStatus);
 		});
@@ -233,7 +233,7 @@ public class DisplayPanel extends VBox {
 	private void createParameterCategoryTabs() {
 		// mySPTAI.createCategoryTabs();
 		myParamTabs = mySParameterTAI.getTabPane();
-
+		
 		// myParamTabs = new TabPane();
 		// myParamTabs.setSide(Side.RIGHT);
 		// myParamTabs.setPrefHeight(500);
@@ -246,7 +246,7 @@ public class DisplayPanel extends VBox {
 		mySParameterTAI.clearTabPane();
 		mySInventoryTAI.reset();
 //		mySUtilityTAI.reset();
-//		mySAnimationSequenceTAI.reset();
+		mySAnimationSequenceTAI.clearExisting();
 	}
 
 	public void removeSpriteEditorVBox() {
@@ -311,17 +311,11 @@ public class DisplayPanel extends VBox {
 		this.setPrefWidth(DISPLAY_PANEL_WIDTH);
 	}
 
-	private void formatParametersVBox(VBox in) {
-		in.setPrefWidth(500);
-		in.setPrefHeight(500);
-	}
-
 	private ScrollPane createStatePane(VBox temp) {
 		ScrollPane myStateSP_dummy = new ScrollPane();
 		myStateSP_dummy.setPrefSize(DISPLAY_PANEL_WIDTH, DISPLAY_PANEL_HEIGHT);
 		myStateSP_dummy.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 		myStateSP_dummy.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-		formatParametersVBox(temp);
 		myStateSP_dummy.setContent(temp);
 		return myStateSP_dummy;
 	}

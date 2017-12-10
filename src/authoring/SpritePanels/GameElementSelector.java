@@ -67,6 +67,7 @@ public class GameElementSelector extends TabPane implements Observer {
 //		mySPF = new SpriteParameterFactory();
 		myAEM = AEM;
 		mySpriteGridHandler = spriteGridHandler;
+		this.setPrefHeight(280);
 //		myGDH = AEM.getGameDataHandler();
 //		myAEM.getDefaultSpriteController().getAllSprites().forEach(sprite->{
 //			System.out.println("Sprite exists, name: "+sprite.getName());
@@ -315,7 +316,7 @@ public class GameElementSelector extends TabPane implements Observer {
 				sp.setBorder(new Border(border));
 				if (counter<sprites.size()) {
 					AbstractSpriteObject toPopulate = sprites.get(counter);
-					System.out.println("Adding " + toPopulate);
+					System.out.println("Adding " + toPopulate.getImageURL());
 					this.mySpriteGridHandler.addSpriteDrag(toPopulate);
 					this.mySpriteGridHandler.addSpriteMouseClick(toPopulate);
 //					this.mySpriteGridHandler.add
@@ -352,7 +353,6 @@ public class GameElementSelector extends TabPane implements Observer {
 	}
 
 		ScrollPane SP = new ScrollPane(gp);
-		//sp.getStylesheets().add(this.getClass().getResource("gui.welcomescreen/" + MenuOptionsTemplate.SCROLLPANE_CSS).toExternalForm());
 		return SP;
 	}
 	

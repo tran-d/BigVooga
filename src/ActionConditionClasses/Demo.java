@@ -1,3 +1,5 @@
+package ActionConditionClasses;
+
 import java.util.ResourceBundle;
 
 import authoring.drawing.ImageCanvasPane;

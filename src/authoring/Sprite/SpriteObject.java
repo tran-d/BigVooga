@@ -1,27 +1,10 @@
 package authoring.Sprite;
 
-import authoring.GridManagers.*;
-import authoring.Sprite.*;
-import authoring.Sprite.Parameters.*;
-import authoring.Sprite.AnimationSequences.*;
-import authoring.Sprite.UtilityTab.*;
-import authoring.Sprite.InventoryTab.*;
-import authoring.SpriteManagers.*;
-import authoring.SpritePanels.*;
-import authoring.util.*;
-import authoring_UI.Map.*;
-import authoring_UI.*;
-import authoring.*;
-import authoring_UI.Inventory.*;
-
-import java.io.Externalizable;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import authoring_UI.SpriteDataConverter;
+import authoring.Sprite.Parameters.SpriteParameterI;
+import javafx.scene.image.Image;
 
 public class SpriteObject extends AbstractSpriteObject{
 	
@@ -37,6 +20,10 @@ public class SpriteObject extends AbstractSpriteObject{
 	
 	public SpriteObject(String fileURL){
 		super(fileURL);
+	}
+	
+	public SpriteObject(Image image, String fileURL){
+		super(image, fileURL);
 	}
 
 	

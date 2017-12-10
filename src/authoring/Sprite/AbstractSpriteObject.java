@@ -2,14 +2,12 @@ package authoring.Sprite;
 
 
 import java.io.File;
-import java.io.ObjectStreamException;
-import java.io.Serializable;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.lang.reflect.Field;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -18,28 +16,19 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
-import authoring.GridManagers.*;
-import authoring.Sprite.*;
-import authoring.Sprite.Parameters.*;
-import authoring.Sprite.AnimationSequences.*;
-import authoring.Sprite.UtilityTab.*;
-import authoring.Sprite.InventoryTab.*;
-import authoring.SpriteManagers.*;
-import authoring.SpritePanels.*;
-import authoring.util.*;
-import authoring_UI.Map.*;
-import authoring_UI.*;
-import authoring.*;
-import authoring_UI.Inventory.*;
+import authoring.Sprite.AnimationSequences.AnimationSequence;
+import authoring.Sprite.AnimationSequences.AuthoringImageView;
+import authoring.Sprite.Parameters.BooleanSpriteParameter;
+import authoring.Sprite.Parameters.DoubleSpriteParameter;
+import authoring.Sprite.Parameters.SpriteParameter;
+import authoring.Sprite.Parameters.SpriteParameterI;
+import authoring.Sprite.Parameters.StringSpriteParameter;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -132,6 +121,12 @@ public abstract class AbstractSpriteObject extends ImageView {
 		setupImageURLAndView(fileURL);
 //		myName = fileURL.split("\\.")[0];
 	}
+	
+	public AbstractSpriteObject(Image image, String path) {
+		this();
+		setupImageURLAndView(image, path);
+//		myName = fileURL.split("\\.")[0];
+	}
 
 	AbstractSpriteObject(HashMap<String, List<SpriteParameterI>> inCategoryMap) {
 		this();
@@ -192,10 +187,22 @@ public abstract class AbstractSpriteObject extends ImageView {
 	}
 
 	protected void setupImageURLAndView(String fileURL) {
-		myImageURL = fileURL;
-		this.setImage(new Image(fileURL));
-//		this.setFitWidth(45);
-//		this.setFitHeight(45);
+		FileInputStream fis;
+		Image im;
+		try {
+			fis = new FileInputStream(new File(fileURL));
+			im = new Image(fis);
+		} catch (FileNotFoundException e) {
+			im = new Image(fileURL);
+		}
+		setupImageURLAndView(im, fileURL);
+	}
+	
+	public void setupImageURLAndView(Image image, String path) {
+		myImageURL = path;
+		this.setImage(image);
+		this.setFitWidth(45);
+		this.setFitHeight(45);
 	}
 
 	private void initializeHeightWidthProperties() {
@@ -204,9 +211,11 @@ public abstract class AbstractSpriteObject extends ImageView {
 		height = new SimpleObjectProperty<Integer>();
 		initializeHeightFunction();
 		if (this.getNumCellsHeight()==null ){
+			this.myNumCellsHeight = 1;
 			this.height.set(1);
 		}
 		if (this.getNumCellsWidth()== null){
+			this.myNumCellsWidth = 1;
 			this.width.set(1);
 		}
 	}

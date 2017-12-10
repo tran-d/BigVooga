@@ -15,7 +15,7 @@ public class ActionTab<T> extends Tab implements ActionTabI<T> {
 	private static final double SPACING = 10;
 	
 	private ScrollPane actionConditionManager;
-	private TopToolBar buttons;
+	private ActionConditionHBox buttons;
 	private ActionConditionVBox<T> actionConditionVBox;
 	private ResourceBundle actionTabResources;
 	private VBox mainVBox;
@@ -28,7 +28,7 @@ public class ActionTab<T> extends Tab implements ActionTabI<T> {
 		setUpActionConditionManager(title);
 	}
 	
-	public ActionTab(String title,ActionConditionVBox<T> actionConditionVBox,TopToolBar topToolBar) {
+	public ActionTab(String title,ActionConditionVBox<T> actionConditionVBox,ActionConditionHBox topToolBar) {
 		this(title);
 		mainVBox.getChildren().removeAll(this.actionConditionVBox,this.buttons);
 		this.actionConditionVBox = actionConditionVBox;
@@ -37,7 +37,7 @@ public class ActionTab<T> extends Tab implements ActionTabI<T> {
 	}
                                                                                                                                                                                                                                                                           
 	private void setUpActionConditionManager(String title) {
-		buttons = new TopToolBar(title);
+		buttons = new ActionConditionHBox(title);
 		actionConditionVBox = setActionConditionVBox();
 		mainVBox = new VBox(SPACING);
 		mainVBox.getChildren().addAll(buttons,actionConditionVBox);
@@ -100,7 +100,7 @@ public class ActionTab<T> extends Tab implements ActionTabI<T> {
 	}
 
 	@Override
-	public TopToolBar getTopToolBar() {
+	public ActionConditionHBox getTopToolBar() {
 		return buttons;
 	}
 
@@ -115,7 +115,7 @@ public class ActionTab<T> extends Tab implements ActionTabI<T> {
 	}
 
 	@Override
-	public void setTopToolBar(TopToolBar topToolBar) {
+	public void setTopToolBar(ActionConditionHBox topToolBar) {
 		mainVBox.getChildren().removeAll(buttons,actionConditionVBox);
 		buttons = topToolBar;
 		mainVBox.getChildren().addAll(buttons,actionConditionVBox);

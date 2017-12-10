@@ -12,22 +12,21 @@ import engine.operations.gameobjectops.GameObjectOperation;
  * @author Nikolas Bramblett
  *
  */
-public class SetInventoryBackground implements Action{
+public class SetInventoryBackground implements Action {
 
-	GameObjectOperation target, template;
-	public SetInventoryBackground(@VoogaAnnotation(name = "Target Object", type = VoogaType.GAMEOBJECT) GameObjectOperation target, 
-			@VoogaAnnotation(name = "Object to be used as template", type = VoogaType.GAMEOBJECT) GameObjectOperation template) {
-		// TODO Auto-generated constructor stub
-		this.target=target;
+	private GameObjectOperation target, template;
+
+	public SetInventoryBackground(
+			@VoogaAnnotation(name = "Target Object", type = VoogaType.GAMEOBJECT) GameObjectOperation target,
+			@VoogaAnnotation(name = "Sprite to be used as template", type = VoogaType.GAMEOBJECT) GameObjectOperation template) {
+		this.target = target;
 		this.template = template;
 	}
+
 	@Override
 	public void execute(GameObject asking, GameObjectEnvironment world) {
-		// TODO Auto-generated method stub
-		target.evaluate(asking, world).getInventory().setPane(template.evaluate(asking, world).getBounds());
-		
-		
+		target.evaluate(asking, world).getInventory().setPane(template.evaluate(asking, world).getBounds().clone());
+
 	}
-	
 
 }

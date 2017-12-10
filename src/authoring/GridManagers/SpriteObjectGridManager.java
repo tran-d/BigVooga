@@ -14,7 +14,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.paint.Color;
 
-public abstract class SpriteObjectGridManager implements SpriteObjectGridManagerI{
+public abstract class SpriteObjectGridManager {
 	
 	protected List<List<SpriteObject>> spriteGrid;
 	private int MAX_ROWS = 15;

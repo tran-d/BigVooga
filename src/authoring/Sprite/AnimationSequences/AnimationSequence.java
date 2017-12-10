@@ -3,19 +3,7 @@ package authoring.Sprite.AnimationSequences;
 import java.io.File;
 import java.util.ArrayList;
 
-import authoring.GridManagers.*;
-import authoring.Sprite.*;
-import authoring.Sprite.Parameters.*;
-import authoring.Sprite.AnimationSequences.*;
-import authoring.Sprite.UtilityTab.*;
-import authoring.Sprite.InventoryTab.*;
-import authoring.SpriteManagers.*;
-import authoring.SpritePanels.*;
-import authoring.util.*;
-import authoring_UI.Map.*;
-import authoring_UI.*;
-import authoring.*;
-import authoring_UI.Inventory.*;
+import authoring.Thumbnail;
 import engine.utilities.data.GameDataHandler;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -24,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class AnimationSequence {
@@ -108,12 +95,11 @@ public class AnimationSequence {
 		return myImages;
 	}
 	
-	public Pane getUIContent(){
+	public VBox getUIContent(){
 		showUI();
 		if (this.outMostVbox==null){
-			outMostVbox  = new VBox();
-			outMostVbox.getChildren().add(getScrollPane());
-			outMostVbox.getChildren().add(this.getAddImageButton());
+			outMostVbox = new VBox();
+			outMostVbox.getChildren().addAll(getScrollPane(), getAddImageButton());
 		}
 		return outMostVbox;
 	}
@@ -134,6 +120,7 @@ public class AnimationSequence {
 	private void createScrollPane() {
 		myScrollPane = new ScrollPane();
 		myScrollPane.setPrefHeight(200);
+		myScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 		
 	}
 	
@@ -151,7 +138,8 @@ public class AnimationSequence {
 
 	private void createContainerVbox() {
 		myContainerVbox = new VBox();
-		myContainerVbox.setPrefWidth(500);
+		myContainerVbox.setPrefWidth(520);
+		
 	}
 
 	private void addAllAnimationSequenceImageThumbnails() {
@@ -211,14 +199,14 @@ public class AnimationSequence {
 //			Image im = new Image("/"+"brick.png");
 //			System.out.println("Image loaded: "+im);
 			
-			String testFile = File.separator+file.getName();
+			String testFile = File.separator + file.getName();
 			System.out.println(testFile);
 			AuthoringImageView AIV = new AuthoringImageView(testFile); 
 			addNewAuthoringImageViewToSequence(AIV);
 		});
 	}
 	
-	private Button getAddImageButton(){
+	public Button getAddImageButton(){
 		if (addNewImage==null){
 			createAddImageButton();
 		}
