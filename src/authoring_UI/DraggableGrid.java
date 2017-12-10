@@ -70,6 +70,7 @@ public class DraggableGrid extends VBox {
 
 	private void createGrid(SpriteGridHandler spriteGridHandler) {
 		myStackPane = new StackPane();
+		myStackPane.setId("StackPane");
 		myStackPane.setAlignment(Pos.CENTER);
 		for (SpriteObjectGridManager ml: allGrids){
 			myStackPane.getChildren().add(ml.getMapLayer());

@@ -153,6 +153,10 @@
     -fx-background-color: #47BDFF;
 }
 
+#StackPane:hover{
+	-fx-border-color: #47BDFF;
+}
+
 .separator{
 	-fx-background: #47BDFF;
 }
