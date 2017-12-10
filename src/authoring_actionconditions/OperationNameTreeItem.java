@@ -67,10 +67,8 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 
 				System.out.println("Selected: " + operations.get(operationCB.getSelectionModel().getSelectedIndex()));
 				operationName.getChildren().clear();
-
-//				selectedOperation = operations.get(operationCB.getSelectionModel().getSelectedIndex());
-				operationParameterTreeItem = new OperationParameterTreeItem(
-						operations.get(operationCB.getSelectionModel().getSelectedIndex()));
+				String selectedAction = operations.get(operationCB.getSelectionModel().getSelectedIndex());
+				operationParameterTreeItem = new OperationParameterTreeItem(selectedAction);
 				opParameterList.add(operationParameterTreeItem);
 				operationName.getChildren().add(operationParameterTreeItem);
 			}

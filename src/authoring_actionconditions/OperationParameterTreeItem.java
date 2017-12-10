@@ -120,21 +120,26 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 
 	private TextField createDoubleTextField(TreeItem<HBox> treeItem) {
 		TextField tf = new TextField();
+		// TreeItem<HBox> tfTreeItem = new TreeItem<HBox>(new HBox(new Label("Insert
+		// Double: "), tf));
 		tf.setOnKeyReleased(e -> {
 			checkDoubleInput(tf);
+			// checkEmptyInput(tf, parameterAction, paramTV,
+			// parameterAction.getChildren().indexOf(tfTreeItem));
 		});
 
 		return tf;
-
 	}
 
 	private TextField createStringTextField(TreeItem<HBox> treeItem) {
 		TextField tf = new TextField();
-		tf.setOnKeyReleased(e -> { // do nothing
+		// TreeItem<HBox> tfTreeItem = new TreeItem<HBox>(new HBox(new Label("Insert
+		// String: "), tf));
+		tf.setOnKeyReleased(e -> { // checkEmptyInput(tf, parameterAction, paramTV,
+			// parameterAction.getChildren().indexOf(tfTreeItem));
 		});
 
 		return tf;
-
 	}
 
 	private void checkDoubleInput(TextField tf) {
@@ -145,7 +150,6 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 			showError(INVALID_INPUT_MESSAGE, DOUBLE_INPUT_MESSAGE);
 			tf.clear();
 		}
-
 	}
 
 	private void showError(String header, String content) {
@@ -154,5 +158,4 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 		alert.headerTextProperty().bind(DisplayLanguage.createStringBinding(content));
 		alert.show();
 	}
-
 }

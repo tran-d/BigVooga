@@ -106,7 +106,6 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 
 			OperationNameTreeItem opNameTreeItem = new OperationNameTreeItem(param);
 			opNameTreeItemList.add(opNameTreeItem);
-
 			parameterAction.getChildren().add(opNameTreeItem);
 
 		}
