@@ -30,7 +30,6 @@ public class SceneController {
 	private Map<String, Scene> sceneMap = new HashMap<String, Scene>();
 	private Stage stage;
 	private Scene scene;
-	private FileSelector fileSelector;
 	
 	/**
 	 * Initializes all the scenes and puts them in the sceneMap.
@@ -49,7 +48,7 @@ public class SceneController {
 		scene = gameSelector.getScene();
 		sceneMap.put(GAME_SELECTOR_KEY, scene);
 		
-		fileSelector = new FileSelector(stage, this);
+		FileSelector fileSelector = new FileSelector(stage, this);
 		fileSelector.createFileSelector();
 		scene = fileSelector.getScene();
 		sceneMap.put(FILE_SELECTOR_KEY, scene);
@@ -73,9 +72,5 @@ public class SceneController {
 	public void switchScene (String key) {
 		stage.setScene(sceneMap.get(key));
 		stage.centerOnScreen();
-	}
-	
-	public void saveWorlds() {
-		fileSelector.saveWorlds();
 	}
 }

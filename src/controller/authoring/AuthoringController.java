@@ -1,7 +1,6 @@
 package controller.authoring;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import authoring.AuthoringEnvironmentManager;
@@ -60,7 +59,15 @@ public class AuthoringController {
 		authoringPane.getChildren().addAll(view, currentSideBar);
 	}
 
-	public List<DraggableGrid> getExistingWorlds() {
-		return mapManager.getAllWorlds();
-	}
+//	public void saveWorlds() {
+//		GameDataHandler existingGDH = mapManager.getGDH();
+//		for (DraggableGrid DG : mapManager.getAllWorlds()) {
+//			try {
+//				existingGDH.saveWorld(DG);
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+//	}
 }

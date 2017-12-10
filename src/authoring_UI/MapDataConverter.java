@@ -14,9 +14,11 @@ public class MapDataConverter {
 	private final XStream SERIALIZER = setupXStream();
 	private String myName;
 	private String layerPath;
+	private List<SpriteObjectGridManager> gridManagers;
 	
 	public XStream setupXStream() {
 		XStream xstream = new XStream(new DomDriver());
+		// xstream.addPermission(NoTypePermission.NONE);
 		xstream.addPermission(NullPermission.NULL);
 		xstream.addPermission(PrimitiveTypePermission.PRIMITIVES);
 		xstream.allowTypes(new Class[] { Point2D.class });
@@ -33,7 +35,7 @@ public class MapDataConverter {
 	}
 	
 	public MapDataConverter(DraggableGrid grids) {
-		//convertLayer(grids);
+		convertLayer(grids);
 	}
 	
 	public String getLayerPath() {
@@ -44,8 +46,24 @@ public class MapDataConverter {
 		layerPath = path;
 	}
 	
+	public void convertLayer(DraggableGrid grids){
+		gridManagers = grids.getGrids();
+	}
+	
+//	public List<LayerDataConverter> getLayersToConvert() {
+//		List<LayerDataConverter> converters = new ArrayList<>();
+//		for (SpriteObjectGridManager gridManager : gridManagers) {
+//			converters.add(new LayerDataConverter(gridManager));
+//		}
+//		return converters;
+//	}
+	
+	// create spriteobjectgrid manager list. 
+	
 	public DraggableGrid createMap() {
 		DraggableGrid newMap = new DraggableGrid();
+		
+		// TODO need more? 
 		return newMap;
 	}
 }

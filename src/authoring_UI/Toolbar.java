@@ -40,7 +40,7 @@ public class Toolbar extends ToolBar {
 		//TODO load.setOnAction(e -> ());
 		MenuItem save = new MenuItem();
 		save.textProperty().bind(DisplayLanguage.createStringBinding(SAVE_STRING));
-		save.setOnAction(e -> sceneController.saveWorlds());
+		//save.setOnAction(e -> sceneController.saveWorlds());
 		MenuItem importOption = new MenuItem();
 		importOption.textProperty().bind(DisplayLanguage.createStringBinding(IMPORT_STRING));
 		//TODO importOption.setOnAction(e -> ());

@@ -30,7 +30,6 @@ public class FileSelector extends MenuOptionsTemplate {
 	private ScrollPane contentPane = new ScrollPane();
 	private Scene scene;
 	private TextField textField;
-	private MainAuthoringGUI myAuthoringGUI;
 	
 	
 	public FileSelector(Stage currentStage, SceneController currentSceneController) {
@@ -104,13 +103,10 @@ public class FileSelector extends MenuOptionsTemplate {
 	}
 	
 	private void switchScene(String fileName) {
-		myAuthoringGUI = new MainAuthoringGUI(stage, sceneController, fileName);
-		myAuthoringGUI.createAuthoringGUI();
-		stage.setScene(myAuthoringGUI.getScene());
+		MainAuthoringGUI authoringGUI = new MainAuthoringGUI(stage, sceneController, fileName);
+		authoringGUI.createAuthoringGUI();
+		stage.setScene(authoringGUI.getScene());
 		stage.centerOnScreen();
 	}
 	
-	public void saveWorlds() {
-		myAuthoringGUI.saveWorlds();
-	}
 }
