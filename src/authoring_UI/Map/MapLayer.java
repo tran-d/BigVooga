@@ -231,7 +231,8 @@ public abstract class MapLayer extends GridPane {
 	
 	private AuthoringMapStackPane addAuthoringStackPaneToPosition(int row, int col){
 		AuthoringMapStackPane sp = new AuthoringMapStackPane(this);
-		//sp.setOnMouseEntered(e -> style());
+		sp.setOnMouseEntered(e -> style(sp));
+		sp.setOnMouseExited(e -> removeStyle(sp));
 		//sp.setId("StackPane");
 		sp.setMinWidth(CELL_SIZE);
 		sp.setMaxWidth(CELL_SIZE);
@@ -244,9 +245,9 @@ public abstract class MapLayer extends GridPane {
 		sp.setBackground(
 				new Background(new BackgroundFill(getDefaultColor(), CornerRadii.EMPTY, Insets.EMPTY)));
 		// sp.setStyle();
-		BorderStroke border = new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.DOTTED, CornerRadii.EMPTY,
-				BorderWidths.DEFAULT);
-		sp.setBorder(new Border(border));
+		//BorderStroke border = new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.DOTTED, CornerRadii.EMPTY,
+				//BorderWidths.DEFAULT);
+		//sp.setBorder(new Border(border));
 //		GridPane.setColumnSpan(sp, 1);
 //		GridPane.setRowSpan(sp, 1);
 		GridPane.setHgrow(sp, Priority.NEVER);
@@ -263,7 +264,11 @@ public abstract class MapLayer extends GridPane {
 	}
 	
 	private void style(StackPane sp) {
-		
+		sp.setStyle("-fx-border-color: #47BDFF;");
+	}
+	
+	private void removeStyle(StackPane sp) {
+		sp.setStyle("-fx-border-color: transparent;");
 	}
 	
 	public void addRow(){

@@ -12,7 +12,7 @@ import authoring_actionconditions.ActionVBox;
 import authoring_actionconditions.ConditionRow;
 import authoring_actionconditions.ConditionTab;
 import authoring_actionconditions.ConditionVBox;
-import authoring_actionconditions.TopToolBar;
+import authoring_actionconditions.ActionConditionHBox;
 import javafx.collections.ObservableList;
 
 public class ApplyButtonController implements ApplyButtonControllerI {
@@ -32,8 +32,8 @@ public class ApplyButtonController implements ApplyButtonControllerI {
 		System.out.println("Sprite actions " + actions);
 		ObservableList<Integer> allConditions = spriteObject.getAllConditions();
 		ObservableList<Integer> allActions = spriteObject.getAllActions();
-		TopToolBar topToolBarConditions = new TopToolBar(ResourceBundleUtil.getTabTitle("ConditionsTabTitle"),allConditions);
-		TopToolBar topToolBarActions = new TopToolBar(ResourceBundleUtil.getTabTitle("ActionsTabTitle"),allActions);
+		ActionConditionHBox topToolBarConditions = new ActionConditionHBox(ResourceBundleUtil.getTabTitle("ConditionsTabTitle"),allConditions);
+		ActionConditionHBox topToolBarActions = new ActionConditionHBox(ResourceBundleUtil.getTabTitle("ActionsTabTitle"),allActions);
 		int rowCond = 1;
 		List<ConditionRow> conditionRows = new LinkedList<ConditionRow>();
 		ConditionVBox<ConditionRow> conditionVBox = new ConditionVBox<ConditionRow>(conditionTab.getSelectorLabel());

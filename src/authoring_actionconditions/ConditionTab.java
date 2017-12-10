@@ -8,7 +8,7 @@ public class ConditionTab<T> extends ActionTab<T> implements ConditionTabI {
 		super(title);
 	}
 	
-	public ConditionTab(String title,ConditionVBox<T> actionConditionVBox, TopToolBar topToolBar) {
+	public ConditionTab(String title,ConditionVBox<T> actionConditionVBox, ActionConditionHBox topToolBar) {
 		super(title,actionConditionVBox,topToolBar);
 	}
 
