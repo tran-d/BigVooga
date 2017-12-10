@@ -13,6 +13,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import tools.DisplayLanguage;
 
 public class Toolbar extends ToolBar {
@@ -25,14 +26,16 @@ public class Toolbar extends ToolBar {
 	private static final String ELEMENT_VIEWER_STRING = "ElementViewer";
 	private static final String MAP_VIEWER_STRING = "MapViewer";
 	private static final String SETTINGS_STRING = "Settings";
+	public static final String FILE_SELECTOR = "File Selector";
 	
 	private MenuButton fileOptions;
 	private MenuButton settings;
 	private SceneController sceneController;
 	private MenuButton views;
-	private MenuButton importOptions;
+	private Stage myStage;
 
-	public Toolbar(SceneController currentSceneController) {
+	public Toolbar(Stage stage, SceneController currentSceneController) {
+		myStage = stage;
 		sceneController = currentSceneController;
 		createFileOptions();
 		createViews();
@@ -47,7 +50,7 @@ public class Toolbar extends ToolBar {
 	private void createFileOptions() {
 		MenuItem load = new MenuItem();
 		load.textProperty().bind(DisplayLanguage.createStringBinding(LOAD_STRING));
-		load.setOnAction(e -> sceneController.switchScene(SceneController.FILE_SELECTOR_KEY));
+		load.setOnAction(e -> this.loadNewGame());
 		
 		MenuItem save = new MenuItem();
 		save.textProperty().bind(DisplayLanguage.createStringBinding(SAVE_STRING));
@@ -68,6 +71,12 @@ public class Toolbar extends ToolBar {
 		fileOptions.textProperty().bind(DisplayLanguage.createStringBinding(FILE_STRING));
 	}
 	
+	private void loadNewGame() {
+		myStage.close();
+		SceneController newScene = new SceneController(new Stage());
+		newScene.switchScene(FILE_SELECTOR);
+	}
+	
 	private List<MenuItem> createImportOptions() {
 		List<MenuItem> importItems = new ArrayList<MenuItem>();
 		File f = new File("data/UserCreatedGames");
@@ -75,7 +84,7 @@ public class Toolbar extends ToolBar {
 		for (File file: listOfFiles) {
 			if (file.getName().charAt(0) != '.') {
 				MenuItem tempItem = new MenuItem(file.getName());
-				//tempItem.setOnAction(e -> );
+				tempItem.setOnAction(e -> sceneController.importWorlds(file.getName()));
 				importItems.add(tempItem);
 			}
 		}

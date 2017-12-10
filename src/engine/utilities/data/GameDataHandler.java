@@ -54,7 +54,6 @@ import javafx.stage.Window;
  * @author Ian Eldridge-Allegra and other?
  */
 
-
 public class GameDataHandler {
 	private static final XStream SERIALIZER = setupXStream();
 	private static final String KNOWN_PROJECTS = "KnownProjectNames";
@@ -402,7 +401,42 @@ public class GameDataHandler {
 		return ret;
 	}
 	
-	public SpriteObjectGridManager loadLayer(File layerFile) throws Exception {
+	private List<SpriteObjectGridManager> loadLayersFromDirectoryName() {
+		List<SpriteObjectGridManager> loadedSOGMs = new ArrayList<SpriteObjectGridManager>();
+		try{
+			for (int i = 1; i < 4; i++) {
+				loadedSOGMs.add(loadLayerFromDirectory(this.getInitializingLayerDirectoryPath(i), i));
+			}
+		} catch (Exception e){
+			// do nothing
+		}
+		return loadedSOGMs;
+	}
+	
+	private SpriteObjectGridManager loadLayerFromDirectory(String initializingLayerDirectoryPath, int layerNum) {
+		SpriteObjectGridManager temp = null;
+		File directory = new File(initializingLayerDirectoryPath);
+		if (!isValidDirectory(directory)) {
+			try {
+				throw new Exception("Not a directory");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		File[] files = directory.listFiles();
+		for (File f : files) {
+			try {
+				temp = loadLayer(f, layerNum); 
+				System.out.println("ADDED A LAYER AFTER DE-SERIALIZAING");
+
+			} catch (Exception e) {
+			}
+		}
+		return temp;
+	}
+
+	public SpriteObjectGridManager loadLayer(File layerFile, int num) throws Exception {
 		if (!isValidFile(layerFile)){
 			throw new Exception("Invalid file to load");
 		}
@@ -411,6 +445,8 @@ public class GameDataHandler {
 		scanner.close();
 		LayerDataConverter SDC = (LayerDataConverter) SERIALIZER.fromXML(fileContents);
 		SpriteObjectGridManager ret = SDC.createLayer();
+		List<AbstractSpriteObject> spritesToAdd = this.loadSpritesFromDirectoryName(this.getLayerSpritesDirectoryPath(num));
+		ret.addActiveCells(spritesToAdd);
 		return ret;
 	}
 
@@ -533,21 +569,26 @@ public class GameDataHandler {
 		String fileContents = scanner.useDelimiter("\\Z").next();
 		scanner.close();
 		MapDataConverter MDC = (MapDataConverter) SERIALIZER.fromXML(fileContents);
-		DraggableGrid ret = MDC.createMap(); // TODO this will not totally work
+		DraggableGrid ret = MDC.createMap();
+		List<SpriteObjectGridManager> addToWorld = this.loadLayersFromDirectoryName();
+		if (addToWorld == null) System.out.println("NULL SOGMS OH NO!!!");
+		if (addToWorld.size() == 0) System.out.println("SIZE OF SOGMS IS 0 OH NO");
+		ret.loadLayers(addToWorld);
+		System.out.println("FINISHED CREATING WORLD");
 		return ret;
 	}
 	
-	private List<DraggableGrid> loadWorldsFromDirectory(File directory) throws Exception { // TODO doesn't need parameter bc GDH is unique for every game?
+	private List<DraggableGrid> loadWorldsFromDirectory(File directory) throws Exception {
 		List<DraggableGrid> worlds = new ArrayList<>();
 		if (!isValidDirectory(directory)) {
 			throw new Exception("Not a directory");
 		}
 		File[] files = directory.listFiles();
 		for (File f : files) {
-			
 			try {
 				DraggableGrid temp = loadWorld(f);
 				worlds.add(temp);
+				System.out.println("ADDED A WORLD AFTER DE-SERIALIZAING");
 
 			} catch (Exception e) {
 			}
@@ -580,12 +621,13 @@ public class GameDataHandler {
 		try{
 			DG_LIST = loadWorldsFromDirectoryName(this.getInitializingWorldDirectoryPath());
 		} catch (Exception e){
-			DG_LIST = new ArrayList<DraggableGrid>();
+			// do nothing
 		}
 		return DG_LIST;
 	}
 
 	public List<DraggableGrid> loadWorldsFromDirectoryName(String filePath) throws Exception {
+		System.out.println("LOAD WORLDS FROM DIRECTORY NAME " + filePath);
 		File directory = new File(filePath);
 		return loadWorldsFromDirectory(directory);
 	}

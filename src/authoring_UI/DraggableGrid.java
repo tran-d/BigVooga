@@ -46,12 +46,8 @@ public class DraggableGrid extends VBox {
 		cols = 20;
 	}
 	
-	public DraggableGrid(List<SpriteObjectGridManager> SOGMList) {
-		this();
-		allGrids = SOGMList;
-	}
-	
 	public void loadLayers(List<SpriteObjectGridManager> SOGMList) {
+		System.out.println("add to layers in DRAGGABLE GRID!");
 		allGrids = SOGMList;
 	}
 	
@@ -95,7 +91,7 @@ public class DraggableGrid extends VBox {
 		return allGrids;
 	}
 	
-	public void setAllGrids(ArrayList<SpriteObjectGridManager> SGMs){
+	public void setAllGrids(List<SpriteObjectGridManager> SGMs){
 		allGrids = SGMs;
 	}
 	
@@ -117,6 +113,7 @@ public class DraggableGrid extends VBox {
 			allGrids.add(item);
 		});
 		} else {
+			if (spriteGridHandler == null) System.out.println("SGH is NULL IN DRAGGABLE GRID");
 			allGrids.forEach(item->{
 				item.setSpriteGridHandler(spriteGridHandler);
 				item.createMapLayer();

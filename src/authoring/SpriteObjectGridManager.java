@@ -200,6 +200,12 @@ public abstract class SpriteObjectGridManager {
 		activeCells.add(ASO.getPositionOnGrid());
 	}
 	
+	public void addActiveCells(List<AbstractSpriteObject> ASOList) {
+		for (AbstractSpriteObject ASO : ASOList) {
+			this.addActiveCell(ASO);
+		}
+	}
+	
 	public void removeActiveCell(AbstractSpriteObject ASO){
 		removeActiveCell(ASO.getPositionOnGrid());
 	}

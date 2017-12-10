@@ -45,7 +45,7 @@ public class MainAuthoringGUI{
 	}
 	
 	public void createAuthoringGUI() {
-		toolBar = new Toolbar(sceneController);
+		toolBar = new Toolbar(stage, sceneController);
 		rootPane.setTop(toolBar);
 		
 		authoringPane = new Pane();
@@ -68,7 +68,7 @@ public class MainAuthoringGUI{
 
 	public void saveWorlds() {
 		List<DraggableGrid> allWorlds = authoringController.getExistingWorlds();
-		int count = 0; // temp for debugging 
+		int count = 0; // temp for debugging
 		for (DraggableGrid toSave : allWorlds) {
 			count++;
 			System.out.println("Saving world # : " + count);
@@ -79,5 +79,5 @@ public class MainAuthoringGUI{
 				e.printStackTrace();
 			}
 		}
-	}	
+	}
 }

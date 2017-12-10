@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.List;
+import java.util.Random;
 
 import authoring.AbstractSpriteObject;
 import authoring.InventoryObject;
@@ -36,6 +37,8 @@ public class SpriteGridHandler {
 	private DraggableGrid myDG;
 
 	public SpriteGridHandler(int mapCount, DraggableGrid DG) {
+		Random rand = new Random();
+		mapCount = rand.nextInt();
 		objectFormat = new DataFormat("MyObject" + Integer.toString(mapCount));
 		myDG = DG;
 	}

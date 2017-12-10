@@ -59,12 +59,12 @@ public class MapManager extends TabPane {
 		
 		List<DraggableGrid> DGs = myGDH.loadWorldsFromWorldDirectory();
 		if (DGs.size()>0){
+			System.out.println("size: number of worlds " + DGs.size());
 			System.out.println("AN OLD GRID WAS SAVED AND NOW WILL BE LOADED");
 			for (DraggableGrid w: DGs){
-			System.out.println("Grid: " + w);
-			setTab();
-			createTab(myTabCount, w);
-		}
+				setTab();
+				createTab(myTabCount, w);
+			}
 		} else {
 			System.out.println("displaying a new grid");
 			setTab();
@@ -97,10 +97,10 @@ public class MapManager extends TabPane {
 	
 	
 	private HBox setupFEAuthClasses(DraggableGrid w) { 
-		System.out.println("setUpFE?");
 		// TODO if it's old project, want all possible worlds, so many worlds!
-		allWorlds.add(w); // TODO unsure if needed
-		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, w); 
+		allWorlds.add(w); 
+		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, w);
+		if (mySpriteGridHandler == null) System.out.println("SGH IS NULL IN MAPMANAGER");
 		w.construct(mySpriteGridHandler);
 		mySpriteGridHandler.addKeyPress(stage.getScene());
 		SpritePanels spritePanels = new SpritePanels(mySpriteGridHandler, myAEM);
@@ -113,9 +113,8 @@ public class MapManager extends TabPane {
 		currentTab = new Tab();
 		StringProperty tabMap = new SimpleStringProperty();
 		tabMap.bind(Bindings.concat(DisplayLanguage.createStringBinding(TAB_TAG)).concat(" " + Integer.toString(tabCount)));
-		
 		currentTab.textProperty().bind(tabMap);
-//		currentTab.textProperty().set(//TODO: World Name);
+//		currentTab.textProperty().set(TODO: World Name);
 		currentTab.setContent(setupScene(w));
 		this.getTabs().add(this.getTabs().size() - 1, currentTab);
 		myTabCount++;

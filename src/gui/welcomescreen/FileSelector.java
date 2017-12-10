@@ -32,7 +32,6 @@ public class FileSelector extends MenuOptionsTemplate {
 	private TextField textField;
 	private MainAuthoringGUI myAuthoringGUI;
 	
-	
 	public FileSelector(Stage currentStage, SceneController currentSceneController) {
 		super(currentStage, currentSceneController);
 		createOptionScreen(SQUARICLE_PATH, SQUARICLE_WIDTH, SQUARICLE_HEIGHT, Settings.HEADING_PADDING, 0, WelcomeScreen.HEIGHT-200);
@@ -110,5 +109,13 @@ public class FileSelector extends MenuOptionsTemplate {
 	
 	public void saveWorlds() {
 		myAuthoringGUI.saveWorlds();
+	}
+
+	public void importWorlds(String fileName) {
+		System.out.println("ya make that new authoring GUI WOOOO");
+		myAuthoringGUI = new MainAuthoringGUI(stage, sceneController, fileName);
+		myAuthoringGUI.createAuthoringGUI();
+		stage.setScene(myAuthoringGUI.getScene());
+		stage.centerOnScreen();
 	}
 }
