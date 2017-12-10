@@ -22,16 +22,13 @@ public class ActionRow extends ActionConditionRow {
 	private static final double TREE_VIEW_WIDTH = 600;
 	private static final double EXPANDED_HEIGHT = 500;
 	private static final double COLLAPSED_HEIGHT = 25;
-
-	private static String EMPTY_CHOICEBOX = "EmptyChoiceBox";
+	private static final String EMPTY_CHOICEBOX = "EmptyChoiceBox";
 	private static final String INVALID_INPUT_MESSAGE = "InvalidInput";
 	private static final String DOUBLE_INPUT_MESSAGE = "EnterDouble";
 
 	private ActionFactory actionFactory;
-
 	private TreeView<HBox> actionTreeView;
 	private ActionCategoryTreeItem categoryAction;
-
 	private ActionNameTreeItem actionName;
 
 	public ActionRow(int ID, String label, String selectorLabel,String selectedAction, ActionVBox<ActionRow> ACVBox) {
