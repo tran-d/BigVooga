@@ -12,6 +12,7 @@ import engine.GameLayer;
 import engine.GameMaster;
 import engine.GameObject;
 import engine.GameWorld;
+import engine.Actions.changeObject.RemoveFromWorld;
 import engine.Actions.dialog.ClearTyped;
 import engine.Actions.dialog.PlaceTextOn;
 import engine.Actions.global.SaveGame;
@@ -22,6 +23,7 @@ import engine.operations.booleanops.BooleanValue;
 import engine.operations.booleanops.KeyHeld;
 import engine.operations.booleanops.KeyReleased;
 import engine.operations.doubleops.Value;
+import engine.operations.gameobjectops.Get;
 import engine.operations.gameobjectops.Self;
 import engine.operations.stringops.SelfString;
 import engine.operations.stringops.TypedString;
@@ -62,8 +64,12 @@ public class TextTester extends Application {
 		//object.addTag("Player");
 		object.setDialogue(text);
 		
+		GameObject object2 = makeObject("Box2", new BoundedImage(f.getName()),
+				100, 100, this::deletable);
+		
 		GameLayer l = new GameLayer("Layer");
 		l.addGameObject(object);
+		l.addGameObject(object2);
 
 		GameWorld w = new GameWorld("World");
 		w.addLayer(l);
@@ -89,6 +95,13 @@ public class TextTester extends Application {
 		return obj;
 	}
 
+	private void deletable(GameObject object) {
+		ArrayList<Action> actions1 = new ArrayList<Action>();
+		actions1.add(new RemoveFromWorld(new Get(object)));
+		object.addConditionAction(new Condition(100, new KeyHeld(new SelfString("D"))), actions1);
+		
+	}
+	
 	private void condAct(GameObject object) {
 //		List<Action> actions1 = new ArrayList<Action>();
 //		actions1.add(new SetAcceleration(new Self(), new UnitVector(new VectorDifference(new MouseLocation(),new LocationOf(new Self())))));
@@ -123,5 +136,8 @@ public class TextTester extends Application {
 		actions1.add(new PlaceTextOn(new Self(), new TypedString()));
 		object.addConditionAction(new Condition(4, new BooleanValue(true)), actions1);
 		
+		actions1 = new ArrayList<Action>();
+		actions1.add(new RemoveFromWorld(new Get(object)));
+		object.addConditionAction(new Condition(5, new KeyHeld(new SelfString("R"))), actions1);
 	}
 }
