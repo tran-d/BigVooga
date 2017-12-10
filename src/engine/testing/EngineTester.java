@@ -16,8 +16,8 @@ import engine.GameMaster;
 import engine.GameObject;
 import engine.GameObjectFactory;
 import engine.GameWorld;
-import engine.Holdable;
-import engine.Actions.changeObject.DisplayInventory;
+import engine.Actions.changeObject.RemoveFromWorld;
+import engine.Actions.global.TransferObjectToWorld;
 import engine.Actions.movement.Move;
 import engine.Actions.movement.MoveTo;
 import engine.Actions.movement.Rotate;
@@ -146,6 +146,7 @@ public class EngineTester extends Application {
 		
 		GameMaster master = new GameMaster();
 		master.addWorld(w);
+		master.addWorld(x);
 		master.setNextWorld("World");
 		//try {
 			new GameDataHandler(name).saveGame(master);
@@ -154,9 +155,10 @@ public class EngineTester extends Application {
 		//}
 
 		try {
+			System.out.println("Trying to load game");
 			new GameDataHandler(name).loadGame().setNextWorld("World");
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			System.out.println("Error");
 		}
 	}
 
@@ -176,8 +178,14 @@ public class EngineTester extends Application {
 
 	private void conditionAction1(GameObject obj) {
 		List<Action> actions1 = new ArrayList<Action>();
-		actions1.add(new DisplayInventory(new Self()));
-		obj.addConditionAction(new Condition(2, new KeyPressed(new SelfString("I"))), actions1);
+		actions1.add(new TransferObjectToWorld(new Self(), new SelfString("Second World"), new SelfString("Layer"), new BooleanValue(true)));
+		obj.addConditionAction(new Condition(2, new KeyPressed(new SelfString("T"))), actions1);
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Move(new Self(), new VectorScale(new VectorHeadingOf(new Self()), new Value(2))));
+		obj.addConditionAction(new Condition(2, new And( new Not(new CollisionByTag(new SelfString("Block"))), new KeyHeld(new SelfString("W")))), actions1);
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Rotate(new Self(), new Value(2)));
+		obj.addConditionAction(new Condition(2, new KeyHeld(new SelfString("D"))), actions1);
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Move(new Self(), new VectorHeadingOf(new Self())));
 		obj.addConditionAction(new Condition(2, new KeyHeld(new SelfString("W"))), actions1);
@@ -190,11 +198,21 @@ public class EngineTester extends Application {
 	}
 
 	private void conditionAction2(GameObject obj) {
+
 		List<Action> actions1 = new ArrayList<Action>();
+		actions1.add(new Move(new Self(), new VectorScale(new VectorHeadingOf(new Self()), new Value(2))));
+		obj.addConditionAction(new Condition(2, new CollisionByTag(new SelfString("Player"))), actions1);
+		
+		actions1 = new ArrayList<Action>();
+		actions1.add(new TransferObjectToWorld(new Self(), new SelfString("World"), new SelfString("Layer"), new BooleanValue(false)));
+		obj.addConditionAction(new Condition(2, new KeyPressed(new SelfString("J"))), actions1);
+		
 	}
 
 	private void conditionAction3(GameObject obj) {
 		List<Action> actions1 = new ArrayList<Action>();
+		actions1.add(new RemoveFromWorld(new Self()));
+		obj.addConditionAction(new Condition(2, new CollisionByTag(new SelfString("Killer"))), actions1);
 	}
 
 	private void testDrawer(Stage stage) throws IOException {
