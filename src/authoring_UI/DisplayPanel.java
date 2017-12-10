@@ -141,8 +141,8 @@ public class DisplayPanel extends VBox {
 	
 	private void createAnimationTab(){
 		Tab animations = new Tab("Animations");
-		animations.setContent(mySAnimationSequenceTAI.getTabPane());
-		mySpriteTabs.getTabs().addAll(animations);
+		animations.setContent(mySAnimationSequenceTAI.getAnimationBox());
+		mySpriteTabs.getTabs().add(animations);
 		multipleCellsActiveProperty.addListener((observable, oldStatus, newStatus)->{
 			animations.setDisable(newStatus);
 		});
@@ -224,7 +224,7 @@ public class DisplayPanel extends VBox {
 		mySParameterTAI.clearTabPane();
 		mySInventoryTAI.reset();
 //		mySUtilityTAI.reset();
-//		mySAnimationSequenceTAI.reset();
+		mySAnimationSequenceTAI.clearExisting();
 	}
 
 	protected void removeSpriteEditorVBox() {

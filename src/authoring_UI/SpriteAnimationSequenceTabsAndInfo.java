@@ -38,6 +38,8 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	private Button createAnimationSequenceButton;
 	private TextField promptNewName;
 	private Label promptNameLabel;
+	private Button addImage;
+	private VBox animationVBox;
 	
 	
 	SpriteAnimationSequenceTabsAndInfo(){
@@ -49,7 +51,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 		clearAnimationSequencesList();
 		this.clearExisting();
 		SO.getAnimationSequences().forEach(AS->{
-			System.out.println("AnimationSequence: "+AS);
+			System.out.println("AnimationSequence: " + AS);
 			this.addAnimationSequence(AS);
 		}); 
 		
@@ -94,7 +96,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 //		return containerTabPane;
 //	}
 	
-	private void clearExisting(){
+	public void clearExisting(){
 		containerTabPane.getTabs().clear();
 	}
 	
@@ -125,10 +127,11 @@ public class SpriteAnimationSequenceTabsAndInfo {
 		System.out.println("Container Scroll Pane");
 		containerScrollPane = new ScrollPane();
 	}
-	public TabPane getTabPane(){
+	public VBox getAnimationBox(){
 		System.out.println("getting scroll pane");
 		System.out.println("Content: "+((VBox)containerScrollPane.getContent()).getChildren());
-		return containerTabPane;
+		animationVBox = new VBox(10);
+		return animationVBox;
 	}
 	
 	public void putVBoxIntoScrollPane(){
@@ -176,21 +179,19 @@ public class SpriteAnimationSequenceTabsAndInfo {
 			
 	}
 	
-	
-	
-	
 	private Tab addAnimationSequence(AnimationSequence AS){
+		animationVBox.getChildren().clear();
 		this.removePromptNewNameAndCreateButtonToHbox();
 		this.putAddAnimationSequenceButtonIntoHbox();
 		this.animationsSequences.add(AS);
 		Tab tab = new Tab();
 		tab.setText(AS.getName());
-		VBox animationVBox = AS.getUIContent();
-		animationVBox.setSpacing(10);
-		animationVBox.getChildren().addAll(AS.getAddImageButton(), this.createHBox());
+		tab.setContent(AS.getUIContent());
+		addImage = AS.getAddImageButton();
+		animationVBox.getChildren().add(containerTabPane);
 		animationVBox.setAlignment(Pos.CENTER);
-		tab.setContent(animationVBox);
-		this.containerTabPane.getTabs().add(tab);
+		animationVBox.getChildren().addAll(addImage, createHBox());
+		containerTabPane.getTabs().add(tab);
 		return tab;
 	}
 	

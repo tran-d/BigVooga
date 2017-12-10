@@ -100,7 +100,7 @@ public class AnimationSequence {
 		showUI();
 		if (this.outMostVbox==null){
 			outMostVbox = new VBox();
-			outMostVbox.getChildren().add(getScrollPane());
+			outMostVbox.getChildren().addAll(getScrollPane(), getAddImageButton());
 		}
 		return outMostVbox;
 	}
@@ -140,6 +140,7 @@ public class AnimationSequence {
 	private void createContainerVbox() {
 		myContainerVbox = new VBox();
 		myContainerVbox.setPrefWidth(520);
+		
 	}
 
 	private void addAllAnimationSequenceImageThumbnails() {
@@ -199,7 +200,7 @@ public class AnimationSequence {
 //			Image im = new Image("/"+"brick.png");
 //			System.out.println("Image loaded: "+im);
 			
-			String testFile = File.separator+file.getName();
+			String testFile = File.separator + file.getName();
 			System.out.println(testFile);
 			AuthoringImageView AIV = new AuthoringImageView(testFile); 
 			addNewAuthoringImageViewToSequence(AIV);
