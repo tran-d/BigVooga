@@ -1,4 +1,4 @@
-package authoring.Sprite;
+package authoring.Sprite.Parameters;
 
 import authoring.Sprite.Parameters.SpriteParameterI;
 import javafx.scene.control.CheckBox;
@@ -41,7 +41,7 @@ public class FEBooleanParameter extends FEParameter {
 		handleCheckBox();
 	}
 	
-	protected void updateParameter() {
+	public void updateParameter() {
 		myParam.update(myName.getText(), myValue);
 	}
 	

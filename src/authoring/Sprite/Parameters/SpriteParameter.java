@@ -1,4 +1,4 @@
-package authoring;
+package authoring.Sprite.Parameters;
 
 import java.util.Observable;
 import java.util.function.Consumer;

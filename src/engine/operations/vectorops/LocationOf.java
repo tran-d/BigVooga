@@ -2,6 +2,8 @@ package engine.operations.vectorops;
 
 import engine.GameObject;
 import engine.GameObjectEnvironment;
+import engine.operations.VoogaAnnotation;
+import engine.operations.VoogaType;
 import engine.operations.gameobjectops.GameObjectOperation;
 import javafx.geometry.Point2D;
 
@@ -12,7 +14,7 @@ import javafx.geometry.Point2D;
 public class LocationOf implements VectorOperation {
 	private GameObjectOperation gameObject;
 
-	public LocationOf(GameObjectOperation gameObject) {
+	public LocationOf(@VoogaAnnotation(name = "Sprite", type = VoogaType.GAMEOBJECT) GameObjectOperation gameObject) {
 		this.gameObject = gameObject;
 	}
 

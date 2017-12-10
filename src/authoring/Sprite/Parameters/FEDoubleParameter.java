@@ -1,8 +1,7 @@
-package authoring_UI;
+package authoring.Sprite.Parameters;
 
 import java.util.Optional;
 
-import authoring.SpriteParameterI;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextArea;
@@ -80,7 +79,7 @@ public class FEDoubleParameter extends FEParameter {
 		handleDouble();
 	}
 	
-	protected void updateParameter() {
+	public void updateParameter() {
 		myParam.update(myName.getText(), Double.parseDouble(myValue.getText()));
 	}
 

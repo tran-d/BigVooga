@@ -6,8 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -29,19 +27,13 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.security.NullPermission;
 import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
-import authoring.GridManagers.*;
-import authoring.Sprite.*;
-import authoring.Sprite.Parameters.*;
-import authoring.Sprite.AnimationSequences.*;
-import authoring.Sprite.UtilityTab.*;
-import authoring.Sprite.InventoryTab.*;
-import authoring.SpriteManagers.*;
-import authoring.SpritePanels.*;
-import authoring.util.*;
-import authoring_UI.Map.*;
-import authoring_UI.*;
-import authoring.*;
-import authoring_UI.Inventory.*;
+import authoring.GridManagers.SpriteObjectGridManager;
+import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.SpriteObject;
+import authoring_UI.DraggableGrid;
+import authoring_UI.LayerDataConverter;
+import authoring_UI.MapDataConverter;
+import authoring_UI.SpriteDataConverter;
 import engine.EngineController;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
@@ -530,8 +522,10 @@ public class GameDataHandler {
 		List<AbstractSpriteObject> ret = new ArrayList<AbstractSpriteObject>();
 		for (File f : files) {
 			try {
+				
 				AbstractSpriteObject dummy = loadSprite(f);
 				ret.add(dummy);
+				System.out.println(dummy);
 
 			} catch (Exception e) {
 //				e.printStackTrace();

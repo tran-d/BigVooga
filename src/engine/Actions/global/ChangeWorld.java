@@ -3,6 +3,8 @@ package engine.Actions.global;
 import engine.Action;
 import engine.GameObject;
 import engine.GameObjectEnvironment;
+import engine.operations.VoogaAnnotation;
+import engine.operations.VoogaType;
 import engine.operations.stringops.StringOperation;
 
 
@@ -16,7 +18,7 @@ public class ChangeWorld implements Action {
 
 	private StringOperation nameOfWorld;
 
-	public ChangeWorld(StringOperation nameOfNewWorld) {
+	public ChangeWorld(@VoogaAnnotation(name = "World Name", type = VoogaType.WORLDNAME) StringOperation nameOfNewWorld) {
 		this.nameOfWorld = nameOfNewWorld;
 	}
 	

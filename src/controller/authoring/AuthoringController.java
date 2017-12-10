@@ -10,6 +10,7 @@ import authoring_UI.SpriteCreator;
 import authoring_UI.ViewSideBar;
 import authoring_UI.HUD.HUDManager;
 import authoring_UI.Inventory.InventoryManager;
+import authoring_UI.Menu.MenuManager;
 import authoring_UI.dialogue.DialogueManager;
 import engine.utilities.data.GameDataHandler;
 import javafx.scene.layout.Pane;
@@ -48,6 +49,9 @@ public class AuthoringController {
 		
 		HUDManager hudManager = new HUDManager(AEM, stage);
 		viewMap.put(HUD_KEY, hudManager.getPane());
+		
+		MenuManager menuManager = new MenuManager(AEM, stage);
+		viewMap.put(MENU_CREATOR_KEY, menuManager.getPane());
 		
 		InventoryManager inventoryManager = new InventoryManager(AEM, stage);
 		viewMap.put(INVENTORY_KEY, inventoryManager.getPane());

@@ -120,7 +120,6 @@ public class GameLayer implements Layer {
 			}
 		}
 		catch (ConcurrentModificationException e) {
-			// do nothing
 		}
 	}
 	

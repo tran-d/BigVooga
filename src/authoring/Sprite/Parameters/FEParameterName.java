@@ -1,4 +1,4 @@
-package authoring_UI;
+package authoring.Sprite.Parameters;
 
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;

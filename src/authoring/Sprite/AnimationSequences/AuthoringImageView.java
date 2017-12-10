@@ -1,4 +1,4 @@
-package authoring_UI;
+package authoring.Sprite.AnimationSequences;
 
 import authoring_data.SerializableAuthoringImageView;
 import javafx.scene.image.Image;

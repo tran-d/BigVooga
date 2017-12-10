@@ -48,7 +48,7 @@ public class SpriteUtilityToUIController {
 		}
 		for (int i = 0; i < a.length; i++) {
 			Annotation b = a[i];
-			if (b instanceof IsLockedUtility) {
+			if (b instanceof IsUnlockedUtility) {
 				return getUnlockedUIComponent((IsUnlockedUtility) b, o);
 			} else if (b instanceof IsLockedUtility) {
 				return getLockedUIComponent((IsLockedUtility) b, o);

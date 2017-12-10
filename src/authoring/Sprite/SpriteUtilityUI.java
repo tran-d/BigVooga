@@ -1,4 +1,4 @@
-package authoring;
+package authoring.Sprite;
 
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;

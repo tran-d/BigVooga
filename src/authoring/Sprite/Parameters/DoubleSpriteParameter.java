@@ -1,4 +1,4 @@
-package authoring;
+package authoring.Sprite.Parameters;
 
 import java.io.IOException;
 import java.io.ObjectInput;

@@ -1,6 +1,5 @@
-package authoring;
+package authoring.Sprite.AnimationSequences;
 
-import authoring_UI.AuthoringImageView;
 import javafx.scene.layout.StackPane;
 
 public class AnimationSequenceImage {

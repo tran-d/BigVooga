@@ -1,4 +1,4 @@
-package authoring;
+package authoring.Sprite.Parameters;
 
 public class SpriteParameterFactory {
 	

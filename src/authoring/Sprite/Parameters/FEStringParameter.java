@@ -1,4 +1,4 @@
-package authoring.Sprite;
+package authoring.Sprite.Parameters;
 
 import authoring.Sprite.Parameters.SpriteParameterI;
 import javafx.scene.control.Alert;
@@ -71,7 +71,7 @@ public class FEStringParameter extends FEParameter {
 		handleString();
 	}
 	
-	protected void updateParameter() {
+	public void updateParameter() {
 		myParam.update(myName.getText(), myValue.getText());
 	}
 }

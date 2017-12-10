@@ -15,6 +15,7 @@ import authoring.SpriteManagers.SpriteSetImported;
 import authoring.SpriteManagers.SpriteSetImportedInventory;
 import authoring.SpriteManagers.SpriteSetInventory;
 import authoring.SpriteManagers.SpriteSetInventoryTemplate;
+import authoring.SpriteManagers.SpriteSetMenuTemplate;
 import authoring.SpriteManagers.SpriteSetUserDefined;
 import engine.utilities.data.GameDataHandler;
 import javafx.scene.layout.Pane;
@@ -32,6 +33,7 @@ public class AuthoringEnvironmentManager {
 	private SpriteSet myImportedSprites;
 	private SpriteSet myImportedInventorySprites;
 	private SpriteSet myInventoryTemplates;
+	private SpriteSet myMenuTemplates;
 
 	public AuthoringEnvironmentManager(GameDataHandler GDH, Stage stage) {
 		myGDH = GDH;
@@ -40,8 +42,9 @@ public class AuthoringEnvironmentManager {
 		initializeInventorySprites();
 		initializeImportedSprites();
 		initializeInventoryTemplates();
-
+		initializeMenuTemplates();
 		initializeImportedInventorySprites();
+		
 		defaultEmptySprite = new DefaultSpriteObject();
 		
 		System.out.println("init MAPMAN in AEM");
@@ -51,6 +54,10 @@ public class AuthoringEnvironmentManager {
 	
 	private void initializeInventoryTemplates() {
 		myInventoryTemplates = new SpriteSetInventoryTemplate(myGDH);
+	}
+	
+	private void initializeMenuTemplates() {
+		myMenuTemplates = new SpriteSetMenuTemplate(myGDH);
 	}
 
 	private void initializeDefaultSprites() {
@@ -99,6 +106,10 @@ public class AuthoringEnvironmentManager {
 	public SpriteSet getInventoryTemplateController(){
 		return myInventoryTemplates;
 	}
+	
+	public SpriteSet getMenuTemplateController(){
+		return myMenuTemplates;
+	}
 
 	public Map<String, List<AbstractSpriteObject>> getEveryTypeOfSprite() {
 		Map<String, List<AbstractSpriteObject>> ret = new HashMap<String, List<AbstractSpriteObject>>();
@@ -107,6 +118,8 @@ public class AuthoringEnvironmentManager {
 		ret.put("InventorySprites", this.getInventorySprites());
 		ret.put("ImportedSprites", this.getImportedSprites());
 		ret.put("ImportedInventorySprites", this.getImportedInventorySprites());
+//		ret.put("InventoryTemplates", this.getInventoryTemplates());
+//		ret.put("MenuTemplates", this.getMenuTemplates());
 		return ret;
 	}
 
