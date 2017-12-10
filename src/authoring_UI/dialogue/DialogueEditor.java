@@ -206,10 +206,4 @@ public class DialogueEditor {
 		return btn;
 	}
 
-	public static void main(String[] args) {
-		DialogueEditor ed = new DialogueEditor(null);
-
-		System.out.println(Font.getFamilies());
-	}
-
 }

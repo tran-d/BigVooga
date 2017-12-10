@@ -76,7 +76,7 @@ public class DialogueManager {
 		mapDialoguesTab.setContent(listView);
 	}
 	
-	// FIXXXX
+	
 	private void save() {
 		if (currentEditor != null && !currentEditor.getName().trim().equals("")) {
 
