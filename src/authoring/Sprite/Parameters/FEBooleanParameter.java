@@ -1,6 +1,6 @@
 package authoring.Sprite.Parameters;
 
-import authoring.Sprite.Parameters.SpriteParameterI;
+import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
@@ -24,7 +24,8 @@ public class FEBooleanParameter extends FEParameter {
 		myValue = (Boolean) myParam.getValue();
 		myCheckBox.setSelected(myValue);
 		this.getChildren().addAll(myName, myCheckBox);
-		this.setSpacing(3);
+		this.setAlignment(Pos.CENTER_LEFT);
+		this.setSpacing(10);
 
 		handleValueChange();
 	}

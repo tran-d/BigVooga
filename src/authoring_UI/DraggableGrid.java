@@ -1,5 +1,7 @@
 package authoring_UI;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -12,16 +14,21 @@ import authoring.GridManagers.SpriteObjectGridManager;
 import authoring.GridManagers.SpriteObjectGridManagerForSprites;
 import authoring.GridManagers.TerrainObjectGridManager;
 import authoring.util.NumberSpinner;
+import engine.utilities.data.GameDataHandler;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -68,6 +75,7 @@ public class DraggableGrid extends VBox {
 
 	private void makeTopInfo() {
 		topHbox = new HBox(10);
+		topHbox.setAlignment(Pos.CENTER);
 		this.getChildren().add(topHbox);
 	}
 
@@ -99,7 +107,7 @@ public class DraggableGrid extends VBox {
 
 		this.getChildren().add(1, scrollGrid);
 		this.setId("MapGridAndLayers");
-		this.setMaxWidth(MainAuthoringGUI.AUTHORING_WIDTH/2 + 110);
+		this.setMaxWidth(MainAuthoringGUI.AUTHORING_WIDTH/2 + 124);
 	}
 	
 	public List<SpriteObjectGridManager> getGrids(){
@@ -171,6 +179,7 @@ public class DraggableGrid extends VBox {
 	
 	private void makeLayerButton(SpriteObjectGridManager ML) {
 		HBox hbox = new HBox(10);
+		hbox.setAlignment(Pos.CENTER);
 		hbox.setId("layerbox");
 		Label label = new Label(ML.getName());
 		
@@ -188,23 +197,41 @@ public class DraggableGrid extends VBox {
 		});
 		hbox.getChildren().addAll(label, checkbox);
 		if (ML.canFillBackground()){
+			//ColorPicker
 			ColorPicker cp = new ColorPicker(Color.SANDYBROWN);
 			cp.setOnAction((event)->{
 				ML.setColor(cp.getValue());
 			});
-			hbox.getChildren().add(cp);
+			
+			//Choose Image
+			
+			Button button = new Button("Set Background Image");
+			button.setOnAction((event)->{
+				Node parent = ML.getMapLayer().getParent();
+				Scene s = parent.getScene();
+				while (s == null) {
+					parent = parent.getParent();
+					s = parent.getScene();
+				}
+				File f = GameDataHandler.chooseFileForImageSave(s.getWindow());
+				FileInputStream fis;
+				try{
+				fis = new FileInputStream(f);
+				ML.getMapLayer().setBackgroundImage(new Image(fis), f.getName());
+				} catch (Exception e){
+					// Dont change background 
+				}
+				
+			});
+	
+			hbox.getChildren().addAll(cp, button);
+			hbox.setAlignment(Pos.CENTER);
 		}
 		
 		addLayerButton(hbox);
 	}
 	
 	private void addLayerButton(HBox in){
-		if (this.topHbox.getChildren().size()==0){
-		Separator s = new Separator();
-		
-		s.setOrientation(Orientation.VERTICAL);
-		topHbox.getChildren().add(s);
-		}
 		
 		topHbox.getChildren().add(in);
 		Separator s = new Separator();

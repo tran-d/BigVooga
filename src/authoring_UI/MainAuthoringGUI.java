@@ -46,7 +46,7 @@ public class MainAuthoringGUI{
 		rootPane.setTop(toolBar);
 		
 		authoringPane = new Pane();
-		GameDataHandler GDH = new GameDataHandler(myProjectName);
+		GameDataHandler GDH = new GameDataHandler(myProjectName, stage);
 		authoringController = new AuthoringController(stage, authoringPane, GDH);
 		ViewSideBar sideBar = new ViewSideBar(authoringController);
 		authoringController.switchView(AuthoringController.MAP_EDITOR_KEY, sideBar);

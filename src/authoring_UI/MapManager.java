@@ -2,21 +2,10 @@ package authoring_UI;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import authoring.GridManagers.*;
-import authoring.Sprite.*;
-import authoring.Sprite.Parameters.*;
-import authoring.Sprite.AnimationSequences.*;
-import authoring.Sprite.UtilityTab.*;
-import authoring.Sprite.InventoryTab.*;
-import authoring.SpriteManagers.*;
-import authoring.SpritePanels.*;
-import authoring.util.*;
-import authoring_UI.Map.*;
-import authoring_UI.*;
-import authoring.*;
-import authoring_UI.Inventory.*;
+import authoring.AuthoringEnvironmentManager;
+import authoring.SpritePanels.GameElementSelector;
+import authoring.SpritePanels.SpritePanels;
 import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.beans.binding.Bindings;
@@ -44,21 +33,19 @@ public class MapManager extends TabPane {
 	protected SingleSelectionModel<Tab> mySelectModel;
 	protected Tab addTab;
 //	private AuthoringMapEnvironment authMap;
-	protected ViewSideBar sideBar;
-	protected GameElementSelector mySprites;
-	protected AuthoringEnvironmentManager myAEM;
-	protected int myTabCount = 1;
-	protected Tab currentTab;
-	protected boolean oldProject;
-	protected GameDataHandler myGDH;
-	protected int numWorlds = 1;
-	protected List<DraggableGrid> allWorlds = new ArrayList<DraggableGrid>();
-	protected Pane mapEditor = new Pane();
-//	private SpritePanels spritePanels;
-	
-	public MapManager(){
-		
-	}
+
+	private ViewSideBar sideBar;
+	private GameElementSelector mySprites;
+	private AuthoringEnvironmentManager myAEM;
+	private int myTabCount = 1;
+	private Tab currentTab;
+	private boolean oldProject;
+	private String projectName = "TestProject";
+	private GameDataHandler myGDH;
+	private int numWorlds = 1;
+	private List<DraggableGrid> allWorlds = new ArrayList<DraggableGrid>();
+	private Pane mapEditor = new Pane();
+	private SpritePanels spritePanels;
 
 	public MapManager(AuthoringEnvironmentManager AEM, Stage currentStage)  {
 		setTabTag();
@@ -78,11 +65,9 @@ public class MapManager extends TabPane {
 			System.out.println("Grid: " + w);
 			setTab();
 			createTab(myTabCount, w);
-		}
+			}
 		} else {
 			setTab();
-			DraggableGrid DG = makeDraggableGrid();
-			createTab(myTabCount, DG);
 		}
 		
 		
@@ -138,7 +123,7 @@ public class MapManager extends TabPane {
 		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(getManagerName(), myTabCount, w); 
 		w.construct(mySpriteGridHandler);
 		mySpriteGridHandler.addKeyPress(stage.getScene());
-		SpritePanels spritePanels = makeSpritePanels(mySpriteGridHandler);
+		spritePanels = new SpritePanels(mySpriteGridHandler, myAEM);
 		mySpriteGridHandler.setDisplayPanel(spritePanels);
 		AuthoringMapEnvironment authMap = new AuthoringMapEnvironment(spritePanels, w);
 		return authMap;
@@ -176,10 +161,10 @@ public class MapManager extends TabPane {
 		return mapEditor;
 	}
 	
-//	public Tab getDialoguesTab() {
-//		return spritePanels.getDialoguesTab();
-//	}
-//	
+	public Tab getDialoguesTab() {
+		return spritePanels.getDialoguesTab();
+	}
+	
 	public List<DraggableGrid> getAllWorlds() {
 		return allWorlds;
 	}

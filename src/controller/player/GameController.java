@@ -48,6 +48,11 @@ public class GameController {
 	private void setup(Stage currentStage, String projectName, SceneController currentSceneController) {
 		stage = currentStage;
 		sceneController = currentSceneController;
+<<<<<<< HEAD
+=======
+		
+		gameDataHandler = new GameDataHandler(projectName, stage);
+>>>>>>> 56b4a0a229ba1ec145b3b7d59cf52fda97ac564f
 		playerManager = new PlayerManager(gameDataHandler);
 		gameDisplay = new GameDisplay(stage, sceneController);
 		stage.setScene(gameDisplay.getScene());

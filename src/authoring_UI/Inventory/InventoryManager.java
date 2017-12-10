@@ -40,9 +40,11 @@ import tools.DisplayLanguage;
 public class InventoryManager extends MapManager{
 	
 	private SpriteObjectGridManager InventoryGridBE;
+	private AuthoringEnvironmentManager myAEM;
 
 	public InventoryManager(AuthoringEnvironmentManager AEM, Stage currentStage) {
 		super(AEM, currentStage);
+		myAEM = AEM;
 	}
 	
 	@Override 
