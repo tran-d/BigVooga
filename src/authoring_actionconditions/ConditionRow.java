@@ -4,7 +4,11 @@ import java.util.List;
 
 import ActionConditionClasses.ActionCheckBoxVBox;
 import ActionConditionClasses.ActionCheckBoxVBoxI;
+import engine.operations.OperationFactory;
 import javafx.collections.ObservableList;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
+import javafx.scene.layout.HBox;
 
 /**
  * Class representing a condition row for sprites.
@@ -15,10 +19,15 @@ import javafx.collections.ObservableList;
 public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVBoxI {
 	
 	private ActionCheckBoxVBox<Integer> actionCheckBoxVBox;
+	private OperationFactory operationFactory = new OperationFactory();
+	private TreeItem<HBox> operation;
+	private TreeView<HBox> operationTreeView;
 
 	public ConditionRow(int ID, String label, String selectorLabel,String selectedCondition,ObservableList<Integer> newActionOptions, ConditionVBox<ConditionRow> ACVBox) {
-		super(ID, label, selectorLabel,selectedCondition, ACVBox);
+		super(ID, ACVBox);
 		addActionCheckBox(newActionOptions);
+	
+		
 	}
 	
 	public ConditionRow(int ID,String label,String selectorLabel, String selectedCondition, ObservableList<Integer> newActionOptions,
@@ -26,9 +35,18 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 		this(ID,label,selectorLabel,selectedCondition,newActionOptions,ACVBox);
 		getItems().remove(actionCheckBoxVBox);
 		actionCheckBoxVBox = new ActionCheckBoxVBox<Integer>(newActionOptions,selectedActionOptions);
-		getItems().add(actionCheckBoxVBox);
+		getItems().add(2, actionCheckBoxVBox);
+		
 	}
-	
+
+	public TreeItem<HBox> getRootTreeItem() {
+		return operation;
+	}
+
+	public TreeView<HBox> getTreeView() {
+		return operationTreeView;
+	}
+
 	@Override
 	public Object getSelectedActions() {
 		return actionCheckBoxVBox.getCurrentValue();
@@ -52,5 +70,8 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 		actionCheckBoxVBox = new ActionCheckBoxVBox<Integer>(newActionOptions);
 		getItems().add(actionCheckBoxVBox);
 	}
+	
+	
+
 
 }
