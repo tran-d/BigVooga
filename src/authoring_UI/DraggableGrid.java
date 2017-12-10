@@ -5,10 +5,19 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
-import authoring.NumberSpinner;
-import authoring.SpriteObjectGridManager;
-import authoring.SpriteParameterSidebarManager;
-import authoring.TerrainObjectGridManager;
+import authoring.GridManagers.*;
+import authoring.Sprite.*;
+import authoring.Sprite.Parameters.*;
+import authoring.Sprite.AnimationSequences.*;
+import authoring.Sprite.UtilityTab.*;
+import authoring.Sprite.InventoryTab.*;
+import authoring.SpriteManagers.*;
+import authoring.SpritePanels.*;
+import authoring.util.*;
+import authoring_UI.Map.*;
+import authoring_UI.*;
+import authoring.*;
+import authoring_UI.Inventory.*;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -73,10 +82,15 @@ public class DraggableGrid extends VBox {
 		myStackPane = new StackPane();
 		myStackPane.setAlignment(Pos.CENTER);
 		
+		
+		int layerRows = rows;
+		int layerColumns = cols;
 		for (SpriteObjectGridManager ml: allGrids){
 			myStackPane.getChildren().add(ml.getMapLayer());
 			makeLayerButton(ml);
 			showLayer(ml);
+			layerRows = ml.getNumRows();
+			layerColumns = ml.getNumCols();
 		}
 //		Image image = new Image("pikachu.png");
 //		ImageView iv = new ImageView(image);
@@ -84,8 +98,8 @@ public class DraggableGrid extends VBox {
 //		iv.setFitWidth(myStackPane.getWidth());
 //		myStackPane.getChildren().add(iv);
 		
-		addChangeRowsNumberSpinner();
-		addChangeColumnsNumberSpinner();
+		addChangeRowsNumberSpinner(layerRows);
+		addChangeColumnsNumberSpinner(layerColumns);
 		ScrollPane scrollGrid = new ScrollPane(myStackPane);
 		scrollGrid.setId("MapGrid");
 		scrollGrid.setPannable(true);
@@ -123,6 +137,7 @@ public class DraggableGrid extends VBox {
 		});
 		} else {
 			allGrids.forEach(item->{
+				System.out.println("lready has a grid!: "+item);
 				item.setSpriteGridHandler(spriteGridHandler);
 				item.createMapLayer();
 //				item.getMapLayer().setSpriteGridHandler();
@@ -143,7 +158,7 @@ public class DraggableGrid extends VBox {
 	}
 	
 	private void showLayer(SpriteObjectGridManager ML){
-		System.out.println("Adding layer: "+ML.getName());
+//		System.out.println("Adding layer: "+ML.getName());
 		if (!allGrids.contains(ML)){
 			allGrids.add(ML);
 		}
@@ -197,8 +212,8 @@ public class DraggableGrid extends VBox {
 		topHbox.getChildren().add(s);
 	}
 	
-	private void addChangeRowsNumberSpinner(){
-		NumberSpinner ret = new NumberSpinner(new BigDecimal((Integer)rows), BigDecimal.ONE);
+	private void addChangeRowsNumberSpinner(int numRows){
+		NumberSpinner ret = new NumberSpinner(new BigDecimal((Integer)numRows), BigDecimal.ONE);
 		ret.setCheckFunction(new Function<Integer, Boolean>(){
 			@Override
 			public Boolean apply(Integer t) {
@@ -211,8 +226,8 @@ public class DraggableGrid extends VBox {
 		topHbox.getChildren().add(ret);
 	}
 	
-	private void addChangeColumnsNumberSpinner(){
-		NumberSpinner ret = new NumberSpinner(new BigDecimal((Integer)cols), BigDecimal.ONE);
+	private void addChangeColumnsNumberSpinner(int numCols){
+		NumberSpinner ret = new NumberSpinner(new BigDecimal((Integer)numCols), BigDecimal.ONE);
 		ret.setCheckFunction(new Function<Integer, Boolean>(){
 			@Override
 			public Boolean apply(Integer t) {

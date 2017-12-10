@@ -16,10 +16,19 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.security.NullPermission;
 import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
-import authoring.AbstractSpriteObject;
-import authoring.InventoryObject;
-import authoring.SpriteObject;
-import authoring.SpriteParameterI;
+import authoring.GridManagers.*;
+import authoring.Sprite.*;
+import authoring.Sprite.Parameters.*;
+import authoring.Sprite.AnimationSequences.*;
+import authoring.Sprite.UtilityTab.*;
+import authoring.Sprite.InventoryTab.*;
+import authoring.SpriteManagers.*;
+import authoring.SpritePanels.*;
+import authoring.util.*;
+import authoring_UI.Map.*;
+import authoring_UI.*;
+import authoring.*;
+import authoring_UI.Inventory.*;
 import javafx.geometry.Point2D;
 
 public class SpriteDataConverter {

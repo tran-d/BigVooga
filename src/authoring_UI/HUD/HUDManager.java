@@ -3,15 +3,19 @@ package authoring_UI.HUD;
 import java.util.ArrayList;
 import java.util.List;
 
-import authoring.AbstractSpriteObject;
-import authoring.AuthoringEnvironmentManager;
-import authoring.SpriteObjectGridManager;
-import authoring_UI.DraggableGrid;
-import authoring_UI.MapManager;
-import authoring_UI.SpriteGridHandler;
-import authoring_UI.SpritePanels;
-import authoring_UI.dialogue.DialogueEditor;
-import authoring_UI.dialogue.DialogueTabPane;
+import authoring.GridManagers.*;
+import authoring.Sprite.*;
+import authoring.Sprite.Parameters.*;
+import authoring.Sprite.AnimationSequences.*;
+import authoring.Sprite.UtilityTab.*;
+import authoring.Sprite.InventoryTab.*;
+import authoring.SpriteManagers.*;
+import authoring.SpritePanels.*;
+import authoring.util.*;
+import authoring_UI.Map.*;
+import authoring_UI.*;
+import authoring.*;
+import authoring_UI.Inventory.*;
 import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.event.ActionEvent;
@@ -34,75 +38,47 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import tools.DisplayLanguage;
 
 public class HUDManager extends MapManager{
 
-	private static final double NODE_SPACING = 20;
-	private static final double BUTTON_WIDTH = 300;
-	private static final double BUTTON_HEIGHT = 75;
-	private static final String ADD_BUTTON_PROMPT = "New";
-	private static final String SAVE_BUTTON_PROMPT = "Save";
-	private static final String DEFAULT = "Default";
-	private static final String USER = "User";
-	private static final String IMPORTED = "Imported";
-
-	private HBox hb;
-	private DialogueEditor editor;
-	private DialogueTabPane dView;
-	private ScrollPane spriteSideGridScrollPane;
-	private List<DialogueEditor> editorList;
-	private int currentEditor = 0;
+	
 	private SpriteObjectGridManager HUDGridBE;
-	private SpriteGridHandler SGH;
-	private AuthoringEnvironmentManager myAEM;
-	private VBox spriteSideVbox;
-	private SpritePanels SPanels;
-	private GameDataHandler myGDH;
 
-	public HUDManager(AuthoringEnvironmentManager AEM) {
-//		myGDH = GDH;
-		DraggableGrid DG = makeDraggableGrid();
-		HUDGridBE = new HUDGridManager();
-		DG.setAllGrids(HUDGridBE);
-		myAEM = AEM;
-		SGH = new SpriteGridHandler("HUDManager", 2001, DG);
-		
-		
-		DG.construct(SGH);
-		
-//		this.SGH = SGH;
-		
-		SPanels = new SpritePanels(SGH, myAEM);
-		SGH.setDisplayPanel(SPanels);
-		spriteSideGridScrollPane = new ScrollPane();
-		spriteSideVbox = new VBox(10);
-		editorList = new ArrayList<>();
-		hb = new HBox(NODE_SPACING);
-		hb.setPrefSize(MapManager.VIEW_WIDTH, MapManager.VIEW_HEIGHT);
-		
-		
-//		spriteSideVbox.getChildren().add(loadSpritesIn());
-		
-		hb.getChildren().addAll(SPanels, HUDGridBE.getMapLayer());
-
-		// test
-		// addDefaultDialogueButton();
-		// addUserDialogueButton("blah", -1);
-
+	public HUDManager(AuthoringEnvironmentManager AEM, Stage currentStage) {
+		super(AEM, currentStage);
 	}
 	
 	@Override 
-	private DraggableGrid makeDraggableGrid(){
+	protected DraggableGrid makeDraggableGrid(){
+		System.out.println("DG in HUDMANAGER");
 		DraggableGrid ret = new DraggableGrid();
 		HUDGridBE = new HUDGridManager();
 		ret.setAllGrids(HUDGridBE);
 		return ret;
 	}
 	
-	public HBox getPane() {
-		return hb;
+	@Override
+	protected void setManagerName(){
+		MANAGERNAME = "HUDManager";
 	}
+	
+	@Override 
+	protected void setTabTag(){
+		TAB_TAG="HUD";
+	}
+	
+	@Override
+	protected List<DraggableGrid> getListOfDraggableGrids(){
+		return new ArrayList<DraggableGrid>();
+	}
+	
+	@Override
+	protected SpritePanels makeSpritePanels(SpriteGridHandler mySpriteGridHandler){
+		return new SpritePanels(mySpriteGridHandler, myAEM);
+	}
+
 	
 }
 

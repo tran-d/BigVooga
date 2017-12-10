@@ -4,11 +4,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import authoring_UI.DefaultSpriteObject;
-import authoring_UI.SpriteSet;
-import authoring_UI.SpriteSetDefault;
-import authoring_UI.SpriteSetInventory;
-import authoring_UI.SpriteSetUserDefined;
+
+import authoring.GridManagers.SpriteObjectGridManagerI;
+import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.DefaultSpriteObject;
+import authoring.Sprite.SpriteObject;
+import authoring.SpriteManagers.SpriteSet;
+import authoring.SpriteManagers.SpriteSetDefault;
+import authoring.SpriteManagers.SpriteSetImported;
+import authoring.SpriteManagers.SpriteSetImportedInventory;
+import authoring.SpriteManagers.SpriteSetInventory;
+import authoring.SpriteManagers.SpriteSetInventoryTemplate;
+import authoring.SpriteManagers.SpriteSetUserDefined;
 import engine.utilities.data.GameDataHandler;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -51,7 +58,9 @@ public class AuthoringEnvironmentManager {
 	}
 	
 	private void initializeImportedSprites() {
+		
 		myImportedSprites = new SpriteSetImported(myGDH);
+		System.out.println("Made imported sprites");
 	}
 	
 	private void initializeImportedInventorySprites() {

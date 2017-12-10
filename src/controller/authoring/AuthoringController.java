@@ -46,10 +46,10 @@ public class AuthoringController {
 //		dm.addDialogueListener(mapManager.getDialoguesTab());
 //		viewMap.put(DIALOGUE_KEY, dm.getPane());
 		
-//		HUDManager hudManager = new HUDManager(AEM);
-//		viewMap.put(HUD_KEY, hudManager.getPane());
+		HUDManager hudManager = new HUDManager(AEM, stage);
+		viewMap.put(HUD_KEY, hudManager.getPane());
 		
-		InventoryManager inventoryManager = new InventoryManager(AEM);
+		InventoryManager inventoryManager = new InventoryManager(AEM, stage);
 		viewMap.put(INVENTORY_KEY, inventoryManager.getPane());
 	}
 	

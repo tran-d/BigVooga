@@ -1,17 +1,12 @@
 package authoring;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import authoring.Sprite.SpriteObject;
+import authoring.Sprite.Parameters.SpriteParameterI;
 import authoring_UI.DraggableGrid;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 public class SpriteParameterSidebarManager {
 	Map<String, List<SpriteParameterI>> everyStateParameter = new HashMap<String, List<SpriteParameterI>>();

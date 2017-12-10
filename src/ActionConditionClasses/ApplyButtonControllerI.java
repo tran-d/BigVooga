@@ -1,6 +1,6 @@
 package ActionConditionClasses;
 
-import authoring.AbstractSpriteObject;
+import authoring.Sprite.AbstractSpriteObject;
 import authoring_actionconditions.ActionRow;
 import authoring_actionconditions.ActionTab;
 import authoring_actionconditions.ConditionRow;

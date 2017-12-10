@@ -4,10 +4,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import authoring.AbstractSpriteObject;
+
+import authoring.Sprite.*;
+import authoring_actionconditions.ActionRow;
 import authoring_actionconditions.ActionTab;
 import authoring_actionconditions.ActionVBox;
-import authoring_actionconditions.ActionRow;
 import authoring_actionconditions.ConditionRow;
 import authoring_actionconditions.ConditionTab;
 import authoring_actionconditions.ConditionVBox;

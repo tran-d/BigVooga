@@ -3,17 +3,15 @@ package authoring_UI.Inventory;
 import java.util.ArrayList;
 import java.util.List;
 
-import authoring.AbstractSpriteObject;
-import authoring.AuthoringEnvironmentManager;
-import authoring.SpriteObjectGridManager;
-import authoring_UI.AuthoringMapEnvironment;
-import authoring_UI.DraggableGrid;
-import authoring_UI.InventorySpritePanels;
-import authoring_UI.MapManager;
-import authoring_UI.SpriteGridHandler;
-import authoring_UI.SpritePanels;
-import authoring_UI.dialogue.DialogueEditor;
-import authoring_UI.dialogue.DialogueTabPane;
+import authoring.GridManagers.*;
+import authoring.Sprite.*;
+import authoring.SpriteManagers.*;
+import authoring.SpritePanels.*;
+import authoring.util.*;
+import authoring_UI.Map.*;
+import authoring_UI.*;
+import authoring.*;
+import authoring_UI.Inventory.*;
 import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.event.ActionEvent;
@@ -36,53 +34,46 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import tools.DisplayLanguage;
 
-public class InventoryManager {
-
-	private static final double NODE_SPACING = 20;
-	private static final double BUTTON_WIDTH = 300;
-	private static final double BUTTON_HEIGHT = 75;
-	private static final String ADD_BUTTON_PROMPT = "New";
-	private static final String SAVE_BUTTON_PROMPT = "Save";
-	private static final String DEFAULT = "Default";
-	private static final String USER = "User";
-	private static final String IMPORTED = "Imported";
-
-	private HBox hb;
-	private DialogueEditor editor;
-	private DialogueTabPane dView;
-	private ScrollPane spriteSideGridScrollPane;
-	private List<DialogueEditor> editorList;
-	private int currentEditor = 0;
+public class InventoryManager extends MapManager{
+	
 	private SpriteObjectGridManager InventoryGridBE;
-	private SpriteGridHandler SGH;
-	private AuthoringEnvironmentManager myAEM;
-	private VBox spriteSideVbox;
-	private SpritePanels SPanels;
-	private GameDataHandler myGDH;
-	private AuthoringMapEnvironment myAME;
-	
-	public InventoryManager(AuthoringEnvironmentManager AEM) {
-		DraggableGrid DG = new DraggableGrid();
-		myAEM = AEM;
-		SGH = new SpriteGridHandler("InventoryManager", 1, DG);
-		
-		InventoryGridBE = new InventoryGridManager();
-		DG.setAllGrids(InventoryGridBE);
-		DG.construct(SGH);
-		
-		
-		SPanels = new InventorySpritePanels(SGH, myAEM);
-		SGH.setDisplayPanel(SPanels);
-		myAME = new AuthoringMapEnvironment(SPanels, DG);
-		
 
+	public InventoryManager(AuthoringEnvironmentManager AEM, Stage currentStage) {
+		super(AEM, currentStage);
 	}
 	
-	public HBox getPane() {
-		return myAME;
+	@Override 
+	protected DraggableGrid makeDraggableGrid(){
+		System.out.println("DG in HUDMANAGER");
+		DraggableGrid ret = new DraggableGrid();
+		InventoryGridBE = new InventoryGridManager();
+		ret.setAllGrids(InventoryGridBE);
+		return ret;
 	}
+	
+	@Override
+	protected void setManagerName(){
+		MANAGERNAME = "InventoryManager";
+	}
+	
+	@Override 
+	protected void setTabTag(){
+		TAB_TAG="Inventory";
+	}
+	
+	@Override
+	protected List<DraggableGrid> getListOfDraggableGrids(){
+		return new ArrayList<DraggableGrid>();
+	}
+	
+	@Override
+	protected SpritePanels makeSpritePanels(SpriteGridHandler mySpriteGridHandler){
+		return new InventorySpritePanels(mySpriteGridHandler, myAEM);
+	}
+	
 	
 	
 
