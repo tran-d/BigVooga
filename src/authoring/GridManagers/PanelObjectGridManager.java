@@ -2,6 +2,7 @@ package authoring.GridManagers;
 
 import authoring_UI.SpriteGridHandler;
 import authoring_UI.Map.PanelLayer;
+import javafx.scene.paint.Color;
 
 public class PanelObjectGridManager extends SpriteObjectGridManager{
 
@@ -11,6 +12,10 @@ public class PanelObjectGridManager extends SpriteObjectGridManager{
 	
 	public PanelObjectGridManager(int rows, int columns) {
 		super(rows, columns);
+	}
+
+	public PanelObjectGridManager(int myNumRows, int myNumCols, int layerNum, Color myColor) {
+		super(myNumRows, myNumCols, layerNum, myColor);
 	}
 
 	@Override

@@ -49,18 +49,27 @@ public class DraggableGrid extends VBox {
 	private SpriteGridHandler mySGH;
 	private Integer rows;
 	private Integer cols;
+	private String savePath;
 
 	public DraggableGrid() {
-		System.out.println("Draggable Grid constructor called (MAPMAN)");
 		rows = 20; // TODO HARDCODED
 		cols = 20;
 	}
 	
-	public DraggableGrid(List<SpriteObjectGridManager> SGMs) {
-		this();
-		allGrids = SGMs;
+	public void loadLayers(List<SpriteObjectGridManager> SOGMList) {
+		System.out.println("add to layers in DRAGGABLE GRID!");
+		for (SpriteObjectGridManager SOGM : SOGMList) {
+			if (SOGM.getLayerNum() == 0) {
+				allGrids.add(new TerrainObjectGridManager(SOGM.getNumRows(), SOGM.getNumCols(), SOGM.getLayerNum(), SOGM.getColor()));
+			}
+			if (SOGM.getLayerNum() == 1) {
+				allGrids.add(new SpriteObjectGridManagerForSprites(SOGM.getNumRows(), SOGM.getNumCols(), SOGM.getLayerNum(), SOGM.getColor()));
+			}
+			if (SOGM.getLayerNum() == 2) {
+				allGrids.add(new PanelObjectGridManager(SOGM.getNumRows(), SOGM.getNumCols(), SOGM.getLayerNum(), SOGM.getColor()));
+			}
+		}
 	}
-
 	
 	public void construct(SpriteGridHandler spriteGridHandler){
 		if (allGrids == null){
@@ -71,7 +80,6 @@ public class DraggableGrid extends VBox {
 		makeLayers(spriteGridHandler);
 		createGrid(spriteGridHandler);
 	}
-
 
 	private void makeTopInfo() {
 		topHbox = new HBox(10);
@@ -115,10 +123,6 @@ public class DraggableGrid extends VBox {
 		return allGrids;
 	}
 	
-	public void setAllGrids(ArrayList<SpriteObjectGridManager> SGMs){
-		allGrids = SGMs;
-	}
-	
 	public void setAllGrids(SpriteObjectGridManager SGM){
 		allGrids = new ArrayList<SpriteObjectGridManager>();
 		allGrids.add(SGM);
@@ -139,6 +143,10 @@ public class DraggableGrid extends VBox {
 			allGrids.add(item);
 		});
 		} else {
+			if (spriteGridHandler == null) System.out.println("SGH is NULL IN DRAGGABLE GRID");
+			if (allGrids == null) System.out.println("ALL GRIDS IS NULL IN DG");
+			if (allGrids.size() == 0) System.out.println("ALL GRIDS SIZE 0");
+			//  allGrids.get(0) <--- THIS IS THE ISSUE
 			allGrids.forEach(item->{
 				System.out.println("lready has a grid!: "+item);
 				item.setSpriteGridHandler(spriteGridHandler);
@@ -266,5 +274,13 @@ public class DraggableGrid extends VBox {
 			}
 		});
 		topHbox.getChildren().add(ret);
+	}
+	
+	public void setSavePath(String setPath) {
+		savePath = setPath;
+	}
+
+	public String getSavePath() {
+		return savePath;
 	}
 }
