@@ -208,6 +208,8 @@ public abstract class MapLayer extends GridPane {
 	
 	private void addAuthoringStackPaneToPosition(int row, int col){
 		AuthoringMapStackPane sp = new AuthoringMapStackPane(this);
+		sp.setOnMouseEntered(e -> style());
+		//sp.setId("StackPane");
 		sp.setMinWidth(CELL_SIZE);
 		sp.setMaxWidth(CELL_SIZE);
 		sp.setPrefWidth(CELL_SIZE);
@@ -234,6 +236,10 @@ public abstract class MapLayer extends GridPane {
 		mySGH.addDropHandling(sp);
 		mySGH.addGridMouseClick(sp);
 		mySGH.addGridMouseDrag(sp);
+	}
+	
+	private void style(StackPane sp) {
+		
 	}
 	
 	public void addRow(){

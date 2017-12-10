@@ -155,6 +155,7 @@
 
 #StackPane:hover{
 	-fx-border-color: #47BDFF;
+	transition: -fx-border-color 0.1s;
 }
 
 .separator{
