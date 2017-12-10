@@ -27,9 +27,9 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.security.NullPermission;
 import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
-import authoring.AbstractSpriteObject;
-import authoring.SpriteObject;
-import authoring.SpriteObjectGridManager;
+import authoring.GridManagers.SpriteObjectGridManager;
+import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.SpriteObject;
 import authoring_UI.DraggableGrid;
 import authoring_UI.LayerDataConverter;
 import authoring_UI.MapDataConverter;
@@ -199,7 +199,7 @@ public class GameDataHandler {
 		if (cache.containsKey(fileName)){
 			return cache.get(fileName);
 		}
-		String path = new File(projectPath+fileName).toURI().toString();
+		String path = new File(fileName).toURI().toString();
 		Image i = new Image(path);
 		cache.put(fileName, i);
 		return i;
