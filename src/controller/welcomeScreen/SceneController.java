@@ -24,12 +24,15 @@ public class SceneController {
 	public static final String GAME_SELECTOR_KEY = "Game Selector";
 	public static final String GAME_DISPLAY_KEY = "Game Display";
 	public static final String FILE_SELECTOR_KEY = "File Selector";
+	public static final String FILE_SELECTOR_KEY_FOR_LOAD = "File Selector For Load";
 	public static final String LEARN_KEY = "Learn";
 	public static final String SETTINGS_KEY = "Settings";
 	
 	private Map<String, Scene> sceneMap = new HashMap<String, Scene>();
 	private Stage stage;
 	private Scene scene;
+	private FileSelector fileSelector;
+	private FileSelector fileSelectorForLoad;
 	
 	/**
 	 * Initializes all the scenes and puts them in the sceneMap.
@@ -48,10 +51,15 @@ public class SceneController {
 		scene = gameSelector.getScene();
 		sceneMap.put(GAME_SELECTOR_KEY, scene);
 		
-		FileSelector fileSelector = new FileSelector(stage, this);
+		fileSelector = new FileSelector(stage, this);
 		fileSelector.createFileSelector();
 		scene = fileSelector.getScene();
 		sceneMap.put(FILE_SELECTOR_KEY, scene);
+		
+		fileSelectorForLoad = new FileSelector(stage, this);
+		fileSelector.createFileSelector();
+		scene = fileSelector.getScene();
+		sceneMap.put(FILE_SELECTOR_KEY_FOR_LOAD, scene);
 		
 		Learn learn = new Learn(stage, this);
 		learn.createLearn();
@@ -71,5 +79,13 @@ public class SceneController {
 	 */
 	public void switchScene (String key) {
 		stage.setScene(sceneMap.get(key));
+	}
+	
+	public void saveWorlds() {
+		fileSelector.saveWorlds();
+	}
+
+	public void importWorlds(String name) {
+		fileSelector.importWorlds(name);
 	}
 }
