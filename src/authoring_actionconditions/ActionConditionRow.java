@@ -26,8 +26,16 @@ import javafx.scene.control.ToolBar;
  */
 
 public class ActionConditionRow extends ToolBar implements ActionConditionRowI {
-	
-	private static final String ACTIONCONDITION_RESOURCE_PATH = "TextResources/ActionConditionVBoxResources";
+
+	protected static final double ROW_WIDTH = 800;
+	protected static final double TREE_VIEW_WIDTH = 600;
+	protected static final double EXPANDED_HEIGHT = 500;
+	protected static final double COLLAPSED_HEIGHT = 25;
+
+	protected static String EMPTY_CHOICEBOX = "EmptyChoiceBox";
+	protected static final String INVALID_INPUT_MESSAGE = "InvalidInput";
+	protected static final String DOUBLE_INPUT_MESSAGE = "EnterDouble";
+	protected static final String ACTIONCONDITION_RESOURCE_PATH = "TextResources/ActionConditionVBoxResources";
 
 	protected ResourceBundle actionConditionVBoxResources;
 	private int labelInt;
@@ -35,33 +43,41 @@ public class ActionConditionRow extends ToolBar implements ActionConditionRowI {
 	private Label IDlabel;
 	private ChoiceBoxVBox<String> implementationSelectorVBox;
 
-	public ActionConditionRow(int ID, String label, String selectorLabel,String selectedConditionAction, ActionConditionVBox ACVBox) {
+	public ActionConditionRow(int ID, ActionConditionVBox<?> ACVBox) {
 		super();
 		actionConditionVBoxResources = ResourceBundle.getBundle(ACTIONCONDITION_RESOURCE_PATH);
-		this.label = new Label(label);
 		labelInt = ID;
 		IDlabel = new Label(Integer.toString(ID));
 		Separator separator = ActionConditionTabUtil.makeVerticalSeparator();
-		ObservableList<String> actionConditionOptions = ActionConditionTabUtil.convertToObservableList(actionConditionVBoxResources.getString(label 
-				+ actionConditionVBoxResources.getString("OptionsTag"))); 
-		implementationSelectorVBox = new ChoiceBoxVBox<String>(selectorLabel, actionConditionOptions);
-		implementationSelectorVBox.setValue(selectedConditionAction);
-		getItems().addAll(IDlabel,separator,this.label);
+		getItems().addAll(IDlabel, separator);
 	}
 
-		// if (isConditionRow) {
-		// addActionCheckBox();
-		// }
-		// else
-		// addBuildActionButton(e -> openBuildWindow());
-	//}
+	// public ActionConditionRow(int ID, String label, String selectorLabel, String
+	// selectedConditionAction,
+	// ActionConditionVBox<?> ACVBox) {
+	// super();
+	// actionConditionVBoxResources =
+	// ResourceBundle.getBundle(ACTIONCONDITION_RESOURCE_PATH);
+	// this.label = new Label(label);
+	// labelInt = ID;
+	// IDlabel = new Label(Integer.toString(ID));
+	// Separator separator = ActionConditionTabUtil.makeVerticalSeparator();
+	// ObservableList<String> actionConditionOptions =
+	// ActionConditionTabUtil.convertToObservableList(
+	// actionConditionVBoxResources.getString(label +
+	// actionConditionVBoxResources.getString("OptionsTag")));
+	// implementationSelectorVBox = new ChoiceBoxVBox<String>(selectorLabel,
+	// actionConditionOptions);
+	// implementationSelectorVBox.setValue(selectedConditionAction);
+	// getItems().addAll(IDlabel, separator, this.label);
+	// }
 
 	@Override
 	public void decreaseLabelID() {
 		labelInt--;
 		IDlabel.setText(Integer.toString(labelInt));
 	}
-	
+
 	@Override
 	public String getImplementationSelectorVBoxValue() {
 		return (String) implementationSelectorVBox.getCurrentValue();
