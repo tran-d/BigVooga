@@ -27,14 +27,15 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.security.NullPermission;
 import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
-import authoring.GridManagers.SpriteObjectGridManager;
-import authoring.Sprite.AbstractSpriteObject;
-import authoring.Sprite.SpriteObject;
+import authoring.AbstractSpriteObject;
+import authoring.SpriteObject;
+import authoring.SpriteObjectGridManager;
 import authoring_UI.DraggableGrid;
 import authoring_UI.LayerDataConverter;
 import authoring_UI.MapDataConverter;
 import authoring_UI.SpriteDataConverter;
 import engine.EngineController;
+import engine.VoogaException;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
@@ -67,6 +68,7 @@ public class GameDataHandler {
 	private final String INVENTORY_SPRITE_FOLDER = "InventorySprites/";
 	private static final String DEFAULT_CATEGORY = "General/";
 	private static final String RESOURCES = "resources/";
+	private static final String CONTROLLER_DIRECTORY = "SAVES/";
 	private static  Path RESOURCES_PATH;
 	private Map<String, Image> cache = new HashMap<>();
 	private String projectPath;
@@ -74,7 +76,7 @@ public class GameDataHandler {
 
 	private static XStream setupXStream() {
 		XStream xstream = new XStream(new DomDriver());
-		// xstream.addPermission(NoTypePermission.NONE);
+		//xstream.addPermission(NoTypePermission.NONE);
 		xstream.addPermission(NullPermission.NULL);
 		xstream.addPermission(PrimitiveTypePermission.PRIMITIVES);
 		xstream.allowTypes(new Class[] { Point2D.class });
@@ -90,7 +92,7 @@ public class GameDataHandler {
 		RESOURCES_PATH = Paths.get(RESOURCES).toAbsolutePath();
 		this.projectName = projectName;
 		this.projectPath = PATH + projectName + "/";
-		makeDirectory(projectPath);
+		makeDirectory(projectPath+CONTROLLER_DIRECTORY);
 		makeSpriteDirectories();
 		makeWorldAndLayerDirectories();
 	}
@@ -104,13 +106,21 @@ public class GameDataHandler {
 	 *            to serialize
 	 * @throws IOException
 	 */
-	public void saveGame(EngineController controller) throws IOException {
-		String toSave = SERIALIZER.toXML(controller);
-
-		FileWriter writer = new FileWriter(projectPath + CONTROLLER_FILE);
-		writer.write(toSave);
-		writer.close();
+	public void saveGame(EngineController controller) {
+		saveGame(controller, CONTROLLER_FILE);
 		addToKnownProjects();
+	}
+	
+	public void saveGame(EngineController controller, String gameName) {
+		String toSave = SERIALIZER.toXML(controller);
+		FileWriter writer;
+		try {
+			writer = new FileWriter(projectPath + CONTROLLER_DIRECTORY + gameName);
+			writer.write(toSave);
+			writer.close();
+		} catch (IOException e) {
+			throw new VoogaException("SaveFail");
+		}
 	}
 
 	/**
@@ -168,8 +178,11 @@ public class GameDataHandler {
 	 * @throws FileNotFoundException
 	 */
 	public EngineController loadGame() throws FileNotFoundException {
-		System.out.println("Trying to load game");
-		File controllerFile = new File(projectPath + CONTROLLER_FILE);
+		return loadGame(CONTROLLER_FILE);
+	}
+	
+	public EngineController loadGame(String saveGameName) throws FileNotFoundException {
+		File controllerFile = new File(projectPath+ CONTROLLER_DIRECTORY+ saveGameName);
 		Scanner scanner = new Scanner(controllerFile);
 		String fileContents = scanner.useDelimiter("\\Z").next();
 		scanner.close();
@@ -186,7 +199,7 @@ public class GameDataHandler {
 		if (cache.containsKey(fileName)){
 			return cache.get(fileName);
 		}
-		String path = new File(fileName).toURI().toString();
+		String path = new File(projectPath+fileName).toURI().toString();
 		Image i = new Image(path);
 		cache.put(fileName, i);
 		return i;
@@ -602,4 +615,5 @@ public class GameDataHandler {
 			}
 		}
 	}
+	
 }
