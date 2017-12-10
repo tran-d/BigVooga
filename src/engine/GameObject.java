@@ -34,14 +34,14 @@ public class GameObject extends VariableContainer implements Element {
 	private static final double DEFAULT_SIZE = 200;
 	private static final String DEFAULT_NAME = "unnamed";
 	private static final String DEFAULT_TAG = "default";
-	
+
 	private Map<Condition, List<Action>> events;
 	private Sprite currentSprite;
-	
+
 	private int uniqueID;
 	private String name;
 	private Set<String> tagSet;
-	
+
 	private CollisionEvent lastCollision;
 	private Inventory inventory;
 	private DisplayableText dialogueHandler;
@@ -50,7 +50,7 @@ public class GameObject extends VariableContainer implements Element {
 	private List<Point2D> ithDerivative;
 	private double width = DEFAULT_SIZE;
 	private double height = DEFAULT_SIZE;
-	
+
 	public GameObject() {
 		this(DEFAULT_NAME);
 	}
@@ -66,7 +66,7 @@ public class GameObject extends VariableContainer implements Element {
 		tagSet.add(DEFAULT_TAG);
 		inventory = new Inventory(this);
 		ithDerivative = new ArrayList<>();
-		ithDerivative.add(new Point2D(0,0));
+		ithDerivative.add(new Point2D(0, 0));
 	}
 
 	public String getName() {
@@ -97,22 +97,23 @@ public class GameObject extends VariableContainer implements Element {
 			}
 		}
 	}
-	
+
 	@Override
 	public void step(GameObjectEnvironment w) {
 		currentSprite.step();
-		for(int i = ithDerivative.size()-1; i > 0; i--) {
-			ithDerivative.set(i-1, ithDerivative.get(i-1).add(ithDerivative.get(i)));
+		for (int i = ithDerivative.size() - 1; i > 0; i--) {
+			ithDerivative.set(i - 1, ithDerivative.get(i - 1).add(ithDerivative.get(i)));
 		}
 	}
 
 	/**
 	 * Setter for x and y Coordinates
 	 * 
-	 * @param x, y
+	 * @param x,
+	 *            y
 	 */
 	public void setCoords(double x, double y) {
-		setLocation(new Point2D(x,y));
+		setLocation(new Point2D(x, y));
 	}
 
 	public void setLocation(Point2D loc) {
@@ -122,23 +123,23 @@ public class GameObject extends VariableContainer implements Element {
 	public Point2D getLocation() {
 		return getDerivative(0);
 	}
-	
+
 	public Point2D getDerivative(int i) {
-		if(i < ithDerivative.size())
+		if (i < ithDerivative.size())
 			return ithDerivative.get(i);
-		return new Point2D(0,0);
+		return new Point2D(0, 0);
 	}
-	
+
 	public void setDerivative(int i, Point2D vector) {
-		while(ithDerivative.size() <= i) {
-			ithDerivative.add(new Point2D(0,0));
+		while (ithDerivative.size() <= i) {
+			ithDerivative.add(new Point2D(0, 0));
 		}
 		ithDerivative.set(i, vector);
 	}
-	
+
 	public void stop() {
-		while(ithDerivative.size() > 1)
-			ithDerivative.remove(ithDerivative.size()-1);
+		while (ithDerivative.size() > 1)
+			ithDerivative.remove(ithDerivative.size() - 1);
 	}
 
 	public double getX() {
@@ -198,7 +199,7 @@ public class GameObject extends VariableContainer implements Element {
 		result.setSize(width, height);
 		return result;
 	}
-	
+
 	@Override
 	public Displayable getDisplayable() {
 		if (dialogueHandler == null)
@@ -273,7 +274,7 @@ public class GameObject extends VariableContainer implements Element {
 	public Inventory getInventory() {
 		return inventory;
 	}
-	
+
 	public void addToInventory(Holdable o) {
 		inventory.addObject(o);
 	}
