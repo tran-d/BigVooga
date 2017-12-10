@@ -114,7 +114,7 @@ public class MapManager extends TabPane {
 	private HBox setupFEAuthClasses(DraggableGrid w) { 
 		// TODO if it's old project, want all possible worlds, so many worlds!
 		allWorlds.add(w);
-		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(getManagerName(), myTabCount, w);
+		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, w);
 		w.construct(mySpriteGridHandler);
 		mySpriteGridHandler.addKeyPress(stage.getScene());
 		spritePanels = new SpritePanels(mySpriteGridHandler, myAEM);

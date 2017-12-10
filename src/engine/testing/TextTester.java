@@ -55,7 +55,7 @@ public class TextTester extends Application {
 		text.setPosition(300, 300);
 		text.setSize(300, 100);
 
-		GameDataHandler gdh = new GameDataHandler(name, stage);
+		GameDataHandler gdh = new GameDataHandler(name);
 		File f = gdh.chooseFile(stage);
 		gdh.addFileToProject(f);
 		GameObject object = makeObject("Box", new BoundedImage(f.getName()),
