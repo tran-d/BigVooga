@@ -1,0 +1,44 @@
+package authoring.Layers;
+
+import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.SpriteObject;
+import authoring_UI.AuthoringMapStackPane;
+import authoring_UI.SpriteGridHandler;
+import authoring_UI.Map.MapLayer;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+
+public class BackgroundLayer extends MapLayer {
+	
+	public BackgroundLayer(int rows, int columns, SpriteGridHandler SGH){
+		this(rows, columns, 0, SGH, Color.TRANSPARENT);
+	}
+
+	BackgroundLayer(int rows, int columns, int layerNum, SpriteGridHandler SGH, Color c) {
+		super(rows, columns, layerNum, SGH, c);
+		this.gridLinesVisibleProperty().set(false);
+//		setDefaultColor(Color.YELLOW);
+		setName("Background");
+	}
+	
+	@Override 
+	public void setBackgroundImage(Image image, String path){
+		AuthoringMapStackPane AMSP = this.getChildAtPosition(0, 0);
+		if (AMSP.hasChild()){
+			AMSP.removeChild();
+		}
+		AbstractSpriteObject ASO = new SpriteObject(image, path);
+		AMSP.addChild(ASO);
+		AMSP.setRowSpan(this.numRowsProperty.get());
+		AMSP.setColSpan(this.numColumnsProperty.get());
+		numColumnsProperty.addListener((observable, oldNumColumns, newNumColumns)->{
+			AMSP.setColSpan(newNumColumns);
+		});
+		numRowsProperty.addListener((observable, oldNumColumns, newNumColumns)->{
+			AMSP.setRowSpan(newNumColumns);
+		});
+	}
+	
+	
+
+}

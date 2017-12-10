@@ -2,6 +2,10 @@
     blue-color: #47BDFF;
 }
 
+.color-picker{
+	-fx-color-label-visible: false;
+}
+
 .tool-bar {
 	-fx-background-color: #001E32;
 }

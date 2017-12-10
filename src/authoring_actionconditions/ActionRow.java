@@ -1,5 +1,8 @@
 package authoring_actionconditions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import authoring.ActionNameTreeItem;
 import engine.Action;
 import engine.Actions.ActionFactory;
@@ -38,10 +41,8 @@ public class ActionRow extends ActionConditionRow {
 
 	private ActionNameTreeItem actionName;
 
-	public ActionRow(int ID, String label, String selectorLabel, boolean isConditionRow,
-			ObservableList<Integer> newActionOptions, ActionConditionVBox ACVBox) {
-
-		super(ID, label, selectorLabel, newActionOptions, ACVBox);
+	public ActionRow(int ID, String label, String selectorLabel,String selectedAction, ActionVBox<ActionRow> ACVBox) {
+		super(ID, label, selectorLabel, selectedAction, ACVBox);
 
 		this.setPrefSize(ROW_WIDTH, EXPANDED_HEIGHT);
 

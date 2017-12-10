@@ -1,32 +1,28 @@
 package authoring_UI;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Observable;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 
-import authoring.AbstractSpriteObject;
 import authoring.AuthoringEnvironmentManager;
-import authoring.SpriteObject;
+import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.SpriteObject;
+import authoring.Sprite.SpriteParameterTabsAndInfo;
+import authoring.SpritePanels.GameElementSelector;
 import engine.utilities.data.GameDataHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;

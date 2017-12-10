@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import authoring.AbstractSpriteObject;
-import authoring.SpriteObject;
-import javafx.geometry.Orientation;
+import authoring.Sprite.AbstractSpriteObject;
 import javafx.geometry.Side;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;

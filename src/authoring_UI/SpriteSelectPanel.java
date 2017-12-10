@@ -1,11 +1,9 @@
 package authoring_UI;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import authoring.AbstractSpriteObject;
-import authoring.SpriteObject;
-import javafx.scene.control.ScrollPane;
+import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.SpriteObject;
 import javafx.scene.layout.VBox;
 
 public class SpriteSelectPanel extends VBox {
