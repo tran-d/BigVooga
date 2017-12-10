@@ -27,7 +27,7 @@ public class ObjectClickReleased implements BooleanOperation {
 	public Boolean evaluate(GameObject asking, GameObjectEnvironment world) {
 		BooleanOperation screenClickReleased = new ScreenClickReleased();
 		return screenClickReleased.evaluate(asking, world) && object.evaluate(asking, world).getBounds().checkCollision(
-				new BoundingPoint(world.getPlayerManager().getClickX(), world.getPlayerManager().getClickY())) != null;
+				new BoundingPoint(world.getAbsoluteMouseCoordinates())) != null;
 	}
 
 }
