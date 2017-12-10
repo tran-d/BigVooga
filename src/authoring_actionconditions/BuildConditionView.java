@@ -4,7 +4,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class BuildActionView {
+public class BuildConditionView {
 	private static final double WIDTH = 800;
 	private static final double HEIGHT = 500;
 
@@ -14,40 +14,39 @@ public class BuildActionView {
 	private Scene scene;
 	private Group root;
 	ActionConditionVBox<?> ACVBox;
-	private ActionRow ACRow;
+	private ConditionRow conditionRow;
 
-	public BuildActionView(ActionConditionVBox<?> ACVBox, ActionRow ACRow) {
+	public BuildConditionView(ActionConditionVBox<?> ACVBox, ConditionRow conditionRow) {
 		root = new Group();
 		scene = new Scene(root, WIDTH, HEIGHT);
 		stage = new Stage();
 		stage.setScene(scene);
 		stage.show();
 
-		this.ACRow = ACRow;
+		this.conditionRow = conditionRow;
 		this.ACVBox = ACVBox;
 
 		stage.setOnCloseRequest(e -> transportActionRow());
 
-		root.getChildren().add(this.ACRow);
+		root.getChildren().add(this.conditionRow);
 	}
 
 	private void transportActionRow() {
 
-		ACRow.getRootTreeItem().setExpanded(false);
-		ACRow.changeRowTVSize();
+		conditionRow.getRootTreeItem().setExpanded(false);
+		conditionRow.changeRowTVSize();
 
-		System.out.println(ACRow.getPrefHeight());
-		
-		if (ACVBox.getChildren().size() >= ACRow.getRowID())
-			ACVBox.getChildren().remove(ACRow.getRowID() - 1);
-		ACVBox.getChildren().add(ACRow.getRowID() - 1, ACRow);
+		System.out.println(conditionRow.getPrefHeight());
+
+		if (ACVBox.getChildren().size() >= conditionRow.getRowID())
+			ACVBox.getChildren().remove(conditionRow.getRowID() - 1);
+		ACVBox.getChildren().add(conditionRow.getRowID() - 1, conditionRow);
 
 		stage.close();
 
 		// test
-		ACRow.getAction();
-		
-		
+		conditionRow.getCondition();
+
 	}
 
 	public void createParameterChoiceBox() {
