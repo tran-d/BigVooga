@@ -127,6 +127,8 @@ public class GameLayer implements Layer {
 	public List<Element> getAllElements() {
 		return worldElements;
 	}
+	
+	//TODO: Get all displayables
 
 	@Override
 	public GameObject getWithName(String name) {
@@ -135,6 +137,10 @@ public class GameLayer implements Layer {
 				return go;
 		}
 		throw new RuntimeException("None by name "+name);//TODO
+	}
+
+	public List<GameObject> getAllObjects() {
+		return objects;
 	}
 
 }

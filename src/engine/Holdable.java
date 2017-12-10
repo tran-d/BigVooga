@@ -52,6 +52,7 @@ public class Holdable extends VariableContainer {
 	} 
 	
 	public void select(GameObject keeper, GameObjectEnvironment world) {
+		System.out.println("Actions: " + selectActions.get(0).toString());
 		for(Action a : selectActions) {
 			a.execute(keeper, world);
 		}

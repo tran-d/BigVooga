@@ -124,7 +124,7 @@ public class GameDisplay {
 	 * @param imageData
 	 *            - The list of objects for the player to display
 	 */
-	public void setUpdatedDisplayables(List<Displayable> images, double cameraXTranslate, double cameraYTranslate) {
+	public void setUpdatedDisplayables(List<Displayable> images) {
 		gamePane.getChildren().clear();
 		for (Displayable d : images) {
 			d.visit(this);

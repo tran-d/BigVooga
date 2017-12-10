@@ -19,18 +19,17 @@ import engine.GameWorld;
 import engine.Actions.changeObject.RemoveFromWorld;
 import engine.Actions.global.TransferObjectToWorld;
 import engine.Actions.movement.Move;
+import engine.Actions.movement.MoveTo;
 import engine.Actions.movement.Rotate;
-import engine.operations.booleanops.And;
-import engine.operations.booleanops.BooleanValue;
-import engine.operations.booleanops.CollisionByTag;
 import engine.operations.booleanops.KeyHeld;
 import engine.operations.booleanops.KeyPressed;
-import engine.operations.booleanops.Not;
 import engine.operations.doubleops.Value;
+import engine.operations.gameobjectops.GameObjectOperation;
 import engine.operations.gameobjectops.Self;
 import engine.operations.stringops.SelfString;
+import engine.operations.vectorops.BasicVector;
 import engine.operations.vectorops.VectorHeadingOf;
-import engine.operations.vectorops.VectorScale;
+import engine.operations.vectorops.VectorOperation;
 import engine.sprite.AnimationSequence;
 import engine.sprite.BoundedImage;
 import engine.sprite.Sprite;
@@ -41,6 +40,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
@@ -60,52 +60,99 @@ public class EngineTester extends Application {
 	}
 
 	public void generateGame() {
-		generateGame("WorldSwitchingTest", new BoundedImage(
-				"C:\\Users\\nikbr\\Desktop\\eclipse\\My_Workspace\\voogasalad_bigvooga\\data\\UserCreatedGames\\WorldSwitchingTest\\testImage.gif"));
+		generateGame("Test1", new BoundedImage(
+				"/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png"));
 	}
 
 	public void generateGame(String name, BoundedImage i) {
 		GameObjectFactory blueprints = new GameObjectFactory();
 		GameObject obj1 = makeObject("Ob1", i, 120, 150, this::conditionAction1);
+		obj1.addTag("Ob1");
 		obj1.addTag("Player");
-		obj1.setSize(50, 50);
-
+		obj1.setSize(200, 100);
+		
+		GameObject obj2 = makeObject("Ob2", new BoundedImage(
+				"/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png"), 200, 150, this::conditionAction2);
+		obj2.addTag("Ob2");
+		obj2.setSize(200, 100);
+		
+		GameObject obj3 = makeObject("Ob3", new BoundedImage(
+				"/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png"), 100, 300, this::conditionAction2);
+		obj3.addTag("Ob3");
+		obj3.setSize(200, 100);
+		
+		GameObject obj4 = makeObject("Ob4", new BoundedImage(
+				"/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png"), 75, 275, this::conditionAction2);
+		obj4.addTag("Ob4");
+		obj4.setSize(200, 100);
+	
 		blueprints.addBlueprint(obj1);
+		blueprints.addBlueprint(obj2);
+		blueprints.addBlueprint(obj3);
+		blueprints.addBlueprint(obj4);
+		
+		BoundedImage t = new BoundedImage("/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png");
+		List<BoundedImage> l = new ArrayList<BoundedImage>();
+		l.add(t);
+		AnimationSequence a = new AnimationSequence("hi", l);
+		Sprite s = new Sprite();
+		s.addAnimationSequence(a);
+		s.setAnimation("hi");
+		Holdable o = new Holdable(s);
+		
+		BoundedImage k = new BoundedImage("/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/brick.png");
+		k.setPosition(400, 200);
+		k.setSize(400, 400);
+		obj1.getInventory().setPane(k);
+		obj1.setInventoryPosition(400, 200);
+		obj1.addToInventory(o);
+		
+		for(int z = 0; z < 18; z++) {
+			if(z % 2 == 0) t = new BoundedImage("/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png");
+			else t = new BoundedImage("/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/ActiveTurtle.png");
+			l = new ArrayList<BoundedImage>();
+			l.add(t);
+			a = new AnimationSequence("hi", l);
+			s = new Sprite();
+			s.addAnimationSequence(a);
+			s.setAnimation("hi");
+			o = new Holdable(s);
+			GameObjectOperation self = new Self();
+			VectorOperation loc = new BasicVector(new Value(500), new Value(500));
+			Action moveTo;
+			if(z % 2 == 0) {
+				loc = new BasicVector(new Value(500), new Value(500));
+				moveTo = new MoveTo(self, loc);
+			}
+			else {
+				loc = new BasicVector(new Value(650), new Value(500));
+				moveTo = new MoveTo(self, loc);
+			}
+			List<Action> selectActions = new ArrayList<>();
+			selectActions.add(moveTo);
+			o.setSelectActions(selectActions);
+			obj1.addToInventory(o);
+		}
+			
 
-		BoundedImage image = new BoundedImage("C:\\Users\\nikbr\\Desktop\\eclipse\\My_Workspace\\voogasalad_bigvooga\\data\\UserCreatedGames\\WorldSwitchingTest\\skeptical.jpg");
-		GameObject obj2= makeObject("Ob2", image, 120, 150, this::conditionAction2);
-		obj2.addTag("Killer");
-		obj2.setSize(100, 100);
-		
-		String wallpath = "C:\\Users\\nikbr\\Desktop\\eclipse\\My_Workspace\\voogasalad_bigvooga"
-				+ "\\data\\UserCreatedGames\\WorldSwitchingTest\\Smiley.png";
-		
 		GameLayer la = new GameLayer("Layer");
 		la.addGameObject(obj1);
-		for(int j = 0; j < 10; j++)
-		{
-			image = new BoundedImage(wallpath);
-			GameObject wall = makeObject("Wall", image, 800, j*100, this::conditionAction3);
-			wall.addTag("Block");
-			wall.setSize(100, 100);
-			la.addGameObject(wall);
-		}
-		
+		la.addGameObject(obj2);
+		la.addGameObject(obj3);
+		la.addGameObject(obj4);
+
 		GameWorld w = new GameWorld("World");
 		w.addLayer(la);
-		
-		
-		GameWorld x = new GameWorld("Second World");
-		la = new GameLayer("Layer");
-		la.addGameObject(obj2);
-		x.addLayer(la);
 		
 		GameMaster master = new GameMaster();
 		master.addWorld(w);
 		master.addWorld(x);
 		master.setNextWorld("World");
-		
-		new GameDataHandler(name).saveGame(master);
+		//try {
+			new GameDataHandler(name).saveGame(master);
+		//} //catch (IOException e) {
+			//e.printStackTrace();
+		//}
 
 		try {
 			System.out.println("Trying to load game");
@@ -140,13 +187,14 @@ public class EngineTester extends Application {
 		actions1.add(new Rotate(new Self(), new Value(2)));
 		obj.addConditionAction(new Condition(2, new KeyHeld(new SelfString("D"))), actions1);
 		actions1 = new ArrayList<Action>();
-		actions1.add(new Rotate(new Self(), new Value(-2)));
-		obj.addConditionAction(new Condition(2, new KeyHeld(new SelfString("A"))), actions1);
-
+		actions1.add(new Move(new Self(), new VectorHeadingOf(new Self())));
+		obj.addConditionAction(new Condition(2, new KeyHeld(new SelfString("W"))), actions1);
 		actions1 = new ArrayList<Action>();
-		actions1.add(new TransferObjectToWorld(new Self(), new SelfString("World"), new SelfString("Layer"), new BooleanValue(true)));
-		obj.addConditionAction(new Condition(2, new KeyPressed(new SelfString("R"))), actions1);
-
+		actions1.add(new Rotate(new Self(), new Value(5)));
+		obj.addConditionAction(new Condition(2, new KeyHeld(new SelfString("D"))), actions1);
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Rotate(new Self(), new Value(-5)));
+		obj.addConditionAction(new Condition(2, new KeyHeld(new SelfString("A"))), actions1);
 	}
 
 	private void conditionAction2(GameObject obj) {
