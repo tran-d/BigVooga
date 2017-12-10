@@ -1,9 +1,18 @@
 package authoring_UI;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 import controller.welcomeScreen.SceneController;
+import gui.welcomescreen.FileSelector;
+import gui.welcomescreen.WelcomeScreen;
+import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ToolBar;
+import javafx.scene.layout.VBox;
 import tools.DisplayLanguage;
 
 public class Toolbar extends ToolBar {
@@ -21,6 +30,7 @@ public class Toolbar extends ToolBar {
 	private MenuButton settings;
 	private SceneController sceneController;
 	private MenuButton views;
+	private MenuButton importOptions;
 
 	public Toolbar(SceneController currentSceneController) {
 		sceneController = currentSceneController;
@@ -37,20 +47,39 @@ public class Toolbar extends ToolBar {
 	private void createFileOptions() {
 		MenuItem load = new MenuItem();
 		load.textProperty().bind(DisplayLanguage.createStringBinding(LOAD_STRING));
-		//TODO load.setOnAction(e -> ());
+		load.setOnAction(e -> sceneController.switchScene(SceneController.FILE_SELECTOR_KEY));
+		
 		MenuItem save = new MenuItem();
 		save.textProperty().bind(DisplayLanguage.createStringBinding(SAVE_STRING));
 		save.setOnAction(e -> sceneController.saveWorlds());
-		MenuItem importOption = new MenuItem();
+		
+		Menu importOption = new Menu();
+		importOption.textProperty().bind(DisplayLanguage.createStringBinding(IMPORT_STRING));	
+		List<MenuItem> importItems = createImportOptions();
+		for (MenuItem item : importItems) {
+			importOption.getItems().add(item);
+		}
 		importOption.textProperty().bind(DisplayLanguage.createStringBinding(IMPORT_STRING));
-		//TODO importOption.setOnAction(e -> ());
 		MenuItem exit = new MenuItem();
 		exit.textProperty().bind(DisplayLanguage.createStringBinding(EXIT_STRING));
 		exit.setOnAction(e -> sceneController.switchScene(SceneController.WELCOME_SCREEN_KEY));
 
 		fileOptions = new MenuButton(FILE_STRING, null, load, save, importOption, exit);
 		fileOptions.textProperty().bind(DisplayLanguage.createStringBinding(FILE_STRING));
-		
+	}
+	
+	private List<MenuItem> createImportOptions() {
+		List<MenuItem> importItems = new ArrayList<MenuItem>();
+		File f = new File("data/UserCreatedGames");
+		File[] listOfFiles = f.listFiles();
+		for (File file: listOfFiles) {
+			if (file.getName().charAt(0) != '.') {
+				MenuItem tempItem = new MenuItem(file.getName());
+				//tempItem.setOnAction(e -> );
+				importItems.add(tempItem);
+			}
+		}
+		return importItems;
 	}
 	
 	private void createViews() {

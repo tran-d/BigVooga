@@ -42,7 +42,6 @@ public class FileSelector extends MenuOptionsTemplate {
 	}
 	
 	public void createFileSelector() {
-		
 		rootPane = getBorderPane();
 		HBox newGame = createNewGame();
 		rootPane.setCenter(newGame);
@@ -51,7 +50,6 @@ public class FileSelector extends MenuOptionsTemplate {
 		
 		contentPane = getScrollPane();
 		contentPane.setContent(contentBox);		
-		
 	}
 	
 	private HBox createNewGame() {
