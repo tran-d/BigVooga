@@ -1,6 +1,6 @@
 package authoring_UI;
 
-import authoring.SpriteObject;
+import authoring.Sprite.*;
 
 public abstract class SpriteCategoryTab {
 	

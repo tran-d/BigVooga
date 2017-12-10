@@ -2,6 +2,7 @@ package engine.operations;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -11,6 +12,9 @@ import java.util.ResourceBundle;
 import java.util.function.BiFunction;
 
 import engine.VoogaException;
+import engine.operations.booleanops.BooleanValue;
+import engine.operations.doubleops.Value;
+import engine.operations.stringops.SelfString;
 import javafx.util.Pair;
 
 /**
@@ -42,6 +46,7 @@ public class OperationFactory {
 		}
 	}
 
+	@Deprecated
 	public List<String> getParameters(String operationName) throws VoogaException {
 		List<String> types = new ArrayList<>();
 		try {
@@ -53,11 +58,39 @@ public class OperationFactory {
 		}
 		return types;
 	}
+	
+	public List<VoogaParameter> getParametersWithNames(String operationName) throws VoogaException {
+		List<VoogaParameter> types = new ArrayList<>();
+		try {
+			for (Parameter parameter : getConstructor(operationName).getParameters()) {
+				types.add(new VoogaParameter(parameter.getAnnotation(VoogaAnnotation.class).name(), parameter.getAnnotation(VoogaAnnotation.class).type()));
+			}
+		} catch (ClassNotFoundException e) {
+			throw new VoogaException("ClassNotFoundFor", operationName);
+		}
+		return types;
+	}
+	
+//
+//	private String decamel(String name) {
+//		name = name.replaceAll("([a-z])([A-Z])", "$1 $2");
+//		name = name.substring(0, 1).toUpperCase()+name.substring(1);
+//		return name;
+//	}
 
+	@Deprecated
 	public List<String> getOperations(String operationType) {
+		return operations(operationType);
+	}
+	
+	private List<String> operations(String operationType) {
 		if (operationsByType.containsKey(operationType))
 			return Collections.list(operationsByType.get(operationType).getKeys());
 		return new ArrayList<>();
+	}
+	
+	public List<String> getOperations(VoogaParameter parameter) {
+		return operations(parameter.getType().getEngineType());
 	}
 
 	private void populateMaps() {
@@ -82,7 +115,17 @@ public class OperationFactory {
 	}
 	
 	public static Map<String, ResourceBundle> getOperationsByType() {
-		return getFromBundle((key, properties)->new Pair<>(key, ResourceBundle.getBundle(PACKAGE + "." + properties[FILE_LOCATION_INDEX])));
+		return getFromBundle((key, properties)->new Pair<>(key, ResourceBundle.getBundle(properties[FILE_LOCATION_INDEX])));
+	}
+	
+	public Object wrap(Object value) {
+		if(value instanceof Double)
+			return new Value((Double)value);
+		if(value instanceof Boolean)
+			return new BooleanValue((Boolean)value);
+		if(value instanceof String)
+			return new SelfString((String)value);
+		throw new RuntimeException("Cannot wrap " + value + " of type " + value.getClass().getSimpleName());
 	}
 	
 	private static <T> Map<String, T> getFromBundle(BiFunction<String, String[], Pair<String, T>> function) {

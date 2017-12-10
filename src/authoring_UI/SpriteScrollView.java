@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import authoring.AbstractSpriteObject;
-import authoring.SpriteObject;
-import javafx.geometry.Orientation;
+import authoring.Sprite.AbstractSpriteObject;
 import javafx.geometry.Side;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
@@ -26,11 +24,10 @@ public class SpriteScrollView extends ScrollPane {
 		spriteList = new ArrayList<AbstractSpriteObject>();
 		createContainerVBox();
 		putContainerVBoxIntoScrollPane();
+		this.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 		this.setChildOnClickAction(a -> {
 			// Nothing by default
 		});
-		this.setId("InventoryScrollPane");
-		this.getStylesheets().add(MainAuthoringGUI.class.getResource(MainAuthoringGUI.AUTHORING_CSS).toExternalForm());
 	}
 
 	SpriteScrollView(List<Pane> panes) {
@@ -84,7 +81,7 @@ public class SpriteScrollView extends ScrollPane {
 	
 	public void removeFromVBox(Pane pane){
 		containerVBox.getChildren().remove(pane);
-		containerVBox.getChildren().remove(getSeparator());
+		
 	}
 
 	public void addToVBox(Pane pane) {
@@ -94,11 +91,19 @@ public class SpriteScrollView extends ScrollPane {
 		containerVBox.getChildren().add(pane);
 		if (containerVBox.getChildren().size() > 0) {
 			containerVBox.getChildren().add(getSeparator());
-		}
+		}		
+	}
+	
+	public void addToVBoxNoSeparator(VBox vbox) {
+		vbox.setOnMouseClicked(click -> {
+			childOnClickAction.accept(vbox);
+		});
+		containerVBox.getChildren().add(vbox);
 	}
 
 	private void createContainerVBox() {
-		containerVBox = new VBox(2);
+		containerVBox = new VBox();
+		containerVBox.setPrefWidth(525);
 	}
 
 	private void putContainerVBoxIntoScrollPane() {

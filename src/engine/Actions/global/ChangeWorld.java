@@ -1,15 +1,11 @@
 package engine.Actions.global;
 
-import java.util.List;
-
-
-
 import engine.Action;
 import engine.GameObject;
-import engine.GameLayer;
-import engine.Layer;
-import engine.Actions.movement.MoveTo;
-import engine.operations.doubleops.DoubleOperation;
+import engine.GameObjectEnvironment;
+import engine.operations.VoogaAnnotation;
+import engine.operations.VoogaType;
+import engine.operations.stringops.StringOperation;
 
 
 /**
@@ -20,26 +16,15 @@ import engine.operations.doubleops.DoubleOperation;
  */
 public class ChangeWorld implements Action {
 
-	private Layer newWorld;
-	private DoubleOperation newPlayerX;
-	private DoubleOperation newPlayerY;
-	
-	public ChangeWorld(Layer newWorld, DoubleOperation newPlayerX, DoubleOperation newPlayerY) {
-		this.newWorld = newWorld;
-		this.newPlayerX = newPlayerX;
-		this.newPlayerY = newPlayerY;
+	private StringOperation nameOfWorld;
+
+	public ChangeWorld(@VoogaAnnotation(name = "World Name", type = VoogaType.WORLDNAME) StringOperation nameOfNewWorld) {
+		this.nameOfWorld = nameOfNewWorld;
 	}
 	
 	@Override
-	public void execute(GameObject asking, Layer world) {
-		List<GameObject> players = world.getWithTag(GameLayer.PLAYER_TAG);
-		world.removeGameObjects(players);
-		MoveTo moveTo = new MoveTo(newPlayerX, newPlayerY);
-		for(GameObject player : players) {
-			moveTo.execute(player, newWorld);
-		}
-		newWorld.addGameObjects(players);
-		//world.setNextWorld(newWorld);
+	public void execute(GameObject asking, GameObjectEnvironment world) {
+		world.setNextWorld(nameOfWorld.evaluate(asking, world));
 	}
 
 }

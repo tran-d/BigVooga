@@ -79,7 +79,6 @@ public class SceneController {
 	 */
 	public void switchScene (String key) {
 		stage.setScene(sceneMap.get(key));
-		stage.centerOnScreen();
 	}
 	
 	public void saveWorlds() {

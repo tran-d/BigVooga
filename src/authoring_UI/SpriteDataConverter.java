@@ -1,25 +1,19 @@
 package authoring_UI;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.Serializable;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.security.NullPermission;
 import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
-import authoring.AbstractSpriteObject;
-import authoring.InventoryObject;
-import authoring.SpriteObject;
-import authoring.SpriteParameterI;
+import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.InventoryObject;
+import authoring.Sprite.SpriteObject;
+import authoring.Sprite.Parameters.SpriteParameterI;
 import javafx.geometry.Point2D;
 
 public class SpriteDataConverter {
@@ -85,6 +79,8 @@ public class SpriteDataConverter {
 		});
 //		widthFunction = ASO.getWidthFunction();
 //		heightFunction = ASO.getHeightFunction();
+		////////////////////////////////////////////////////////////////////////////////////////////////////////myCondAct = So>getconditionAction();
+
 
 		if (ASO instanceof SpriteObject) {
 			spriteType = "SpriteObject";
@@ -113,6 +109,7 @@ public class SpriteDataConverter {
 		ret.setUniqueID(UUID);
 		ret.setName(name);
 		ret.setSavePath(mySavePath);
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////ret.setCondAct(private var)
 //		ret.setWidthFunction(widthFunction);
 //		ret.setHeightFunction(heightFunction);
 		List<AbstractSpriteObject> newInventory = new ArrayList<AbstractSpriteObject>();

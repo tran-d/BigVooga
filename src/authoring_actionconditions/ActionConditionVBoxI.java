@@ -1,12 +1,12 @@
 package authoring_actionconditions;
 
-import javafx.collections.ObservableList;
+import java.util.List;
 
-public interface ActionConditionVBoxI {
+public interface ActionConditionVBoxI<T> {
 	
-	public void addConditionAction(String label,ObservableList<Integer> currentActions);
 	public void removeConditionAction(int row);
-	public void addActionOption();
-	public void removeActionOption(Integer action);
+	public List<T> getRows();
+	public String getSelectorLabel();
+	public void addToRows(ActionConditionRow actionConditionRow);
 	
 }

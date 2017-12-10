@@ -5,8 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import controller.player.PlayerManager;
-import engine.sprite.BoundedImage;
-import engine.sprite.DisplayableImage;
+import engine.sprite.Displayable;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -19,6 +18,9 @@ import javafx.util.Duration;
 public class GameMaster implements EngineController{
 	private static final int DEFAULT_FPS = 60;
 	private static final int DEFAULT_DELAY = 1000/DEFAULT_FPS;
+	private static final String TRASH = "TRASH (unnamed save)";
+	
+	private String gameFileName = TRASH;
 	
 	private GameWorld currentWorld;
 	private List<GameWorld> madeWorlds;
@@ -27,15 +29,16 @@ public class GameMaster implements EngineController{
 	private PlayerManager playerManager;
 	
 	private GameObjectFactory blueprintManager;
+	private String nextWorld;
 	
 	public GameMaster() {
-		// TODO Auto-generated constructor stub
 		madeWorlds = new ArrayList<>();
-		
-		
 		globalVars = new GlobalVariables();
 	}
 	
+	public void setGameFileName(String name) {
+		gameFileName = name;
+	}
 	
 	/**
 	 * Begins the gameloop, will continue until stop() is called.
@@ -59,8 +62,6 @@ public class GameMaster implements EngineController{
 
 	@Override
 	public void addWorld(GameWorld w) {
-		// TODO Auto-generated method stub
-		w.addGlobalVars(globalVars);
 		madeWorlds.add(w);
 	}
 	
@@ -69,22 +70,22 @@ public class GameMaster implements EngineController{
 	 * @param {String} s- Name of the world being set as current.
 	 */
 	@Override
-	public void setCurrentWorld(String s) {
-		// TODO Auto-generated method stub
-		for(GameWorld w : madeWorlds) {
-			if(w.isNamed(s)) {
-				currentWorld = w;
-				return;
-			}
-		}
-		
-		//If there is no named world, that's an error.
-		System.out.println("Error Placeholder");
+	public void setNextWorld(String s) {
+		nextWorld = s;
 	}
 	
 	private void step() {
-		currentWorld = currentWorld.getNextWorld();
-		currentWorld.step();
+		if(nextWorld != null) {
+			for(GameWorld world : madeWorlds) {
+				if(world.isNamed(nextWorld))
+					currentWorld = world;
+			}
+		}
+		if(currentWorld == null)
+			currentWorld = madeWorlds.get(0);
+		ConcreteGameObjectEnvironment environment = new ConcreteGameObjectEnvironment();
+		environment.setGameMaster(this);
+		currentWorld.step(environment);
 		imageUpdate();
 		playerManager.step();
 	}
@@ -92,9 +93,10 @@ public class GameMaster implements EngineController{
 	@Override
 	public void setPlayerManager(PlayerManager currentPlayerManager) {
 		playerManager = currentPlayerManager;
-		for(GameWorld w : madeWorlds) {
-			w.setPlayerManager(playerManager);
-		}
+	}
+	
+	public PlayerManager getPlayerManager() {
+		return playerManager;
 	}
 	
 	
@@ -103,17 +105,36 @@ public class GameMaster implements EngineController{
 	 * Used in step.
 	 */
 	private void imageUpdate() {
-		List<DisplayableImage> imageData = new ArrayList<>();
-		for(GameObject o: currentWorld.getAllObjects()){
-			imageData.add(o.getImage());
+		double cameraXTranslate = 0;
+		double cameraYTranslate = 0;
+		List<Displayable> imageData = new ArrayList<>();
+		for(Element e: currentWorld.getAllElements()){
+			imageData.add(e.getDisplayable());
+			if(e instanceof GameObject && ((GameObject)e).is("Player")) {		//TODO: make constant
+				cameraXTranslate = ((GameObject)e).getX();
+				cameraYTranslate = ((GameObject)e).getY();
+			}
 		}
-		Collections.sort(imageData);
-		playerManager.setImageData(imageData);
+		Collections.sort(imageData, (i1, i2)->i1.getDrawingPriority()-i2.getDrawingPriority());
+		playerManager.setImageData(imageData, cameraXTranslate, cameraYTranslate);
 	}
 
 	@Override
 	public void addBlueprints(GameObjectFactory f) {
-		// TODO Auto-generated method stub
 		blueprintManager = f;
+	}
+
+	public GameObjectFactory getBlueprints() {
+		return blueprintManager;
+	}
+
+
+	public GameWorld getWorldWithName(String newWorld) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void save() {
+		playerManager.save(gameFileName);
 	}
 }

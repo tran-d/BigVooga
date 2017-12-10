@@ -7,6 +7,7 @@ import controller.welcomeScreen.SceneController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -23,6 +24,7 @@ public class FileSelector extends MenuOptionsTemplate {
 	private static final int SQUARICLE_WIDTH = 125;
 	private static final int SQUARICLE_HEIGHT = 125;
 	private static final String FILE_SELECTOR_CSS = "FileSelector.css";
+	private static final String PROJECT_FILE_PATH = "data/UserCreatedGames";
 	
 	private Stage stage;
 	private BorderPane rootPane;
@@ -74,18 +76,36 @@ public class FileSelector extends MenuOptionsTemplate {
 	}
 	
 	private void checkInput() {
-		if (!textField.getText().isEmpty()) {
+		File file = new File(PROJECT_FILE_PATH + "/" + textField.getText());
+		System.out.println(file.toString());
+		System.out.println(textField.getText());
+		
+		if (!textField.getText().isEmpty() && textField.getText().charAt(0) != '.' && !file.exists()) {
 			switchScene(textField.getText());
+		}
+		else if (textField.getText().isEmpty()) {
+			Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter a stage name.");
+			alert.showAndWait();
+		}
+		
+		else if(textField.getText().charAt(0) == '.') {
+			Alert alert = new Alert(Alert.AlertType.ERROR, "Cannot create a project that starts with the '.' character.");
+			alert.showAndWait();
+		}
+		else if (file.exists()) {
+			Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter a different file name: this file already exists.");
+			alert.showAndWait();
 		}
 	}
 	
 	private VBox createFiles() {
 		VBox fileBox = new VBox();
-		File f = new File("data/UserCreatedGames");
+		File f = new File(PROJECT_FILE_PATH);
 		File[] listOfFiles = f.listFiles();
 		for (File file: listOfFiles) {
 			if (file.getName().charAt(0) != '.') {
 				Button fileButton = createFileButton(file.getName());
+				fileButton.setMnemonicParsing(false);
 				fileBox.getChildren().add(fileButton);
 			}
 		}

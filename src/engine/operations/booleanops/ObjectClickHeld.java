@@ -1,7 +1,10 @@
 package engine.operations.booleanops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
+import engine.operations.VoogaAnnotation;
+import engine.operations.VoogaType;
+import engine.operations.gameobjectops.GameObjectOperation;
 import engine.utilities.collisions.BoundingPoint;
 
 /**
@@ -12,12 +15,17 @@ import engine.utilities.collisions.BoundingPoint;
  */
 public class ObjectClickHeld implements BooleanOperation {
 
-	public ObjectClickHeld() {}
+	private GameObjectOperation object;
+
+	public ObjectClickHeld(@VoogaAnnotation(name = "Sprite", type = VoogaType.GAMEOBJECT) GameObjectOperation object) {
+		this.object = object;
+	}
 
 	@Override
-	public Boolean evaluate(GameObject asking, Layer world) {
+	public Boolean evaluate(GameObject asking, GameObjectEnvironment world) {
 		BooleanOperation screenClickHeld = new ScreenClickHeld();
-		return screenClickHeld.evaluate(asking, world) && 
-				asking.getImage().checkCollision(new BoundingPoint(world.getPlayerManager().getClickX(), world.getPlayerManager().getClickY())) != null;
+		return screenClickHeld.evaluate(asking, world) && object.evaluate(asking, world).getBounds()
+				.checkCollision(new BoundingPoint(world.getPlayerManager().getMouseXY().getX(),
+						world.getPlayerManager().getMouseXY().getY())) != null;
 	}
 }

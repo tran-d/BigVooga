@@ -1,7 +1,7 @@
 package authoring_UI.HUD;
 
-import authoring_UI.MapLayer;
 import authoring_UI.SpriteGridHandler;
+import authoring_UI.Map.MapLayer;
 import javafx.scene.paint.Color;
 
 public class HUDLayer extends MapLayer {

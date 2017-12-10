@@ -12,12 +12,30 @@ import javafx.scene.control.CheckBox;
 public class ActionCheckBoxVBox<T> extends VBoxList<T> implements ActionCheckBoxVBoxI {
 
 	private ObservableList<CheckBox> checkBoxes;
+	private static final String ASSOCIATED_ACTIONS = "Associated actions";
 
-	public ActionCheckBoxVBox(String label, ObservableList<T> options) {
-		super(label, options);
+	public ActionCheckBoxVBox(ObservableList<T> options) {
+		super(ASSOCIATED_ACTIONS, options);
 		checkBoxes = FXCollections.observableList(new LinkedList<CheckBox>());
 		checkBoxes.addListener((ListChangeListener<CheckBox>) c -> addOrRemoveCheckBoxes(c));
 		setNewOptions(options);
+	}
+	
+	public ActionCheckBoxVBox(ObservableList<T> options,List<T> selectedOptions) {
+		this(options);
+		System.out.println("Starting, with selected options " + selectedOptions);
+		ObservableList<CheckBox> tempCheckBoxes = FXCollections.observableArrayList(checkBoxes);
+		for(T selectedOption : selectedOptions) {
+			int selInt = Integer.parseInt((String) selectedOption);
+			System.out.println("selInt " + selInt);
+			tempCheckBoxes.get(selInt - 1).setSelected(true);
+			System.out.println(tempCheckBoxes.size());
+		}
+		checkBoxes.setAll(tempCheckBoxes);
+		System.out.println("Starting, seeing private checkbox list");
+		for(CheckBox checkBox : checkBoxes) {
+			System.out.println("checkbox is selected" + checkBox.isSelected());
+		}
 	}
 
 	@Override
@@ -57,6 +75,11 @@ public class ActionCheckBoxVBox<T> extends VBoxList<T> implements ActionCheckBox
 			int currentLabel = Integer.parseInt(iCheckBox.getText());
 			iCheckBox.setText(Integer.toString(currentLabel - 1));
 		}
+	}
+
+	@Override
+	public Object getSelectedActions() {
+		return getCurrentValue();
 	}
 
 }

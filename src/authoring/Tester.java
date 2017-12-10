@@ -2,16 +2,17 @@ package authoring;
 
 import java.util.ArrayList;
 
+import authoring.GridManagers.SpriteObjectGridManagerI;
+import authoring.Sprite.SpriteObject;
+import authoring.Sprite.SpriteObjectI;
+import authoring.Sprite.Parameters.SpriteParameterFactory;
+import authoring.Sprite.Parameters.SpriteParameterI;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -29,7 +30,6 @@ public class Tester extends Application {
 	ArrayList<SpriteParameterI> myParams;
 	ArrayList<SpriteObjectI> mySObjects = new ArrayList<SpriteObjectI>();
 	AuthoringEnvironmentManager AEM = new AuthoringEnvironmentManager();
-	SpriteObjectGridManagerI SOGM = AEM.getGridManager();
 	
 
 	public static void main(String[] args) {

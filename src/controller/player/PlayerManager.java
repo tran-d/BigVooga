@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Set;
 
 import engine.EngineController;
-import engine.sprite.DisplayableImage;
+import engine.sprite.Displayable;
+import engine.utilities.data.GameDataHandler;
 import gui.player.GameDisplay;
+import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 
 /**
@@ -14,13 +16,14 @@ import javafx.scene.input.KeyCode;
  * contains the GameMaster engine class) and communication-specific methods within them to pass any user input from the player, handle it
  * accordingly in the engine, and then pass the changed objects back to the player.
  * 
- * @author Samarth and Ian
+ * @author Samarth, Ian, and Aaron
  *
  */
 public class PlayerManager {
 
 	private GameDisplay gameDisplay;
 	private EngineController engineController;
+	private GameDataHandler gameDataHandler;
 	
 	private Set<String> keysDown = new HashSet<>();
 	private Set<String> prevKeysDown = new HashSet<>();
@@ -29,13 +32,15 @@ public class PlayerManager {
 	private boolean prevPrimaryButtonDown = false;
 	private double clickX;
 	private double clickY;
-	private int id;
+	private double mouseX;
+	private double mouseY;
 	
 	/**
 	 * Empty constructor for PlayerManager.
+	 * @param gameDataHandler 
 	 */
-	public PlayerManager() {
-		
+	public PlayerManager(GameDataHandler gameDataHandler) {
+		this.gameDataHandler = gameDataHandler;
 	}
 	
 	/**
@@ -161,10 +166,10 @@ public class PlayerManager {
 	/**
 	 * Passes the images added to the game maps in authoring to the Game Display.
 	 * 
-	 * @param images - The list of images to be displayed
+	 * @param imageData - The list of images to be displayed
 	 */
-	public void setImageData(List<DisplayableImage> images) {
-		gameDisplay.setUpdatedImages(images);
+	public void setImageData(List<Displayable> images, double cameraXTranslate, double cameraYTranslate) {
+		gameDisplay.setUpdatedDisplayables(images, cameraXTranslate, cameraYTranslate);
 	}
 	
 	/**
@@ -181,6 +186,34 @@ public class PlayerManager {
 	 */
 	public void stop() {
 		engineController.stop();
+	}
+
+	/**
+	 * Sets the current position of the mouse.
+	 * 
+	 * Called by GameDisplay any time the mouse moves.
+	 * 
+	 * @param x
+	 * @param y
+	 */
+	public void setMouseXY(double x, double y) {
+		mouseX = x;
+		mouseY = y;
+	}
+	
+	/**
+	 * Returns a vector of the xy-coordinates of the mouse.
+	 * 
+	 * @return Vector of xy-coordinates of the mouse.
+	 */
+	public Point2D getMouseXY() {
+		return new Point2D(mouseX, mouseY);
+	}
+
+	public void save(String gameName) {
+		engineController.stop();
+		gameDataHandler.saveGame(engineController, gameName);
+		engineController.start();
 	}
 	
 }

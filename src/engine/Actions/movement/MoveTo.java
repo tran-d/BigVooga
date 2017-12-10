@@ -2,8 +2,11 @@ package engine.Actions.movement;
 
 import engine.Action;
 import engine.GameObject;
-import engine.Layer;
-import engine.operations.doubleops.DoubleOperation;
+import engine.GameObjectEnvironment;
+import engine.operations.VoogaAnnotation;
+import engine.operations.VoogaType;
+import engine.operations.gameobjectops.GameObjectOperation;
+import engine.operations.vectorops.VectorOperation;
 
 /**
  * 
@@ -12,17 +15,18 @@ import engine.operations.doubleops.DoubleOperation;
  */
 public class MoveTo implements Action {
 
-	private DoubleOperation newX;
-	private DoubleOperation newY;
-	
-	public MoveTo(DoubleOperation newX, DoubleOperation newY) {
-		this.newX = newX;
-		this.newY = newY;
+	private VectorOperation newLocation;
+	private GameObjectOperation object;
+
+	public MoveTo(@VoogaAnnotation(name = "Sprite", type = VoogaType.GAMEOBJECT) GameObjectOperation object,
+			@VoogaAnnotation(name = "New Location", type = VoogaType.VECTOR) VectorOperation newLocation) {
+		this.object = object;
+		this.newLocation = newLocation;
 	}
-	
+
 	@Override
-	public void execute(GameObject asking, Layer world) {
-		asking.setCoords(newX.evaluate(asking, world), newY.evaluate(asking, world));
+	public void execute(GameObject asking, GameObjectEnvironment world) {
+		object.evaluate(asking, world).setLocation(newLocation.evaluate(asking, world));
 	}
 
 }

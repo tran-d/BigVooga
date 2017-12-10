@@ -2,9 +2,12 @@ package engine.Actions.changeObject;
 
 import engine.Action;
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
+import engine.operations.VoogaAnnotation;
+import engine.operations.VoogaType;
 import engine.operations.doubleops.DoubleOperation;
 import engine.operations.stringops.StringOperation;
+import engine.operations.vectorops.VectorOperation;
 
 /**
  * 
@@ -14,20 +17,23 @@ import engine.operations.stringops.StringOperation;
 public class Create implements Action {
 
 	private StringOperation name;
-	DoubleOperation x, y, heading;
-	
-	public Create(StringOperation name, DoubleOperation x, DoubleOperation y, DoubleOperation heading) {
+	private DoubleOperation heading;
+	private VectorOperation location;
+
+	public Create(@VoogaAnnotation(name = "Sprite Name", type = VoogaType.OBJECTNAME) StringOperation name,
+			@VoogaAnnotation(name = "Starting Location", type = VoogaType.VECTOR) VectorOperation location,
+			@VoogaAnnotation(name = "Starting Heading", type = VoogaType.DOUBLE) DoubleOperation heading) {
 		this.name = name;
-		this.x = x;
-		this.y = y;
+		this.location = location;
 		this.heading = heading;
 	}
-	
-//TODO: second constructor that takes in a GameObjectOperation
-	
+
 	@Override
-	public void execute(GameObject asking, Layer world) {
-		world.addGameObject(name.evaluate(asking, world), x.evaluate(asking, world), y.evaluate(asking, world), heading.evaluate(asking, world));
+	public void execute(GameObject asking, GameObjectEnvironment world) {
+		GameObject obj = world.getGameObject(name.evaluate(asking, world));
+		obj.setLocation(location.evaluate(asking, world));
+		obj.setHeading(heading.evaluate(asking, world));
+		world.addGameObject(obj);
 	}
-	
+
 }

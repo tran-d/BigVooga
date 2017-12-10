@@ -1,7 +1,10 @@
 package engine.operations.booleanops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
+import engine.operations.VoogaAnnotation;
+import engine.operations.VoogaType;
+import engine.operations.gameobjectops.GameObjectOperation;
 
 /**
  * Checks if an object is initially clicked (thus, can not return true
@@ -12,14 +15,17 @@ import engine.Layer;
  */
 public class ObjectClicked implements BooleanOperation {
 	
-	public ObjectClicked() {}
+	private BooleanOperation operation;
+
+	public ObjectClicked(@VoogaAnnotation(name = "Sprite", type = VoogaType.GAMEOBJECT) GameObjectOperation object) {
+		BooleanOperation screenClicked = new ScreenClicked();
+		BooleanOperation objectClickHeld = new ObjectClickHeld(object);
+		operation = new And(screenClicked, objectClickHeld);
+	}
 
 	@Override
-	public Boolean evaluate(GameObject asking, Layer world) {
-		BooleanOperation screenClicked = new ScreenClicked();
-		BooleanOperation objectClickHeld = new ObjectClickHeld();
-		BooleanOperation and = new And(screenClicked, objectClickHeld);
-		return and.evaluate(asking, world);
+	public Boolean evaluate(GameObject asking, GameObjectEnvironment world) {
+		return operation.evaluate(asking, world);
 	}
 
 }

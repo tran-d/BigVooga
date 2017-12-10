@@ -3,12 +3,12 @@ package authoring_data;
 import java.util.ArrayList;
 import java.util.List;
 
-import authoring.SpriteObject;
-import authoring.SpriteObjectGridManagerI;
-import authoring.SpriteObjectI;
-import authoring.SpriteParameterI;
+import authoring.GridManagers.SpriteObjectGridManagerI;
+import authoring.Sprite.SpriteObject;
+import authoring.Sprite.SpriteObjectI;
+import authoring.Sprite.Parameters.SpriteParameterI;
 import authoring_UI.DraggableGrid;
-import authoring_UI.MapLayer;
+import authoring_UI.Map.MapLayer;
 import engine.GameLayer;
 import engine.GameMaster;
 import engine.GameObject;
@@ -100,7 +100,7 @@ public class SpriteObjectGridToEngineController {
 	
 	private void addAllGameObjectsToLayer(List<GameObject> GO_LIST, GameLayer layer) {
 		for (GameObject GO: GO_LIST) {
-			layer.addGameObject(GO);
+			layer.addElement(GO);
 		}
 	}
 	
