@@ -48,7 +48,17 @@ public class DraggableGrid extends VBox {
 	
 	public void loadLayers(List<SpriteObjectGridManager> SOGMList) {
 		System.out.println("add to layers in DRAGGABLE GRID!");
-		allGrids = SOGMList;
+		for (SpriteObjectGridManager SOGM : SOGMList) {
+			if (SOGM.getLayerNum() == 0) {
+				allGrids.add(new TerrainObjectGridManager(SOGM.getNumRows(), SOGM.getNumCols(), SOGM.getLayerNum(), SOGM.getColor()));
+			}
+			if (SOGM.getLayerNum() == 1) {
+				allGrids.add(new SpriteObjectGridManagerForSprites(SOGM.getNumRows(), SOGM.getNumCols(), SOGM.getLayerNum(), SOGM.getColor()));
+			}
+			if (SOGM.getLayerNum() == 2) {
+				allGrids.add(new PanelObjectGridManager(SOGM.getNumRows(), SOGM.getNumCols(), SOGM.getLayerNum(), SOGM.getColor()));
+			}
+		}
 	}
 	
 	public void construct(SpriteGridHandler spriteGridHandler){
@@ -60,7 +70,6 @@ public class DraggableGrid extends VBox {
 		makeLayers(spriteGridHandler);
 		createGrid(spriteGridHandler);
 	}
-
 
 	private void makeTopInfo() {
 		topHbox = new HBox(10);
@@ -91,10 +100,6 @@ public class DraggableGrid extends VBox {
 		return allGrids;
 	}
 	
-	public void setAllGrids(List<SpriteObjectGridManager> SGMs){
-		allGrids = SGMs;
-	}
-	
 	public void setAllGrids(SpriteObjectGridManager SGM){
 		allGrids = new ArrayList<SpriteObjectGridManager>();
 		allGrids.add(SGM);
@@ -114,6 +119,9 @@ public class DraggableGrid extends VBox {
 		});
 		} else {
 			if (spriteGridHandler == null) System.out.println("SGH is NULL IN DRAGGABLE GRID");
+			if (allGrids == null) System.out.println("ALL GRIDS IS NULL IN DG");
+			if (allGrids.size() == 0) System.out.println("ALL GRIDS SIZE 0");
+			//  allGrids.get(0) <--- THIS IS THE ISSUE
 			allGrids.forEach(item->{
 				item.setSpriteGridHandler(spriteGridHandler);
 				item.createMapLayer();

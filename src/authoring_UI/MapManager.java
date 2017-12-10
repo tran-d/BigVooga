@@ -68,7 +68,6 @@ public class MapManager extends TabPane {
 		} else {
 			System.out.println("displaying a new grid");
 			setTab();
-			createTab(myTabCount, new DraggableGrid());
 		}
 		
 //		setTab();
@@ -81,7 +80,6 @@ public class MapManager extends TabPane {
 	private void setTab() { //?
 		this.setSide(Side.TOP);
 		addTab = new Tab();
-		addTab.setClosable(false);
 		addTab.setText(ADD_TAB);
 		addTab.setOnSelectionChanged(e -> {
 			createTab(myTabCount, new DraggableGrid());
@@ -98,7 +96,7 @@ public class MapManager extends TabPane {
 	
 	private HBox setupFEAuthClasses(DraggableGrid w) { 
 		// TODO if it's old project, want all possible worlds, so many worlds!
-		allWorlds.add(w); 
+		allWorlds.add(w);
 		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, w);
 		if (mySpriteGridHandler == null) System.out.println("SGH IS NULL IN MAPMANAGER");
 		w.construct(mySpriteGridHandler);
@@ -111,6 +109,7 @@ public class MapManager extends TabPane {
 
 	private void createTab(int tabCount, DraggableGrid w) { //?
 		currentTab = new Tab();
+		currentTab.setOnClosed(e -> this.removeWorld(w));
 		StringProperty tabMap = new SimpleStringProperty();
 		tabMap.bind(Bindings.concat(DisplayLanguage.createStringBinding(TAB_TAG)).concat(" " + Integer.toString(tabCount)));
 		currentTab.textProperty().bind(tabMap);
@@ -120,6 +119,10 @@ public class MapManager extends TabPane {
 		myTabCount++;
 	}
 	
+	private void removeWorld(DraggableGrid w) {
+		allWorlds.remove(w);
+	}
+	 
 	private List<AuthoringMapEnvironment> getAllMapEnvironments(){
 		List<AuthoringMapEnvironment> allMaps = new ArrayList<AuthoringMapEnvironment>();
 		for (Tab t: this.getTabs()) {
@@ -138,7 +141,7 @@ public class MapManager extends TabPane {
 //	public Tab getDialoguesTab() {
 //		return spritePanels.getDialoguesTab();
 //	}
-//	
+	
 	public List<DraggableGrid> getAllWorlds() {
 		return allWorlds;
 	}
