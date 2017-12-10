@@ -59,12 +59,14 @@ public class MapManager extends TabPane {
 		
 		List<DraggableGrid> DGs = myGDH.loadWorldsFromWorldDirectory();
 		if (DGs.size()>0){
+			System.out.println("AN OLD GRID WAS SAVED AND NOW WILL BE LOADED");
 			for (DraggableGrid w: DGs){
 			System.out.println("Grid: " + w);
 			setTab();
 			createTab(myTabCount, w);
 		}
 		} else {
+			System.out.println("displaying a new grid");
 			setTab();
 			createTab(myTabCount, new DraggableGrid());
 		}

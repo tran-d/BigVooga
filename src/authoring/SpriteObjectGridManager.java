@@ -3,28 +3,23 @@ package authoring;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
 import authoring_UI.MapLayer;
 import authoring_UI.SpriteGridHandler;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 public abstract class SpriteObjectGridManager {
 	
 	protected List<List<SpriteObject>> spriteGrid;
-	private int MAX_ROWS = 15;
-	private int MAX_COLS = 15;
 	private SpriteObject defaultEmptySprite;
 	private Set<Integer []> activeCells;
 	protected MapLayer myMapLayer;
 	protected SpriteGridHandler mySpriteGridHandler;
 	protected int myLayerNum;
-	Color myColor;
+	protected Color myColor;
 	protected int temporaryRows;
 	protected int temporaryColumns;
 	
@@ -96,8 +91,6 @@ public abstract class SpriteObjectGridManager {
 		temporaryRows = rows;
 		temporaryColumns = cols;
 //		initializeGrid();
-
-		
 	}
 	
 	
@@ -105,10 +98,8 @@ public abstract class SpriteObjectGridManager {
 		this(rows, columns);
 		
 		setSpriteGridHandler(SGH);
-//		myLayerNum = layerNum;
-//		createMapLayer();
-		
 		createMapLayer();
+		
 		this.numRowsProperty.set(rows);
 		this.numColumnsProperty.set(columns);
 	}
@@ -125,9 +116,6 @@ public abstract class SpriteObjectGridManager {
 	public int getLayerNum() {
 		return myLayerNum;
 	}
-	
-
-	
 	
 	public abstract void createMapLayer();
 	
