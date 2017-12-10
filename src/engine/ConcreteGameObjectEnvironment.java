@@ -62,6 +62,7 @@ public class ConcreteGameObjectEnvironment implements GameObjectEnvironment {
 		{
 			if(l.isNamed(layerName))
 			{
+				layer.removeGameObject(gameObject);
 				l.addGameObject(gameObject);
 			}
 		}
