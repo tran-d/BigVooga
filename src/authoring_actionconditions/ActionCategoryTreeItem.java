@@ -1,30 +1,21 @@
 package authoring_actionconditions;
 
 import authoring.ActionNameTreeItem;
+import engine.Action;
 import engine.Actions.ActionFactory;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 import tools.DisplayLanguage;
 
 public class ActionCategoryTreeItem extends TreeItem<HBox> {
-
-	private static final double ROW_WIDTH = 800;
-	private static final double TREE_VIEW_WIDTH = 600;
-	private static final double EXPANDED_HEIGHT = 500;
-	private static final double COLLAPSED_HEIGHT = 25;
-
-	private static final String EMPTY_CHOICEBOX = "EmptyChoiceBox";
-	private static final String INVALID_INPUT_MESSAGE = "InvalidInput";
-	private static final String DOUBLE_INPUT_MESSAGE = "EnterDouble";
 
 	private ActionFactory actionFactory = new ActionFactory();
 	private TreeItem<HBox> categoryAction = new TreeItem<HBox>();
@@ -40,12 +31,9 @@ public class ActionCategoryTreeItem extends TreeItem<HBox> {
 		return categoryAction;
 	}
 
-	public void extract() {
-		try {
-			actionName.extract();
-		} catch (NullPointerException e) {
-			showError(INVALID_INPUT_MESSAGE, EMPTY_CHOICEBOX);
-		}
+	public Action extract() {
+
+		return actionName.extract();
 	}
 
 	private TreeItem<HBox> makeActionCategoryTreeItem() {

@@ -38,7 +38,7 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 		this.makeActionTreeItem(actionCategory);
 	}
 
-	public void extract() {
+	public Action extract() {
 
 		try {
 			for (OperationNameTreeItem opItem : opNameTreeItemList) {
@@ -49,11 +49,13 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 			System.out.println("Making action...");
 			action = actionFactory.makeAction(selectedAction, operationList.toArray());
 			System.out.println(action);
+			return action;
 		} catch (NullPointerException e) {
 			showError(INVALID_INPUT_MESSAGE, EMPTY_CHOICEBOX);
 		} catch (NumberFormatException e) {
 			showError(INVALID_INPUT_MESSAGE, INPUT_A_DOUBLE);
 		}
+		return null;
 	}
 
 	private TreeItem<HBox> makeActionTreeItem(String actionCategory) {

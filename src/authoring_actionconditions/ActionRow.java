@@ -1,23 +1,14 @@
 package authoring_actionconditions;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import authoring.ActionNameTreeItem;
+import engine.Action;
 import engine.Actions.ActionFactory;
-import engine.operations.OperationFactory;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.HBox;
@@ -58,7 +49,7 @@ public class ActionRow extends ActionConditionRow {
 
 		categoryAction = new ActionCategoryTreeItem(() -> changeRowTVSize());
 		actionTreeView = new TreeView<HBox>(categoryAction);
-		actionTreeView.setPrefWidth(TREE_VIEW_WIDTH);
+		actionTreeView.setPrefSize(TREE_VIEW_WIDTH, EXPANDED_HEIGHT);
 		this.getItems().addAll(actionTreeView);
 	}
 
@@ -75,60 +66,16 @@ public class ActionRow extends ActionConditionRow {
 	public void changeRowTVSize() {
 		if (categoryAction.isExpanded()) {
 			this.setPrefHeight(EXPANDED_HEIGHT);
-			this.setPrefHeight(EXPANDED_HEIGHT);
+			actionTreeView.setPrefHeight(EXPANDED_HEIGHT);
 		} else {
 			this.setPrefHeight(COLLAPSED_HEIGHT);
-			this.setPrefHeight(COLLAPSED_HEIGHT);
+			actionTreeView.setPrefHeight(COLLAPSED_HEIGHT);
 		}
 	}
 
-	public void extract() {
-		categoryAction.extract();
+	public Action getAction() {
+		return categoryAction.extract();
 
-	}
-
-	/***************************** ACTIONS ******************************/
-
-//	private TreeView<HBox> makeTreeView() {
-//		categoryAction = makeActionCategoryTreeItem();
-//		TreeView<HBox> tv = new TreeView<HBox>(categoryAction);
-//		return tv;
-//	}
-//
-//	private TreeItem<HBox> makeActionCategoryTreeItem() {
-//		HBox hb = new HBox();
-//		hb.getChildren().addAll(new Label("Choose Action Category: "), makeActionCategoryChoiceBox());
-//		TreeItem<HBox> ti = new TreeItem<HBox>(hb);
-//		ti.setExpanded(true);
-//		ti.expandedProperty().addListener(e -> changeRowTVSize());
-//		return ti;
-//	}
-//
-//	private ChoiceBox<String> makeActionCategoryChoiceBox() {
-//		ObservableList<String> categories = FXCollections.observableList(actionFactory.getCategories());
-//		ChoiceBox<String> cb = new ChoiceBox<>(categories);
-//		System.out.println("cats: " + categories);
-//
-//		cb.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-//
-//			@Override
-//			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-//
-//				// System.out.println(actions.get(newValue.intValue()));
-//				// getItems().add(makeParameterChoiceBox(actions.get(newValue.intValue())));
-//				categoryAction.getChildren().clear();
-//				actionName = new ActionNameTreeItem(categories.get(cb.getSelectionModel().getSelectedIndex()));
-//				categoryAction.getChildren().add(actionName);
-//			}
-//		});
-//		return cb;
-//	}
-
-	private void showError(String header, String content) {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.headerTextProperty().bind(DisplayLanguage.createStringBinding(header));
-		alert.contentTextProperty().bind(DisplayLanguage.createStringBinding(content));
-		alert.show();
 	}
 
 	private void addBuildActionButton(EventHandler<ActionEvent> handler) {
