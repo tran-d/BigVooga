@@ -45,7 +45,7 @@ public class MapManager extends TabPane {
 	private int numWorlds = 1;
 	private List<DraggableGrid> allWorlds = new ArrayList<DraggableGrid>();
 	private Pane mapEditor = new Pane();
-//	private SpritePanels spritePanels;
+	private SpritePanels spritePanels;
 
 	public MapManager(AuthoringEnvironmentManager AEM, Stage currentStage)  {
 		myAEM = AEM;
@@ -101,7 +101,7 @@ public class MapManager extends TabPane {
 		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, w); 
 		w.construct(mySpriteGridHandler);
 		mySpriteGridHandler.addKeyPress(stage.getScene());
-		SpritePanels spritePanels = new SpritePanels(mySpriteGridHandler, myAEM);
+		spritePanels = new SpritePanels(mySpriteGridHandler, myAEM);
 		mySpriteGridHandler.setDisplayPanel(spritePanels);
 		AuthoringMapEnvironment authMap = new AuthoringMapEnvironment(spritePanels, w);
 		return authMap;
@@ -134,10 +134,10 @@ public class MapManager extends TabPane {
 		return mapEditor;
 	}
 	
-//	public Tab getDialoguesTab() {
-//		return spritePanels.getDialoguesTab();
-//	}
-//	
+	public Tab getDialoguesTab() {
+		return spritePanels.getDialoguesTab();
+	}
+	
 	public List<DraggableGrid> getAllWorlds() {
 		return allWorlds;
 	}
