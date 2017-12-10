@@ -39,18 +39,21 @@ public class DraggableGrid extends VBox {
 	private SpriteGridHandler mySGH;
 	private Integer rows;
 	private Integer cols;
+	private String savePath;
 
 	public DraggableGrid() {
-		System.out.println("Draggable Grid constructor called (MAPMAN)");
 		rows = 20; // TODO HARDCODED
 		cols = 20;
 	}
 	
-	public DraggableGrid(List<SpriteObjectGridManager> SGMs) {
+	public DraggableGrid(List<SpriteObjectGridManager> SOGMList) {
 		this();
-		allGrids = SGMs;
+		allGrids = SOGMList;
 	}
-
+	
+	public void loadLayers(List<SpriteObjectGridManager> SOGMList) {
+		allGrids = SOGMList;
+	}
 	
 	public void construct(SpriteGridHandler spriteGridHandler){
 		if (allGrids == null){
@@ -215,5 +218,13 @@ public class DraggableGrid extends VBox {
 			}
 		});
 		topHbox.getChildren().add(ret);
+	}
+	
+	public void setSavePath(String setPath) {
+		savePath = setPath;
+	}
+
+	public String getSavePath() {
+		return savePath;
 	}
 }
