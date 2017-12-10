@@ -56,44 +56,34 @@ public class DisplayableText implements Displayable {
 		return fontSize;
 	}
 	
+	@Override
 	public double getX() {
 		return x;
 	}
 	
+	@Override
 	public double getY() {
 		return y;
 	}
 	
+	@Override
 	public double getHeading() {
 		return heading;
 	}
 	
+	@Override
 	public double getWidth() {
 		return width;
 	}
 	
+	@Override
 	public double getHeight() {
 		return height;
 	}
 	
-	public void setX(double x) {
-		this.x = x;
-	}
-	
-	public void setY(double y) {
-		this.y = y;
-	}
-	
+	@Override
 	public void setHeading(double heading) {
 		this.heading = heading;
-	}
-	
-	public void setWidth(double width) {
-		this.width = width;
-	}
-	
-	public void setHeight(double height) {
-		this.height = height;
 	}
 
 	@Override
@@ -107,6 +97,18 @@ public class DisplayableText implements Displayable {
 
 	public DisplayableText getWithMessage(String dialogue) {
 		return new DisplayableText(drawingPriority, dialogue, font, fontSize, color);
+	}
+
+	@Override
+	public void setPosition(double x, double y) {
+		this.x = x;
+		this.y = y;
+	}
+
+	@Override
+	public void setSize(double width, double height) {
+		this.width = width;
+		this.height = height;
 	}
 
 }

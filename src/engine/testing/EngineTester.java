@@ -20,6 +20,8 @@ import engine.Holdable;
 import engine.Actions.changeObject.DisplayInventory;
 import engine.Actions.movement.Move;
 import engine.Actions.movement.MoveTo;
+import engine.Actions.movement.Rotate;
+import engine.operations.booleanops.KeyHeld;
 import engine.operations.booleanops.KeyPressed;
 import engine.operations.doubleops.Value;
 import engine.operations.gameobjectops.GameObjectOperation;
@@ -38,6 +40,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
@@ -65,12 +68,31 @@ public class EngineTester extends Application {
 		GameObjectFactory blueprints = new GameObjectFactory();
 		GameObject obj1 = makeObject("Ob1", i, 120, 150, this::conditionAction1);
 		obj1.addTag("Ob1");
+		obj1.addTag("Player");
 		obj1.setSize(200, 100);
-
+		
+		GameObject obj2 = makeObject("Ob2", new BoundedImage(
+				"/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png"), 200, 150, this::conditionAction2);
+		obj2.addTag("Ob2");
+		obj2.setSize(200, 100);
+		
+		GameObject obj3 = makeObject("Ob3", new BoundedImage(
+				"/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png"), 100, 300, this::conditionAction2);
+		obj3.addTag("Ob3");
+		obj3.setSize(200, 100);
+		
+		GameObject obj4 = makeObject("Ob4", new BoundedImage(
+				"/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png"), 75, 275, this::conditionAction2);
+		obj4.addTag("Ob4");
+		obj4.setSize(200, 100);
+	
 		blueprints.addBlueprint(obj1);
+		blueprints.addBlueprint(obj2);
+		blueprints.addBlueprint(obj3);
+		blueprints.addBlueprint(obj4);
 		
 		BoundedImage t = new BoundedImage("/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png");
-		List<BoundedImage>  l = new ArrayList<BoundedImage>();
+		List<BoundedImage> l = new ArrayList<BoundedImage>();
 		l.add(t);
 		AnimationSequence a = new AnimationSequence("hi", l);
 		Sprite s = new Sprite();
@@ -78,12 +100,11 @@ public class EngineTester extends Application {
 		s.setAnimation("hi");
 		Holdable o = new Holdable(s);
 		
-		
-		
 		BoundedImage k = new BoundedImage("/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/brick.png");
 		k.setPosition(400, 200);
 		k.setSize(400, 400);
 		obj1.getInventory().setPane(k);
+		obj1.setInventoryPosition(400, 200);
 		obj1.addToInventory(o);
 		
 		for(int z = 0; z < 18; z++) {
@@ -116,10 +137,13 @@ public class EngineTester extends Application {
 
 		GameLayer la = new GameLayer("Layer");
 		la.addGameObject(obj1);
+		la.addGameObject(obj2);
+		la.addGameObject(obj3);
+		la.addGameObject(obj4);
 
 		GameWorld w = new GameWorld("World");
 		w.addLayer(la);
-
+		
 		GameMaster master = new GameMaster();
 		master.addWorld(w);
 		master.setNextWorld("World");
@@ -156,8 +180,13 @@ public class EngineTester extends Application {
 		obj.addConditionAction(new Condition(2, new KeyPressed(new SelfString("I"))), actions1);
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Move(new Self(), new VectorHeadingOf(new Self())));
-		obj.addConditionAction(new Condition(2, new KeyPressed(new SelfString("W"))), actions1);
-
+		obj.addConditionAction(new Condition(2, new KeyHeld(new SelfString("W"))), actions1);
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Rotate(new Self(), new Value(5)));
+		obj.addConditionAction(new Condition(2, new KeyHeld(new SelfString("D"))), actions1);
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Rotate(new Self(), new Value(-5)));
+		obj.addConditionAction(new Condition(2, new KeyHeld(new SelfString("A"))), actions1);
 	}
 
 	private void conditionAction2(GameObject obj) {

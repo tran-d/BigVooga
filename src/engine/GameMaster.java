@@ -99,18 +99,12 @@ public class GameMaster implements EngineController{
 	 * Used in step.
 	 */
 	private void imageUpdate() {
-		double cameraXTranslate = 0;
-		double cameraYTranslate = 0;
 		List<Displayable> imageData = new ArrayList<>();
-		for(Element e: currentWorld.getAllElements()){
-			imageData.add(e.getDisplayable());
-			if(e instanceof GameObject && ((GameObject)e).is("Player")) {		//TODO: make constant
-				cameraXTranslate = ((GameObject)e).getX();
-				cameraYTranslate = ((GameObject)e).getY();
-			}
+		for(Displayable e: currentWorld.getAllDisplayables()){
+			imageData.add(e);
 		}
 		Collections.sort(imageData, (i1, i2)->i1.getDrawingPriority()-i2.getDrawingPriority());
-		playerManager.setImageData(imageData, cameraXTranslate, cameraYTranslate);
+		playerManager.setImageData(imageData);
 	}
 
 	@Override

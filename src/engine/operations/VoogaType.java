@@ -7,7 +7,7 @@ public enum VoogaType {
 					"String"), DIALOGNAME("Dialog Name", "String"), BOOLEANNAME("Boolean Name", "String"), DOUBLENAME(
 							"Double Name",
 							"String"), STRINGNAME("String Name",
-									"String"), TAG("Tag", "String"), KEY("Key", "String"), ACTION("Action");
+									"String"), TAG("Tag", "String"), KEY("Key", "String"), ACTION("Action"), HOLDABLE("Holdable");
 
 	private String presentable;
 	private String strictType;

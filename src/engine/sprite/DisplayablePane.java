@@ -51,4 +51,46 @@ public class DisplayablePane implements Displayable {
 	public int getDrawingPriority() {
 		return Integer.MAX_VALUE;
 	}
+
+	//TODO: check these methods
+	@Override
+	public void setPosition(double x, double y) {
+		paneImage.setPosition(x, y);
+	}
+
+	@Override
+	public void setSize(double width, double height) {
+		paneImage.setSize(width, height);
+	}
+
+	@Override
+	public void setHeading(double heading) {
+		paneImage.setHeading(heading);
+	}
+
+	@Override
+	public double getX() {
+		return paneImage.getX();
+	}
+
+	@Override
+	public double getY() {
+		return paneImage.getY();
+	}
+
+	@Override
+	public double getWidth() {
+		return paneImage.getWidth();
+	}
+
+	@Override
+	public double getHeight() {
+		return paneImage.getHeight();
+	}
+
+	@Override
+	public double getHeading() {
+		return paneImage.getHeading();
+	}
+	
 }

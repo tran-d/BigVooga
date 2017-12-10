@@ -46,7 +46,6 @@ public class GameDisplay {
 	private SceneController sceneController;
 	private PlayerManager playerManager;
 	private GameDataHandler gameDataHandler;
-	private ParallelCamera camera;
 
 	/**
 	 * Primarily sets up the stage, root pane, and scene for the GameDisplay view.
@@ -64,8 +63,6 @@ public class GameDisplay {
 		rootPane.setBackground(new Background(new BackgroundFill[] { new BackgroundFill(Color.WHITE, null, null) }));
 		sceneController = currentSceneController;
 		scene = new Scene(rootPane, WelcomeScreen.WIDTH, WelcomeScreen.HEIGHT);
-		camera = new ParallelCamera();
-		scene.setCamera(camera);
 	}
 
 	/**
@@ -77,7 +74,6 @@ public class GameDisplay {
 		scene.setOnMousePressed(e -> playerManager.setPrimaryButtonDown(e.getX(), e.getY()));
 		scene.setOnMouseReleased(e -> playerManager.setPrimaryButtonUp(e.getX(), e.getY()));
 		scene.setOnMouseMoved(e -> playerManager.setMouseXY(e.getX(), e.getY()));
-		scene.setCamera(camera);
 
 		createBack();
 	}
@@ -129,12 +125,11 @@ public class GameDisplay {
 	 * @param imageData
 	 *            - The list of objects for the player to display
 	 */
-	public void setUpdatedDisplayables(List<Displayable> images, double cameraXTranslate, double cameraYTranslate) {
+	public void setUpdatedDisplayables(List<Displayable> images) {
 		gamePane.getChildren().clear();
 		for (Displayable d : images) {
 			d.visit(this);
 		}
-		camera.relocate(cameraXTranslate, cameraYTranslate);
 	}
 
 	public void displayImage(DisplayableImage image) {

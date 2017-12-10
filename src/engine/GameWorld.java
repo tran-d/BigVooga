@@ -3,6 +3,9 @@ package engine;
 import java.util.ArrayList;
 import java.util.List;
 
+import engine.sprite.Displayable;
+import gui.welcomescreen.WelcomeScreen;
+
 /**
  * Holds Layers, which hold GameObjects. An Example of a GameWorld would be a
  * tavern room or a dark forest.
@@ -46,6 +49,27 @@ public class GameWorld {
 			els.addAll(l.getAllElements());
 		}
 		return els;
+	}
+	
+	public List<Displayable> getAllDisplayables() {
+		List<Displayable> ret = new ArrayList<>();
+		GameObject player = getPlayerObject();
+		double playerX = player.getX();
+		double playerY = player.getY();
+		for(Element e : getAllElements()) {
+			Displayable image = e.getDisplayable();
+			image.setPosition((WelcomeScreen.WIDTH / 2) + (e.getX() - playerX), (WelcomeScreen.HEIGHT / 2) + (e.getY() - playerY));
+			ret.add(image);
+		}
+		return ret;
+	}
+	
+	private GameObject getPlayerObject() {
+		for(GameLayer l : worldLayers) {
+			List<GameObject> player = l.getObjectsWithTag("Player");			//TODO: Make constant
+			if(player.size() > 0) return player.get(0);
+		}
+		return worldLayers.get(0).getAllObjects().get(0);
 	}
 
 	public void addLayer(GameLayer layer) {
