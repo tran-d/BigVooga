@@ -15,9 +15,11 @@ public class HUDManager extends MapManager{
 
 	
 	private SpriteObjectGridManager HUDGridBE;
+	private AuthoringEnvironmentManager myAEM;
 
 	public HUDManager(AuthoringEnvironmentManager AEM, Stage currentStage) {
 		super(AEM, currentStage);
+		myAEM = AEM;
 	}
 	
 	@Override 

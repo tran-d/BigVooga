@@ -559,7 +559,8 @@ public class GameDataHandler {
 				System.out.println(dummy);
 
 			} catch (Exception e) {
-//				e.printStackTrace();
+				System.out.println("WHATSUPDAVIIIDDDDDDD");
+				e.printStackTrace();
 				// do nothing
 			}
 		}

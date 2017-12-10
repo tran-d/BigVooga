@@ -3,46 +3,23 @@ package authoring_UI.Menu;
 import java.util.ArrayList;
 import java.util.List;
 
-import authoring.GridManagers.*;
-import authoring.Sprite.*;
-import authoring.SpriteManagers.*;
-import authoring.SpritePanels.*;
-import authoring.util.*;
-import authoring_UI.Map.*;
-import authoring_UI.*;
-import authoring.*;
-import authoring_UI.Inventory.*;
-import engine.utilities.data.GameDataHandler;
-import gui.welcomescreen.WelcomeScreen;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Side;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+import authoring.AuthoringEnvironmentManager;
+import authoring.GridManagers.SpriteObjectGridManager;
+import authoring.SpritePanels.MenuSpritePanels;
+import authoring.SpritePanels.SpritePanels;
+import authoring_UI.DraggableGrid;
+import authoring_UI.MapManager;
+import authoring_UI.SpriteGridHandler;
 import javafx.stage.Stage;
-import tools.DisplayLanguage;
 
 public class MenuManager extends MapManager{
 	
 	private SpriteObjectGridManager MenuGridBE;
+	private AuthoringEnvironmentManager myAEM;
 
 	public MenuManager(AuthoringEnvironmentManager AEM, Stage currentStage) {
 		super(AEM, currentStage);
+		myAEM = AEM;
 	}
 	
 	@Override 

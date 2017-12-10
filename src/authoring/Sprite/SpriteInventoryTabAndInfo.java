@@ -50,7 +50,7 @@ public class SpriteInventoryTabAndInfo {
 
 	private void initialize() {
 		containerVBox = new VBox(5);
-		containerVBox.setPrefWidth(550);
+		containerVBox.setPrefWidth(495);
 
 //		myInventory = new ArrayList<AbstractSpriteObject>();
 		temporaryInventory = new HashSet<AbstractSpriteObject>();
@@ -190,7 +190,7 @@ public class SpriteInventoryTabAndInfo {
 		dialog.initOwner(s.getWindow());
 		// VBox dialogVbox = new VBox(20);
 		// dialogVbox.getChildren().add(new Text("This is a Dialog"));
-		Scene dialogScene = new Scene(tp, 550, 400);
+		Scene dialogScene = new Scene(tp, 525, 400);
 		dialogScene.getStylesheets().add(SpriteInventoryTabAndInfo.class.getResource("Inventory.css").toExternalForm());
 		dialog.setScene(dialogScene);
 		

@@ -1,8 +1,8 @@
-package authoring_UI;
+package authoring.SpritePanels;
 
-public class DisplayPanelA extends DisplayPanel{
+public class DisplayPanelForGridSprites extends DisplayPanel{
 	
-	DisplayPanelA(){
+	DisplayPanelForGridSprites(){
 		
 	}
 

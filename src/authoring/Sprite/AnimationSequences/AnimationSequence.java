@@ -138,7 +138,7 @@ public class AnimationSequence {
 
 	private void createContainerVbox() {
 		myContainerVbox = new VBox();
-		myContainerVbox.setPrefWidth(520);
+		myContainerVbox.setPrefWidth(495);
 		
 	}
 
