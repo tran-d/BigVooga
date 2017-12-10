@@ -3,18 +3,26 @@ package authoring_UI.dialogue;
 import java.util.List;
 import java.util.function.Consumer;
 
+import authoring.ActionNameTreeItem;
 import authoring_UI.ViewSideBar;
 import gui.welcomescreen.WelcomeScreen;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import tools.DisplayLanguage;
 
 /**
@@ -41,7 +49,7 @@ public class DialogueEditor {
 	private VBox view;
 	private TextField nameTF;
 	private TextField sizeTF;
-	private TextField fontTF;
+	private ChoiceBox<String> fontCB;
 	private TextField numPanelsTF;
 	private DialogueTextAreaView dsp;
 	private Consumer<String> saveConsumer;
@@ -73,7 +81,7 @@ public class DialogueEditor {
 	}
 
 	public String getFont() {
-		return fontTF.getText();
+		return fontCB.getSelectionModel().getSelectedItem();
 	}
 
 	public List<TextArea> getDialogueList() {
@@ -91,7 +99,7 @@ public class DialogueEditor {
 
 		this.makeInputFields();
 
-		view.getChildren().addAll(new HBox(makeEntry(NAME_PROMPT, nameTF)), new HBox(makeEntry(FONT_PROMPT, fontTF)),
+		view.getChildren().addAll(new HBox(makeEntry(NAME_PROMPT, nameTF)), new HBox(makeEntry(FONT_PROMPT, fontCB)),
 				new HBox(makeEntry(FONT_SIZE_PROMPT, sizeTF)), dsp);
 
 	}
@@ -100,13 +108,13 @@ public class DialogueEditor {
 
 		nameTF = makeTextField(NAME_PROMPT_WIDTH, PROMPT_HEIGHT);
 		sizeTF = makeTextField(FONT_SIZE_PROMPT_WIDTH, PROMPT_HEIGHT);
-		fontTF = makeTextField(FONT_PROMPT_WIDTH, PROMPT_HEIGHT);
+		fontCB = makeChoiceBox();
 
 		sizeTF.setOnKeyReleased(e -> {
 			if (!sizeTF.getText().equals("")) {
 
 				try {
-					int i = Integer.parseInt(sizeTF.getText());
+					Integer.parseInt(sizeTF.getText());
 					saveConsumer.accept(getName());
 					System.out.println("size changed! saving!");
 				} catch (NumberFormatException ex) {
@@ -119,17 +127,35 @@ public class DialogueEditor {
 			}
 		});
 
-		fontTF.setOnKeyReleased(e -> {
-
-			saveConsumer.accept(getName());
-			System.out.println("font changed! saving!");
-		});
+//		fontCB.setOnKeyReleased(e -> {
+//
+//			saveConsumer.accept(getName());
+//			System.out.println("font changed! saving!");
+//		});
 
 		numPanelsTF = makeTextField(NUM_PANELS_PROMPT_WIDTH, PROMPT_HEIGHT);
 
 		dsp = new DialogueTextAreaView(() -> saveConsumer.accept(getName()));
 		// numPanelsTF.setOnInputMethodTextChanged(e -> checkInput());
 
+	}
+	
+	private ChoiceBox<String> makeChoiceBox() {
+		ObservableList<String> fonts = FXCollections.observableList(Font.getFamilies());
+		ChoiceBox<String> cb = new ChoiceBox<String>(fonts);
+		
+		System.out.println("fonts: " + fonts);
+
+		cb.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+
+				saveConsumer.accept(getName());
+				System.out.println("font changed! saving!");
+			}
+		});
+		return cb;
 	}
 
 	private TextField makeTextField(double width, double height) {
@@ -138,7 +164,7 @@ public class DialogueEditor {
 		return tf;
 	}
 
-	private HBox makeEntry(String prompt, TextField tf) {
+	private HBox makeEntry(String prompt, Node tf) {
 		HBox hb = new HBox();
 		Label lb = new Label();
 		lb.textProperty().bind(DisplayLanguage.createStringBinding(prompt));
@@ -151,6 +177,12 @@ public class DialogueEditor {
 		btn.textProperty().bind(DisplayLanguage.createStringBinding(name));
 		btn.setOnAction(handler);
 		return btn;
+	}
+	
+	public static void main(String[] args) {
+		DialogueEditor ed = new DialogueEditor(null);
+
+		System.out.println(Font.getFamilies());
 	}
 
 }
