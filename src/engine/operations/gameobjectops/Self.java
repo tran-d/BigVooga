@@ -11,6 +11,4 @@ public class Self implements GameObjectOperation {
 	public GameObject evaluate(GameObject asking, GameObjectEnvironment world) {
 		return asking;
 	}
-
-	
 }
