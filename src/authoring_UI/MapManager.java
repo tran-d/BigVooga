@@ -81,8 +81,8 @@ public class MapManager extends TabPane {
 		}
 		} else {
 			setTab();
-			DraggableGrid DG = makeDraggableGrid();
-			createTab(myTabCount, DG);
+//			DraggableGrid DG = makeDraggableGrid();
+//			createTab(myTabCount, DG);
 		}
 		
 		

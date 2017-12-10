@@ -27,9 +27,9 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.security.NullPermission;
 import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
-import authoring.AbstractSpriteObject;
-import authoring.SpriteObject;
-import authoring.SpriteObjectGridManager;
+import authoring.GridManagers.SpriteObjectGridManager;
+import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.SpriteObject;
 import authoring_UI.DraggableGrid;
 import authoring_UI.LayerDataConverter;
 import authoring_UI.MapDataConverter;

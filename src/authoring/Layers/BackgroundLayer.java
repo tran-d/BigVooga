@@ -24,7 +24,7 @@ public class BackgroundLayer extends MapLayer {
 
 	BackgroundLayer(int rows, int columns, int layerNum, SpriteGridHandler SGH, Color c) {
 		super(rows, columns, layerNum, SGH, c);
-		this.gridLinesVisibleProperty().set(false);
+		this.setGridLinesVisible(false);
 //		setDefaultColor(Color.YELLOW);
 		setName("Background");
 	}
@@ -35,6 +35,9 @@ public class BackgroundLayer extends MapLayer {
 		if (AMSP.hasChild()){
 			AMSP.removeChild();
 		}
+		this.getChildren().forEach(cell->{
+			((AuthoringMapStackPane) cell).setInactiveBackground(Color.TRANSPARENT);
+		});
 		AbstractSpriteObject ASO = new SpriteObject(image, path);
 		AMSP.addChild(ASO);
 		AMSP.setRowSpan(this.numRowsProperty.get());
