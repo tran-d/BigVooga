@@ -24,6 +24,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -126,9 +127,11 @@ public class DraggableGrid extends VBox {
 	private void makeLayers(SpriteGridHandler spriteGridHandler){
 		showingGrids = new ArrayList<SpriteObjectGridManager>();
 		if (allGrids.size()==0){
+		SpriteObjectGridManager background = new BackgroundGridManager(rows, cols, spriteGridHandler);
 		SpriteObjectGridManager terrain = new TerrainObjectGridManager(rows, cols, spriteGridHandler);
 		SpriteObjectGridManagerForSprites sprites = new SpriteObjectGridManagerForSprites(rows, cols, spriteGridHandler);
 		PanelObjectGridManager panels = new PanelObjectGridManager(rows, cols, spriteGridHandler);
+		showingGrids.add(background);
 		showingGrids.add(terrain);
 		showingGrids.add(sprites);
 		showingGrids.add(panels);
@@ -178,10 +181,8 @@ public class DraggableGrid extends VBox {
 		HBox hbox = new HBox(10);
 		hbox.setId("layerbox");
 		Label label = new Label(ML.getName());
-		label.setTextFill(Color.ANTIQUEWHITE);
 		
 		CheckBox checkbox = new CheckBox();
-		checkbox.setTextFill(Color.BISQUE);
 		checkbox.setSelected(true);
 		checkbox.selectedProperty().addListener(new ChangeListener<Boolean>(){
 			@Override
@@ -194,6 +195,14 @@ public class DraggableGrid extends VBox {
 			}
 		});
 		hbox.getChildren().addAll(label, checkbox);
+		if (ML.canFillBackground()){
+			ColorPicker cp = new ColorPicker(Color.SANDYBROWN);
+			cp.setOnAction((event)->{
+				ML.setColor(cp.getValue());
+			});
+			hbox.getChildren().add(cp);
+		}
+		
 		addLayerButton(hbox);
 	}
 	

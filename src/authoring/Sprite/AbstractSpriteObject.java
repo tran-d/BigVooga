@@ -130,7 +130,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 	public AbstractSpriteObject(String fileURL) {
 		this();
 		setupImageURLAndView(fileURL);
-		myName = fileURL.split("\\.")[0];
+//		myName = fileURL.split("\\.")[0];
 	}
 
 	AbstractSpriteObject(HashMap<String, List<SpriteParameterI>> inCategoryMap) {
@@ -194,8 +194,8 @@ public abstract class AbstractSpriteObject extends ImageView {
 	protected void setupImageURLAndView(String fileURL) {
 		myImageURL = fileURL;
 		this.setImage(new Image(fileURL));
-		this.setFitWidth(45);
-		this.setFitHeight(45);
+//		this.setFitWidth(45);
+//		this.setFitHeight(45);
 	}
 
 	private void initializeHeightWidthProperties() {

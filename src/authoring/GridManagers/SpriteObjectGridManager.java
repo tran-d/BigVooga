@@ -38,6 +38,7 @@ public abstract class SpriteObjectGridManager {
 	Color myColor;
 	protected int temporaryRows;
 	protected int temporaryColumns;
+	protected boolean canFillBackground;
 	
 	protected ObjectProperty<Integer> numRowsProperty;
 	protected ObjectProperty<Integer> numColumnsProperty;
@@ -49,6 +50,7 @@ public abstract class SpriteObjectGridManager {
 	}
 	
 	public SpriteObjectGridManager(int rows, int cols) {
+		setCanFillBackground();
 		setDefaultEmptySprite(new SpriteObject());
 		numRowsProperty = new SimpleObjectProperty<Integer>();
 		numColumnsProperty = new SimpleObjectProperty<Integer>();
@@ -131,6 +133,20 @@ public abstract class SpriteObjectGridManager {
 	
 	public Color getColor() {
 		return myColor;
+	}
+	
+	public void setColor(Color color){
+		myColor = color;
+		this.getMapLayer().setFillColor(color);
+	}
+	
+	
+	public void setCanFillBackground(){
+		canFillBackground = false;
+	}
+	
+	public boolean canFillBackground(){
+		return canFillBackground;
 	}
 	
 	public int getLayerNum() {

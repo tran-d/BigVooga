@@ -86,6 +86,16 @@ public class AuthoringMapStackPane extends StackPane {
 		createShapeSpriteWidth();
 		createShapeSpriteHeight();
 	}
+	
+	public void setInactiveBackground(Background bg){
+		this.inactiveBackground = bg;
+		this.setBackground(bg);
+	}
+	
+	public void setInactiveBackground(Color c){
+		this.setInactiveBackground(new Background(new BackgroundFill(c, CornerRadii.EMPTY, Insets.EMPTY)));
+	}
+	
 
 	public void setCoveringSprite(AbstractSpriteObject ASO) {
 		this.coveringSprite = ASO;

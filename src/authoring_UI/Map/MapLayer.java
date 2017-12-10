@@ -24,6 +24,7 @@ import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
@@ -44,8 +45,10 @@ public abstract class MapLayer extends GridPane {
 	private int myLayerNumber;
 	private int myRows;
 	private int myColumns;
+	
 	private SpriteGridHandler mySGH;
 	private Color defaultColor;
+	protected Color fillEmptyCellColor;
 	private String myName;
 	public static final int CELL_SIZE = 50;
 	protected ObjectProperty<Integer> numRowsProperty;
@@ -140,6 +143,25 @@ public abstract class MapLayer extends GridPane {
 //		});
 	}
 	
+
+	public void setFillColor(Color c){
+		this.fillEmptyCellColor = c;
+		for (Node node : this.getChildren()){
+			if (node instanceof AuthoringMapStackPane){
+				AuthoringMapStackPane AMSP = (AuthoringMapStackPane) node;
+				if (!(AMSP.hasChild()|| AMSP.isCoveredByOtherSprite())){
+					AMSP.setInactiveBackground(c);
+				}
+			}
+			
+		}
+	}
+	
+	public void setBackgroundImage(String imagePath){
+		// NOTHING ON DEFAULT	
+	}
+
+	
 	public void setSpriteGridHandler(SpriteGridHandler SGH){
 		mySGH = SGH;
 	}
@@ -218,7 +240,7 @@ public abstract class MapLayer extends GridPane {
 //		}
 //	}
 	
-	private void addAuthoringStackPaneToPosition(int row, int col){
+	private AuthoringMapStackPane addAuthoringStackPaneToPosition(int row, int col){
 		AuthoringMapStackPane sp = new AuthoringMapStackPane(this);
 		sp.setMinWidth(CELL_SIZE);
 		sp.setMaxWidth(CELL_SIZE);
@@ -246,6 +268,7 @@ public abstract class MapLayer extends GridPane {
 		mySGH.addDropHandling(sp);
 		mySGH.addGridMouseClick(sp);
 		mySGH.addGridMouseDrag(sp);
+		return sp;
 	}
 	
 	public void addRow(){
