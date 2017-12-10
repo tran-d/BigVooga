@@ -15,7 +15,7 @@ public class GameWorld {
 	private final static String DEFAULT_NAME = "layer";
 
 	private String worldName;
-	private List<GameLayer> worldLayers;
+	private List<Layer> worldLayers;
 	
 	public GameWorld() {
 		this(DEFAULT_NAME);
@@ -36,13 +36,13 @@ public class GameWorld {
 	 */
 	public void step(ConcreteGameObjectEnvironment environment) {
 		environment.setGameWorld(this);
-		for (GameLayer l : worldLayers)
+		for (Layer l : worldLayers)
 			l.step(environment);
 	}
 
 	public List<Element> getAllElements() {
 		List<Element> els = new ArrayList<>();
-		for (GameLayer l : worldLayers) {
+		for (Layer l : worldLayers) {
 			els.addAll(l.getAllElements());
 		}
 		return els;
@@ -53,7 +53,7 @@ public class GameWorld {
 	}
 
 	public void removeLayer(String layerName) {
-		for (GameLayer l : worldLayers) {
+		for (Layer l : worldLayers) {
 			if (l.isNamed(layerName)) {
 				worldLayers.remove(l);
 				return;
@@ -61,6 +61,10 @@ public class GameWorld {
 		}
 		// Placeholder for error I guess?
 		System.out.println("No such world");
+	}
+	public List<Layer> getLayers()
+	{
+		return worldLayers;
 	}
 
 }
