@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -31,17 +30,15 @@ public class DialogueTextAreaView extends VBox {
 	private static final String ADD_PANEL_BUTTON_PROMPT = "AddPanel";
 	private static final String REMOVE_PANEL_BUTTON_PROMPT = "RemovePanel";
 	private static final String SAVE_BUTTON_PROMPT = "Save";
-	
+
 	private String currentFontType;
 	private int currentFontSize;
-	
 
 	private List<TextArea> taList;
 	private Button nextButton;
 	private Button prevButton;
 	private Button addPanelButton;
 	private Button removePanelButton;
-	private Button saveButton;
 	private int currentPanelIndex = -1;
 	private Label currentPanel;
 	private Label totalPanels;
@@ -49,37 +46,40 @@ public class DialogueTextAreaView extends VBox {
 
 	private SimpleIntegerProperty curr;
 	private SimpleIntegerProperty total;
-	
-	private Runnable r;
 
-	public DialogueTextAreaView(Runnable r) {
+	private Runnable save;
+
+	public DialogueTextAreaView(Runnable save) {
 		taList = new ArrayList<>();
 		dialoguePreview = new HBox();
 		this.addPanel();
-		this.r = r;
-		// curr = new SimpleIntegerProperty(currentPanelIndex + 1);
-		// total = new SimpleIntegerProperty(dialogueList.size());
+		this.save = save;
 		this.setSpacing(15);
+
+		curr = new SimpleIntegerProperty(currentPanelIndex + 1);
+		total = new SimpleIntegerProperty(taList.size());
+
 		this.getChildren().addAll(dialoguePreview, makeToolPanel());
+
 	}
+
+	/************************ PUBLIC METHODS ***************************/
 
 	public List<TextArea> getDialogueList() {
 		return taList;
 	}
-	
+
 	public void setFontType(String family) {
 		for (TextArea ta : taList) {
 			ta.setFont(Font.font(family));
 		}
 	}
-	
+
 	public void setFontSize(int size) {
 		for (TextArea ta : taList) {
 			ta.setFont(Font.font(size));
 		}
 	}
-
-	/************************ PUBLIC METHODS ***************************/
 
 	public void removePanel() {
 
@@ -107,8 +107,8 @@ public class DialogueTextAreaView extends VBox {
 		ta.setPrefSize(DIALOG_PROMPT_WIDTH, DIALOG_PROMPT_HEIGHT);
 		ta.setWrapText(true);
 		taList.add(ta);
-		
-		ta.setOnKeyTyped(e -> r.run());
+
+		ta.setOnKeyTyped(e -> save.run());
 
 		setCurrentPanel(taList.size() - 1);
 	}
@@ -139,10 +139,10 @@ public class DialogueTextAreaView extends VBox {
 		HBox hb = new HBox();
 		hb.setPrefWidth(DIALOG_PROMPT_WIDTH);
 		currentPanel = new Label();
-		currentPanel.textProperty().bind(new SimpleIntegerProperty(currentPanelIndex + 1).asString());
+		currentPanel.textProperty().bind(curr.asString());
 		Label slash = new Label("/");
 		totalPanels = new Label();
-		totalPanels.textProperty().bind(new SimpleIntegerProperty(taList.size()).asString());
+		totalPanels.textProperty().bind(total.asString());
 		hb.getChildren().addAll(makeButtonPanel(), currentPanel, slash, totalPanels);
 		return hb;
 	}
@@ -166,7 +166,5 @@ public class DialogueTextAreaView extends VBox {
 		btn.setOnAction(handler);
 		return btn;
 	}
-	
-	
 
 }
