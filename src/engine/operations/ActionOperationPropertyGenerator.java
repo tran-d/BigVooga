@@ -12,7 +12,7 @@ class ActionOperationPropertyGenerator {
 		Properties prop = new Properties();
 		for(String cat : actFact.getCategories()) {
 			for(String name : actFact.getActions(cat)) {
-				prop.put(name, actFact.makeAction(name, new Object[actFact.getParameters(name).size()]).getClass().getName());
+				prop.put(name, actFact.makeAction(name, new Object[actFact.getParametersWithNames(name).size()]).getClass().getName());
 			}
 		}
 

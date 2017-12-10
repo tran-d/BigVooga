@@ -70,6 +70,7 @@ public class GameDisplay {
 	public void createGameDisplay() {
 		scene.setOnKeyPressed(e -> playerManager.setKeyPressed(e.getCode()));
 		scene.setOnKeyReleased(e -> playerManager.setKeyReleased(e.getCode()));
+		scene.setOnKeyTyped(e -> playerManager.setCharTyped(e.getCharacter()));
 		scene.setOnMousePressed(e -> playerManager.setPrimaryButtonDown(e.getX(), e.getY()));
 		scene.setOnMouseReleased(e -> playerManager.setPrimaryButtonUp(e.getX(), e.getY()));
 		scene.setOnMouseMoved(e -> playerManager.setMouseXY(e.getX(), e.getY()));
@@ -124,7 +125,7 @@ public class GameDisplay {
 	 * @param imageData
 	 *            - The list of objects for the player to display
 	 */
-	public void setUpdatedDisplayables(List<Displayable> images, double cameraXTranslate, double cameraYTranslate) {
+	public void setUpdatedDisplayables(List<Displayable> images) {
 		gamePane.getChildren().clear();
 		for (Displayable d : images) {
 			d.visit(this);

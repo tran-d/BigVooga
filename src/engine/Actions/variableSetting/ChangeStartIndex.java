@@ -8,6 +8,11 @@ import engine.operations.VoogaType;
 import engine.operations.doubleops.DoubleOperation;
 import engine.operations.gameobjectops.GameObjectOperation;
 
+/**
+ * 
+ * @author Aaron Paskin
+ *
+ */
 public class ChangeStartIndex implements Action {
 
 	private DoubleOperation startIndex;
