@@ -2,6 +2,8 @@ package engine.operations.doubleops;
 
 import engine.GameObject;
 import engine.GameObjectEnvironment;
+import engine.operations.VoogaAnnotation;
+import engine.operations.VoogaType;
 import engine.operations.vectorops.VectorOperation;
 import javafx.geometry.Point2D;
 
@@ -14,11 +16,12 @@ public class AngleBetween implements DoubleOperation {
 	private VectorOperation from;
 	private VectorOperation to;
 
-	public AngleBetween(VectorOperation from, VectorOperation to) {
+	public AngleBetween(@VoogaAnnotation(name = "From", type = VoogaType.VECTOR) VectorOperation from,
+			@VoogaAnnotation(name = "To", type = VoogaType.VECTOR) VectorOperation to) {
 		this.from = from;
 		this.to = to;
 	}
-	
+
 	@Override
 	public Double evaluate(GameObject asking, GameObjectEnvironment world) {
 		Point2D vector1 = from.evaluate(asking, world);
