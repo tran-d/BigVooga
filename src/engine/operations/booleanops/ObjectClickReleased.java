@@ -2,6 +2,8 @@ package engine.operations.booleanops;
 
 import engine.GameObject;
 import engine.GameObjectEnvironment;
+import engine.operations.VoogaAnnotation;
+import engine.operations.VoogaType;
 import engine.operations.gameobjectops.GameObjectOperation;
 import engine.utilities.collisions.BoundingPoint;
 
@@ -17,7 +19,7 @@ public class ObjectClickReleased implements BooleanOperation {
 
 	private GameObjectOperation object;
 
-	public ObjectClickReleased(GameObjectOperation object) {
+	public ObjectClickReleased(@VoogaAnnotation(name = "Sprite", type = VoogaType.GAMEOBJECT) GameObjectOperation object) {
 		this.object = object;
 	}
 
