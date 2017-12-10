@@ -40,9 +40,11 @@ import tools.DisplayLanguage;
 public class MenuManager extends MapManager{
 	
 	private SpriteObjectGridManager MenuGridBE;
+	private AuthoringEnvironmentManager myAEM;
 
 	public MenuManager(AuthoringEnvironmentManager AEM, Stage currentStage) {
 		super(AEM, currentStage);
+		myAEM = AEM;
 	}
 	
 	@Override 
