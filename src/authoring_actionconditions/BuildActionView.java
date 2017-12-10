@@ -36,6 +36,8 @@ public class BuildActionView {
 		ACRow.getRootTreeItem().setExpanded(false);
 		ACRow.changeRowTVSize();
 
+		System.out.println(ACRow.getPrefHeight());
+		
 		if (ACVBox.getChildren().size() >= ACRow.getRowID())
 			ACVBox.getChildren().remove(ACRow.getRowID() - 1);
 		ACVBox.getChildren().add(ACRow.getRowID() - 1, ACRow);
@@ -43,7 +45,9 @@ public class BuildActionView {
 		stage.close();
 
 		// test
-		ACRow.extract();
+		ACRow.getAction();
+		
+		
 	}
 
 	public void createParameterChoiceBox() {
