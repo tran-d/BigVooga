@@ -6,7 +6,7 @@ import java.util.Set;
 
 import engine.EngineController;
 import engine.sprite.Displayable;
-import engine.sprite.DisplayableImage;
+import engine.utilities.data.GameDataHandler;
 import gui.player.GameDisplay;
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
@@ -23,6 +23,7 @@ public class PlayerManager {
 
 	private GameDisplay gameDisplay;
 	private EngineController engineController;
+	private GameDataHandler gameDataHandler;
 	
 	private Set<String> keysDown = new HashSet<>();
 	private Set<String> prevKeysDown = new HashSet<>();
@@ -33,13 +34,13 @@ public class PlayerManager {
 	private double clickY;
 	private double mouseX;
 	private double mouseY;
-	private int id;
 	
 	/**
 	 * Empty constructor for PlayerManager.
+	 * @param gameDataHandler 
 	 */
-	public PlayerManager() {
-		
+	public PlayerManager(GameDataHandler gameDataHandler) {
+		this.gameDataHandler = gameDataHandler;
 	}
 	
 	/**
@@ -207,6 +208,12 @@ public class PlayerManager {
 	 */
 	public Point2D getMouseXY() {
 		return new Point2D(mouseX, mouseY);
+	}
+
+	public void save(String gameName) {
+		engineController.stop();
+		gameDataHandler.saveGame(engineController, gameName);
+		engineController.start();
 	}
 	
 }
