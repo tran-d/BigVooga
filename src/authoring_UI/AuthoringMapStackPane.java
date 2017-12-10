@@ -7,7 +7,19 @@ import java.util.function.Function;
 
 import javax.swing.event.ChangeListener;
 
-import authoring.AbstractSpriteObject;
+import authoring.GridManagers.*;
+import authoring.Sprite.*;
+import authoring.Sprite.Parameters.*;
+import authoring.Sprite.AnimationSequences.*;
+import authoring.Sprite.UtilityTab.*;
+import authoring.Sprite.InventoryTab.*;
+import authoring.SpriteManagers.*;
+import authoring.SpritePanels.*;
+import authoring.util.*;
+import authoring_UI.Map.*;
+import authoring_UI.*;
+import authoring.*;
+import authoring_UI.Inventory.*;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Insets;
@@ -37,7 +49,7 @@ public class AuthoringMapStackPane extends StackPane {
 	private ObjectProperty<Boolean> coveredByStretchedSpriteProperty;
 	// private int myRow =
 
-	AuthoringMapStackPane(MapLayer ML) {
+	public AuthoringMapStackPane(MapLayer ML) {
 		super();
 		activeBackground = new Background(new BackgroundFill(Color.MAGENTA, CornerRadii.EMPTY, Insets.EMPTY));
 		inactiveBackground = new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY));
@@ -74,6 +86,16 @@ public class AuthoringMapStackPane extends StackPane {
 		createShapeSpriteWidth();
 		createShapeSpriteHeight();
 	}
+	
+	public void setInactiveBackground(Background bg){
+		this.inactiveBackground = bg;
+		this.setBackground(bg);
+	}
+	
+	public void setInactiveBackground(Color c){
+		this.setInactiveBackground(new Background(new BackgroundFill(c, CornerRadii.EMPTY, Insets.EMPTY)));
+	}
+	
 
 	public void setCoveringSprite(AbstractSpriteObject ASO) {
 		this.coveringSprite = ASO;
@@ -90,8 +112,8 @@ public class AuthoringMapStackPane extends StackPane {
 			// });
 			@Override
 			public void accept(Integer oldValue, Integer newValue) {
-				System.out.println("newValueRowSpan: " + newValue);
-				System.out.println("oldValueRowSpan: " + newValue);
+//				System.out.println("newValueRowSpan: " + newValue);
+//				System.out.println("oldValueRowSpan: " + newValue);
 				int diff = newValue - oldValue;
 				int startRow = (diff > 0) ? getRowIndex() + oldValue : getRowIndex() + oldValue - 1;
 				for (int i = 0; i < Math.abs(diff); i++) {
@@ -400,12 +422,12 @@ public class AuthoringMapStackPane extends StackPane {
 		colSpanProperty.set(span);
 	}
 
-	int getRowSpan() {
+	public int getRowSpan() {
 
 		return getMapLayer().getRowSpan(this);
 	}
 
-	int getColSpan() {
+	public int getColSpan() {
 		return getMapLayer().getColumnSpan(this);
 	}
 
@@ -439,39 +461,39 @@ public class AuthoringMapStackPane extends StackPane {
 	}
 
 	private boolean checkChangeSizeIsValid(AbstractSpriteObject ASO, Integer startRow, Integer endRow, Integer startColumn, Integer endColumn) {
-System.out.println("startRow: "+startRow);
-System.out.println("endRow: "+endRow);
-System.out.println("startColumn: "+startColumn);
-System.out.println("endColumn: "+endColumn);
+//System.out.println("startRow: "+startRow);
+//System.out.println("endRow: "+endRow);
+//System.out.println("startColumn: "+startColumn);
+//System.out.println("endColumn: "+endColumn);
 
 		for (int row = startRow; row <= endRow; row++) {
 			for (int column = startColumn; column <= endColumn; column++) {
-				System.out.println("row: " + row + ", col: " + column);
+//				System.out.println("row: " + row + ", col: " + column);
 				AuthoringMapStackPane newCoveredCell = getMapLayer().getChildAtPosition(row, column);
 				if (newCoveredCell.isCoveredByOtherSprite()) {
 					if (ASO!=null&&newCoveredCell.getCoveringSprite().equals(ASO)){
 						// Nothing just keep checking cells
 					} else {
-					System.out.println("row: " + row + ", col: " + column);
-					System.out.println("Cannt change size");
+//					System.out.println("row: " + row + ", col: " + column);
+//					System.out.println("Cannt change size");
 					return false;
 					}
 
 				}
 			}
 		}
-		System.out.println("Can change size");
+//		System.out.println("Can change size");
 		return true;
 	}
 
 	private boolean checkChangeColumnSpanIsValid(Integer newColumnSpan) {
-		System.out.println("Column int: " + newColumnSpan);
+//		System.out.println("Column int: " + newColumnSpan);
 		if (newColumnSpan <= this.getColSpan()) {
 			return true;
 		} else {
 			int endCol = this.getColIndex() + newColumnSpan - 1;
-			System.out.println("farRight: " + this.getFarRightColumn());
-			System.out.println("endCol: " + endCol);
+//			System.out.println("farRight: " + this.getFarRightColumn());
+//			System.out.println("endCol: " + endCol);
 			return this.checkChangeSizeIsValid(null, this.getRowIndex(), this.getFarBottomRow(), this.getFarRightColumn() + 1,
 					endCol);
 		}

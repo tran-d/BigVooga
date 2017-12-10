@@ -6,10 +6,19 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.List;
 
-import authoring.AbstractSpriteObject;
-import authoring.InventoryObject;
-import authoring.SpriteObject;
-import authoring.SpriteObjectGridManagerI;
+import authoring.GridManagers.*;
+import authoring.Sprite.*;
+import authoring.Sprite.Parameters.*;
+import authoring.Sprite.AnimationSequences.*;
+import authoring.Sprite.UtilityTab.*;
+import authoring.Sprite.InventoryTab.*;
+import authoring.SpriteManagers.*;
+import authoring.SpritePanels.*;
+import authoring.util.*;
+import authoring_UI.Map.*;
+import authoring_UI.*;
+import authoring.*;
+import authoring_UI.Inventory.*;
 import javafx.event.Event;
 import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
@@ -35,8 +44,9 @@ public class SpriteGridHandler {
 	private DisplayPanel myDP;
 	private DraggableGrid myDG;
 
-	public SpriteGridHandler(int mapCount, DraggableGrid DG) {
-		objectFormat = new DataFormat("MyObject" + Integer.toString(mapCount));
+	public SpriteGridHandler(String parent, int mapCount, DraggableGrid DG) {
+		objectFormat = new DataFormat("MyObject" + parent+ Integer.toString(mapCount));
+		System.out.println("SGH made with objForm: "+objectFormat);
 		myDG = DG;
 	}
 
@@ -48,9 +58,9 @@ public class SpriteGridHandler {
 		return myDG;
 	}
 
-	protected void addKeyPress(Scene scene) {
+	public void addKeyPress(Scene scene) {
 		scene.setOnKeyPressed(e -> {
-			System.out.println("Key pressed: "+ e.getCode());
+//			System.out.println("Key pressed: "+ e.getCode());
 			if (e.getCode().equals(KeyCode.BACK_SPACE)) {
 				deleteSelectedSprites();
 			}
@@ -61,13 +71,11 @@ public class SpriteGridHandler {
 		List<Integer[]> cellsToDelete = new ArrayList<Integer[]>();
 		myDG.getActiveGrid().getActiveSpriteObjects().forEach(s -> {
 			Integer[] row_col = s.getPositionOnGrid();
-			System.out.println("row_col: " + row_col);
+//			System.out.println("row_col: " + row_col);
 			cellsToDelete.add(row_col);
 		});
 		resetActiveSprites();
 		myDP.removeSpriteEditorVBox();
-
-		System.out.println();
 		myDG.getActiveGrid().clearCells(cellsToDelete);
 	}
 
@@ -75,12 +83,13 @@ private	void resetActiveSprites() {
 		myDG.getActiveGrid().resetActiveCells();
 	}
 
-	protected void addGridMouseClick(AuthoringMapStackPane pane) {
+	public void addGridMouseClick(AuthoringMapStackPane pane) {
 		pane.setOnMouseClicked(e -> {
 			if (!pane.hasChild()){
 				if (!pane.isCoveredByOtherSprite()){
 					changeCellStatus(pane);
 				} else if (pane.isCoveredByOtherSprite()){
+//					pane.se
 					Event.fireEvent(pane.getCoveringSprite(), new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
 			                0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
 			                true, true, true, true, true, true, null));
@@ -89,12 +98,42 @@ private	void resetActiveSprites() {
 		});
 	}
 
-	protected void addGridMouseDrag(AuthoringMapStackPane pane) {
-		pane.setOnMouseDragOver(e -> {
-			if (!pane.hasChild()&&!pane.isCoveredByOtherSprite())
-				changeCellStatus(pane);
-				System.out.println("ENTERED BY MOUSE DRAG");
-		});
+	public void addGridMouseDrag(AuthoringMapStackPane pane) {
+//		pane.setOnMouseDragged(e -> {
+//			if (pane.isCoveredByOtherSprite()){
+////				Event.fireEvent(pane.getCoveringSprite(), new MouseEvent(MouseEvent.));
+////				pane.getCoveringSprite()
+//				Event.fireEvent(pane.getCoveringSprite(), new MouseEvent(MouseEvent.DRAG_DETECTED, 0,
+//		                0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+//		                true, true, true, true, true, true, null));
+//			} else {
+//				pane.switchActive();
+//			}
+//		});
+//		pane.setOnMouseDragOver(e->{
+//			System.out.println("Dragged over");
+//			pane.switchActive();
+//		});
+		
+//		pane.setOnDragOver(event->{
+//			System.out.println("Dragover");
+//			pane.switchActive();
+//			
+//		});
+		
+//		pane.setOnKeyTyped(value->{
+//			System.out.println(value.getCode());
+//		});
+		
+//		pane.setOnMouseDragEntered(e->{
+//			System.out.println("Drag entered");
+//			pane.switchActive();
+//		});
+		
+//		pane.setOnDragDetected(event->{
+//			Dragboard db = pane.startDragAndDrop(TransferMode.MOVE);
+//			System.out.println("DragDetected");
+//		});
 	}
 
 	private void changeCellStatus(AuthoringMapStackPane pane) {
@@ -220,7 +259,7 @@ private	void resetActiveSprites() {
 		return row_col;
 	}
 
-	protected void addDropHandling(AuthoringMapStackPane pane) {
+	public void addDropHandling(AuthoringMapStackPane pane) {
 		pane.setOnDragOver(e -> {
 			Dragboard db = e.getDragboard();
 			if (db.hasContent(objectFormat) && draggingObject != null) {
@@ -232,11 +271,11 @@ private	void resetActiveSprites() {
 			if (pane.checkCanAcceptChild(draggingObject)) {
 				Dragboard db = e.getDragboard();
 				MapLayer ML = pane.getMapLayer();
-				System.out.println("MapLayer: " + ML.getName());
+//				System.out.println("MapLayer: " + ML.getName());
 				int row = ML.getRowIndex(pane);
 				int col = ML.getColumnIndex(pane);
 				Integer[] row_col = new Integer[] { row, col };
-				System.out.println(row_col);
+//				System.out.println(row_col);
 
 				if (db.hasContent(objectFormat)) {
 					if (draggingObject instanceof SpriteObject) {

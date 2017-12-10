@@ -1,20 +1,11 @@
 package authoring_actionconditions;
 
 import java.util.ResourceBundle;
-
-import ActionConditionClasses.ActionCheckBoxVBox;
-import ActionConditionClasses.ActionCheckBoxVBoxI;
 import ActionConditionClasses.ChoiceBoxVBox;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.ToolBar;
-import javafx.stage.Stage;
 
 /**
  * ActionConditionRow purpose--in each action/condition tab, there is a list of
@@ -34,64 +25,59 @@ import javafx.stage.Stage;
  *
  */
 
-public class ActionConditionRow extends ToolBar implements ActionCheckBoxVBoxI {
-
+public class ActionConditionRow extends ToolBar implements ActionConditionRowI {
+	
 	private static final String ACTIONCONDITION_RESOURCE_PATH = "TextResources/ActionConditionVBoxResources";
 
 	protected ResourceBundle actionConditionVBoxResources;
 	private int labelInt;
+	private Label label;
 	private Label IDlabel;
-	private ActionCheckBoxVBox<Integer> actionCheckBoxVBox;
-	private ObservableList<Integer> newActionOptions;
-	private BuildActionView view;
-	private ChoiceBoxVBox<String> actionOptions;
-	private ActionConditionVBox ACVBox;
+	private ChoiceBoxVBox<String> implementationSelectorVBox;
 
-	public ActionConditionRow(int ID, String label, String selectorLabel,
-			ObservableList<Integer> newActionOptions, ActionConditionVBox ACVBox) {
+	public ActionConditionRow(int ID, String label, String selectorLabel,String selectedConditionAction, ActionConditionVBox ACVBox) {
 		super();
-		this.newActionOptions = newActionOptions;
 		actionConditionVBoxResources = ResourceBundle.getBundle(ACTIONCONDITION_RESOURCE_PATH);
+		this.label = new Label(label);
 		labelInt = ID;
 		IDlabel = new Label(Integer.toString(ID));
 		Separator separator = ActionConditionTabUtil.makeVerticalSeparator();
-		ObservableList<String> actionConditionOptions = ActionConditionTabUtil.convertToObservableList(
-				actionConditionVBoxResources.getString(label + actionConditionVBoxResources.getString("OptionsTag")));
-		actionOptions = new ChoiceBoxVBox<String>(selectorLabel, actionConditionOptions);
-		getItems().addAll(IDlabel, separator, new Label(label), actionOptions);
+		ObservableList<String> actionConditionOptions = ActionConditionTabUtil.convertToObservableList(actionConditionVBoxResources.getString(label 
+				+ actionConditionVBoxResources.getString("OptionsTag"))); 
+		implementationSelectorVBox = new ChoiceBoxVBox<String>(selectorLabel, actionConditionOptions);
+		implementationSelectorVBox.setValue(selectedConditionAction);
+		getItems().addAll(IDlabel,separator,this.label);
+	}
 
 		// if (isConditionRow) {
 		// addActionCheckBox();
 		// }
 		// else
 		// addBuildActionButton(e -> openBuildWindow());
-	}
+	//}
 
-	protected void setNewActionCheckBoxVBoxOptions(ObservableList<Integer> newOptions) {
-		actionCheckBoxVBox.setNewOptions(newOptions);
-	}
-
-	protected void decreaseLabelID() {
+	@Override
+	public void decreaseLabelID() {
 		labelInt--;
 		IDlabel.setText(Integer.toString(labelInt));
 	}
-
-	protected void addActionCheckBox() {
-		actionCheckBoxVBox = new ActionCheckBoxVBox<Integer>(
-				actionConditionVBoxResources.getString("ActionCheckBoxLabel"), newActionOptions);
-		getItems().add(actionCheckBoxVBox);
+	
+	@Override
+	public String getImplementationSelectorVBoxValue() {
+		return (String) implementationSelectorVBox.getCurrentValue();
 	}
 
 	@Override
-	public void addAction() {
-		actionCheckBoxVBox.addAction();
+	public Label getLabel() {
+		return label;
 	}
 
 	@Override
-	public void removeAction(Integer action) {
-		actionCheckBoxVBox.removeAction(action);
+	public Label getImplementationSelectorLabel() {
+		return implementationSelectorVBox.getLabel();
 	}
 
+	@Override
 	public int getRowID() {
 		return labelInt;
 	}

@@ -9,6 +9,7 @@ public enum VoogaType {
 							"String"), STRINGNAME("String Name",
 									"String"), TAG("Tag", "String"), KEY("Key", "String"), ACTION("Action"), HOLDABLE("Holdable");
 
+
 	private String presentable;
 	private String strictType;
 

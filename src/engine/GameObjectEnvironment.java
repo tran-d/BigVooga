@@ -3,6 +3,7 @@ package engine;
 import java.util.List;
 
 import controller.player.PlayerManager;
+import engine.operations.doubleops.DoubleOperation;
 
 public interface GameObjectEnvironment {
 
@@ -11,9 +12,10 @@ public interface GameObjectEnvironment {
 	public void removeGameObject(GameObject withName);
 	public void setNextWorld(String evaluate);
 	public List<GameObject> getObjectsWithTag(String evaluate);
-	public void addGameObject(String name, double x, double y, double heading);
-	public void addGameObjects(List<GameObject> objects);
+	public void addGameObject(GameObject obj);
+	public GameObject getGameObject(String name);
 	public void addElement(Element e);
-	public void transfer(GameObject gameObject, String newWorld);
+	public void transfer(GameObject gameObject, String newWorld, String string);
+	public void save(DoubleOperation currentPoints);
 	
 }

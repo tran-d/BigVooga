@@ -1,10 +1,5 @@
 package engine.sprite;
 
-import java.util.List;
-import java.util.Set;
-
-import engine.Element;
-import engine.Layer;
 import gui.player.GameDisplay;
 
 /**
@@ -17,16 +12,16 @@ public class DisplayableText implements Displayable {
 	public static final DisplayableText DEFAULT = new DisplayableText(Integer.MAX_VALUE, "", "Arial", 12, "#000000");
 	private String string;
 	private String font;
-	private int fontSize;
+	private double fontSize;
 	private int drawingPriority;
 	private double x, y, heading, width, height;
 	private String color;
 	
-	public DisplayableText(String string, String font, int fontSize, String webColor) {
+	public DisplayableText(String string, String font, double fontSize, String webColor) {
 		this(Integer.MAX_VALUE, string, font, fontSize, webColor);
 	}
 	
-	public DisplayableText(int drawingPriority, String string, String font, int fontSize, String webColor) {
+	public DisplayableText(int drawingPriority, String string, String font, double fontSize, String webColor) {
 		this.string = string;
 		this.drawingPriority = drawingPriority;
 		this.font = font;
@@ -52,7 +47,7 @@ public class DisplayableText implements Displayable {
 		return font;
 	}
 	
-	public int getFontSize() {
+	public double getFontSize() {
 		return fontSize;
 	}
 	

@@ -18,6 +18,9 @@ import javafx.util.Duration;
 public class GameMaster implements EngineController{
 	private static final int DEFAULT_FPS = 60;
 	private static final int DEFAULT_DELAY = 1000/DEFAULT_FPS;
+	private static final String TRASH = "TRASH (unnamed save)";
+	
+	private String gameFileName = TRASH;
 	
 	private GameWorld currentWorld;
 	private List<GameWorld> madeWorlds;
@@ -33,6 +36,9 @@ public class GameMaster implements EngineController{
 		globalVars = new GlobalVariables();
 	}
 	
+	public void setGameFileName(String name) {
+		gameFileName = name;
+	}
 	
 	/**
 	 * Begins the gameloop, will continue until stop() is called.
@@ -120,5 +126,9 @@ public class GameMaster implements EngineController{
 	public GameWorld getWorldWithName(String newWorld) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void save() {
+		playerManager.save(gameFileName);
 	}
 }

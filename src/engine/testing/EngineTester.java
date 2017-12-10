@@ -147,11 +147,11 @@ public class EngineTester extends Application {
 		GameMaster master = new GameMaster();
 		master.addWorld(w);
 		master.setNextWorld("World");
-		try {
+		//try {
 			new GameDataHandler(name).saveGame(master);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		//} //catch (IOException e) {
+			//e.printStackTrace();
+		//}
 
 		try {
 			new GameDataHandler(name).loadGame().setNextWorld("World");

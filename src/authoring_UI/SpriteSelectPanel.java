@@ -3,8 +3,19 @@ package authoring_UI;
 import java.util.ArrayList;
 import java.util.List;
 
-import authoring.AbstractSpriteObject;
-import authoring.SpriteObject;
+import authoring.GridManagers.*;
+import authoring.Sprite.*;
+import authoring.Sprite.Parameters.*;
+import authoring.Sprite.AnimationSequences.*;
+import authoring.Sprite.UtilityTab.*;
+import authoring.Sprite.InventoryTab.*;
+import authoring.SpriteManagers.*;
+import authoring.SpritePanels.*;
+import authoring.util.*;
+import authoring_UI.Map.*;
+import authoring_UI.*;
+import authoring.*;
+import authoring_UI.Inventory.*;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
@@ -14,7 +25,7 @@ public class SpriteSelectPanel extends VBox {
 //	private SpriteManager mySM;
 	private SpriteGridHandler mySGH;
 
-	SpriteSelectPanel(String name, SpriteGridHandler SGH){
+	public SpriteSelectPanel(String name, SpriteGridHandler SGH){
 		super();
 		myName = name;
 //		mySM = SM;
