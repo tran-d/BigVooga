@@ -269,6 +269,12 @@ public class GameDataHandler {
 		fileChooser.setTitle(SELECTOR_TITLE);
 		return fileChooser.showOpenDialog(stage);
 	}
+
+	private void makeProjectDirectory() {
+		if (!directoryExists(projectPath)) {
+			makeDirectory(projectPath);
+		}
+	}
 	
 	public static Image chooseImage(Window window){
 		File f = chooseFileForImageSave(window);
@@ -280,7 +286,6 @@ public class GameDataHandler {
 			return new Image("pikachu.png");
 		}
 	}
-
 	/**
 	 * @param stage
 	 *            To present dialog
