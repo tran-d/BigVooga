@@ -7,7 +7,19 @@ import java.util.function.Function;
 
 import javax.swing.event.ChangeListener;
 
-import authoring.AbstractSpriteObject;
+import authoring.GridManagers.*;
+import authoring.Sprite.*;
+import authoring.Sprite.Parameters.*;
+import authoring.Sprite.AnimationSequences.*;
+import authoring.Sprite.UtilityTab.*;
+import authoring.Sprite.InventoryTab.*;
+import authoring.SpriteManagers.*;
+import authoring.SpritePanels.*;
+import authoring.util.*;
+import authoring_UI.Map.*;
+import authoring_UI.*;
+import authoring.*;
+import authoring_UI.Inventory.*;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Insets;
@@ -37,7 +49,7 @@ public class AuthoringMapStackPane extends StackPane {
 	private ObjectProperty<Boolean> coveredByStretchedSpriteProperty;
 	// private int myRow =
 
-	AuthoringMapStackPane(MapLayer ML) {
+	public AuthoringMapStackPane(MapLayer ML) {
 		super();
 		activeBackground = new Background(new BackgroundFill(Color.MAGENTA, CornerRadii.EMPTY, Insets.EMPTY));
 		inactiveBackground = new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY));
@@ -74,6 +86,16 @@ public class AuthoringMapStackPane extends StackPane {
 		createShapeSpriteWidth();
 		createShapeSpriteHeight();
 	}
+	
+	public void setInactiveBackground(Background bg){
+		this.inactiveBackground = bg;
+		this.setBackground(bg);
+	}
+	
+	public void setInactiveBackground(Color c){
+		this.setInactiveBackground(new Background(new BackgroundFill(c, CornerRadii.EMPTY, Insets.EMPTY)));
+	}
+	
 
 	public void setCoveringSprite(AbstractSpriteObject ASO) {
 		this.coveringSprite = ASO;
@@ -400,12 +422,12 @@ public class AuthoringMapStackPane extends StackPane {
 		colSpanProperty.set(span);
 	}
 
-	int getRowSpan() {
+	public int getRowSpan() {
 
 		return getMapLayer().getRowSpan(this);
 	}
 
-	int getColSpan() {
+	public int getColSpan() {
 		return getMapLayer().getColumnSpan(this);
 	}
 

@@ -3,6 +3,7 @@ package authoring_actionconditions;
 import java.util.ArrayList;
 import java.util.List;
 
+import engine.operations.Operation;
 import engine.operations.OperationFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +22,7 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 	private static final String INVALID_INPUT_MESSAGE = "InvalidInput";
 	private static final String DOUBLE_INPUT_MESSAGE = "EnterDouble";
 
+	private OperationFactory operationFactory = new OperationFactory();
 	private TextField doubleParameterTF;
 	private TextField stringParameterTF;
 	private OperationNameTreeItem operationNameTreeItem;
@@ -28,43 +30,41 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 	private String selectedOperation;
 	private List<OperationNameTreeItem> listOfOperations = new ArrayList<>();
 
-	private OperationFactory operationFactory = new OperationFactory();
-
 	public OperationParameterTreeItem(String selectedOperation) {
 		this.selectedOperation = selectedOperation;
 		this.makeParameterOperationTreeItem(selectedOperation);
 	}
 
-	public String getParameter() {
+	public Object getParameter() {
 
 		if (doubleParameterTF != null) {
 			System.out.println("Double was inputted: " + doubleParameterTF.getText());
-			return doubleParameterTF.getText();
+			return operationFactory.wrap(Double.parseDouble(doubleParameterTF.getText()));
 		} else if (stringParameterTF != null) {
 			System.out.println("String was inputted: " + stringParameterTF.getText());
-			return stringParameterTF.getText();
+			return operationFactory.wrap(stringParameterTF.getText());
 		} else {
 			System.out.println(selectedOperation);
-			return selectedOperation;
+			return operationFactory.makeOperation(selectedOperation, new Object[0]);
 		}
 
 	}
 
-	public String makeOperation() {
-		List<String> listOfStringParams = new ArrayList<>();
+	public Operation<?> makeOperation() {
+		List<Object> listOfStringParams = new ArrayList<>();
 
 		for (OperationNameTreeItem op : listOfOperations) {
 
-			listOfStringParams.add((String) op.makeOperation());
-		}
-		
-		for (String param : listOfStringParams) {
-			System.out.println("Selected operation w/ param: " + selectedOperation + " " + param);
+			listOfStringParams.add(op.makeOperation());
 		}
 
-//		operationFactory.makeOperation(selectedOperation, listOfStringParams);
+		for (Object param : listOfStringParams) {
+			System.out.println("Selected operation w/ param: " + selectedOperation + " " + param.toString());
+		}
 
-		return selectedOperation;
+		System.out.println("Making Operation...");
+		return operationFactory.makeOperation(selectedOperation, listOfStringParams.toArray());
+
 	}
 
 	public int getNumberOfParameters() {
@@ -120,21 +120,26 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 
 	private TextField createDoubleTextField(TreeItem<HBox> treeItem) {
 		TextField tf = new TextField();
+		// TreeItem<HBox> tfTreeItem = new TreeItem<HBox>(new HBox(new Label("Insert
+		// Double: "), tf));
 		tf.setOnKeyReleased(e -> {
 			checkDoubleInput(tf);
+			// checkEmptyInput(tf, parameterAction, paramTV,
+			// parameterAction.getChildren().indexOf(tfTreeItem));
 		});
 
 		return tf;
-
 	}
 
 	private TextField createStringTextField(TreeItem<HBox> treeItem) {
 		TextField tf = new TextField();
-		tf.setOnKeyReleased(e -> { // do nothing
+		// TreeItem<HBox> tfTreeItem = new TreeItem<HBox>(new HBox(new Label("Insert
+		// String: "), tf));
+		tf.setOnKeyReleased(e -> { // checkEmptyInput(tf, parameterAction, paramTV,
+			// parameterAction.getChildren().indexOf(tfTreeItem));
 		});
 
 		return tf;
-
 	}
 
 	private void checkDoubleInput(TextField tf) {
@@ -145,7 +150,6 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 			showError(INVALID_INPUT_MESSAGE, DOUBLE_INPUT_MESSAGE);
 			tf.clear();
 		}
-
 	}
 
 	private void showError(String header, String content) {
@@ -154,5 +158,4 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 		alert.headerTextProperty().bind(DisplayLanguage.createStringBinding(content));
 		alert.show();
 	}
-
 }

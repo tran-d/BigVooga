@@ -14,7 +14,7 @@ public abstract class VBoxList<T> extends VBox implements VBoxListI<T> {
 
 	public VBoxList(String label, ObservableList<T> options) {
 		super();
-		this.setAlignment(Pos.CENTER);
+		setAlignment(Pos.CENTER);
 		topLabel = new Label(label);
 		getChildren().add(topLabel);
 		boxOptions = FXCollections.observableArrayList();
@@ -45,6 +45,11 @@ public abstract class VBoxList<T> extends VBox implements VBoxListI<T> {
 	@Override
 	public void addListChangeListener(ListChangeListener<T> listChangeListener) {
 		boxOptions.addListener(listChangeListener);
+	}
+	
+	@Override
+	public Label getLabel() {
+		return topLabel;
 	}
 
 }
