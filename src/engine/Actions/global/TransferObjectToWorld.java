@@ -14,8 +14,8 @@ public class TransferObjectToWorld implements Action {
 	private StringOperation worldName;
 
 	public TransferObjectToWorld(
-			@VoogaAnnotation(name = "Sprite", type = VoogaType.GAMEOBJECT) GameObjectOperation gameObject,
-			@VoogaAnnotation(name = "New World Name", type = VoogaType.WORLDNAME) StringOperation worldName) {
+			@VoogaAnnotation(name = "Object being transferred", type = VoogaType.GAMEOBJECT) GameObjectOperation gameObject,
+			@VoogaAnnotation(name = "Name of New World", type = VoogaType.WORLDNAME) StringOperation worldName) {
 		this.gameObject = gameObject;
 		this.worldName = worldName;
 	}
