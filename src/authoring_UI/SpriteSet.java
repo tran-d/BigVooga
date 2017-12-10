@@ -35,6 +35,7 @@ public abstract class SpriteSet {
 
 	protected Map<String, List<AbstractSpriteObject>> getCategoryToSprites() {
 		Map<String, List<AbstractSpriteObject>> catSpritesMap = new HashMap<String, List<AbstractSpriteObject>>();
+		System.out.println("it's null bruh " + (categoryToSprites == null));
 		categoryToSprites.forEach((key, val)->{
 			catSpritesMap.put(key,new ArrayList<AbstractSpriteObject>());
 			val.forEach((sprite)->{
@@ -101,7 +102,6 @@ public abstract class SpriteSet {
 		// setFolderToLoad();
 		// }
 		loaded = true;
-		categoryToSprites = myGDH.loadSpritesFromNestedDirectories(getFolderToLoad());
 		if (!getFolderToLoad().equals("")) {
 			categoryToSprites = myGDH.loadSpritesFromNestedDirectories(getFolderToLoad());
 			System.out.println("!!!!!!!!!!!!!!");

@@ -36,7 +36,7 @@ public class SpriteGridHandler {
 	private DraggableGrid myDG;
 
 	public SpriteGridHandler(int mapCount, DraggableGrid DG) {
-		objectFormat = new DataFormat("MyObject" + Integer.toString(mapCount));
+		objectFormat = new DataFormat("MyObject" + Integer.toString(mapCount)+Math.random());
 		myDG = DG;
 	}
 
