@@ -8,10 +8,13 @@ public class DisplayablePane implements Displayable {
 
 	private DisplayableImage paneImage;
 	private List<List<DisplayableImage>> holdableImages;
+	private int rowSpan, colSpan;
 	
-	public DisplayablePane(DisplayableImage paneImage, List<List<DisplayableImage>> holdableImages) {
+	public DisplayablePane(DisplayableImage paneImage, List<List<DisplayableImage>> holdableImages, int colSpan, int rowSpan) {
 		this.paneImage = paneImage;
 		this.holdableImages = holdableImages;
+		this.rowSpan = rowSpan;
+		this.colSpan = colSpan;
 	}
 
 	@Override
@@ -29,15 +32,14 @@ public class DisplayablePane implements Displayable {
 		Double inventoryHeight = paneImage.getHeight();
 		Double x0 = inventoryX - 0.5*inventoryWidth;
 		Double y0 = inventoryY - 0.5*inventoryHeight;
-		int rowSpan = holdableImages.size();
 		Double cellHeight = inventoryHeight / rowSpan;
-		for(int r = 0; r < rowSpan; r++) {
-			int colSpan = holdableImages.get(r).size();
-			Double cellWidth = inventoryWidth / colSpan;
-			for(int c = 0; c < colSpan; c++) {
+		Double cellWidth = inventoryWidth / colSpan;
+		for(int r = 0; r < holdableImages.size(); r++) {
+			for(int c = 0; c < holdableImages.get(r).size(); c++) {
 				DisplayableImage h = holdableImages.get(r).get(c);
-				h.setPosition(x0 + (cellWidth * c), y0 + (cellHeight * r));
-				System.out.println("Holdable Xcor: " + h.getX());
+				h.setPosition(x0 + (cellWidth * c) + (0.5 * cellWidth), y0 + (cellHeight * r) + (0.5 * cellHeight));
+				h.setSize(cellWidth, cellHeight);
+				//h.setSize(10, 10);
 				display.displayImage(h);
 			}
 		}

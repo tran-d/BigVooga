@@ -5,6 +5,7 @@ import java.util.List;
 
 import engine.operations.booleanops.BooleanOperation;
 import engine.operations.booleanops.ScreenClickHeld;
+import engine.operations.booleanops.ScreenClicked;
 import engine.sprite.BoundedImage;
 import engine.sprite.Displayable;
 import engine.sprite.DisplayableImage;
@@ -26,6 +27,8 @@ public class Inventory implements Element{
 	private GameObject holder;
 	private int rowSpan, colSpan;
 	private int startIndex;
+	
+	private Holdable selected;
 	
 	public static final int DEFAULT_ROWSPAN = 5;
 	public static final int DEFAULT_COLSPAN = 5;
@@ -72,18 +75,22 @@ public class Inventory implements Element{
 			}
 			ret.add(row);
 		}
-		return new DisplayablePane(pane, ret);
+		return new DisplayablePane(pane, ret, rowSpan, colSpan);
 	}
 
 	@Override
 	public void step(GameObjectEnvironment w) {
-		BooleanOperation screenClickHeld = new ScreenClickHeld();
-		if(screenClickHeld.evaluate(null, w) &&
+		BooleanOperation screenClicked = new ScreenClicked();
+		if(screenClicked.evaluate(null, w) &&
 			pane.checkCollision(new BoundingPoint(w.getPlayerManager().getMouseXY().getX(), w.getPlayerManager().getMouseXY().getY())) != null) {
+			int i = 0;
 			for(Holdable h : objects) {
 				if(h.getDisplayable().checkCollision(new BoundingPoint(w.getPlayerManager().getMouseXY().getX(), w.getPlayerManager().getMouseXY().getY())) != null) {
+					selected = h;
 					h.select(holder, w);
+					System.out.println("Holdable Selected: " + i);
 				}
+				i++;
 			}
 		}
 	}
@@ -94,6 +101,10 @@ public class Inventory implements Element{
 	
 	public void setStartIndex(int startIndex) {
 		this.startIndex = startIndex;
+	}
+	
+	public Holdable getSelected() {
+		return selected;
 	}
 
 }

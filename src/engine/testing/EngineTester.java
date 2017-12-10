@@ -19,10 +19,15 @@ import engine.GameWorld;
 import engine.Holdable;
 import engine.Actions.changeObject.DisplayInventory;
 import engine.Actions.movement.Move;
+import engine.Actions.movement.MoveTo;
 import engine.operations.booleanops.KeyPressed;
+import engine.operations.doubleops.Value;
+import engine.operations.gameobjectops.GameObjectOperation;
 import engine.operations.gameobjectops.Self;
 import engine.operations.stringops.SelfString;
+import engine.operations.vectorops.BasicVector;
 import engine.operations.vectorops.VectorHeadingOf;
+import engine.operations.vectorops.VectorOperation;
 import engine.sprite.AnimationSequence;
 import engine.sprite.BoundedImage;
 import engine.sprite.Sprite;
@@ -53,7 +58,7 @@ public class EngineTester extends Application {
 
 	public void generateGame() {
 		generateGame("Test1", new BoundedImage(
-				"C:\\Users\\nikbr\\Desktop\\eclipse\\My_Workspace\\voogasalad_bigvooga\\data\\UserCreatedGames\\Test1\\testImage.gif"));
+				"/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png"));
 	}
 
 	public void generateGame(String name, BoundedImage i) {
@@ -64,7 +69,7 @@ public class EngineTester extends Application {
 
 		blueprints.addBlueprint(obj1);
 		
-		BoundedImage t = new BoundedImage("C:\\Users\\nikbr\\Desktop\\eclipse\\My_Workspace\\voogasalad_bigvooga\\data\\UserCreatedGames\\Test1\\skeptical.jpg");
+		BoundedImage t = new BoundedImage("/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png");
 		List<BoundedImage>  l = new ArrayList<BoundedImage>();
 		l.add(t);
 		AnimationSequence a = new AnimationSequence("hi", l);
@@ -75,22 +80,39 @@ public class EngineTester extends Application {
 		
 		
 		
-		BoundedImage k = new BoundedImage("C:\\Users\\nikbr\\Desktop\\eclipse\\My_Workspace\\voogasalad_bigvooga\\data\\UserCreatedGames\\Test1\\pane.png");
-		k.setPosition(200, 200);
+		BoundedImage k = new BoundedImage("/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/brick.png");
+		k.setPosition(400, 200);
 		k.setSize(400, 400);
 		obj1.getInventory().setPane(k);
 		obj1.addToInventory(o);
 		
-		t = new BoundedImage("C:\\Users\\nikbr\\Desktop\\eclipse\\My_Workspace\\voogasalad_bigvooga\\data\\UserCreatedGames\\Test1\\skeptical.jpg");
-		l = new ArrayList<BoundedImage>();
-		l.add(t);
-		a = new AnimationSequence("hi", l);
-		s = new Sprite();
-		s.addAnimationSequence(a);
-		s.setAnimation("hi");
-		o = new Holdable(s);
-		
-		obj1.addToInventory(o);
+		for(int z = 0; z < 18; z++) {
+			if(z % 2 == 0) t = new BoundedImage("/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png");
+			else t = new BoundedImage("/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/ActiveTurtle.png");
+			l = new ArrayList<BoundedImage>();
+			l.add(t);
+			a = new AnimationSequence("hi", l);
+			s = new Sprite();
+			s.addAnimationSequence(a);
+			s.setAnimation("hi");
+			o = new Holdable(s);
+			GameObjectOperation self = new Self();
+			VectorOperation loc = new BasicVector(new Value(500), new Value(500));
+			Action moveTo;
+			if(z % 2 == 0) {
+				loc = new BasicVector(new Value(500), new Value(500));
+				moveTo = new MoveTo(self, loc);
+			}
+			else {
+				loc = new BasicVector(new Value(650), new Value(500));
+				moveTo = new MoveTo(self, loc);
+			}
+			List<Action> selectActions = new ArrayList<>();
+			selectActions.add(moveTo);
+			o.setSelectActions(selectActions);
+			obj1.addToInventory(o);
+		}
+			
 
 		GameLayer la = new GameLayer("Layer");
 		la.addGameObject(obj1);
