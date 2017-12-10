@@ -38,7 +38,7 @@ public class GameController {
 		stage = currentStage;
 		sceneController = currentSceneController;
 		
-		gameDataHandler = new GameDataHandler(projectName);
+		gameDataHandler = new GameDataHandler(projectName, stage);
 		playerManager = new PlayerManager(gameDataHandler);
 		gameDisplay = new GameDisplay(stage, sceneController);
 		stage.setScene(gameDisplay.getScene());

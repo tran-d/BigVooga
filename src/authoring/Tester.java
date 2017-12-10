@@ -30,7 +30,6 @@ public class Tester extends Application {
 	ArrayList<SpriteParameterI> myParams;
 	ArrayList<SpriteObjectI> mySObjects = new ArrayList<SpriteObjectI>();
 	AuthoringEnvironmentManager AEM = new AuthoringEnvironmentManager();
-	SpriteObjectGridManagerI SOGM = AEM.getGridManager();
 	
 
 	public static void main(String[] args) {

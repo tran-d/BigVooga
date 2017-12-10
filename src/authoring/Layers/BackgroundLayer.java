@@ -27,6 +27,11 @@ public class BackgroundLayer extends MapLayer {
 		if (AMSP.hasChild()){
 			AMSP.removeChild();
 		}
+		
+		this.getChildren().forEach(e -> {
+			((AuthoringMapStackPane)e).setInactiveBackground(Color.TRANSPARENT);
+		});
+		
 		AbstractSpriteObject ASO = new SpriteObject(image, path);
 		AMSP.addChild(ASO);
 		AMSP.setRowSpan(this.numRowsProperty.get());
