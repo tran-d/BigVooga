@@ -1,0 +1,29 @@
+<authoring__UI.SpriteDataConverter>
+  <catmap>
+    <entry>
+      <string>General</string>
+      <list>
+        <authoring.Sprite.Parameters.BooleanSpriteParameter>
+          <string>canFight</string>
+          <boolean>true</boolean>
+        </authoring.Sprite.Parameters.BooleanSpriteParameter>
+        <authoring.Sprite.Parameters.DoubleSpriteParameter>
+          <string>health</string>
+          <double>10.0</double>
+        </authoring.Sprite.Parameters.DoubleSpriteParameter>
+        <authoring.Sprite.Parameters.StringSpriteParameter>
+          <string>name</string>
+          <string>hello</string>
+        </authoring.Sprite.Parameters.StringSpriteParameter>
+      </list>
+    </entry>
+  </catmap>
+  <inventory/>
+  <name>brick</name>
+  <width>1</width>
+  <height>1</height>
+  <UUID>13eb5e46-7f84-4504-9cbd-97fd8315f5ec</UUID>
+  <imageURL>/brick.png</imageURL>
+  <mySavePath>data/UserCreatedGames/TestProject/Sprites/DefaultSprites/General/brick</mySavePath>
+  <spriteType>SpriteObject</spriteType>
+</authoring__UI.SpriteDataConverter>
