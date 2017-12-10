@@ -3,12 +3,13 @@ package authoring_data;
 import java.util.ArrayList;
 import java.util.List;
 
-import authoring.SpriteObject;
-import authoring.SpriteObjectGridManagerI;
-import authoring.SpriteObjectI;
-import authoring.SpriteParameterI;
+import authoring.GridManagers.SpriteObjectGridManager;
+import authoring.GridManagers.SpriteObjectGridManagerI;
+import authoring.Sprite.SpriteObject;
+import authoring.Sprite.SpriteObjectI;
+import authoring.Sprite.Parameters.SpriteParameterI;
 import authoring_UI.DraggableGrid;
-import authoring_UI.MapLayer;
+import authoring_UI.Map.MapLayer;
 import engine.GameLayer;
 import engine.GameMaster;
 import engine.GameObject;
@@ -26,9 +27,9 @@ public class SpriteObjectGridToEngineController {
 	
 	// called every time a grid is processed (new world is added to engine)
 	public void createLayerAndAddToEngine(DraggableGrid currentGrid) { //SpriteObjectGridManagerI SOGMI
-		List<MapLayer> allLayers = currentGrid.getLayers();
+		List<SpriteObjectGridManager> allLayers = currentGrid.getGrids();
 		createWorld();
-		for (MapLayer thisLayer : allLayers) {
+		for (SpriteObjectGridManager thisLayer : allLayers) {
 			createEngineLayerAndAddToWorld(thisLayer);
 		}
 		addWorldToEngine(currentWorld);
@@ -38,9 +39,8 @@ public class SpriteObjectGridToEngineController {
 		currentWorld = new GameWorld(); 
 	}
 
-	private void createEngineLayerAndAddToWorld(MapLayer thisLayer) {
-		SpriteObjectGridManagerI SOGMI = thisLayer.getSpriteManager();
-		List<GameObject> GO_LIST = convertSpriteObjectGridToListOfGameObjects(SOGMI);
+	private void createEngineLayerAndAddToWorld(SpriteObjectGridManager thisLayer) {
+		List<GameObject> GO_LIST = convertSpriteObjectGridToListOfGameObjects(thisLayer);
 		GameLayer engineLayer = createLayer(GO_LIST);
 		addLayerToWorld(engineLayer);
 	}
@@ -72,15 +72,15 @@ public class SpriteObjectGridToEngineController {
 		GO.setCoords(SOI.getXCenterCoordinate(), SOI.getYCenterCoordinate());
 	}
 
-	private void addParametersToGameObject(SpriteObjectI SOI, GameObject GE) {
-		for (ArrayList<SpriteParameterI> SPI_LIST: SOI.getParameters().values()){
+	private void addParametersToGameObject(SpriteObject sOI, GameObject GE) {
+		for (List<SpriteParameterI> SPI_LIST: sOI.getParameters().values()){
 			for (SpriteParameterI SPI: SPI_LIST){
 				GE.addParameter(SPI.getName(), SPI.getValue());
 			}
 		}
 	}
 	
-	private void addConditionsAndActionsToGameObject(SpriteObjectI SOI, GameObject GE){
+	private void addConditionsAndActionsToGameObject(SpriteObject sOI, GameObject GE){
 		// TODO 
 		
 	}

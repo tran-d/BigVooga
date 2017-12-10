@@ -3,29 +3,18 @@ package authoring.GridManagers;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import authoring.GridManagers.*;
-import authoring.Sprite.*;
-import authoring.Sprite.Parameters.*;
-import authoring.Sprite.AnimationSequences.*;
-import authoring.Sprite.UtilityTab.*;
-import authoring.Sprite.InventoryTab.*;
-import authoring.SpriteManagers.*;
-import authoring.SpritePanels.*;
-import authoring.util.*;
-import authoring_UI.Map.*;
-import authoring_UI.*;
-import authoring.*;
-import authoring_UI.Inventory.*;
+import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.SpriteObject;
+import authoring_UI.SpriteGridHandler;
+import authoring_UI.Map.MapLayer;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
-public abstract class SpriteObjectGridManager {
+public abstract class SpriteObjectGridManager implements SpriteObjectGridManagerI{
 	
 	protected List<List<SpriteObject>> spriteGrid;
 	private int MAX_ROWS = 15;
