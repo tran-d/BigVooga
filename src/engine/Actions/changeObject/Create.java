@@ -8,7 +8,6 @@ import engine.operations.VoogaType;
 import engine.operations.doubleops.DoubleOperation;
 import engine.operations.stringops.StringOperation;
 import engine.operations.vectorops.VectorOperation;
-import javafx.geometry.Point2D;
 
 /**
  * 
@@ -31,8 +30,10 @@ public class Create implements Action {
 
 	@Override
 	public void execute(GameObject asking, GameObjectEnvironment world) {
-		Point2D loc = location.evaluate(asking, world);
-		world.addGameObject(name.evaluate(asking, world), loc.getX(), loc.getY(), heading.evaluate(asking, world));
+		GameObject obj = world.getGameObject(name.evaluate(asking, world));
+		obj.setLocation(location.evaluate(asking, world));
+		obj.setHeading(heading.evaluate(asking, world));
+		world.addGameObject(obj);
 	}
 
 }
