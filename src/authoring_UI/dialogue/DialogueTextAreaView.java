@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import tools.DisplayLanguage;
 
 /**
@@ -30,8 +31,12 @@ public class DialogueTextAreaView extends VBox {
 	private static final String ADD_PANEL_BUTTON_PROMPT = "AddPanel";
 	private static final String REMOVE_PANEL_BUTTON_PROMPT = "RemovePanel";
 	private static final String SAVE_BUTTON_PROMPT = "Save";
+	
+	private String currentFontType;
+	private int currentFontSize;
+	
 
-	private List<TextArea> dialogueList;
+	private List<TextArea> taList;
 	private Button nextButton;
 	private Button prevButton;
 	private Button addPanelButton;
@@ -48,7 +53,7 @@ public class DialogueTextAreaView extends VBox {
 	private Runnable r;
 
 	public DialogueTextAreaView(Runnable r) {
-		dialogueList = new ArrayList<>();
+		taList = new ArrayList<>();
 		dialoguePreview = new HBox();
 		this.addPanel();
 		this.r = r;
@@ -59,28 +64,40 @@ public class DialogueTextAreaView extends VBox {
 	}
 
 	public List<TextArea> getDialogueList() {
-		return dialogueList;
+		return taList;
+	}
+	
+	public void setFontType(String family) {
+		for (TextArea ta : taList) {
+			ta.setFont(Font.font(family));
+		}
+	}
+	
+	public void setFontSize(int size) {
+		for (TextArea ta : taList) {
+			ta.setFont(Font.font(size));
+		}
 	}
 
 	/************************ PUBLIC METHODS ***************************/
 
 	public void removePanel() {
 
-		if (!dialogueList.isEmpty()) {
+		if (!taList.isEmpty()) {
 
 			if (currentPanelIndex == 0) {
 				next();
 				if (currentPanelIndex == 0) {
 					dialoguePreview.getChildren().clear();
-					dialogueList.remove(currentPanelIndex);
+					taList.remove(currentPanelIndex);
 				} else
-					dialogueList.remove(--currentPanelIndex);
-			} else if (currentPanelIndex == dialogueList.size() - 1) {
+					taList.remove(--currentPanelIndex);
+			} else if (currentPanelIndex == taList.size() - 1) {
 				prev();
-				dialogueList.remove(currentPanelIndex + 1);
+				taList.remove(currentPanelIndex + 1);
 			} else {
 				next();
-				dialogueList.remove(--currentPanelIndex);
+				taList.remove(--currentPanelIndex);
 			}
 		}
 	}
@@ -89,32 +106,32 @@ public class DialogueTextAreaView extends VBox {
 		TextArea ta = new TextArea();
 		ta.setPrefSize(DIALOG_PROMPT_WIDTH, DIALOG_PROMPT_HEIGHT);
 		ta.setWrapText(true);
-		dialogueList.add(ta);
+		taList.add(ta);
 		
 		ta.setOnKeyTyped(e -> r.run());
 
-		setCurrentPanel(dialogueList.size() - 1);
+		setCurrentPanel(taList.size() - 1);
 	}
 
 	/************************ PRIVATE METHODS ***************************/
 
 	private void setCurrentPanel(int index) {
 		dialoguePreview.getChildren().clear();
-		dialoguePreview.getChildren().add(dialogueList.get(index));
+		dialoguePreview.getChildren().add(taList.get(index));
 		currentPanelIndex = index;
 	}
 
 	private void prev() {
 		if (currentPanelIndex > 0) {
 			dialoguePreview.getChildren().clear();
-			dialoguePreview.getChildren().add(dialogueList.get(--currentPanelIndex));
+			dialoguePreview.getChildren().add(taList.get(--currentPanelIndex));
 		}
 	}
 
 	private void next() {
-		if (currentPanelIndex < dialogueList.size() - 1) {
+		if (currentPanelIndex < taList.size() - 1) {
 			dialoguePreview.getChildren().clear();
-			dialoguePreview.getChildren().add(dialogueList.get(++currentPanelIndex));
+			dialoguePreview.getChildren().add(taList.get(++currentPanelIndex));
 		}
 	}
 
@@ -125,7 +142,7 @@ public class DialogueTextAreaView extends VBox {
 		currentPanel.textProperty().bind(new SimpleIntegerProperty(currentPanelIndex + 1).asString());
 		Label slash = new Label("/");
 		totalPanels = new Label();
-		totalPanels.textProperty().bind(new SimpleIntegerProperty(dialogueList.size()).asString());
+		totalPanels.textProperty().bind(new SimpleIntegerProperty(taList.size()).asString());
 		hb.getChildren().addAll(makeButtonPanel(), currentPanel, slash, totalPanels);
 		return hb;
 	}

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.control.TextArea;
+import javafx.scene.paint.Color;
 
 /**
  * Class holding dialogue data.
@@ -18,7 +19,7 @@ public class Dialogue {
 	private String font;
 	private List<String> textList;
 
-	public Dialogue(String name, int fontSize, String font, List<TextArea> taList) {
+	public Dialogue(String name, String font, int fontSize, Color fontColor, List<TextArea> taList) {
 		this.name = name;
 		this.fontSize = fontSize;
 		this.font = font;
@@ -36,7 +37,7 @@ public class Dialogue {
 		return fontSize;
 	}
 
-	public String getFont() {
+	public String getFontType() {
 		return font;
 	}
 

@@ -35,6 +35,6 @@ public class DialogueListView extends ListView<String> {
 	}
 	
 	private String createListCellText(Dialogue d) {
-		return "Name: " + d.getName() + " | Font: " + d.getFont() + " | Font Size: " + d.getFontSize();
+		return "Name: " + d.getName() + " | Font: " + d.getFontType() + " | Font Size: " + d.getFontSize();
 	}
 }
