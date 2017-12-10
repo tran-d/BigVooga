@@ -1,5 +1,6 @@
 package engine.testing;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,7 @@ public class TextTester extends Application {
 	}
 
 	public void start(Stage s) throws IOException {
+		GameDataHandler.chooseFileForImageSave(s);
 		generateGame(s, "Text test");
 	}
 
@@ -52,7 +54,9 @@ public class TextTester extends Application {
 		text.setSize(300, 100);
 
 		GameDataHandler gdh = new GameDataHandler(name, stage);
-		GameObject object = makeObject("Box", new BoundedImage(gdh.addChosenFileToProject(stage).getName()),
+		File f = gdh.chooseFile(stage);
+		gdh.addFileToProject(f);
+		GameObject object = makeObject("Box", new BoundedImage(f.getName()),
 				100, 100, this::condAct);
 
 		//object.addTag("Player");

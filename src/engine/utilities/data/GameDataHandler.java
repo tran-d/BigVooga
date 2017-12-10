@@ -236,22 +236,6 @@ public class GameDataHandler {
 		cache.put(fileName, i);
 		return i;
 	}
-	
-	public Stage getStage(){
-		return myStage;
-	}
-
-	/**
-	 * @param stage
-	 *            To present the dialog
-	 * @return The chosen File that was added to the project
-	 * @throws IOException
-	 */
-	public File addChosenFileToProject(Stage stage) throws IOException {
-		File file = chooseFile(stage);
-		addFileToProject(file);
-		return file;
-	}
 
 	/**
 	 * @param file
@@ -268,12 +252,6 @@ public class GameDataHandler {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle(SELECTOR_TITLE);
 		return fileChooser.showOpenDialog(stage);
-	}
-
-	private void makeProjectDirectory() {
-		if (!directoryExists(projectPath)) {
-			makeDirectory(projectPath);
-		}
 	}
 	
 	public static Image chooseImage(Window window){
@@ -296,13 +274,7 @@ public class GameDataHandler {
 		fileChooser.setTitle(SELECTOR_TITLE);
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Image Files (.png)", "*.png"));
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Image Files (.gif)", "*.gif"));
-//		File f = new File("/");
-//		Path p = Paths.get(f.getName());
-//		System.out.println("p: "+p);
-		System.out.println("Respath: "+RESOURCES_PATH);
 		File newFile = fileChooser.showOpenDialog(window);
-//		File newFile = fileChooser.showSaveDialog(window);
-//		fileChooser.
 		
 		try {
 			addImageFileToResources(newFile);
