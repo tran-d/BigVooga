@@ -51,8 +51,7 @@ public class ApplyButtonController implements ApplyButtonControllerI {
 		for(List<String> labels : actions) {
 //			System.out.println("rowAct " + rowAct);
 //			System.out.println("Label " + labels);
-			ActionRow actionRow = new ActionRow(rowAct,labels.get(LABEL_INDEX),labels.get(SELECTOR_LABEL_INDEX),
-					labels.get(SELECTOR_VALUE_INDEX),actionVBox);
+			ActionRow actionRow = new ActionRow(rowAct, actionVBox);
 			actionRows.add(actionRow);
 			rowAct++;
 		}
