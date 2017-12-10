@@ -15,7 +15,7 @@ public interface GameObjectEnvironment {
 	public void addGameObject(GameObject obj);
 	public GameObject getGameObject(String name);
 	public void addElement(Element e);
-	public void transfer(GameObject gameObject, String newWorld);
+	public void transfer(GameObject gameObject, String newWorld, String string);
 	public void save(DoubleOperation currentPoints);
 	
 }
