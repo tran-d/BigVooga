@@ -158,6 +158,10 @@ public abstract class MapLayer extends GridPane {
 	}
 	
 	public void setBackgroundImage(String imagePath){
+		setBackgroundImage(new Image(imagePath), imagePath);
+	}
+	
+	public void setBackgroundImage(Image image, String imagePath){
 		// NOTHING ON DEFAULT	
 	}
 

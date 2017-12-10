@@ -2,6 +2,8 @@ package authoring.Sprite;
 
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.lang.annotation.ElementType;
@@ -132,6 +134,12 @@ public abstract class AbstractSpriteObject extends ImageView {
 		setupImageURLAndView(fileURL);
 //		myName = fileURL.split("\\.")[0];
 	}
+	
+	public AbstractSpriteObject(Image image, String path) {
+		this();
+		setupImageURLAndView(image, path);
+//		myName = fileURL.split("\\.")[0];
+	}
 
 	AbstractSpriteObject(HashMap<String, List<SpriteParameterI>> inCategoryMap) {
 		this();
@@ -192,10 +200,22 @@ public abstract class AbstractSpriteObject extends ImageView {
 	}
 
 	protected void setupImageURLAndView(String fileURL) {
-		myImageURL = fileURL;
-		this.setImage(new Image(fileURL));
-//		this.setFitWidth(45);
-//		this.setFitHeight(45);
+		FileInputStream fis;
+		Image im;
+		try {
+			fis = new FileInputStream(new File(fileURL));
+			im = new Image(fis);
+		} catch (FileNotFoundException e) {
+			im = new Image(fileURL);
+		}
+		setupImageURLAndView(im, fileURL);
+	}
+	
+	public void setupImageURLAndView(Image image, String path) {
+		myImageURL = path;
+		this.setImage(image);
+		this.setFitWidth(45);
+		this.setFitHeight(45);
 	}
 
 	private void initializeHeightWidthProperties() {
@@ -204,9 +224,11 @@ public abstract class AbstractSpriteObject extends ImageView {
 		height = new SimpleObjectProperty<Integer>();
 		initializeHeightFunction();
 		if (this.getNumCellsHeight()==null ){
+			this.myNumCellsHeight = 1;
 			this.height.set(1);
 		}
 		if (this.getNumCellsWidth()== null){
+			this.myNumCellsWidth = 1;
 			this.width.set(1);
 		}
 	}

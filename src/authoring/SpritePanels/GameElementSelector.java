@@ -315,7 +315,7 @@ public class GameElementSelector extends TabPane implements Observer {
 				sp.setBorder(new Border(border));
 				if (counter<sprites.size()) {
 					AbstractSpriteObject toPopulate = sprites.get(counter);
-					System.out.println("Adding " + toPopulate);
+					System.out.println("Adding " + toPopulate.getImageURL());
 					this.mySpriteGridHandler.addSpriteDrag(toPopulate);
 					this.mySpriteGridHandler.addSpriteMouseClick(toPopulate);
 //					this.mySpriteGridHandler.add

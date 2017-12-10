@@ -71,6 +71,7 @@ public class GameDataHandler {
 	private Map<String, Image> cache = new HashMap<>();
 	private String projectPath;
 	private String projectName;
+	private Stage myStage;
 
 	private static XStream setupXStream() {
 		XStream xstream = new XStream(new DomDriver());
@@ -82,11 +83,12 @@ public class GameDataHandler {
 		return xstream;
 	}
 	
-	public GameDataHandler() {
-		this("Test Project");
+	public GameDataHandler(Stage stage) {
+		this("Test Project", stage);
 	}
 	
-	public GameDataHandler(String projectName) {
+	public GameDataHandler(String projectName, Stage stage) {
+		myStage = stage;
 		RESOURCES_PATH = Paths.get(RESOURCES).toAbsolutePath();
 		this.projectName = projectName;
 		this.projectPath = PATH + projectName + "/";
@@ -191,6 +193,10 @@ public class GameDataHandler {
 		cache.put(fileName, i);
 		return i;
 	}
+	
+	public Stage getStage(){
+		return myStage;
+	}
 
 	/**
 	 * @param stage
@@ -226,6 +232,17 @@ public class GameDataHandler {
 			makeDirectory(projectPath);
 		}
 	}
+	
+	public static Image chooseImage(Window window){
+		File f = chooseFileForImageSave(window);
+		FileInputStream fis;
+		try {
+			fis = new FileInputStream(f);
+			return new Image(fis);
+		} catch (FileNotFoundException e) {
+			return new Image("pikachu.png");
+		}
+	}
 
 	/**
 	 * @param stage
@@ -236,6 +253,7 @@ public class GameDataHandler {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle(SELECTOR_TITLE);
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Image Files (.png)", "*.png"));
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Image Files (.gif)", "*.gif"));
 //		File f = new File("/");
 //		Path p = Paths.get(f.getName());
 //		System.out.println("p: "+p);

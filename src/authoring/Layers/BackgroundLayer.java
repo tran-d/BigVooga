@@ -24,21 +24,28 @@ public class BackgroundLayer extends MapLayer {
 
 	BackgroundLayer(int rows, int columns, int layerNum, SpriteGridHandler SGH, Color c) {
 		super(rows, columns, layerNum, SGH, c);
+		this.gridLinesVisibleProperty().set(false);
 //		setDefaultColor(Color.YELLOW);
 		setName("Background");
 	}
 	
 	@Override 
-	public void setBackgroundImage(String imagePath){
+	public void setBackgroundImage(Image image, String path){
 		AuthoringMapStackPane AMSP = this.getChildAtPosition(0, 0);
-		AbstractSpriteObject ASO = new SpriteObject(imagePath);
+		if (AMSP.hasChild()){
+			AMSP.removeChild();
+		}
+		AbstractSpriteObject ASO = new SpriteObject(image, path);
 		AMSP.addChild(ASO);
 		AMSP.setRowSpan(this.numRowsProperty.get());
 		AMSP.setColSpan(this.numColumnsProperty.get());
 		numColumnsProperty.addListener((observable, oldNumColumns, newNumColumns)->{
+			AMSP.setColSpan(newNumColumns);
+		});
+		numRowsProperty.addListener((observable, oldNumColumns, newNumColumns)->{
 			AMSP.setRowSpan(newNumColumns);
 		});
-	
+	}
 	
 	
 

@@ -326,7 +326,10 @@ public class AuthoringMapStackPane extends StackPane {
 	}
 
 	public boolean checkCanAcceptChild(AbstractSpriteObject ASO) {
-	
+	System.out.println("RowIndex: "+getRowIndex());
+	System.out.println("ColIndex: "+getColIndex());
+	System.out.println("CellHeight: "+ASO.getNumCellsHeight());
+	System.out.println("CellWidth: "+ASO.getNumCellsWidth());
 		return checkChangeSizeIsValid(ASO, getRowIndex(), getRowIndex() + ASO.getNumCellsHeight() - 1, getColIndex(),
 				getColIndex() + ASO.getNumCellsWidth() - 1);
 	}

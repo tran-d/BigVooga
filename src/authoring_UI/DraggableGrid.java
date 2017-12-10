@@ -1,5 +1,7 @@
 package authoring_UI;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -15,6 +17,7 @@ import authoring.SpriteManagers.*;
 import authoring.SpritePanels.*;
 import authoring.util.*;
 import authoring_UI.Map.*;
+import engine.utilities.data.GameDataHandler;
 import authoring_UI.*;
 import authoring.*;
 import authoring_UI.Inventory.*;
@@ -23,6 +26,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
@@ -196,11 +202,34 @@ public class DraggableGrid extends VBox {
 		});
 		hbox.getChildren().addAll(label, checkbox);
 		if (ML.canFillBackground()){
+			//ColorPicker
 			ColorPicker cp = new ColorPicker(Color.SANDYBROWN);
 			cp.setOnAction((event)->{
 				ML.setColor(cp.getValue());
 			});
-			hbox.getChildren().add(cp);
+			
+			//Choose Image
+			
+			Button button = new Button("Set Background Image");
+			button.setOnAction((event)->{
+				Node parent = ML.getMapLayer().getParent();
+				Scene s = parent.getScene();
+				while (s == null) {
+					parent = parent.getParent();
+					s = parent.getScene();
+				}
+				File f = GameDataHandler.chooseFileForImageSave(s.getWindow());
+				FileInputStream fis;
+				try{
+				fis = new FileInputStream(f);
+				ML.getMapLayer().setBackgroundImage(new Image(fis), f.getName());
+				} catch (Exception e){
+					// Dont change background 
+				}
+				
+			});
+	
+			hbox.getChildren().addAll(cp, button);
 		}
 		
 		addLayerButton(hbox);

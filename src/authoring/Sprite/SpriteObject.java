@@ -10,6 +10,7 @@ import authoring.SpriteManagers.*;
 import authoring.SpritePanels.*;
 import authoring.util.*;
 import authoring_UI.Map.*;
+import javafx.scene.image.Image;
 import authoring_UI.*;
 import authoring.*;
 import authoring_UI.Inventory.*;
@@ -37,6 +38,10 @@ public class SpriteObject extends AbstractSpriteObject{
 	
 	public SpriteObject(String fileURL){
 		super(fileURL);
+	}
+	
+	public SpriteObject(Image image, String fileURL){
+		super(image, fileURL);
 	}
 
 	
