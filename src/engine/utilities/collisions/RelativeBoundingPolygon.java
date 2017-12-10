@@ -3,7 +3,6 @@ package engine.utilities.collisions;
 import java.util.ArrayList;
 import java.util.List;
 
-import engine.sprite.BoundedImage;
 import engine.sprite.Positionable;
 import javafx.geometry.Point2D;
 
@@ -38,12 +37,16 @@ public class RelativeBoundingPolygon {
 	}
 
 	public BoundingPolygon getBoundingGeometry(Positionable position) {
-		return (BoundingPolygon) geometry.getScaled(position.getWidth(), position.getHeight())
-										 .getRotated(position.getHeading())
-										 .getTranslated(position.getX(), position.getY());
+		return getBoundingGeometry(position.getX(), position.getY(), position.getWidth(), position.getHeight(),
+				position.getHeading());
+	}
+
+	public BoundingPolygon getBoundingGeometry(double x, double y, double width, double height, double heading) {
+		return (BoundingPolygon) geometry.getScaled(width, height).getRotated(heading).getTranslated(x, y);
 	}
 
 	public String toString() {
 		return geometry.toString();
 	}
+
 }
