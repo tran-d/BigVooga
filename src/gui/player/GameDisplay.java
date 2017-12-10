@@ -11,7 +11,6 @@ import engine.sprite.DisplayableText;
 import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.scene.Group;
-import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -46,7 +45,6 @@ public class GameDisplay {
 	private SceneController sceneController;
 	private PlayerManager playerManager;
 	private GameDataHandler gameDataHandler;
-	private ParallelCamera camera;
 
 	/**
 	 * Primarily sets up the stage, root pane, and scene for the GameDisplay view.
@@ -64,8 +62,6 @@ public class GameDisplay {
 		rootPane.setBackground(new Background(new BackgroundFill[] { new BackgroundFill(Color.WHITE, null, null) }));
 		sceneController = currentSceneController;
 		scene = new Scene(rootPane, WelcomeScreen.WIDTH, WelcomeScreen.HEIGHT);
-		camera = new ParallelCamera();
-		scene.setCamera(camera);
 	}
 
 	/**
@@ -77,7 +73,6 @@ public class GameDisplay {
 		scene.setOnMousePressed(e -> playerManager.setPrimaryButtonDown(e.getX(), e.getY()));
 		scene.setOnMouseReleased(e -> playerManager.setPrimaryButtonUp(e.getX(), e.getY()));
 		scene.setOnMouseMoved(e -> playerManager.setMouseXY(e.getX(), e.getY()));
-		scene.setCamera(camera);
 
 		createBack();
 	}
@@ -134,7 +129,6 @@ public class GameDisplay {
 		for (Displayable d : images) {
 			d.visit(this);
 		}
-		camera.relocate(cameraXTranslate, cameraYTranslate);
 	}
 
 	public void displayImage(DisplayableImage image) {

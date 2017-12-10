@@ -22,13 +22,17 @@ public class AuthoringEnvironmentManager {
 	private SpriteSet myDefaultSprites;
 	private SpriteSet myCustomSprites;
 	private SpriteSet myInventorySprites;
+	private SpriteSet myImportedSprites;
+	private SpriteSet myImportedInventorySprites;
 
 	public AuthoringEnvironmentManager(GameDataHandler GDH, Stage stage) {
 		myGDH = GDH;
 		initializeDefaultSprites();
 		initializeCustomSprites();
 		initializeInventorySprites();
+		initializeImportedSprites();
 
+		initializeImportedInventorySprites();
 		defaultEmptySprite = new DefaultSpriteObject();
 		
 		System.out.println("init MAPMAN in AEM");
@@ -38,6 +42,14 @@ public class AuthoringEnvironmentManager {
 
 	private void initializeDefaultSprites() {
 		myDefaultSprites = new SpriteSetDefault(myGDH);
+	}
+	
+	private void initializeImportedSprites() {
+		myImportedSprites = new SpriteSetImported(myGDH);
+	}
+	
+	private void initializeImportedInventorySprites() {
+		myImportedInventorySprites = new SpriteSetImportedInventory(myGDH);
 	}
 
 	private void initializeCustomSprites() {
@@ -55,6 +67,14 @@ public class AuthoringEnvironmentManager {
 	public SpriteSet getCustomSpriteController() {
 		return myCustomSprites;
 	}
+	
+	public SpriteSet getImportedSpriteController() {
+		return myImportedSprites;
+	}
+	
+	public SpriteSet getImportedInventorySpriteController() {
+		return myImportedInventorySprites;
+	}
 
 
 	public SpriteSet getInventoryController() {
@@ -66,6 +86,8 @@ public class AuthoringEnvironmentManager {
 		ret.put("DefaultSprites", this.getDefaultGameSprites());
 		ret.put("CustomSprites", this.getUserDefinedSprites());
 		ret.put("InventorySprites", this.getInventorySprites());
+		ret.put("ImportedSprites", this.getImportedSprites());
+		ret.put("ImportedInventorySprites", this.getImportedInventorySprites());
 		return ret;
 	}
 
@@ -75,6 +97,8 @@ public class AuthoringEnvironmentManager {
 		ret.put("DefaultSprites", this.getDefaultGameSpritesAsThumbnail());
 		ret.put("CustomSprites", this.getUserDefinedSpritesAsThumbnail());
 		ret.put("InventorySprites", this.getInventorySpritesAsThumbnail());
+		ret.put("ImportedSprites", this.getImportedSpritesAsThumbnail());
+		ret.put("ImportedInventorySprites", this.getImportedInventorySpritesAsThumbnail());
 		return ret;
 	}
 
@@ -85,6 +109,14 @@ public class AuthoringEnvironmentManager {
 
 	private List<Pane> getUserDefinedSpritesAsThumbnail() {
 		return myCustomSprites.getAllSpritesAsThumbnails();
+	}
+	
+	private List<Pane> getImportedSpritesAsThumbnail() {
+		return myImportedSprites.getAllSpritesAsThumbnails();
+	}
+	
+	private List<Pane> getImportedInventorySpritesAsThumbnail() {
+		return myImportedInventorySprites.getAllSpritesAsThumbnails();
 	}
 
 	private List<Pane> getInventorySpritesAsThumbnail() {
@@ -153,6 +185,16 @@ public class AuthoringEnvironmentManager {
 				e.printStackTrace();
 			}
 		});
+	}
+	
+	public List<AbstractSpriteObject> getImportedSprites() {
+		return myImportedSprites.getAllSprites();
+
+	}
+	
+	public List<AbstractSpriteObject> getImportedInventorySprites() {
+		return myImportedInventorySprites.getAllSprites();
+
 	}
 
 	public AbstractSpriteObject getDefaultEmptySprite() {

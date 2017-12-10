@@ -14,7 +14,7 @@ public class SpriteSelectPanel extends VBox {
 //	private SpriteManager mySM;
 	private SpriteGridHandler mySGH;
 
-	SpriteSelectPanel(String name, SpriteGridHandler SGH){
+	public SpriteSelectPanel(String name, SpriteGridHandler SGH){
 		super();
 		myName = name;
 //		mySM = SM;

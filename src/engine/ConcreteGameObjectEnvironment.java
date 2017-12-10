@@ -3,6 +3,7 @@ package engine;
 import java.util.List;
 
 import controller.player.PlayerManager;
+import engine.operations.doubleops.DoubleOperation;
 
 public class ConcreteGameObjectEnvironment implements GameObjectEnvironment {
 
@@ -28,18 +29,8 @@ public class ConcreteGameObjectEnvironment implements GameObjectEnvironment {
 	}
 
 	@Override
-	public void addGameObject(String name, double x, double y, double heading) {
-		GameObject obj = master.getBlueprints().getInstanceOf(name);
-		obj.setCoords(x, y);
-		obj.setHeading(heading);
+	public void addGameObject(GameObject obj) {
 		layer.addGameObject(obj);
-	}
-	
-	@Override
-	public void addGameObjects(List<GameObject> objects) {
-		for(GameObject obj : objects) {
-			layer.addGameObject(obj);
-		}
 	}
 
 	@Override
@@ -71,6 +62,16 @@ public class ConcreteGameObjectEnvironment implements GameObjectEnvironment {
 	@Override
 	public void addElement(Element e) {
 		layer.addElement(e);
+	}
+
+	@Override
+	public GameObject getGameObject(String name) {
+		return master.getBlueprints().getInstanceOf(name);
+	}
+
+	@Override
+	public void save(DoubleOperation currentPoints) {
+		master.save();
 	}
 
 }

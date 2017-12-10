@@ -4,6 +4,8 @@ import java.util.List;
 
 import engine.GameObject;
 import engine.GameObjectEnvironment;
+import engine.operations.VoogaAnnotation;
+import engine.operations.VoogaType;
 import engine.operations.doubleops.Magnitude;
 import engine.operations.stringops.StringOperation;
 import engine.operations.vectorops.LocationOf;
@@ -13,7 +15,7 @@ public class Farthest implements GameObjectOperation{
 
 	private StringOperation tag;
 	
-	public Farthest(StringOperation tag) {
+	public Farthest(@VoogaAnnotation(name = "Tag", type = VoogaType.TAG) StringOperation tag) {
 		this.tag = tag;
 	}
 	

@@ -2,6 +2,8 @@ package engine.operations.vectorops;
 
 import engine.GameObject;
 import engine.GameObjectEnvironment;
+import engine.operations.VoogaAnnotation;
+import engine.operations.VoogaType;
 import javafx.geometry.Point2D;
 
 /**
@@ -12,7 +14,8 @@ public class VectorDifference implements VectorOperation {
 	private VectorOperation first;
 	private VectorOperation second;
 
-	public VectorDifference(VectorOperation vector, VectorOperation toSubtract) {
+	public VectorDifference(@VoogaAnnotation(name = "First Vector", type = VoogaType.VECTOR) VectorOperation vector,
+			@VoogaAnnotation(name = "Second Vector", type = VoogaType.VECTOR) VectorOperation toSubtract) {
 		this.first = vector;
 		this.second = toSubtract;
 	}

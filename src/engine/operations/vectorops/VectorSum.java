@@ -2,6 +2,8 @@ package engine.operations.vectorops;
 
 import engine.GameObject;
 import engine.GameObjectEnvironment;
+import engine.operations.VoogaAnnotation;
+import engine.operations.VoogaType;
 import javafx.geometry.Point2D;
 
 /**
@@ -12,7 +14,8 @@ public class VectorSum implements VectorOperation {
 	private VectorOperation first;
 	private VectorOperation second;
 
-	public VectorSum(VectorOperation first, VectorOperation second) {
+	public VectorSum(@VoogaAnnotation(name = "First Vector", type = VoogaType.VECTOR) VectorOperation first,
+			@VoogaAnnotation(name = "Second Vector", type = VoogaType.VECTOR) VectorOperation second) {
 		this.first = first;
 		this.second = second;
 	}

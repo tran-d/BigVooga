@@ -9,8 +9,11 @@ import authoring.AbstractSpriteObject;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -113,7 +116,16 @@ public abstract class MapLayer extends GridPane {
 		this.setNumRows(rows);
 		this.setNumCols(columns);
 //		setup();
-
+		
+//		this.setMouseTransparent(true);
+//		this.setPickOnBounds(false);
+//		this.setOnMouseDragged(e->{
+//			AuthoringMapStackPane n = (AuthoringMapStackPane) e.getSource();
+//			n.switchActive();
+////			Event.fireEvent(n, new MouseEvent(MouseEvent.MOUSE_DRAGGED, 0,
+////	                0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+////	                true, true, true, true, true, true, null));
+//		});
 	}
 	
 	public void setSpriteGridHandler(SpriteGridHandler SGH){
@@ -163,7 +175,7 @@ public abstract class MapLayer extends GridPane {
 		ObservableList<Node> childrens = this.getChildren();
 
 	    for (Node node : childrens) {
-	    	System.out.println("rowIndex: "+this.getRowIndex(node)+", columnIndex: "+this.getColumnIndex(node));
+//	    	System.out.println("rowIndex: "+this.getRowIndex(node)+", columnIndex: "+this.getColumnIndex(node));
 	        if(this.getRowIndex(node) == row && this.getColumnIndex(node) == col) {
 	            result = (AuthoringMapStackPane) node;
 	            break;

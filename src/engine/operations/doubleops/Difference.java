@@ -2,6 +2,8 @@ package engine.operations.doubleops;
 
 import engine.GameObject;
 import engine.GameObjectEnvironment;
+import engine.operations.VoogaAnnotation;
+import engine.operations.VoogaType;
 
 /**
  * @author Ian Eldridge-Allegra
@@ -11,7 +13,8 @@ public class Difference implements DoubleOperation {
 	private DoubleOperation number;
 	private DoubleOperation toSubtract;
 
-	public Difference(DoubleOperation number, DoubleOperation toSubtract) {
+	public Difference(@VoogaAnnotation(name = "First", type = VoogaType.DOUBLE) DoubleOperation number,
+			@VoogaAnnotation(name = "Second", type = VoogaType.DOUBLE) DoubleOperation toSubtract) {
 		this.number = number;
 		this.toSubtract = toSubtract;
 	}
