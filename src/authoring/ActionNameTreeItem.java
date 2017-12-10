@@ -4,41 +4,58 @@ import java.util.ArrayList;
 import java.util.List;
 
 import authoring_actionconditions.OperationNameTreeItem;
+import engine.Action;
 import engine.Actions.ActionFactory;
+import engine.operations.Operation;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 import tools.DisplayLanguage;
 
 public class ActionNameTreeItem extends TreeItem<HBox> {
 
+	private static String EMPTY_CHOICEBOX = "EmptyChoiceBox";
+	private static final String INVALID_INPUT_MESSAGE = "InvalidInput";
+	private static final String INPUT_A_DOUBLE = "InputInteger";
+
 	private ActionFactory actionFactory = new ActionFactory();
-	private List<String> actionParameterTypes;
-	private List<OperationNameTreeItem> opItemList = new ArrayList<>();
+	private List<OperationNameTreeItem> opNameTreeItemList;
+	private List<Operation<?>> operationList = new ArrayList<>();
+	private String selectedAction;
+	private Action action;
+
+	// private OperationNameTreeItem operationNameTreeItem1;
+	// private OperationNameTreeItem operationNameTreeItem2;
 
 	public ActionNameTreeItem(String actionCategory) {
 		this.makeActionTreeItem(actionCategory);
 	}
 
-	public void extract() {
-//		try {
-//			for (String s : actionParameterTypes) {
-//				System.out.println(s);
-//			}
-//
-//			for (OperationNameTreeItem opItem : opItemList)
-//				System.out.println("selected op: " + opItem.getSelectedOperation());
-//
-//		} catch (Exception e) {
-//			showError(e.getMessage(), "blah");
-//		}
+	public Action extract() {
+
+		try {
+			for (OperationNameTreeItem opItem : opNameTreeItemList) {
+
+				operationList.add((Operation<?>) opItem.makeOperation());
+
+			}
+			System.out.println("Making action...");
+			action = actionFactory.makeAction(selectedAction, operationList.toArray());
+			System.out.println(action);
+			return action;
+		} catch (NullPointerException e) {
+			showError(INVALID_INPUT_MESSAGE, EMPTY_CHOICEBOX);
+		} catch (NumberFormatException e) {
+			showError(INVALID_INPUT_MESSAGE, INPUT_A_DOUBLE);
+		}
+		return null;
 	}
 
 	private TreeItem<HBox> makeActionTreeItem(String actionCategory) {
@@ -62,8 +79,8 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 				// System.out.println(actions.get(newValue.intValue()));
 				// getItems().add(makeParameterChoiceBox(actions.get(newValue.intValue())));
 				actionTreeItem.getChildren().clear();
-				actionTreeItem.getChildren()
-						.add(makeActionParameterTreeItem(actions.get(cb.getSelectionModel().getSelectedIndex())));
+				selectedAction = actions.get(cb.getSelectionModel().getSelectedIndex());
+				actionTreeItem.getChildren().add(makeActionParameterTreeItem(selectedAction));
 			}
 		});
 		return cb;
@@ -80,19 +97,18 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 	}
 
 	private void makeActionParameterChildren(String action, TreeItem<HBox> parameterAction, HBox hb) {
-		ObservableList<String> parameters = FXCollections.observableList(actionFactory.getParameters(action));
-		actionParameterTypes = parameters;
-		System.out.println("Params: " + parameters);
+		ObservableList<String> actionParameterTypes = FXCollections.observableList(actionFactory.getParameters(action));
+		System.out.println("Params: " + actionParameterTypes);
+		opNameTreeItemList = new ArrayList<>();
 
 		hb.getChildren().add(new Label("[ "));
 
-		for (String param : parameters) {
+		for (String param : actionParameterTypes) {
 			hb.getChildren().add(new Label(param + " "));
 
-			OperationNameTreeItem opItem = new OperationNameTreeItem(param);
-			opItemList.add(opItem);
-
-			parameterAction.getChildren().add(opItem);
+			OperationNameTreeItem opNameTreeItem = new OperationNameTreeItem(param);
+			opNameTreeItemList.add(opNameTreeItem);
+			parameterAction.getChildren().add(opNameTreeItem);
 
 		}
 

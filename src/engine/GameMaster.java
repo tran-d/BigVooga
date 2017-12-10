@@ -26,12 +26,10 @@ public class GameMaster implements EngineController{
 	private PlayerManager playerManager;
 	
 	private GameObjectFactory blueprintManager;
+	private String nextWorld;
 	
 	public GameMaster() {
-		// TODO Auto-generated constructor stub
 		madeWorlds = new ArrayList<>();
-		
-		
 		globalVars = new GlobalVariables();
 	}
 	
@@ -58,8 +56,6 @@ public class GameMaster implements EngineController{
 
 	@Override
 	public void addWorld(GameWorld w) {
-		// TODO Auto-generated method stub
-		w.addGlobalVars(globalVars);
 		madeWorlds.add(w);
 	}
 	
@@ -68,22 +64,22 @@ public class GameMaster implements EngineController{
 	 * @param {String} s- Name of the world being set as current.
 	 */
 	@Override
-	public void setCurrentWorld(String s) {
-		// TODO Auto-generated method stub
-		for(GameWorld w : madeWorlds) {
-			if(w.isNamed(s)) {
-				currentWorld = w;
-				return;
-			}
-		}
-		
-		//If there is no named world, that's an error.
-		System.out.println("Error Placeholder");
+	public void setNextWorld(String s) {
+		nextWorld = s;
 	}
 	
 	private void step() {
-		currentWorld = currentWorld.getNextWorld();
-		currentWorld.step();
+		if(nextWorld != null) {
+			for(GameWorld world : madeWorlds) {
+				if(world.isNamed(nextWorld))
+					currentWorld = world;
+			}
+		}
+		if(currentWorld == null)
+			currentWorld = madeWorlds.get(0);
+		ConcreteGameObjectEnvironment environment = new ConcreteGameObjectEnvironment();
+		environment.setGameMaster(this);
+		currentWorld.step(environment);
 		imageUpdate();
 		playerManager.step();
 	}
@@ -91,9 +87,10 @@ public class GameMaster implements EngineController{
 	@Override
 	public void setPlayerManager(PlayerManager currentPlayerManager) {
 		playerManager = currentPlayerManager;
-		for(GameWorld w : madeWorlds) {
-			w.setPlayerManager(playerManager);
-		}
+	}
+	
+	public PlayerManager getPlayerManager() {
+		return playerManager;
 	}
 	
 	
@@ -107,9 +104,9 @@ public class GameMaster implements EngineController{
 		List<Displayable> imageData = new ArrayList<>();
 		for(Element e: currentWorld.getAllElements()){
 			imageData.add(e.getDisplayable());
-			if(e instanceof GameObject && ((GameObject)e).getTags().contains("Player")) {		//TODO: make constant
-				cameraXTranslate = ((GameObject)e).getDouble(GameObject.X_COR);
-				cameraYTranslate = ((GameObject)e).getDouble(GameObject.Y_COR);
+			if(e instanceof GameObject && ((GameObject)e).is("Player")) {		//TODO: make constant
+				cameraXTranslate = ((GameObject)e).getX();
+				cameraYTranslate = ((GameObject)e).getY();
 			}
 		}
 		Collections.sort(imageData, (i1, i2)->i1.getDrawingPriority()-i2.getDrawingPriority());
@@ -118,7 +115,16 @@ public class GameMaster implements EngineController{
 
 	@Override
 	public void addBlueprints(GameObjectFactory f) {
-		// TODO Auto-generated method stub
 		blueprintManager = f;
+	}
+
+	public GameObjectFactory getBlueprints() {
+		return blueprintManager;
+	}
+
+
+	public GameWorld getWorldWithName(String newWorld) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

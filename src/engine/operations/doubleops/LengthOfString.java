@@ -1,7 +1,9 @@
 package engine.operations.doubleops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
+import engine.operations.VoogaAnnotation;
+import engine.operations.VoogaType;
 import engine.operations.stringops.StringOperation;
 
 /**
@@ -12,12 +14,12 @@ public class LengthOfString implements DoubleOperation{
 	
 	private StringOperation string;
 
-	public LengthOfString(StringOperation string) {
+	public LengthOfString(@VoogaAnnotation(name = "String", type = VoogaType.STRING) StringOperation string) {
 		this.string = string;
 	}
 
 	@Override
-	public Double evaluate(GameObject asking, Layer world) {
+	public Double evaluate(GameObject asking, GameObjectEnvironment world) {
 		return (double) string.evaluate(asking, world).length();
 	}
 }

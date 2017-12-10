@@ -91,9 +91,9 @@ public class ActionConditionDemo extends Application {
 		sprite.addAnimationSequence(animation);
 		sprite.setAnimation("Animation");
 
-		layer.addGameObject(obj1);
-		layer.addGameObject(obj2);
-		layer.addGameObject(obj3);
+		layer.addElement(obj1);
+		layer.addElement(obj2);
+		layer.addElement(obj3);
 		layer.setBlueprints(blueprints);
 		
 		GameWorld w = new GameWorld("World");
@@ -101,7 +101,7 @@ public class ActionConditionDemo extends Application {
 		
 		GameMaster master = new GameMaster();
 		master.addWorld(w);
-		master.setCurrentWorld("World");
+		master.setNextWorld("World");
 		try {
 			new GameDataHandler("Actions Conditions Demo").saveGame(master);
 		} catch (IOException e) {
@@ -109,7 +109,7 @@ public class ActionConditionDemo extends Application {
 		}
 		
 		try {
-			new GameDataHandler("Actions Conditions Demo").loadGame().setCurrentWorld("World");
+			new GameDataHandler("Actions Conditions Demo").loadGame().setNextWorld("World");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

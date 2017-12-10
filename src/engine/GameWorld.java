@@ -3,8 +3,6 @@ package engine;
 import java.util.ArrayList;
 import java.util.List;
 
-import controller.player.PlayerManager;
-
 /**
  * Holds Layers, which hold GameObjects. An Example of a GameWorld would be a
  * tavern room or a dark forest.
@@ -14,22 +12,16 @@ import controller.player.PlayerManager;
  */
 public class GameWorld {
 
-	private List<GameLayer> worldLayers;
-	private GameWorld nextWorld;
-
 	private final static String DEFAULT_NAME = "layer";
 
 	private String worldName;
-	private GlobalVariables globalVars;
-	// private GameObjectFactory GameObjectFactory;
-
+	private List<GameLayer> worldLayers;
+	
 	public GameWorld() {
-		// TODO Auto-generated constructor stub
 		this(DEFAULT_NAME);
 	}
 
 	public GameWorld(String name) {
-		nextWorld = this;
 		worldName = name;
 		worldLayers = new ArrayList<>();
 	}
@@ -40,28 +32,12 @@ public class GameWorld {
 
 	/**
 	 * Calls step() on each layer
+	 * @param environment 
 	 */
-	public void step() {
+	public void step(ConcreteGameObjectEnvironment environment) {
+		environment.setGameWorld(this);
 		for (GameLayer l : worldLayers)
-			l.step();
-	}
-
-	public void addGlobalVars(GlobalVariables gv) {
-
-		globalVars = gv;
-	}
-
-	public GlobalVariables getGlobalVars() {
-		return globalVars;
-	}
-
-	public void setNextWorld(GameWorld w) {
-		nextWorld = w;
-
-	}
-
-	public GameWorld getNextWorld() {
-		return nextWorld;
+			l.step(environment);
 	}
 
 	public List<Element> getAllElements() {
@@ -70,20 +46,6 @@ public class GameWorld {
 			els.addAll(l.getAllElements());
 		}
 		return els;
-	}
-
-	public List<GameObject> getAllObjects() {
-		// TODO Auto-generated method stub
-		List<GameObject> objects = new ArrayList<>();
-		for (GameLayer l : worldLayers) {
-			objects.addAll(l.getAllObjects());
-		}
-		return objects;
-	}
-
-	public void setPlayerManager(PlayerManager input) {
-		for (GameLayer l : worldLayers)
-			l.setPlayerManager(input);
 	}
 
 	public void addLayer(GameLayer layer) {

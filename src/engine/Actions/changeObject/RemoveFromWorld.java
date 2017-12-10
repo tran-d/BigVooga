@@ -1,10 +1,10 @@
 package engine.Actions.changeObject;
 
-import java.util.Map;
-
 import engine.Action;
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
+import engine.operations.VoogaAnnotation;
+import engine.operations.VoogaType;
 import engine.operations.gameobjectops.GameObjectOperation;
 
 /**
@@ -16,12 +16,12 @@ public class RemoveFromWorld implements Action {
 
 	private GameObjectOperation objectToDestroy;
 	
-	public RemoveFromWorld(GameObjectOperation objectToDestroy) {
+	public RemoveFromWorld(@VoogaAnnotation(name = "Sprite", type = VoogaType.GAMEOBJECT) GameObjectOperation objectToDestroy) {
 		this.objectToDestroy = objectToDestroy;
 	}
 	
 	@Override
-	public void execute(GameObject asking, Layer world) {
-		world.removeGameObject(objectToDestroy.evaluate(asking, world));
+	public void execute(GameObject asking, GameObjectEnvironment world) {
+		world.removeGameObject(world.getWithName(objectToDestroy.evaluate(asking, world).getName()));
 	}
 }

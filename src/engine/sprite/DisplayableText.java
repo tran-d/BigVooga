@@ -1,6 +1,10 @@
 package engine.sprite;
 
+import java.util.List;
+import java.util.Set;
+
 import engine.Element;
+import engine.Layer;
 import gui.player.GameDisplay;
 
 /**
@@ -8,7 +12,7 @@ import gui.player.GameDisplay;
  * @author Ian Eldridge-Allegra and Nikolas Bramblett
  *
  */
-public class DisplayableText implements Displayable, Element{
+public class DisplayableText implements Displayable {
 
 	public static final DisplayableText DEFAULT = new DisplayableText(Integer.MAX_VALUE, "", "Arial", 12, "#000000");
 	private String string;
@@ -31,6 +35,11 @@ public class DisplayableText implements Displayable, Element{
 	}
 
 	@Override
+	public int compareTo(Object o) {
+		// TODO Auto-generated method stub
+		return -1;
+	}
+		
 	public void visit(GameDisplay display) {
 		display.displayText(this);
 	}
@@ -100,8 +109,4 @@ public class DisplayableText implements Displayable, Element{
 		return new DisplayableText(drawingPriority, dialogue, font, fontSize, color);
 	}
 
-	@Override
-	public Displayable getDisplayable() {
-		return this;
-	}
 }

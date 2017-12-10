@@ -16,14 +16,13 @@ import engine.GameMaster;
 import engine.GameObject;
 import engine.GameObjectFactory;
 import engine.GameWorld;
+import engine.Holdable;
+import engine.Actions.changeObject.DisplayInventory;
 import engine.Actions.movement.Move;
-import engine.Actions.variableSetting.ChangeDouble;
-import engine.operations.booleanops.KeyHeld;
-import engine.operations.doubleops.Value;
+import engine.operations.booleanops.KeyPressed;
 import engine.operations.gameobjectops.Self;
 import engine.operations.stringops.SelfString;
 import engine.operations.vectorops.VectorHeadingOf;
-import engine.operations.vectorops.VectorScale;
 import engine.sprite.AnimationSequence;
 import engine.sprite.BoundedImage;
 import engine.sprite.Sprite;
@@ -64,16 +63,44 @@ public class EngineTester extends Application {
 		obj1.setSize(200, 100);
 
 		blueprints.addBlueprint(obj1);
+		
+		BoundedImage t = new BoundedImage("C:\\Users\\nikbr\\Desktop\\eclipse\\My_Workspace\\voogasalad_bigvooga\\data\\UserCreatedGames\\Test1\\skeptical.jpg");
+		List<BoundedImage>  l = new ArrayList<BoundedImage>();
+		l.add(t);
+		AnimationSequence a = new AnimationSequence("hi", l);
+		Sprite s = new Sprite();
+		s.addAnimationSequence(a);
+		s.setAnimation("hi");
+		Holdable o = new Holdable(s);
+		
+		
+		
+		BoundedImage k = new BoundedImage("C:\\Users\\nikbr\\Desktop\\eclipse\\My_Workspace\\voogasalad_bigvooga\\data\\UserCreatedGames\\Test1\\pane.png");
+		k.setPosition(200, 200);
+		k.setSize(400, 400);
+		obj1.getInventory().setPane(k);
+		obj1.addToInventory(o);
+		
+		t = new BoundedImage("C:\\Users\\nikbr\\Desktop\\eclipse\\My_Workspace\\voogasalad_bigvooga\\data\\UserCreatedGames\\Test1\\skeptical.jpg");
+		l = new ArrayList<BoundedImage>();
+		l.add(t);
+		a = new AnimationSequence("hi", l);
+		s = new Sprite();
+		s.addAnimationSequence(a);
+		s.setAnimation("hi");
+		o = new Holdable(s);
+		
+		obj1.addToInventory(o);
 
-		GameLayer l = new GameLayer("Layer");
-		l.addGameObject(obj1);
+		GameLayer la = new GameLayer("Layer");
+		la.addGameObject(obj1);
 
 		GameWorld w = new GameWorld("World");
-		w.addLayer(l);
+		w.addLayer(la);
 
 		GameMaster master = new GameMaster();
 		master.addWorld(w);
-		master.setCurrentWorld("World");
+		master.setNextWorld("World");
 		try {
 			new GameDataHandler(name).saveGame(master);
 		} catch (IOException e) {
@@ -81,7 +108,7 @@ public class EngineTester extends Application {
 		}
 
 		try {
-			new GameDataHandler(name).loadGame().setCurrentWorld("World");
+			new GameDataHandler(name).loadGame().setNextWorld("World");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -103,16 +130,11 @@ public class EngineTester extends Application {
 
 	private void conditionAction1(GameObject obj) {
 		List<Action> actions1 = new ArrayList<Action>();
-		actions1.add(new Move(new VectorScale(new VectorHeadingOf(new Self()), new Value(5))));
-		obj.addConditionAction(new Condition(1, new KeyHeld(new SelfString("W"))), actions1);
-
+		actions1.add(new DisplayInventory(new Self()));
+		obj.addConditionAction(new Condition(2, new KeyPressed(new SelfString("I"))), actions1);
 		actions1 = new ArrayList<Action>();
-		actions1.add(new ChangeDouble(new SelfString("heading"), new Value(-2)));
-		obj.addConditionAction(new Condition(1, new KeyHeld(new SelfString("A"))), actions1);
-		actions1 = new ArrayList<Action>();
-
-		actions1.add(new ChangeDouble(new SelfString("heading"), new Value(2)));
-		obj.addConditionAction(new Condition(1, new KeyHeld(new SelfString("D"))), actions1);
+		actions1.add(new Move(new Self(), new VectorHeadingOf(new Self())));
+		obj.addConditionAction(new Condition(2, new KeyPressed(new SelfString("W"))), actions1);
 
 	}
 

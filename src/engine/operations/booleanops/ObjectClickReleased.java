@@ -1,7 +1,9 @@
 package engine.operations.booleanops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
+import engine.operations.VoogaAnnotation;
+import engine.operations.VoogaType;
 import engine.operations.gameobjectops.GameObjectOperation;
 import engine.utilities.collisions.BoundingPoint;
 
@@ -17,12 +19,12 @@ public class ObjectClickReleased implements BooleanOperation {
 
 	private GameObjectOperation object;
 
-	public ObjectClickReleased(GameObjectOperation object) {
+	public ObjectClickReleased(@VoogaAnnotation(name = "Sprite", type = VoogaType.GAMEOBJECT) GameObjectOperation object) {
 		this.object = object;
 	}
 
 	@Override
-	public Boolean evaluate(GameObject asking, Layer world) {
+	public Boolean evaluate(GameObject asking, GameObjectEnvironment world) {
 		BooleanOperation screenClickReleased = new ScreenClickReleased();
 		return screenClickReleased.evaluate(asking, world) && object.evaluate(asking, world).getBounds().checkCollision(
 				new BoundingPoint(world.getPlayerManager().getClickX(), world.getPlayerManager().getClickY())) != null;

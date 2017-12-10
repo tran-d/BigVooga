@@ -1,7 +1,9 @@
 package engine.operations.booleanops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
+import engine.operations.VoogaAnnotation;
+import engine.operations.VoogaType;
 
 /**
  * 
@@ -12,12 +14,12 @@ public class Not implements BooleanOperation {
 
 	private BooleanOperation boolOp;
 	
-	public Not(BooleanOperation condition) {
+	public Not(@VoogaAnnotation(name = "Boolean", type = VoogaType.BOOLEAN) BooleanOperation condition) {
 		this.boolOp = condition;
 	}
 
 	@Override
-	public Boolean evaluate(GameObject asking, Layer world) {
+	public Boolean evaluate(GameObject asking, GameObjectEnvironment world) {
 		return !boolOp.evaluate(asking, world);
 	}
 

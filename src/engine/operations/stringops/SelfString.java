@@ -1,7 +1,7 @@
 package engine.operations.stringops;
 
 import engine.GameObject;
-import engine.Layer;
+import engine.GameObjectEnvironment;
 
 public class SelfString implements StringOperation{
 
@@ -12,7 +12,7 @@ public class SelfString implements StringOperation{
 	}
 
 	@Override
-	public String evaluate(GameObject asking, Layer world) {
+	public String evaluate(GameObject asking, GameObjectEnvironment world) {
 		// TODO Auto-generated method stub
 		return stored;
 	}
