@@ -2,14 +2,17 @@ package authoring_UI;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.security.NullPermission;
 import com.thoughtworks.xstream.security.PrimitiveTypePermission;
-import authoring_UI.SpriteDataConverter;
-import authoring.SpriteObject;
-import authoring.SpriteObjectGridManager;
-import authoring.TerrainObjectGridManager;
+
+import authoring.GridManagers.PanelObjectGridManager;
+import authoring.GridManagers.SpriteObjectGridManager;
+import authoring.GridManagers.SpriteObjectGridManagerForSprites;
+import authoring.GridManagers.TerrainObjectGridManager;
+import authoring.Sprite.SpriteObject;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 

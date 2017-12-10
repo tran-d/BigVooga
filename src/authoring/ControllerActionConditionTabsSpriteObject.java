@@ -1,5 +1,6 @@
 package authoring;
 
+import authoring.Sprite.SpriteObject;
 import authoring_actionconditions.ActionTab;
 
 public class ControllerActionConditionTabsSpriteObject implements ControllerActionConditionTabI{

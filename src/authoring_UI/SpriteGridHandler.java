@@ -3,20 +3,20 @@ package authoring_UI;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
 import java.util.List;
+import java.util.Set;
 
-import authoring.AbstractSpriteObject;
-import authoring.InventoryObject;
-import authoring.SpriteObject;
-import authoring.SpriteObjectGridManagerI;
+import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.InventoryObject;
+import authoring.Sprite.SpriteObject;
+import authoring.SpritePanels.DisplayPanel;
+import authoring.SpritePanels.SpritePanels;
+import authoring_UI.Map.MapLayer;
 import javafx.event.Event;
 import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Effect;
-import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.Glow;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
@@ -24,8 +24,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
@@ -35,8 +33,9 @@ public class SpriteGridHandler {
 	private DisplayPanel myDP;
 	private DraggableGrid myDG;
 
-	public SpriteGridHandler(int mapCount, DraggableGrid DG) {
-		objectFormat = new DataFormat("MyObject" + Integer.toString(mapCount)+Math.random());
+	public SpriteGridHandler(String parent, int mapCount, DraggableGrid DG) {
+		objectFormat = new DataFormat("MyObject" + parent+ Integer.toString(mapCount));
+		System.out.println("SGH made with objForm: "+objectFormat);
 		myDG = DG;
 	}
 
@@ -48,7 +47,7 @@ public class SpriteGridHandler {
 		return myDG;
 	}
 
-	protected void addKeyPress(Scene scene) {
+	public void addKeyPress(Scene scene) {
 		scene.setOnKeyPressed(e -> {
 //			System.out.println("Key pressed: "+ e.getCode());
 			if (e.getCode().equals(KeyCode.BACK_SPACE)) {
@@ -73,7 +72,7 @@ private	void resetActiveSprites() {
 		myDG.getActiveGrid().resetActiveCells();
 	}
 
-	protected void addGridMouseClick(AuthoringMapStackPane pane) {
+	public void addGridMouseClick(AuthoringMapStackPane pane) {
 		pane.setOnMouseClicked(e -> {
 			if (!pane.hasChild()){
 				if (!pane.isCoveredByOtherSprite()){
@@ -88,7 +87,7 @@ private	void resetActiveSprites() {
 		});
 	}
 
-	protected void addGridMouseDrag(AuthoringMapStackPane pane) {
+	public void addGridMouseDrag(AuthoringMapStackPane pane) {
 //		pane.setOnMouseDragged(e -> {
 //			if (pane.isCoveredByOtherSprite()){
 ////				Event.fireEvent(pane.getCoveringSprite(), new MouseEvent(MouseEvent.));
@@ -249,7 +248,7 @@ private	void resetActiveSprites() {
 		return row_col;
 	}
 
-	protected void addDropHandling(AuthoringMapStackPane pane) {
+	public void addDropHandling(AuthoringMapStackPane pane) {
 		pane.setOnDragOver(e -> {
 			Dragboard db = e.getDragboard();
 			if (db.hasContent(objectFormat) && draggingObject != null) {

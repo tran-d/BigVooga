@@ -15,7 +15,7 @@ public class TabContentVBox extends VBox{
 		setSpacing(10);
 	}
 	
-	TabContentVBox(Tab parent){
+	public TabContentVBox(Tab parent){
 		parentTab = parent;
 		myCategory = parentTab.getText();
 		setSpacing(10);

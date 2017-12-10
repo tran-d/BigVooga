@@ -1,6 +1,7 @@
 package authoring_data;
 
-import authoring_UI.AuthoringImageView;
+
+import authoring.Sprite.AnimationSequences.AuthoringImageView;
 import javafx.scene.image.Image;
 
 public class SerializableAuthoringImageView {

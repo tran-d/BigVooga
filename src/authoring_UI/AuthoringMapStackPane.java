@@ -1,13 +1,11 @@
 package authoring_UI;
 
-import java.util.ArrayList;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
-import javax.swing.event.ChangeListener;
-
-import authoring.AbstractSpriteObject;
+import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.DefaultSpriteObject;
+import authoring_UI.Map.MapLayer;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Insets;
@@ -37,7 +35,7 @@ public class AuthoringMapStackPane extends StackPane {
 	private ObjectProperty<Boolean> coveredByStretchedSpriteProperty;
 	// private int myRow =
 
-	AuthoringMapStackPane(MapLayer ML) {
+	public AuthoringMapStackPane(MapLayer ML) {
 		super();
 		activeBackground = new Background(new BackgroundFill(Color.MAGENTA, CornerRadii.EMPTY, Insets.EMPTY));
 		inactiveBackground = new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY));
@@ -74,6 +72,16 @@ public class AuthoringMapStackPane extends StackPane {
 		createShapeSpriteWidth();
 		createShapeSpriteHeight();
 	}
+	
+	public void setInactiveBackground(Background bg){
+		this.inactiveBackground = bg;
+		this.setBackground(bg);
+	}
+	
+	public void setInactiveBackground(Color c){
+		this.setInactiveBackground(new Background(new BackgroundFill(c, CornerRadii.EMPTY, Insets.EMPTY)));
+	}
+	
 
 	public void setCoveringSprite(AbstractSpriteObject ASO) {
 		this.coveringSprite = ASO;
@@ -304,7 +312,10 @@ public class AuthoringMapStackPane extends StackPane {
 	}
 
 	public boolean checkCanAcceptChild(AbstractSpriteObject ASO) {
-	
+	System.out.println("RowIndex: "+getRowIndex());
+	System.out.println("ColIndex: "+getColIndex());
+	System.out.println("CellHeight: "+ASO.getNumCellsHeight());
+	System.out.println("CellWidth: "+ASO.getNumCellsWidth());
 		return checkChangeSizeIsValid(ASO, getRowIndex(), getRowIndex() + ASO.getNumCellsHeight() - 1, getColIndex(),
 				getColIndex() + ASO.getNumCellsWidth() - 1);
 	}
@@ -400,12 +411,12 @@ public class AuthoringMapStackPane extends StackPane {
 		colSpanProperty.set(span);
 	}
 
-	int getRowSpan() {
+	public int getRowSpan() {
 
 		return getMapLayer().getRowSpan(this);
 	}
 
-	int getColSpan() {
+	public int getColSpan() {
 		return getMapLayer().getColumnSpan(this);
 	}
 

@@ -1,25 +1,19 @@
 package authoring_actionconditions;
 
-import java.util.ArrayList;
-import java.util.List;
 import authoring.ActionNameTreeItem;
 import engine.Action;
 import engine.Actions.ActionFactory;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.HBox;
-import tools.DisplayLanguage;
 
 /**
  * Class representing an action row for sprites.
  * 
- * @author DavidTran
+ * @author Owen Smith, David Tran
  *
  */
 public class ActionRow extends ActionConditionRow {

@@ -27,9 +27,9 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.security.NullPermission;
 import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
-import authoring.AbstractSpriteObject;
-import authoring.SpriteObject;
-import authoring.SpriteObjectGridManager;
+import authoring.GridManagers.SpriteObjectGridManager;
+import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.SpriteObject;
 import authoring_UI.DraggableGrid;
 import authoring_UI.LayerDataConverter;
 import authoring_UI.MapDataConverter;
@@ -73,6 +73,7 @@ public class GameDataHandler {
 	private Map<String, Image> cache = new HashMap<>();
 	private String projectPath;
 	private String projectName;
+	private Stage myStage;
 
 	private static XStream setupXStream() {
 		XStream xstream = new XStream(new DomDriver());
@@ -84,11 +85,12 @@ public class GameDataHandler {
 		return xstream;
 	}
 	
-	public GameDataHandler() {
-		this("Test Project");
+	public GameDataHandler(Stage stage) {
+		this("Test Project", stage);
 	}
 	
-	public GameDataHandler(String projectName) {
+	public GameDataHandler(String projectName, Stage stage) {
+		myStage = stage;
 		RESOURCES_PATH = Paths.get(RESOURCES).toAbsolutePath();
 		this.projectName = projectName;
 		this.projectPath = PATH + projectName + "/";
@@ -204,6 +206,10 @@ public class GameDataHandler {
 		cache.put(fileName, i);
 		return i;
 	}
+	
+	public Stage getStage(){
+		return myStage;
+	}
 
 	/**
 	 * @param stage
@@ -239,6 +245,17 @@ public class GameDataHandler {
 			makeDirectory(projectPath);
 		}
 	}
+	
+	public static Image chooseImage(Window window){
+		File f = chooseFileForImageSave(window);
+		FileInputStream fis;
+		try {
+			fis = new FileInputStream(f);
+			return new Image(fis);
+		} catch (FileNotFoundException e) {
+			return new Image("pikachu.png");
+		}
+	}
 
 	/**
 	 * @param stage
@@ -249,6 +266,7 @@ public class GameDataHandler {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle(SELECTOR_TITLE);
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Image Files (.png)", "*.png"));
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Image Files (.gif)", "*.gif"));
 //		File f = new File("/");
 //		Path p = Paths.get(f.getName());
 //		System.out.println("p: "+p);
@@ -535,11 +553,13 @@ public class GameDataHandler {
 		List<AbstractSpriteObject> ret = new ArrayList<AbstractSpriteObject>();
 		for (File f : files) {
 			try {
+				
 				AbstractSpriteObject dummy = loadSprite(f);
 				ret.add(dummy);
+				System.out.println(dummy);
 
 			} catch (Exception e) {
-//				e.printStackTrace();
+				e.printStackTrace();
 				// do nothing
 			}
 		}
