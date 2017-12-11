@@ -92,4 +92,9 @@ public class ConcreteGameObjectEnvironment implements GameObjectEnvironment {
 		layer.removeElement(element);
 	}
 
+	@Override
+	public void exitToMenu() {
+		master.getPlayerManager().exitToMenu();
+	}
+
 }

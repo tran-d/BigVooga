@@ -20,4 +20,5 @@ public interface GameObjectEnvironment {
 	public void save(DoubleOperation currentPoints);
 	public Point2D getAbsoluteMouseCoordinates();
 	public void removeElement(Element element);
+	public void exitToMenu();
 }

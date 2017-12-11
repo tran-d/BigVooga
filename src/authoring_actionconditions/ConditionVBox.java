@@ -3,6 +3,9 @@ package authoring_actionconditions;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import tools.DisplayLanguage;
 
 public class ConditionVBox<T> extends ActionConditionVBox<T> implements ConditionVBoxI<T>{
 
@@ -18,6 +21,7 @@ public class ConditionVBox<T> extends ActionConditionVBox<T> implements Conditio
 	public void addCondition(String label, ObservableList<Integer> currentActions) {
 		ConditionRow conditionRow = new ConditionRow(getRows().size() + 1, label, getSelectorLabel(),null,currentActions, (ConditionVBox<ConditionRow>) this);
 		addToRows(conditionRow);
+		BuildConditionView bcd = new BuildConditionView(this, conditionRow);
 	}
 	
 	@Override
@@ -34,5 +38,7 @@ public class ConditionVBox<T> extends ActionConditionVBox<T> implements Conditio
 	public void removeActionOption(Integer action) {
 		getRows().forEach(row -> ((ConditionRow) row).removeAction(action));
 	}
+	
+
 
 }
