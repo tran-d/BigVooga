@@ -81,6 +81,7 @@ public class Inventory implements Element{
 			}
 			ret.add(row);
 		}
+		pane.setPosition(x, y);
 		return new DisplayablePane(pane, ret, rowSpan, colSpan);
 	}
 
@@ -89,11 +90,14 @@ public class Inventory implements Element{
 		BooleanOperation screenClicked = new ScreenClicked();
 		if(screenClicked.evaluate(null, w) &&
 			pane.checkCollision(new BoundingPoint(w.getPlayerManager().getMouseXY().getX(), w.getPlayerManager().getMouseXY().getY())) != null) {
-			int i = getHoldableClicked(w.getPlayerManager().getMouseXY().getX(), w.getPlayerManager().getMouseXY().getY());
-			if(i >= 0 && i < objects.size()) {
-				selected = objects.get(i);
-				objects.get(i).select(holder, w);
-				System.out.println("Holdable Selected: " + i);
+			int i = 0;
+			for(Holdable h : objects) {
+				if(h.getDisplayable().checkCollision(new BoundingPoint(w.getPlayerManager().getMouseXY().getX(), w.getPlayerManager().getMouseXY().getY())) != null) {
+					System.out.println("Mouse X: " + w.getPlayerManager().getMouseXY().getX() + "      Mouse Y: " + w.getPlayerManager().getMouseXY().getY());
+					selected = h;
+					h.select(holder, w);
+				}
+				i++;
 			}
 		}
 	}

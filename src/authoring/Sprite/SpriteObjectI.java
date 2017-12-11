@@ -1,9 +1,10 @@
-package authoring;
+package authoring.Sprite;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import authoring.Sprite.Parameters.SpriteParameterI;
 import javafx.collections.ObservableList;
 import javafx.scene.image.ImageView;
 

@@ -124,7 +124,10 @@ public class GameMaster implements EngineController{
 
 
 	public GameWorld getWorldWithName(String newWorld) {
-		// TODO Auto-generated method stub
+		for(GameWorld world : madeWorlds) {
+			if(world.isNamed(newWorld))
+				return world;
+		}
 		return null;
 	}
 

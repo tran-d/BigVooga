@@ -4,6 +4,7 @@ import java.util.List;
 
 import controller.player.PlayerManager;
 import engine.operations.doubleops.DoubleOperation;
+import javafx.geometry.Point2D;
 
 public interface GameObjectEnvironment {
 
@@ -17,5 +18,6 @@ public interface GameObjectEnvironment {
 	public void addElement(Element e);
 	public void transfer(GameObject gameObject, String newWorld, String string);
 	public void save(DoubleOperation currentPoints);
-	
+	public Point2D getAbsoluteMouseCoordinates();
+	public void removeElement(Element element);
 }

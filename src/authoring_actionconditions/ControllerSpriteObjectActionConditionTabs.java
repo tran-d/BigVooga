@@ -1,6 +1,6 @@
 package authoring_actionconditions;
 
-import authoring.SpriteObject;
+import authoring.Sprite.SpriteObject;
 
 public class ControllerSpriteObjectActionConditionTabs {
 	

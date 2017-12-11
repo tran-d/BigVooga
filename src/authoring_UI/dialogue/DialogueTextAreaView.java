@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -12,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import tools.DisplayLanguage;
 
 /**
@@ -31,12 +31,14 @@ public class DialogueTextAreaView extends VBox {
 	private static final String REMOVE_PANEL_BUTTON_PROMPT = "RemovePanel";
 	private static final String SAVE_BUTTON_PROMPT = "Save";
 
-	private List<TextArea> dialogueList;
+	private String currentFontType;
+	private int currentFontSize;
+
+	private List<TextArea> taList;
 	private Button nextButton;
 	private Button prevButton;
 	private Button addPanelButton;
 	private Button removePanelButton;
-	private Button saveButton;
 	private int currentPanelIndex = -1;
 	private Label currentPanel;
 	private Label totalPanels;
@@ -44,43 +46,58 @@ public class DialogueTextAreaView extends VBox {
 
 	private SimpleIntegerProperty curr;
 	private SimpleIntegerProperty total;
-	
-	private Runnable r;
 
-	public DialogueTextAreaView(Runnable r) {
-		dialogueList = new ArrayList<>();
+	private Runnable save;
+
+	public DialogueTextAreaView(Runnable save) {
+		taList = new ArrayList<>();
 		dialoguePreview = new HBox();
 		this.addPanel();
-		this.r = r;
-		// curr = new SimpleIntegerProperty(currentPanelIndex + 1);
-		// total = new SimpleIntegerProperty(dialogueList.size());
+		this.save = save;
 		this.setSpacing(15);
-		this.getChildren().addAll(dialoguePreview, makeToolPanel());
-	}
 
-	public List<TextArea> getDialogueList() {
-		return dialogueList;
+		curr = new SimpleIntegerProperty(currentPanelIndex + 1);
+		total = new SimpleIntegerProperty(taList.size());
+
+		this.getChildren().addAll(dialoguePreview, makeToolPanel());
+
 	}
 
 	/************************ PUBLIC METHODS ***************************/
 
+	public List<TextArea> getDialogueList() {
+		return taList;
+	}
+
+	public void setFontType(String family) {
+		for (TextArea ta : taList) {
+			ta.setFont(Font.font(family));
+		}
+	}
+
+	public void setFontSize(int size) {
+		for (TextArea ta : taList) {
+			ta.setFont(Font.font(size));
+		}
+	}
+
 	public void removePanel() {
 
-		if (!dialogueList.isEmpty()) {
+		if (!taList.isEmpty()) {
 
 			if (currentPanelIndex == 0) {
 				next();
 				if (currentPanelIndex == 0) {
 					dialoguePreview.getChildren().clear();
-					dialogueList.remove(currentPanelIndex);
+					taList.remove(currentPanelIndex);
 				} else
-					dialogueList.remove(--currentPanelIndex);
-			} else if (currentPanelIndex == dialogueList.size() - 1) {
+					taList.remove(--currentPanelIndex);
+			} else if (currentPanelIndex == taList.size() - 1) {
 				prev();
-				dialogueList.remove(currentPanelIndex + 1);
+				taList.remove(currentPanelIndex + 1);
 			} else {
 				next();
-				dialogueList.remove(--currentPanelIndex);
+				taList.remove(--currentPanelIndex);
 			}
 		}
 	}
@@ -89,32 +106,32 @@ public class DialogueTextAreaView extends VBox {
 		TextArea ta = new TextArea();
 		ta.setPrefSize(DIALOG_PROMPT_WIDTH, DIALOG_PROMPT_HEIGHT);
 		ta.setWrapText(true);
-		dialogueList.add(ta);
-		
-		ta.setOnKeyTyped(e -> r.run());
+		taList.add(ta);
 
-		setCurrentPanel(dialogueList.size() - 1);
+		ta.setOnKeyTyped(e -> save.run());
+
+		setCurrentPanel(taList.size() - 1);
 	}
 
 	/************************ PRIVATE METHODS ***************************/
 
 	private void setCurrentPanel(int index) {
 		dialoguePreview.getChildren().clear();
-		dialoguePreview.getChildren().add(dialogueList.get(index));
+		dialoguePreview.getChildren().add(taList.get(index));
 		currentPanelIndex = index;
 	}
 
 	private void prev() {
 		if (currentPanelIndex > 0) {
 			dialoguePreview.getChildren().clear();
-			dialoguePreview.getChildren().add(dialogueList.get(--currentPanelIndex));
+			dialoguePreview.getChildren().add(taList.get(--currentPanelIndex));
 		}
 	}
 
 	private void next() {
-		if (currentPanelIndex < dialogueList.size() - 1) {
+		if (currentPanelIndex < taList.size() - 1) {
 			dialoguePreview.getChildren().clear();
-			dialoguePreview.getChildren().add(dialogueList.get(++currentPanelIndex));
+			dialoguePreview.getChildren().add(taList.get(++currentPanelIndex));
 		}
 	}
 
@@ -122,10 +139,10 @@ public class DialogueTextAreaView extends VBox {
 		HBox hb = new HBox();
 		hb.setPrefWidth(DIALOG_PROMPT_WIDTH);
 		currentPanel = new Label();
-		currentPanel.textProperty().bind(new SimpleIntegerProperty(currentPanelIndex + 1).asString());
+		currentPanel.textProperty().bind(curr.asString());
 		Label slash = new Label("/");
 		totalPanels = new Label();
-		totalPanels.textProperty().bind(new SimpleIntegerProperty(dialogueList.size()).asString());
+		totalPanels.textProperty().bind(total.asString());
 		hb.getChildren().addAll(makeButtonPanel(), currentPanel, slash, totalPanels);
 		return hb;
 	}
@@ -149,7 +166,5 @@ public class DialogueTextAreaView extends VBox {
 		btn.setOnAction(handler);
 		return btn;
 	}
-	
-	
 
 }

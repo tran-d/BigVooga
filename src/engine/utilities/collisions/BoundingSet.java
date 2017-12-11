@@ -3,6 +3,7 @@ package engine.utilities.collisions;
 import java.util.Collection;
 import java.util.HashSet;
 
+import engine.sprite.PositionableObject;
 import javafx.geometry.Point2D;
 
 /**
@@ -12,7 +13,11 @@ import javafx.geometry.Point2D;
  * @author Ian Eldridge-Allegra
  * 
  */
-public abstract class BoundingSet {
+public abstract class BoundingSet extends PositionableObject {
+	
+	public BoundingSet(int drawingPriority) {
+		super(drawingPriority);
+	}
 
 	protected abstract Collection<BoundingGeometry> getGeometry();
 
@@ -51,6 +56,7 @@ public abstract class BoundingSet {
 		private HashSet<BoundingGeometry> set;
 
 		public SingleSet(BoundingGeometry element) {
+			super(0);
 			set = new HashSet<BoundingGeometry>();
 			set.add(element);
 		}

@@ -1,32 +1,18 @@
 package authoring_UI.Map;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import authoring.GridManagers.*;
-import authoring.Sprite.*;
-import authoring.Sprite.Parameters.*;
-import authoring.Sprite.AnimationSequences.*;
-import authoring.Sprite.UtilityTab.*;
-import authoring.Sprite.InventoryTab.*;
-import authoring.SpriteManagers.*;
-import authoring.SpritePanels.*;
-import authoring.util.*;
-import authoring_UI.Map.*;
-import authoring_UI.*;
-import authoring.*;
-import authoring_UI.Inventory.*;
+import authoring.Sprite.AbstractSpriteObject;
+import authoring_UI.AuthoringMapStackPane;
+import authoring_UI.SpriteGridHandler;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -35,7 +21,6 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -158,6 +143,10 @@ public abstract class MapLayer extends GridPane {
 	}
 	
 	public void setBackgroundImage(String imagePath){
+		setBackgroundImage(new Image(imagePath), imagePath);
+	}
+	
+	public void setBackgroundImage(Image image, String imagePath){
 		// NOTHING ON DEFAULT	
 	}
 
@@ -242,6 +231,9 @@ public abstract class MapLayer extends GridPane {
 	
 	private AuthoringMapStackPane addAuthoringStackPaneToPosition(int row, int col){
 		AuthoringMapStackPane sp = new AuthoringMapStackPane(this);
+		sp.setOnMouseEntered(e -> style(sp));
+		sp.setOnMouseExited(e -> removeStyle(sp));
+		//sp.setId("StackPane");
 		sp.setMinWidth(CELL_SIZE);
 		sp.setMaxWidth(CELL_SIZE);
 		sp.setPrefWidth(CELL_SIZE);
@@ -253,9 +245,9 @@ public abstract class MapLayer extends GridPane {
 		sp.setBackground(
 				new Background(new BackgroundFill(getDefaultColor(), CornerRadii.EMPTY, Insets.EMPTY)));
 		// sp.setStyle();
-		BorderStroke border = new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.DOTTED, CornerRadii.EMPTY,
-				BorderWidths.DEFAULT);
-		sp.setBorder(new Border(border));
+		//BorderStroke border = new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.DOTTED, CornerRadii.EMPTY,
+				//BorderWidths.DEFAULT);
+		//sp.setBorder(new Border(border));
 //		GridPane.setColumnSpan(sp, 1);
 //		GridPane.setRowSpan(sp, 1);
 		GridPane.setHgrow(sp, Priority.NEVER);
@@ -269,6 +261,14 @@ public abstract class MapLayer extends GridPane {
 		mySGH.addGridMouseClick(sp);
 		mySGH.addGridMouseDrag(sp);
 		return sp;
+	}
+	
+	private void style(StackPane sp) {
+		sp.setStyle("-fx-border-color: #47BDFF;");
+	}
+	
+	private void removeStyle(StackPane sp) {
+		sp.setStyle("-fx-border-color: transparent;");
 	}
 	
 	public void addRow(){

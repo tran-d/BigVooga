@@ -1,5 +1,7 @@
 package authoring_UI;
 
+import java.util.List;
+
 import controller.authoring.AuthoringController;
 import controller.welcomeScreen.SceneController;
 import engine.utilities.data.GameDataHandler;
@@ -28,6 +30,7 @@ public class MainAuthoringGUI{
 	private AuthoringController authoringController;
 	private static final String TEMP_PROJECT_NAME = "TestProject";
 	private String myProjectName;
+	private GameDataHandler myGDH;
 	
 
 	public MainAuthoringGUI(Stage currentStage, SceneController currentSceneController, String projectName) {
@@ -42,12 +45,14 @@ public class MainAuthoringGUI{
 	}
 	
 	public void createAuthoringGUI() {
-		toolBar = new Toolbar(sceneController);
+		toolBar = new Toolbar(stage, sceneController);
 		rootPane.setTop(toolBar);
 		
 		authoringPane = new Pane();
-		GameDataHandler GDH = new GameDataHandler(myProjectName);
-		authoringController = new AuthoringController(stage, authoringPane, GDH);
+
+		myGDH = new GameDataHandler(myProjectName);
+		authoringController = new AuthoringController(stage, authoringPane, myGDH);
+
 		ViewSideBar sideBar = new ViewSideBar(authoringController);
 		authoringController.switchView(AuthoringController.MAP_EDITOR_KEY, sideBar);
 		
@@ -64,6 +69,17 @@ public class MainAuthoringGUI{
 	}
 
 	public void saveWorlds() {
-		//authoringController.saveWorlds();
-	}	
+		List<DraggableGrid> allWorlds = authoringController.getExistingWorlds();
+		int count = 0; // temp for debugging
+		for (DraggableGrid toSave : allWorlds) {
+			count++;
+			System.out.println("Saving world # : " + count);
+			try {
+				myGDH.saveWorld(toSave);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 }

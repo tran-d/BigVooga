@@ -4,7 +4,7 @@ import java.util.List;
 
 import gui.player.GameDisplay;
 
-public class DisplayablePane implements Displayable {
+public class DisplayablePane implements Displayable, Positionable {
 
 	private DisplayableImage paneImage;
 	private List<List<DisplayableImage>> holdableImages;
@@ -15,12 +15,6 @@ public class DisplayablePane implements Displayable {
 		this.holdableImages = holdableImages;
 		this.rowSpan = rowSpan;
 		this.colSpan = colSpan;
-	}
-
-	@Override
-	public int compareTo(Object o) {
-		// TODO Comparing DisplayablePanes
-		return 0;
 	}
 
 	@Override
@@ -39,7 +33,6 @@ public class DisplayablePane implements Displayable {
 				DisplayableImage h = holdableImages.get(r).get(c);
 				h.setPosition(x0 + (cellWidth * c) + (0.5 * cellWidth), y0 + (cellHeight * r) + (0.5 * cellHeight));
 				h.setSize(cellWidth, cellHeight);
-				//h.setSize(10, 10);
 				display.displayImage(h);
 			}
 		}
@@ -53,42 +46,34 @@ public class DisplayablePane implements Displayable {
 	}
 
 	//TODO: check these methods
-	@Override
 	public void setPosition(double x, double y) {
 		paneImage.setPosition(x, y);
 	}
 
-	@Override
 	public void setSize(double width, double height) {
 		paneImage.setSize(width, height);
 	}
 
-	@Override
 	public void setHeading(double heading) {
 		paneImage.setHeading(heading);
 	}
 
-	@Override
 	public double getX() {
 		return paneImage.getX();
 	}
 
-	@Override
 	public double getY() {
 		return paneImage.getY();
 	}
 
-	@Override
 	public double getWidth() {
 		return paneImage.getWidth();
 	}
 
-	@Override
 	public double getHeight() {
 		return paneImage.getHeight();
 	}
 
-	@Override
 	public double getHeading() {
 		return paneImage.getHeading();
 	}

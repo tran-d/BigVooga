@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import engine.sprite.Displayable;
+import engine.utilites.camera.Camera;
 import gui.welcomescreen.WelcomeScreen;
+import javafx.geometry.Point2D;
 
 /**
  * Holds Layers, which hold GameObjects. An Example of a GameWorld would be a
@@ -19,6 +21,7 @@ public class GameWorld {
 
 	private String worldName;
 	private List<GameLayer> worldLayers;
+	private Camera camera;
 	
 	public GameWorld() {
 		this(DEFAULT_NAME);
@@ -54,11 +57,12 @@ public class GameWorld {
 	public List<Displayable> getAllDisplayables() {
 		List<Displayable> ret = new ArrayList<>();
 		GameObject player = getPlayerObject();
-		double playerX = player.getX();
-		double playerY = player.getY();
+		camera = new Camera(player);
+		camera.moveToPlayer();
 		for(Element e : getAllElements()) {
 			Displayable image = e.getDisplayable();
-			image.setPosition((WelcomeScreen.WIDTH / 2) + (e.getX() - playerX), (WelcomeScreen.HEIGHT / 2) + (e.getY() - playerY));
+			Point2D relCoords = camera.makeCoordinatesRelative(e.getX(), e.getY());
+			image.setPosition(relCoords.getX(), relCoords.getY());
 			ret.add(image);
 		}
 		return ret;
@@ -89,6 +93,10 @@ public class GameWorld {
 	
 	public List<GameLayer> getLayers() {
 		return worldLayers;
+	}
+	public Point2D makeScreenCoordinatesAbsolute(double x, double y)
+	{
+		return camera.makeCoordinatesAbsolute(x, y);
 	}
 
 }

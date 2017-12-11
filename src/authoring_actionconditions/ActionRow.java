@@ -9,13 +9,10 @@ import engine.Actions.ActionFactory;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.HBox;
-import tools.DisplayLanguage;
 
 /**
  * Class representing an action row for sprites.
@@ -25,33 +22,27 @@ import tools.DisplayLanguage;
  */
 public class ActionRow extends ActionConditionRow {
 
-	private static final double ROW_WIDTH = 800;
-	private static final double TREE_VIEW_WIDTH = 600;
-	private static final double EXPANDED_HEIGHT = 500;
-	private static final double COLLAPSED_HEIGHT = 25;
-
-	private static String EMPTY_CHOICEBOX = "EmptyChoiceBox";
-	private static final String INVALID_INPUT_MESSAGE = "InvalidInput";
-	private static final String DOUBLE_INPUT_MESSAGE = "EnterDouble";
-
-	private ActionFactory actionFactory;
+	private ActionFactory actionFactory = new ActionFactory();
 
 	private TreeView<HBox> actionTreeView;
 	private ActionCategoryTreeItem categoryAction;
 
 	private ActionNameTreeItem actionName;
 
-	public ActionRow(int ID, String label, String selectorLabel,String selectedAction, ActionVBox<ActionRow> ACVBox) {
-		super(ID, label, selectorLabel, selectedAction, ACVBox);
+	public ActionRow(int ID, ActionVBox<ActionRow> ACVBox) {
+		super(ID, ACVBox);
 
 		this.setPrefSize(ROW_WIDTH, EXPANDED_HEIGHT);
-
-		actionFactory = new ActionFactory();
 
 		categoryAction = new ActionCategoryTreeItem(() -> changeRowTVSize());
 		actionTreeView = new TreeView<HBox>(categoryAction);
 		actionTreeView.setPrefSize(TREE_VIEW_WIDTH, EXPANDED_HEIGHT);
 		this.getItems().addAll(actionTreeView);
+	}
+	
+	public ActionRow(int ID, String label, String selectorLabel, String selectedAction, ActionVBox<ActionRow> ACVBox, TreeView<HBox> tv) {
+		super(ID, ACVBox);
+		this.getItems().addAll(tv);
 	}
 
 	/********************** PUBLIC METHODS ***********************/

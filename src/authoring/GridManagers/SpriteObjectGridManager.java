@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import authoring.Sprite.AbstractSpriteObject;
 import authoring.Sprite.SpriteObject;
 import authoring_UI.SpriteGridHandler;
@@ -14,17 +13,15 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.paint.Color;
 
-public abstract class SpriteObjectGridManager implements SpriteObjectGridManagerI{
+public abstract class SpriteObjectGridManager {
 	
 	protected List<List<SpriteObject>> spriteGrid;
-	private int MAX_ROWS = 15;
-	private int MAX_COLS = 15;
 	private SpriteObject defaultEmptySprite;
 	private Set<Integer []> activeCells;
 	protected MapLayer myMapLayer;
 	protected SpriteGridHandler mySpriteGridHandler;
 	protected int myLayerNum;
-	Color myColor;
+	protected Color myColor;
 	protected int temporaryRows;
 	protected int temporaryColumns;
 	protected boolean canFillBackground;
@@ -98,8 +95,6 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 		temporaryRows = rows;
 		temporaryColumns = cols;
 //		initializeGrid();
-
-		
 	}
 	
 	
@@ -107,10 +102,8 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 		this(rows, columns);
 		
 		setSpriteGridHandler(SGH);
-//		myLayerNum = layerNum;
-//		createMapLayer();
-		
 		createMapLayer();
+		
 		this.numRowsProperty.set(rows);
 		this.numColumnsProperty.set(columns);
 	}
@@ -141,9 +134,6 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 	public int getLayerNum() {
 		return myLayerNum;
 	}
-	
-
-	
 	
 	public abstract void createMapLayer();
 	
@@ -223,6 +213,12 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 	
 	public void addActiveCell(AbstractSpriteObject ASO){
 		activeCells.add(ASO.getPositionOnGrid());
+	}
+	
+	public void addActiveCells(List<AbstractSpriteObject> ASOList) {
+		for (AbstractSpriteObject ASO : ASOList) {
+			this.addActiveCell(ASO);
+		}
 	}
 	
 	public void removeActiveCell(AbstractSpriteObject ASO){
