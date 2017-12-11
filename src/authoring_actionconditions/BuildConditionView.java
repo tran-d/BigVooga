@@ -33,6 +33,7 @@ public class BuildConditionView {
 	private void transportActionRow(WindowEvent event) {
 
 		// for testing
+		conditionRow.getCondition();
 		conditionRow.getRootTreeItem().setExpanded(false);
 		conditionRow.changeRowTVSize();
 

@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
@@ -35,13 +36,13 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 	private String selectedOperation;
 	private List<OperationNameTreeItem> listOfOperations = new ArrayList<>();
 	private ObservableList<VoogaParameter> voogaParameters;
-	
+
 	private static List<VoogaType> voogaTypesForExistingItems = new ArrayList<>();
+	private ChoiceBox<String> existingItemsChoiceBox;
 
 	public OperationParameterTreeItem(String selectedOperation) {
 		this.selectedOperation = selectedOperation;
-		this.makeParameterOperationTreeItem(selectedOperation);
-		
+
 		voogaTypesForExistingItems = new ArrayList<>();
 		voogaTypesForExistingItems.add(VoogaType.ANIMATIONNAME);
 		voogaTypesForExistingItems.add(VoogaType.BOOLEANNAME);
@@ -52,19 +53,24 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 		voogaTypesForExistingItems.add(VoogaType.STRINGNAME);
 		voogaTypesForExistingItems.add(VoogaType.TAG);
 		voogaTypesForExistingItems.add(VoogaType.WORLDNAME);
+
+		this.makeParameterOperationTreeItem(selectedOperation);
 	}
 
 	public Object getParameter() {
 
 		if (doubleParameterTF != null) {
 			System.out.println("Double was inputted: " + doubleParameterTF.getText());
-			return operationFactory.wrap(Double.parseDouble(doubleParameterTF.getText()));
+			return operationFactory.wrap(getDoubleInput(doubleParameterTF));
 		} else if (stringParameterTF != null) {
 			System.out.println("String was inputted: " + stringParameterTF.getText());
 			return operationFactory.wrap(stringParameterTF.getText());
 		} else if (booleanParameterTF != null) {
 			System.out.println("Boolean was inputted: " + booleanParameterTF.getText());
 			return operationFactory.wrap(getBooleanInput(booleanParameterTF));
+		} else if (existingItemsChoiceBox != null) {
+			System.out.println(existingItemsChoiceBox.getSelectionModel().getSelectedItem());
+			return existingItemsChoiceBox.getSelectionModel().getSelectedItem();
 		} else {
 			System.out.println(selectedOperation);
 			return operationFactory.makeOperation(selectedOperation, new Object[0]);
@@ -134,11 +140,13 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 
 					if (this.checkVoogaType(voogaParameters.get(i).getType())) {
 
-						ExistingItemsChoiceBox cb = new ExistingItemsChoiceBox(voogaParameters.get(i).getType());
+						System.out.println("SPECIAL VOOGATYPE");
+						existingItemsChoiceBox = new ExistingItemsChoiceBox(voogaParameters.get(i).getType())
+								.getChoiceBox();
+						operationParameter.getChildren().add(new TreeItem<HBox>(new HBox(existingItemsChoiceBox)));
+
 					} else {
 
-						
-						
 						operationNameTreeItem = new OperationNameTreeItem(voogaParameters.get(i).getName(),
 								voogaParameters.get(i).getType());
 						listOfOperations.add(operationNameTreeItem);
@@ -164,11 +172,11 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 		TextField tf = new TextField();
 		// TreeItem<HBox> tfTreeItem = new TreeItem<HBox>(new HBox(new Label("Insert
 		// Double: "), tf));
-		tf.setOnKeyReleased(e -> {
-			checkDoubleInput(tf);
-			// checkEmptyInput(tf, parameterAction, paramTV,
-			// parameterAction.getChildren().indexOf(tfTreeItem));
-		});
+		// tf.setOnKeyReleased(e -> {
+		// checkDoubleInput(tf);
+		// checkEmptyInput(tf, parameterAction, paramTV,
+		// parameterAction.getChildren().indexOf(tfTreeItem));
+		// });
 
 		return tf;
 	}
@@ -189,13 +197,16 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 		return tf;
 	}
 
-	private void checkDoubleInput(TextField tf) {
+	private Double getDoubleInput(TextField tf) {
 		try {
 			if (!tf.getText().equals(""))
-				Double.parseDouble(tf.getText());
+				return Double.parseDouble(tf.getText());
+			else
+				return null;
 		} catch (NumberFormatException e) {
-			// showError(INVALID_INPUT_MESSAGE, DOUBLE_INPUT_MESSAGE);
+			 showError(INVALID_INPUT_MESSAGE, DOUBLE_INPUT_MESSAGE);
 			tf.clear();
+			return null;
 		}
 	}
 
