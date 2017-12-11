@@ -119,7 +119,7 @@ public class DisplayPanel extends VBox {
 		conditions = new ConditionTab<ConditionRow>(ResourceBundleUtil.getTabTitle("ConditionsTabTitle"));
 		actions = new ActionTab<ActionRow>(ResourceBundleUtil.getTabTitle("ActionsTabTitle"));
 		controllerConditionActionTabs = new ControllerConditionActionTabs(conditions, actions);
-		//applyButtonController = new ApplyButtonController();
+		applyButtonController = new ApplyButtonController();
 		mySpriteTabs.getTabs().addAll(conditions, actions);
 	}
 

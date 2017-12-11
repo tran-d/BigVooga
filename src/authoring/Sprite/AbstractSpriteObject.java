@@ -92,7 +92,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 	protected HashMap<TreeView<HBox>,List<Integer>> conditionTreeViews;
 	protected List<Action> actionRows;
 	protected List<TreeView<HBox>> actionTreeViews;
-	protected List<AnimationSequence> myAnimationSequences;
+	protected List<AuthoringAnimationSequence> myAnimationSequences;
 	protected List<String> myTags;
 
 	public AbstractSpriteObject() {
