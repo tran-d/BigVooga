@@ -64,15 +64,21 @@ public class GameObject extends VariableContainer implements Element {
 		this.name = name;
 		tagSet.add(name);
 		tagSet.add(DEFAULT_TAG);
-		inventory = new Inventory(this);
 		ithDerivative = new ArrayList<>();
 		ithDerivative.add(new Point2D(0, 0));
+		inventory = new Inventory(this, getX(), getY());
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	public void setInventoryPosition(double x, double y) {
+		inventory.setX(x);
+		inventory.setY(y);
+	}
+	
 	public void addTag(String tag) {
 		tagSet.add(tag);
 	}
@@ -205,10 +211,8 @@ public class GameObject extends VariableContainer implements Element {
 		if (dialogueHandler == null)
 			return getBounds();
 		dialogueHandler.setHeading(getHeading());
-		dialogueHandler.setHeight(getHeight());
-		dialogueHandler.setWidth(getWidth());
-		dialogueHandler.setX(getX());
-		dialogueHandler.setY(getY());
+		dialogueHandler.setSize(getHeight(), getWidth());
+		dialogueHandler.setPosition(getX(), getY());
 		return new CompositeImage(getBounds(), dialogueHandler);
 	}
 

@@ -34,6 +34,7 @@ public class PlayerManager {
 	private double clickY;
 	private double mouseX;
 	private double mouseY;
+	private String typed = "";
 	
 	/**
 	 * Empty constructor for PlayerManager.
@@ -81,6 +82,13 @@ public class PlayerManager {
 	 */
 	public void setKeyReleased(KeyCode keyCode) {
 		keysDown.remove(keyCode.getName());
+	}
+	
+	public void setCharTyped(String string) {
+		if(!string.equals("\b"))
+			typed += string;
+		else if(typed.length() > 0)
+			typed = typed.substring(0, typed.length()-1);
 	}
 	
 	/**
@@ -163,13 +171,21 @@ public class PlayerManager {
 		prevPrimaryButtonDown = primaryButtonDown;
 	}
 		
+	public String getTyped() {
+		return typed;
+	}
+	
+	public void clearTyped() {
+		typed = "";
+	}
+	
 	/**
 	 * Passes the images added to the game maps in authoring to the Game Display.
 	 * 
 	 * @param imageData - The list of images to be displayed
 	 */
-	public void setImageData(List<Displayable> images, double cameraXTranslate, double cameraYTranslate) {
-		gameDisplay.setUpdatedDisplayables(images, cameraXTranslate, cameraYTranslate);
+	public void setImageData(List<Displayable> images) {
+		gameDisplay.setUpdatedDisplayables(images);
 	}
 	
 	/**
@@ -212,7 +228,9 @@ public class PlayerManager {
 
 	public void save(String gameName) {
 		engineController.stop();
-		gameDataHandler.saveGame(engineController, gameName);
+		engineController.setPlayerManager(null);
+		gameDataHandler.saveForContinue(engineController);
+		engineController.setPlayerManager(this);
 		engineController.start();
 	}
 	

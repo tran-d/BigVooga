@@ -2,23 +2,17 @@ package authoring_UI;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.security.NullPermission;
 import com.thoughtworks.xstream.security.PrimitiveTypePermission;
-import authoring.GridManagers.*;
-import authoring.Sprite.*;
-import authoring.Sprite.Parameters.*;
-import authoring.Sprite.AnimationSequences.*;
-import authoring.Sprite.UtilityTab.*;
-import authoring.Sprite.InventoryTab.*;
-import authoring.SpriteManagers.*;
-import authoring.SpritePanels.*;
-import authoring.util.*;
-import authoring_UI.Map.*;
-import authoring_UI.*;
-import authoring.*;
-import authoring_UI.Inventory.*;
+
+import authoring.GridManagers.PanelObjectGridManager;
+import authoring.GridManagers.SpriteObjectGridManager;
+import authoring.GridManagers.SpriteObjectGridManagerForSprites;
+import authoring.GridManagers.TerrainObjectGridManager;
+import authoring.Sprite.SpriteObject;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
@@ -26,14 +20,13 @@ public class LayerDataConverter {
 	private final XStream SERIALIZER = setupXStream();
 	private List<SpriteObject> allSpriteObjects;
 	private Color myColor;
-	private int numRows;
-	private int numCols;
+	private int myNumRows;
+	private int myNumCols;
 	private int layerNum;
 	private String myName;
 	
 	public XStream setupXStream() {
 		XStream xstream = new XStream(new DomDriver());
-		// xstream.addPermission(NoTypePermission.NONE);
 		xstream.addPermission(NullPermission.NULL);
 		xstream.addPermission(PrimitiveTypePermission.PRIMITIVES);
 		xstream.allowTypes(new Class[] { Point2D.class });
@@ -54,31 +47,23 @@ public class LayerDataConverter {
 	}
 	
 	public void convertLayer(SpriteObjectGridManager SOGM){
-		allSpriteObjects = SOGM.getEntireListOfSpriteObjects();
+		myColor = SOGM.getColor();
 		myName = SOGM.getName();
-		numRows = SOGM.getNumRows();
-		numCols = SOGM.getNumCols();
+		myNumRows = SOGM.getNumRows();
+		myNumCols = SOGM.getNumCols();
 		layerNum = SOGM.getLayerNum();
-	}
-	
-	public List<SpriteDataConverter> getSpritesToConvert() {
-		List<SpriteDataConverter> spriteConverters = new ArrayList<>();
-		for (SpriteObject SO : allSpriteObjects) {
-			spriteConverters.add(new SpriteDataConverter(SO));
-		}
-		return spriteConverters;
 	}
 	
 	public SpriteObjectGridManager createLayer() {
 		SpriteObjectGridManager newLayer = null;
 		if (layerNum == 0) {
-			newLayer = new TerrainObjectGridManager(numRows, numCols);
+			newLayer = new TerrainObjectGridManager(myNumRows, myNumCols, layerNum, myColor);
 		}
 		if (layerNum == 1) {
-			newLayer = new SpriteObjectGridManagerForSprites(numRows, numCols);
+			newLayer = new SpriteObjectGridManagerForSprites(myNumRows, myNumCols, layerNum, myColor);
 		}
 		else {
-			newLayer = new PanelObjectGridManager(numRows, numCols);
+			newLayer = new PanelObjectGridManager(myNumRows, myNumCols, layerNum, myColor);
 		}
 		return newLayer;
 	}

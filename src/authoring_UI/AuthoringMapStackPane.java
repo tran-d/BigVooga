@@ -1,25 +1,11 @@
 package authoring_UI;
 
-import java.util.ArrayList;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
-import javax.swing.event.ChangeListener;
-
-import authoring.GridManagers.*;
-import authoring.Sprite.*;
-import authoring.Sprite.Parameters.*;
-import authoring.Sprite.AnimationSequences.*;
-import authoring.Sprite.UtilityTab.*;
-import authoring.Sprite.InventoryTab.*;
-import authoring.SpriteManagers.*;
-import authoring.SpritePanels.*;
-import authoring.util.*;
-import authoring_UI.Map.*;
-import authoring_UI.*;
-import authoring.*;
-import authoring_UI.Inventory.*;
+import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.DefaultSpriteObject;
+import authoring_UI.Map.MapLayer;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Insets;

@@ -1,19 +1,8 @@
 package authoring.GridManagers;
 
-import authoring.GridManagers.*;
-import authoring.Sprite.*;
-import authoring.Sprite.Parameters.*;
-import authoring.Sprite.AnimationSequences.*;
-import authoring.Sprite.UtilityTab.*;
-import authoring.Sprite.InventoryTab.*;
-import authoring.SpriteManagers.*;
-import authoring.SpritePanels.*;
-import authoring.util.*;
-import authoring_UI.Map.*;
-import authoring_UI.*;
-import authoring.*;
-import authoring_UI.Inventory.*;
-import javafx.scene.image.ImageView;
+import authoring_UI.SpriteGridHandler;
+import authoring_UI.Map.SpriteLayer;
+import javafx.scene.paint.Color;
 
 public class SpriteObjectGridManagerForSprites extends SpriteObjectGridManager{
 
@@ -23,6 +12,10 @@ public class SpriteObjectGridManagerForSprites extends SpriteObjectGridManager{
 	
 	public SpriteObjectGridManagerForSprites(int rows, int columns) {
 		super(rows, columns);
+	}
+
+	public SpriteObjectGridManagerForSprites(int myNumRows, int myNumCols, int layerNum, Color myColor) {
+		super(myNumRows, myNumCols, layerNum, myColor);
 	}
 
 	@Override

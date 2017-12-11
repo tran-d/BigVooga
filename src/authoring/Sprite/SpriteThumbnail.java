@@ -1,31 +1,7 @@
 package authoring.Sprite;
 
-import authoring.GridManagers.*;
-import authoring.Sprite.*;
-import authoring.Sprite.Parameters.*;
-import authoring.Sprite.AnimationSequences.*;
-import authoring.Sprite.UtilityTab.*;
-import authoring.Sprite.InventoryTab.*;
-import authoring.SpriteManagers.*;
-import authoring.SpritePanels.*;
-import authoring.util.*;
-import authoring_UI.Map.*;
-import authoring_UI.*;
-import authoring.*;
-import authoring_UI.Inventory.*;
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
+import authoring.Thumbnail;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.StrokeType;
 
 public class SpriteThumbnail extends Thumbnail{
 	

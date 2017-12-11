@@ -7,21 +7,14 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
-import authoring.GridManagers.*;
-import authoring.Sprite.*;
-import authoring.Sprite.Parameters.*;
-import authoring.Sprite.AnimationSequences.*;
-import authoring.Sprite.UtilityTab.*;
-import authoring.Sprite.InventoryTab.*;
-import authoring.SpriteManagers.*;
-import authoring.SpritePanels.*;
-import authoring.util.*;
-import authoring_UI.Map.*;
+
+import authoring.GridManagers.BackgroundGridManager;
+import authoring.GridManagers.PanelObjectGridManager;
+import authoring.GridManagers.SpriteObjectGridManager;
+import authoring.GridManagers.SpriteObjectGridManagerForSprites;
+import authoring.GridManagers.TerrainObjectGridManager;
+import authoring.util.NumberSpinner;
 import engine.utilities.data.GameDataHandler;
-import authoring_UI.*;
-import authoring.*;
-import authoring_UI.Inventory.*;
-import gui.welcomescreen.WelcomeScreen;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Orientation;
@@ -56,18 +49,27 @@ public class DraggableGrid extends VBox {
 	private SpriteGridHandler mySGH;
 	private Integer rows;
 	private Integer cols;
+	private String savePath;
 
 	public DraggableGrid() {
-		System.out.println("Draggable Grid constructor called (MAPMAN)");
 		rows = 20; // TODO HARDCODED
 		cols = 20;
 	}
 	
-	public DraggableGrid(List<SpriteObjectGridManager> SGMs) {
-		this();
-		allGrids = SGMs;
+	public void loadLayers(List<SpriteObjectGridManager> SOGMList) {
+		System.out.println("add to layers in DRAGGABLE GRID!");
+		for (SpriteObjectGridManager SOGM : SOGMList) {
+			if (SOGM.getLayerNum() == 0) {
+				allGrids.add(new TerrainObjectGridManager(SOGM.getNumRows(), SOGM.getNumCols(), SOGM.getLayerNum(), SOGM.getColor()));
+			}
+			if (SOGM.getLayerNum() == 1) {
+				allGrids.add(new SpriteObjectGridManagerForSprites(SOGM.getNumRows(), SOGM.getNumCols(), SOGM.getLayerNum(), SOGM.getColor()));
+			}
+			if (SOGM.getLayerNum() == 2) {
+				allGrids.add(new PanelObjectGridManager(SOGM.getNumRows(), SOGM.getNumCols(), SOGM.getLayerNum(), SOGM.getColor()));
+			}
+		}
 	}
-
 	
 	public void construct(SpriteGridHandler spriteGridHandler){
 		if (allGrids == null){
@@ -79,9 +81,9 @@ public class DraggableGrid extends VBox {
 		createGrid(spriteGridHandler);
 	}
 
-
 	private void makeTopInfo() {
 		topHbox = new HBox(10);
+		topHbox.setAlignment(Pos.CENTER);
 		this.getChildren().add(topHbox);
 	}
 
@@ -113,16 +115,12 @@ public class DraggableGrid extends VBox {
 
 		this.getChildren().add(1, scrollGrid);
 		this.setId("MapGridAndLayers");
-		this.setMaxWidth(MainAuthoringGUI.AUTHORING_WIDTH/2 + 110);
+		this.setMaxWidth(MainAuthoringGUI.AUTHORING_WIDTH/2 + 124);
 	}
 	
 	public List<SpriteObjectGridManager> getGrids(){
 		//TODO
 		return allGrids;
-	}
-	
-	public void setAllGrids(ArrayList<SpriteObjectGridManager> SGMs){
-		allGrids = SGMs;
 	}
 	
 	public void setAllGrids(SpriteObjectGridManager SGM){
@@ -145,6 +143,10 @@ public class DraggableGrid extends VBox {
 			allGrids.add(item);
 		});
 		} else {
+			if (spriteGridHandler == null) System.out.println("SGH is NULL IN DRAGGABLE GRID");
+			if (allGrids == null) System.out.println("ALL GRIDS IS NULL IN DG");
+			if (allGrids.size() == 0) System.out.println("ALL GRIDS SIZE 0");
+			//  allGrids.get(0) <--- THIS IS THE ISSUE
 			allGrids.forEach(item->{
 				System.out.println("lready has a grid!: "+item);
 				item.setSpriteGridHandler(spriteGridHandler);
@@ -185,6 +187,7 @@ public class DraggableGrid extends VBox {
 	
 	private void makeLayerButton(SpriteObjectGridManager ML) {
 		HBox hbox = new HBox(10);
+		hbox.setAlignment(Pos.CENTER);
 		hbox.setId("layerbox");
 		Label label = new Label(ML.getName());
 		
@@ -230,18 +233,13 @@ public class DraggableGrid extends VBox {
 			});
 	
 			hbox.getChildren().addAll(cp, button);
+			hbox.setAlignment(Pos.CENTER);
 		}
 		
 		addLayerButton(hbox);
 	}
 	
 	private void addLayerButton(HBox in){
-		if (this.topHbox.getChildren().size()==0){
-		Separator s = new Separator();
-		
-		s.setOrientation(Orientation.VERTICAL);
-		topHbox.getChildren().add(s);
-		}
 		
 		topHbox.getChildren().add(in);
 		Separator s = new Separator();
@@ -276,5 +274,13 @@ public class DraggableGrid extends VBox {
 			}
 		});
 		topHbox.getChildren().add(ret);
+	}
+	
+	public void setSavePath(String setPath) {
+		savePath = setPath;
+	}
+
+	public String getSavePath() {
+		return savePath;
 	}
 }

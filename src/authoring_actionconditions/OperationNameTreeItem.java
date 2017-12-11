@@ -16,15 +16,23 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 
 	private static final String INPUT_A_DOUBLE = "Input a Double";
 	private static final String INPUT_A_STRING = "Input a String";
+	private static final String INPUT_A_BOOLEAN = "Input a Boolean";
 
 	private OperationFactory operationFactory = new OperationFactory();
 	private ChoiceBox<String> operationCB;
 	private OperationParameterTreeItem operationParameterTreeItem;
 	private List<OperationParameterTreeItem> opParameterList = new ArrayList<>();
+	private Runnable changeTreeViewSize;
 
 	public OperationNameTreeItem(String actionParameter) {
 
 		this.makeOperationNameTreeItem(actionParameter);
+	}
+
+	public OperationNameTreeItem(String actionParameter, Runnable changeSize) {
+		this(actionParameter);
+		this.changeTreeViewSize = changeSize;
+		this.expandedProperty().addListener(e -> changeTreeViewSize.run());
 	}
 
 	public Object makeOperation() {
@@ -45,6 +53,7 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 		hb.getChildren().add(makeOperationNameChoiceBox(actionParameter, this));
 		this.setValue(hb);
 		this.setExpanded(true);
+		
 		return this;
 	}
 
@@ -57,6 +66,8 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 			operations.add(0, INPUT_A_DOUBLE);
 		else if (actionParameter.equals("String"))
 			operations.add(0, (INPUT_A_STRING));
+		else if (actionParameter.equals("Boolean"))
+			operations.add(0, (INPUT_A_BOOLEAN));
 
 		System.out.println("ops: " + operations);
 

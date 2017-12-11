@@ -5,14 +5,14 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import authoring.Sprite.*;
+import authoring.Sprite.AbstractSpriteObject;
 import authoring_actionconditions.ActionRow;
 import authoring_actionconditions.ActionTab;
 import authoring_actionconditions.ActionVBox;
 import authoring_actionconditions.ConditionRow;
 import authoring_actionconditions.ConditionTab;
 import authoring_actionconditions.ConditionVBox;
-import authoring_actionconditions.TopToolBar;
+import authoring_actionconditions.ActionConditionHBox;
 import javafx.collections.ObservableList;
 
 public class ApplyButtonController implements ApplyButtonControllerI {
@@ -32,8 +32,8 @@ public class ApplyButtonController implements ApplyButtonControllerI {
 		System.out.println("Sprite actions " + actions);
 		ObservableList<Integer> allConditions = spriteObject.getAllConditions();
 		ObservableList<Integer> allActions = spriteObject.getAllActions();
-		TopToolBar topToolBarConditions = new TopToolBar(ResourceBundleUtil.getTabTitle("ConditionsTabTitle"),allConditions);
-		TopToolBar topToolBarActions = new TopToolBar(ResourceBundleUtil.getTabTitle("ActionsTabTitle"),allActions);
+		ActionConditionHBox topToolBarConditions = new ActionConditionHBox(ResourceBundleUtil.getTabTitle("ConditionsTabTitle"),allConditions);
+		ActionConditionHBox topToolBarActions = new ActionConditionHBox(ResourceBundleUtil.getTabTitle("ActionsTabTitle"),allActions);
 		int rowCond = 1;
 		List<ConditionRow> conditionRows = new LinkedList<ConditionRow>();
 		ConditionVBox<ConditionRow> conditionVBox = new ConditionVBox<ConditionRow>(conditionTab.getSelectorLabel());
@@ -51,8 +51,7 @@ public class ApplyButtonController implements ApplyButtonControllerI {
 		for(List<String> labels : actions) {
 //			System.out.println("rowAct " + rowAct);
 //			System.out.println("Label " + labels);
-			ActionRow actionRow = new ActionRow(rowAct,labels.get(LABEL_INDEX),labels.get(SELECTOR_LABEL_INDEX),
-					labels.get(SELECTOR_VALUE_INDEX),actionVBox);
+			ActionRow actionRow = new ActionRow(rowAct, actionVBox);
 			actionRows.add(actionRow);
 			rowAct++;
 		}

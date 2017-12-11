@@ -1,20 +1,12 @@
 package authoring.Layers;
 
+import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.SpriteObject;
+import authoring_UI.AuthoringMapStackPane;
+import authoring_UI.SpriteGridHandler;
+import authoring_UI.Map.MapLayer;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import authoring.GridManagers.*;
-import authoring.Sprite.*;
-import authoring.Sprite.Parameters.*;
-import authoring.Sprite.AnimationSequences.*;
-import authoring.Sprite.UtilityTab.*;
-import authoring.Sprite.InventoryTab.*;
-import authoring.SpriteManagers.*;
-import authoring.SpritePanels.*;
-import authoring.util.*;
-import authoring_UI.Map.*;
-import authoring_UI.*;
-import authoring.*;
-import authoring_UI.Inventory.*;
 
 public class BackgroundLayer extends MapLayer {
 	
@@ -38,6 +30,7 @@ public class BackgroundLayer extends MapLayer {
 		this.getChildren().forEach(cell->{
 			((AuthoringMapStackPane) cell).setInactiveBackground(Color.TRANSPARENT);
 		});
+
 		AbstractSpriteObject ASO = new SpriteObject(image, path);
 		AMSP.addChild(ASO);
 		AMSP.setRowSpan(this.numRowsProperty.get());

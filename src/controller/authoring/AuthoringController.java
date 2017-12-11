@@ -1,6 +1,7 @@
 package controller.authoring;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import authoring.AuthoringEnvironmentManager;
@@ -43,9 +44,9 @@ public class AuthoringController {
 		SpriteCreator sc = new SpriteCreator(AEM);
 		viewMap.put(SPRITE_CREATOR_KEY, sc.getPane());
 		
-//		DialogueManager dm = new DialogueManager();
-//		dm.addDialogueListener(mapManager.getDialoguesTab());
-//		viewMap.put(DIALOGUE_KEY, dm.getPane());
+		DialogueManager dm = new DialogueManager();
+		dm.addDialogueListener(mapManager.getDialoguesTab());
+		viewMap.put(DIALOGUE_KEY, dm.getPane());
 		
 		HUDManager hudManager = new HUDManager(AEM, stage);
 		viewMap.put(HUD_KEY, hudManager.getPane());
@@ -67,15 +68,7 @@ public class AuthoringController {
 		authoringPane.getChildren().addAll(view, currentSideBar);
 	}
 
-//	public void saveWorlds() {
-//		GameDataHandler existingGDH = mapManager.getGDH();
-//		for (DraggableGrid DG : mapManager.getAllWorlds()) {
-//			try {
-//				existingGDH.saveWorld(DG);
-//			} catch (Exception e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
-//	}
+	public List<DraggableGrid> getExistingWorlds() {
+		return mapManager.getAllWorlds();
+	}
 }

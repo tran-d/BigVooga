@@ -3,29 +3,21 @@ package authoring_UI;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
-import authoring.GridManagers.*;
-import authoring.Sprite.*;
-import authoring.Sprite.Parameters.*;
-import authoring.Sprite.AnimationSequences.*;
-import authoring.Sprite.UtilityTab.*;
-import authoring.Sprite.InventoryTab.*;
-import authoring.SpriteManagers.*;
-import authoring.SpritePanels.*;
-import authoring.util.*;
-import authoring_UI.Map.*;
-import authoring_UI.*;
-import authoring.*;
-import authoring_UI.Inventory.*;
+import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.InventoryObject;
+import authoring.Sprite.SpriteObject;
+import authoring.SpritePanels.DisplayPanel;
+import authoring.SpritePanels.SpritePanels;
+import authoring_UI.Map.MapLayer;
 import javafx.event.Event;
 import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Effect;
-import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.Glow;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
@@ -33,8 +25,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
@@ -43,8 +33,10 @@ public class SpriteGridHandler {
 	private DataFormat objectFormat;
 	private DisplayPanel myDP;
 	private DraggableGrid myDG;
-
-	public SpriteGridHandler(String parent, int mapCount, DraggableGrid DG) {
+	
+	public SpriteGridHandler(int mapCount, DraggableGrid DG) {
+		Random rand = new Random();
+		int parent = rand.nextInt();
 		objectFormat = new DataFormat("MyObject" + parent+ Integer.toString(mapCount));
 		System.out.println("SGH made with objForm: "+objectFormat);
 		myDG = DG;

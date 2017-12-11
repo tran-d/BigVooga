@@ -90,10 +90,6 @@
     -fx-background-insets: 0 0 0.5px 0;
 }
 
-.text{
-	-fx-text-fill: #47BDFF;
-}
-
 .menu-button{
 	-fx-border-color: #47BDFF;
 	-fx-background-color: transparent;
@@ -161,6 +157,11 @@
     -fx-background-color: #47BDFF;
 }
 
+#StackPane:hover{
+	-fx-border-color: #47BDFF;
+	transition: -fx-border-color 0.1s;
+}
+
 .separator{
 	-fx-background: #47BDFF;
 }
@@ -179,4 +180,5 @@
 
 #InventoryTabPane {
 	-fx-border-color: blue-color blue-color transparent transparent;
+	-fx-background-color: #001E32;
 }

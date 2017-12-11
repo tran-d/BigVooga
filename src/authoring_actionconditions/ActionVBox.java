@@ -14,9 +14,9 @@ public class ActionVBox<T> extends ActionConditionVBox<T> implements ActionVBoxI
 
 	@Override
 	public void addAction(String label) {
-		ActionRow actionRow = new ActionRow(getRows().size() + 1, label, getSelectorLabel(),null, (ActionVBox<ActionRow>) this);
+		ActionRow actionRow = new ActionRow(getRows().size() + 1, (ActionVBox<ActionRow>) this);
 		addToRows(actionRow);
-		BuildActionView view = new BuildActionView(this, actionRow);
+		BuildActionView bav = new BuildActionView(this, actionRow);
 	}
 	
 

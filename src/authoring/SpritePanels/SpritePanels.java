@@ -1,23 +1,9 @@
 package authoring.SpritePanels;
 
-import java.util.List;
-import java.util.Map;
-
-import authoring.GridManagers.*;
-import authoring.Sprite.*;
-import authoring.Sprite.Parameters.*;
-import authoring.Sprite.AnimationSequences.*;
-import authoring.Sprite.UtilityTab.*;
-import authoring.Sprite.InventoryTab.*;
-import authoring.SpriteManagers.*;
-import authoring.SpritePanels.*;
-import authoring.util.*;
-import authoring_UI.Map.*;
-import authoring_UI.*;
-import authoring.*;
-import authoring_UI.Inventory.*;
+import authoring.AuthoringEnvironmentManager;
+import authoring.SpriteParameterSidebarManager;
+import authoring_UI.SpriteGridHandler;
 import javafx.scene.control.Tab;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class SpritePanels extends VBox {

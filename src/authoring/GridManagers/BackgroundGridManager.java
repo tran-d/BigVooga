@@ -1,20 +1,7 @@
 package authoring.GridManagers;
 
-import authoring.GridManagers.*;
 import authoring.Layers.BackgroundLayer;
-import authoring.Sprite.*;
-import authoring.Sprite.Parameters.*;
-import authoring.Sprite.AnimationSequences.*;
-import authoring.Sprite.UtilityTab.*;
-import authoring.Sprite.InventoryTab.*;
-import authoring.SpriteManagers.*;
-import authoring.SpritePanels.*;
-import authoring.util.*;
-import authoring_UI.Map.*;
-import javafx.scene.paint.Color;
-import authoring_UI.*;
-import authoring.*;
-import authoring_UI.Inventory.*;
+import authoring_UI.SpriteGridHandler;
 
 public class BackgroundGridManager extends SpriteObjectGridManager{
 
