@@ -161,31 +161,6 @@ public class DialogueTextAreaView extends VBox {
 		DragResizer draggableTA = new DragResizer(ta);
 		draggableTA.makeResizable();
 		draggableTA.makeDraggable();
-		
-//        ta.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
-//
-//            System.out.println("is clicked");
-//
-//            orgSceneX = e.getSceneX();
-//            orgSceneY = e.getSceneY();
-//            orgTranslateX = ta.getTranslateX();
-//            orgTranslateY = ta.getTranslateY();
-//
-//            ta.toFront();
-//        });
-//
-//        ta.addEventHandler(MouseEvent.MOUSE_DRAGGED, e -> {
-//
-//            System.out.println("is dragged");
-//
-//            double offsetX = e.getSceneX() - orgSceneX;
-//            double offsetY = e.getSceneY() - orgSceneY;
-//            double newTranslateX = orgTranslateX + offsetX;
-//            double newTranslateY = orgTranslateY + offsetY;
-//
-//            ta.setTranslateX(newTranslateX);
-//            ta.setTranslateY(newTranslateY);
-//        });
         
 	}
 

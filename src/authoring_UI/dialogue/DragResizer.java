@@ -1,12 +1,14 @@
 package authoring_UI.dialogue;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.scene.shape.Rectangle;
 
 public class DragResizer {
 
@@ -38,13 +40,6 @@ public class DragResizer {
     protected DragResizer(TextArea aRegion) {
         region = aRegion;
         region.applyCss();
-        
-        Pane pane = (Pane) region.getParent();
-        System.out.println("the pane" + pane);
-        paneLeft = pane.getLayoutX();
-        paneRight = pane.getLayoutX() + pane.getWidth();
-        paneTop = pane.getLayoutY();
-        paneBottom = pane.getLayoutY() + pane.getHeight();
         
     }
 
@@ -167,34 +162,57 @@ public class DragResizer {
     
     protected void makeDraggable() {
     	 
-    	Node textAreaContent = region.lookup(".content");
+//    	Node textAreaContent = region.lookup(".content");
+//
+//           textAreaContent.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+//
+//           		System.out.println("is clicked");
+//
+//             	orgSceneX = e.getSceneX();
+//             	orgSceneY = e.getSceneY();
+//             	orgTranslateX = region.getTranslateX();
+//             	orgTranslateY = region.getTranslateY();
+//
+//             	region.toFront();
+//           });
+//
+//           textAreaContent.addEventHandler(MouseEvent.MOUSE_DRAGGED, e -> {
+//
+//           		System.out.println("is dragged");
+//
+//           		double offsetX = e.getSceneX() - orgSceneX;
+//           		double offsetY = e.getSceneY() - orgSceneY;
+//           		double newTranslateX = orgTranslateX + offsetX;
+//           		double newTranslateY = orgTranslateY + offsetY;
+//           		if (newTranslateX != paneLeft && newTranslateX != paneRight) {
+//               		region.setTranslateX(newTranslateX);
+//           		}
+//           		if (newTranslateY != paneTop && newTranslateY != paneBottom) {
+//               		region.setTranslateY(newTranslateY);
+//           		}
+//           });
+           
+       	Node textAreaContent = region.lookup(".content");
+        Pane pane = (Pane) region.getParent();
 
-           textAreaContent.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+        	textAreaContent.setOnMouseDragged(event -> {
 
-           		System.out.println("is clicked");
+    	        Point2D currentPointer = new Point2D(event.getSceneX(), event.getSceneY());
+    		    // set the clip boundary
+    		    Rectangle bound = new Rectangle(pane.getWidth(), pane.getHeight());
+    		    pane.setClip(bound);
 
-             	orgSceneX = e.getSceneX();
-             	orgSceneY = e.getSceneY();
-             	orgTranslateX = region.getTranslateX();
-             	orgTranslateY = region.getTranslateY();
+    	        if(bound.getBoundsInLocal().contains(currentPointer)){
 
-             	region.toFront();
-           });
-
-           textAreaContent.addEventHandler(MouseEvent.MOUSE_DRAGGED, e -> {
-
-           		System.out.println("is dragged");
-
-           		double offsetX = e.getSceneX() - orgSceneX;
-           		double offsetY = e.getSceneY() - orgSceneY;
-           		double newTranslateX = orgTranslateX + offsetX;
-           		double newTranslateY = orgTranslateY + offsetY;
-           		if (newTranslateX != paneLeft && newTranslateX != paneRight) {
-               		region.setTranslateX(newTranslateX);
-           		}
-           		if (newTranslateY != paneTop && newTranslateY != paneBottom) {
-               		region.setTranslateY(newTranslateY);
-           		}
-           });
+    	            if(currentPointer.getX() > 0 &&
+    	                    (currentPointer.getX() + region.getWidth()) < pane.getWidth()){
+    	                region.setTranslateX(currentPointer.getX());
+    	            }
+    	            if(currentPointer.getY() > 0 &&
+    	                    (currentPointer.getY() + region.getHeight()) < pane.getHeight()){
+    	                region.setTranslateY(currentPointer.getY());
+    	            }
+    	        }
+    	    });
     }
 }

@@ -1,68 +1,117 @@
 package authoring_UI.dialogue;
 
+import authoring.Sprite.AbstractSpriteObject;
 import javafx.application.Application;
-import javafx.scene.Group;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class Tester extends Application {
+	
+	private static double orgSceneX, orgSceneY;
+	private static double orgTranslateX, orgTranslateY;
 
-    double orgSceneX, orgSceneY;
-    double orgTranslateX, orgTranslateY;
+	@Override
+	public void start(Stage stage){
+	    stage.setTitle("BPM");
+	    BorderPane mainPanel = new BorderPane();
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-    		Pane overall = new Pane();
-        TextArea textarea = new TextArea();
-        Pane pane = new Pane(textarea);
-        pane.setBorder(new Border(new BorderStroke(Color.BLACK, 
-	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-        overall.getChildren().add(pane);
+	    VBox nameList = new VBox();
+	    nameList.getChildren().add(new Label("Data"));
+	    nameList.setPrefWidth(150);
 
-        Scene scene = new Scene(overall, 640, 480);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+	    Pane canvas = new Pane();
+	    canvas.setStyle("-fx-background-color: #ffe3c3;");
+	    canvas.setPrefSize(400,300);
 
-        Node textAreaContent = textarea.lookup(".content");
-        System.out.println(textAreaContent);
-        textAreaContent.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+	    Circle anchor = new Circle(10);
 
-            System.out.println("is clicked");
+	    double rectWidth = 50, rectHeight = 50;
+	    TextArea ta = new TextArea();
+	    ta.setPrefSize(50, 50);
+       	ta.applyCss();
 
-            orgSceneX = e.getSceneX();
-            orgSceneY = e.getSceneY();
-            orgTranslateX = textarea.getTranslateX();
-            orgTranslateY = textarea.getTranslateY();
 
-            textarea.toFront();
-        });
+	    
+	    canvas.getChildren().addAll(ta, anchor);
+       	
 
-        textAreaContent.addEventHandler(MouseEvent.MOUSE_DRAGGED, e -> {
+	    // set the clip boundary
+	    Rectangle bound = new Rectangle(canvas.getPrefWidth(),canvas.getPrefHeight());
+	    canvas.setClip(bound);
 
-            System.out.println("is dragged");
+	   
 
-            double offsetX = e.getSceneX() - orgSceneX;
-            double offsetY = e.getSceneY() - orgSceneY;
-            double newTranslateX = orgTranslateX + offsetX;
-            double newTranslateY = orgTranslateY + offsetY;
+	    mainPanel.setLeft(nameList);
+	    mainPanel.setCenter(canvas);
+	    Scene scene = new Scene(mainPanel, 800, 600);
+	    stage.setScene(scene);
+	    stage.show();
+	    
+	    Node rect = ta.lookup(".content");
 
-            textarea.setTranslateX(newTranslateX);
-            textarea.setTranslateY(newTranslateY);
-        });
+      rect.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
 
-    }
+      		System.out.println("is clicked");
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+        	orgSceneX = e.getSceneX();
+        	orgSceneY = e.getSceneY();
+        	orgTranslateX = ta.getTranslateX();
+        	orgTranslateY = ta.getTranslateY();
+
+        	ta.toFront();
+      });
+
+      rect.addEventHandler(MouseEvent.MOUSE_DRAGGED, e -> {
+
+      		System.out.println("is dragged");
+
+      		double offsetX = e.getSceneX() - orgSceneX;
+      		double offsetY = e.getSceneY() - orgSceneY;
+      		double newTranslateX = orgTranslateX + offsetX;
+      		double newTranslateY = orgTranslateY + offsetY;
+      		Point2D currentPointer = new Point2D(e.getX(), e.getY());
+
+	        if(bound.getBoundsInLocal().contains(currentPointer)){
+
+	            if(currentPointer.getX() > 0 &&
+	                    (currentPointer.getX() + ta.getWidth()) < bound.getWidth()){
+	                ta.setTranslateX(newTranslateX);
+	            }
+	            if(currentPointer.getY() > 0 &&
+	                    (currentPointer.getY() + ta.getHeight()) < bound.getHeight()){
+	                ta.setTranslateY(newTranslateY);
+	            }
+	        }
+      });
+	    
+//	    rect.setOnMouseDragged(event -> {
+//
+//	        Point2D currentPointer = new Point2D(event.getX(), event.getY());
+//
+//	        if(bound.getBoundsInLocal().contains(currentPointer)){
+//
+//	            if(currentPointer.getX() > 0 &&
+//	                    (currentPointer.getX() + rectWidth) < bound.getWidth()){
+//	                ta.setX(currentPointer.getX());
+//	            }
+//	            if(currentPointer.getY() > 0 &&
+//	                    (currentPointer.getY() + rectHeight) < bound.getHeight()){
+//	                rect.setTranslateY(currentPointer.getY());
+//	            }
+//	        }
+//	    });
+//	 
+	}
 }
