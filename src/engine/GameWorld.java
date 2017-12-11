@@ -7,7 +7,6 @@ import java.util.Map;
 
 import engine.sprite.Displayable;
 import engine.utilites.camera.Camera;
-import gui.welcomescreen.WelcomeScreen;
 import javafx.geometry.Point2D;
 
 /**
@@ -92,7 +91,7 @@ public class GameWorld {
 			List<GameObject> player = l.getObjectsWithTag(GameObject.CAMERA_TAG);
 			if(player.size() > 0) return player.get(0);
 		}
-		return worldLayers.get(0).getAllObjects().get(0);
+		return null;
 	}
 
 	public void addLayer(GameLayer layer) {

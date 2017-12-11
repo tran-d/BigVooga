@@ -134,7 +134,7 @@ public class GameLayer implements Layer {
 		throw new RuntimeException("None by name " + name);// TODO
 	}
 
-	public List<GameObject> getAllObjects() {
+	public List<GameObject> getAllGameObjects() {
 		return objects;
 	}
 
