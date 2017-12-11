@@ -54,6 +54,14 @@ public class GameWorld {
 		return els;
 	}
 	
+	public List<GameObject> getAllGameObjects() {
+		List<GameObject> obs = new ArrayList<>();
+		for (Layer l : worldLayers) {
+			obs.addAll(l.getAllGameObjects());
+		}
+		return obs;
+	}
+	
 	public List<Displayable> getAllDisplayables() {
 		List<Displayable> ret = new ArrayList<>();
 		GameObject player = getPlayerObject();

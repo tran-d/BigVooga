@@ -14,4 +14,5 @@ public interface Layer {
 	public void step(ConcreteGameObjectEnvironment environment);
 	public List<Element> getAllElements();
 	void removeGameObject(GameObject obj);
+	public List<? extends GameObject> getAllGameObjects();
 }

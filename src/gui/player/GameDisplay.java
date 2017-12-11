@@ -2,7 +2,6 @@ package gui.player;
 
 import java.net.URISyntaxException;
 import java.util.List;
-
 import controller.player.PlayerManager;
 import controller.welcomeScreen.SceneController;
 import engine.sprite.Displayable;
