@@ -128,6 +128,11 @@ public class DraggableGrid extends VBox {
 		allGrids.add(SGM);
 	}
 	
+	public void setAllGrids(List <SpriteObjectGridManager> SGM){
+		allGrids = new ArrayList<SpriteObjectGridManager>();
+		allGrids.addAll(SGM);
+	}
+	
 	private void makeLayers(SpriteGridHandler spriteGridHandler){
 		showingGrids = new ArrayList<SpriteObjectGridManager>();
 		if (allGrids.size()==0){
@@ -165,7 +170,9 @@ public class DraggableGrid extends VBox {
 				return o2.getMapLayer().getLayerNumber()-o1.getMapLayer().getLayerNumber();
 			}
 		});
+		System.out.println(allGrids.get(0));
 		return allGrids.get(0);
+		
 	}
 	
 	private void showLayer(SpriteObjectGridManager ML){
@@ -206,7 +213,7 @@ public class DraggableGrid extends VBox {
 		hbox.getChildren().addAll(label, checkbox);
 		if (ML.canFillBackground()){
 			//ColorPicker
-			ColorPicker cp = new ColorPicker(Color.SANDYBROWN);
+			ColorPicker cp = new ColorPicker(Color.TRANSPARENT);
 			cp.setOnAction((event)->{
 				ML.setColor(cp.getValue());
 			});

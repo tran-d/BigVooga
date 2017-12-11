@@ -9,6 +9,7 @@ import java.util.function.Consumer;
 
 import authoring.AuthoringEnvironmentManager;
 import authoring_UI.SpriteScrollView;
+import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -51,6 +52,7 @@ public class SpriteInventoryTabAndInfo {
 	private void initialize() {
 		containerVBox = new VBox(5);
 		containerVBox.setPrefWidth(495);
+		containerVBox.setAlignment(Pos.TOP_CENTER);
 
 //		myInventory = new ArrayList<AbstractSpriteObject>();
 		temporaryInventory = new HashSet<AbstractSpriteObject>();

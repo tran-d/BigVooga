@@ -122,8 +122,9 @@ public class NumberSpinner extends HBox {
         //incrementButton.prefWidthProperty().bind(numberField.heightProperty());
         //incrementButton.minWidthProperty().bind(numberField.heightProperty());
         //incrementButton.maxHeightProperty().bind(buttonHeight.add(spacing));
-        incrementButton.prefHeightProperty().bind(buttonHeight.add(spacing));
-        incrementButton.minHeightProperty().bind(buttonHeight.add(spacing));
+        incrementButton.setPrefHeight(13.25);
+        incrementButton.setMinHeight(13.25);
+        
         incrementButton.setFocusTraversable(false);
         incrementButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -144,8 +145,8 @@ public class NumberSpinner extends HBox {
         //decrementButton.prefWidthProperty().bind(numberField.heightProperty());
         //decrementButton.minWidthProperty().bind(numberField.heightProperty());
         //decrementButton.maxHeightProperty().bind(buttonHeight);
-        decrementButton.prefHeightProperty().bind(buttonHeight);
-        decrementButton.minHeightProperty().bind(buttonHeight);
+        decrementButton.setPrefHeight(13);
+        decrementButton.setMinHeight(13);
 
         decrementButton.setFocusTraversable(false);
         decrementButton.setOnAction(new EventHandler<ActionEvent>() {

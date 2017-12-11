@@ -47,12 +47,12 @@ public class MapManager extends TabPane {
 	private Pane mapEditor = new Pane();
 	private SpritePanels spritePanels;
 
-	public MapManager(AuthoringEnvironmentManager AEM, Stage currentStage)  {
+	public MapManager(AuthoringEnvironmentManager AEM, Scene currentScene)  {
 		setTabTag();
 		setManagerName();
 		myAEM = AEM;
 		myGDH = myAEM.getGameDataHandler();
-		stage = currentStage;
+		scene = currentScene;
 		mapEditor.getChildren().add(this);
 		mySelectModel = this.getSelectionModel();
 		this.setPrefWidth(VIEW_WIDTH);
@@ -116,7 +116,7 @@ public class MapManager extends TabPane {
 		allWorlds.add(w);
 		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, w);
 		w.construct(mySpriteGridHandler);
-		mySpriteGridHandler.addKeyPress(stage.getScene());
+		mySpriteGridHandler.addKeyPress(scene);
 		spritePanels = new SpritePanels(mySpriteGridHandler, myAEM);
 		mySpriteGridHandler.setDisplayPanel(spritePanels);
 		AuthoringMapEnvironment authMap = new AuthoringMapEnvironment(spritePanels, w);

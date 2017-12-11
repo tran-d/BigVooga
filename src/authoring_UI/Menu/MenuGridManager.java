@@ -28,8 +28,8 @@ public class MenuGridManager extends SpriteObjectGridManager {
 	@Override
 	public void createMapLayer() {
 		myMapLayer = new MenuLayer(getNumRows(), getNumCols(), mySpriteGridHandler);
-		this.setNumCols(temporaryColumns);
-		this.setNumRows(temporaryRows);
+		this.setNumCols(defaultColumns);
+		this.setNumRows(defaultRows);
 		
 	}
 	

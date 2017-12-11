@@ -22,8 +22,8 @@ public abstract class SpriteObjectGridManager {
 	protected SpriteGridHandler mySpriteGridHandler;
 	protected int myLayerNum;
 	protected Color myColor;
-	protected int temporaryRows;
-	protected int temporaryColumns;
+	protected int defaultRows;
+	protected int defaultColumns;
 	protected boolean canFillBackground;
 	
 	protected ObjectProperty<Integer> numRowsProperty;
@@ -92,11 +92,18 @@ public abstract class SpriteObjectGridManager {
 					}
 				}
 		});
-		temporaryRows = rows;
-		temporaryColumns = cols;
+		defaultRows = rows;
+		defaultColumns = cols;
 //		initializeGrid();
 	}
 	
+	public int getDefaultRows(){
+		return defaultRows;
+	}
+	
+	public int getDefaultCols(){
+		return defaultColumns;
+	}
 	
 	public SpriteObjectGridManager(int rows, int columns, SpriteGridHandler SGH){
 		this(rows, columns);
@@ -240,6 +247,8 @@ public abstract class SpriteObjectGridManager {
 		List<SpriteObject> ret = new ArrayList<SpriteObject>();
 		for (Integer[] loc: activeCells){
 			ret.add(getCell(loc));
+			System.out.println("WTF YO");
+			System.out.println(getCell(loc));
 		}
 		return ret;
 	}

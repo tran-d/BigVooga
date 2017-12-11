@@ -10,6 +10,7 @@ import authoring.SpritePanels.SpritePanels;
 import authoring_UI.DraggableGrid;
 import authoring_UI.MapManager;
 import authoring_UI.SpriteGridHandler;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class InventoryManager extends MapManager{
@@ -17,8 +18,8 @@ public class InventoryManager extends MapManager{
 	private SpriteObjectGridManager InventoryGridBE;
 	private AuthoringEnvironmentManager myAEM;
 
-	public InventoryManager(AuthoringEnvironmentManager AEM, Stage currentStage) {
-		super(AEM, currentStage);
+	public InventoryManager(AuthoringEnvironmentManager AEM, Scene currentScene) {
+		super(AEM, currentScene);
 		myAEM = AEM;
 	}
 	

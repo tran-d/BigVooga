@@ -61,8 +61,10 @@ public class SpriteGridHandler {
 
 	private void deleteSelectedSprites() {
 		List<Integer[]> cellsToDelete = new ArrayList<Integer[]>();
+		System.out.println(myDG.getActiveGrid());
 		myDG.getActiveGrid().getActiveSpriteObjects().forEach(s -> {
 			Integer[] row_col = s.getPositionOnGrid();
+			System.out.println(row_col);
 //			System.out.println("row_col: " + row_col);
 			cellsToDelete.add(row_col);
 		});
