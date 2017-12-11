@@ -1,7 +1,9 @@
 package authoring_UI.dialogue;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
@@ -45,34 +47,36 @@ public class DialogueTextAreaView extends VBox {
 	private String currentFontType;
 	private int currentFontSize;
 
-	private List<TextArea> taList;
 	private List<Pane> paneList;
 	private Button nextButton;
 	private Button prevButton;
-	private Button addPanelButton;
+	private Button addPaneButton;
 	private Button removePanelButton;
-	private int currentPanelIndex = -1;
-	private Label currentPanel;
-	private Label totalPanels;
+	private Label currentPane;
+	private Label totalPanes;
 	private HBox dialoguePreview;
+	private int currentPaneIndex;
 
-	private SimpleIntegerProperty curr;
-	private SimpleIntegerProperty total;
+	private SimpleIntegerProperty current;
+	private SimpleIntegerProperty totalPaneCount;
 
 	private Runnable save;
 	private double orgSceneX, orgSceneY;
 	private double orgTranslateX, orgTranslateY;
+	private ArrayList<TextArea> taList;
 
 	public DialogueTextAreaView(Runnable save) {
-		taList = new ArrayList<>();
-		paneList = new ArrayList<>();
+		taList = new ArrayList<TextArea>();
+		paneList = new ArrayList<Pane>();
 		dialoguePreview = new HBox();
-		addPanel();
 		this.save = save;
 		this.setSpacing(15);
 
-		curr = new SimpleIntegerProperty(currentPanelIndex + 1);
-		total = new SimpleIntegerProperty(taList.size());
+		currentPaneIndex = -1;
+		current = new SimpleIntegerProperty(0);
+		totalPaneCount = new SimpleIntegerProperty(0);
+		
+		addPane();
 
 		this.getChildren().addAll(dialoguePreview, makeToolPanel());
 
@@ -112,26 +116,25 @@ public class DialogueTextAreaView extends VBox {
 
 	public void removePanel() {
 
-		if (!taList.isEmpty()) {
+		if (paneList.size()>1) {
+			System.out.println(paneList.size());
+			System.out.println(currentPaneIndex);
 
-			if (currentPanelIndex == 0) {
-				next();
-				if (currentPanelIndex == 0) {
-					dialoguePreview.getChildren().clear();
-					taList.remove(currentPanelIndex);
-				} else
-					taList.remove(--currentPanelIndex);
-			} else if (currentPanelIndex == taList.size() - 1) {
+			if (currentPaneIndex == paneList.size() - 1) {
 				prev();
-				taList.remove(currentPanelIndex + 1);
+				paneList.remove(currentPaneIndex+1);
+				
 			} else {
 				next();
-				taList.remove(--currentPanelIndex);
+				paneList.remove(currentPaneIndex-1);
+				currentPaneIndex -= 1;
+				current.set(current.get()-1);
 			}
+			totalPaneCount.set(totalPaneCount.get()-1);
 		}
 	}
 
-	public void addPanel() {
+	public void addPane() {
 //		TextArea ta = new TextArea();
 //		ta.setPrefSize(DIALOG_PROMPT_WIDTH, DIALOG_PROMPT_HEIGHT);
 //		ta.setWrapText(true);
@@ -143,13 +146,14 @@ public class DialogueTextAreaView extends VBox {
 		Pane dialoguePane = new Pane();
 		dialoguePane.setPrefSize(DIALOG_PROMPT_WIDTH, DIALOG_PROMPT_HEIGHT);
 		paneList.add(dialoguePane);
-		setCurrentPanel(paneList.size() - 1);
+		setCurrentPanel();
+		totalPaneCount.set(totalPaneCount.get()+1);
 		this.getChildren().add(dialoguePane);
 	}
 	
 	protected void addTextArea() {
 		TextArea ta = new TextArea();
-		ta.setPrefSize(50, 50);
+		ta.setPrefSize(25, 25);
 //		ta.setStyle("-fx-background-color: transparent;");
 		ta.setBorder(new Border(new BorderStroke(Color.BLACK, 
 	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
@@ -166,35 +170,44 @@ public class DialogueTextAreaView extends VBox {
 
 	/************************ PRIVATE METHODS ***************************/
 
-	private void setCurrentPanel(int index) {
-		dialoguePreview.getChildren().clear();
-		dialoguePreview.getChildren().add(paneList.get(index));
-		currentPanelIndex = index;
+	private void setCurrentPanel() {
+		currentPaneIndex += 1;
+		current.set(current.get()+1);
+		if (!paneList.isEmpty()) {
+			dialoguePreview.getChildren().clear();
+		}
+		dialoguePreview.getChildren().add(paneList.get(currentPaneIndex));
 	}
 
 	private void prev() {
-		if (currentPanelIndex > 0) {
+		if (currentPaneIndex > 0) {
+			currentPaneIndex -= 1;
+			System.out.println(currentPaneIndex);
+			current.set(current.get()-1);
 			dialoguePreview.getChildren().clear();
-			dialoguePreview.getChildren().add(taList.get(--currentPanelIndex));
+			dialoguePreview.getChildren().add(paneList.get(currentPaneIndex));
 		}
 	}
 
 	private void next() {
-		if (currentPanelIndex < taList.size() - 1) {
+		if (currentPaneIndex < paneList.size() - 1) {
+			currentPaneIndex += 1;
+			System.out.println(currentPaneIndex);
+			current.set(current.get()+1);
 			dialoguePreview.getChildren().clear();
-			dialoguePreview.getChildren().add(taList.get(++currentPanelIndex));
+			dialoguePreview.getChildren().add(paneList.get(currentPaneIndex));
 		}
 	}
 
 	private HBox makeToolPanel() {
 		HBox hb = new HBox();
 		hb.setPrefWidth(DIALOG_PROMPT_WIDTH);
-		currentPanel = new Label();
-		currentPanel.textProperty().bind(curr.asString());
+		currentPane = new Label();
+		currentPane.textProperty().bind(current.asString());
 		Label slash = new Label("/");
-		totalPanels = new Label();
-		totalPanels.textProperty().bind(total.asString());
-		hb.getChildren().addAll(makeButtonPanel(), currentPanel, slash, totalPanels);
+		totalPanes = new Label();
+		totalPanes.textProperty().bind(totalPaneCount.asString());
+		hb.getChildren().addAll(makeButtonPanel(), currentPane, slash, totalPanes);
 		return hb;
 	}
 
@@ -203,11 +216,11 @@ public class DialogueTextAreaView extends VBox {
 		hb.setPrefWidth(DIALOG_PROMPT_WIDTH * 0.90);
 		nextButton = makeButton(NEXT_BUTTON_PROMPT, e -> next());
 		prevButton = makeButton(PREV_BUTTON_PROMPT, e -> prev());
-		addPanelButton = makeButton(ADD_PANEL_BUTTON_PROMPT, e -> this.addPanel());
+		addPaneButton = makeButton(ADD_PANEL_BUTTON_PROMPT, e -> this.addPane());
 		removePanelButton = makeButton(REMOVE_PANEL_BUTTON_PROMPT, e -> this.removePanel());
 		// change number
 		// saveButton = makeButton(SAVE_BUTTON_PROMPT, e -> save(nameTF.getText()));
-		hb.getChildren().addAll(prevButton, nextButton, addPanelButton, removePanelButton);
+		hb.getChildren().addAll(prevButton, nextButton, addPaneButton, removePanelButton);
 		return hb;
 	}
 
