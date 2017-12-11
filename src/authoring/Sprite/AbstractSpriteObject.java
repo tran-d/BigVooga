@@ -27,6 +27,7 @@ import authoring.Sprite.Parameters.SpriteParameterI;
 import authoring.Sprite.Parameters.StringSpriteParameter;
 import engine.Action;
 import engine.Condition;
+import engine.sprite.AnimationSequence;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
