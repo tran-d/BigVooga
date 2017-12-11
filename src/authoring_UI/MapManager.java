@@ -11,11 +11,19 @@ import gui.welcomescreen.WelcomeScreen;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -65,7 +73,7 @@ public class MapManager extends TabPane {
 			System.out.println("AN OLD GRID WAS SAVED AND NOW WILL BE LOADED");
 			for (DraggableGrid w: DGs){
 				setTab();
-				createTab(myTabCount, w);
+				createTab(w);
 			}
 		} else {
 			System.out.println("displaying a new grid");
@@ -96,10 +104,9 @@ public class MapManager extends TabPane {
 	
 	private void setTab() { //?
 		this.setSide(Side.TOP);
-		addTab = new Tab();
-		addTab.setText(ADD_TAB);
+		addTab = new Tab(ADD_TAB);
 		addTab.setOnSelectionChanged(e -> {
-			createTab(myTabCount, makeDraggableGrid());
+			createTab(makeDraggableGrid());
 			mySelectModel.select(currentTab);
 		});
 		this.getTabs().add(addTab);
@@ -123,13 +130,9 @@ public class MapManager extends TabPane {
 		return authMap;
 	}
 
-	private void createTab(int tabCount, DraggableGrid w) { //?
-		currentTab = new Tab();
+	private void createTab(DraggableGrid w) { //?
+		currentTab = createEditableTab();
 		currentTab.setOnClosed(e -> this.removeWorld(w));
-		StringProperty tabMap = new SimpleStringProperty();
-		tabMap.bind(Bindings.concat(DisplayLanguage.createStringBinding(TAB_TAG)).concat(" " + Integer.toString(tabCount)));
-		currentTab.textProperty().bind(tabMap);
-//		currentTab.textProperty().set(TODO: World Name);
 		currentTab.setContent(setupScene(w));
 		this.getTabs().add(this.getTabs().size() - 1, currentTab);
 		myTabCount++;
@@ -166,4 +169,50 @@ public class MapManager extends TabPane {
 	public List<DraggableGrid> getAllWorlds() {
 		return allWorlds;
 	}
+	
+	private Tab createEditableTab() {
+		StringProperty tabMap = new SimpleStringProperty();
+		tabMap.bind(Bindings.concat(DisplayLanguage.createStringBinding(TAB_TAG)).concat(" " + Integer.toString(myTabCount)));
+//		
+		final Label label = new Label(tabMap.get());  
+		// cannot bind editable tab label!! 
+		
+		final Tab tab = new Tab();  
+		tab.setGraphic(label);  
+		final TextField textField = new TextField();  
+		label.setOnMouseClicked(new EventHandler<Event>() {  
+			@Override
+			public void handle(Event event) {
+				if (((MouseEvent) event).getClickCount()==2) {  
+					textField.setText(label.getText());  
+					tab.setGraphic(textField);  
+					textField.selectAll();  
+					textField.requestFocus();  
+				}  
+			}  
+		}); 
+
+
+		textField.setOnAction(new EventHandler<ActionEvent>() {  
+			public void handle(ActionEvent event) {  
+				label.setText(textField.getText());  
+				tab.setGraphic(label);  
+			}  
+		});
+
+
+		textField.focusedProperty().addListener(new ChangeListener<Boolean>() {  
+			@Override  
+			public void changed(ObservableValue<? extends Boolean> observable,  
+					Boolean oldValue, Boolean newValue) {  
+				if (! newValue) {  
+					label.setText(textField.getText());  
+					tab.setGraphic(label);            
+				}  
+			}  
+		});  
+		
+		return tab ;  
+	 }
+
 }
