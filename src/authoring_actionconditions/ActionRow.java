@@ -1,12 +1,8 @@
 package authoring_actionconditions;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import authoring.ActionNameTreeItem;
 import engine.Action;
 import engine.Actions.ActionFactory;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -17,21 +13,19 @@ import javafx.scene.layout.HBox;
 /**
  * Class representing an action row for sprites.
  * 
- * @author DavidTran
+ * @author Owen Smith, David Tran
  *
  */
 public class ActionRow extends ActionConditionRow {
 
-	private ActionFactory actionFactory = new ActionFactory();
-
+	private ActionFactory actionFactory;
 	private TreeView<HBox> actionTreeView;
 	private ActionCategoryTreeItem categoryAction;
-
 	private ActionNameTreeItem actionName;
 
 	public ActionRow(int ID, ActionVBox<ActionRow> ACVBox) {
 		super(ID, ACVBox);
-
+		actionFactory = new ActionFactory();
 		this.setPrefSize(ROW_WIDTH, EXPANDED_HEIGHT);
 
 		categoryAction = new ActionCategoryTreeItem(() -> changeRowTVSize());
@@ -39,9 +33,8 @@ public class ActionRow extends ActionConditionRow {
 		actionTreeView.setPrefSize(TREE_VIEW_WIDTH, EXPANDED_HEIGHT);
 		this.getItems().addAll(actionTreeView);
 	}
-
-	public ActionRow(int ID, String label, String selectorLabel, String selectedAction, ActionVBox<ActionRow> ACVBox,
-			TreeView<HBox> tv) {
+	
+	public ActionRow(int ID,ActionVBox<ActionRow> ACVBox, TreeView<HBox> tv) {
 		super(ID, ACVBox);
 		this.getItems().addAll(tv);
 	}

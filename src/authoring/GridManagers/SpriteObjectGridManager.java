@@ -13,7 +13,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.paint.Color;
 
-public abstract class SpriteObjectGridManager {
+public abstract class SpriteObjectGridManager implements SpriteObjectGridManagerI{
 	
 	
 	protected List<List<SpriteObject>> spriteGrid;

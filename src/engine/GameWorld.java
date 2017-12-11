@@ -1,11 +1,12 @@
 package engine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import engine.sprite.Displayable;
 import engine.utilites.camera.Camera;
-import gui.welcomescreen.WelcomeScreen;
 import javafx.geometry.Point2D;
 
 /**
@@ -46,23 +47,40 @@ public class GameWorld {
 			l.step(environment);
 	}
 
-	public List<Element> getAllElements() {
-		List<Element> els = new ArrayList<>();
+	private Map<Element, Boolean> getAllElements() {
+		Map<Element, Boolean> els = new HashMap<>();
 		for (Layer l : worldLayers) {
-			els.addAll(l.getAllElements());
+			for(Element e : l.getAllElements()) {
+				els.put(e, l.isTracked());
+			}
 		}
 		return els;
 	}
 	
+	public List<GameObject> getAllGameObjects() {
+		List<GameObject> obs = new ArrayList<>();
+		for (Layer l : worldLayers) {
+			obs.addAll(l.getAllGameObjects());
+		}
+		return obs;
+	}
+
+	/**
+	 * Returns a list of all Displayables in the world, setting each one's location relative to the tracked object
+	 */
 	public List<Displayable> getAllDisplayables() {
 		List<Displayable> ret = new ArrayList<>();
 		GameObject player = getPlayerObject();
 		camera = new Camera(player);
 		camera.moveToPlayer();
-		for(Element e : getAllElements()) {
+		Map<Element, Boolean> allEls = getAllElements();
+		for(Element e : allEls.keySet()) {
 			Displayable image = e.getDisplayable();
-			Point2D relCoords = camera.makeCoordinatesRelative(e.getX(), e.getY());
-			image.setPosition(relCoords.getX(), relCoords.getY());
+			if(allEls.get(e)) {
+				Point2D relCoords = camera.makeCoordinatesRelative(e.getX(), e.getY());
+				image.setPosition(relCoords.getX(), relCoords.getY());
+			}
+			else image.setPosition(e.getX(), e.getY());
 			ret.add(image);
 		}
 		return ret;
@@ -70,10 +88,10 @@ public class GameWorld {
 	
 	private GameObject getPlayerObject() {
 		for(GameLayer l : worldLayers) {
-			List<GameObject> player = l.getObjectsWithTag("Player");			//TODO: Make constant
+			List<GameObject> player = l.getObjectsWithTag(GameObject.CAMERA_TAG);
 			if(player.size() > 0) return player.get(0);
 		}
-		return worldLayers.get(0).getAllObjects().get(0);
+		return null;
 	}
 
 	public void addLayer(GameLayer layer) {
@@ -94,8 +112,8 @@ public class GameWorld {
 	public List<GameLayer> getLayers() {
 		return worldLayers;
 	}
-	public Point2D makeScreenCoordinatesAbsolute(double x, double y)
-	{
+	
+	public Point2D makeScreenCoordinatesAbsolute(double x, double y) {
 		return camera.makeCoordinatesAbsolute(x, y);
 	}
 

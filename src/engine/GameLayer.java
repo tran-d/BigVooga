@@ -21,6 +21,7 @@ public class GameLayer implements Layer {
 	private List<GameObject> objects = new ArrayList<>();
 	private Map<Integer, List<GameObject>> conditionPriorities = new ConcurrentSkipListMap<>();
 	private Map<Integer, GameObject> idToGameObject = new HashMap<>();
+	private boolean isTracked;
 
 	public GameLayer() {
 		this(DEFAULT_NAME);
@@ -29,6 +30,7 @@ public class GameLayer implements Layer {
 	public GameLayer(String name) {
 		worldName = name;
 		worldElements = new ArrayList<>();
+		isTracked = true;
 	}
 
 	public void addGameObject(GameObject obj) {
@@ -123,8 +125,6 @@ public class GameLayer implements Layer {
 		return worldElements;
 	}
 
-	// TODO: Get all displayables
-
 	@Override
 	public GameObject getWithName(String name) {
 		for (GameObject go : objects) {
@@ -134,8 +134,18 @@ public class GameLayer implements Layer {
 		throw new RuntimeException("None by name " + name);// TODO
 	}
 
-	public List<GameObject> getAllObjects() {
+	public List<GameObject> getAllGameObjects() {
 		return objects;
+	}
+
+	@Override
+	public boolean isTracked() {
+		return isTracked;
+	}
+	
+	@Override
+	public void setIsTracked(boolean isTracked) {
+		this.isTracked = isTracked;
 	}
 
 }

@@ -78,6 +78,8 @@ public class SpriteObjectGridToEngineController {
 		setInventory(SOI, GE);
 		addParametersToVariableContainer(SOI, GE);
 		addConditionsAndActionsToGameObject(SOI, GE);
+		
+		
 		return GE;
 	}
 	

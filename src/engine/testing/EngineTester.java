@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -16,9 +17,13 @@ import engine.GameMaster;
 import engine.GameObject;
 import engine.GameObjectFactory;
 import engine.GameWorld;
+import engine.Holdable;
+import engine.Inventory;
+import engine.Actions.changeObject.DisplayInventory;
 import engine.Actions.movement.Move;
 import engine.Actions.movement.Rotate;
 import engine.operations.booleanops.KeyHeld;
+import engine.operations.booleanops.KeyPressed;
 import engine.operations.booleanops.ObjectClickHeld;
 import engine.operations.doubleops.Value;
 import engine.operations.gameobjectops.Self;
@@ -65,7 +70,26 @@ public class EngineTester extends Application {
 		obj1.addTag("Player");
 		obj1.setSize(200, 100);
 		
-		i = new BoundedImage("testImage.gif");
+		Inventory inv = obj1.getInventory();
+		inv.setX(300);
+		inv.setY(300);
+		BoundedImage b = new BoundedImage("brick.png");
+		b.setSize(400, 200);
+		inv.setPane(b);
+		for(int j = 0; j < 10; j++)
+		{
+			BoundedImage bi = new BoundedImage("skeptical.jpg");
+			AnimationSequence as = new AnimationSequence("Hi", Arrays.asList(bi));
+			Sprite s = new Sprite();
+			s.addAnimationSequence(as);
+			s.setAnimation("Hi");
+			
+			Holdable invObj = new Holdable(s);
+			invObj.setSelectActions(Arrays.asList(new Rotate(new Self(), new Value(45))));
+			inv.addObject(invObj);
+		}
+		
+		i = new BoundedImage("source.gif");
 		GameObject obj2 = makeObject("Ob1", i, 200, 150, this::conditionAction2);
 		obj1.addTag("Ob1");
 		obj1.addTag("Player");
@@ -85,14 +109,14 @@ public class EngineTester extends Application {
 		master.addWorld(w);
 		master.setNextWorld("World");
 		//try {
-			new GameDataHandler(name, stage).saveGame(master);
+			new GameDataHandler(name).saveGame(master);
 		//} //catch (IOException e) {
 			//e.printStackTrace();
 		//}
 
 		try {
 			System.out.println("Trying to load game");
-			new GameDataHandler(name, stage).loadGame().setNextWorld("World");
+			new GameDataHandler(name).loadGame().setNextWorld("World");
 		} catch (FileNotFoundException e) {
 			System.out.println("Error");
 		}
@@ -124,6 +148,10 @@ public class EngineTester extends Application {
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Rotate(new Self(), new Value(-5)));
 		obj.addConditionAction(new Condition(2, new KeyHeld(new SelfString("A"))), actions1);
+
+		actions1 = new ArrayList<Action>();
+		actions1.add(new DisplayInventory(new Self()));
+		obj.addConditionAction(new Condition(2, new KeyPressed(new SelfString("I"))), actions1);
 	}
 
 	private void conditionAction2(GameObject obj) {
@@ -142,7 +170,7 @@ public class EngineTester extends Application {
 		Group g = new Group();
 		Scene scene = new Scene(g);
 		stage.setScene(scene);
-		File f = new GameDataHandler("Bounds Test", stage).addChosenFileToProject(new Stage());
+		File f = new GameDataHandler("Bounds Test").addChosenFileToProject(new Stage());
 		System.out.println(f.getName());
 		Pane bpd = new BoundingPolygonCreator(new Image(f.toURI().toString()), f.getName(),
 				i -> generateGame("Bounds Test", stage));
@@ -151,11 +179,11 @@ public class EngineTester extends Application {
 	}
 
 	private void testData(Stage stage) throws IOException, FileNotFoundException, URISyntaxException {
-		GameDataHandler data = new GameDataHandler("SaverTest3", stage);
+		GameDataHandler data = new GameDataHandler("SaverTest3");
 		data.addChosenFileToProject(stage);
 		data.saveGame(new GameMaster());
 		data.loadGame();
-		data.getImage("HexGrid.PNG");
+		data.getImage("skeptical.PNG");
 	}
 
 	private static void testCollisions(Stage stage) {

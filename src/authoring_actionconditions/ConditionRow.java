@@ -46,6 +46,7 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 		operationTreeView = new TreeView<>(operationNameTreeItem);
 		operationTreeView.setPrefSize(TREE_VIEW_WIDTH, EXPANDED_HEIGHT);
 		integerTF = createIntegerTextField();
+				
 		VBox vb = new VBox(VBOX_SPACING);
 		vb.getChildren().addAll(makeIntegerInputPrompt(integerTF), new Label("Choose Boolean Operation: "),
 				operationTreeView);
@@ -124,6 +125,8 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 		actionCheckBoxVBox = new ActionCheckBoxVBox<Integer>(newActionOptions);
 		getItems().add(actionCheckBoxVBox);
 	}
+	
+	
 
 	private HBox makeIntegerInputPrompt(TextField tf) {
 		Label lb = new Label();
