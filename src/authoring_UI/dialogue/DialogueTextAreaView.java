@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
@@ -23,6 +27,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import tools.DisplayLanguage;
 
 /**
@@ -62,12 +67,16 @@ public class DialogueTextAreaView extends VBox {
 	private Runnable save;
 	private double orgSceneX, orgSceneY;
 	private double orgTranslateX, orgTranslateY;
+	
+	private double oldHeight = 0;
+
 
 	public DialogueTextAreaView(Runnable save) {
 		taList = new ArrayList<>();
 		paneList = new ArrayList<>();
 		dialoguePreview = new HBox();
 		addPanel();
+		setBackgroundColor(Color.WHITE);
 		this.save = save;
 		this.setSpacing(15);
 
@@ -158,11 +167,13 @@ public class DialogueTextAreaView extends VBox {
 	protected void addTextArea() {
 		TextArea ta = new TextArea();
 		ta.setPrefSize(50, 50);
-//		ta.setStyle("-fx-background-color: transparent;");
 		ta.setBorder(new Border(new BorderStroke(Color.BLACK, 
 	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		ta.setBackground(paneList.get(0).getBackground());
 		ta.setWrapText(true);
+		String css = this.getClass().getResource("dialogue.css").toExternalForm();
+		ta.getStylesheets().add(css);
+
 		taList.add(ta);
 		Pane k = (Pane) this.getChildren().get(0);
 		k.getChildren().add(ta);
