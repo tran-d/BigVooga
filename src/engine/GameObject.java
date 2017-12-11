@@ -182,16 +182,7 @@ public class GameObject extends VariableContainer implements Element {
 		currentSprite = set;
 	}
 
-	public void addParameter(String name, Object o) throws VoogaException {
-		try {
-			getClass().getDeclaredMethod(
-					ResourceBundle.getBundle("engine.TypeRecovery").getString(o.getClass().getSimpleName()),
-					String.class, o.getClass()).invoke(this, name, o);
-		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
-				| SecurityException e) {
-			throw new VoogaException("AddPar", name, o.getClass());
-		}
-	}
+
 
 	/**
 	 * Returns the current BoundedImage of this Object.
