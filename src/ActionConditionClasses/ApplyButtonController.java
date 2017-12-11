@@ -31,7 +31,7 @@ public class ApplyButtonController {
 		List<ConditionRow> conditionRows = new LinkedList<ConditionRow>();
 		ConditionVBox<ConditionRow> conditionVBox = new ConditionVBox<ConditionRow>(conditionTab.getSelectorLabel());
 		for (TreeView<HBox> conditionTreeView : conditions.keySet()) {
-			ConditionRow conditionRow = new ConditionRow(rowCond, allConditions,conditions.get(conditionTreeView), conditionVBox,conditionTreeView);
+			ConditionRow conditionRow = new ConditionRow(rowCond, allActions,conditions.get(conditionTreeView), conditionVBox,conditionTreeView);
 			conditionRows.add(conditionRow);
 			rowCond++;
 		}
