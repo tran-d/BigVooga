@@ -4,6 +4,10 @@ import authoring.Layers.BackgroundLayer;
 import authoring_UI.SpriteGridHandler;
 
 public class BackgroundGridManager extends SpriteObjectGridManager{
+	
+//	public BackgroundGridManager(){
+//		super(, COLUMNS);
+//	}
 
 	public BackgroundGridManager(int rows, int columns, SpriteGridHandler SGH) {
 		super(rows, columns, SGH);
@@ -16,6 +20,9 @@ public class BackgroundGridManager extends SpriteObjectGridManager{
 	@Override
 	public void createMapLayer() {
 		myMapLayer = new BackgroundLayer(getNumRows(), getNumCols(), mySpriteGridHandler);
+		System.out.println("tempCols: "+defaultColumns);
+		this.setNumCols(defaultColumns);
+		this.setNumRows(defaultRows);
 	}
 	
 	@Override

@@ -90,11 +90,10 @@ public abstract class AbstractSpriteObject extends ImageView {
 	protected ObservableList<Integer> allActions;
 	protected HashMap<Condition,List<Integer>> conditionRows;
 	protected HashMap<TreeView<HBox>,List<Integer>> conditionTreeViews;
-	protected List<TreeView<HBox>> actionTreeViews;
 	protected List<Action> actionRows;
-	protected TreeView<HBox> conditionTreeView;
-	protected TreeView<HBox> actionTreeView;
+	protected List<TreeView<HBox>> actionTreeViews;
 	protected List<AnimationSequence> myAnimationSequences;
+	protected List<String> myTags;
 
 	public AbstractSpriteObject() {
 		super();
@@ -106,11 +105,12 @@ public abstract class AbstractSpriteObject extends ImageView {
 	private void initializeActionConditions() {
 		allConditions = FXCollections.observableArrayList();
 		allActions = FXCollections.observableArrayList();
-		conditionRows = new HashMap<Condition,List<Integer>>();
-		actionRows = new LinkedList<Action>();
+		conditionTreeViews = new HashMap<TreeView<HBox>,List<Integer>>();
+		actionTreeViews = new LinkedList<TreeView<HBox>>();
 	}
 
 	private void initializeVariables() {
+		myTags = new ArrayList<String>();
 		myInventory = new ArrayList<AbstractSpriteObject>();
 		initializePositionOnGridProperty();
 		initializeHeightWidthProperties();
@@ -162,6 +162,15 @@ public abstract class AbstractSpriteObject extends ImageView {
 
 	public String getUniqueID() {
 		return myUniqueID;
+	}
+	
+	public List<String> getTags(){
+		return this.myTags;
+	}
+	
+	public void setTags(Collection<String> newTags){
+		this.myTags.clear();
+		this.myTags.addAll(newTags);
 	}
 
 	public List<AbstractSpriteObject> getInventory() {
@@ -610,7 +619,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return myAnimationSequences;
 	}
 	
-	public void setAnimationSequences(ArrayList<AuthoringAnimationSequence> animations){
+	public void setAnimationSequences(List<AuthoringAnimationSequence> animations){
 		myAnimationSequences = animations;
 	}
 	
@@ -634,12 +643,12 @@ public abstract class AbstractSpriteObject extends ImageView {
 		this.allActions = allActions;
 	}
 
-	public void setCondidtionRows(TreeView<HBox> conditionTree) {
-		conditionTreeView = conditionTree;
+	public void setCondidtions(HashMap<TreeView<HBox>,List<Integer>> conditionTree) {
+		conditionTreeViews = conditionTree;
 	}
 
-	public void setActionRows(TreeView<HBox> actionTree) {
-		actionTreeView = actionTree;
+	public void setActions(List<TreeView<HBox>> actionTree) {
+		actionTreeViews = actionTree;
 	}
 	
 	public ObservableList<Integer> getAllConditions() {
@@ -650,12 +659,12 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return allActions;
 	}
 
-	public TreeView<HBox> getConditionRows() {
-		return conditionTreeView;
+	public HashMap<TreeView<HBox>,List<Integer>> getConditionRows() {
+		return conditionTreeViews;
 	}
 
-	public TreeView<HBox> getActionTreeView() {
-		return actionTreeView;
+	public List<TreeView<HBox>> getActionRows() {
+		return actionTreeViews;
 	}
 	
 	/**

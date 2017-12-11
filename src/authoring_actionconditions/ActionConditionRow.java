@@ -1,11 +1,9 @@
 package authoring_actionconditions;
 
 import java.util.ResourceBundle;
-
 import ActionConditionClasses.ChoiceBoxVBox;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.HBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.ToolBar;

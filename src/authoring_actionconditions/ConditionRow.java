@@ -42,8 +42,7 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 		operationNameTreeItem = new OperationNameTreeItem("Boolean", () -> changeRowTVSize());
 		operationTreeView = new TreeView<>(operationNameTreeItem);
 		operationTreeView.setPrefSize(TREE_VIEW_WIDTH, EXPANDED_HEIGHT);
-		integerTF = createIntegerTextField();
-				
+		integerTF = createIntegerTextField();	
 		booleanOperationTreeView = buildBooleanOperationTreeView(operationTreeView);
 		this.getItems().addAll(booleanOperationTreeView);
 	}
@@ -127,8 +126,6 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 				operationTreeView);
 		return booleanOperationTreeView;
 	}
-	
-	
 
 	private HBox makeIntegerInputPrompt(TextField tf) {
 		Label lb = new Label();
