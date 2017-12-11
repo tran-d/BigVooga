@@ -22,7 +22,7 @@ import tools.DisplayLanguage;
 
 public class ActionNameTreeItem extends TreeItem<HBox> {
 
-	private static String EMPTY_CHOICEBOX = "EmptyChoiceBox";
+	private static String EMPTY_INPUT = "EmptyInput";
 	private static final String INVALID_INPUT_MESSAGE = "InvalidInput";
 	private static final String INPUT_A_DOUBLE = "InputInteger";
 
@@ -52,7 +52,7 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 			System.out.println(action);
 			return action;
 		} catch (NullPointerException e) {
-			showError(INVALID_INPUT_MESSAGE, EMPTY_CHOICEBOX);
+			showError(INVALID_INPUT_MESSAGE, EMPTY_INPUT);
 		} catch (NumberFormatException e) {
 			showError(INVALID_INPUT_MESSAGE, INPUT_A_DOUBLE);
 		}
