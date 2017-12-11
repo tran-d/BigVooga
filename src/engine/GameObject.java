@@ -183,6 +183,9 @@ public class GameObject extends VariableContainer implements Element {
 		currentSprite = set;
 	}
 
+	public Sprite getSprite() {
+		return currentSprite;
+	}
 
 
 	/**

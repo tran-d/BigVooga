@@ -92,7 +92,8 @@ public class GameMaster implements EngineController{
 	}
 	
 	private void sendVariables() {
-		playerManager.getDataView().display(currentWorld.getAllGameObjects());
+		if(playerManager.getDataView() != null)
+			playerManager.getDataView().display(currentWorld.getAllGameObjects());
 	}
 
 	@Override
