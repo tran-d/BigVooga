@@ -8,6 +8,8 @@ import java.util.Map;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -200,20 +202,25 @@ public class DialogueTextAreaView extends VBox {
 	}
 
 	private HBox makeToolPanel() {
-		HBox hb = new HBox();
+		HBox hb = new HBox(150);
 		hb.setPrefWidth(DIALOG_PROMPT_WIDTH);
 		currentPane = new Label();
 		currentPane.textProperty().bind(current.asString());
 		Label slash = new Label("/");
 		totalPanes = new Label();
 		totalPanes.textProperty().bind(totalPaneCount.asString());
-		hb.getChildren().addAll(makeButtonPanel(), currentPane, slash, totalPanes);
+		HBox panelCountBox = new HBox();
+		panelCountBox.getChildren().addAll(currentPane, slash, totalPanes);
+		panelCountBox.setAlignment(Pos.CENTER_RIGHT);
+		panelCountBox.setPrefWidth(30);
+		hb.getChildren().addAll(makeButtonPanel(), panelCountBox);
+		hb.setAlignment(Pos.CENTER);
 		return hb;
 	}
 
 	private HBox makeButtonPanel() {
 		HBox hb = new HBox(15);
-		hb.setPrefWidth(DIALOG_PROMPT_WIDTH * 0.90);
+		hb.setAlignment(Pos.CENTER_LEFT);
 		nextButton = makeButton(NEXT_BUTTON_PROMPT, e -> next());
 		prevButton = makeButton(PREV_BUTTON_PROMPT, e -> prev());
 		addPaneButton = makeButton(ADD_PANEL_BUTTON_PROMPT, e -> this.addPane());
