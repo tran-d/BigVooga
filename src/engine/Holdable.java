@@ -52,7 +52,7 @@ public class Holdable extends VariableContainer {
 	} 
 	
 	public void select(GameObject keeper, GameObjectEnvironment world) {
-		System.out.println("Actions: " + selectActions.get(0).toString());
+		System.out.println("Holdable X: " + sprite.getImage().getX() + "       Holdable Y: " + sprite.getImage().getY());
 		for(Action a : selectActions) {
 			a.execute(keeper, world);
 		}

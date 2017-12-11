@@ -33,7 +33,6 @@ public class DisplayablePane implements Displayable, Positionable {
 				DisplayableImage h = holdableImages.get(r).get(c);
 				h.setPosition(x0 + (cellWidth * c) + (0.5 * cellWidth), y0 + (cellHeight * r) + (0.5 * cellHeight));
 				h.setSize(cellWidth, cellHeight);
-				//h.setSize(10, 10);
 				display.displayImage(h);
 			}
 		}
