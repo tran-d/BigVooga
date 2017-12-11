@@ -339,6 +339,7 @@ public class AuthoringMapStackPane extends StackPane {
 			this.getChildren().add(mySO);
 			mySO.setWidthFunction(widthCheckValidFunction());
 			mySO.setHeightFunction(heightCheckValidFunction());
+			System.out.println("We added a child which is good SLACK "+ mySO.getName());
 			return true;
 		}
 		return false;
@@ -354,6 +355,7 @@ public class AuthoringMapStackPane extends StackPane {
 	}
 
 	public void removeChild() {
+		System.out.println("ARCHANA removing child: "+((AbstractSpriteObject)this.getChildren().get(0)).getName());
 		createDefaultShapeSpriteWidth();
 		createDefaultShapeSpriteHeight();
 		// int rowStart = this.getRowIndex();

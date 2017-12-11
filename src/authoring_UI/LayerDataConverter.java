@@ -17,7 +17,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
 public class LayerDataConverter {
-	private final XStream SERIALIZER = setupXStream();
+	private static final XStream SERIALIZER = setupXStream();
 	private List<SpriteObject> allSpriteObjects;
 	private Color myColor;
 	private int myNumRows;
@@ -25,7 +25,7 @@ public class LayerDataConverter {
 	private int layerNum;
 	private String myName;
 	
-	public XStream setupXStream() {
+	private static XStream setupXStream() {
 		XStream xstream = new XStream(new DomDriver());
 		xstream.addPermission(NullPermission.NULL);
 		xstream.addPermission(PrimitiveTypePermission.PRIMITIVES);
@@ -56,14 +56,18 @@ public class LayerDataConverter {
 	
 	public SpriteObjectGridManager createLayer() {
 		SpriteObjectGridManager newLayer = null;
+	
 		if (layerNum == 0) {
 			newLayer = new TerrainObjectGridManager(myNumRows, myNumCols, layerNum, myColor);
+			System.out.println("NUM ROWS IN LDC: "+  myNumRows);
 		}
 		if (layerNum == 1) {
 			newLayer = new SpriteObjectGridManagerForSprites(myNumRows, myNumCols, layerNum, myColor);
+			System.out.println("NUM ROWS IN LDC: "+  myNumRows);
 		}
 		else {
 			newLayer = new PanelObjectGridManager(myNumRows, myNumCols, layerNum, myColor);
+			System.out.println("NUM ROWS IN LDC: "+  myNumRows);
 		}
 		return newLayer;
 	}

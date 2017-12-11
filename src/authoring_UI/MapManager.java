@@ -61,11 +61,12 @@ public class MapManager extends TabPane {
 		
 		List<DraggableGrid> DGs = getListOfDraggableGrids();
 		if (DGs.size()>0){
+			oldProject = true;
 			System.out.println("size: number of worlds " + DGs.size());
 			System.out.println("AN OLD GRID WAS SAVED AND NOW WILL BE LOADED");
 			for (DraggableGrid w: DGs){
-				setTab();
-				createTab(myTabCount, w);
+				setTab(w);
+				//createTab(myTabCount, w);
 			}
 		} else {
 			System.out.println("displaying a new grid");
@@ -93,6 +94,16 @@ public class MapManager extends TabPane {
 		return new DraggableGrid();
 	}
 	
+	private void setTab(DraggableGrid w) { //?
+		this.setSide(Side.TOP);
+		addTab = new Tab();
+		addTab.setText(ADD_TAB);
+		addTab.setOnSelectionChanged(e -> {
+			createTab(myTabCount, w);
+			mySelectModel.select(currentTab);
+		});
+		this.getTabs().add(addTab);
+	}
 	
 	private void setTab() { //?
 		this.setSide(Side.TOP);
@@ -107,14 +118,16 @@ public class MapManager extends TabPane {
 
 	private HBox setupScene(DraggableGrid w) { 
 		return setupFEAuthClasses(w);
-//		return authMap;
 	}
-	
 	
 	private HBox setupFEAuthClasses(DraggableGrid w) { 
 		// TODO if it's old project, want all possible worlds, so many worlds!
 		allWorlds.add(w);
-		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, w);
+		SpriteGridHandler mySpriteGridHandler;
+		if (oldProject) {
+			mySpriteGridHandler = w.getSGH();
+		}
+		else mySpriteGridHandler = new SpriteGridHandler(myTabCount, w);
 		w.construct(mySpriteGridHandler);
 		mySpriteGridHandler.addKeyPress(stage.getScene());
 		spritePanels = new SpritePanels(mySpriteGridHandler, myAEM);
@@ -142,6 +155,7 @@ public class MapManager extends TabPane {
 	
 	private void removeWorld(DraggableGrid w) {
 		allWorlds.remove(w);
+		myTabCount--;
 	}
 	 
 	private List<AuthoringMapEnvironment> getAllMapEnvironments(){

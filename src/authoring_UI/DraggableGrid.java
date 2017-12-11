@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 import java.util.function.Function;
 
 import authoring.GridManagers.BackgroundGridManager;
@@ -56,19 +57,41 @@ public class DraggableGrid extends VBox {
 		cols = 20;
 	}
 	
+	public SpriteGridHandler getSGH() {
+		return mySGH;
+	}
+	
 	public void loadLayers(List<SpriteObjectGridManager> SOGMList) {
-		System.out.println("add to layers in DRAGGABLE GRID!");
+		Random rand = new Random();
+		if (allGrids == null) allGrids = new ArrayList<SpriteObjectGridManager>();
+		mySGH = new SpriteGridHandler(rand.nextInt(), this);
 		for (SpriteObjectGridManager SOGM : SOGMList) {
 			if (SOGM.getLayerNum() == 0) {
-				allGrids.add(new TerrainObjectGridManager(SOGM.getNumRows(), SOGM.getNumCols(), SOGM.getLayerNum(), SOGM.getColor()));
+				System.out.println("NUM ROWS IN DG: " + SOGM.getRowsForImport());
+				TerrainObjectGridManager TOGM = new TerrainObjectGridManager(SOGM.getRowsForImport(), SOGM.getColsForImport(), SOGM.getLayerNum(), SOGM.getColor());
+				TOGM.setSpriteGridHandler(mySGH);
+				System.out.println("TOGM HAS THIS MANY SPRITES: " + SOGM.getStoredSpriteList().size());
+				TOGM.createMapLayer(SOGM.getStoredSpriteList()); 
+				allGrids.add(TOGM);
 			}
 			if (SOGM.getLayerNum() == 1) {
-				allGrids.add(new SpriteObjectGridManagerForSprites(SOGM.getNumRows(), SOGM.getNumCols(), SOGM.getLayerNum(), SOGM.getColor()));
+				System.out.println("NUM ROWS IN DG: " + SOGM.getRowsForImport());
+				SpriteObjectGridManagerForSprites SOGMS = new SpriteObjectGridManagerForSprites(SOGM.getRowsForImport(), SOGM.getColsForImport(), SOGM.getLayerNum(), SOGM.getColor());
+				SOGMS.setSpriteGridHandler(mySGH);
+				System.out.println("SOGMS HAS THIS MANY SPRITES: " + SOGM.getStoredSpriteList().size());
+				SOGMS.createMapLayer(SOGM.getStoredSpriteList()); 
+				allGrids.add(SOGMS);
 			}
 			if (SOGM.getLayerNum() == 2) {
-				allGrids.add(new PanelObjectGridManager(SOGM.getNumRows(), SOGM.getNumCols(), SOGM.getLayerNum(), SOGM.getColor()));
+				System.out.println("NUM ROWS IN DG: " + SOGM.getRowsForImport());
+				PanelObjectGridManager POGM = new PanelObjectGridManager(SOGM.getRowsForImport(), SOGM.getColsForImport(), SOGM.getLayerNum(), SOGM.getColor());
+				POGM.setSpriteGridHandler(mySGH);
+				System.out.println("POGM HAS THIS MANY SPRITES: " + SOGM.getStoredSpriteList().size());
+				POGM.createMapLayer(SOGM.getStoredSpriteList());
+				allGrids.add(POGM);
 			}
 		}
+		System.out.println("successfully added all grids, allGrids size is: " + allGrids.size());
 	}
 	
 	public void construct(SpriteGridHandler spriteGridHandler){
@@ -90,8 +113,6 @@ public class DraggableGrid extends VBox {
 	private void createGrid(SpriteGridHandler spriteGridHandler) {
 		myStackPane = new StackPane();
 		myStackPane.setAlignment(Pos.CENTER);
-		
-		
 		int layerRows = rows;
 		int layerColumns = cols;
 		for (SpriteObjectGridManager ml: allGrids){
@@ -99,6 +120,7 @@ public class DraggableGrid extends VBox {
 			makeLayerButton(ml);
 			showLayer(ml);
 			layerRows = ml.getNumRows();
+			System.out.println("LAYER ROWS : " + layerRows);
 			layerColumns = ml.getNumCols();
 		}
 //		Image image = new Image("pikachu.png");
@@ -131,6 +153,7 @@ public class DraggableGrid extends VBox {
 	private void makeLayers(SpriteGridHandler spriteGridHandler){
 		showingGrids = new ArrayList<SpriteObjectGridManager>();
 		if (allGrids.size()==0){
+			System.out.println("SHOULD NOT BE GOING THROUGH THIS ALERT ALERT ALERT");
 		SpriteObjectGridManager background = new BackgroundGridManager(rows, cols, spriteGridHandler);
 		SpriteObjectGridManager terrain = new TerrainObjectGridManager(rows, cols, spriteGridHandler);
 		SpriteObjectGridManagerForSprites sprites = new SpriteObjectGridManagerForSprites(rows, cols, spriteGridHandler);
@@ -148,7 +171,7 @@ public class DraggableGrid extends VBox {
 			if (allGrids.size() == 0) System.out.println("ALL GRIDS SIZE 0");
 			//  allGrids.get(0) <--- THIS IS THE ISSUE
 			allGrids.forEach(item->{
-				System.out.println("lready has a grid!: "+item);
+				System.out.println("already has a grid!: "+item);
 				item.setSpriteGridHandler(spriteGridHandler);
 				item.createMapLayer();
 //				item.getMapLayer().setSpriteGridHandler();
