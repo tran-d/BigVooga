@@ -5,9 +5,13 @@ import java.util.List;
 import java.util.Map;
 
 import authoring.AuthoringEnvironmentManager;
+import authoring.SpriteCreatorSpriteManager;
 import authoring_UI.DraggableGrid;
 import authoring_UI.MapManager;
 import authoring_UI.SpriteCreator;
+import authoring_UI.SpriteCreatorDisplayPanel;
+import authoring_UI.SpriteCreatorImageGrid;
+import authoring_UI.SpriteCreatorManager;
 import authoring_UI.ViewSideBar;
 import authoring_UI.HUD.HUDManager;
 import authoring_UI.Inventory.InventoryManager;
@@ -37,9 +41,12 @@ public class AuthoringController {
 	private Scene scene;
 	private Pane view;
 	private MapManager mapManager;
-
-	public AuthoringController(Scene currentScene, Pane currentAuthoringPane, GameDataHandler GDH) {
+	private SpriteCreatorManager mySCM;
+	private SpriteCreatorSpriteManager mySM;
+	
+	public AuthoringController(Scene currentScene, Stage currentStage, Pane currentAuthoringPane, GameDataHandler GDH) {
 		scene = currentScene;
+		
 		authoringPane = currentAuthoringPane;
 		activeManagerProperty = new SimpleObjectProperty<MapManager>();
 		activeManagerProperty.addListener((change, previousManager, newManager) -> {
@@ -57,8 +64,11 @@ public class AuthoringController {
 		mapManager = new MapManager(AEM, scene);
 		viewMap.put(MAP_EDITOR_KEY, mapManager.getPane());
 		viewMapKeysToManager.put(MAP_EDITOR_KEY, mapManager);
-
-		SpriteCreator sc = new SpriteCreator(AEM);
+		
+		SpriteCreatorImageGrid imageGrid = new SpriteCreatorImageGrid();
+		mySM = new SpriteCreatorSpriteManager();
+		mySCM = new SpriteCreatorManager(AEM, imageGrid);
+		SpriteCreator sc = new SpriteCreator(currentStage, AEM, mySCM, imageGrid, mySM);
 		viewMap.put(SPRITE_CREATOR_KEY, sc.getPane());
 
 		DialogueManager dm = new DialogueManager();
