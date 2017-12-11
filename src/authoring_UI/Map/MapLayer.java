@@ -42,6 +42,12 @@ public abstract class MapLayer extends GridPane {
 
 	protected MapLayer(int rows, int columns, int layerNum, SpriteGridHandler SGH, Color c) {
 		super();
+//		visibilityProperty = new SimpleObjectProperty<Boolean>();
+		this.visibleProperty().addListener((change, previous, next)->{
+			if (!next){
+				this.removeAllActive();
+			}
+		});
 		defaultColor = c;
 		activeGridCells = new HashSet<AuthoringMapStackPane>();
 		numRowsProperty = new SimpleObjectProperty<Integer>();
@@ -142,6 +148,7 @@ public abstract class MapLayer extends GridPane {
 		}
 	}
 	
+	
 	public void setBackgroundImage(String imagePath){
 		setBackgroundImage(new Image(imagePath), imagePath);
 	}
@@ -165,6 +172,14 @@ public abstract class MapLayer extends GridPane {
 	
 	public void removeActive(AuthoringMapStackPane pane){
 		this.activeGridCells.remove(pane);
+	}
+	
+	public void removeAllActive(){
+		Set<AuthoringMapStackPane> activeSet = new HashSet<AuthoringMapStackPane>();
+		this.activeGridCells.forEach(authMapStackPane->{
+			activeSet.add(authMapStackPane);
+		});
+		activeSet.forEach(item->item.setInactive());
 	}
 	
 	public String getName(){

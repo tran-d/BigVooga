@@ -69,6 +69,7 @@ public class SpriteInventoryTabAndInfo {
 	}
 
 	public void setSpriteObjectAndUpdate(AbstractSpriteObject ASO) {
+		System.out.println("Setting sprite"+ASO);
 		setSpriteObject(ASO);
 		remakeContainingVBoxFromNewInventory();
 	}
@@ -217,6 +218,6 @@ public class SpriteInventoryTabAndInfo {
 	
 	public void apply(){
 //		myInventory.addAll(temporaryInventory);
-//		myASO.setInventory(temporaryInventory);
+		myASO.setInventory(temporaryInventory);
 	}
 }

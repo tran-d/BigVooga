@@ -86,6 +86,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 	protected HashMap<List<String>,List<Integer>> conditionRows;
 	protected List<List<String>> actionRows;
 	protected List<AuthoringAnimationSequence> myAnimationSequences;
+	protected List<String> myTags;
 
 	public AbstractSpriteObject() {
 		super();
@@ -102,6 +103,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 	}
 
 	private void initializeVariables() {
+		myTags = new ArrayList<String>();
 		myInventory = new ArrayList<AbstractSpriteObject>();
 		initializePositionOnGridProperty();
 		initializeHeightWidthProperties();
@@ -153,6 +155,15 @@ public abstract class AbstractSpriteObject extends ImageView {
 
 	public String getUniqueID() {
 		return myUniqueID;
+	}
+	
+	public List<String> getTags(){
+		return this.myTags;
+	}
+	
+	public void setTags(Collection<String> newTags){
+		this.myTags.clear();
+		this.myTags.addAll(newTags);
 	}
 
 	public List<AbstractSpriteObject> getInventory() {
@@ -601,7 +612,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return myAnimationSequences;
 	}
 	
-	public void setAnimationSequences(ArrayList<AuthoringAnimationSequence> animations){
+	public void setAnimationSequences(List<AuthoringAnimationSequence> animations){
 		myAnimationSequences = animations;
 	}
 	

@@ -36,8 +36,7 @@ public class HUDGridManager extends SpriteObjectGridManager {
 	@Override
 	public void createMapLayer() {
 		myMapLayer = new HUDLayer(getNumRows(), getNumCols(), mySpriteGridHandler);
-		this.setNumCols(temporaryColumns);
-		this.setNumRows(temporaryRows);
+
 		
 	}
 	
