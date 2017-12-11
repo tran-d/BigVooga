@@ -14,7 +14,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.VBox;
 
-public class AnimationSequence {
+public class AuthoringAnimationSequence {
 
 	private String myName;
 	private ArrayList<AnimationSequenceImage> myImages;
@@ -25,22 +25,22 @@ public class AnimationSequence {
 	private boolean showUI;
 	private Button addNewImage;
 
-	public AnimationSequence(String name) {
+	public AuthoringAnimationSequence(String name) {
 		myName = name;
 		initialize();
 	}
 
-	AnimationSequence(AnimationSequence AS) {
+	AuthoringAnimationSequence(AuthoringAnimationSequence AS) {
 		myName = AS.getName();
 		myImages = AS.getImages();
 	}
 
-	public AnimationSequence(String name, AuthoringImageView AEI) {
+	public AuthoringAnimationSequence(String name, AuthoringImageView AEI) {
 		this(name);
 		addNewAuthoringImageViewToSequence(AEI);
 	}
 
-	AnimationSequence(String name, ArrayList<AuthoringImageView> images) {
+	AuthoringAnimationSequence(String name, ArrayList<AuthoringImageView> images) {
 		this(name);
 		images.forEach(image -> {
 			addNewAuthoringImageViewToSequence(image);

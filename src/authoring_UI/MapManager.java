@@ -70,6 +70,8 @@ public class MapManager extends TabPane {
 		} else {
 			System.out.println("displaying a new grid");
 			setTab();
+//			DraggableGrid DG = makeDraggableGrid();
+//			createTab(myTabCount, DG);
 		}
 	}
 	
