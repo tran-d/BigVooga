@@ -1,6 +1,5 @@
 package authoring.Sprite;
 
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -17,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Function;
-
 import authoring.Sprite.AnimationSequences.AuthoringAnimationSequence;
 import authoring.Sprite.AnimationSequences.AuthoringImageView;
 import authoring.Sprite.Parameters.BooleanSpriteParameter;
@@ -32,8 +30,10 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 
 public abstract class AbstractSpriteObject extends ImageView {
 
@@ -89,7 +89,11 @@ public abstract class AbstractSpriteObject extends ImageView {
 	protected ObservableList<Integer> allConditions;
 	protected ObservableList<Integer> allActions;
 	protected HashMap<Condition,List<Integer>> conditionRows;
+	protected HashMap<TreeView<HBox>,List<Integer>> conditionTreeViews;
+	protected List<TreeView<HBox>> actionTreeViews;
 	protected List<Action> actionRows;
+	protected TreeView<HBox> conditionTreeView;
+	protected TreeView<HBox> actionTreeView;
 	protected List<AnimationSequence> myAnimationSequences;
 
 	public AbstractSpriteObject() {
@@ -525,7 +529,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 				return false;
 			}
 		}
-		if(!(conditionRows.equals(other.getConditionRows()) && actionRows.equals(other.getActionRows()))) return false; 
+//		TODO if(!(conditionRows.equals(other.getConditionRows()) && actionRows.equals(other.getActionRows()))) return false; 
 		return true;
 	}
 
@@ -630,12 +634,12 @@ public abstract class AbstractSpriteObject extends ImageView {
 		this.allActions = allActions;
 	}
 
-	public void setCondidtionRows(HashMap<Condition,List<Integer>> conditionRows) {
-		this.conditionRows = conditionRows;
+	public void setCondidtionRows(TreeView<HBox> conditionTree) {
+		conditionTreeView = conditionTree;
 	}
 
-	public void setActionRows(List<Action> actionRows) {
-		this.actionRows = actionRows;
+	public void setActionRows(TreeView<HBox> actionTree) {
+		actionTreeView = actionTree;
 	}
 	
 	public ObservableList<Integer> getAllConditions() {
@@ -646,12 +650,12 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return allActions;
 	}
 
-	public HashMap<Condition,List<Integer>> getConditionRows() {
-		return conditionRows;
+	public TreeView<HBox> getConditionRows() {
+		return conditionTreeView;
 	}
 
-	public List<Action> getActionRows() {
-		return actionRows;
+	public TreeView<HBox> getActionTreeView() {
+		return actionTreeView;
 	}
 	
 	/**

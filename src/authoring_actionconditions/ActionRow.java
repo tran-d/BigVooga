@@ -34,9 +34,11 @@ public class ActionRow extends ActionConditionRow {
 		this.getItems().addAll(actionTreeView);
 	}
 	
-	public ActionRow(int ID,ActionVBox<ActionRow> ACVBox, TreeView<HBox> tv) {
+	public ActionRow(int ID,ActionVBox<?> ACVBox, TreeView<HBox> tv) {
 		super(ID, ACVBox);
-		this.getItems().addAll(tv);
+		getItems().remove(actionTreeView);
+		actionTreeView = tv;
+		this.getItems().addAll(actionTreeView);
 	}
 
 	/********************** PUBLIC METHODS ***********************/
