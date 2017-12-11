@@ -5,6 +5,7 @@ import java.util.List;
 
 import engine.operations.Operation;
 import engine.operations.OperationFactory;
+import engine.operations.VoogaParameter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -32,6 +33,7 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 	private ObservableList<String> operationParameters;
 	private String selectedOperation;
 	private List<OperationNameTreeItem> listOfOperations = new ArrayList<>();
+	private ObservableList<VoogaParameter> voogaParameters;
 
 	public OperationParameterTreeItem(String selectedOperation) {
 		this.selectedOperation = selectedOperation;
@@ -104,6 +106,9 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 
 		else {
 			operationParameters = FXCollections.observableList(operationFactory.getParameters(selectedOperation));
+
+			voogaParameters = FXCollections.observableList(operationFactory.getParametersWithNames(selectedOperation));
+
 			System.out.println("Op Params: " + operationParameters);
 
 			listOfOperations = new ArrayList<>();
@@ -114,11 +119,12 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 
 				hb.getChildren().add(new Label("[ "));
 
-				for (String opParam : operationParameters) {
+				for (int i = 0; i < operationParameters.size(); i++) {
+					
+					hb.getChildren().add(new Label(operationParameters.get(i) + " "));
 
-					hb.getChildren().add(new Label(opParam + " "));
-
-					operationNameTreeItem = new OperationNameTreeItem(opParam);
+					operationNameTreeItem = new OperationNameTreeItem(voogaParameters.get(i).getName(), voogaParameters.get(i).getType());
+					
 					listOfOperations.add(operationNameTreeItem);
 					operationParameter.getChildren().add(operationNameTreeItem);
 				}

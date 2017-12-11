@@ -7,6 +7,7 @@ import authoring_actionconditions.OperationNameTreeItem;
 import engine.Action;
 import engine.Actions.ActionFactory;
 import engine.operations.Operation;
+import engine.operations.VoogaParameter;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -98,19 +99,30 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 
 	private void makeActionParameterChildren(String action, TreeItem<HBox> parameterAction, HBox hb) {
 		ObservableList<String> actionParameterTypes = FXCollections.observableList(actionFactory.getParameters(action));
+		
+		ObservableList<VoogaParameter> voogaParameters = FXCollections.observableList(actionFactory.getParametersWithNames(action));
+		
+		
 		System.out.println("Params: " + actionParameterTypes);
 		opNameTreeItemList = new ArrayList<>();
 
 		hb.getChildren().add(new Label("[ "));
 
-		for (String param : actionParameterTypes) {
-			hb.getChildren().add(new Label(param + " "));
+		for (int i=0; i<actionParameterTypes.size(); i++) {
+			hb.getChildren().add(new Label(actionParameterTypes.get(i) + " "));
 
-			OperationNameTreeItem opNameTreeItem = new OperationNameTreeItem(param);
+			OperationNameTreeItem opNameTreeItem = new OperationNameTreeItem(voogaParameters.get(i).getName(), voogaParameters.get(i).getType());
 			opNameTreeItemList.add(opNameTreeItem);
 			parameterAction.getChildren().add(opNameTreeItem);
-
 		}
+		// for (String param : actionParameterTypes) {
+		// hb.getChildren().add(new Label(param + " "));
+		//
+		// OperationNameTreeItem opNameTreeItem = new OperationNameTreeItem(param);
+		// opNameTreeItemList.add(opNameTreeItem);
+		// parameterAction.getChildren().add(opNameTreeItem);
+		//
+		// }
 
 		hb.getChildren().add(new Label("]"));
 	}

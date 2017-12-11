@@ -5,9 +5,14 @@ import java.util.List;
 import java.util.Map;
 
 import authoring.AuthoringEnvironmentManager;
+import authoring.SpriteCreatorSpriteManager;
 import authoring_UI.DraggableGrid;
 import authoring_UI.MapManager;
 import authoring_UI.SpriteCreator;
+import authoring_UI.SpriteCreatorDisplayPanel;
+import authoring_UI.SpriteCreatorGridHandler;
+import authoring_UI.SpriteCreatorImageGrid;
+import authoring_UI.SpriteCreatorManager;
 import authoring_UI.ViewSideBar;
 import authoring_UI.HUD.HUDManager;
 import authoring_UI.Inventory.InventoryManager;
@@ -37,18 +42,21 @@ public class AuthoringController {
 	private Scene scene;
 	private Pane view;
 	private MapManager mapManager;
+	private SpriteCreatorManager mySCM;
+	private SpriteCreatorSpriteManager mySM;
 
-	public AuthoringController(Scene currentScene, Pane currentAuthoringPane, GameDataHandler GDH) {
+	public AuthoringController(Scene currentScene, Stage currentStage, Pane currentAuthoringPane, GameDataHandler GDH) {
 		scene = currentScene;
+
 		authoringPane = currentAuthoringPane;
 		activeManagerProperty = new SimpleObjectProperty<MapManager>();
 		activeManagerProperty.addListener((change, previousManager, newManager) -> {
-			System.out.println("previousManager: "+ previousManager+ "newManager "+newManager );
-			if (previousManager!=null){
-			previousManager.gridIsNotShowing();
+			System.out.println("previousManager: " + previousManager + "newManager " + newManager);
+			if (previousManager != null) {
+				previousManager.gridIsNotShowing();
 			}
 			if (newManager != null) {
-				
+
 				newManager.gridIsShowing();
 			}
 		});
@@ -58,7 +66,12 @@ public class AuthoringController {
 		viewMap.put(MAP_EDITOR_KEY, mapManager.getPane());
 		viewMapKeysToManager.put(MAP_EDITOR_KEY, mapManager);
 
-		SpriteCreator sc = new SpriteCreator(AEM);
+		SpriteCreatorImageGrid imageGrid = new SpriteCreatorImageGrid();
+		mySM = new SpriteCreatorSpriteManager();
+		SpriteCreatorGridHandler mySCGridHandler = new SpriteCreatorGridHandler(mySM, imageGrid);
+		
+		mySCM = new SpriteCreatorManager(AEM, imageGrid, mySCGridHandler, mySM);
+		SpriteCreator sc = new SpriteCreator(currentStage, AEM, mySCM, imageGrid, mySM, mySCGridHandler);
 		viewMap.put(SPRITE_CREATOR_KEY, sc.getPane());
 
 		DialogueManager dm = new DialogueManager();
@@ -82,14 +95,13 @@ public class AuthoringController {
 	 * Changes and sets the authoring view.
 	 * 
 	 * @param key
-	 *            - The key that extracts the correct view from the viewmap to
-	 *            use
+	 *            - The key that extracts the correct view from the viewmap to use
 	 */
 	public void switchView(String key, ViewSideBar currentSideBar) {
 		authoringPane.getChildren().removeAll(view, currentSideBar);
 		view = viewMap.get(key);
 		if (this.viewMapKeysToManager.containsKey(key)) {
-			System.out.println("Contains key: "+key);
+			System.out.println("Contains key: " + key);
 			this.activeManagerProperty.set(viewMapKeysToManager.get(key));
 
 		} else {
