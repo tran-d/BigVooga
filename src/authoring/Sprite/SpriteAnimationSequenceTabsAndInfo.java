@@ -2,7 +2,7 @@ package authoring.Sprite;
 
 import java.util.ArrayList;
 
-import authoring.Sprite.AnimationSequences.AnimationSequence;
+import authoring.Sprite.AnimationSequences.AuthoringAnimationSequence;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
@@ -25,7 +25,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	
 	private AbstractSpriteObject mySO;
 	private VBox containerScrollPane;
-	private ArrayList<AnimationSequence> animationsSequences;
+	private ArrayList<AuthoringAnimationSequence> animationsSequences;
 	private VBox containerVbox;
 	private TabPane containerTabPane;
 	private HBox addAnimationSequenceHbox;
@@ -75,7 +75,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	}
 
 	private void initializeAnimationSequencesList(){
-		 animationsSequences = new ArrayList<AnimationSequence>();
+		 animationsSequences = new ArrayList<AuthoringAnimationSequence>();
 	}
 	
 	private void clearAnimationSequencesList(){
@@ -157,7 +157,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 			if (!nameIsValid(animationSeqName)){
 				promptNewName.setText("This Name Already Used");
 			} else {
-				AnimationSequence newSequence = new AnimationSequence(animationSeqName);
+				AuthoringAnimationSequence newSequence = new AuthoringAnimationSequence(animationSeqName);
 				Tab newTab = addAnimationSequence(newSequence);
 				this.containerTabPane.getSelectionModel().select(newTab);
 				this.removePromptNewNameAndCreateButtonToHbox();
@@ -175,7 +175,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 			
 	}
 	
-	private Tab addAnimationSequence(AnimationSequence AS){
+	private Tab addAnimationSequence(AuthoringAnimationSequence AS){
 		animationVBox.getChildren().clear();
 		this.removePromptNewNameAndCreateButtonToHbox();
 		this.putAddAnimationSequenceButtonIntoHbox();

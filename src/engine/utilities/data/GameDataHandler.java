@@ -244,6 +244,16 @@ public class GameDataHandler {
 		cache.put(fileName, i);
 		return i;
 	}
+	
+//	public Image imageExists(String fileName) throws URISyntaxException {
+//		File image = new File(projectPath + fileName);
+//		if (!image.exists()){
+//			
+//		}
+//		Image i = new Image(path);
+//		cache.put(fileName, i);
+//		return i;
+//	}
 
 	/**
 	 * @param stage
@@ -659,7 +669,10 @@ public class GameDataHandler {
 				System.out.println(dummy);
 
 			} catch (Exception e) {
+<<<<<<< HEAD
+=======
 				System.out.println("WHATSUPDAVIIIDDDDDDD");
+>>>>>>> master
 				e.printStackTrace();
 				// do nothing
 			}
