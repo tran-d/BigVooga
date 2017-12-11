@@ -212,6 +212,7 @@ public class AuthoringMapStackPane extends StackPane {
 			}
 		});
 	}
+	
 
 	public boolean isActive() {
 		return activeProperty.get();

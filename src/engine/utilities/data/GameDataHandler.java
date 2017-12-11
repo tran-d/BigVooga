@@ -244,6 +244,16 @@ public class GameDataHandler {
 		cache.put(fileName, i);
 		return i;
 	}
+	
+//	public Image imageExists(String fileName) throws URISyntaxException {
+//		File image = new File(projectPath + fileName);
+//		if (!image.exists()){
+//			
+//		}
+//		Image i = new Image(path);
+//		cache.put(fileName, i);
+//		return i;
+//	}
 
 	/**
 	 * @param stage

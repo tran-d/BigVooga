@@ -11,14 +11,12 @@ public class CharAt implements StringOperation{
 	private StringOperation string; 
 	private DoubleOperation charAt;
 	public CharAt(@VoogaAnnotation(name = "String", type = VoogaType.STRING) StringOperation string, @VoogaAnnotation(name = "Index", type = VoogaType.DOUBLE) DoubleOperation charAt) {
-		// TODO Auto-generated constructor stub
 		this.string = string;
 		this.charAt = charAt;
 	}
 
 	@Override
 	public String evaluate(GameObject asking, GameObjectEnvironment world) {
-		// TODO Auto-generated method stub
 		return ""+string.evaluate(asking, world).charAt(charAt.evaluate(asking, world).intValue());
 	}
 

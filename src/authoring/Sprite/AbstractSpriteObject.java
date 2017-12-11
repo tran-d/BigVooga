@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Function;
 
-import authoring.Sprite.AnimationSequences.AnimationSequence;
+import authoring.Sprite.AnimationSequences.AuthoringAnimationSequence;
 import authoring.Sprite.AnimationSequences.AuthoringImageView;
 import authoring.Sprite.Parameters.BooleanSpriteParameter;
 import authoring.Sprite.Parameters.DoubleSpriteParameter;
@@ -597,24 +597,24 @@ public abstract class AbstractSpriteObject extends ImageView {
 		mySavePath = path;
 	}
 	
-	public List<AnimationSequence> getAnimationSequences(){
+	public List<AuthoringAnimationSequence> getAnimationSequences(){
 		if (myAnimationSequences == null){
-			myAnimationSequences = new ArrayList<AnimationSequence>();
-			myAnimationSequences.add(new AnimationSequence("Default", new AuthoringImageView(getImageURL())));
+			myAnimationSequences = new ArrayList<AuthoringAnimationSequence>();
+			myAnimationSequences.add(new AuthoringAnimationSequence("Default", new AuthoringImageView(getImageURL())));
 		}
 		return myAnimationSequences;
 	}
 	
-	public void setAnimationSequences(ArrayList<AnimationSequence> animations){
+	public void setAnimationSequences(ArrayList<AuthoringAnimationSequence> animations){
 		myAnimationSequences = animations;
 	}
 	
 	public void createNewAnimationSequence(String name){
-		myAnimationSequences.add(new AnimationSequence(name)); 
+		myAnimationSequences.add(new AuthoringAnimationSequence(name)); 
 	}
 	
-	public AnimationSequence getAnimationSequence(String name){
-		AnimationSequence AS = getAnimationSequences().stream()
+	public AuthoringAnimationSequence getAnimationSequence(String name){
+		AuthoringAnimationSequence AS = getAnimationSequences().stream()
 								.filter(sequence -> sequence.getName().equals(name))
 								.findFirst()
 								.get();

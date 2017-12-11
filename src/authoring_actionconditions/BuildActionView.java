@@ -3,12 +3,11 @@ package authoring_actionconditions;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class BuildActionView {
-	private static final double WIDTH = 800;
-	private static final double HEIGHT = 500;
-
-	private static final double COLLAPSED_ROW_HEIGHT = 50;
+	private static final double WIDTH = 700;
+	private static final double HEIGHT = 400;
 
 	private Stage stage;
 	private Scene scene;
@@ -26,28 +25,29 @@ public class BuildActionView {
 		this.ACRow = ACRow;
 		this.ACVBox = ACVBox;
 
-		stage.setOnCloseRequest(e -> transportActionRow());
+		stage.setOnCloseRequest(event -> transportActionRow(event));
 
 		root.getChildren().add(this.ACRow);
 	}
 
-	private void transportActionRow() {
+	private void transportActionRow(WindowEvent event) {
 
-		ACRow.getRootTreeItem().setExpanded(false);
-		ACRow.changeRowTVSize();
+		if (ACRow.getAction() != null) {
 
-		System.out.println(ACRow.getPrefHeight());
-		
-		if (ACVBox.getChildren().size() >= ACRow.getRowID())
-			ACVBox.getChildren().remove(ACRow.getRowID() - 1);
-		ACVBox.getChildren().add(ACRow.getRowID() - 1, ACRow);
+			ACRow.getRootTreeItem().setExpanded(false);
+			ACRow.changeRowTVSize();
 
-		stage.close();
+			System.out.println(ACRow.getPrefHeight());
 
-		// test
-		ACRow.getAction();
-		
-		
+			if (ACVBox.getChildren().size() >= ACRow.getRowID())
+				ACVBox.getChildren().remove(ACRow.getRowID() - 1);
+			ACVBox.getChildren().add(ACRow.getRowID() - 1, ACRow);
+
+			stage.close();
+
+		} else {
+			event.consume();
+		}
 	}
 
 	public void createParameterChoiceBox() {

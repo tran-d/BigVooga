@@ -2,7 +2,6 @@ package gui.player;
 
 import java.net.URISyntaxException;
 import java.util.List;
-
 import controller.player.PlayerManager;
 import controller.welcomeScreen.SceneController;
 import engine.sprite.Displayable;
@@ -84,18 +83,10 @@ public class GameDisplay {
 	 */
 	private void createBack() {
 		Button back = new Button("Back");
-		back.setOnMouseClicked(e -> leaveGame());
+		back.setOnMouseClicked(e -> exitToMenu());
 		rootPane.setTop(back);
 	}
-
-	/**
-	 * Acts when the back button is selected, and changes scenes to the welcome
-	 * screen while also stopping the engine controller.
-	 */
-	private void leaveGame() {
-		sceneController.switchScene(SceneController.GAME_SELECTOR_KEY);
-		playerManager.stop();
-	}
+	
 
 	/**
 	 * Passes the PlayerManager into GameDisplay.
@@ -171,5 +162,10 @@ public class GameDisplay {
 	 */
 	public Scene getScene() {
 		return scene;
+	}
+
+	public void exitToMenu() {
+		sceneController.switchScene(SceneController.GAME_SELECTOR_KEY);
+		playerManager.stop();
 	}
 }

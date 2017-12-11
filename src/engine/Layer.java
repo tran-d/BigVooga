@@ -3,6 +3,8 @@ import java.util.List;
 
 public interface Layer {
 	
+	//TODO: Make static layer toggle in authoring
+	
 	public void addElement(Element obj);
 	public void addGameObject(GameObject obj);
 	public void addElements(List<Element> obj);
@@ -11,7 +13,10 @@ public interface Layer {
 	public List<GameObject> getObjectsWithTag(String tag);
 	public GameObject getWithName(String name);
 	public boolean isNamed(String tag);
+	public boolean isTracked();
+	public void setIsTracked(boolean isTracked);
 	public void step(ConcreteGameObjectEnvironment environment);
 	public List<Element> getAllElements();
 	void removeGameObject(GameObject obj);
+	public List<? extends GameObject> getAllGameObjects();
 }

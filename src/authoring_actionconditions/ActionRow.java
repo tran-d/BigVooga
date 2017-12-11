@@ -60,8 +60,16 @@ public class ActionRow extends ActionConditionRow {
 	}
 
 	public Action getAction() {
-		return categoryAction.extract();
 
+		try {
+			Action action = categoryAction.extract();
+			if (action == null)
+				System.out.println("NULL ACTION");
+			return action;
+		} catch (Exception e) {
+			showError(INVALID_INPUT_MESSAGE, ENTER_VALID_INPUT);
+			return null;
+		}
 	}
 
 	private void addBuildActionButton(EventHandler<ActionEvent> handler) {
