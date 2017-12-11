@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -195,7 +196,9 @@ public class DialogueEditor {
 		HBox hb = new HBox();
 		Label lb = new Label();
 		lb.textProperty().bind(DisplayLanguage.createStringBinding(prompt));
+		lb.setStyle("-fx-text-fill: #47BDFF;");
 		hb.getChildren().addAll(lb, tf);
+		hb.setAlignment(Pos.CENTER);
 		return hb;
 	}
 

@@ -1,6 +1,7 @@
 package authoring.Sprite;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import authoring.Sprite.AnimationSequences.AuthoringAnimationSequence;
 import javafx.geometry.Pos;
@@ -25,7 +26,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	
 	private AbstractSpriteObject mySO;
 	private VBox containerScrollPane;
-	private ArrayList<AuthoringAnimationSequence> animationsSequences;
+	private List<AuthoringAnimationSequence> animationsSequences;
 	private VBox containerVbox;
 	private TabPane containerTabPane;
 	private HBox addAnimationSequenceHbox;
@@ -79,7 +80,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	}
 	
 	private void clearAnimationSequencesList(){
-		animationsSequences.clear();
+		animationsSequences = new ArrayList<AuthoringAnimationSequence>();
 	}
 	
 	private void createAnimationTabPane(){
@@ -179,11 +180,12 @@ public class SpriteAnimationSequenceTabsAndInfo {
 		animationVBox.getChildren().clear();
 		this.removePromptNewNameAndCreateButtonToHbox();
 		this.putAddAnimationSequenceButtonIntoHbox();
-		this.animationsSequences.add(AS);
+		AuthoringAnimationSequence dummyAS = new AuthoringAnimationSequence(AS);
+		this.animationsSequences.add(dummyAS);
 		Tab tab = new Tab();
-		tab.setText(AS.getName());
-		tab.setContent(AS.getUIContent());
-		addImage = AS.getAddImageButton();
+		tab.setText(dummyAS.getName());
+		tab.setContent(dummyAS.getUIContent());
+		addImage = dummyAS.getAddImageButton();
 		animationVBox.getChildren().add(containerTabPane);
 		animationVBox.setAlignment(Pos.CENTER);
 		animationVBox.getChildren().addAll(addImage, createHBox());
@@ -219,7 +221,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	}
 	
 	public void apply(){
-		//mySO.setAnimationSequences(this.animationsSequences);
+		mySO.setAnimationSequences(this.animationsSequences);
 	}
 	
 	
