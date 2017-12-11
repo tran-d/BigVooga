@@ -69,8 +69,9 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 			System.out.println("Boolean was inputted: " + booleanParameterTF.getText());
 			return operationFactory.wrap(getBooleanInput(booleanParameterTF));
 		} else if (existingItemsChoiceBox != null) {
-			System.out.println(existingItemsChoiceBox.getSelectionModel().getSelectedItem());
-			return existingItemsChoiceBox.getSelectionModel().getSelectedItem();
+			System.out.println(existingItemsChoiceBox.getSelectionModel().getSelectedItem().toString());
+			return operationFactory.makeOperation(selectedOperation, operationFactory.wrap(existingItemsChoiceBox.getSelectionModel().getSelectedItem()));
+			
 		} else {
 			System.out.println(selectedOperation);
 			return operationFactory.makeOperation(selectedOperation, new Object[0]);

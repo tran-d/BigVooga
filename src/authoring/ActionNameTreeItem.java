@@ -45,9 +45,11 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 			for (OperationNameTreeItem opItem : opNameTreeItemList) {
 
 				operationList.add((Operation<?>) opItem.makeOperation());
+				System.out.println("Operation: " + opItem.makeOperation().toString());
 
 			}
-			System.out.println("Making action...");
+		
+			System.out.println("Making action for " + selectedAction + "...");
 			action = actionFactory.makeAction(selectedAction, operationList.toArray());
 			System.out.println(action);
 			return action;
