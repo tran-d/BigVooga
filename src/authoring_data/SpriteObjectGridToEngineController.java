@@ -65,11 +65,14 @@ public class SpriteObjectGridToEngineController {
 		setPositionOfGameObject(SOI, GE);
 		addParametersToGameObject(SOI, GE);
 		addConditionsAndActionsToGameObject(SOI, GE);
+		
+		
 		return GE;
 	}
 	
 	private void setPositionOfGameObject(SpriteObject SOI, GameObject GO){
 		GO.setCoords(SOI.getXCenterCoordinate(), SOI.getYCenterCoordinate());
+		
 	}
 
 	private void addParametersToGameObject(SpriteObject sOI, GameObject GE) {
@@ -81,7 +84,7 @@ public class SpriteObjectGridToEngineController {
 	}
 	
 	private void addConditionsAndActionsToGameObject(SpriteObject sOI, GameObject GE){
-		// TODO 
+		// TODO
 		
 	}
 	

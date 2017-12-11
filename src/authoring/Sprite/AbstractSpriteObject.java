@@ -25,6 +25,8 @@ import authoring.Sprite.Parameters.DoubleSpriteParameter;
 import authoring.Sprite.Parameters.SpriteParameter;
 import authoring.Sprite.Parameters.SpriteParameterI;
 import authoring.Sprite.Parameters.StringSpriteParameter;
+import engine.Action;
+import engine.Condition;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -52,6 +54,8 @@ public abstract class AbstractSpriteObject extends ImageView {
 	protected Map<String, List<SpriteParameterI>> categoryMap = new HashMap<String, List<SpriteParameterI>>();
 	protected Map<String, List<SpriteParameterI>> possibleCategoryMap = new HashMap<String, List<SpriteParameterI>>();;
 	protected List<AbstractSpriteObject> myInventory;
+	
+	protected Map<Condition, List<Action>> myBehavior = new HashMap<Condition, List<Action>>();
 
 	@IsLockedUtility(readableName = "Image Path: ", getMethod = "getImageURL")
 	protected String myImageURL;
