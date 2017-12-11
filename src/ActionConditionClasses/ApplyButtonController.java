@@ -55,18 +55,23 @@ public class ApplyButtonController {
 
 	public void updateSpriteObject(ConditionTab<ConditionRow> conditionTab, ActionTab<ActionRow> actionTab,
 			AbstractSpriteObject spriteObject) {
-		spriteObject.setAllConditions(conditionTab.getTopToolBar().getRemoveRowVBoxOptions());
-		spriteObject.setAllActions(actionTab.getTopToolBar().getRemoveRowVBoxOptions());
-		HashMap<TreeView<HBox>, List<Integer>> conditions = new HashMap<TreeView<HBox>, List<Integer>>();
-		conditionTab.getActionConditionVBox().getRows().forEach(row -> {
-			conditions.put(row.getTreeView(), (List<Integer>) row.getSelectedActions());
-		});
-		List<TreeView<HBox>> actions = new LinkedList<TreeView<HBox>>();
-		actionTab.getActionConditionVBox().getRows().forEach(row -> {
-			actions.add(row.getTreeView());
-		});
-		spriteObject.setCondidtions(conditions);
-		spriteObject.setActions(actions);
+		try {
+			HashMap<TreeView<HBox>, List<Integer>> conditions = new HashMap<TreeView<HBox>, List<Integer>>();
+			conditionTab.getActionConditionVBox().getRows().forEach(row -> {
+				conditions.put(row.getTreeView(), (List<Integer>) row.getSelectedActions());
+			});
+			List<TreeView<HBox>> actions = new LinkedList<TreeView<HBox>>();
+			actionTab.getActionConditionVBox().getRows().forEach(row -> {
+				actions.add(row.getTreeView());
+			});
+			spriteObject.setAllConditions(conditionTab.getTopToolBar().getRemoveRowVBoxOptions());
+			spriteObject.setAllActions(actionTab.getTopToolBar().getRemoveRowVBoxOptions());
+			spriteObject.setCondidtions(conditions);
+			spriteObject.setActions(actions);
+		}
+		catch(NullPointerException e) {
+			conditionTab.displayInvalidSelectedActionsMessage(e.getMessage());
+		}
 	}
 
 }

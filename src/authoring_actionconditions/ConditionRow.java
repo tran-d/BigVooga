@@ -26,6 +26,7 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 	private static final String PRIORITY_NUMBER_PROMPT = "EnterPriority";
 	private static final String INTEGER_INPUT_MESSAGE = "EnterInteger";
 	private static final double INTEGER_TEXTFIELD_WIDTH = 100;
+	private static final String INVALID_SELECTED_ACTIONS_MESSAGE = "Please select valid actions";
 	
 	private ActionCheckBoxVBox<Integer> actionCheckBoxVBox;
 	private OperationNameTreeItem operationNameTreeItem;
@@ -97,8 +98,9 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 	}
 
 	@Override
-	public Object getSelectedActions() {
-		return actionCheckBoxVBox.getCurrentValue();
+	public Object getSelectedActions() throws NullPointerException {
+		if(( (List<Integer>)actionCheckBoxVBox.getCurrentValue()).isEmpty()) throw new NullPointerException(INVALID_SELECTED_ACTIONS_MESSAGE);
+		else return actionCheckBoxVBox.getCurrentValue();
 	}
 
 	@Override
