@@ -73,7 +73,7 @@ public class EngineTester extends Application {
 		Inventory inv = obj1.getInventory();
 		inv.setX(300);
 		inv.setY(300);
-		BoundedImage b = new BoundedImage("pane.png");
+		BoundedImage b = new BoundedImage("brick.png");
 		b.setSize(400, 200);
 		inv.setPane(b);
 		for(int j = 0; j < 10; j++)
@@ -89,7 +89,7 @@ public class EngineTester extends Application {
 			inv.addObject(invObj);
 		}
 		
-		i = new BoundedImage("testImage.gif");
+		i = new BoundedImage("source.gif");
 		GameObject obj2 = makeObject("Ob1", i, 200, 150, this::conditionAction2);
 		obj1.addTag("Ob1");
 		obj1.addTag("Player");
@@ -183,7 +183,7 @@ public class EngineTester extends Application {
 		data.addChosenFileToProject(stage);
 		data.saveGame(new GameMaster());
 		data.loadGame();
-		data.getImage("HexGrid.PNG");
+		data.getImage("skeptical.PNG");
 	}
 
 	private static void testCollisions(Stage stage) {

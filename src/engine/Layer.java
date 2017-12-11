@@ -11,6 +11,8 @@ public interface Layer {
 	public List<GameObject> getObjectsWithTag(String tag);
 	public GameObject getWithName(String name);
 	public boolean isNamed(String tag);
+	public boolean isTracked();
+	public void setIsTracked(boolean isTracked);
 	public void step(ConcreteGameObjectEnvironment environment);
 	public List<Element> getAllElements();
 	void removeGameObject(GameObject obj);
