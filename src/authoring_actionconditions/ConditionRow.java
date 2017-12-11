@@ -5,16 +5,16 @@ import java.util.List;
 import ActionConditionClasses.ActionCheckBoxVBox;
 import ActionConditionClasses.ActionCheckBoxVBoxI;
 import engine.Condition;
-import engine.operations.OperationFactory;
 import engine.operations.booleanops.BooleanOperation;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import tools.DisplayLanguage;
 
 /**
@@ -27,6 +27,7 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 
 	private static final String PRIORITY_NUMBER_PROMPT = "EnterPriority";
 	private static final String INTEGER_INPUT_MESSAGE = "EnterInteger";
+	private static final double INTEGER_TEXTFIELD_WIDTH = 25;
 	private ActionCheckBoxVBox<Integer> actionCheckBoxVBox;
 
 	private OperationNameTreeItem operationNameTreeItem;
@@ -109,15 +110,16 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 		getItems().add(actionCheckBoxVBox);
 	}
 
-	private HBox makeIntegerInputPrompt(TextField tf) {
+	private VBox makeIntegerInputPrompt(TextField tf) {
 		Label lb = new Label();
 		lb.textProperty().bind(DisplayLanguage.createStringBinding(PRIORITY_NUMBER_PROMPT));
-		HBox hb = new HBox(lb, tf);
-		return hb;
+		VBox vb = new VBox(lb, tf);
+		return vb;
 	}
 
 	private TextField createIntegerTextField() {
 		TextField tf = new TextField();
+		tf.setPrefWidth(INTEGER_TEXTFIELD_WIDTH);
 		tf.setOnKeyReleased(e -> {
 			checkIntegerInput(tf);
 		});

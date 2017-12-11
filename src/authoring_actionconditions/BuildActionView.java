@@ -13,10 +13,10 @@ public class BuildActionView {
 	private Stage stage;
 	private Scene scene;
 	private Group root;
-	ActionConditionVBox ACVBox;
+	ActionConditionVBox<?> ACVBox;
 	private ActionRow ACRow;
 
-	public BuildActionView(ActionConditionVBox ACVBox, ActionRow ACRow) {
+	public BuildActionView(ActionConditionVBox<?> ACVBox, ActionRow ACRow) {
 		root = new Group();
 		scene = new Scene(root, WIDTH, HEIGHT);
 		stage = new Stage();

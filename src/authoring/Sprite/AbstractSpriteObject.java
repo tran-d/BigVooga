@@ -87,8 +87,8 @@ public abstract class AbstractSpriteObject extends ImageView {
 	protected String mySavePath;
 	protected ObservableList<Integer> allConditions;
 	protected ObservableList<Integer> allActions;
-	protected HashMap<List<String>,List<Integer>> conditionRows;
-	protected List<List<String>> actionRows;
+	protected HashMap<Condition,List<Integer>> conditionRows;
+	protected List<Action> actionRows;
 	protected List<AnimationSequence> myAnimationSequences;
 
 	public AbstractSpriteObject() {
@@ -101,8 +101,8 @@ public abstract class AbstractSpriteObject extends ImageView {
 	private void initializeActionConditions() {
 		allConditions = FXCollections.observableArrayList();
 		allActions = FXCollections.observableArrayList();
-		conditionRows = new HashMap<List<String>,List<Integer>>();
-		actionRows = new LinkedList<List<String>>();
+		conditionRows = new HashMap<Condition,List<Integer>>();
+		actionRows = new LinkedList<Action>();
 	}
 
 	private void initializeVariables() {
@@ -629,11 +629,11 @@ public abstract class AbstractSpriteObject extends ImageView {
 		this.allActions = allActions;
 	}
 
-	public void setCondidtionRows(HashMap<List<String>, List<Integer>> conditionRows) {
+	public void setCondidtionRows(HashMap<Condition,List<Integer>> conditionRows) {
 		this.conditionRows = conditionRows;
 	}
 
-	public void setActionRows(List<List<String>> actionRows) {
+	public void setActionRows(List<Action> actionRows) {
 		this.actionRows = actionRows;
 	}
 	
@@ -645,11 +645,11 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return allActions;
 	}
 
-	public HashMap<List<String>, List<Integer>> getConditionRows() {
+	public HashMap<Condition,List<Integer>> getConditionRows() {
 		return conditionRows;
 	}
 
-	public List<List<String>> getActionRows() {
+	public List<Action> getActionRows() {
 		return actionRows;
 	}
 
