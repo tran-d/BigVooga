@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import engine.operations.booleanops.BooleanOperation;
-import engine.operations.booleanops.ScreenClickHeld;
 import engine.operations.booleanops.ScreenClicked;
 import engine.sprite.BoundedImage;
 import engine.sprite.Displayable;
@@ -18,17 +17,13 @@ import engine.utilities.collisions.BoundingPoint;
  *
  */
 public class Inventory implements Element{
-
-	//TODO: Make scrollers
 	
 	private List<Holdable> objects;
-	private List<GameObject> scrollers;
 	private BoundedImage pane;
 	private GameObject holder;
 	private int rowSpan, colSpan;
 	private double x, y;
 	private int startIndex;
-	private String name;
 	
 	private Holdable selected;
 	
@@ -41,11 +36,9 @@ public class Inventory implements Element{
 	
 	public Inventory(GameObject holder, String name, double x, double y, int rowSpan, int colSpan, int startIndex) {
 		objects = new ArrayList<Holdable>();
-		scrollers = new ArrayList<GameObject>();
 		this.holder = holder;
 		this.x = x;
 		this.y = y;
-		this.name = name;
 		this.rowSpan = rowSpan;
 		this.colSpan = colSpan;
 		this.startIndex = startIndex;
@@ -57,7 +50,10 @@ public class Inventory implements Element{
 
 	public void addObject(Holdable newObject) {
 		objects.add(newObject);
-
+	}
+	
+	public void removeObject(Holdable objectToRemove) {
+		objects.remove(objects.indexOf(objectToRemove));
 	}
 
 	public List<Holdable> getFullInventory() {
@@ -141,11 +137,6 @@ public class Inventory implements Element{
 
 	public void setY(double y) {
 		this.y = y;
-	}
-	
-	@Override
-	public String getName() {
-		return name;
 	}
 
 }
