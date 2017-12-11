@@ -1,7 +1,9 @@
 package engine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import engine.sprite.Displayable;
 import engine.utilites.camera.Camera;
@@ -46,23 +48,32 @@ public class GameWorld {
 			l.step(environment);
 	}
 
-	public List<Element> getAllElements() {
-		List<Element> els = new ArrayList<>();
+	private Map<Element, Boolean> getAllElements() {
+		Map<Element, Boolean> els = new HashMap<>();
 		for (Layer l : worldLayers) {
-			els.addAll(l.getAllElements());
+			for(Element e : l.getAllElements()) {
+				els.put(e, l.isTracked());
+			}
 		}
 		return els;
 	}
 	
+	/**
+	 * Returns a list of all Displayables in the world, setting each one's location relative to the tracked object
+	 */
 	public List<Displayable> getAllDisplayables() {
 		List<Displayable> ret = new ArrayList<>();
 		GameObject player = getPlayerObject();
 		camera = new Camera(player);
 		camera.moveToPlayer();
-		for(Element e : getAllElements()) {
+		Map<Element, Boolean> allEls = getAllElements();
+		for(Element e : allEls.keySet()) {
 			Displayable image = e.getDisplayable();
-			Point2D relCoords = camera.makeCoordinatesRelative(e.getX(), e.getY());
-			image.setPosition(relCoords.getX(), relCoords.getY());
+			if(allEls.get(e)) {
+				Point2D relCoords = camera.makeCoordinatesRelative(e.getX(), e.getY());
+				image.setPosition(relCoords.getX(), relCoords.getY());
+			}
+			else image.setPosition(e.getX(), e.getY());
 			ret.add(image);
 		}
 		return ret;
@@ -94,8 +105,8 @@ public class GameWorld {
 	public List<GameLayer> getLayers() {
 		return worldLayers;
 	}
-	public Point2D makeScreenCoordinatesAbsolute(double x, double y)
-	{
+	
+	public Point2D makeScreenCoordinatesAbsolute(double x, double y) {
 		return camera.makeCoordinatesAbsolute(x, y);
 	}
 
