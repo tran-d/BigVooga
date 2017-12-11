@@ -55,13 +55,8 @@ public class ActionTab<T> extends Tab implements ActionTabI<T> {
 	}
 	
 	@Override
-	public String getActionCondition() {
-		return buttons.getOptionsValue();
-	}
-	
-	@Override
-	public void addAction(String label) {
-		((ActionVBox<T>) actionConditionVBox).addAction(label);
+	public void addAction() {
+		((ActionVBox<T>) actionConditionVBox).addAction();
 	}
 	
 	@Override

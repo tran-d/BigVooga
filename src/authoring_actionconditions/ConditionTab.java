@@ -33,8 +33,8 @@ public class ConditionTab<T> extends ActionTab<T> implements ConditionTabI {
 	}
 
 	@Override
-	public void addCondition(String label, ObservableList<Integer> currentActions) {
-		((ConditionVBox<T>) getActionConditionVBox()).addCondition(label,currentActions);
+	public void addCondition(ObservableList<Integer> currentActions) {
+		((ConditionVBox<T>) getActionConditionVBox()).addCondition(currentActions);
 	}
 
 }
