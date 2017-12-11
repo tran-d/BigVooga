@@ -233,5 +233,9 @@ public class PlayerManager {
 		engineController.setPlayerManager(this);
 		engineController.start();
 	}
+
+	public void exitToMenu() {
+		gameDisplay.exitToMenu();
+	}
 	
 }

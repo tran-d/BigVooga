@@ -8,7 +8,7 @@ public class ExitToMenu implements Action {
 
 	@Override
 	public void execute(GameObject asking, GameObjectEnvironment world) {
-		//TODO
+		world.exitToMenu();
 	}
 
 }
