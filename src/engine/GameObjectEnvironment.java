@@ -19,4 +19,5 @@ public interface GameObjectEnvironment {
 	public void transfer(GameObject gameObject, String newWorld, String string);
 	public void save(DoubleOperation currentPoints);
 	public Point2D getAbsoluteMouseCoordinates();
+	public void removeElement(Element element);
 }

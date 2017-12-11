@@ -228,7 +228,9 @@ public class PlayerManager {
 
 	public void save(String gameName) {
 		engineController.stop();
-		gameDataHandler.saveGame(engineController, gameName);
+		engineController.setPlayerManager(null);
+		gameDataHandler.saveForContinue(engineController);
+		engineController.setPlayerManager(this);
 		engineController.start();
 	}
 	

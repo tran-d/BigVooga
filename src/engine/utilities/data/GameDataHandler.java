@@ -56,6 +56,7 @@ public class GameDataHandler {
 	private static final String KNOWN_PROJECTS = "KnownProjectNames";
 	public static final String PATH = "data/UserCreatedGames/";
 	private static final String CONTROLLER_FILE = "Engine_Controller_Save_File";
+	private static final String CONTINUE_FILE = "Engine_Controller_Load_File";
 	private static final String SELECTOR_TITLE = "Open Resource File";
 	private static final String KNOWN_PROJECTS_PATH = "resources/" + KNOWN_PROJECTS + ".properties";
 	private static final String PROJECT_USER_SPRITE_PATH = "Sprites/";
@@ -108,8 +109,12 @@ public class GameDataHandler {
 		saveGame(controller, CONTROLLER_FILE);
 		clearKnown();
 	}
+	
+	public void saveForContinue(EngineController controller) {
+		saveGame(controller, CONTINUE_FILE);
+	}
 
-	public void saveGame(EngineController controller, String gameName) {
+	private void saveGame(EngineController controller, String gameName) {
 		String toSave = SERIALIZER.toXML(controller);
 		FileWriter writer;
 		try {
@@ -208,7 +213,15 @@ public class GameDataHandler {
 		return loadGame(CONTROLLER_FILE);
 	}
 	
-	public EngineController loadGame(String saveGameName) throws FileNotFoundException {
+	public EngineController loadContinueGame() throws FileNotFoundException {
+		try {
+			return loadGame(CONTINUE_FILE);
+		} catch (FileNotFoundException e) {
+			return loadGame();
+		}
+	}
+	
+	private EngineController loadGame(String saveGameName) throws FileNotFoundException {
 		File controllerFile = new File(projectPath+ CONTROLLER_DIRECTORY+ saveGameName);
 		Scanner scanner = new Scanner(controllerFile);
 		String fileContents = scanner.useDelimiter("\\Z").next();

@@ -56,8 +56,6 @@ public class ConcreteGameObjectEnvironment implements GameObjectEnvironment {
 
 	@Override
 	public void transfer(GameObject gameObject, String newWorld, String layerName) {
-		//TODO ?? master.getWorldWithName(newWorld).addToLayer(gameObject, layer.number()??) ??  
-				//It's unclear how to resolve this in a reasonable way
 		GameWorld world = master.getWorldWithName(newWorld);
 		for(Layer l: world.getLayers())
 		{
@@ -86,8 +84,12 @@ public class ConcreteGameObjectEnvironment implements GameObjectEnvironment {
 
 	@Override
 	public Point2D getAbsoluteMouseCoordinates() {
-		// TODO Auto-generated method stub
 		return world.makeScreenCoordinatesAbsolute(master.getPlayerManager().getClickX(), master.getPlayerManager().getClickY());
+	}
+
+	@Override
+	public void removeElement(Element element) {
+		layer.removeElement(element);
 	}
 
 }
