@@ -6,6 +6,7 @@ import java.util.List;
 import engine.operations.Operation;
 import engine.operations.OperationFactory;
 import engine.operations.VoogaParameter;
+import engine.operations.VoogaType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -34,10 +35,23 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 	private String selectedOperation;
 	private List<OperationNameTreeItem> listOfOperations = new ArrayList<>();
 	private ObservableList<VoogaParameter> voogaParameters;
+	
+	private static List<VoogaType> voogaTypesForExistingItems = new ArrayList<>();
 
 	public OperationParameterTreeItem(String selectedOperation) {
 		this.selectedOperation = selectedOperation;
 		this.makeParameterOperationTreeItem(selectedOperation);
+		
+		voogaTypesForExistingItems = new ArrayList<>();
+		voogaTypesForExistingItems.add(VoogaType.ANIMATIONNAME);
+		voogaTypesForExistingItems.add(VoogaType.BOOLEANNAME);
+		voogaTypesForExistingItems.add(VoogaType.DIALOGNAME);
+		voogaTypesForExistingItems.add(VoogaType.DOUBLENAME);
+		voogaTypesForExistingItems.add(VoogaType.KEY);
+		voogaTypesForExistingItems.add(VoogaType.OBJECTNAME);
+		voogaTypesForExistingItems.add(VoogaType.STRINGNAME);
+		voogaTypesForExistingItems.add(VoogaType.TAG);
+		voogaTypesForExistingItems.add(VoogaType.WORLDNAME);
 	}
 
 	public Object getParameter() {
@@ -106,33 +120,44 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 
 		else {
 			operationParameters = FXCollections.observableList(operationFactory.getParameters(selectedOperation));
-
 			voogaParameters = FXCollections.observableList(operationFactory.getParametersWithNames(selectedOperation));
-
 			System.out.println("Op Params: " + operationParameters);
-
 			listOfOperations = new ArrayList<>();
 
 			if (!operationParameters.isEmpty()) {
 
 				hb.getChildren().add(new Label("Choose Operation Parameter(s): "));
-
 				hb.getChildren().add(new Label("[ "));
 
 				for (int i = 0; i < operationParameters.size(); i++) {
-					
 					hb.getChildren().add(new Label(operationParameters.get(i) + " "));
 
-					operationNameTreeItem = new OperationNameTreeItem(voogaParameters.get(i).getName(), voogaParameters.get(i).getType());
-					
-					listOfOperations.add(operationNameTreeItem);
-					operationParameter.getChildren().add(operationNameTreeItem);
-				}
+					if (this.checkVoogaType(voogaParameters.get(i).getType())) {
 
+						ExistingItemsChoiceBox cb = new ExistingItemsChoiceBox(voogaParameters.get(i).getType());
+					} else {
+
+						
+						
+						operationNameTreeItem = new OperationNameTreeItem(voogaParameters.get(i).getName(),
+								voogaParameters.get(i).getType());
+						listOfOperations.add(operationNameTreeItem);
+						operationParameter.getChildren().add(operationNameTreeItem);
+					}
+				}
 				hb.getChildren().add(new Label("]"));
 			}
 
 		}
+	}
+
+	private boolean checkVoogaType(VoogaType type) {
+		for (VoogaType voogaType : voogaTypesForExistingItems) {
+			if (type == voogaType)
+				return true;
+		}
+		return false;
+
 	}
 
 	private TextField createDoubleTextField(TreeItem<HBox> treeItem) {
