@@ -652,6 +652,27 @@ public abstract class AbstractSpriteObject extends ImageView {
 	public List<Action> getActionRows() {
 		return actionRows;
 	}
+	
+	/**
+	 * Converts the Front-end formatting into back-end mapping of Conditons and Actions.
+	 * @return Map<Condition, List<Action>>
+	 */
+	public Map<Condition, List<Action>> conditionActionPairings()
+	{
+		Map<Condition, List<Action>> temp= new HashMap<Condition, List<Action>>();
+		for(Condition c: conditionRows.keySet())
+		{
+			List<Action> actions = new ArrayList<Action>();
+			for(Integer i: conditionRows.get(c))
+			{
+				actions.add(actionRows.get(i));
+			}
+			temp.put(c, actions);
+			
+		}
+		
+		return temp;
+	}
 
 	
 //	protected abstract Object writeReplace() throws ObjectStreamException;
