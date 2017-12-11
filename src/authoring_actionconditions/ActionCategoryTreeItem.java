@@ -17,10 +17,14 @@ import tools.DisplayLanguage;
 
 public class ActionCategoryTreeItem extends TreeItem<HBox> {
 
+	private static final String ENTER_VALID_INPUT = "EnterValid";
+	private static final String INVALID_INPUT_MESSAGE = "InvalidInput";
+
 	private ActionFactory actionFactory = new ActionFactory();
 	private TreeItem<HBox> categoryAction = new TreeItem<HBox>();
 	private ActionNameTreeItem actionName;
 	private Runnable changeTreeViewSize;
+	private String selectedCategory;
 
 	public ActionCategoryTreeItem(Runnable r) {
 		changeTreeViewSize = r;
@@ -32,8 +36,13 @@ public class ActionCategoryTreeItem extends TreeItem<HBox> {
 	}
 
 	public Action extract() {
+		try {
+			return actionName.extract();
+		} catch (Exception e) {
+			showError(INVALID_INPUT_MESSAGE, ENTER_VALID_INPUT);
+			return null;
+		}
 
-		return actionName.extract();
 	}
 
 	private TreeItem<HBox> makeActionCategoryTreeItem() {
@@ -58,7 +67,8 @@ public class ActionCategoryTreeItem extends TreeItem<HBox> {
 				// System.out.println(actions.get(newValue.intValue()));
 				// getItems().add(makeParameterChoiceBox(actions.get(newValue.intValue())));
 				categoryAction.getChildren().clear();
-				actionName = new ActionNameTreeItem(categories.get(cb.getSelectionModel().getSelectedIndex()));
+				selectedCategory = categories.get(cb.getSelectionModel().getSelectedIndex());
+				actionName = new ActionNameTreeItem(selectedCategory);
 				categoryAction.getChildren().add(actionName);
 			}
 		});

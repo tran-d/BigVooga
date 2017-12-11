@@ -5,6 +5,7 @@ import java.util.List;
 
 import engine.operations.booleanops.BooleanOperation;
 import engine.operations.booleanops.ScreenClickHeld;
+import engine.operations.booleanops.ScreenClicked;
 import engine.sprite.BoundedImage;
 import engine.sprite.Displayable;
 import engine.sprite.DisplayableImage;
@@ -25,19 +26,26 @@ public class Inventory implements Element{
 	private BoundedImage pane;
 	private GameObject holder;
 	private int rowSpan, colSpan;
+	private double x, y;
 	private int startIndex;
+	private String name;
+	
+	private Holdable selected;
 	
 	public static final int DEFAULT_ROWSPAN = 5;
 	public static final int DEFAULT_COLSPAN = 5;
 
-	public Inventory(GameObject holder) {
-		this(holder, holder.getName() + "Inventory", DEFAULT_ROWSPAN, DEFAULT_COLSPAN, 0);
+	public Inventory(GameObject holder, double x, double y) {
+		this(holder, holder.getName() + "Inventory", x, y, DEFAULT_ROWSPAN, DEFAULT_COLSPAN, 0);
 	}
 	
-	public Inventory(GameObject holder, String name, int rowSpan, int colSpan, int startIndex) {
+	public Inventory(GameObject holder, String name, double x, double y, int rowSpan, int colSpan, int startIndex) {
 		objects = new ArrayList<Holdable>();
 		scrollers = new ArrayList<GameObject>();
 		this.holder = holder;
+		this.x = x;
+		this.y = y;
+		this.name = name;
 		this.rowSpan = rowSpan;
 		this.colSpan = colSpan;
 		this.startIndex = startIndex;
@@ -59,6 +67,7 @@ public class Inventory implements Element{
 
 	@Override
 	public Displayable getDisplayable() {
+		pane.setPosition(x, y);
 		List<List<DisplayableImage>> ret = new ArrayList<>();
 		int i = startIndex;
 		for(int r = 0; r < rowSpan; r++) {
@@ -72,20 +81,36 @@ public class Inventory implements Element{
 			}
 			ret.add(row);
 		}
-		return new DisplayablePane(pane, ret);
+		pane.setPosition(x, y);
+		return new DisplayablePane(pane, ret, rowSpan, colSpan);
 	}
 
 	@Override
 	public void step(GameObjectEnvironment w) {
-		BooleanOperation screenClickHeld = new ScreenClickHeld();
-		if(screenClickHeld.evaluate(null, w) &&
+		BooleanOperation screenClicked = new ScreenClicked();
+		if(screenClicked.evaluate(null, w) &&
 			pane.checkCollision(new BoundingPoint(w.getPlayerManager().getMouseXY().getX(), w.getPlayerManager().getMouseXY().getY())) != null) {
+			int i = 0;
 			for(Holdable h : objects) {
 				if(h.getDisplayable().checkCollision(new BoundingPoint(w.getPlayerManager().getMouseXY().getX(), w.getPlayerManager().getMouseXY().getY())) != null) {
+					selected = h;
 					h.select(holder, w);
 				}
+				i++;
 			}
 		}
+	}
+	
+	private int getHoldableClicked(double mouseX, double mouseY) {
+		double inventoryMouseX = mouseX - (x - 0.5*pane.getWidth());
+		double inventoryMouseY = mouseY - (y - 0.5*pane.getHeight());
+		if(inventoryMouseX < 0 || inventoryMouseX > pane.getWidth()
+				|| inventoryMouseY < 0 || inventoryMouseY > pane.getHeight()) {
+			return -1;
+		}
+		int col = (int)Math.round(pane.getWidth() / inventoryMouseX);
+		int row = (int)Math.round(pane.getHeight() / inventoryMouseY);
+		return row*colSpan + col;
 	}
 	
 	public int getStartIndex() {
@@ -94,6 +119,33 @@ public class Inventory implements Element{
 	
 	public void setStartIndex(int startIndex) {
 		this.startIndex = startIndex;
+	}
+	
+	public Holdable getSelected() {
+		return selected;
+	}
+	
+	@Override
+	public double getX() {
+		return x;
+	}
+
+	@Override
+	public double getY() {
+		return y;
+	}
+	
+	public void setX(double x) {
+		this.x = x;
+	}
+
+	public void setY(double y) {
+		this.y = y;
+	}
+	
+	@Override
+	public String getName() {
+		return name;
 	}
 
 }

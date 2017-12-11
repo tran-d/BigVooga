@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import java.util.Comparator;
 import java.util.function.BiFunction;
 
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
@@ -85,6 +86,7 @@ public class SpriteUtilityTabAndInfo {
 	
 	private void makeContainerVBox(){
 		containerVbox = new VBox(10);
+		containerVbox.setPadding(new Insets(10, 0, 0, 10));
 	}
 	
 	private void makeScrollPane(){

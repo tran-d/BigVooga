@@ -57,6 +57,10 @@ public class ImageCanvasPane extends BorderPane {
 		addToTop(new StrokeSelector(s -> imageCanvas.setStroke(s)));
 		addSaveButton();
 	}
+	
+	public void setImage(Image image) {
+		imageCanvas.setImage(image);
+	}
 
 	private void addSaveButton() {
 		Button b = new Button("Save");

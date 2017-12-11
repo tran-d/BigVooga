@@ -1,6 +1,7 @@
 package gui.welcomescreen;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Set;
 
 import controller.player.GameController;
@@ -68,8 +69,7 @@ public class GameSelector extends MenuOptionsTemplate {
 	 * Extracts names of user create games and creates an entry for each game
 	 */
 	public void createGameSelector() {
-		
-		Set<String> gameSet = GameDataHandler.knownProjectsWithDateModified().keySet();
+		Set<String> gameSet = GameDataHandler.knownProjects().keySet();
 		for (String game : gameSet) {
 			createGameEntry(game);
 		}
@@ -87,7 +87,7 @@ public class GameSelector extends MenuOptionsTemplate {
 	private HBox createButtonPanel(String gameName) {
 		HBox buttonPanel = new HBox(ENTRY_SPACING);
 		Button newGame = createPlayGameButton(NEW_GAME_TEXT, e -> handleNewGame(gameName));
-		Button continueGame = createPlayGameButton(CONTINUE_GAME_TEXT, e -> handleContinueGame());
+		Button continueGame = createPlayGameButton(CONTINUE_GAME_TEXT, e -> handleContinueGame(gameName));
 
 		buttonPanel.setAlignment(Pos.BASELINE_CENTER);
 		buttonPanel.getChildren().addAll(newGame, continueGame);
@@ -97,7 +97,7 @@ public class GameSelector extends MenuOptionsTemplate {
 
 	private void handleNewGame(String theGame) {		
 		try {
-			GameController gameController = new GameController(stage, theGame, sceneController);
+			new GameController(stage, theGame, sceneController, false);
 		} catch (FileNotFoundException e) {
 			System.out.println("Alert");
 			Alert alert = new Alert(AlertType.ERROR);
@@ -106,9 +106,15 @@ public class GameSelector extends MenuOptionsTemplate {
 		}
 	}
 
-	// loads a game whose progress has been saved
-	private void handleContinueGame() {
-		//TODO 
+	private void handleContinueGame(String theGame) {
+		try {
+			new GameController(stage, theGame, sceneController, true);
+		} catch (FileNotFoundException e) {
+			System.out.println("Alert");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
+		}
 	}
 
 	// creates buttons to play the game

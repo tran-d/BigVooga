@@ -117,8 +117,8 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 
 	private void showError(String header, String content) {
 		Alert alert = new Alert(AlertType.ERROR);
-		alert.contentTextProperty().bind(DisplayLanguage.createStringBinding(header));
-		alert.headerTextProperty().bind(DisplayLanguage.createStringBinding(content));
+		alert.contentTextProperty().bind(DisplayLanguage.createStringBinding(content));
+		alert.headerTextProperty().bind(DisplayLanguage.createStringBinding(header));
 		alert.show();
 	}
 }

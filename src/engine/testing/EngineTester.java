@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -17,12 +18,18 @@ import engine.GameObject;
 import engine.GameObjectFactory;
 import engine.GameWorld;
 import engine.Holdable;
+import engine.Inventory;
 import engine.Actions.changeObject.DisplayInventory;
 import engine.Actions.movement.Move;
+import engine.Actions.movement.Rotate;
+import engine.operations.booleanops.KeyHeld;
 import engine.operations.booleanops.KeyPressed;
+import engine.operations.booleanops.ObjectClickHeld;
+import engine.operations.doubleops.Value;
 import engine.operations.gameobjectops.Self;
 import engine.operations.stringops.SelfString;
 import engine.operations.vectorops.VectorHeadingOf;
+import engine.operations.vectorops.VectorScale;
 import engine.sprite.AnimationSequence;
 import engine.sprite.BoundedImage;
 import engine.sprite.Sprite;
@@ -48,69 +55,70 @@ public class EngineTester extends Application {
 		// testData(stage);
 		// testImageCanvas(stage);
 		// testDrawer(stage);
-		generateGame();
+		generateGame(stage);
 	}
 
-	public void generateGame() {
-		generateGame("Test1", new BoundedImage(
-				"C:\\Users\\nikbr\\Desktop\\eclipse\\My_Workspace\\voogasalad_bigvooga\\data\\UserCreatedGames\\Test1\\testImage.gif"));
+	public void generateGame(Stage stage) {
+		generateGame("Test1", stage);
 	}
 
-	public void generateGame(String name, BoundedImage i) {
+	public void generateGame(String name, Stage stage) {
 		GameObjectFactory blueprints = new GameObjectFactory();
+		BoundedImage i = new BoundedImage("skeptical.jpg");
 		GameObject obj1 = makeObject("Ob1", i, 120, 150, this::conditionAction1);
 		obj1.addTag("Ob1");
+		obj1.addTag("Player");
 		obj1.setSize(200, 100);
-
-		blueprints.addBlueprint(obj1);
 		
-		BoundedImage t = new BoundedImage("C:\\Users\\nikbr\\Desktop\\eclipse\\My_Workspace\\voogasalad_bigvooga\\data\\UserCreatedGames\\Test1\\skeptical.jpg");
-		List<BoundedImage>  l = new ArrayList<BoundedImage>();
-		l.add(t);
-		AnimationSequence a = new AnimationSequence("hi", l);
-		Sprite s = new Sprite();
-		s.addAnimationSequence(a);
-		s.setAnimation("hi");
-		Holdable o = new Holdable(s);
+		Inventory inv = obj1.getInventory();
+		inv.setX(300);
+		inv.setY(300);
+		BoundedImage b = new BoundedImage("brick.png");
+		b.setSize(400, 200);
+		inv.setPane(b);
+		for(int j = 0; j < 10; j++)
+		{
+			BoundedImage bi = new BoundedImage("skeptical.jpg");
+			AnimationSequence as = new AnimationSequence("Hi", Arrays.asList(bi));
+			Sprite s = new Sprite();
+			s.addAnimationSequence(as);
+			s.setAnimation("Hi");
+			
+			Holdable invObj = new Holdable(s);
+			invObj.setSelectActions(Arrays.asList(new Rotate(new Self(), new Value(45))));
+			inv.addObject(invObj);
+		}
+		
+		i = new BoundedImage("source.gif");
+		GameObject obj2 = makeObject("Ob1", i, 200, 150, this::conditionAction2);
+		obj1.addTag("Ob1");
+		obj1.addTag("Player");
+		obj1.setSize(200, 100);
 		
 		
-		
-		BoundedImage k = new BoundedImage("C:\\Users\\nikbr\\Desktop\\eclipse\\My_Workspace\\voogasalad_bigvooga\\data\\UserCreatedGames\\Test1\\pane.png");
-		k.setPosition(200, 200);
-		k.setSize(400, 400);
-		obj1.getInventory().setPane(k);
-		obj1.addToInventory(o);
-		
-		t = new BoundedImage("C:\\Users\\nikbr\\Desktop\\eclipse\\My_Workspace\\voogasalad_bigvooga\\data\\UserCreatedGames\\Test1\\skeptical.jpg");
-		l = new ArrayList<BoundedImage>();
-		l.add(t);
-		a = new AnimationSequence("hi", l);
-		s = new Sprite();
-		s.addAnimationSequence(a);
-		s.setAnimation("hi");
-		o = new Holdable(s);
-		
-		obj1.addToInventory(o);
+			
 
 		GameLayer la = new GameLayer("Layer");
 		la.addGameObject(obj1);
+		la.addGameObject(obj2);
 
 		GameWorld w = new GameWorld("World");
 		w.addLayer(la);
-
+		
 		GameMaster master = new GameMaster();
 		master.addWorld(w);
 		master.setNextWorld("World");
-		try {
+		//try {
 			new GameDataHandler(name).saveGame(master);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		//} //catch (IOException e) {
+			//e.printStackTrace();
+		//}
 
 		try {
+			System.out.println("Trying to load game");
 			new GameDataHandler(name).loadGame().setNextWorld("World");
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			System.out.println("Error");
 		}
 	}
 
@@ -130,16 +138,28 @@ public class EngineTester extends Application {
 
 	private void conditionAction1(GameObject obj) {
 		List<Action> actions1 = new ArrayList<Action>();
+	
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Move(new Self(), new VectorScale(new VectorHeadingOf(new Self()), new Value(3))));
+		obj.addConditionAction(new Condition(2, new KeyHeld(new SelfString("W"))), actions1);
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Rotate(new Self(), new Value(5)));
+		obj.addConditionAction(new Condition(2, new KeyHeld(new SelfString("D"))), actions1);
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Rotate(new Self(), new Value(-5)));
+		obj.addConditionAction(new Condition(2, new KeyHeld(new SelfString("A"))), actions1);
+
+		actions1 = new ArrayList<Action>();
 		actions1.add(new DisplayInventory(new Self()));
 		obj.addConditionAction(new Condition(2, new KeyPressed(new SelfString("I"))), actions1);
-		actions1 = new ArrayList<Action>();
-		actions1.add(new Move(new Self(), new VectorHeadingOf(new Self())));
-		obj.addConditionAction(new Condition(2, new KeyPressed(new SelfString("W"))), actions1);
-
 	}
 
 	private void conditionAction2(GameObject obj) {
+
 		List<Action> actions1 = new ArrayList<Action>();
+		actions1.add(new Rotate(new Self(), new Value(5)));
+		obj.addConditionAction(new Condition(2, new ObjectClickHeld(new Self())), actions1);
+		
 	}
 
 	private void conditionAction3(GameObject obj) {
@@ -153,7 +173,7 @@ public class EngineTester extends Application {
 		File f = new GameDataHandler("Bounds Test").addChosenFileToProject(new Stage());
 		System.out.println(f.getName());
 		Pane bpd = new BoundingPolygonCreator(new Image(f.toURI().toString()), f.getName(),
-				i -> generateGame("Bounds Test", i));
+				i -> generateGame("Bounds Test", stage));
 		g.getChildren().add(bpd);
 		stage.show();
 	}
@@ -163,7 +183,7 @@ public class EngineTester extends Application {
 		data.addChosenFileToProject(stage);
 		data.saveGame(new GameMaster());
 		data.loadGame();
-		data.getImage("HexGrid.PNG");
+		data.getImage("skeptical.PNG");
 	}
 
 	private static void testCollisions(Stage stage) {
