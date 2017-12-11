@@ -35,7 +35,7 @@ public class AuthoringEnvironmentManager {
 	private SpriteSet myInventoryTemplates;
 	private SpriteSet myMenuTemplates;
 
-	public AuthoringEnvironmentManager(GameDataHandler GDH, Stage stage) {
+	public AuthoringEnvironmentManager(GameDataHandler GDH) {
 		myGDH = GDH;
 		initializeDefaultSprites();
 		initializeCustomSprites();

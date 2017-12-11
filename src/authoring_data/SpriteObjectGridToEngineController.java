@@ -72,6 +72,7 @@ public class SpriteObjectGridToEngineController {
 	private GameObject convertToGameObject(SpriteObject SOI){
 		//added null as input to rid error
 		GameObject GE = new GameObject(null);
+		setTags(SOI, GE);
 		setSpriteForGameObject(SOI, GE);
 		setPositionAndSizeOfGameObject(SOI, GE);
 		setInventory(SOI, GE);
@@ -80,6 +81,12 @@ public class SpriteObjectGridToEngineController {
 		
 		
 		return GE;
+	}
+	
+	private void setTags(AbstractSpriteObject ASO, GameObject GO){
+		ASO.getTags().forEach((tag)->{
+			GO.addTag(tag);
+		});
 	}
 	
 	private void setInventory(SpriteObject SO, GameObject GO){

@@ -30,9 +30,13 @@ public class AuthoringAnimationSequence {
 		initialize();
 	}
 
-	AuthoringAnimationSequence(AuthoringAnimationSequence AS) {
-		myName = AS.getName();
-		myImages = AS.getImages();
+	public AuthoringAnimationSequence(AuthoringAnimationSequence AS) {
+		initialize();
+		myName = new String(AS.getName());
+		AS.getImages().forEach(aasequence->{
+			myImages.add(new AnimationSequenceImage(aasequence));
+		});
+//		myImages = AS.getImages();
 	}
 
 	public AuthoringAnimationSequence(String name, AuthoringImageView AEI) {

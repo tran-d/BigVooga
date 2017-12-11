@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import authoring.GridManagers.SpriteObjectGridManagerI;
 import authoring.Sprite.SpriteObject;
 import authoring.Sprite.SpriteObjectI;
+import authoring.Sprite.AnimationSequences.AuthoringAnimationSequence;
 import authoring.Sprite.Parameters.SpriteParameterFactory;
 import authoring.Sprite.Parameters.SpriteParameterI;
 import javafx.animation.KeyFrame;
@@ -112,6 +113,7 @@ public class Tester extends Application {
 		s.add("bye");
 		for (int h = 0; h < 3; h++) {
 			SpriteObject SO = new SpriteObject();
+			AuthoringAnimationSequence AAS = new AuthoringAnimationSequence();
 			myParams = new ArrayList<SpriteParameterI>();
 			myParams.add(SPF.makeParameter("canFight", true));
 			myParams.add(SPF.makeParameter("health", i));
@@ -131,7 +133,6 @@ public class Tester extends Application {
 			locs.add(loc1);
 			locs.add(loc2);
 			locs.add(loc3);
-			SOGM.populateCell(SO, locs);
 //			i*=2;
 		}
 	}

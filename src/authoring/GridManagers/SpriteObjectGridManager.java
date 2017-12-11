@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 
 public abstract class SpriteObjectGridManager implements SpriteObjectGridManagerI{
 	
+	
 	protected List<List<SpriteObject>> spriteGrid;
 	private SpriteObject defaultEmptySprite;
 	private Set<Integer []> activeCells;
@@ -22,9 +23,10 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 	protected SpriteGridHandler mySpriteGridHandler;
 	protected int myLayerNum;
 	protected Color myColor;
-	protected int temporaryRows;
-	protected int temporaryColumns;
+	protected int defaultRows;
+	protected int defaultColumns;
 	protected boolean canFillBackground;
+
 	
 	protected ObjectProperty<Integer> numRowsProperty;
 	protected ObjectProperty<Integer> numColumnsProperty;
@@ -92,10 +94,12 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 					}
 				}
 		});
-		temporaryRows = rows;
-		temporaryColumns = cols;
+		defaultRows = rows;
+		defaultColumns = cols;
 //		initializeGrid();
 	}
+	
+
 	
 	
 	public SpriteObjectGridManager(int rows, int columns, SpriteGridHandler SGH){
@@ -103,15 +107,14 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 		
 		setSpriteGridHandler(SGH);
 		createMapLayer();
-		
-		this.numRowsProperty.set(rows);
-		this.numColumnsProperty.set(columns);
+		setSizeToMatchDefaults();
 	}
 	
 	public void setSpriteGridHandler(SpriteGridHandler SGH){
 		mySpriteGridHandler = SGH;
 	}
 	
+
 	
 	public Color getColor() {
 		return myColor;
@@ -125,6 +128,14 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 	
 	public void setCanFillBackground(){
 		canFillBackground = false;
+	}
+	
+	public int getDefaultCols(){
+		return defaultColumns;
+	}
+	
+	public int getDefaultRows(){
+		return defaultRows;
 	}
 	
 	public boolean canFillBackground(){
@@ -157,6 +168,11 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 			}
 		}
 		return ret;
+	}
+	
+	public void setSizeToMatchDefaults(){
+		this.setNumCols(defaultColumns);
+		this.setNumRows(defaultRows);
 	}
 	
 	public void populateCell(SpriteObject spriteObject, Integer[] row_col) {
@@ -202,7 +218,7 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 				return false;
 			}
 		}
-		activeCells.add(pos);
+		addActiveCell(pos);
 		return true;	
 	}
 	
@@ -211,8 +227,15 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 		activeCells.remove(in);
 	}
 	
+	public void addActiveCell(Integer [] pos){
+		System.out.println("Adding active cell!: "+pos);
+		
+		activeCells.add(pos);
+		System.out.println("active cells size!: "+activeCells.size());
+	}
+	
 	public void addActiveCell(AbstractSpriteObject ASO){
-		activeCells.add(ASO.getPositionOnGrid());
+		addActiveCell(ASO.getPositionOnGrid());
 	}
 	
 	public void addActiveCells(List<AbstractSpriteObject> ASOList) {
@@ -237,6 +260,7 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 	}
 	
 	public List<SpriteObject> getActiveSpriteObjects(){
+		System.out.println("NUm active cells: "+activeCells.size());
 		List<SpriteObject> ret = new ArrayList<SpriteObject>();
 		for (Integer[] loc: activeCells){
 			ret.add(getCell(loc));
@@ -246,7 +270,7 @@ public abstract class SpriteObjectGridManager implements SpriteObjectGridManager
 	
 	public void clearCells(List<Integer[]> cellsToDelete){
 		System.out.println("cellsToClear :" + cellsToDelete);
-		removeActiveCells(cellsToDelete);
+//		removeActiveCells(cellsToDelete);
 		getMapLayer().removeSpritesAtPositions(cellsToDelete);
 		for (Integer[] loc: cellsToDelete){
 			System.out.println("clearCells loc loop: "+loc);
