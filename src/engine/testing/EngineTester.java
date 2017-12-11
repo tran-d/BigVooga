@@ -78,7 +78,7 @@ public class EngineTester extends Application {
 		inv.setPane(b);
 		for(int j = 0; j < 10; j++)
 		{
-			BoundedImage bi = new BoundedImage("Smiley.png");
+			BoundedImage bi = new BoundedImage("skeptical.jpg");
 			AnimationSequence as = new AnimationSequence("Hi", Arrays.asList(bi));
 			Sprite s = new Sprite();
 			s.addAnimationSequence(as);

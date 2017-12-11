@@ -89,14 +89,12 @@ public class Inventory implements Element{
 		BooleanOperation screenClicked = new ScreenClicked();
 		if(screenClicked.evaluate(null, w) &&
 			pane.checkCollision(new BoundingPoint(w.getPlayerManager().getMouseXY().getX(), w.getPlayerManager().getMouseXY().getY())) != null) {
-			System.out.println("Pane Clicked");
 			int i = 0;
 			for(Holdable h : objects) {
 				if(h.getDisplayable().checkCollision(new BoundingPoint(w.getPlayerManager().getMouseXY().getX(), w.getPlayerManager().getMouseXY().getY())) != null) {
+					System.out.println("Mouse X: " + w.getPlayerManager().getMouseXY().getX() + "      Mouse Y: " + w.getPlayerManager().getMouseXY().getY());
 					selected = h;
 					h.select(holder, w);
-					System.out.println("Holdable Selected: " + i + " X: " + h.getDisplayable().getX() + " Y: " + h.getDisplayable().getY());
-					System.out.println(x);
 				}
 				i++;
 			}
