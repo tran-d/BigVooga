@@ -125,8 +125,6 @@ public class GameLayer implements Layer {
 		return worldElements;
 	}
 
-	// TODO: Get all displayables
-
 	@Override
 	public GameObject getWithName(String name) {
 		for (GameObject go : objects) {

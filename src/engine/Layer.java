@@ -3,6 +3,8 @@ import java.util.List;
 
 public interface Layer {
 	
+	//TODO: Make static layer toggle in authoring
+	
 	public void addElement(Element obj);
 	public void addGameObject(GameObject obj);
 	public void addElements(List<Element> obj);
