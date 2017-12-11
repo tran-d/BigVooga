@@ -39,13 +39,12 @@ public class MapManager extends TabPane {
 
 	private ViewSideBar sideBar;
 	private GameElementSelector mySprites;
-	private AuthoringEnvironmentManager myAEM;
+	protected AuthoringEnvironmentManager myAEM;
 	private int myTabCount = 1;
 	private Tab currentTab;
 	private boolean oldProject;
 	private String projectName = "TestProject";
 	private GameDataHandler myGDH;
-	private int numWorlds = 1;
 	private List<DraggableGrid> allWorlds = new ArrayList<DraggableGrid>();
 	private Pane mapEditor = new Pane();
 	private SpritePanels spritePanels;
@@ -147,10 +146,15 @@ public class MapManager extends TabPane {
 		mySpriteGridHandler = new SpriteGridHandler(myTabCount, w);
 		w.construct(mySpriteGridHandler);
 		mySpriteGridHandler.addKeyPress(scene);
-		spritePanels = new SpritePanels(mySpriteGridHandler, myAEM);
-		mySpriteGridHandler.setDisplayPanel(spritePanels);
-		AuthoringMapEnvironment authMap = new AuthoringMapEnvironment(spritePanels, w);
+		spritePanels = makeSpritePanels(mySpriteGridHandler);
+		mySpriteGridHandler.setGridDisplayPanel(spritePanels.getDisplayPanel());
+		mySpriteGridHandler.setElementSelectorDisplayPanel(spritePanels.getElementSelectorDisplayPanel());
+		AuthoringMapEnvironment authMap = makeAuthoringMapEnvironment(spritePanels, w);
 		return authMap;
+	}
+	
+	protected AuthoringMapEnvironment makeAuthoringMapEnvironment(SpritePanels spritePanels, DraggableGrid dg){
+		return new AuthoringMapEnvironment(spritePanels, dg);
 	}
 
 	private void createTab(int tabCount, DraggableGrid w) { //?

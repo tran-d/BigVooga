@@ -36,7 +36,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-public class DraggableGrid extends VBox {
+public class DraggableGrid extends VBox implements DraggableGridAPI{
 	private StackPane myGrids;
 	private ComboBox<String> myTerrain;
 	private ImageView terrainImage;
@@ -71,6 +71,17 @@ public class DraggableGrid extends VBox {
 		}
 	}
 	
+	public DraggableGrid(int row, int col) {
+		rows = row;
+		cols = col;
+	}
+	
+	public DraggableGrid(List<SpriteObjectGridManager> SGMs) {
+		this();
+		allGrids = SGMs;
+	}
+
+	@Override
 	public void construct(SpriteGridHandler spriteGridHandler){
 		if (allGrids == null){
 			allGrids = new ArrayList<SpriteObjectGridManager>();
@@ -117,10 +128,12 @@ public class DraggableGrid extends VBox {
 		this.setId("MapGridAndLayers");
 		this.setMaxWidth(MainAuthoringGUI.AUTHORING_WIDTH/2 + 124);
 	}
-	
 	public List<SpriteObjectGridManager> getGrids(){
 		//TODO
 		return allGrids;
+	}
+	public void setAllGrids(ArrayList<SpriteObjectGridManager> SGMs){
+		allGrids = SGMs;
 	}
 	
 	public void setAllGrids(SpriteObjectGridManager SGM){

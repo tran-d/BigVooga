@@ -1,85 +1,58 @@
-package authoring.SpritePanels;
+package authoring_UI;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import ActionConditionClasses.ApplyButtonController;
-import ActionConditionClasses.ResourceBundleUtil;
 import authoring.AuthoringEnvironmentManager;
-import authoring.SpriteParameterSidebarManager;
+import authoring.SpriteCreatorSpriteManager;
 import authoring.Sprite.AbstractSpriteObject;
 import authoring.Sprite.SpriteAnimationSequenceTabsAndInfo;
 import authoring.Sprite.SpriteInventoryTabAndInfo;
-import authoring.Sprite.SpriteObject;
 import authoring.Sprite.SpriteParameterTabsAndInfo;
-import authoring.Sprite.SpriteTagTabAndInfo;
 import authoring.Sprite.SpriteUtilityTabAndInfo;
-import authoring.Sprite.Parameters.SpriteParameterI;
-import authoring_UI.MainAuthoringGUI;
-import authoring_UI.ViewSideBar;
-import authoring_actionconditions.ActionRow;
-import authoring_actionconditions.ActionTab;
-import authoring_actionconditions.ConditionRow;
-import authoring_actionconditions.ConditionTab;
 import authoring_actionconditions.ControllerConditionActionTabs;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 
-public class DisplayPanel extends VBox {
+public class SpriteCreatorDisplayPanel extends VBox {
 	private TabPane myParamTabs;
 	private TabPane mySpriteTabs;
 	private VBox myParamTabVBox;
 	private TextArea myParameterErrorMessage;
-	private ConditionTab<ConditionRow> conditions;
-	private ActionTab<ActionRow> actions;
-	private ApplyButtonController applyButtonController;
 	private SpriteParameterTabsAndInfo mySParameterTAI;
 	private SpriteInventoryTabAndInfo mySInventoryTAI;
 	private SpriteUtilityTabAndInfo mySUtilityTAI;
 	private SpriteAnimationSequenceTabsAndInfo mySAnimationSequenceTAI;
-	private SpriteTagTabAndInfo mySTagTAI;
 	private ObjectProperty<Boolean> multipleCellsActiveProperty;
 	private VBox spriteEditorAndApplyButtonVBox;
-	protected AbstractSpriteObject activeSprite;
-	private ControllerConditionActionTabs controllerConditionActionTabs;
+	private AuthoringEnvironmentManager myAEM;
+
 	private static final String ACTIONCONDITIONTITLES_PATH = "TextResources/ConditionActionTitles";
 	private static final double DISPLAY_PANEL_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH / 2
 			- ViewSideBar.VIEW_MENU_HIDDEN_WIDTH - 155;
-	private static final double DISPLAY_PANEL_HEIGHT = 347;
-	private static final int CONDITIONTAB_INDEX = 2;
-	private static final int ACTIONTAB_INDEX = 3;
-	private SpriteParameterSidebarManager mySPSM;
-	private AuthoringEnvironmentManager myAEM;
+	private static final double DISPLAY_PANEL_HEIGHT = 495;
 
 	public static final ResourceBundle conditionActionTitles = ResourceBundle.getBundle(ACTIONCONDITIONTITLES_PATH);
 	// private SpriteSetHelper mySSH;
 
-	public DisplayPanel(SpriteParameterSidebarManager SPSM, AuthoringEnvironmentManager AEM) {
-		this(AEM);
-		mySPSM = SPSM;
-		
-	}
-
-	public DisplayPanel(AuthoringEnvironmentManager AEM) {
+	protected SpriteCreatorDisplayPanel(SpriteCreatorSpriteManager spriteManager, AuthoringEnvironmentManager AEM) {
 		myAEM = AEM;
+		mySM = spriteManager;
 		multipleCellsActiveProperty = new SimpleObjectProperty<Boolean>();
 		mySParameterTAI = new SpriteParameterTabsAndInfo();
 		mySInventoryTAI = new SpriteInventoryTabAndInfo(myAEM);
 		mySAnimationSequenceTAI = new SpriteAnimationSequenceTabsAndInfo();
 		mySUtilityTAI = new SpriteUtilityTabAndInfo();
-		mySTagTAI = new SpriteTagTabAndInfo();
 		System.out.println("made SPTAI in MENU");
 		setUpMenu();
 	}
@@ -88,37 +61,19 @@ public class DisplayPanel extends VBox {
 		myParameterErrorMessage = new TextArea("Either no active cells or active cells have different parameters");
 	}
 
-	public AbstractSpriteObject setActiveSprite(AbstractSpriteObject ASO) {
-		if (!activeSprite.equals(ASO)) {
-			AbstractSpriteObject prevActive = activeSprite;
-			activeSprite = ASO;
-			return prevActive;
-		}
-		activeSprite = null;
-		return null;
-	}
-
 	private void setSpriteInfoAndVBox() {
 		spriteEditorAndApplyButtonVBox = new VBox();
 		spriteEditorAndApplyButtonVBox.getChildren().addAll(mySpriteTabs, this.makeApplyButton());
 	}
 
-	private Map<String, List<SpriteParameterI>> getParametersOfActiveCells() throws Exception {
-		return mySPSM.getActiveSprite().getParameters();
-	}
-
-	protected AbstractSpriteObject getActiveCell() throws Exception {
-		// System.out.println("MYAEMACTIVE: " + myAEM.getActiveCell());
-		return mySPSM.getActiveSprite();
-	}
-
-	protected void checkMultipleCellsActive() {
-		this.multipleCellsActiveProperty.set(mySPSM.multipleActive());
-	}
-	
-	protected void setMultipleCellsActive(boolean hasMultipleActive) {
-		this.multipleCellsActiveProperty.set(hasMultipleActive);
-	}
+	// private SpriteObject getActiveCell() throws Exception {
+	// // System.out.println("MYAEMACTIVE: " + myAEM.getActiveCell());
+	// return mySPSM.getActiveSprite();
+	// }
+	//
+	// private void checkMultipleCellsActive() {
+	// this.multipleCellsActiveProperty.set(mySPSM.multipleActive());
+	// }
 
 	private void setUpMenu() {
 		setErrorMessage();
@@ -132,10 +87,10 @@ public class DisplayPanel extends VBox {
 	}
 
 	private void createActionConditionTabs() {
-		conditions = new ConditionTab<ConditionRow>(ResourceBundleUtil.getTabTitle("ConditionsTabTitle"));
-		actions = new ActionTab<ActionRow>(ResourceBundleUtil.getTabTitle("ActionsTabTitle"));
-		controllerConditionActionTabs = new ControllerConditionActionTabs(conditions, actions);
-		// applyButtonController = new ApplyButtonController();
+		ActionConditionTab conditions = new ActionConditionTab(conditionActionTitles.getString("ConditionsTabTitle"));
+		ActionConditionTab actions = new ActionConditionTab(conditionActionTitles.getString("ActionsTabTitle"));
+		ControllerConditionActionTabs controllerConditionActionTabs = new ControllerConditionActionTabs(conditions,
+				actions);
 		mySpriteTabs.getTabs().addAll(conditions, actions);
 	}
 
@@ -174,19 +129,10 @@ public class DisplayPanel extends VBox {
 
 	private void createAnimationTab() {
 		Tab animations = new Tab("Animations");
-		animations.setContent(mySAnimationSequenceTAI.getAnimationBox());
-		mySpriteTabs.getTabs().add(animations);
+		animations.setContent(mySAnimationSequenceTAI.getScrollPane());
+		mySpriteTabs.getTabs().addAll(animations);
 		multipleCellsActiveProperty.addListener((observable, oldStatus, newStatus) -> {
 			animations.setDisable(newStatus);
-		});
-	}
-
-	private void createTagTab() {
-		Tab tags = new Tab("Tags");
-		tags.setContent(mySTagTAI.getContainingVBox());
-		mySpriteTabs.getTabs().add(tags);
-		multipleCellsActiveProperty.addListener((observable, oldStatus, newStatus) -> {
-			tags.setDisable(newStatus);
 		});
 	}
 
@@ -194,7 +140,6 @@ public class DisplayPanel extends VBox {
 		mySpriteTabs = new TabPane();
 		mySpriteTabs.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 		mySpriteTabs.setSide(Side.TOP);
-		createTagTab();
 		createParameterTab();
 		createDialogueTab();
 		createActionConditionTabs();
@@ -229,9 +174,8 @@ public class DisplayPanel extends VBox {
 	}
 
 	/**
-	 * Make's the apply button that the user will click to apply changes the
-	 * Active Sprite Makes button's set on action call the 'apply' method in
-	 * this class.
+	 * Make's the apply button that the user will click to apply changes the Active
+	 * Sprite Makes button's set on action call the 'apply' method in this class.
 	 * 
 	 * @author Samuel
 	 * @return Button - the button UI component.
@@ -240,12 +184,7 @@ public class DisplayPanel extends VBox {
 		Button applyButton = new Button();
 		applyButton.textProperty().setValue("Apply");
 		applyButton.setOnAction(e -> {
-			try {
-				apply();
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			apply();
 		});
 		return applyButton;
 	}
@@ -273,16 +212,16 @@ public class DisplayPanel extends VBox {
 		mySParameterTAI.clearTabPane();
 		mySInventoryTAI.reset();
 		// mySUtilityTAI.reset();
-		mySAnimationSequenceTAI.clearExisting();
+		// mySAnimationSequenceTAI.reset();
 	}
 
-	public void removeSpriteEditorVBox() {
+	protected void removeSpriteEditorVBox() {
 		if (this.getChildren().contains(spriteEditorAndApplyButtonVBox)) {
 			this.getChildren().remove(spriteEditorAndApplyButtonVBox);
 		}
 	}
 
-	public void addSpriteEditorVBox() {
+	void addSpriteEditorVBox() {
 		if (!this.getChildren().contains(spriteEditorAndApplyButtonVBox)) {
 			this.getChildren().addAll(spriteEditorAndApplyButtonVBox);
 		}
@@ -308,30 +247,16 @@ public class DisplayPanel extends VBox {
 		}
 	}
 
-	public void updateParameterTab() {
+	protected void updateParameterTab(AbstractSpriteObject s) {
 
 		System.out.println("Updating....");
 		try {
-			AbstractSpriteObject activeCell = getActiveCell();
-			System.out.println("Did i get here?");
-
-			checkMultipleCellsActive();
 			clearAllSpriteEditorTabs();
 			removeSpriteEditorErrorMessage();
-			// mySParameterTAI.create(getActiveCell());
-			mySParameterTAI.create(activeCell);
-			// applyButtonController.updateActionConditionTabs(conditions,
-			// actions, activeCell);
-			controllerConditionActionTabs = new ControllerConditionActionTabs(conditions, actions);
-			mySpriteTabs.getTabs().set(CONDITIONTAB_INDEX, conditions);
-			mySpriteTabs.getTabs().set(ACTIONTAB_INDEX, actions);
-			if (!multipleActive()) {
-				System.out.println("Trying to update not multiple actvie");
-				mySTagTAI.setSpriteObjectAndUpdate(activeCell);
-				mySInventoryTAI.setSpriteObjectAndUpdate(activeCell);
-				mySUtilityTAI.setSpriteObjectAndUpdate(activeCell);
-				mySAnimationSequenceTAI.setSpriteObject(activeCell);
-			}
+			mySParameterTAI.create(s);
+			mySInventoryTAI.setSpriteObjectAndUpdate(s);
+			mySUtilityTAI.setSpriteObjectAndUpdate(s);
+			mySAnimationSequenceTAI.setSpriteObject(s);
 			addSpriteEditorVBox();
 		} catch (Exception e) {
 			// throw new RuntimeException();
@@ -341,39 +266,12 @@ public class DisplayPanel extends VBox {
 		this.setPrefWidth(DISPLAY_PANEL_WIDTH);
 	}
 
-	protected boolean multipleActive() {
-		return this.multipleCellsActiveProperty.get();
-	}
-
-	private ScrollPane createStatePane(VBox temp) {
-		ScrollPane myStateSP_dummy = new ScrollPane();
-		myStateSP_dummy.setPrefSize(DISPLAY_PANEL_WIDTH, DISPLAY_PANEL_HEIGHT);
-		myStateSP_dummy.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-		myStateSP_dummy.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-		myStateSP_dummy.setContent(temp);
-		return myStateSP_dummy;
-	}
-
-	// private void buttonInteraction() {
-	// // TODO
-	// }
-
-	private void apply() throws Exception {
+	private void apply() {
 		mySParameterTAI.apply();
-		System.out.println("SHOULD BE APPLYING");
-		if (!multipleActive()) {
-			System.out.println("Trying to set ivent etc.");
-			mySTagTAI.apply();
-			mySInventoryTAI.apply();
-			mySAnimationSequenceTAI.apply();
-		}
-		// applyButtonController.updateSpriteObject(conditions, actions,
-		// getActiveCell());
-		applyToMultipleAtOnce();
-	}
-	
-	protected void applyToMultipleAtOnce(){
-		mySPSM.apply();
+		mySInventoryTAI.apply();
+		mySAnimationSequenceTAI.apply();
+		// OwensActiosn.apply()
+		// mySPSM.apply();
 	}
 
 	private void addParameter() {

@@ -33,7 +33,8 @@ import javafx.scene.paint.Color;
 public class SpriteGridHandler {
 	private AbstractSpriteObject draggingObject;
 	private DataFormat objectFormat;
-	private DisplayPanel myDP;
+	private DisplayPanel myGridDP;
+	private DisplayPanel myElementSelectorDP;
 	private DraggableGrid myDG;
 	protected boolean gridIsShown;
 	
@@ -51,10 +52,25 @@ public class SpriteGridHandler {
 		
 	}
 
-	public void setDisplayPanel(SpritePanels spritePanels) {
-		myDP = spritePanels.getDisplayPanel();
+	public SpriteGridHandler(int mapCount, DraggableGrid DG, int sprite) {
+		objectFormat = new DataFormat("MySprite" + Integer.toString(mapCount));
+		myDG = DG;
+	}
+
+	public void setSpritePanel(SpritePanels spritePanels) {
+		setGridDisplayPanel(spritePanels.getDisplayPanel());
+		setElementSelectorDisplayPanel(spritePanels.getElementSelectorDisplayPanel());
 	}
 	
+	public void setGridDisplayPanel(DisplayPanel dispPanel) {
+		myGridDP = dispPanel;
+	}
+	
+	public void setElementSelectorDisplayPanel(DisplayPanel dispPanel) {
+		myElementSelectorDP = dispPanel;
+		System.out.println("myElemSelectorDP is "+myElementSelectorDP);
+	}
+
 	public DraggableGrid getDraggableGrid() {
 		return myDG;
 	}
@@ -176,7 +192,7 @@ public class SpriteGridHandler {
 		System.out.println(myDG.getActiveGrid().getActiveSpriteObjects().size());
 		myDG.getActiveGrid().clearCells(cellsToDelete);
 		resetActiveSprites();
-		myDP.removeSpriteEditorVBox();
+		myGridDP.removeSpriteEditorVBox();
 		
 	}
 
@@ -187,55 +203,19 @@ private	void resetActiveSprites() {
 
 	public void addGridMouseClick(AuthoringMapStackPane pane) {
 		pane.setOnMouseClicked(e -> {
-			if (!pane.hasChild()){
-				if (!pane.isCoveredByOtherSprite()){
+			if (!pane.hasChild()) {
+				if (!pane.isCoveredByOtherSprite()) {
 					changeCellStatus(pane);
-				} else if (pane.isCoveredByOtherSprite()){
-//					pane.se
-					Event.fireEvent(pane.getCoveringSprite(), new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
-			                0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
-			                true, true, true, true, true, true, null));
-				}	
+				} else if (pane.isCoveredByOtherSprite()) {
+					// pane.se
+					Event.fireEvent(pane.getCoveringSprite(), new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0,
+							MouseButton.PRIMARY, 1, true, true, true, true, true, true, true, true, true, true, null));
+				}
 			}
 		});
 	}
 
 	public void addGridMouseDrag(AuthoringMapStackPane pane) {
-//		pane.setOnMouseDragged(e -> {
-//			if (pane.isCoveredByOtherSprite()){
-////				Event.fireEvent(pane.getCoveringSprite(), new MouseEvent(MouseEvent.));
-////				pane.getCoveringSprite()
-//				Event.fireEvent(pane.getCoveringSprite(), new MouseEvent(MouseEvent.DRAG_DETECTED, 0,
-//		                0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
-//		                true, true, true, true, true, true, null));
-//			} else {
-//				pane.switchActive();
-//			}
-//		});
-//		pane.setOnMouseDragOver(e->{
-//			System.out.println("Dragged over");
-//			pane.switchActive();
-//		});
-		
-//		pane.setOnDragOver(event->{
-//			System.out.println("Dragover");
-//			pane.switchActive();
-//			
-//		});
-		
-//		pane.setOnKeyTyped(value->{
-//			System.out.println(value.getCode());
-//		});
-		
-//		pane.setOnMouseDragEntered(e->{
-//			System.out.println("Drag entered");
-//			pane.switchActive();
-//		});
-		
-//		pane.setOnDragDetected(event->{
-//			Dragboard db = pane.startDragAndDrop(TransferMode.MOVE);
-//			System.out.println("DragDetected");
-//		});
 	}
 
 	private void changeCellStatus(AuthoringMapStackPane pane) {
@@ -262,11 +242,13 @@ private	void resetActiveSprites() {
 		s.setOnMouseClicked(e -> {
 			System.out.println("I clicked sprite : " + s);
 			if (s instanceof SpriteObject) {
-				if (myDG.getActiveGrid().getMapLayer().getActive().size()>0){
+				if (myDG.getActiveGrid().getMapLayer().getActive().size() > 0) {
 					populateGridCells((SpriteObject) s);
 				} else {
-				boolean activeStatus;
+				
 				if (s.getPositionOnGrid() != null) {
+					setActiveElementSprite(null);
+					boolean activeStatus;
 					activeStatus = myDG.getActiveGrid().switchCellActiveStatus(s.getPositionOnGrid());
 					System.out.println("Cell is active? "+ activeStatus);
 					if (activeStatus) {
@@ -276,17 +258,39 @@ private	void resetActiveSprites() {
 					}
 					System.out.println("In addSpriteMClick: numActiveCells: "+myDG.getActiveGrid().getActiveSpriteObjects().size());
 
-					if (myDG.getActiveGrid().getActiveSpriteObjects().size() == 0) {
-						myDP.removeSpriteEditorVBox();
-					} else {
-						myDP.addSpriteEditorVBox();
-						myDP.updateParameterTab();
+						if (myDG.getActiveGrid().getActiveSpriteObjects().size() == 0) {
+							myGridDP.removeSpriteEditorVBox();
+						} else {
+							myGridDP.addSpriteEditorVBox();
+							myGridDP.updateParameterTab();
+						}
 					}
-				} }
+				else {
+					this.deactivateActiveSprites();
+					setActiveElementSprite(s);
+				} 
+				
+				}
 			} else if (s instanceof InventoryObject) {
 				// TODO: what if it is an inventory object?
 			}
 		});
+	}
+	
+	private void setActiveElementSprite(AbstractSpriteObject ASO){
+		System.out.println("inSetActiveElemSprite elemSelectorDP value is: "+this.myElementSelectorDP);
+		System.out.println("inSetActiveElemSprite sprite value is: "+ASO);
+		AbstractSpriteObject prevActive = this.myElementSelectorDP.setActiveSprite(ASO);
+		if (ASO!=null){
+			System.out.println("prevActive: "+prevActive);
+			if (ASO.equals(prevActive)){
+				ASO.setEffect(null);
+			}
+			ASO.setEffect(makeSpriteEffect());
+		}
+		if (prevActive!=null){
+			prevActive.setEffect(null);
+		}
 	}
 
 	private Effect makeSpriteEffect() {
@@ -306,47 +310,41 @@ private	void resetActiveSprites() {
 			sprite.setEffect(null);
 		});
 		this.resetActiveSprites();
-//		this.myDG.getActiveGrid().resetActiveCells();
+		// this.myDG.getActiveGrid().resetActiveCells();
 
-		myDP.removeSpriteEditorVBox();
+		myGridDP.removeSpriteEditorVBox();
 	}
 	
 	public void deactivateActiveAuthoringMapStackPaneCells(){
 		myDG.getActiveGrid().getMapLayer().removeAllActive();
 	}
 	
-//	public void makeCellInactive(){
-//		
-//	}
-//
-//	public void addSpriteSizeChangeListener() {
-//
-//	}
-
 	private void populateGridCells(SpriteObject s) {
 		Iterator<AuthoringMapStackPane> it = myDG.getActiveGrid().getMapLayer().getActive().iterator();
 		Set<AuthoringMapStackPane> currentActiveCells = new HashSet<AuthoringMapStackPane>();
-		myDG.getActiveGrid().getMapLayer().getActive().forEach((item)->{currentActiveCells.add(item);});
-		
-		currentActiveCells.forEach((item)->{
+		myDG.getActiveGrid().getMapLayer().getActive().forEach((item) -> {
+			currentActiveCells.add(item);
+		});
+
+		currentActiveCells.forEach((item) -> {
 			populateIndividualCell(item, s);
 		});
-//		Set<AuthoringMapStackPane> currentActiveCells = new HashSet<AuthoringMapStackPane>()
-//		while (it.hasNext()){
-//			AuthoringMapStackPane elem = it.next();
-//			if (){
-//				it.remove();
-//			}
-		
+		// Set<AuthoringMapStackPane> currentActiveCells = new
+		// HashSet<AuthoringMapStackPane>()
+		// while (it.hasNext()){
+		// AuthoringMapStackPane elem = it.next();
+		// if (){
+		// it.remove();
+		// }
 
 		deactivateActiveSprites();
 
 	}
-	
-	private boolean populateIndividualCell(AuthoringMapStackPane cell, SpriteObject s){
+
+	private boolean populateIndividualCell(AuthoringMapStackPane cell, SpriteObject s) {
 		System.out.println("populating from SGH");
 		SpriteObject SO = s.newCopy();
-		if (cell.addChild(SO)){
+		if (cell.addChild(SO)) {
 			cell.setInactive();
 			Integer[] cellPos = getStackPanePositionInGrid(cell);
 			myDG.getActiveGrid().populateCell(SO, cellPos);
@@ -411,13 +409,13 @@ private	void resetActiveSprites() {
 
 	public void addSpriteDrag(AbstractSpriteObject s) {
 		s.setOnDragDetected(e -> {
-			if (!myDG.getActiveGrid().getActiveSpriteObjects().contains(s)){
-			Dragboard db = s.startDragAndDrop(TransferMode.MOVE);
-			db.setDragView(s.snapshot(null, null));
-			ClipboardContent cc = new ClipboardContent();
-			cc.put(objectFormat, " ");
-			db.setContent(cc);
-			draggingObject = s;
+			if (!myDG.getActiveGrid().getActiveSpriteObjects().contains(s)) {
+				Dragboard db = s.startDragAndDrop(TransferMode.MOVE);
+				db.setDragView(s.snapshot(null, null));
+				ClipboardContent cc = new ClipboardContent();
+				cc.put(objectFormat, " ");
+				db.setContent(cc);
+				draggingObject = s;
 			}
 		});
 	}
