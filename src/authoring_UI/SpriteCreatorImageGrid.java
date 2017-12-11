@@ -1,6 +1,6 @@
 package authoring_UI;
 
-import authoring.AbstractSpriteObject;
+import authoring.Sprite.AbstractSpriteObject;
 import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;

@@ -14,8 +14,8 @@ import javax.imageio.ImageIO;
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteCreatorSpriteManager;
 import authoring.SpriteNameManager;
-import authoring.SpriteObject;
-import authoring.SpriteParameterI;
+import authoring.Sprite.SpriteObject;
+import authoring.Sprite.Parameters.SpriteParameterI;
 import authoring.drawing.ImageCanvasPane;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.embed.swing.SwingFXUtils;
@@ -49,7 +49,8 @@ import javafx.stage.Stage;
 public class SpriteImagePanel extends VBox {
 
 	private static final String PATH = "resources/";
-//	private static final String IMAGE_PATH = "data/UserCreatedGames/TestProject/Sprites/CustomSprites/";
+	// private static final String IMAGE_PATH =
+	// "data/UserCreatedGames/TestProject/Sprites/CustomSprites/";
 	private static final String SPRITECREATORRESOURCES_PATH = "TextResources/SpriteCreatorResources";
 	private static final String TOOLSANDNAMES_PATH = "authoring/drawing/drawingTools/drawingTools";
 	private static final int PANE_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH;
@@ -71,9 +72,10 @@ public class SpriteImagePanel extends VBox {
 	private AuthoringEnvironmentManager myAEM;
 	private SpriteCreatorDisplayPanel myDP;
 	private SpriteCreatorSpriteSelector mySC;
+	private SpriteCreatorGridHandler myGridHandler;
 
 	protected SpriteImagePanel(AuthoringEnvironmentManager AEM, SpriteCreatorImageGrid imageGrid,
-			SpriteCreatorSpriteManager SM, SpriteCreatorManager SCM) {
+			SpriteCreatorSpriteManager SM, SpriteCreatorManager SCM, SpriteCreatorGridHandler mySCGridHandler) {
 		spriteCreatorResources = ResourceBundle.getBundle(SPRITECREATORRESOURCES_PATH);
 		paintResources = ResourceBundle.getBundle(TOOLSANDNAMES_PATH);
 		this.setMinWidth(PANE_WIDTH / 2 - 300);
@@ -89,6 +91,10 @@ public class SpriteImagePanel extends VBox {
 		mySC = SCM.getSpriteSelector();
 		myAEM = AEM;
 		mySNM = new SpriteNameManager();
+		
+		myGridHandler = mySCGridHandler;
+		myGridHandler.setImagePanel(this);
+
 		mySM = SM;
 		buttonBox = new HBox(10);
 		nameCategoryBox = new HBox(10);
@@ -235,9 +241,33 @@ public class SpriteImagePanel extends VBox {
 		return outputFile;
 	}
 
+	public String getName() {
+		return nameField.getText();
+	}
+
+	public String getCategory() {
+		return categoryField.getText();
+	}
+
+	public void setName(String s) {
+		nameField.setText(s);
+	}
+
+	public void setCategory(String s) {
+		categoryField.setText(s);
+	}
+	
+	public void setDefaultName() {
+		setName("USER_CREATED_SPRITE");
+	}
+	
+	public void setDefaultCategory() {
+		setCategory("General");
+	}
+
 	public void setImage(Image image) {
 		File file = saveToFile(image);
-		
+
 		newSprite = new SpriteObject();
 		newSprite.setImageURL(file.getName());
 		newSprite.setNumCellsWidthNoException(1);
@@ -249,4 +279,5 @@ public class SpriteImagePanel extends VBox {
 		myDP.addSpriteEditorVBox();
 		myDP.updateParameterTab(newSprite);
 	}
+
 }

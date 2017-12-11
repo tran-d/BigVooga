@@ -48,6 +48,7 @@ public class SpriteCreator extends TabPane {
 	private SpriteCreatorManager mySCM;
 	private SpriteCreatorSpriteManager mySM;
 	private SpriteNameManager mySNM;
+	private SpriteCreatorGridHandler myGridHandler;
 	private SingleSelectionModel <Tab> mySelectModel;
 	private List<DraggableGrid> allWorlds = new ArrayList<DraggableGrid>();
 	private Pane myPane;
@@ -57,9 +58,9 @@ public class SpriteCreator extends TabPane {
 	private int spriteCount = 1;
 	private int myTabCount = 1;
 
-	public SpriteCreator(Stage stage, AuthoringEnvironmentManager AEM, SpriteCreatorManager SCM, SpriteCreatorImageGrid imageGrid, SpriteCreatorSpriteManager SM) {
+	public SpriteCreator(Stage stage, AuthoringEnvironmentManager AEM, SpriteCreatorManager SCM, SpriteCreatorImageGrid imageGrid, SpriteCreatorSpriteManager SM, SpriteCreatorGridHandler mySCGridHandler) {
 		setup(stage, AEM, SCM, SM);
-		SpriteTab tab = new SpriteTab(AEM,SCM, imageGrid, mySM);
+		SpriteTab tab = new SpriteTab(AEM,SCM, imageGrid, mySM, mySCGridHandler);
 		this.getTabs().add(tab);
 
 	}

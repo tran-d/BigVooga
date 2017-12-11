@@ -5,10 +5,11 @@ import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
 
-import authoring.AbstractSpriteObject;
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteCreatorSpriteManager;
-import authoring.SpriteObject;
+import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.SpriteObject;
+import authoring.SpriteManagers.SpriteSet;
 import javafx.geometry.Insets;
 import javafx.geometry.Side;
 import javafx.scene.control.ScrollPane;
@@ -28,15 +29,10 @@ import javafx.scene.paint.Color;
 public class SpriteCreatorSpriteSelector extends TabPane implements Observer {
 
 	private static final String SPRITES = "Sprites";
-	private static final String DIALOGUES = "Dialogues";
 	private static final String DEFAULT = "Default";
 	private static final String USER = "User";
 	private static final String IMPORTED = "Imported";
-	private static final String IMPORTEDINVENTORY = "Imported Inventory";
-	private static final String INVENTORY = "Inventory";
 
-	private DraggableGrid myGrid;
-	private final int NUM_COLUMNS = 10;
 
 	private AuthoringEnvironmentManager myAEM;
 	private SpriteCreatorSpriteManager mySM;
