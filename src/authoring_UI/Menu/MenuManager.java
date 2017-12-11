@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import authoring.AuthoringEnvironmentManager;
+import authoring.GridManagers.BackgroundGridManager;
 import authoring.GridManagers.SpriteObjectGridManager;
 import authoring.SpritePanels.MenuSpritePanels;
 import authoring.SpritePanels.SpritePanels;
@@ -27,7 +28,11 @@ public class MenuManager extends MapManager{
 	protected DraggableGrid makeDraggableGrid(){
 		DraggableGrid ret = new DraggableGrid();
 		MenuGridBE = new MenuGridManager();
-		ret.setAllGrids(MenuGridBE);
+		BackgroundGridManager BackgroundGrid = new BackgroundGridManager(MenuGridBE.getDefaultRows(), MenuGridBE.getDefaultCols());
+		List<SpriteObjectGridManager> grids = new ArrayList<SpriteObjectGridManager>();
+		grids.add(BackgroundGrid);
+		grids.add(MenuGridBE);
+		ret.setAllGrids(grids);
 		return ret;
 	}
 	

@@ -25,9 +25,10 @@ import tools.DisplayLanguage;
  */
 public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVBoxI {
 
+	private static final double VBOX_SPACING = 10;
 	private static final String PRIORITY_NUMBER_PROMPT = "EnterPriority";
 	private static final String INTEGER_INPUT_MESSAGE = "EnterInteger";
-	private static final double INTEGER_TEXTFIELD_WIDTH = 25;
+	private static final double INTEGER_TEXTFIELD_WIDTH = 100;
 	private ActionCheckBoxVBox<Integer> actionCheckBoxVBox;
 
 	private OperationNameTreeItem operationNameTreeItem;
@@ -39,10 +40,17 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 		super(ID, ACVBox);
 		addActionCheckBox(newActionOptions);
 
-		operationNameTreeItem = new OperationNameTreeItem("Boolean");
+		this.setPrefSize(ROW_WIDTH, EXPANDED_HEIGHT);
+
+		operationNameTreeItem = new OperationNameTreeItem("Boolean", () -> changeRowTVSize());
 		operationTreeView = new TreeView<>(operationNameTreeItem);
+		operationTreeView.setPrefSize(TREE_VIEW_WIDTH, EXPANDED_HEIGHT);
 		integerTF = createIntegerTextField();
-		this.getItems().addAll(makeIntegerInputPrompt(integerTF), operationTreeView);
+				
+		VBox vb = new VBox(VBOX_SPACING);
+		vb.getChildren().addAll(makeIntegerInputPrompt(integerTF), new Label("Choose Boolean Operation: "),
+				operationTreeView);
+		this.getItems().addAll(vb);
 	}
 
 	public ConditionRow(int ID, String label, String selectorLabel, String selectedCondition,
@@ -69,20 +77,28 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 		if (operationNameTreeItem.isExpanded()) {
 			this.setPrefHeight(EXPANDED_HEIGHT);
 			operationTreeView.setPrefHeight(EXPANDED_HEIGHT);
+			System.out.println("expand");
 		} else {
 			this.setPrefHeight(COLLAPSED_HEIGHT);
 			operationTreeView.setPrefHeight(COLLAPSED_HEIGHT);
+			System.out.println("collapse");
 		}
 	}
 
 	public Condition getCondition() {
 
-		if (integerTF.getText().equals("")) {
-			showError(INVALID_INPUT_MESSAGE, INTEGER_INPUT_MESSAGE);
+		try {
+			if (integerTF.getText().equals("")) {
+				showError(INVALID_INPUT_MESSAGE, INTEGER_INPUT_MESSAGE);
+				return null;
+			} else
+				return new Condition(Integer.parseInt(integerTF.getText()),
+						(BooleanOperation) operationNameTreeItem.makeOperation());
+
+		} catch (Exception e) {
+			showError(INVALID_INPUT_MESSAGE, ENTER_VALID_INPUT);
 			return null;
-		} else
-			return new Condition(Integer.parseInt(integerTF.getText()),
-					(BooleanOperation) operationNameTreeItem.makeOperation());
+		}
 
 	}
 
@@ -109,11 +125,13 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 		actionCheckBoxVBox = new ActionCheckBoxVBox<Integer>(newActionOptions);
 		getItems().add(actionCheckBoxVBox);
 	}
+	
+	
 
-	private VBox makeIntegerInputPrompt(TextField tf) {
+	private HBox makeIntegerInputPrompt(TextField tf) {
 		Label lb = new Label();
 		lb.textProperty().bind(DisplayLanguage.createStringBinding(PRIORITY_NUMBER_PROMPT));
-		VBox vb = new VBox(lb, tf);
+		HBox vb = new HBox(lb, tf);
 		return vb;
 	}
 
@@ -134,13 +152,6 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 			showError(INVALID_INPUT_MESSAGE, INTEGER_INPUT_MESSAGE);
 			tf.clear();
 		}
-	}
-
-	private void showError(String header, String content) {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.contentTextProperty().bind(DisplayLanguage.createStringBinding(header));
-		alert.headerTextProperty().bind(DisplayLanguage.createStringBinding(content));
-		alert.show();
 	}
 
 }

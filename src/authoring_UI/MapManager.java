@@ -9,6 +9,8 @@ import authoring.SpritePanels.SpritePanels;
 import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Side;
@@ -32,6 +34,7 @@ public class MapManager extends TabPane {
 	protected Scene scene;
 	protected SingleSelectionModel<Tab> mySelectModel;
 	protected Tab addTab;
+	protected ObjectProperty<Boolean> gridIsShowing;
 //	private AuthoringMapEnvironment authMap;
 
 	private ViewSideBar sideBar;
@@ -46,10 +49,17 @@ public class MapManager extends TabPane {
 	private List<DraggableGrid> allWorlds = new ArrayList<DraggableGrid>();
 	private Pane mapEditor = new Pane();
 	private SpritePanels spritePanels;
+	private SpriteGridHandler mySpriteGridHandler;
 
 	public MapManager(AuthoringEnvironmentManager AEM, Scene currentScene)  {
 		setTabTag();
 		setManagerName();
+		gridIsShowing = new SimpleObjectProperty<Boolean>();
+		gridIsShowing.addListener((change, oldValue, newValue)->{
+			System.out.println(getClass()+"is updating showing from "+oldValue + "to "+newValue);
+			this.mySpriteGridHandler.setGridIsShown(newValue);
+		});
+		
 		myAEM = AEM;
 		myGDH = myAEM.getGameDataHandler();
 		scene = currentScene;
@@ -70,6 +80,8 @@ public class MapManager extends TabPane {
 		} else {
 			System.out.println("displaying a new grid");
 			setTab();
+//			DraggableGrid DG = makeDraggableGrid();
+//			createTab(myTabCount, DG);
 		}
 	}
 	
@@ -93,6 +105,24 @@ public class MapManager extends TabPane {
 		return new DraggableGrid();
 	}
 	
+	public void gridIsShowing(){
+		gridIsShowing.set(true);
+	}
+	
+	public void gridIsNotShowing(){
+		gridIsShowing.set(false);
+	}
+	
+	public void setGridIsShowing(boolean showing){
+		gridIsShowing.set(showing);
+	}
+	
+	public boolean isGridShowing(){
+		return gridIsShowing.get();
+	}
+	
+	
+	
 	
 	private void setTab() { //?
 		this.setSide(Side.TOP);
@@ -114,7 +144,7 @@ public class MapManager extends TabPane {
 	private HBox setupFEAuthClasses(DraggableGrid w) { 
 		// TODO if it's old project, want all possible worlds, so many worlds!
 		allWorlds.add(w);
-		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, w);
+		mySpriteGridHandler = new SpriteGridHandler(myTabCount, w);
 		w.construct(mySpriteGridHandler);
 		mySpriteGridHandler.addKeyPress(scene);
 		spritePanels = new SpritePanels(mySpriteGridHandler, myAEM);

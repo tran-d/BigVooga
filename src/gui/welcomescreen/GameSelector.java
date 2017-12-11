@@ -97,7 +97,7 @@ public class GameSelector extends MenuOptionsTemplate {
 
 	private void handleNewGame(String theGame) {		
 		try {
-			new GameController(stage, theGame, sceneController);
+			new GameController(stage, theGame, sceneController, false);
 		} catch (FileNotFoundException e) {
 			System.out.println("Alert");
 			Alert alert = new Alert(AlertType.ERROR);
@@ -106,23 +106,9 @@ public class GameSelector extends MenuOptionsTemplate {
 		}
 	}
 
-	// loads a game whose progress has been saved
 	private void handleContinueGame(String theGame) {
-		VBox box = new VBox();
-		box.setAlignment(Pos.TOP_CENTER);
-		List<String> saves = GameDataHandler.knownProjects().get(theGame);
-		for (String saveFile : saves) {
-			HBox entry = createTitleItem(saveFile);
-			entry.setOnMouseClicked(e->handleContinueGame(theGame, saveFile));
-			box.getChildren().add(entry);
-			System.out.println(saveFile);
-		}
-		contentPane.setContent(box);
-	}
-
-	private void handleContinueGame(String theGame, String saveFile) {
 		try {
-			new GameController(stage, theGame, saveFile, sceneController);
+			new GameController(stage, theGame, sceneController, true);
 		} catch (FileNotFoundException e) {
 			System.out.println("Alert");
 			Alert alert = new Alert(AlertType.ERROR);

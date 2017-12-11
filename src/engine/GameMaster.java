@@ -88,8 +88,14 @@ public class GameMaster implements EngineController{
 		currentWorld.step(environment);
 		imageUpdate();
 		playerManager.step();
+		sendVariables();
 	}
 	
+	private void sendVariables() {
+		if(playerManager.getDataView() != null)
+			playerManager.getDataView().display(currentWorld.getAllGameObjects());
+	}
+
 	@Override
 	public void setPlayerManager(PlayerManager currentPlayerManager) {
 		playerManager = currentPlayerManager;

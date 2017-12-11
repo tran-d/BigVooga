@@ -34,6 +34,8 @@ public class GameObject extends VariableContainer implements Element {
 	private static final double DEFAULT_SIZE = 200;
 	private static final String DEFAULT_NAME = "unnamed";
 	private static final String DEFAULT_TAG = "default";
+	
+	public static final String CAMERA_TAG = "camera";
 
 	private Map<Condition, List<Action>> events;
 	private Sprite currentSprite;
@@ -182,16 +184,10 @@ public class GameObject extends VariableContainer implements Element {
 		currentSprite = set;
 	}
 
-	public void addParameter(String name, Object o) throws VoogaException {
-		try {
-			getClass().getDeclaredMethod(
-					ResourceBundle.getBundle("engine.TypeRecovery").getString(o.getClass().getSimpleName()),
-					String.class, o.getClass()).invoke(this, name, o);
-		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
-				| SecurityException e) {
-			throw new VoogaException("AddPar", name, o.getClass());
-		}
+	public Sprite getSprite() {
+		return currentSprite;
 	}
+
 
 	/**
 	 * Returns the current BoundedImage of this Object.

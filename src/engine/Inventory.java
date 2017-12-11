@@ -67,6 +67,7 @@ public class Inventory implements Element{
 
 	@Override
 	public Displayable getDisplayable() {
+		pane.setPosition(x, y);
 		List<List<DisplayableImage>> ret = new ArrayList<>();
 		int i = startIndex;
 		for(int r = 0; r < rowSpan; r++) {
@@ -80,6 +81,7 @@ public class Inventory implements Element{
 			}
 			ret.add(row);
 		}
+		pane.setPosition(x, y);
 		return new DisplayablePane(pane, ret, rowSpan, colSpan);
 	}
 
@@ -93,11 +95,22 @@ public class Inventory implements Element{
 				if(h.getDisplayable().checkCollision(new BoundingPoint(w.getPlayerManager().getMouseXY().getX(), w.getPlayerManager().getMouseXY().getY())) != null) {
 					selected = h;
 					h.select(holder, w);
-					System.out.println("Holdable Selected: " + i);
 				}
 				i++;
 			}
 		}
+	}
+	
+	private int getHoldableClicked(double mouseX, double mouseY) {
+		double inventoryMouseX = mouseX - (x - 0.5*pane.getWidth());
+		double inventoryMouseY = mouseY - (y - 0.5*pane.getHeight());
+		if(inventoryMouseX < 0 || inventoryMouseX > pane.getWidth()
+				|| inventoryMouseY < 0 || inventoryMouseY > pane.getHeight()) {
+			return -1;
+		}
+		int col = (int)Math.round(pane.getWidth() / inventoryMouseX);
+		int row = (int)Math.round(pane.getHeight() / inventoryMouseY);
+		return row*colSpan + col;
 	}
 	
 	public int getStartIndex() {

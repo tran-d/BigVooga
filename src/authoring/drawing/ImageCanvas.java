@@ -3,6 +3,7 @@ package authoring.drawing;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -83,5 +84,9 @@ public class ImageCanvas extends Pane {
 	
 	public double getStroke() {
 		return stroke;
+	}
+
+	public void setImage(Image image) {
+		canvas.getGraphicsContext2D().drawImage(image, 0, 0, canvas.getWidth(), canvas.getHeight());
 	}
 }
