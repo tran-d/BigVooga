@@ -4,6 +4,7 @@ import java.util.List;
 
 import controller.player.PlayerManager;
 import engine.operations.doubleops.DoubleOperation;
+import javafx.geometry.Point2D;
 
 public class ConcreteGameObjectEnvironment implements GameObjectEnvironment {
 
@@ -54,9 +55,18 @@ public class ConcreteGameObjectEnvironment implements GameObjectEnvironment {
 	}
 
 	@Override
-	public void transfer(GameObject gameObject, String newWorld) {
+	public void transfer(GameObject gameObject, String newWorld, String layerName) {
 		//TODO ?? master.getWorldWithName(newWorld).addToLayer(gameObject, layer.number()??) ??  
 				//It's unclear how to resolve this in a reasonable way
+		GameWorld world = master.getWorldWithName(newWorld);
+		for(Layer l: world.getLayers())
+		{
+			if(l.isNamed(layerName))
+			{
+				layer.removeGameObject(gameObject);
+				l.addGameObject(gameObject);
+			}
+		}
 	}
 	
 	@Override
@@ -72,6 +82,12 @@ public class ConcreteGameObjectEnvironment implements GameObjectEnvironment {
 	@Override
 	public void save(DoubleOperation currentPoints) {
 		master.save();
+	}
+
+	@Override
+	public Point2D getAbsoluteMouseCoordinates() {
+		// TODO Auto-generated method stub
+		return world.makeScreenCoordinatesAbsolute(master.getPlayerManager().getClickX(), master.getPlayerManager().getClickY());
 	}
 
 }

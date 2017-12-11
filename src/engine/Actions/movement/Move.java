@@ -18,15 +18,16 @@ public class Move implements Action {
 
 	private VectorOperation increment;
 	private GameObjectOperation object;
-	
-	public Move(@VoogaAnnotation(name = "Sprite", type = VoogaType.GAMEOBJECT) GameObjectOperation object, VectorOperation increment) {
+
+	public Move(@VoogaAnnotation(name = "Sprite", type = VoogaType.GAMEOBJECT) GameObjectOperation object,
+			@VoogaAnnotation(name = "Position Change", type = VoogaType.VECTOR) VectorOperation increment) {
 		this.object = object;
 		this.increment = increment;
 	}
-	
+
 	@Override
 	public void execute(GameObject asking, GameObjectEnvironment world) {
-		Point2D vector = increment.evaluate(asking,world);
+		Point2D vector = increment.evaluate(asking, world);
 		GameObject obj = object.evaluate(asking, world);
 		obj.setCoords(obj.getX() + vector.getX(), obj.getY() + vector.getY());
 	}

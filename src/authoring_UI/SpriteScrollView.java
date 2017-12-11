@@ -103,7 +103,7 @@ public class SpriteScrollView extends ScrollPane {
 
 	private void createContainerVBox() {
 		containerVBox = new VBox();
-		containerVBox.setPrefWidth(550);
+		containerVBox.setPrefWidth(525);
 	}
 
 	private void putContainerVBoxIntoScrollPane() {

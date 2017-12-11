@@ -11,7 +11,7 @@ import engine.operations.stringops.StringOperation;
 
 /**
  * 
- * @author aaronpaskin
+ * @author Aaron Paskin
  *
  */
 public class ChangeBoolean implements Action {

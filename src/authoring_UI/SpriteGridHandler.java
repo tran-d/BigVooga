@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import authoring.Sprite.AbstractSpriteObject;
@@ -32,8 +33,10 @@ public class SpriteGridHandler {
 	private DataFormat objectFormat;
 	private DisplayPanel myDP;
 	private DraggableGrid myDG;
-
-	public SpriteGridHandler(String parent, int mapCount, DraggableGrid DG) {
+	
+	public SpriteGridHandler(int mapCount, DraggableGrid DG) {
+		Random rand = new Random();
+		int parent = rand.nextInt();
 		objectFormat = new DataFormat("MyObject" + parent+ Integer.toString(mapCount));
 		System.out.println("SGH made with objForm: "+objectFormat);
 		myDG = DG;

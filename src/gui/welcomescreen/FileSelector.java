@@ -32,7 +32,7 @@ public class FileSelector extends MenuOptionsTemplate {
 	private ScrollPane contentPane = new ScrollPane();
 	private Scene scene;
 	private TextField textField;
-	
+	private MainAuthoringGUI myAuthoringGUI;
 	
 	public FileSelector(Stage currentStage, SceneController currentSceneController) {
 		super(currentStage, currentSceneController);
@@ -43,7 +43,6 @@ public class FileSelector extends MenuOptionsTemplate {
 	}
 	
 	public void createFileSelector() {
-		
 		rootPane = getBorderPane();
 		HBox newGame = createNewGame();
 		rootPane.setCenter(newGame);
@@ -52,7 +51,6 @@ public class FileSelector extends MenuOptionsTemplate {
 		
 		contentPane = getScrollPane();
 		contentPane.setContent(contentBox);		
-		
 	}
 	
 	private HBox createNewGame() {
@@ -123,10 +121,21 @@ public class FileSelector extends MenuOptionsTemplate {
 	}
 	
 	private void switchScene(String fileName) {
-		MainAuthoringGUI authoringGUI = new MainAuthoringGUI(stage, sceneController, fileName);
-		authoringGUI.createAuthoringGUI();
-		stage.setScene(authoringGUI.getScene());
+		myAuthoringGUI = new MainAuthoringGUI(stage, sceneController, fileName);
+		myAuthoringGUI.createAuthoringGUI();
+		stage.setScene(myAuthoringGUI.getScene());
 		stage.centerOnScreen();
 	}
 	
+	public void saveWorlds() {
+		myAuthoringGUI.saveWorlds();
+	}
+
+	public void importWorlds(String fileName) {
+		System.out.println("ya make that new authoring GUI WOOOO");
+		myAuthoringGUI = new MainAuthoringGUI(stage, sceneController, fileName);
+		myAuthoringGUI.createAuthoringGUI();
+		stage.setScene(myAuthoringGUI.getScene());
+		stage.centerOnScreen();
+	}
 }

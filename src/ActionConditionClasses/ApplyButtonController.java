@@ -23,7 +23,6 @@ public class ApplyButtonController {
 	private static final int SELECTOR_LABEL_INDEX = 1;
 	private static final int SELECTOR_VALUE_INDEX = 2;
 
-	@Override
 	public void updateActionConditionTabs(ConditionTab<ConditionRow> conditionTab,ActionTab<ActionRow> actionTab,AbstractSpriteObject spriteObject) {
 		HashMap<Condition,List<Integer>> conditions = spriteObject.getConditionRows();
 		List<Action> actions = spriteObject.getActionRows();
@@ -47,8 +46,7 @@ public class ApplyButtonController {
 		for(Action action : actions) {
 //			System.out.println("rowAct " + rowAct);
 //			System.out.println("Label " + labels);
-			ActionRow actionRow = new ActionRow(rowAct,labels.get(LABEL_INDEX),labels.get(SELECTOR_LABEL_INDEX),
-					labels.get(SELECTOR_VALUE_INDEX),actionVBox);
+			ActionRow actionRow = new ActionRow(rowAct, actionVBox);
 			actionRows.add(actionRow);
 			rowAct++;
 		}
@@ -59,9 +57,6 @@ public class ApplyButtonController {
 		actionTab.setNoReturnActionConditionVBox(actionVBox);
 	}
 	
-	
-
-	@Override
 	public void updateSpriteObject(ConditionTab<ConditionRow> conditionTab,ActionTab<ActionRow> actionTab,AbstractSpriteObject spriteObject) {
 		spriteObject.setAllConditions(conditionTab.getTopToolBar().getRemoveRowVBoxOptions());
 		spriteObject.setAllActions(actionTab.getTopToolBar().getRemoveRowVBoxOptions());

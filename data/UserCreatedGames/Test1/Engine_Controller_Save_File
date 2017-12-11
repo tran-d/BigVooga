@@ -20,6 +20,39 @@
                     <priorityNum>2</priorityNum>
                     <operation class="engine.operations.booleanops.KeyPressed">
                       <check class="engine.operations.stringops.SelfString">
+                        <stored>I</stored>
+                      </check>
+                    </operation>
+                  </engine.Condition>
+                  <list>
+                    <engine.Actions.changeObject.DisplayInventory>
+                      <obj class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.changeObject.DisplayInventory>
+                  </list>
+                </entry>
+                <entry>
+                  <engine.Condition>
+                    <priorityNum>2</priorityNum>
+                    <operation class="engine.operations.booleanops.KeyHeld">
+                      <check class="engine.operations.stringops.SelfString">
+                        <stored>D</stored>
+                      </check>
+                    </operation>
+                  </engine.Condition>
+                  <list>
+                    <engine.Actions.movement.Rotate>
+                      <headingIncrement class="engine.operations.doubleops.Value">
+                        <value>5.0</value>
+                      </headingIncrement>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.movement.Rotate>
+                  </list>
+                </entry>
+                <entry>
+                  <engine.Condition>
+                    <priorityNum>2</priorityNum>
+                    <operation class="engine.operations.booleanops.KeyHeld">
+                      <check class="engine.operations.stringops.SelfString">
                         <stored>W</stored>
                       </check>
                     </operation>
@@ -36,16 +69,19 @@
                 <entry>
                   <engine.Condition>
                     <priorityNum>2</priorityNum>
-                    <operation class="engine.operations.booleanops.KeyPressed">
+                    <operation class="engine.operations.booleanops.KeyHeld">
                       <check class="engine.operations.stringops.SelfString">
-                        <stored>I</stored>
+                        <stored>A</stored>
                       </check>
                     </operation>
                   </engine.Condition>
                   <list>
-                    <engine.Actions.changeObject.DisplayInventory>
-                      <obj class="engine.operations.gameobjectops.Self"/>
-                    </engine.Actions.changeObject.DisplayInventory>
+                    <engine.Actions.movement.Rotate>
+                      <headingIncrement class="engine.operations.doubleops.Value">
+                        <value>-5.0</value>
+                      </headingIncrement>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.movement.Rotate>
                   </list>
                 </entry>
               </events>
@@ -86,7 +122,7 @@
                               </geometry>
                             </engine.utilities.collisions.RelativeBoundingPolygon>
                           </relativeBounds>
-                          <fileName>C:\Users\nikbr\Desktop\eclipse\My_Workspace\voogasalad_bigvooga\data\UserCreatedGames\Test1\testImage.gif</fileName>
+                          <fileName>/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png</fileName>
                           <xCenter>0.0</xCenter>
                           <yCenter>0.0</yCenter>
                           <xSize>0.0</xSize>
@@ -107,6 +143,7 @@
               <name>Ob1</name>
               <tagSet>
                 <string>default</string>
+                <string>Player</string>
                 <string>Ob1</string>
               </tagSet>
               <inventory>
@@ -133,7 +170,7 @@
                                 <relativeBounds>
                                   <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
                                 </relativeBounds>
-                                <fileName>C:\Users\nikbr\Desktop\eclipse\My_Workspace\voogasalad_bigvooga\data\UserCreatedGames\Test1\skeptical.jpg</fileName>
+                                <fileName>/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png</fileName>
                                 <xCenter>0.0</xCenter>
                                 <yCenter>0.0</yCenter>
                                 <xSize>0.0</xSize>
@@ -160,7 +197,19 @@
                     <booleanVars/>
                     <inventory/>
                     <useOptions/>
-                    <selectActions/>
+                    <selectActions>
+                      <engine.Actions.movement.MoveTo>
+                        <newLocation class="engine.operations.vectorops.BasicVector">
+                          <x class="engine.operations.doubleops.Value">
+                            <value>500.0</value>
+                          </x>
+                          <y class="engine.operations.doubleops.Value">
+                            <value>500.0</value>
+                          </y>
+                        </newLocation>
+                        <object class="engine.operations.gameobjectops.Self"/>
+                      </engine.Actions.movement.MoveTo>
+                    </selectActions>
                     <sprite>
                       <animations>
                         <entry>
@@ -173,7 +222,891 @@
                                 <relativeBounds>
                                   <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
                                 </relativeBounds>
-                                <fileName>C:\Users\nikbr\Desktop\eclipse\My_Workspace\voogasalad_bigvooga\data\UserCreatedGames\Test1\skeptical.jpg</fileName>
+                                <fileName>/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png</fileName>
+                                <xCenter>0.0</xCenter>
+                                <yCenter>0.0</yCenter>
+                                <xSize>0.0</xSize>
+                                <ySize>0.0</ySize>
+                                <heading>0.0</heading>
+                                <depth>10</depth>
+                              </engine.sprite.BoundedImage>
+                            </images>
+                            <name>hi</name>
+                            <stepsPerFrame>20</stepsPerFrame>
+                            <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                          </engine.sprite.AnimationSequence>
+                        </entry>
+                      </animations>
+                      <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+                    </sprite>
+                  </engine.Holdable>
+                  <engine.Holdable>
+                    <doubleVars/>
+                    <doubleListVars/>
+                    <vectorVars/>
+                    <stringVars/>
+                    <stringListVars/>
+                    <booleanVars/>
+                    <inventory/>
+                    <useOptions/>
+                    <selectActions>
+                      <engine.Actions.movement.MoveTo>
+                        <newLocation class="engine.operations.vectorops.BasicVector">
+                          <x class="engine.operations.doubleops.Value">
+                            <value>650.0</value>
+                          </x>
+                          <y class="engine.operations.doubleops.Value">
+                            <value>500.0</value>
+                          </y>
+                        </newLocation>
+                        <object class="engine.operations.gameobjectops.Self"/>
+                      </engine.Actions.movement.MoveTo>
+                    </selectActions>
+                    <sprite>
+                      <animations>
+                        <entry>
+                          <string>hi</string>
+                          <engine.sprite.AnimationSequence>
+                            <imageIndex>0</imageIndex>
+                            <images>
+                              <engine.sprite.BoundedImage>
+                                <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                                <relativeBounds>
+                                  <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                                </relativeBounds>
+                                <fileName>/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/ActiveTurtle.png</fileName>
+                                <xCenter>0.0</xCenter>
+                                <yCenter>0.0</yCenter>
+                                <xSize>0.0</xSize>
+                                <ySize>0.0</ySize>
+                                <heading>0.0</heading>
+                                <depth>10</depth>
+                              </engine.sprite.BoundedImage>
+                            </images>
+                            <name>hi</name>
+                            <stepsPerFrame>20</stepsPerFrame>
+                            <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                          </engine.sprite.AnimationSequence>
+                        </entry>
+                      </animations>
+                      <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+                    </sprite>
+                  </engine.Holdable>
+                  <engine.Holdable>
+                    <doubleVars/>
+                    <doubleListVars/>
+                    <vectorVars/>
+                    <stringVars/>
+                    <stringListVars/>
+                    <booleanVars/>
+                    <inventory/>
+                    <useOptions/>
+                    <selectActions>
+                      <engine.Actions.movement.MoveTo>
+                        <newLocation class="engine.operations.vectorops.BasicVector">
+                          <x class="engine.operations.doubleops.Value">
+                            <value>500.0</value>
+                          </x>
+                          <y class="engine.operations.doubleops.Value">
+                            <value>500.0</value>
+                          </y>
+                        </newLocation>
+                        <object class="engine.operations.gameobjectops.Self"/>
+                      </engine.Actions.movement.MoveTo>
+                    </selectActions>
+                    <sprite>
+                      <animations>
+                        <entry>
+                          <string>hi</string>
+                          <engine.sprite.AnimationSequence>
+                            <imageIndex>0</imageIndex>
+                            <images>
+                              <engine.sprite.BoundedImage>
+                                <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                                <relativeBounds>
+                                  <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                                </relativeBounds>
+                                <fileName>/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png</fileName>
+                                <xCenter>0.0</xCenter>
+                                <yCenter>0.0</yCenter>
+                                <xSize>0.0</xSize>
+                                <ySize>0.0</ySize>
+                                <heading>0.0</heading>
+                                <depth>10</depth>
+                              </engine.sprite.BoundedImage>
+                            </images>
+                            <name>hi</name>
+                            <stepsPerFrame>20</stepsPerFrame>
+                            <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                          </engine.sprite.AnimationSequence>
+                        </entry>
+                      </animations>
+                      <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+                    </sprite>
+                  </engine.Holdable>
+                  <engine.Holdable>
+                    <doubleVars/>
+                    <doubleListVars/>
+                    <vectorVars/>
+                    <stringVars/>
+                    <stringListVars/>
+                    <booleanVars/>
+                    <inventory/>
+                    <useOptions/>
+                    <selectActions>
+                      <engine.Actions.movement.MoveTo>
+                        <newLocation class="engine.operations.vectorops.BasicVector">
+                          <x class="engine.operations.doubleops.Value">
+                            <value>650.0</value>
+                          </x>
+                          <y class="engine.operations.doubleops.Value">
+                            <value>500.0</value>
+                          </y>
+                        </newLocation>
+                        <object class="engine.operations.gameobjectops.Self"/>
+                      </engine.Actions.movement.MoveTo>
+                    </selectActions>
+                    <sprite>
+                      <animations>
+                        <entry>
+                          <string>hi</string>
+                          <engine.sprite.AnimationSequence>
+                            <imageIndex>0</imageIndex>
+                            <images>
+                              <engine.sprite.BoundedImage>
+                                <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                                <relativeBounds>
+                                  <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                                </relativeBounds>
+                                <fileName>/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/ActiveTurtle.png</fileName>
+                                <xCenter>0.0</xCenter>
+                                <yCenter>0.0</yCenter>
+                                <xSize>0.0</xSize>
+                                <ySize>0.0</ySize>
+                                <heading>0.0</heading>
+                                <depth>10</depth>
+                              </engine.sprite.BoundedImage>
+                            </images>
+                            <name>hi</name>
+                            <stepsPerFrame>20</stepsPerFrame>
+                            <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                          </engine.sprite.AnimationSequence>
+                        </entry>
+                      </animations>
+                      <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+                    </sprite>
+                  </engine.Holdable>
+                  <engine.Holdable>
+                    <doubleVars/>
+                    <doubleListVars/>
+                    <vectorVars/>
+                    <stringVars/>
+                    <stringListVars/>
+                    <booleanVars/>
+                    <inventory/>
+                    <useOptions/>
+                    <selectActions>
+                      <engine.Actions.movement.MoveTo>
+                        <newLocation class="engine.operations.vectorops.BasicVector">
+                          <x class="engine.operations.doubleops.Value">
+                            <value>500.0</value>
+                          </x>
+                          <y class="engine.operations.doubleops.Value">
+                            <value>500.0</value>
+                          </y>
+                        </newLocation>
+                        <object class="engine.operations.gameobjectops.Self"/>
+                      </engine.Actions.movement.MoveTo>
+                    </selectActions>
+                    <sprite>
+                      <animations>
+                        <entry>
+                          <string>hi</string>
+                          <engine.sprite.AnimationSequence>
+                            <imageIndex>0</imageIndex>
+                            <images>
+                              <engine.sprite.BoundedImage>
+                                <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                                <relativeBounds>
+                                  <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                                </relativeBounds>
+                                <fileName>/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png</fileName>
+                                <xCenter>0.0</xCenter>
+                                <yCenter>0.0</yCenter>
+                                <xSize>0.0</xSize>
+                                <ySize>0.0</ySize>
+                                <heading>0.0</heading>
+                                <depth>10</depth>
+                              </engine.sprite.BoundedImage>
+                            </images>
+                            <name>hi</name>
+                            <stepsPerFrame>20</stepsPerFrame>
+                            <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                          </engine.sprite.AnimationSequence>
+                        </entry>
+                      </animations>
+                      <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+                    </sprite>
+                  </engine.Holdable>
+                  <engine.Holdable>
+                    <doubleVars/>
+                    <doubleListVars/>
+                    <vectorVars/>
+                    <stringVars/>
+                    <stringListVars/>
+                    <booleanVars/>
+                    <inventory/>
+                    <useOptions/>
+                    <selectActions>
+                      <engine.Actions.movement.MoveTo>
+                        <newLocation class="engine.operations.vectorops.BasicVector">
+                          <x class="engine.operations.doubleops.Value">
+                            <value>650.0</value>
+                          </x>
+                          <y class="engine.operations.doubleops.Value">
+                            <value>500.0</value>
+                          </y>
+                        </newLocation>
+                        <object class="engine.operations.gameobjectops.Self"/>
+                      </engine.Actions.movement.MoveTo>
+                    </selectActions>
+                    <sprite>
+                      <animations>
+                        <entry>
+                          <string>hi</string>
+                          <engine.sprite.AnimationSequence>
+                            <imageIndex>0</imageIndex>
+                            <images>
+                              <engine.sprite.BoundedImage>
+                                <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                                <relativeBounds>
+                                  <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                                </relativeBounds>
+                                <fileName>/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/ActiveTurtle.png</fileName>
+                                <xCenter>0.0</xCenter>
+                                <yCenter>0.0</yCenter>
+                                <xSize>0.0</xSize>
+                                <ySize>0.0</ySize>
+                                <heading>0.0</heading>
+                                <depth>10</depth>
+                              </engine.sprite.BoundedImage>
+                            </images>
+                            <name>hi</name>
+                            <stepsPerFrame>20</stepsPerFrame>
+                            <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                          </engine.sprite.AnimationSequence>
+                        </entry>
+                      </animations>
+                      <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+                    </sprite>
+                  </engine.Holdable>
+                  <engine.Holdable>
+                    <doubleVars/>
+                    <doubleListVars/>
+                    <vectorVars/>
+                    <stringVars/>
+                    <stringListVars/>
+                    <booleanVars/>
+                    <inventory/>
+                    <useOptions/>
+                    <selectActions>
+                      <engine.Actions.movement.MoveTo>
+                        <newLocation class="engine.operations.vectorops.BasicVector">
+                          <x class="engine.operations.doubleops.Value">
+                            <value>500.0</value>
+                          </x>
+                          <y class="engine.operations.doubleops.Value">
+                            <value>500.0</value>
+                          </y>
+                        </newLocation>
+                        <object class="engine.operations.gameobjectops.Self"/>
+                      </engine.Actions.movement.MoveTo>
+                    </selectActions>
+                    <sprite>
+                      <animations>
+                        <entry>
+                          <string>hi</string>
+                          <engine.sprite.AnimationSequence>
+                            <imageIndex>0</imageIndex>
+                            <images>
+                              <engine.sprite.BoundedImage>
+                                <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                                <relativeBounds>
+                                  <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                                </relativeBounds>
+                                <fileName>/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png</fileName>
+                                <xCenter>0.0</xCenter>
+                                <yCenter>0.0</yCenter>
+                                <xSize>0.0</xSize>
+                                <ySize>0.0</ySize>
+                                <heading>0.0</heading>
+                                <depth>10</depth>
+                              </engine.sprite.BoundedImage>
+                            </images>
+                            <name>hi</name>
+                            <stepsPerFrame>20</stepsPerFrame>
+                            <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                          </engine.sprite.AnimationSequence>
+                        </entry>
+                      </animations>
+                      <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+                    </sprite>
+                  </engine.Holdable>
+                  <engine.Holdable>
+                    <doubleVars/>
+                    <doubleListVars/>
+                    <vectorVars/>
+                    <stringVars/>
+                    <stringListVars/>
+                    <booleanVars/>
+                    <inventory/>
+                    <useOptions/>
+                    <selectActions>
+                      <engine.Actions.movement.MoveTo>
+                        <newLocation class="engine.operations.vectorops.BasicVector">
+                          <x class="engine.operations.doubleops.Value">
+                            <value>650.0</value>
+                          </x>
+                          <y class="engine.operations.doubleops.Value">
+                            <value>500.0</value>
+                          </y>
+                        </newLocation>
+                        <object class="engine.operations.gameobjectops.Self"/>
+                      </engine.Actions.movement.MoveTo>
+                    </selectActions>
+                    <sprite>
+                      <animations>
+                        <entry>
+                          <string>hi</string>
+                          <engine.sprite.AnimationSequence>
+                            <imageIndex>0</imageIndex>
+                            <images>
+                              <engine.sprite.BoundedImage>
+                                <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                                <relativeBounds>
+                                  <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                                </relativeBounds>
+                                <fileName>/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/ActiveTurtle.png</fileName>
+                                <xCenter>0.0</xCenter>
+                                <yCenter>0.0</yCenter>
+                                <xSize>0.0</xSize>
+                                <ySize>0.0</ySize>
+                                <heading>0.0</heading>
+                                <depth>10</depth>
+                              </engine.sprite.BoundedImage>
+                            </images>
+                            <name>hi</name>
+                            <stepsPerFrame>20</stepsPerFrame>
+                            <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                          </engine.sprite.AnimationSequence>
+                        </entry>
+                      </animations>
+                      <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+                    </sprite>
+                  </engine.Holdable>
+                  <engine.Holdable>
+                    <doubleVars/>
+                    <doubleListVars/>
+                    <vectorVars/>
+                    <stringVars/>
+                    <stringListVars/>
+                    <booleanVars/>
+                    <inventory/>
+                    <useOptions/>
+                    <selectActions>
+                      <engine.Actions.movement.MoveTo>
+                        <newLocation class="engine.operations.vectorops.BasicVector">
+                          <x class="engine.operations.doubleops.Value">
+                            <value>500.0</value>
+                          </x>
+                          <y class="engine.operations.doubleops.Value">
+                            <value>500.0</value>
+                          </y>
+                        </newLocation>
+                        <object class="engine.operations.gameobjectops.Self"/>
+                      </engine.Actions.movement.MoveTo>
+                    </selectActions>
+                    <sprite>
+                      <animations>
+                        <entry>
+                          <string>hi</string>
+                          <engine.sprite.AnimationSequence>
+                            <imageIndex>0</imageIndex>
+                            <images>
+                              <engine.sprite.BoundedImage>
+                                <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                                <relativeBounds>
+                                  <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                                </relativeBounds>
+                                <fileName>/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png</fileName>
+                                <xCenter>0.0</xCenter>
+                                <yCenter>0.0</yCenter>
+                                <xSize>0.0</xSize>
+                                <ySize>0.0</ySize>
+                                <heading>0.0</heading>
+                                <depth>10</depth>
+                              </engine.sprite.BoundedImage>
+                            </images>
+                            <name>hi</name>
+                            <stepsPerFrame>20</stepsPerFrame>
+                            <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                          </engine.sprite.AnimationSequence>
+                        </entry>
+                      </animations>
+                      <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+                    </sprite>
+                  </engine.Holdable>
+                  <engine.Holdable>
+                    <doubleVars/>
+                    <doubleListVars/>
+                    <vectorVars/>
+                    <stringVars/>
+                    <stringListVars/>
+                    <booleanVars/>
+                    <inventory/>
+                    <useOptions/>
+                    <selectActions>
+                      <engine.Actions.movement.MoveTo>
+                        <newLocation class="engine.operations.vectorops.BasicVector">
+                          <x class="engine.operations.doubleops.Value">
+                            <value>650.0</value>
+                          </x>
+                          <y class="engine.operations.doubleops.Value">
+                            <value>500.0</value>
+                          </y>
+                        </newLocation>
+                        <object class="engine.operations.gameobjectops.Self"/>
+                      </engine.Actions.movement.MoveTo>
+                    </selectActions>
+                    <sprite>
+                      <animations>
+                        <entry>
+                          <string>hi</string>
+                          <engine.sprite.AnimationSequence>
+                            <imageIndex>0</imageIndex>
+                            <images>
+                              <engine.sprite.BoundedImage>
+                                <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                                <relativeBounds>
+                                  <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                                </relativeBounds>
+                                <fileName>/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/ActiveTurtle.png</fileName>
+                                <xCenter>0.0</xCenter>
+                                <yCenter>0.0</yCenter>
+                                <xSize>0.0</xSize>
+                                <ySize>0.0</ySize>
+                                <heading>0.0</heading>
+                                <depth>10</depth>
+                              </engine.sprite.BoundedImage>
+                            </images>
+                            <name>hi</name>
+                            <stepsPerFrame>20</stepsPerFrame>
+                            <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                          </engine.sprite.AnimationSequence>
+                        </entry>
+                      </animations>
+                      <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+                    </sprite>
+                  </engine.Holdable>
+                  <engine.Holdable>
+                    <doubleVars/>
+                    <doubleListVars/>
+                    <vectorVars/>
+                    <stringVars/>
+                    <stringListVars/>
+                    <booleanVars/>
+                    <inventory/>
+                    <useOptions/>
+                    <selectActions>
+                      <engine.Actions.movement.MoveTo>
+                        <newLocation class="engine.operations.vectorops.BasicVector">
+                          <x class="engine.operations.doubleops.Value">
+                            <value>500.0</value>
+                          </x>
+                          <y class="engine.operations.doubleops.Value">
+                            <value>500.0</value>
+                          </y>
+                        </newLocation>
+                        <object class="engine.operations.gameobjectops.Self"/>
+                      </engine.Actions.movement.MoveTo>
+                    </selectActions>
+                    <sprite>
+                      <animations>
+                        <entry>
+                          <string>hi</string>
+                          <engine.sprite.AnimationSequence>
+                            <imageIndex>0</imageIndex>
+                            <images>
+                              <engine.sprite.BoundedImage>
+                                <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                                <relativeBounds>
+                                  <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                                </relativeBounds>
+                                <fileName>/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png</fileName>
+                                <xCenter>0.0</xCenter>
+                                <yCenter>0.0</yCenter>
+                                <xSize>0.0</xSize>
+                                <ySize>0.0</ySize>
+                                <heading>0.0</heading>
+                                <depth>10</depth>
+                              </engine.sprite.BoundedImage>
+                            </images>
+                            <name>hi</name>
+                            <stepsPerFrame>20</stepsPerFrame>
+                            <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                          </engine.sprite.AnimationSequence>
+                        </entry>
+                      </animations>
+                      <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+                    </sprite>
+                  </engine.Holdable>
+                  <engine.Holdable>
+                    <doubleVars/>
+                    <doubleListVars/>
+                    <vectorVars/>
+                    <stringVars/>
+                    <stringListVars/>
+                    <booleanVars/>
+                    <inventory/>
+                    <useOptions/>
+                    <selectActions>
+                      <engine.Actions.movement.MoveTo>
+                        <newLocation class="engine.operations.vectorops.BasicVector">
+                          <x class="engine.operations.doubleops.Value">
+                            <value>650.0</value>
+                          </x>
+                          <y class="engine.operations.doubleops.Value">
+                            <value>500.0</value>
+                          </y>
+                        </newLocation>
+                        <object class="engine.operations.gameobjectops.Self"/>
+                      </engine.Actions.movement.MoveTo>
+                    </selectActions>
+                    <sprite>
+                      <animations>
+                        <entry>
+                          <string>hi</string>
+                          <engine.sprite.AnimationSequence>
+                            <imageIndex>0</imageIndex>
+                            <images>
+                              <engine.sprite.BoundedImage>
+                                <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                                <relativeBounds>
+                                  <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                                </relativeBounds>
+                                <fileName>/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/ActiveTurtle.png</fileName>
+                                <xCenter>0.0</xCenter>
+                                <yCenter>0.0</yCenter>
+                                <xSize>0.0</xSize>
+                                <ySize>0.0</ySize>
+                                <heading>0.0</heading>
+                                <depth>10</depth>
+                              </engine.sprite.BoundedImage>
+                            </images>
+                            <name>hi</name>
+                            <stepsPerFrame>20</stepsPerFrame>
+                            <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                          </engine.sprite.AnimationSequence>
+                        </entry>
+                      </animations>
+                      <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+                    </sprite>
+                  </engine.Holdable>
+                  <engine.Holdable>
+                    <doubleVars/>
+                    <doubleListVars/>
+                    <vectorVars/>
+                    <stringVars/>
+                    <stringListVars/>
+                    <booleanVars/>
+                    <inventory/>
+                    <useOptions/>
+                    <selectActions>
+                      <engine.Actions.movement.MoveTo>
+                        <newLocation class="engine.operations.vectorops.BasicVector">
+                          <x class="engine.operations.doubleops.Value">
+                            <value>500.0</value>
+                          </x>
+                          <y class="engine.operations.doubleops.Value">
+                            <value>500.0</value>
+                          </y>
+                        </newLocation>
+                        <object class="engine.operations.gameobjectops.Self"/>
+                      </engine.Actions.movement.MoveTo>
+                    </selectActions>
+                    <sprite>
+                      <animations>
+                        <entry>
+                          <string>hi</string>
+                          <engine.sprite.AnimationSequence>
+                            <imageIndex>0</imageIndex>
+                            <images>
+                              <engine.sprite.BoundedImage>
+                                <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                                <relativeBounds>
+                                  <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                                </relativeBounds>
+                                <fileName>/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png</fileName>
+                                <xCenter>0.0</xCenter>
+                                <yCenter>0.0</yCenter>
+                                <xSize>0.0</xSize>
+                                <ySize>0.0</ySize>
+                                <heading>0.0</heading>
+                                <depth>10</depth>
+                              </engine.sprite.BoundedImage>
+                            </images>
+                            <name>hi</name>
+                            <stepsPerFrame>20</stepsPerFrame>
+                            <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                          </engine.sprite.AnimationSequence>
+                        </entry>
+                      </animations>
+                      <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+                    </sprite>
+                  </engine.Holdable>
+                  <engine.Holdable>
+                    <doubleVars/>
+                    <doubleListVars/>
+                    <vectorVars/>
+                    <stringVars/>
+                    <stringListVars/>
+                    <booleanVars/>
+                    <inventory/>
+                    <useOptions/>
+                    <selectActions>
+                      <engine.Actions.movement.MoveTo>
+                        <newLocation class="engine.operations.vectorops.BasicVector">
+                          <x class="engine.operations.doubleops.Value">
+                            <value>650.0</value>
+                          </x>
+                          <y class="engine.operations.doubleops.Value">
+                            <value>500.0</value>
+                          </y>
+                        </newLocation>
+                        <object class="engine.operations.gameobjectops.Self"/>
+                      </engine.Actions.movement.MoveTo>
+                    </selectActions>
+                    <sprite>
+                      <animations>
+                        <entry>
+                          <string>hi</string>
+                          <engine.sprite.AnimationSequence>
+                            <imageIndex>0</imageIndex>
+                            <images>
+                              <engine.sprite.BoundedImage>
+                                <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                                <relativeBounds>
+                                  <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                                </relativeBounds>
+                                <fileName>/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/ActiveTurtle.png</fileName>
+                                <xCenter>0.0</xCenter>
+                                <yCenter>0.0</yCenter>
+                                <xSize>0.0</xSize>
+                                <ySize>0.0</ySize>
+                                <heading>0.0</heading>
+                                <depth>10</depth>
+                              </engine.sprite.BoundedImage>
+                            </images>
+                            <name>hi</name>
+                            <stepsPerFrame>20</stepsPerFrame>
+                            <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                          </engine.sprite.AnimationSequence>
+                        </entry>
+                      </animations>
+                      <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+                    </sprite>
+                  </engine.Holdable>
+                  <engine.Holdable>
+                    <doubleVars/>
+                    <doubleListVars/>
+                    <vectorVars/>
+                    <stringVars/>
+                    <stringListVars/>
+                    <booleanVars/>
+                    <inventory/>
+                    <useOptions/>
+                    <selectActions>
+                      <engine.Actions.movement.MoveTo>
+                        <newLocation class="engine.operations.vectorops.BasicVector">
+                          <x class="engine.operations.doubleops.Value">
+                            <value>500.0</value>
+                          </x>
+                          <y class="engine.operations.doubleops.Value">
+                            <value>500.0</value>
+                          </y>
+                        </newLocation>
+                        <object class="engine.operations.gameobjectops.Self"/>
+                      </engine.Actions.movement.MoveTo>
+                    </selectActions>
+                    <sprite>
+                      <animations>
+                        <entry>
+                          <string>hi</string>
+                          <engine.sprite.AnimationSequence>
+                            <imageIndex>0</imageIndex>
+                            <images>
+                              <engine.sprite.BoundedImage>
+                                <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                                <relativeBounds>
+                                  <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                                </relativeBounds>
+                                <fileName>/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png</fileName>
+                                <xCenter>0.0</xCenter>
+                                <yCenter>0.0</yCenter>
+                                <xSize>0.0</xSize>
+                                <ySize>0.0</ySize>
+                                <heading>0.0</heading>
+                                <depth>10</depth>
+                              </engine.sprite.BoundedImage>
+                            </images>
+                            <name>hi</name>
+                            <stepsPerFrame>20</stepsPerFrame>
+                            <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                          </engine.sprite.AnimationSequence>
+                        </entry>
+                      </animations>
+                      <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+                    </sprite>
+                  </engine.Holdable>
+                  <engine.Holdable>
+                    <doubleVars/>
+                    <doubleListVars/>
+                    <vectorVars/>
+                    <stringVars/>
+                    <stringListVars/>
+                    <booleanVars/>
+                    <inventory/>
+                    <useOptions/>
+                    <selectActions>
+                      <engine.Actions.movement.MoveTo>
+                        <newLocation class="engine.operations.vectorops.BasicVector">
+                          <x class="engine.operations.doubleops.Value">
+                            <value>650.0</value>
+                          </x>
+                          <y class="engine.operations.doubleops.Value">
+                            <value>500.0</value>
+                          </y>
+                        </newLocation>
+                        <object class="engine.operations.gameobjectops.Self"/>
+                      </engine.Actions.movement.MoveTo>
+                    </selectActions>
+                    <sprite>
+                      <animations>
+                        <entry>
+                          <string>hi</string>
+                          <engine.sprite.AnimationSequence>
+                            <imageIndex>0</imageIndex>
+                            <images>
+                              <engine.sprite.BoundedImage>
+                                <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                                <relativeBounds>
+                                  <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                                </relativeBounds>
+                                <fileName>/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/ActiveTurtle.png</fileName>
+                                <xCenter>0.0</xCenter>
+                                <yCenter>0.0</yCenter>
+                                <xSize>0.0</xSize>
+                                <ySize>0.0</ySize>
+                                <heading>0.0</heading>
+                                <depth>10</depth>
+                              </engine.sprite.BoundedImage>
+                            </images>
+                            <name>hi</name>
+                            <stepsPerFrame>20</stepsPerFrame>
+                            <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                          </engine.sprite.AnimationSequence>
+                        </entry>
+                      </animations>
+                      <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+                    </sprite>
+                  </engine.Holdable>
+                  <engine.Holdable>
+                    <doubleVars/>
+                    <doubleListVars/>
+                    <vectorVars/>
+                    <stringVars/>
+                    <stringListVars/>
+                    <booleanVars/>
+                    <inventory/>
+                    <useOptions/>
+                    <selectActions>
+                      <engine.Actions.movement.MoveTo>
+                        <newLocation class="engine.operations.vectorops.BasicVector">
+                          <x class="engine.operations.doubleops.Value">
+                            <value>500.0</value>
+                          </x>
+                          <y class="engine.operations.doubleops.Value">
+                            <value>500.0</value>
+                          </y>
+                        </newLocation>
+                        <object class="engine.operations.gameobjectops.Self"/>
+                      </engine.Actions.movement.MoveTo>
+                    </selectActions>
+                    <sprite>
+                      <animations>
+                        <entry>
+                          <string>hi</string>
+                          <engine.sprite.AnimationSequence>
+                            <imageIndex>0</imageIndex>
+                            <images>
+                              <engine.sprite.BoundedImage>
+                                <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                                <relativeBounds>
+                                  <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                                </relativeBounds>
+                                <fileName>/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png</fileName>
+                                <xCenter>0.0</xCenter>
+                                <yCenter>0.0</yCenter>
+                                <xSize>0.0</xSize>
+                                <ySize>0.0</ySize>
+                                <heading>0.0</heading>
+                                <depth>10</depth>
+                              </engine.sprite.BoundedImage>
+                            </images>
+                            <name>hi</name>
+                            <stepsPerFrame>20</stepsPerFrame>
+                            <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                          </engine.sprite.AnimationSequence>
+                        </entry>
+                      </animations>
+                      <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+                    </sprite>
+                  </engine.Holdable>
+                  <engine.Holdable>
+                    <doubleVars/>
+                    <doubleListVars/>
+                    <vectorVars/>
+                    <stringVars/>
+                    <stringListVars/>
+                    <booleanVars/>
+                    <inventory/>
+                    <useOptions/>
+                    <selectActions>
+                      <engine.Actions.movement.MoveTo>
+                        <newLocation class="engine.operations.vectorops.BasicVector">
+                          <x class="engine.operations.doubleops.Value">
+                            <value>650.0</value>
+                          </x>
+                          <y class="engine.operations.doubleops.Value">
+                            <value>500.0</value>
+                          </y>
+                        </newLocation>
+                        <object class="engine.operations.gameobjectops.Self"/>
+                      </engine.Actions.movement.MoveTo>
+                    </selectActions>
+                    <sprite>
+                      <animations>
+                        <entry>
+                          <string>hi</string>
+                          <engine.sprite.AnimationSequence>
+                            <imageIndex>0</imageIndex>
+                            <images>
+                              <engine.sprite.BoundedImage>
+                                <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                                <relativeBounds>
+                                  <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                                </relativeBounds>
+                                <fileName>/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/ActiveTurtle.png</fileName>
                                 <xCenter>0.0</xCenter>
                                 <yCenter>0.0</yCenter>
                                 <xSize>0.0</xSize>
@@ -198,8 +1131,8 @@
                   <relativeBounds>
                     <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
                   </relativeBounds>
-                  <fileName>C:\Users\nikbr\Desktop\eclipse\My_Workspace\voogasalad_bigvooga\data\UserCreatedGames\Test1\pane.png</fileName>
-                  <xCenter>200.0</xCenter>
+                  <fileName>/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/brick.png</fileName>
+                  <xCenter>400.0</xCenter>
                   <yCenter>200.0</yCenter>
                   <xSize>400.0</xSize>
                   <ySize>400.0</ySize>
@@ -209,7 +1142,10 @@
                 <holder reference="../.."/>
                 <rowSpan>5</rowSpan>
                 <colSpan>5</colSpan>
+                <x>400.0</x>
+                <y>200.0</y>
                 <startIndex>0</startIndex>
+                <name>Ob1Inventory</name>
               </inventory>
               <heading>0.0</heading>
               <ithDerivative>
@@ -222,9 +1158,210 @@
               <width>200.0</width>
               <height>100.0</height>
             </engine.GameObject>
+            <engine.GameObject>
+              <doubleVars/>
+              <doubleListVars/>
+              <vectorVars/>
+              <stringVars/>
+              <stringListVars/>
+              <booleanVars/>
+              <inventory defined-in="engine.VariableContainer"/>
+              <events/>
+              <currentSprite>
+                <animations>
+                  <entry>
+                    <string>Animation</string>
+                    <engine.sprite.AnimationSequence>
+                      <imageIndex>0</imageIndex>
+                      <images>
+                        <engine.sprite.BoundedImage>
+                          <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                          <relativeBounds>
+                            <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../engine.GameObject/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                          </relativeBounds>
+                          <fileName>/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png</fileName>
+                          <xCenter>0.0</xCenter>
+                          <yCenter>0.0</yCenter>
+                          <xSize>0.0</xSize>
+                          <ySize>0.0</ySize>
+                          <heading>0.0</heading>
+                          <depth>10</depth>
+                        </engine.sprite.BoundedImage>
+                      </images>
+                      <name>Animation</name>
+                      <stepsPerFrame>20</stepsPerFrame>
+                      <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                    </engine.sprite.AnimationSequence>
+                  </entry>
+                </animations>
+                <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+              </currentSprite>
+              <uniqueID>0</uniqueID>
+              <name>Ob2</name>
+              <tagSet>
+                <string>default</string>
+                <string>Ob2</string>
+              </tagSet>
+              <inventory>
+                <objects/>
+                <scrollers/>
+                <holder reference="../.."/>
+                <rowSpan>5</rowSpan>
+                <colSpan>5</colSpan>
+                <x>0.0</x>
+                <y>0.0</y>
+                <startIndex>0</startIndex>
+                <name>Ob2Inventory</name>
+              </inventory>
+              <heading>0.0</heading>
+              <ithDerivative>
+                <javafx.geometry.Point2D>
+                  <x>200.0</x>
+                  <y>150.0</y>
+                  <hash>0</hash>
+                </javafx.geometry.Point2D>
+              </ithDerivative>
+              <width>200.0</width>
+              <height>100.0</height>
+            </engine.GameObject>
+            <engine.GameObject>
+              <doubleVars/>
+              <doubleListVars/>
+              <vectorVars/>
+              <stringVars/>
+              <stringListVars/>
+              <booleanVars/>
+              <inventory defined-in="engine.VariableContainer"/>
+              <events/>
+              <currentSprite>
+                <animations>
+                  <entry>
+                    <string>Animation</string>
+                    <engine.sprite.AnimationSequence>
+                      <imageIndex>0</imageIndex>
+                      <images>
+                        <engine.sprite.BoundedImage>
+                          <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                          <relativeBounds>
+                            <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../engine.GameObject/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                          </relativeBounds>
+                          <fileName>/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png</fileName>
+                          <xCenter>0.0</xCenter>
+                          <yCenter>0.0</yCenter>
+                          <xSize>0.0</xSize>
+                          <ySize>0.0</ySize>
+                          <heading>0.0</heading>
+                          <depth>10</depth>
+                        </engine.sprite.BoundedImage>
+                      </images>
+                      <name>Animation</name>
+                      <stepsPerFrame>20</stepsPerFrame>
+                      <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                    </engine.sprite.AnimationSequence>
+                  </entry>
+                </animations>
+                <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+              </currentSprite>
+              <uniqueID>0</uniqueID>
+              <name>Ob3</name>
+              <tagSet>
+                <string>Ob3</string>
+                <string>default</string>
+              </tagSet>
+              <inventory>
+                <objects/>
+                <scrollers/>
+                <holder reference="../.."/>
+                <rowSpan>5</rowSpan>
+                <colSpan>5</colSpan>
+                <x>0.0</x>
+                <y>0.0</y>
+                <startIndex>0</startIndex>
+                <name>Ob3Inventory</name>
+              </inventory>
+              <heading>0.0</heading>
+              <ithDerivative>
+                <javafx.geometry.Point2D>
+                  <x>100.0</x>
+                  <y>300.0</y>
+                  <hash>0</hash>
+                </javafx.geometry.Point2D>
+              </ithDerivative>
+              <width>200.0</width>
+              <height>100.0</height>
+            </engine.GameObject>
+            <engine.GameObject>
+              <doubleVars/>
+              <doubleListVars/>
+              <vectorVars/>
+              <stringVars/>
+              <stringListVars/>
+              <booleanVars/>
+              <inventory defined-in="engine.VariableContainer"/>
+              <events/>
+              <currentSprite>
+                <animations>
+                  <entry>
+                    <string>Animation</string>
+                    <engine.sprite.AnimationSequence>
+                      <imageIndex>0</imageIndex>
+                      <images>
+                        <engine.sprite.BoundedImage>
+                          <DEFAULT__DEPTH>10</DEFAULT__DEPTH>
+                          <relativeBounds>
+                            <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../engine.GameObject/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                          </relativeBounds>
+                          <fileName>/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png</fileName>
+                          <xCenter>0.0</xCenter>
+                          <yCenter>0.0</yCenter>
+                          <xSize>0.0</xSize>
+                          <ySize>0.0</ySize>
+                          <heading>0.0</heading>
+                          <depth>10</depth>
+                        </engine.sprite.BoundedImage>
+                      </images>
+                      <name>Animation</name>
+                      <stepsPerFrame>20</stepsPerFrame>
+                      <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                    </engine.sprite.AnimationSequence>
+                  </entry>
+                </animations>
+                <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+              </currentSprite>
+              <uniqueID>0</uniqueID>
+              <name>Ob4</name>
+              <tagSet>
+                <string>Ob4</string>
+                <string>default</string>
+              </tagSet>
+              <inventory>
+                <objects/>
+                <scrollers/>
+                <holder reference="../.."/>
+                <rowSpan>5</rowSpan>
+                <colSpan>5</colSpan>
+                <x>0.0</x>
+                <y>0.0</y>
+                <startIndex>0</startIndex>
+                <name>Ob4Inventory</name>
+              </inventory>
+              <heading>0.0</heading>
+              <ithDerivative>
+                <javafx.geometry.Point2D>
+                  <x>75.0</x>
+                  <y>275.0</y>
+                  <hash>0</hash>
+                </javafx.geometry.Point2D>
+              </ithDerivative>
+              <width>200.0</width>
+              <height>100.0</height>
+            </engine.GameObject>
           </worldElements>
           <objects>
             <engine.GameObject reference="../../worldElements/engine.GameObject"/>
+            <engine.GameObject reference="../../worldElements/engine.GameObject[2]"/>
+            <engine.GameObject reference="../../worldElements/engine.GameObject[3]"/>
+            <engine.GameObject reference="../../worldElements/engine.GameObject[4]"/>
           </objects>
           <conditionPriorities class="java.util.concurrent.ConcurrentSkipListMap" serialization="custom">
             <unserializable-parents/>
@@ -240,7 +1377,7 @@
           <idToGameObject>
             <entry>
               <int>0</int>
-              <engine.GameObject reference="../../../worldElements/engine.GameObject"/>
+              <engine.GameObject reference="../../../worldElements/engine.GameObject[4]"/>
             </entry>
           </idToGameObject>
         </engine.GameLayer>

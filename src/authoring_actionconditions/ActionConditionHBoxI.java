@@ -4,7 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-public interface TopToolBarI {
+public interface ActionConditionHBoxI {
 	
 	public String getOptionsValue();
 	public Integer getRemoveValue();

@@ -18,30 +18,25 @@ import javafx.scene.layout.HBox;
  */
 public class ActionRow extends ActionConditionRow {
 
-	private static final double ROW_WIDTH = 800;
-	private static final double TREE_VIEW_WIDTH = 600;
-	private static final double EXPANDED_HEIGHT = 500;
-	private static final double COLLAPSED_HEIGHT = 25;
-	private static final String EMPTY_CHOICEBOX = "EmptyChoiceBox";
-	private static final String INVALID_INPUT_MESSAGE = "InvalidInput";
-	private static final String DOUBLE_INPUT_MESSAGE = "EnterDouble";
-
 	private ActionFactory actionFactory;
 	private TreeView<HBox> actionTreeView;
 	private ActionCategoryTreeItem categoryAction;
 	private ActionNameTreeItem actionName;
 
-	public ActionRow(int ID, String label, String selectorLabel,String selectedAction, ActionVBox<ActionRow> ACVBox) {
-		super(ID, label, selectorLabel, selectedAction, ACVBox);
-
-		this.setPrefSize(ROW_WIDTH, EXPANDED_HEIGHT);
-
+	public ActionRow(int ID, ActionVBox<ActionRow> ACVBox) {
+		super(ID, ACVBox);
 		actionFactory = new ActionFactory();
+		this.setPrefSize(ROW_WIDTH, EXPANDED_HEIGHT);
 
 		categoryAction = new ActionCategoryTreeItem(() -> changeRowTVSize());
 		actionTreeView = new TreeView<HBox>(categoryAction);
 		actionTreeView.setPrefSize(TREE_VIEW_WIDTH, EXPANDED_HEIGHT);
 		this.getItems().addAll(actionTreeView);
+	}
+	
+	public ActionRow(int ID,ActionVBox<ActionRow> ACVBox, TreeView<HBox> tv) {
+		super(ID, ACVBox);
+		this.getItems().addAll(tv);
 	}
 
 	/********************** PUBLIC METHODS ***********************/
