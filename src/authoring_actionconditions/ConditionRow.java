@@ -35,8 +35,7 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 	private TreeView<HBox> operationTreeView;
 	private TextField integerTF;
 
-	public ConditionRow(int ID, String label, String selectorLabel, String selectedCondition,
-			ObservableList<Integer> newActionOptions, ConditionVBox<ConditionRow> ACVBox) {
+	public ConditionRow(int ID, ObservableList<Integer> newActionOptions, ConditionVBox<ConditionRow> ACVBox) {
 		super(ID, ACVBox);
 		addActionCheckBox(newActionOptions);
 
@@ -46,17 +45,16 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 		operationTreeView = new TreeView<>(operationNameTreeItem);
 		operationTreeView.setPrefSize(TREE_VIEW_WIDTH, EXPANDED_HEIGHT);
 		integerTF = createIntegerTextField();
-				
+
 		VBox vb = new VBox(VBOX_SPACING);
 		vb.getChildren().addAll(makeIntegerInputPrompt(integerTF), new Label("Choose Boolean Operation: "),
 				operationTreeView);
 		this.getItems().addAll(vb);
 	}
 
-	public ConditionRow(int ID, String label, String selectorLabel, String selectedCondition,
-			ObservableList<Integer> newActionOptions, List<Integer> selectedActionOptions,
+	public ConditionRow(int ID, ObservableList<Integer> newActionOptions, List<Integer> selectedActionOptions,
 			ConditionVBox<ConditionRow> ACVBox) {
-		this(ID, label, selectorLabel, selectedCondition, newActionOptions, ACVBox);
+		this(ID, newActionOptions, ACVBox);
 		getItems().remove(actionCheckBoxVBox);
 		actionCheckBoxVBox = new ActionCheckBoxVBox<Integer>(newActionOptions, selectedActionOptions);
 		getItems().add(2, actionCheckBoxVBox);
@@ -125,8 +123,6 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 		actionCheckBoxVBox = new ActionCheckBoxVBox<Integer>(newActionOptions);
 		getItems().add(actionCheckBoxVBox);
 	}
-	
-	
 
 	private HBox makeIntegerInputPrompt(TextField tf) {
 		Label lb = new Label();
