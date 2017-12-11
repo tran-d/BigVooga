@@ -1,8 +1,10 @@
 package engine;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javafx.geometry.Point2D;
 
@@ -69,6 +71,17 @@ public abstract class VariableContainer {
 
 	public List<String> getStringList(String key) {
 		return stringListVars.get(key);
+	}
+	
+	public void addParameter(String name, Object o) throws VoogaException {
+		try {
+			getClass().getDeclaredMethod(
+					ResourceBundle.getBundle("engine.TypeRecovery").getString(o.getClass().getSimpleName()),
+					String.class, o.getClass()).invoke(this, name, o);
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
+				| SecurityException e) {
+			throw new VoogaException("AddPar", name, o.getClass());
+		}
 	}
 
 	public boolean getBoolean(String key) {
