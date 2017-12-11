@@ -48,7 +48,7 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 			return operationFactory.wrap(stringParameterTF.getText());
 		} else if (booleanParameterTF != null) {
 			System.out.println("Boolean was inputted: " + booleanParameterTF.getText());
-			return operationFactory.wrap(booleanParameterTF.getText());
+			return operationFactory.wrap(getBooleanInput(booleanParameterTF));
 		} else {
 			System.out.println(selectedOperation);
 			return operationFactory.makeOperation(selectedOperation, new Object[0]);
@@ -155,10 +155,6 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 
 	private TextField createBooleanTextField(TreeItem<HBox> operationParameter) {
 		TextField tf = new TextField();
-		tf.setOnKeyReleased(e -> {
-			checkBooleanInput(tf);
-		});
-
 		return tf;
 	}
 
@@ -167,20 +163,20 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 			if (!tf.getText().equals(""))
 				Double.parseDouble(tf.getText());
 		} catch (NumberFormatException e) {
-			showError(INVALID_INPUT_MESSAGE, DOUBLE_INPUT_MESSAGE);
+			// showError(INVALID_INPUT_MESSAGE, DOUBLE_INPUT_MESSAGE);
 			tf.clear();
 		}
 	}
 
-	private void checkBooleanInput(TextField tf) {
-		try {
-			if (!tf.getText().equals(""))
-				Boolean.parseBoolean(tf.getText());
-		} catch (NumberFormatException e) {
-			showError(INVALID_INPUT_MESSAGE, BOOLEAN_INPUT_MESSAGE);
-			tf.clear();
-		}
+	private Boolean getBooleanInput(TextField tf) {
 
+		if (tf.getText().toLowerCase().equals("true") || tf.getText().toLowerCase().equals("false"))
+			return Boolean.parseBoolean(tf.getText().toLowerCase());
+		else {
+			showError(INVALID_INPUT_MESSAGE, BOOLEAN_INPUT_MESSAGE);
+			// tf.clear();
+			return null;
+		}
 	}
 
 	private void showError(String header, String content) {
@@ -189,4 +185,5 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 		alert.headerTextProperty().bind(DisplayLanguage.createStringBinding(content));
 		alert.show();
 	}
+
 }
