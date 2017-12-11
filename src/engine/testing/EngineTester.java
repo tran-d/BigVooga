@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -16,9 +17,13 @@ import engine.GameMaster;
 import engine.GameObject;
 import engine.GameObjectFactory;
 import engine.GameWorld;
+import engine.Holdable;
+import engine.Inventory;
+import engine.Actions.changeObject.DisplayInventory;
 import engine.Actions.movement.Move;
 import engine.Actions.movement.Rotate;
 import engine.operations.booleanops.KeyHeld;
+import engine.operations.booleanops.KeyPressed;
 import engine.operations.booleanops.ObjectClickHeld;
 import engine.operations.doubleops.Value;
 import engine.operations.gameobjectops.Self;
@@ -64,6 +69,25 @@ public class EngineTester extends Application {
 		obj1.addTag("Ob1");
 		obj1.addTag("Player");
 		obj1.setSize(200, 100);
+		
+		Inventory inv = obj1.getInventory();
+		inv.setX(300);
+		inv.setY(300);
+		BoundedImage b = new BoundedImage("pane.png");
+		b.setSize(400, 200);
+		inv.setPane(b);
+		for(int j = 0; j < 10; j++)
+		{
+			BoundedImage bi = new BoundedImage("Smiley.png");
+			AnimationSequence as = new AnimationSequence("Hi", Arrays.asList(bi));
+			Sprite s = new Sprite();
+			s.addAnimationSequence(as);
+			s.setAnimation("Hi");
+			
+			Holdable invObj = new Holdable(s);
+			invObj.setSelectActions(Arrays.asList(new Rotate(new Self(), new Value(45))));
+			inv.addObject(invObj);
+		}
 		
 		i = new BoundedImage("testImage.gif");
 		GameObject obj2 = makeObject("Ob1", i, 200, 150, this::conditionAction2);
@@ -124,6 +148,10 @@ public class EngineTester extends Application {
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Rotate(new Self(), new Value(-5)));
 		obj.addConditionAction(new Condition(2, new KeyHeld(new SelfString("A"))), actions1);
+
+		actions1 = new ArrayList<Action>();
+		actions1.add(new DisplayInventory(new Self()));
+		obj.addConditionAction(new Condition(2, new KeyPressed(new SelfString("I"))), actions1);
 	}
 
 	private void conditionAction2(GameObject obj) {
