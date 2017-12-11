@@ -19,7 +19,7 @@ public class SpriteCreatorManager extends HBox {
 	private SpriteCreatorSpriteManager mySM;
 	private int myTabCount = 1;
 
-	public SpriteCreatorManager(AuthoringEnvironmentManager AEM, Stage currentStage, SpriteCreatorImageGrid imageGrid) {
+	public SpriteCreatorManager(AuthoringEnvironmentManager AEM, SpriteCreatorImageGrid imageGrid) {
 		myAEM = AEM;
 		this.setPrefWidth(VIEW_WIDTH);
 		this.setPrefHeight(VIEW_HEIGHT);

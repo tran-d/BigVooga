@@ -3,12 +3,14 @@ package authoring_UI;
 import java.util.ResourceBundle;
 
 import authoring.AuthoringEnvironmentManager;
+import authoring.SpriteCreatorSpriteManager;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
+
 /**
- * Class for sprite tab, which is a tab for each sprite that the user is creating
+ * Class for sprite tab, which is a tab for each sprite that the user is
+ * creating
  * 
  * @author taekwhunchung
  *
@@ -25,24 +27,25 @@ public class SpriteTab extends Tab {
 	private SpriteToolPanel myToolBoxPanel;
 	private AuthoringEnvironmentManager myAEM;
 	private SpriteCreatorManager mySCM;
+	private SpriteCreatorSpriteManager mySM;
 
-	protected SpriteTab(AuthoringEnvironmentManager AEM, SpriteCreatorManager SCM, SpriteCreatorImageGrid imageGrid) {
+	protected SpriteTab(AuthoringEnvironmentManager AEM, SpriteCreatorManager SCM, SpriteCreatorImageGrid imageGrid,
+			SpriteCreatorSpriteManager SM) {
 		spriteCreatorResources = ResourceBundle.getBundle(SPRITECREATORRESOURCES_PATH);
 		this.setText(spriteCreatorResources.getString("SpriteTab"));
 		myAEM = AEM;
 		mySCM = SCM;
+		mySM = SM;
 
 		parentBox = addParentHBox();
 		this.setContent(parentBox);
 
-		myStatePanel = new SpriteStatePanel(myAEM,SCM);
-		myImagePanel = new SpriteImagePanel(myAEM,imageGrid);
+		myStatePanel = new SpriteStatePanel(myAEM, SCM);
+		myImagePanel = new SpriteImagePanel(myAEM, imageGrid, mySM, SCM);
 		myToolBoxPanel = new SpriteToolPanel();
-		
-		
-		parentBox.getChildren().addAll(myStatePanel,myImagePanel, myToolBoxPanel);
-		
-		
+
+		parentBox.getChildren().addAll(myStatePanel, myImagePanel, myToolBoxPanel);
+
 		// StatePanel
 		// ImageStack
 		// ToolBox

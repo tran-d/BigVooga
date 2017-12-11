@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import authoring.AuthoringEnvironmentManager;
+import authoring.SpriteCreatorSpriteManager;
 import authoring_UI.MapManager;
 import authoring_UI.SpriteCreator;
+import authoring_UI.SpriteCreatorDisplayPanel;
 import authoring_UI.SpriteCreatorImageGrid;
 import authoring_UI.SpriteCreatorManager;
 import authoring_UI.ViewSideBar;
@@ -30,6 +32,7 @@ public class AuthoringController {
 	private Pane view;
 	private MapManager mapManager;
 	private SpriteCreatorManager mySCM;
+	private SpriteCreatorSpriteManager mySM;
 	
 	public AuthoringController(Stage currentStage, Pane currentAuthoringPane, GameDataHandler GDH) {
 		stage = currentStage;
@@ -40,8 +43,9 @@ public class AuthoringController {
 		viewMap.put(MAP_EDITOR_KEY, mapManager.getPane());
 		
 		SpriteCreatorImageGrid imageGrid = new SpriteCreatorImageGrid();
-		mySCM = new SpriteCreatorManager(AEM, stage, imageGrid);
-		SpriteCreator sc = new SpriteCreator(currentStage, AEM, mySCM, imageGrid);
+		mySM = new SpriteCreatorSpriteManager();
+		mySCM = new SpriteCreatorManager(AEM, imageGrid);
+		SpriteCreator sc = new SpriteCreator(currentStage, AEM, mySCM, imageGrid, mySM);
 		viewMap.put(SPRITE_CREATOR_KEY, sc.getPane());
 		
 //		DialogueManager dm = new DialogueManager();

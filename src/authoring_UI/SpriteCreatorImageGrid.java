@@ -36,7 +36,6 @@ public class SpriteCreatorImageGrid extends GridPane {
 					this.add(sp, j, i);
 				}
 			}
-			;
 		}
 	}
 	public StackPane getImageStack() {
@@ -44,11 +43,22 @@ public class SpriteCreatorImageGrid extends GridPane {
 	}
 
 	public void setSprite(AbstractSpriteObject s) {
-		currentSprite = s;
-		imageStack.getChildren().add(s);
+		if (this.getSprite() == null) {
+			currentSprite = s;
+			imageStack.getChildren().add(s);
+		} else {
+			this.getImageStack().getChildren().remove(0);
+			currentSprite = s;
+			imageStack.getChildren().add(s);
+		}
+
 	}
 
 	public AbstractSpriteObject getSprite() {
 		return currentSprite;
+	}
+	
+	public void removeSprite() {
+		
 	}
 }

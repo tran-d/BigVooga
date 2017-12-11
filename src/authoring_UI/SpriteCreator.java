@@ -1,50 +1,22 @@
 package authoring_UI;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import authoring.AbstractSpriteObject;
 import authoring.AuthoringEnvironmentManager;
+import authoring.SpriteCreatorSpriteManager;
 import authoring.SpriteNameManager;
 import authoring.SpriteObject;
-import authoring.SpriteParameterI;
-import gui.welcomescreen.WelcomeScreen;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.geometry.Insets;
-import javafx.geometry.Side;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import tools.DisplayLanguage;
 
 /**
  * Class for creating new sprites
@@ -73,6 +45,7 @@ public class SpriteCreator extends TabPane {
 	private DisplayPanel myDP;
 	private AuthoringEnvironmentManager myAEM;
 	private SpriteCreatorManager mySCM;
+	private SpriteCreatorSpriteManager mySM;
 	private SpriteNameManager mySNM;
 	private SingleSelectionModel <Tab> mySelectModel;
 	private List<DraggableGrid> allWorlds = new ArrayList<DraggableGrid>();
@@ -83,18 +56,19 @@ public class SpriteCreator extends TabPane {
 	private int spriteCount = 1;
 	private int myTabCount = 1;
 
-	public SpriteCreator(Stage stage, AuthoringEnvironmentManager AEM, SpriteCreatorManager SCM, SpriteCreatorImageGrid imageGrid) {
-		setup(stage, AEM, SCM);
-		SpriteTab tab = new SpriteTab(AEM,SCM, imageGrid);
+	public SpriteCreator(Stage stage, AuthoringEnvironmentManager AEM, SpriteCreatorManager SCM, SpriteCreatorImageGrid imageGrid, SpriteCreatorSpriteManager SM) {
+		setup(stage, AEM, SCM, SM);
+		SpriteTab tab = new SpriteTab(AEM,SCM, imageGrid, mySM);
 		this.getTabs().add(tab);
 
 	}
 
-	private void setup(Stage stage, AuthoringEnvironmentManager AEM, SpriteCreatorManager SCM) {
+	private void setup(Stage stage, AuthoringEnvironmentManager AEM, SpriteCreatorManager SCM, SpriteCreatorSpriteManager SM) {
 		myStage = stage;
 		spriteCreatorResources = ResourceBundle.getBundle(SPRITECREATORRESOURCES_PATH);
 		myAEM = AEM;
 		mySCM = SCM;
+		mySM = SM;
 //		mySNM = new SpriteNameManager();
 		myPane = new Pane();
 		myPane.getChildren().add(this);

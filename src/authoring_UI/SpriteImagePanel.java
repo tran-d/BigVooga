@@ -1,5 +1,6 @@
 package authoring_UI;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,16 +9,23 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javax.imageio.ImageIO;
+
 import authoring.AuthoringEnvironmentManager;
+import authoring.SpriteCreatorSpriteManager;
 import authoring.SpriteNameManager;
 import authoring.SpriteObject;
 import authoring.SpriteParameterI;
+import authoring.drawing.ImageCanvasPane;
 import gui.welcomescreen.WelcomeScreen;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -41,24 +49,33 @@ import javafx.stage.Stage;
 public class SpriteImagePanel extends VBox {
 
 	private static final String PATH = "resources/";
+//	private static final String IMAGE_PATH = "data/UserCreatedGames/TestProject/Sprites/CustomSprites/";
 	private static final String SPRITECREATORRESOURCES_PATH = "TextResources/SpriteCreatorResources";
+	private static final String TOOLSANDNAMES_PATH = "authoring/drawing/drawingTools/drawingTools";
 	private static final int PANE_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH;
 
 	private ResourceBundle spriteCreatorResources;
+	private ResourceBundle paintResources;
 	private HBox buttonBox;
 	private HBox nameBox;
 	private HBox imageBox;
+	private HBox nameCategoryBox;
+	private VBox paramBox;
 	private String fileName;
 	private TextField nameField;
 	private TextField categoryField;
 	private SpriteObject newSprite;
 	private SpriteNameManager mySNM;
+	private SpriteCreatorSpriteManager mySM;
 	private SpriteCreatorImageGrid myImageGrid;
 	private AuthoringEnvironmentManager myAEM;
+	private SpriteCreatorDisplayPanel myDP;
+	private SpriteCreatorSpriteSelector mySC;
 
-	protected SpriteImagePanel(AuthoringEnvironmentManager AEM, SpriteCreatorImageGrid imageGrid) {
+	protected SpriteImagePanel(AuthoringEnvironmentManager AEM, SpriteCreatorImageGrid imageGrid,
+			SpriteCreatorSpriteManager SM, SpriteCreatorManager SCM) {
 		spriteCreatorResources = ResourceBundle.getBundle(SPRITECREATORRESOURCES_PATH);
-
+		paintResources = ResourceBundle.getBundle(TOOLSANDNAMES_PATH);
 		this.setMinWidth(PANE_WIDTH / 2 - 300);
 		this.setMinHeight(500);
 		this.setMaxSize(PANE_WIDTH / 2 - 300, WelcomeScreen.HEIGHT);
@@ -68,18 +85,40 @@ public class SpriteImagePanel extends VBox {
 		this.setStyle("-fx-background-color: transparent;");
 		this.setBorder(new Border(border));
 
+		myDP = SCM.getDisplayPanel();
+		mySC = SCM.getSpriteSelector();
 		myAEM = AEM;
 		mySNM = new SpriteNameManager();
+		mySM = SM;
 		buttonBox = new HBox(10);
+		nameCategoryBox = new HBox(10);
+
 		imageBox = new HBox();
+		paramBox = new VBox();
+
 		addButtons();
+		addNameCategoryBox();
 		addImageGrid(imageGrid);
 
-		this.getChildren().addAll(buttonBox, imageBox);
+		paramBox.getChildren().addAll(buttonBox, nameCategoryBox);
+
+		this.getChildren().addAll(paramBox, imageBox);
+	}
+
+	private void addNameCategoryBox() {
+		Text enterName = new Text(spriteCreatorResources.getString("NameField"));
+		enterName.setStroke(Color.WHITE);
+		nameField = new TextField();
+		Text enterCategory = new Text(spriteCreatorResources.getString("CategoryField"));
+		enterCategory.setStroke(Color.WHITE);
+		categoryField = new TextField();
+
+		nameCategoryBox.getChildren().addAll(enterName, nameField, enterCategory, categoryField);
+
 	}
 
 	private void addImageGrid(SpriteCreatorImageGrid imageGrid) {
-		myImageGrid = imageGrid; 
+		myImageGrid = imageGrid;
 		imageBox.getChildren().add(myImageGrid);
 
 	}
@@ -93,6 +132,15 @@ public class SpriteImagePanel extends VBox {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+		});
+
+		Button createImageButton = new Button(spriteCreatorResources.getString("CreateImageButton"));
+		createImageButton.setOnAction(e -> {
+			Stage newStage = new Stage();
+			ImageCanvasPane paint = new ImageCanvasPane(paintResources, 500, 500, s -> setImage(s));
+			Scene paintScene = new Scene(paint);
+			newStage.setScene(paintScene);
+			newStage.show();
 		});
 
 		Button createSpriteButton = new Button(spriteCreatorResources.getString("CreateSpriteButton"));
@@ -121,12 +169,16 @@ public class SpriteImagePanel extends VBox {
 				nameField.clear();
 				categoryField.clear();
 
-				this.getChildren().removeAll(newSprite, nameBox);
-				newSprite = new SpriteObject();
+				myImageGrid.getImageStack().getChildren().remove(0);
+				mySM.setActiveSprite(null);
 
-				this.getChildren().addAll(newSprite, nameBox);
+				mySC.updateSpriteTabs();
+				// this.getChildren().removeAll(newSprite, nameBox);
+				// newSprite = new SpriteObject();
 
-				this.getChildren().remove(1);
+				// this.getChildren().addAll(newSprite, nameBox);
+
+				// this.getChildren().remove(1);
 				// this.getChildren().add(addSpriteTabs());
 			} else {
 				Alert alert = new Alert(AlertType.ERROR);
@@ -137,7 +189,7 @@ public class SpriteImagePanel extends VBox {
 			}
 
 		});
-		buttonBox.getChildren().addAll(loadImageButton, createSpriteButton);
+		buttonBox.getChildren().addAll(loadImageButton, createImageButton, createSpriteButton);
 	}
 
 	private void openImage() throws IOException {
@@ -150,28 +202,49 @@ public class SpriteImagePanel extends VBox {
 			Files.copy(file.toPath(), Paths.get(PATH + file.getName()), StandardCopyOption.REPLACE_EXISTING);
 
 			fileName = file.getName();
-//			nameField.setText(fileName.substring(0, fileName.indexOf(".")));
-//			categoryField.setText("General");
+			nameField.setText(fileName.substring(0, fileName.indexOf(".")));
+			categoryField.setText("General");
 
 			newSprite = new SpriteObject();
-			newSprite.setImageURL(file.getName());
+			newSprite.setImageURL(fileName);
 			newSprite.setNumCellsWidthNoException(1);
 			newSprite.setNumCellsHeightNoException(1);
-			
-			if (myImageGrid.getSprite() == null) {
-				myImageGrid.setSprite(newSprite);
-			}
-			else {
-				myImageGrid.getChildren().remove(myImageGrid.getSprite());
-				myImageGrid.setSprite(newSprite);
-			}
-//			this.getChildren().removeAll(newSprite, nameBox);
 
+			mySM.setActiveSprite(newSprite);
+			myImageGrid.setSprite(newSprite);
+
+			myDP.addSpriteEditorVBox();
+			myDP.updateParameterTab(newSprite);
 
 			// add params
 			ArrayList<SpriteParameterI> myParams = new ArrayList<SpriteParameterI>();
 
 			System.out.println("image loaded");
 		}
+	}
+
+	private void saveToFile(Image image) {
+		File outputFile = new File("resources/AAAA.png");
+		BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
+		try {
+			ImageIO.write(bImage, "png", outputFile);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public void setImage(Image image) {
+		saveToFile(image);
+		
+		newSprite = new SpriteObject();
+		newSprite.setImage(image);
+		newSprite.setNumCellsWidthNoException(1);
+		newSprite.setNumCellsHeightNoException(1);
+
+		mySM.setActiveSprite(newSprite);
+		myImageGrid.setSprite(newSprite);
+
+		myDP.addSpriteEditorVBox();
+		myDP.updateParameterTab(newSprite);
 	}
 }

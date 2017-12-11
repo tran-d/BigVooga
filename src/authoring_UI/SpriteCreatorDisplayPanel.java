@@ -43,7 +43,7 @@ public class SpriteCreatorDisplayPanel extends VBox {
 	public static final ResourceBundle conditionActionTitles = ResourceBundle.getBundle(ACTIONCONDITIONTITLES_PATH);
 	// private SpriteSetHelper mySSH;
 
-	protected SpriteCreatorDisplayPanel(SpriteCreatorSpriteManager spriteManager, AuthoringEnvironmentManager AEM) {
+	public SpriteCreatorDisplayPanel(SpriteCreatorSpriteManager spriteManager, AuthoringEnvironmentManager AEM) {
 		myAEM = AEM;
 		mySM = spriteManager;
 		multipleCellsActiveProperty = new SimpleObjectProperty<Boolean>();
@@ -219,7 +219,7 @@ public class SpriteCreatorDisplayPanel extends VBox {
 		}
 	}
 
-	void addSpriteEditorVBox() {
+	public void addSpriteEditorVBox() {
 		if (!this.getChildren().contains(spriteEditorAndApplyButtonVBox)) {
 			this.getChildren().addAll(spriteEditorAndApplyButtonVBox);
 		}
@@ -245,7 +245,7 @@ public class SpriteCreatorDisplayPanel extends VBox {
 		}
 	}
 
-	protected void updateParameterTab(AbstractSpriteObject s) {
+	public void updateParameterTab(AbstractSpriteObject s) {
 
 		System.out.println("Updating....");
 		try {

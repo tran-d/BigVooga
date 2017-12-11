@@ -155,16 +155,7 @@ public class SpriteCreatorGridHandler {
 		s.setOnMouseClicked(e -> {
 			System.out.println("I clicked sprite : " + s);
 			if (s instanceof SpriteObject) {
-				if (mySM.getActiveSprite()==null) {
-					mySM.setActiveSprite(s);
-					myImageGrid.setSprite(s.newCopy());
-				}
-				else {
-					myImageGrid.getImageStack().getChildren().remove(0);
-					mySM.setActiveSprite(s);
-					myImageGrid.setSprite(s.newCopy());
-				}
-
+				myImageGrid.setSprite(s);
 			}
 			myDP.addSpriteEditorVBox();
 			myDP.updateParameterTab(s);
