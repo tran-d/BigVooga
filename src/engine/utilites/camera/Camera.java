@@ -20,20 +20,16 @@ public class Camera {
 	private double y = 0;
 
 	public Camera(GameObject player) {
-		// TODO Auto-generated constructor stub
 		playerObject = player;
 	}
 	
-	
-	public void moveToPlayer()
-	{
+	public void moveToPlayer() {
 		this.x = playerObject.getX()-SCREEN_WIDTH/2;
 		this.y = playerObject.getY()-SCREEN_HEIGHT/2;
 	}
 	
 	public Point2D makeCoordinatesRelative(double x, double y) {
 		return new Point2D(x-this.x, y-this.y);
-		
 	}
 	
 	/**
