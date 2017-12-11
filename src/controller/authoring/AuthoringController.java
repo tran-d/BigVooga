@@ -14,6 +14,7 @@ import authoring_UI.Inventory.InventoryManager;
 import authoring_UI.Menu.MenuManager;
 import authoring_UI.dialogue.DialogueManager;
 import engine.utilities.data.GameDataHandler;
+import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -29,16 +30,16 @@ public class AuthoringController {
 	
 	private Map<String, Pane> viewMap = new HashMap<String, Pane>();
 	private Pane authoringPane;
-	private Stage stage;
+	private Scene scene;
 	private Pane view;
 	private MapManager mapManager;
 	
-	public AuthoringController(Stage currentStage, Pane currentAuthoringPane, GameDataHandler GDH) {
-		stage = currentStage;
+	public AuthoringController(Scene currentScene, Pane currentAuthoringPane, GameDataHandler GDH) {
+		scene = currentScene;
 		authoringPane = currentAuthoringPane;
 		
-		AuthoringEnvironmentManager AEM = new AuthoringEnvironmentManager(GDH, stage);
-		mapManager = new MapManager(AEM, stage);
+		AuthoringEnvironmentManager AEM = new AuthoringEnvironmentManager(GDH);
+		mapManager = new MapManager(AEM, scene);
 		viewMap.put(MAP_EDITOR_KEY, mapManager.getPane());
 		
 		SpriteCreator sc = new SpriteCreator(AEM);
@@ -48,13 +49,13 @@ public class AuthoringController {
 		dm.addDialogueListener(mapManager.getDialoguesTab());
 		viewMap.put(DIALOGUE_KEY, dm.getPane());
 		
-		HUDManager hudManager = new HUDManager(AEM, stage);
+		HUDManager hudManager = new HUDManager(AEM, scene);
 		viewMap.put(HUD_KEY, hudManager.getPane());
 		
-		MenuManager menuManager = new MenuManager(AEM, stage);
+		MenuManager menuManager = new MenuManager(AEM, scene);
 		viewMap.put(MENU_CREATOR_KEY, menuManager.getPane());
 		
-		InventoryManager inventoryManager = new InventoryManager(AEM, stage);
+		InventoryManager inventoryManager = new InventoryManager(AEM, scene);
 		viewMap.put(INVENTORY_KEY, inventoryManager.getPane());
 	}
 	

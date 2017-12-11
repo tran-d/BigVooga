@@ -9,6 +9,7 @@ import authoring.SpritePanels.SpritePanels;
 import authoring_UI.DraggableGrid;
 import authoring_UI.MapManager;
 import authoring_UI.SpriteGridHandler;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class HUDManager extends MapManager{
@@ -17,8 +18,8 @@ public class HUDManager extends MapManager{
 	private SpriteObjectGridManager HUDGridBE;
 	private AuthoringEnvironmentManager myAEM;
 
-	public HUDManager(AuthoringEnvironmentManager AEM, Stage currentStage) {
-		super(AEM, currentStage);
+	public HUDManager(AuthoringEnvironmentManager AEM, Scene currentScene) {
+		super(AEM, currentScene);
 		myAEM = AEM;
 	}
 	

@@ -10,6 +10,7 @@ import authoring.SpritePanels.SpritePanels;
 import authoring_UI.DraggableGrid;
 import authoring_UI.MapManager;
 import authoring_UI.SpriteGridHandler;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class MenuManager extends MapManager{
@@ -17,8 +18,8 @@ public class MenuManager extends MapManager{
 	private SpriteObjectGridManager MenuGridBE;
 	private AuthoringEnvironmentManager myAEM;
 
-	public MenuManager(AuthoringEnvironmentManager AEM, Stage currentStage) {
-		super(AEM, currentStage);
+	public MenuManager(AuthoringEnvironmentManager AEM, Scene currentScene) {
+		super(AEM, currentScene);
 		myAEM = AEM;
 	}
 	
