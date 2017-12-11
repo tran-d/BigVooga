@@ -22,10 +22,17 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 	private ChoiceBox<String> operationCB;
 	private OperationParameterTreeItem operationParameterTreeItem;
 	private List<OperationParameterTreeItem> opParameterList = new ArrayList<>();
+	private Runnable changeTreeViewSize;
 
 	public OperationNameTreeItem(String actionParameter) {
 
 		this.makeOperationNameTreeItem(actionParameter);
+	}
+
+	public OperationNameTreeItem(String actionParameter, Runnable changeSize) {
+		this(actionParameter);
+		this.changeTreeViewSize = changeSize;
+		this.expandedProperty().addListener(e -> changeTreeViewSize.run());
 	}
 
 	public Object makeOperation() {
@@ -46,6 +53,7 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 		hb.getChildren().add(makeOperationNameChoiceBox(actionParameter, this));
 		this.setValue(hb);
 		this.setExpanded(true);
+		
 		return this;
 	}
 

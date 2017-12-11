@@ -39,8 +39,9 @@ public class ActionRow extends ActionConditionRow {
 		actionTreeView.setPrefSize(TREE_VIEW_WIDTH, EXPANDED_HEIGHT);
 		this.getItems().addAll(actionTreeView);
 	}
-	
-	public ActionRow(int ID, String label, String selectorLabel, String selectedAction, ActionVBox<ActionRow> ACVBox, TreeView<HBox> tv) {
+
+	public ActionRow(int ID, String label, String selectorLabel, String selectedAction, ActionVBox<ActionRow> ACVBox,
+			TreeView<HBox> tv) {
 		super(ID, ACVBox);
 		this.getItems().addAll(tv);
 	}
@@ -66,8 +67,16 @@ public class ActionRow extends ActionConditionRow {
 	}
 
 	public Action getAction() {
-		return categoryAction.extract();
 
+		try {
+			Action action = categoryAction.extract();
+			if (action == null)
+				System.out.println("NULL ACTION");
+			return action;
+		} catch (Exception e) {
+			showError(INVALID_INPUT_MESSAGE, ENTER_VALID_INPUT);
+			return null;
+		}
 	}
 
 	private void addBuildActionButton(EventHandler<ActionEvent> handler) {
