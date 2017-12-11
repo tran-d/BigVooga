@@ -109,14 +109,14 @@ public class EngineTester extends Application {
 		master.addWorld(w);
 		master.setNextWorld("World");
 		//try {
-			new GameDataHandler(name, stage).saveGame(master);
+			new GameDataHandler(name).saveGame(master);
 		//} //catch (IOException e) {
 			//e.printStackTrace();
 		//}
 
 		try {
 			System.out.println("Trying to load game");
-			new GameDataHandler(name, stage).loadGame().setNextWorld("World");
+			new GameDataHandler(name).loadGame().setNextWorld("World");
 		} catch (FileNotFoundException e) {
 			System.out.println("Error");
 		}
@@ -170,7 +170,7 @@ public class EngineTester extends Application {
 		Group g = new Group();
 		Scene scene = new Scene(g);
 		stage.setScene(scene);
-		File f = new GameDataHandler("Bounds Test", stage).addChosenFileToProject(new Stage());
+		File f = new GameDataHandler("Bounds Test").addChosenFileToProject(new Stage());
 		System.out.println(f.getName());
 		Pane bpd = new BoundingPolygonCreator(new Image(f.toURI().toString()), f.getName(),
 				i -> generateGame("Bounds Test", stage));
@@ -179,7 +179,7 @@ public class EngineTester extends Application {
 	}
 
 	private void testData(Stage stage) throws IOException, FileNotFoundException, URISyntaxException {
-		GameDataHandler data = new GameDataHandler("SaverTest3", stage);
+		GameDataHandler data = new GameDataHandler("SaverTest3");
 		data.addChosenFileToProject(stage);
 		data.saveGame(new GameMaster());
 		data.loadGame();

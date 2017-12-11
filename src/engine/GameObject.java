@@ -34,6 +34,8 @@ public class GameObject extends VariableContainer implements Element {
 	private static final double DEFAULT_SIZE = 200;
 	private static final String DEFAULT_NAME = "unnamed";
 	private static final String DEFAULT_TAG = "default";
+	
+	public static final String CAMERA_TAG = "camera";
 
 	private Map<Condition, List<Action>> events;
 	private Sprite currentSprite;

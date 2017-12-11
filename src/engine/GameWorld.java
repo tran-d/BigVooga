@@ -70,7 +70,7 @@ public class GameWorld {
 	
 	private GameObject getPlayerObject() {
 		for(GameLayer l : worldLayers) {
-			List<GameObject> player = l.getObjectsWithTag("Player");			//TODO: Make constant
+			List<GameObject> player = l.getObjectsWithTag(GameObject.CAMERA_TAG);
 			if(player.size() > 0) return player.get(0);
 		}
 		return worldLayers.get(0).getAllObjects().get(0);
