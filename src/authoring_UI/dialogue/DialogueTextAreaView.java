@@ -6,11 +6,22 @@ import java.util.List;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import tools.DisplayLanguage;
 
@@ -35,6 +46,7 @@ public class DialogueTextAreaView extends VBox {
 	private int currentFontSize;
 
 	private List<TextArea> taList;
+	private List<Pane> paneList;
 	private Button nextButton;
 	private Button prevButton;
 	private Button addPanelButton;
@@ -48,11 +60,14 @@ public class DialogueTextAreaView extends VBox {
 	private SimpleIntegerProperty total;
 
 	private Runnable save;
+	private double orgSceneX, orgSceneY;
+	private double orgTranslateX, orgTranslateY;
 
 	public DialogueTextAreaView(Runnable save) {
 		taList = new ArrayList<>();
+		paneList = new ArrayList<>();
 		dialoguePreview = new HBox();
-		this.addPanel();
+		addPanel();
 		this.save = save;
 		this.setSpacing(15);
 
@@ -80,6 +95,20 @@ public class DialogueTextAreaView extends VBox {
 			ta.setFont(Font.font(size));
 		}
 	}
+	
+	protected void setFontColor(String color) {
+		for (TextArea ta: taList) {
+			ta.setStyle("-fx-text-fill: " + color + ";")	;
+		}
+	}
+	
+	protected void setBackgroundColor(Color color) {
+		for (Pane pane : paneList) {
+			pane.setBackground(new Background(new BackgroundFill(
+                                                                 color,
+                                                                 null, null)));
+		}
+	}
 
 	public void removePanel() {
 
@@ -103,21 +132,68 @@ public class DialogueTextAreaView extends VBox {
 	}
 
 	public void addPanel() {
+//		TextArea ta = new TextArea();
+//		ta.setPrefSize(DIALOG_PROMPT_WIDTH, DIALOG_PROMPT_HEIGHT);
+//		ta.setWrapText(true);
+//		taList.add(ta);
+//
+//		ta.setOnKeyTyped(e -> save.run());
+//
+//		setCurrentPanel(taList.size() - 1);
+		Pane dialoguePane = new Pane();
+		dialoguePane.setPrefSize(DIALOG_PROMPT_WIDTH, DIALOG_PROMPT_HEIGHT);
+		paneList.add(dialoguePane);
+		setCurrentPanel(paneList.size() - 1);
+		this.getChildren().add(dialoguePane);
+	}
+	
+	protected void addTextArea() {
 		TextArea ta = new TextArea();
-		ta.setPrefSize(DIALOG_PROMPT_WIDTH, DIALOG_PROMPT_HEIGHT);
+		ta.setPrefSize(50, 50);
+//		ta.setStyle("-fx-background-color: transparent;");
+		ta.setBorder(new Border(new BorderStroke(Color.BLACK, 
+	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		ta.setWrapText(true);
 		taList.add(ta);
-
-		ta.setOnKeyTyped(e -> save.run());
-
-		setCurrentPanel(taList.size() - 1);
+		Pane k = (Pane) this.getChildren().get(0);
+		k.getChildren().add(ta);
+		
+		DragResizer draggableTA = new DragResizer(ta);
+		draggableTA.makeResizable();
+		draggableTA.makeDraggable();
+		
+//        ta.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+//
+//            System.out.println("is clicked");
+//
+//            orgSceneX = e.getSceneX();
+//            orgSceneY = e.getSceneY();
+//            orgTranslateX = ta.getTranslateX();
+//            orgTranslateY = ta.getTranslateY();
+//
+//            ta.toFront();
+//        });
+//
+//        ta.addEventHandler(MouseEvent.MOUSE_DRAGGED, e -> {
+//
+//            System.out.println("is dragged");
+//
+//            double offsetX = e.getSceneX() - orgSceneX;
+//            double offsetY = e.getSceneY() - orgSceneY;
+//            double newTranslateX = orgTranslateX + offsetX;
+//            double newTranslateY = orgTranslateY + offsetY;
+//
+//            ta.setTranslateX(newTranslateX);
+//            ta.setTranslateY(newTranslateY);
+//        });
+        
 	}
 
 	/************************ PRIVATE METHODS ***************************/
 
 	private void setCurrentPanel(int index) {
 		dialoguePreview.getChildren().clear();
-		dialoguePreview.getChildren().add(taList.get(index));
+		dialoguePreview.getChildren().add(paneList.get(index));
 		currentPanelIndex = index;
 	}
 
