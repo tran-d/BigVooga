@@ -41,6 +41,10 @@ public class SpriteCreatorImageGrid extends GridPane {
 	public StackPane getImageStack() {
 		return imageStack;
 	}
+	
+	public void setCurrentSprite(AbstractSpriteObject s) {
+		currentSprite = s;
+	}
 
 	public void setSprite(AbstractSpriteObject s) {
 		if (this.getSprite() == null) {

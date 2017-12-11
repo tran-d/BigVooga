@@ -171,6 +171,7 @@ public class SpriteImagePanel extends VBox {
 
 				myImageGrid.getImageStack().getChildren().remove(0);
 				mySM.setActiveSprite(null);
+				myImageGrid.setCurrentSprite(null);
 
 				mySC.updateSpriteTabs();
 				// this.getChildren().removeAll(newSprite, nameBox);
@@ -223,7 +224,7 @@ public class SpriteImagePanel extends VBox {
 		}
 	}
 
-	private void saveToFile(Image image) {
+	private File saveToFile(Image image) {
 		File outputFile = new File("resources/AAAA.png");
 		BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
 		try {
@@ -231,13 +232,14 @@ public class SpriteImagePanel extends VBox {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+		return outputFile;
 	}
 
 	public void setImage(Image image) {
-		saveToFile(image);
+		File file = saveToFile(image);
 		
 		newSprite = new SpriteObject();
-		newSprite.setImage(image);
+		newSprite.setImageURL(file.getName());
 		newSprite.setNumCellsWidthNoException(1);
 		newSprite.setNumCellsHeightNoException(1);
 
