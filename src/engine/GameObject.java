@@ -70,8 +70,7 @@ public class GameObject extends VariableContainer implements Element {
 		ithDerivative.add(new Point2D(0, 0));
 		inventory = new Inventory(this, getX(), getY());
 	}
-
-	@Override
+	
 	public String getName() {
 		return name;
 	}
@@ -283,6 +282,10 @@ public class GameObject extends VariableContainer implements Element {
 
 	public void addToInventory(Holdable o) {
 		inventory.addObject(o);
+	}
+	
+	public void removeFromInventory(Holdable o) {
+		inventory.removeObject(o);
 	}
 
 	public void setDialogue(DisplayableText text) {
