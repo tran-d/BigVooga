@@ -89,8 +89,8 @@ public class OperationFactory {
 		return new ArrayList<>();
 	}
 	
-	public List<String> getOperations(VoogaParameter parameter) {
-		return operations(parameter.getType().getEngineType());
+	public List<String> getOperations(VoogaType parameter) {
+		return operations(parameter.getEngineType());
 	}
 
 	private void populateMaps() {

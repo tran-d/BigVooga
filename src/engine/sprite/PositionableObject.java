@@ -9,6 +9,10 @@ public class PositionableObject implements Positionable {
 	private double height;
 	private double heading;
 
+	public PositionableObject() {
+		this(0);
+	}
+	
 	public PositionableObject(int drawingPriority) {
 		this.drawingPriority = drawingPriority;
 	}

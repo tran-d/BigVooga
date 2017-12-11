@@ -24,6 +24,8 @@ public class GameWorld {
 	private List<GameLayer> worldLayers;
 	private Camera camera;
 	
+	private GameObject background;
+	
 	public GameWorld() {
 		this(DEFAULT_NAME);
 	}
@@ -50,6 +52,11 @@ public class GameWorld {
 	private Map<Element, Boolean> getAllElements() {
 		Map<Element, Boolean> els = new HashMap<>();
 		for (Layer l : worldLayers) {
+			if(l.isNamed("Background"))
+			{
+				background = l.getAllGameObjects().get(0);
+				continue;
+			}
 			for(Element e : l.getAllElements()) {
 				els.put(e, l.isTracked());
 			}
@@ -60,9 +67,19 @@ public class GameWorld {
 	public List<GameObject> getAllGameObjects() {
 		List<GameObject> obs = new ArrayList<>();
 		for (Layer l : worldLayers) {
+			
 			obs.addAll(l.getAllGameObjects());
 		}
 		return obs;
+	}
+
+	//Not super proud of this implementation but it works.
+	private Displayable drawWithParallax(GameObject gameObject) {
+		// TODO Auto-generated method stub
+		Displayable temp = gameObject.getDisplayable();
+		Point2D relCoords = camera.makeCoordinatesParallax(temp.getX(), temp.getY());
+		temp.setPosition(relCoords.getX(), relCoords.getY());
+		return temp;
 	}
 
 	/**
@@ -70,6 +87,8 @@ public class GameWorld {
 	 */
 	public List<Displayable> getAllDisplayables() {
 		List<Displayable> ret = new ArrayList<>();
+		if(background != null)
+			ret.add(drawWithParallax(background));
 		GameObject player = getPlayerObject();
 		camera = new Camera(player);
 		camera.moveToPlayer();
