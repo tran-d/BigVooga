@@ -46,7 +46,7 @@ public class GameObject extends VariableContainer implements Element {
 
 	private CollisionEvent lastCollision;
 	private Inventory inventory;
-	private DisplayableText dialogueHandler;
+	private List<DisplayableText> dialogueHandler = new ArrayList<>();
 
 	private double heading;
 	private List<Point2D> ithDerivative;
@@ -203,11 +203,6 @@ public class GameObject extends VariableContainer implements Element {
 
 	@Override
 	public Displayable getDisplayable() {
-		if (dialogueHandler == null)
-			return getBounds();
-		dialogueHandler.setHeading(getHeading());
-		dialogueHandler.setSize(getHeight(), getWidth());
-		dialogueHandler.setPosition(getX(), getY());
 		return new CompositeImage(getBounds(), dialogueHandler);
 	}
 
@@ -282,13 +277,16 @@ public class GameObject extends VariableContainer implements Element {
 		inventory.removeObject(o);
 	}
 
-	public void setDialogue(DisplayableText text) {
+	public void setDialogue(List<DisplayableText> text) {
 		dialogueHandler = text;
 	}
 
 	public void setDialogue(String s) {
-		if (dialogueHandler == null)
-			dialogueHandler = DisplayableText.DEFAULT;
-		dialogueHandler = dialogueHandler.getWithMessage(s);
+		if (dialogueHandler.isEmpty())
+			dialogueHandler.add(DisplayableText.DEFAULT);
+		DisplayableText newText = dialogueHandler.get(0).getWithMessage(s);
+		dialogueHandler = new ArrayList<DisplayableText>();
+		dialogueHandler.add(newText);
+		
 	}
 }
