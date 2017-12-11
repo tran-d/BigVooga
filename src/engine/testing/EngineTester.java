@@ -19,6 +19,7 @@ import engine.GameObjectFactory;
 import engine.GameWorld;
 import engine.Inventory;
 import engine.Actions.changeObject.SetAnimationSequence;
+import engine.Actions.global.ChangeWorld;
 import engine.Actions.global.ExitToMenu;
 import engine.Actions.movement.Move;
 import engine.Actions.movement.RemoveIntersection;
@@ -30,6 +31,9 @@ import engine.operations.booleanops.BooleanVariableOf;
 import engine.operations.booleanops.CollisionByTag;
 import engine.operations.booleanops.KeyHeld;
 import engine.operations.booleanops.KeyPressed;
+import engine.operations.booleanops.Not;
+import engine.operations.booleanops.ObjectClicked;
+import engine.operations.booleanops.ObjectMouseHover;
 import engine.operations.doubleops.DoubleVariableOf;
 import engine.operations.doubleops.Sum;
 import engine.operations.doubleops.Value;
@@ -101,6 +105,26 @@ public class EngineTester extends Application {
 		GameObject zombo = makeObject("Zombo", new BoundedImage("Zombie.png"), -5500, 400-65, this::conditionAction3);
 		zombo.setSize(39, 65);
 		
+		GameObject button = new GameObject("Button");
+		BoundedImage unpr = new BoundedImage("button-unpressed.png");
+		as = new AnimationSequence("Unpressed", Arrays.asList(unpr));
+		Sprite s = new Sprite();
+		s.addAnimationSequence(as);
+		BoundedImage pr = new BoundedImage("button-pressed.png");
+		as = new AnimationSequence("Pressed", Arrays.asList(pr));
+		s.addAnimationSequence(as);
+		s.setAnimation("Unpressed");
+		button.setSprite(s);
+		
+		button.setCoords(500, 400);
+		button.setSize(200, 100);
+		buttonConditionAction(button);
+		
+		i = new BoundedImage("start.png");		
+		
+		GameObject menu = makeObject("background", i, 1000, 350, this::conditionAction2);		
+		menu.setSize(1000, 700);
+		menu.setLocation(new Point2D(500, 350));
 			
 
 
@@ -128,9 +152,17 @@ public class EngineTester extends Application {
 		w.addLayer(background);
 		w.addLayer(la);
 		
+		GameLayer startL = new GameLayer();
+		startL.addGameObject(button);
+		GameWorld start = new GameWorld("Start");
+		start.addLayer(startL);
+		start.addLayer(new GameLayer("Background"));
+		start.getLayers().get(1).addGameObject(menu);
+		
 		GameMaster master = new GameMaster();
 		master.addWorld(w);
-		master.setNextWorld("World");
+		master.addWorld(start);
+		master.setNextWorld("Start");
 		//try {
 			new GameDataHandler(name).saveGame(master);
 		//} //catch (IOException e) {
@@ -215,6 +247,20 @@ public class EngineTester extends Application {
 		actions1 = new ArrayList<Action>();
 		actions1.add(new ExitToMenu());
 		obj.addConditionAction(new Condition(3, new CollisionByTag(new SelfString("Player"))), actions1);
+	}
+	
+	private void buttonConditionAction(GameObject obj) {
+		List<Action> actions1 = new ArrayList<Action>();
+		actions1.add(new SetAnimationSequence(new Self(), new SelfString("Pressed")));
+		obj.addConditionAction(new Condition(2, new ObjectMouseHover(new Self())), actions1);
+		
+		actions1 = new ArrayList<Action>();
+		actions1.add(new SetAnimationSequence(new Self(), new SelfString("Unpressed")));
+		obj.addConditionAction(new Condition(2, new Not( new ObjectMouseHover(new Self()))), actions1);
+		
+		actions1 = new ArrayList<Action>();
+		actions1.add(new ChangeWorld(new SelfString("World")));
+		obj.addConditionAction(new Condition(2, new ObjectClicked(new Self())), actions1);
 	}
 
 	private void testDrawer(Stage stage) throws IOException {

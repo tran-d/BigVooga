@@ -33,6 +33,7 @@ public class GameWorld {
 	public GameWorld(String name) {
 		worldName = name;
 		worldLayers = new ArrayList<>();
+		camera = new Camera(null);
 	}
 
 	public boolean isNamed(String name) {
