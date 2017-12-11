@@ -35,6 +35,7 @@ public class PlayerManager {
 	private double mouseX;
 	private double mouseY;
 	private String typed = "";
+	private DataView dataView;
 	
 	/**
 	 * Empty constructor for PlayerManager.
@@ -42,6 +43,10 @@ public class PlayerManager {
 	 */
 	public PlayerManager(GameDataHandler gameDataHandler) {
 		this.gameDataHandler = gameDataHandler;
+	}
+	
+	public void setDataView(DataView dataView) {
+		this.dataView = dataView;
 	}
 	
 	/**
@@ -236,6 +241,10 @@ public class PlayerManager {
 
 	public void exitToMenu() {
 		gameDisplay.exitToMenu();
+	}
+
+	public DataView getDataView() {
+		return dataView;
 	}
 	
 }

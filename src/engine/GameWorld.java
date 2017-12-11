@@ -7,7 +7,6 @@ import java.util.Map;
 
 import engine.sprite.Displayable;
 import engine.utilites.camera.Camera;
-import gui.welcomescreen.WelcomeScreen;
 import javafx.geometry.Point2D;
 
 /**
@@ -58,6 +57,14 @@ public class GameWorld {
 		return els;
 	}
 	
+	public List<GameObject> getAllGameObjects() {
+		List<GameObject> obs = new ArrayList<>();
+		for (Layer l : worldLayers) {
+			obs.addAll(l.getAllGameObjects());
+		}
+		return obs;
+	}
+
 	/**
 	 * Returns a list of all Displayables in the world, setting each one's location relative to the tracked object
 	 */
@@ -84,7 +91,7 @@ public class GameWorld {
 			List<GameObject> player = l.getObjectsWithTag(GameObject.CAMERA_TAG);
 			if(player.size() > 0) return player.get(0);
 		}
-		return worldLayers.get(0).getAllObjects().get(0);
+		return null;
 	}
 
 	public void addLayer(GameLayer layer) {
