@@ -109,6 +109,14 @@ public class DialogueTextAreaView extends VBox {
                                                                  null, null)));
 		}
 	}
+	
+	protected void setTextAreaBackgroundColor(Color color) {
+		for (TextArea ta : taList) {
+			ta.setBackground(new Background(new BackgroundFill(
+                                                                 color,
+                                                                 null, null)));
+		}
+	}
 
 	public void removePanel() {
 
@@ -153,6 +161,7 @@ public class DialogueTextAreaView extends VBox {
 //		ta.setStyle("-fx-background-color: transparent;");
 		ta.setBorder(new Border(new BorderStroke(Color.BLACK, 
 	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+		ta.setBackground(paneList.get(0).getBackground());
 		ta.setWrapText(true);
 		taList.add(ta);
 		Pane k = (Pane) this.getChildren().get(0);

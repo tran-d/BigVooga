@@ -2,7 +2,3 @@
 .label {
 	-fx-text-fill: white;
 }
-
-.text-area .content {
-	-fx-background-color: transparent;
-}
