@@ -31,6 +31,6 @@ public class ChangeDouble implements Action {
 	@Override
 	public void execute(GameObject asking, GameObjectEnvironment world) {
 		object.evaluate(asking, world).setDoubleVariable(varName.evaluate(asking, world),
-				newDouble.evaluate(asking, world) + asking.getDouble(varName.evaluate(asking, world)));
+				newDouble.evaluate(asking, world));
 	}
 }

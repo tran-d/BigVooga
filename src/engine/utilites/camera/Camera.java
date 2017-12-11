@@ -13,6 +13,8 @@ public class Camera {
 	private GameObject playerObject;
 	private final double SCREEN_WIDTH = 1000;
 	private final double SCREEN_HEIGHT = 700;
+	
+	private final double PARALLAX = .1;
 
 	// private double tolerance = 100;
 
@@ -44,6 +46,15 @@ public class Camera {
 	 */
 	public Point2D makeCoordinatesAbsolute(double x, double y) {
 		return new Point2D(x + this.x, y + this.y);
+	}
+	
+	public Point2D makeCoordinatesParallax(double x, double y)
+	{
+		Point2D temp = makeCoordinatesRelative(x, y);
+		double deltaX = temp.getX()-x;
+		double deltaY = temp.getY()-y;
+		
+		return new Point2D(x+deltaX*PARALLAX, y+deltaY*PARALLAX);
 	}
 
 }
