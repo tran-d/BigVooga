@@ -115,7 +115,7 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 		for (int i = 0; i < actionParameterTypes.size(); i++) {
 			hb.getChildren().add(new Label(actionParameterTypes.get(i) + " "));
 
-			OperationNameTreeItem opNameTreeItem = new OperationNameTreeItem(voogaParameters.get(i).getName(),
+			OperationNameTreeItem opNameTreeItem = new OperationNameTreeItem(actionParameterTypes.get(i), voogaParameters.get(i).getName(),
 					voogaParameters.get(i).getType());
 			opNameTreeItemList.add(opNameTreeItem);
 			parameterAction.getChildren().add(opNameTreeItem);
