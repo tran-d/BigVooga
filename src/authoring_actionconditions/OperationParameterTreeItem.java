@@ -36,7 +36,6 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 	private String selectedOperation;
 	private List<OperationNameTreeItem> listOfOperations = new ArrayList<>();
 	private ObservableList<VoogaParameter> voogaParameters;
-
 	private static List<VoogaType> voogaTypesForExistingItems = new ArrayList<>();
 	private ChoiceBox<String> existingItemsChoiceBox;
 

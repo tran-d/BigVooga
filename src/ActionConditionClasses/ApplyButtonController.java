@@ -40,8 +40,6 @@ public class ApplyButtonController {
 		ActionVBox<ActionRow> actionVBox = new ActionVBox<ActionRow>();
 		int rowAct = 1;
 		for (ActionTreeView actionTreeView : actions) {
-			// System.out.println("rowAct " + rowAct);
-			// System.out.println("Label " + labels);
 			ActionRow actionRow = new ActionRow(rowAct, actionVBox,actionTreeView);
 			actionRows.add(actionRow);
 			rowAct++;
@@ -69,8 +67,8 @@ public class ApplyButtonController {
 			spriteObject.setConditions(conditions);
 			spriteObject.setActions(actions);
 		}
-		catch(NullPointerException e) {
-			conditionTab.displayInvalidSelectedActionsMessage(e.getMessage());
+		catch(NullPointerException | NumberFormatException e) {
+			conditionTab.displayRowExceptionMessage(e.getMessage());
 		}
 	}
 

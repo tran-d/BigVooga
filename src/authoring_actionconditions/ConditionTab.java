@@ -17,7 +17,7 @@ public class ConditionTab<T> extends ActionTab<T> implements ConditionTabI {
 		super(title,actionConditionVBox,topToolBar);
 	}
 	
-	public void displayInvalidSelectedActionsMessage(String message) {
+	public void displayRowExceptionMessage(String message) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle(DIALOG_TYPE);
 		alert.setHeaderText(ERROR_SUMMARY);
