@@ -1,22 +1,35 @@
 package authoring.Sprite.AnimationSequences;
 
 import authoring_data.SerializableAuthoringImageView;
+import engine.sprite.BoundedImage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class AuthoringImageView extends ImageView{
 	
 	private String imagePath;
+	private BoundedImage boundedImage;
 	
 	public AuthoringImageView(String path, Image im){
 		super(im);
 		imagePath = path;
 	}
 	
+	public AuthoringImageView(String path, Image im, BoundedImage bImage){
+		super(im);
+		imagePath = path;
+		boundedImage = bImage;
+	}
+	
 	public AuthoringImageView(String path){
 		Image im = new Image(path);
 		imagePath = path;
 		setImage(im);
+	}
+	
+	public AuthoringImageView(String path, BoundedImage bImage){
+		this(path);
+		boundedImage = bImage;
 	}
 	
 	public AuthoringImageView(AuthoringImageView image) {
@@ -30,6 +43,14 @@ public class AuthoringImageView extends ImageView{
 
 	public String getImagePath(){
 		return imagePath;
+	}
+	
+	public void setBoundedImage(BoundedImage BI){
+		boundedImage = BI;
+	}
+	
+	public BoundedImage getBoundedImage(){
+		return boundedImage;
 	}
 	
 	private Object writeReplace() throws java.io.ObjectStreamException {

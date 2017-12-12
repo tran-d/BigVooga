@@ -1,5 +1,6 @@
 package authoring;
 
+import authoring.Sprite.AbstractSpriteObject;
 import authoring_UI.SpriteCreatorSpriteSelector;
 import authoring.Sprite.AbstractSpriteObject;
 

@@ -69,7 +69,7 @@ public class DialogTest extends Application {
 		texts.add(text);
 		texts.add(text2);
 		
-		text = new DisplayableText(0,
+		text = new DisplayableText(
 				"Text 3",
 				"Comic Sans", 12, "#008000");
 		p = new PositionableObject();
@@ -77,7 +77,7 @@ public class DialogTest extends Application {
 		p.setSize(.5, .2);
 		text.setRelativePosition(p);
 
-		text2 = new DisplayableText(0,
+		text2 = new DisplayableText(
 				"another string of text 4",
 				"Comic Sans", 12, "#008000");
 		p = new PositionableObject();

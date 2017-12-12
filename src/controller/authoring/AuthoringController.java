@@ -9,7 +9,6 @@ import authoring.SpriteCreatorSpriteManager;
 import authoring_UI.DraggableGrid;
 import authoring_UI.MapManager;
 import authoring_UI.SpriteCreator;
-import authoring_UI.SpriteCreatorDisplayPanel;
 import authoring_UI.SpriteCreatorGridHandler;
 import authoring_UI.SpriteCreatorImageGrid;
 import authoring_UI.SpriteCreatorManager;
@@ -47,7 +46,6 @@ public class AuthoringController {
 
 	public AuthoringController(Scene currentScene, Stage currentStage, Pane currentAuthoringPane, GameDataHandler GDH) {
 		scene = currentScene;
-
 		authoringPane = currentAuthoringPane;
 		activeManagerProperty = new SimpleObjectProperty<MapManager>();
 		activeManagerProperty.addListener((change, previousManager, newManager) -> {
@@ -71,7 +69,7 @@ public class AuthoringController {
 		SpriteCreatorGridHandler mySCGridHandler = new SpriteCreatorGridHandler(mySM, imageGrid);
 		
 		mySCM = new SpriteCreatorManager(AEM, imageGrid, mySCGridHandler, mySM);
-		SpriteCreator sc = new SpriteCreator(currentStage, AEM, mySCM, imageGrid, mySM, mySCGridHandler);
+		SpriteCreator sc = new SpriteCreator(AEM, mySCM, imageGrid, mySM, mySCGridHandler);
 		viewMap.put(SPRITE_CREATOR_KEY, sc.getPane());
 
 		DialogueManager dm = new DialogueManager();
@@ -103,7 +101,6 @@ public class AuthoringController {
 		if (this.viewMapKeysToManager.containsKey(key)) {
 			System.out.println("Contains key: " + key);
 			this.activeManagerProperty.set(viewMapKeysToManager.get(key));
-
 		} else {
 			this.activeManagerProperty.set(null);
 		}

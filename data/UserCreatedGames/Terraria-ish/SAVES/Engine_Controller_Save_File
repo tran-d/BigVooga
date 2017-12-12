@@ -217,7 +217,7 @@
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
-                  <x>-6000.0</x>
+                  <x>-5500.0</x>
                   <y>335.0</y>
                   <hash>0</hash>
                 </javafx.geometry.Point2D>
@@ -230,33 +230,6 @@
               <stringVars/>
               <booleanVars/>
               <events>
-                <entry>
-                  <engine.Condition>
-                    <priorityNum>1</priorityNum>
-                    <operation class="engine.operations.booleanops.BooleanValue">
-                      <value>true</value>
-                    </operation>
-                  </engine.Condition>
-                  <list>
-                    <engine.Actions.variableSetting.ChangeDouble>
-                      <varName class="engine.operations.stringops.SelfString">
-                        <stored>Gravity</stored>
-                      </varName>
-                      <newDouble class="engine.operations.doubleops.Sum">
-                        <first class="engine.operations.doubleops.DoubleVariableOf">
-                          <varName class="engine.operations.stringops.SelfString">
-                            <stored>Gravity</stored>
-                          </varName>
-                          <object class="engine.operations.gameobjectops.Self"/>
-                        </first>
-                        <second class="engine.operations.doubleops.Value">
-                          <value>0.15</value>
-                        </second>
-                      </newDouble>
-                      <object class="engine.operations.gameobjectops.Self"/>
-                    </engine.Actions.variableSetting.ChangeDouble>
-                  </list>
-                </entry>
                 <entry>
                   <engine.Condition>
                     <priorityNum>1</priorityNum>
@@ -292,73 +265,6 @@
                   </engine.Condition>
                   <list>
                     <engine.Actions.movement.RemoveIntersection/>
-                  </list>
-                </entry>
-                <entry>
-                  <engine.Condition>
-                    <priorityNum>2</priorityNum>
-                    <operation class="engine.operations.booleanops.KeyHeld">
-                      <check class="engine.operations.stringops.SelfString">
-                        <stored>D</stored>
-                      </check>
-                    </operation>
-                  </engine.Condition>
-                  <list>
-                    <engine.Actions.movement.Move>
-                      <increment class="engine.operations.vectorops.BasicVector">
-                        <x class="engine.operations.doubleops.Value">
-                          <value>5.0</value>
-                        </x>
-                        <y class="engine.operations.doubleops.Value">
-                          <value>0.0</value>
-                        </y>
-                      </increment>
-                      <object class="engine.operations.gameobjectops.Self"/>
-                    </engine.Actions.movement.Move>
-                    <engine.Actions.changeObject.SetAnimationSequence>
-                      <object class="engine.operations.gameobjectops.Self"/>
-                      <name class="engine.operations.stringops.SelfString">
-                        <stored>Right</stored>
-                      </name>
-                    </engine.Actions.changeObject.SetAnimationSequence>
-                  </list>
-                </entry>
-                <entry>
-                  <engine.Condition>
-                    <priorityNum>7</priorityNum>
-                    <operation class="engine.operations.booleanops.And">
-                      <boolOp1 class="engine.operations.booleanops.BooleanVariableOf">
-                        <varName class="engine.operations.stringops.SelfString">
-                          <stored>OnGround</stored>
-                        </varName>
-                        <object class="engine.operations.gameobjectops.Self"/>
-                      </boolOp1>
-                      <boolOp2 class="engine.operations.booleanops.KeyPressed">
-                        <check class="engine.operations.stringops.SelfString">
-                          <stored>W</stored>
-                        </check>
-                      </boolOp2>
-                    </operation>
-                  </engine.Condition>
-                  <list>
-                    <engine.Actions.variableSetting.ChangeDouble>
-                      <varName class="engine.operations.stringops.SelfString">
-                        <stored>Gravity</stored>
-                      </varName>
-                      <newDouble class="engine.operations.doubleops.Value">
-                        <value>-5.0</value>
-                      </newDouble>
-                      <object class="engine.operations.gameobjectops.Self"/>
-                    </engine.Actions.variableSetting.ChangeDouble>
-                    <engine.Actions.variableSetting.ChangeBoolean>
-                      <varName class="engine.operations.stringops.SelfString">
-                        <stored>OnGround</stored>
-                      </varName>
-                      <newBooleanOperation class="engine.operations.booleanops.BooleanValue">
-                        <value>false</value>
-                      </newBooleanOperation>
-                      <object class="engine.operations.gameobjectops.Self"/>
-                    </engine.Actions.variableSetting.ChangeBoolean>
                   </list>
                 </entry>
                 <entry>
@@ -419,6 +325,100 @@
                       </newBooleanOperation>
                       <object class="engine.operations.gameobjectops.Self"/>
                     </engine.Actions.variableSetting.ChangeBoolean>
+                  </list>
+                </entry>
+                <entry>
+                  <engine.Condition>
+                    <priorityNum>7</priorityNum>
+                    <operation class="engine.operations.booleanops.And">
+                      <boolOp1 class="engine.operations.booleanops.BooleanVariableOf">
+                        <varName class="engine.operations.stringops.SelfString">
+                          <stored>OnGround</stored>
+                        </varName>
+                        <object class="engine.operations.gameobjectops.Self"/>
+                      </boolOp1>
+                      <boolOp2 class="engine.operations.booleanops.KeyPressed">
+                        <check class="engine.operations.stringops.SelfString">
+                          <stored>W</stored>
+                        </check>
+                      </boolOp2>
+                    </operation>
+                  </engine.Condition>
+                  <list>
+                    <engine.Actions.variableSetting.ChangeDouble>
+                      <varName class="engine.operations.stringops.SelfString">
+                        <stored>Gravity</stored>
+                      </varName>
+                      <newDouble class="engine.operations.doubleops.Value">
+                        <value>-5.0</value>
+                      </newDouble>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.variableSetting.ChangeDouble>
+                    <engine.Actions.variableSetting.ChangeBoolean>
+                      <varName class="engine.operations.stringops.SelfString">
+                        <stored>OnGround</stored>
+                      </varName>
+                      <newBooleanOperation class="engine.operations.booleanops.BooleanValue">
+                        <value>false</value>
+                      </newBooleanOperation>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.variableSetting.ChangeBoolean>
+                  </list>
+                </entry>
+                <entry>
+                  <engine.Condition>
+                    <priorityNum>1</priorityNum>
+                    <operation class="engine.operations.booleanops.BooleanValue">
+                      <value>true</value>
+                    </operation>
+                  </engine.Condition>
+                  <list>
+                    <engine.Actions.variableSetting.ChangeDouble>
+                      <varName class="engine.operations.stringops.SelfString">
+                        <stored>Gravity</stored>
+                      </varName>
+                      <newDouble class="engine.operations.doubleops.Sum">
+                        <first class="engine.operations.doubleops.DoubleVariableOf">
+                          <varName class="engine.operations.stringops.SelfString">
+                            <stored>Gravity</stored>
+                          </varName>
+                          <object class="engine.operations.gameobjectops.Self"/>
+                        </first>
+                        <second class="engine.operations.doubleops.Value">
+                          <value>0.15</value>
+                        </second>
+                      </newDouble>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.variableSetting.ChangeDouble>
+                  </list>
+                </entry>
+                <entry>
+                  <engine.Condition>
+                    <priorityNum>2</priorityNum>
+                    <operation class="engine.operations.booleanops.KeyHeld">
+                      <check class="engine.operations.stringops.SelfString">
+                        <stored>D</stored>
+                      </check>
+                    </operation>
+                  </engine.Condition>
+                  <list>
+                    <engine.Actions.movement.Move>
+                      <increment class="engine.operations.vectorops.BasicVector">
+                        <x class="engine.operations.doubleops.Value">
+                          <value>5.0</value>
+                        </x>
+                        <y class="engine.operations.doubleops.Value">
+                          <value>0.0</value>
+                        </y>
+                      </increment>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.movement.Move>
+                    <engine.Actions.changeObject.SetAnimationSequence>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                      <name class="engine.operations.stringops.SelfString">
+                        <stored>Right</stored>
+                      </name>
+                    </engine.Actions.changeObject.SetAnimationSequence>
                   </list>
                 </entry>
               </events>
@@ -10282,6 +10282,273 @@
           <isTracked>true</isTracked>
         </engine.GameLayer>
       </worldLayers>
+      <camera>
+        <SCREEN__WIDTH>1000.0</SCREEN__WIDTH>
+        <SCREEN__HEIGHT>700.0</SCREEN__HEIGHT>
+        <PARALLAX>0.1</PARALLAX>
+        <x>0.0</x>
+        <y>0.0</y>
+      </camera>
+    </engine.GameWorld>
+    <engine.GameWorld>
+      <worldName>Start</worldName>
+      <worldLayers>
+        <engine.GameLayer>
+          <worldName>llayer</worldName>
+          <worldElements>
+            <engine.GameObject>
+              <doubleVars/>
+              <stringVars/>
+              <booleanVars/>
+              <events>
+                <entry>
+                  <engine.Condition>
+                    <priorityNum>2</priorityNum>
+                    <operation class="engine.operations.booleanops.ObjectMouseHover">
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </operation>
+                  </engine.Condition>
+                  <list>
+                    <engine.Actions.changeObject.SetAnimationSequence>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                      <name class="engine.operations.stringops.SelfString">
+                        <stored>Pressed</stored>
+                      </name>
+                    </engine.Actions.changeObject.SetAnimationSequence>
+                  </list>
+                </entry>
+                <entry>
+                  <engine.Condition>
+                    <priorityNum>2</priorityNum>
+                    <operation class="engine.operations.booleanops.ObjectClicked">
+                      <operation class="engine.operations.booleanops.And">
+                        <boolOp1 class="engine.operations.booleanops.ScreenClicked"/>
+                        <boolOp2 class="engine.operations.booleanops.ObjectClickHeld">
+                          <object class="engine.operations.gameobjectops.Self"/>
+                        </boolOp2>
+                      </operation>
+                    </operation>
+                  </engine.Condition>
+                  <list>
+                    <engine.Actions.global.ChangeWorld>
+                      <nameOfWorld class="engine.operations.stringops.SelfString">
+                        <stored>World</stored>
+                      </nameOfWorld>
+                    </engine.Actions.global.ChangeWorld>
+                  </list>
+                </entry>
+                <entry>
+                  <engine.Condition>
+                    <priorityNum>2</priorityNum>
+                    <operation class="engine.operations.booleanops.Not">
+                      <boolOp class="engine.operations.booleanops.ObjectMouseHover">
+                        <object class="engine.operations.gameobjectops.Self"/>
+                      </boolOp>
+                    </operation>
+                  </engine.Condition>
+                  <list>
+                    <engine.Actions.changeObject.SetAnimationSequence>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                      <name class="engine.operations.stringops.SelfString">
+                        <stored>Unpressed</stored>
+                      </name>
+                    </engine.Actions.changeObject.SetAnimationSequence>
+                  </list>
+                </entry>
+              </events>
+              <currentSprite>
+                <animations>
+                  <entry>
+                    <string>Pressed</string>
+                    <engine.sprite.AnimationSequence>
+                      <imageIndex>0</imageIndex>
+                      <images class="java.util.Arrays$ArrayList">
+                        <a class="engine.sprite.BoundedImage-array">
+                          <engine.sprite.BoundedImage>
+                            <drawingPriority>10</drawingPriority>
+                            <x>0.0</x>
+                            <y>0.0</y>
+                            <width>0.0</width>
+                            <height>0.0</height>
+                            <heading>0.0</heading>
+                            <relativeBounds>
+                              <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../../../../engine.GameWorld/worldLayers/engine.GameLayer/worldElements/engine.GameObject/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                            </relativeBounds>
+                            <fileName>button-pressed.png</fileName>
+                          </engine.sprite.BoundedImage>
+                        </a>
+                      </images>
+                      <name>Pressed</name>
+                      <stepsPerFrame>20</stepsPerFrame>
+                      <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                    </engine.sprite.AnimationSequence>
+                  </entry>
+                  <entry>
+                    <string>Unpressed</string>
+                    <engine.sprite.AnimationSequence>
+                      <imageIndex>0</imageIndex>
+                      <images class="java.util.Arrays$ArrayList">
+                        <a class="engine.sprite.BoundedImage-array">
+                          <engine.sprite.BoundedImage>
+                            <drawingPriority>10</drawingPriority>
+                            <x>0.0</x>
+                            <y>0.0</y>
+                            <width>0.0</width>
+                            <height>0.0</height>
+                            <heading>0.0</heading>
+                            <relativeBounds>
+                              <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../../../../engine.GameWorld/worldLayers/engine.GameLayer/worldElements/engine.GameObject/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                            </relativeBounds>
+                            <fileName>button-unpressed.png</fileName>
+                          </engine.sprite.BoundedImage>
+                        </a>
+                      </images>
+                      <name>Unpressed</name>
+                      <stepsPerFrame>20</stepsPerFrame>
+                      <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                    </engine.sprite.AnimationSequence>
+                  </entry>
+                </animations>
+                <currentAnimation reference="../animations/entry[2]/engine.sprite.AnimationSequence"/>
+              </currentSprite>
+              <uniqueID>0</uniqueID>
+              <name>Button</name>
+              <tagSet>
+                <string>default</string>
+                <string>Button</string>
+              </tagSet>
+              <inventory>
+                <objects/>
+                <holder reference="../.."/>
+                <rowSpan>5</rowSpan>
+                <colSpan>5</colSpan>
+                <x>0.0</x>
+                <y>0.0</y>
+                <startIndex>0</startIndex>
+              </inventory>
+              <heading>0.0</heading>
+              <ithDerivative>
+                <javafx.geometry.Point2D>
+                  <x>500.0</x>
+                  <y>400.0</y>
+                  <hash>0</hash>
+                </javafx.geometry.Point2D>
+              </ithDerivative>
+              <width>200.0</width>
+              <height>100.0</height>
+            </engine.GameObject>
+          </worldElements>
+          <objects>
+            <engine.GameObject reference="../../worldElements/engine.GameObject"/>
+          </objects>
+          <conditionPriorities class="java.util.concurrent.ConcurrentSkipListMap" serialization="custom">
+            <unserializable-parents/>
+            <java.util.concurrent.ConcurrentSkipListMap>
+              <default/>
+              <int>2</int>
+              <list>
+                <engine.GameObject reference="../../../../worldElements/engine.GameObject"/>
+              </list>
+              <null/>
+            </java.util.concurrent.ConcurrentSkipListMap>
+          </conditionPriorities>
+          <idToGameObject>
+            <entry>
+              <int>0</int>
+              <engine.GameObject reference="../../../worldElements/engine.GameObject"/>
+            </entry>
+          </idToGameObject>
+          <isTracked>true</isTracked>
+        </engine.GameLayer>
+        <engine.GameLayer>
+          <worldName>Background</worldName>
+          <worldElements>
+            <engine.GameObject>
+              <doubleVars/>
+              <stringVars/>
+              <booleanVars/>
+              <events/>
+              <currentSprite>
+                <animations>
+                  <entry>
+                    <string>Right</string>
+                    <engine.sprite.AnimationSequence>
+                      <imageIndex>0</imageIndex>
+                      <images>
+                        <engine.sprite.BoundedImage>
+                          <drawingPriority>10</drawingPriority>
+                          <x>0.0</x>
+                          <y>0.0</y>
+                          <width>0.0</width>
+                          <height>0.0</height>
+                          <heading>0.0</heading>
+                          <relativeBounds>
+                            <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../../../engine.GameWorld/worldLayers/engine.GameLayer/worldElements/engine.GameObject/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                          </relativeBounds>
+                          <fileName>start.png</fileName>
+                        </engine.sprite.BoundedImage>
+                      </images>
+                      <name>Right</name>
+                      <stepsPerFrame>20</stepsPerFrame>
+                      <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                    </engine.sprite.AnimationSequence>
+                  </entry>
+                </animations>
+                <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+              </currentSprite>
+              <uniqueID>0</uniqueID>
+              <name>background</name>
+              <tagSet>
+                <string>default</string>
+                <string>background</string>
+              </tagSet>
+              <inventory>
+                <objects/>
+                <holder reference="../.."/>
+                <rowSpan>5</rowSpan>
+                <colSpan>5</colSpan>
+                <x>0.0</x>
+                <y>0.0</y>
+                <startIndex>0</startIndex>
+              </inventory>
+              <heading>0.0</heading>
+              <ithDerivative>
+                <javafx.geometry.Point2D>
+                  <x>500.0</x>
+                  <y>350.0</y>
+                  <hash>0</hash>
+                </javafx.geometry.Point2D>
+              </ithDerivative>
+              <width>1000.0</width>
+              <height>700.0</height>
+            </engine.GameObject>
+          </worldElements>
+          <objects>
+            <engine.GameObject reference="../../worldElements/engine.GameObject"/>
+          </objects>
+          <conditionPriorities class="java.util.concurrent.ConcurrentSkipListMap" serialization="custom">
+            <unserializable-parents/>
+            <java.util.concurrent.ConcurrentSkipListMap>
+              <default/>
+              <null/>
+            </java.util.concurrent.ConcurrentSkipListMap>
+          </conditionPriorities>
+          <idToGameObject>
+            <entry>
+              <int>0</int>
+              <engine.GameObject reference="../../../worldElements/engine.GameObject"/>
+            </entry>
+          </idToGameObject>
+          <isTracked>true</isTracked>
+        </engine.GameLayer>
+      </worldLayers>
+      <camera>
+        <SCREEN__WIDTH>1000.0</SCREEN__WIDTH>
+        <SCREEN__HEIGHT>700.0</SCREEN__HEIGHT>
+        <PARALLAX>0.1</PARALLAX>
+        <x>0.0</x>
+        <y>0.0</y>
+      </camera>
     </engine.GameWorld>
   </madeWorlds>
   <globalVars>
@@ -10289,5 +10556,5 @@
     <stringVars/>
     <booleanVars/>
   </globalVars>
-  <nextWorld>World</nextWorld>
+  <nextWorld>Start</nextWorld>
 </engine.GameMaster>

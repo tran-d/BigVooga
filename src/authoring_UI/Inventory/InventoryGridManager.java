@@ -23,6 +23,7 @@ public class InventoryGridManager extends SpriteObjectGridManager {
 	
 	@Override
 	public void createMapLayer() {
+		
 		myMapLayer = new InventoryLayer(getNumRows(), getNumCols(), mySpriteGridHandler);
 		this.setNumCols(defaultColumns);
 		this.setNumRows(defaultRows);

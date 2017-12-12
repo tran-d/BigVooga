@@ -30,7 +30,6 @@ public abstract class MapLayer extends GridPane {
 	private int myLayerNumber;
 	private int myRows;
 	private int myColumns;
-	
 	private SpriteGridHandler mySGH;
 	private Color defaultColor;
 	protected Color fillEmptyCellColor;
@@ -39,6 +38,7 @@ public abstract class MapLayer extends GridPane {
 	protected ObjectProperty<Integer> numRowsProperty;
 	protected ObjectProperty<Integer> numColumnsProperty;
 	private Set<AuthoringMapStackPane> activeGridCells;
+	private Set<AuthoringMapStackPane> mostRecentActive;
 
 	protected MapLayer(int rows, int columns, int layerNum, SpriteGridHandler SGH, Color c) {
 		super();
@@ -48,15 +48,14 @@ public abstract class MapLayer extends GridPane {
 				this.removeAllActive();
 			}
 		});
+		
 		defaultColor = c;
 		activeGridCells = new HashSet<AuthoringMapStackPane>();
+		mostRecentActive = new HashSet<AuthoringMapStackPane>();
 		numRowsProperty = new SimpleObjectProperty<Integer>();
 		numColumnsProperty = new SimpleObjectProperty<Integer>();
 		numRowsProperty.set(1);
 		numColumnsProperty.set(1);
-		
-//		myRows = rows;
-//		myColumns = columns;
 		numRowsProperty.addListener((observable, oldNumRows, newNumRows)->{
 			Integer diff = newNumRows-oldNumRows;
 			if (diff<0){
@@ -115,14 +114,12 @@ public abstract class MapLayer extends GridPane {
 			}
 			}
 		});
-		
 		myLayerNumber = layerNum;
 		mySGH = SGH;
 		this.addAuthoringStackPaneToPosition(0,0);
 		this.setNumRows(rows);
 		this.setNumCols(columns);
 //		setup();
-		
 //		this.setMouseTransparent(true);
 //		this.setPickOnBounds(false);
 //		this.setOnMouseDragged(e->{
@@ -135,6 +132,27 @@ public abstract class MapLayer extends GridPane {
 	}
 	
 
+	public MapLayer(int rows, int columns, int layerNum, SpriteGridHandler SGH, Color c, List<AbstractSpriteObject> activeSpriteObjects) {
+		this(rows, columns, layerNum, SGH, c);
+		System.out.println("ASOs to add in panel: " + activeSpriteObjects.size());
+		for (AbstractSpriteObject ASO : activeSpriteObjects) {
+			int x = ASO.getPositionOnGrid()[0];
+			int y = ASO.getPositionOnGrid()[1];
+			System.out.println("POSITION X: " + ASO.getPositionOnGrid()[0]);
+			System.out.println("POSITION Y: " + ASO.getPositionOnGrid()[1]);
+			AuthoringMapStackPane child = this.getChildAtPosition(x, y);
+			System.out.println(child);
+			System.out.println(child.getChildren().size());
+			System.out.println(child.hasChild()); 
+			System.out.println(child.getChildren());
+			//child.removeChild();
+			System.out.println("Were about to chnage background");
+			child.setInactiveBackground(Color.AQUA);
+			child.addChild(ASO);
+			//this.getChildAtPosition(x, y).addChild(ASO);
+		}
+	}
+	
 	public void setFillColor(Color c){
 		this.fillEmptyCellColor = c;
 		for (Node node : this.getChildren()){
@@ -156,6 +174,18 @@ public abstract class MapLayer extends GridPane {
 	public void setBackgroundImage(Image image, String imagePath){
 		// NOTHING ON DEFAULT	
 	}
+	
+	public void addMostRecentActive(AuthoringMapStackPane newMostRecentActive){
+		mostRecentActive.add(newMostRecentActive);
+	}
+	
+	public void setMostRecentActive(Set<AuthoringMapStackPane> newMostRecentActive){
+		mostRecentActive = newMostRecentActive;
+	}
+	
+	public Set<AuthoringMapStackPane> getMostRecentActive(){
+		return mostRecentActive;
+	}
 
 	
 	public void setSpriteGridHandler(SpriteGridHandler SGH){
@@ -172,6 +202,9 @@ public abstract class MapLayer extends GridPane {
 	
 	public void removeActive(AuthoringMapStackPane pane){
 		this.activeGridCells.remove(pane);
+		if (this.getMostRecentActive().contains(pane)){
+			this.getMostRecentActive().remove(pane);
+		}
 	}
 	
 	public void removeAllActive(){
@@ -210,8 +243,8 @@ public abstract class MapLayer extends GridPane {
 	
 	public AuthoringMapStackPane getChildAtPosition(int row, int col){
 		AuthoringMapStackPane result = null;
+		if (this.getChildren() == null) System.out.println("ALL THE CHILDREN ARE NULL!");
 		ObservableList<Node> childrens = this.getChildren();
-
 	    for (Node node : childrens) {
 //	    	System.out.println("rowIndex: "+this.getRowIndex(node)+", columnIndex: "+this.getColumnIndex(node));
 	        if(this.getRowIndex(node) == row && this.getColumnIndex(node) == col) {
