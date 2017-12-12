@@ -431,7 +431,7 @@ public class GameDataHandler {
 	private List<SpriteObjectGridManager> loadLayersFromDirectoryName() {
 		List<SpriteObjectGridManager> loadedSOGMs = new ArrayList<SpriteObjectGridManager>();
 		try{
-			for (int i = 1; i < 4; i++) {
+			for (int i = 1; i < 5; i++) {
 				if (loadLayerFromDirectory(this.getInitializingLayerDirectoryPath(i), i) != null) {
 					loadedSOGMs.add(loadLayerFromDirectory(this.getInitializingLayerDirectoryPath(i), i));
 				}
@@ -613,7 +613,7 @@ public class GameDataHandler {
 		System.out.println("SIZE OF SOGMS FOR EACH DG SHOULD BE 3 : " + addToWorld.size());
 		
 		ret.loadLayers(addToWorld);
-		System.out.println("FINISHED CREATING WORLD"); // THIS DOES NOT PRINT? 
+		System.out.println("FINISHED CREATING WORLD"); 
 		return ret;
 	}
 	
