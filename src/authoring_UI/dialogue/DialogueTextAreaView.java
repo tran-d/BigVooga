@@ -44,8 +44,8 @@ import tools.DisplayLanguage;
 public class DialogueTextAreaView extends VBox {
 
 	private static final double VBOX_SPACING = 25;
-	private static final double DIALOG_PROMPT_WIDTH = 800;
-	private static final double DIALOG_PROMPT_HEIGHT = 200;
+	private static final double DIALOG_PROMPT_WIDTH = 400;
+	private static final double DIALOG_PROMPT_HEIGHT = 100;
 	private static final String NEXT_BUTTON_PROMPT = "Next";
 	private static final String PREV_BUTTON_PROMPT = "Previous";
 	private static final String ADD_PANEL_BUTTON_PROMPT = "AddPanel";
@@ -90,6 +90,7 @@ public class DialogueTextAreaView extends VBox {
 		
 		addPane();
 
+		this.setAlignment(Pos.CENTER);
 		this.getChildren().addAll(dialoguePreview, makeToolPanel());
 
 	}
@@ -165,7 +166,7 @@ public class DialogueTextAreaView extends VBox {
 //		setCurrentPanel(taList.size() - 1);
 		Pane dialoguePane = new Pane();
 		dialoguePane.setPrefSize(DIALOG_PROMPT_WIDTH, DIALOG_PROMPT_HEIGHT);
-		paneList.add(dialoguePane);
+		paneList.add(currentPaneIndex+1, dialoguePane);
 		setBackgroundColor(currentBgColor.get());
 		setCurrentPane();
 		totalPaneCount.set(totalPaneCount.get()+1);
@@ -222,8 +223,8 @@ public class DialogueTextAreaView extends VBox {
 	}
 
 	private HBox makeToolPanel() {
-		HBox hb = new HBox(150);
-		hb.setPrefWidth(DIALOG_PROMPT_WIDTH);
+		HBox hb = new HBox(55);
+		//hb.setPrefWidth(DIALOG_PROMPT_WIDTH);
 		currentPane = new Label();
 		currentPane.textProperty().bind(current.asString());
 		Label slash = new Label("/");
@@ -234,13 +235,12 @@ public class DialogueTextAreaView extends VBox {
 		panelCountBox.setAlignment(Pos.CENTER_RIGHT);
 		panelCountBox.setPrefWidth(30);
 		hb.getChildren().addAll(makeButtonPanel(), panelCountBox);
-		hb.setAlignment(Pos.CENTER);
 		return hb;
 	}
 
 	private HBox makeButtonPanel() {
 		HBox hb = new HBox(15);
-		hb.setAlignment(Pos.CENTER_LEFT);
+		//hb.setAlignment(Pos.CENTER_LEFT);
 		nextButton = makeButton(NEXT_BUTTON_PROMPT, e -> next());
 		prevButton = makeButton(PREV_BUTTON_PROMPT, e -> prev());
 		addPaneButton = makeButton(ADD_PANEL_BUTTON_PROMPT, e -> this.addPane());
