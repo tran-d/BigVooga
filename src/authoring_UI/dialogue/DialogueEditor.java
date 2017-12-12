@@ -1,9 +1,11 @@
 package authoring_UI.dialogue;
 
+import java.io.File;
 import java.util.List;
 import java.util.function.Consumer;
 
 import authoring_UI.ViewSideBar;
+import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -14,9 +16,11 @@ import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
@@ -169,10 +173,24 @@ public class DialogueEditor {
 	}
 	
 	private Button createSetBackgroundButton() {
-		Button addText = new Button("Set Background");
-		addText.setOnAction(e -> dsp.addTextArea());
+		Button setBackground = new Button("Set Background");
+		setBackground.setOnAction(e -> chooseBackgroundImage());
 		
-		return addText;
+		return setBackground;
+	}
+	
+	private void chooseBackgroundImage() {
+		Node parent = this.getParent();
+		Scene s = parent.getScene();
+		while (s == null) {
+			parent = parent.getParent();
+			s = parent.getScene();
+		}
+		File file = GameDataHandler.chooseFileForImageSave(s.getWindow());
+		if (file != null) {
+			Image image = new Image(GameDataHandler.getImageURIAndCopyToResources(file));
+			dsp.setBackgroundImage(image);
+		}
 	}
 	
 
