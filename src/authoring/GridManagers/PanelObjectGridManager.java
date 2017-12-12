@@ -12,25 +12,19 @@ public class PanelObjectGridManager extends SpriteObjectGridManager{
 
 	public PanelObjectGridManager(int rows, int columns, SpriteGridHandler SGH) {
 		super(rows, columns, SGH);
-		myLayerNum = 2;
+		myLayerNum = 3;
 	}
 	
 	public PanelObjectGridManager(int rows, int columns) {
 		super(rows, columns);
-		myLayerNum = 2;
+		myLayerNum = 3;
 	}
 
-	public PanelObjectGridManager(int myNumRows, int myNumCols, int layerNum, Color myColor) {
-		super(myNumRows, myNumCols, layerNum, myColor);
-		myLayerNum = layerNum;
+	public PanelObjectGridManager(int myNumRows, int myNumCols, Color myColor) {
+		super(myNumRows, myNumCols,  myColor);
+		myLayerNum = 3;
 	}
 
-	
-	@Override
-	public int getLayerNum() {
-		return myLayerNum;
-		//return myMapLayer.getLayerNumber();
-	}
 
 	@Override
 	public void createMapLayer() {

@@ -28,16 +28,6 @@ public class HUDGridManager extends SpriteObjectGridManager {
 	public void createMapLayer() {
 		myMapLayer = new HUDLayer(getNumRows(), getNumCols(), mySpriteGridHandler);		
 	}
-	
-	@Override
-	public int getLayerNum() {
-		return myMapLayer.getLayerNumber();
-	}
 
-	@Override
-	public void createMapLayer(List<AbstractSpriteObject> activeSpriteObjects) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

@@ -19,8 +19,8 @@ public class TerrainObjectGridManager extends SpriteObjectGridManager{
 		myLayerNum = 1;
 	}
 	
-	public TerrainObjectGridManager(int myNumRows, int myNumCols, int layerNum, Color myColor) {
-		super(myNumRows, myNumCols, layerNum, myColor);
+	public TerrainObjectGridManager(int myNumRows, int myNumCols, Color myColor) {
+		super(myNumRows, myNumCols,myColor);
 		myLayerNum = 1;
 	}
 

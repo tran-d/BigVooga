@@ -210,7 +210,7 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 				} else if (o2 instanceof BackgroundGridManager){
 					return -1;
 				}
-				return o2.getMapLayer().getLayerNumber()-o1.getMapLayer().getLayerNumber();
+				return o2.getLayerNum()-o1.getLayerNum();
 			}
 		});
 

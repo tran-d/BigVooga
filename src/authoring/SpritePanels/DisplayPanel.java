@@ -314,6 +314,7 @@ public class DisplayPanel extends VBox {
 		System.out.println("Updating....");
 		try {
 			AbstractSpriteObject activeCell = getActiveCell();
+			if (activeCell!=null){
 			System.out.println("Did i get here?");
 
 			checkMultipleCellsActive();
@@ -334,10 +335,13 @@ public class DisplayPanel extends VBox {
 				mySAnimationSequenceTAI.setSpriteObject(activeCell);
 			}
 			addSpriteEditorVBox();
+			} else {
+				setDefaultErrorNoSpriteTabPane();
+			}
 		} catch (Exception e) {
 			// throw new RuntimeException();
 			e.printStackTrace();
-			setDefaultErrorNoSpriteTabPane();
+			
 		}
 		this.setPrefWidth(DISPLAY_PANEL_WIDTH);
 	}

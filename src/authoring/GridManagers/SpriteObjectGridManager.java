@@ -37,7 +37,7 @@ public abstract class SpriteObjectGridManager {
 	public SpriteObjectGridManager() {
 	}
 
-	public SpriteObjectGridManager(int rows, int columns, int layerNum, Color c) {
+	public SpriteObjectGridManager(int rows, int columns, Color c) {
 		this(rows, columns);
 		myColor = c;
 		// createMapLayer() do elsewhere now

@@ -29,10 +29,6 @@ public class BackgroundGridManager extends SpriteObjectGridManager{
 		this.setNumRows(defaultRows);
 	}
 	
-	@Override
-	public int getLayerNum() {
-		return myMapLayer.getLayerNumber();
-	}
 	
 	@Override
 	public void setCanFillBackground(){
