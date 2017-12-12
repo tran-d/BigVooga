@@ -17,7 +17,7 @@ public class ExistingItemsChoiceBox {
 
 	private static final String PACKAGE_NAME = ExistingItemsChoiceBox.class.getPackage().getName();
 	private static final String KEY_BUNDLE_LOCATION = PACKAGE_NAME + ".codes";
-	private ChoiceBox<String> cb ;
+	private ChoiceBox<String> cb;
 	private ResourceBundle keys;
 
 	public ExistingItemsChoiceBox(VoogaType type) {
@@ -29,29 +29,40 @@ public class ExistingItemsChoiceBox {
 
 	private List<String> makeObservableList(VoogaType type) {
 		List<String> list = new ArrayList<>();
+		Map<String, List<AbstractSpriteObject>> map = AuthoringEnvironmentManager.getEveryTypeOfSprite();
+		List<AbstractSpriteObject> sprites = map.get("DefaultSprites");
+		sprites.addAll(map.get("CustomSprites"));
 
 		if (type == VoogaType.ANIMATIONNAME) {
 
 		} else if (type == VoogaType.BOOLEANNAME) {
-			Map<String, List<AbstractSpriteObject>> map = AuthoringEnvironmentManager.getEveryTypeOfSprite();
-			List<AbstractSpriteObject> sprites = map.get("DefaultSprites");
-			sprites.addAll(map.get("CustomSprites"));
 			for (AbstractSpriteObject sprite : sprites) {
 				list.addAll(sprite.getParameterNamesMatching("Boolean"));
 			}
-			return list;
 
 		} else if (type == VoogaType.DOUBLENAME) {
+			for (AbstractSpriteObject sprite : sprites) {
+				list.addAll(sprite.getParameterNamesMatching("Double"));
+			}
 
 		} else if (type == VoogaType.DIALOGNAME) {
+			
 
 		} else if (type == VoogaType.KEY) {
 			list = makeKeyList();
+
 		} else if (type == VoogaType.OBJECTNAME) {
 			list = AuthoringEnvironmentManager.getNameOfEverySprite();
+
 		} else if (type == VoogaType.STRINGNAME) {
+			for (AbstractSpriteObject sprite : sprites) {
+				list.addAll(sprite.getParameterNamesMatching("String"));
+			}
 
 		} else if (type == VoogaType.TAG) {
+			for (AbstractSpriteObject sprite : sprites) {
+				list.addAll(sprite.getTags());
+			}
 
 		} else if (type == VoogaType.WORLDNAME) {
 

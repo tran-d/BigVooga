@@ -32,36 +32,42 @@ public class BuildActionView {
 
 	private void transportActionRow(WindowEvent event) {
 
-		//for testing
-		ACRow.getAction();
-		ACRow.getRootTreeItem().setExpanded(false);
-		ACRow.changeRowTVSize();
+		// for testing
+		try {
+			ACRow.getAction();
 
-		System.out.println(ACRow.getPrefHeight());
+			ACRow.getRootTreeItem().setExpanded(false);
+			ACRow.changeRowTVSize();
 
-		if (ACVBox.getChildren().size() >= ACRow.getRowID())
-			ACVBox.getChildren().remove(ACRow.getRowID() - 1);
-		ACVBox.getChildren().add(ACRow.getRowID() - 1, ACRow);
+			System.out.println(ACRow.getPrefHeight());
 
-		stage.close();
-		
+			if (ACVBox.getChildren().size() >= ACRow.getRowID())
+				ACVBox.getChildren().remove(ACRow.getRowID() - 1);
+			ACVBox.getChildren().add(ACRow.getRowID() - 1, ACRow);
+
+			stage.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			stage.close();
+		}
+
 		// KEEP THIS CODE
-//		if (ACRow.getAction() != null) {
-//
-//			ACRow.getRootTreeItem().setExpanded(false);
-//			ACRow.changeRowTVSize();
-//
-//			System.out.println(ACRow.getPrefHeight());
-//
-//			if (ACVBox.getChildren().size() >= ACRow.getRowID())
-//				ACVBox.getChildren().remove(ACRow.getRowID() - 1);
-//			ACVBox.getChildren().add(ACRow.getRowID() - 1, ACRow);
-//
-//			stage.close();
-//
-//		} else {
-//			event.consume();
-//		}
+		// if (ACRow.getAction() != null) {
+		//
+		// ACRow.getRootTreeItem().setExpanded(false);
+		// ACRow.changeRowTVSize();
+		//
+		// System.out.println(ACRow.getPrefHeight());
+		//
+		// if (ACVBox.getChildren().size() >= ACRow.getRowID())
+		// ACVBox.getChildren().remove(ACRow.getRowID() - 1);
+		// ACVBox.getChildren().add(ACRow.getRowID() - 1, ACRow);
+		//
+		// stage.close();
+		//
+		// } else {
+		// event.consume();
+		// }
 	}
 
 	public void createParameterChoiceBox() {
