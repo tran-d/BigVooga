@@ -89,11 +89,18 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 
 		ObservableList<String> voogaParameters = FXCollections
 				.observableList(operationFactory.getOperations(voogaType));
-		for (String s : voogaParameters) 
-			System.out.println("Vooga Parameters for" + " voogaTypeString: " + s.toString());
 		
+		List<String> newOps = new ArrayList<>();
+		for (String s : voogaParameters) {
+			System.out.println("Vooga Parameters for" + " voogaTypeString: " + s.toString());
+			newOps.add(s.toString());
+			
+		}
+			
+		ObservableList<String> newOperations = FXCollections
+				.observableList(newOps);
 
-		operationCB = new ChoiceBox<>(operations);
+		operationCB = new ChoiceBox<>(newOperations);
 
 		if (voogaTypeString.equals("Double"))
 			operations.add(0, INPUT_A_DOUBLE);
@@ -102,16 +109,16 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 		else if (voogaTypeString.equals("Boolean"))
 			operations.add(0, (INPUT_A_BOOLEAN));
 
-		System.out.println("ops: " + operations);
+		System.out.println("ops: " + newOperations);
 
 		operationCB.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 
-				System.out.println("Selected Operation: " + operations.get(operationCB.getSelectionModel().getSelectedIndex()));
+				System.out.println("Selected Operation: " + newOperations.get(operationCB.getSelectionModel().getSelectedIndex()));
 				operationName.getChildren().clear();
-				String selectedOperation = operations.get(operationCB.getSelectionModel().getSelectedIndex());
+				String selectedOperation = newOperations.get(operationCB.getSelectionModel().getSelectedIndex());
 				
 				operationParameterTreeItem = new OperationParameterTreeItem(selectedOperation);
 				

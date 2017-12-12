@@ -48,17 +48,19 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 				System.out.println("Operation: " + opItem.makeOperation().toString());
 
 			}
-		
+
 			System.out.println("Making action for " + selectedAction + "...");
 			action = actionFactory.makeAction(selectedAction, operationList.toArray());
 			System.out.println(action);
 			return action;
 		} catch (NullPointerException e) {
-			showError(INVALID_INPUT_MESSAGE, EMPTY_INPUT);
+			throw e;
+			// showError(INVALID_INPUT_MESSAGE, EMPTY_INPUT);
 		} catch (NumberFormatException e) {
-			showError(INVALID_INPUT_MESSAGE, INPUT_A_DOUBLE);
+			throw e;
+			// showError(INVALID_INPUT_MESSAGE, INPUT_A_DOUBLE);
 		}
-		return null;
+//		return null;
 	}
 
 	private TreeItem<HBox> makeActionTreeItem(String actionCategory) {
@@ -101,19 +103,20 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 
 	private void makeActionParameterChildren(String action, TreeItem<HBox> parameterAction, HBox hb) {
 		ObservableList<String> actionParameterTypes = FXCollections.observableList(actionFactory.getParameters(action));
-		
-		ObservableList<VoogaParameter> voogaParameters = FXCollections.observableList(actionFactory.getParametersWithNames(action));
-		
-		
+
+		ObservableList<VoogaParameter> voogaParameters = FXCollections
+				.observableList(actionFactory.getParametersWithNames(action));
+
 		System.out.println("Params: " + actionParameterTypes);
 		opNameTreeItemList = new ArrayList<>();
 
 		hb.getChildren().add(new Label("[ "));
 
-		for (int i=0; i<actionParameterTypes.size(); i++) {
+		for (int i = 0; i < actionParameterTypes.size(); i++) {
 			hb.getChildren().add(new Label(actionParameterTypes.get(i) + " "));
 
-			OperationNameTreeItem opNameTreeItem = new OperationNameTreeItem(voogaParameters.get(i).getName(), voogaParameters.get(i).getType());
+			OperationNameTreeItem opNameTreeItem = new OperationNameTreeItem(voogaParameters.get(i).getName(),
+					voogaParameters.get(i).getType());
 			opNameTreeItemList.add(opNameTreeItem);
 			parameterAction.getChildren().add(opNameTreeItem);
 		}
@@ -127,12 +130,5 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 		// }
 
 		hb.getChildren().add(new Label("]"));
-	}
-
-	private void showError(String header, String content) {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.contentTextProperty().bind(DisplayLanguage.createStringBinding(content));
-		alert.headerTextProperty().bind(DisplayLanguage.createStringBinding(header));
-		alert.show();
 	}
 }
