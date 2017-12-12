@@ -28,10 +28,10 @@ public class AuthoringEnvironmentManager {
 	private SpriteObjectGridManagerI SOGM;
 	private List<SpriteObject> userSprites;
 	private GameDataHandler myGDH;
-	private SpriteSet myDefaultSprites;
-	private SpriteSet myCustomSprites;
+	private static SpriteSet myDefaultSprites;
+	private static SpriteSet myCustomSprites;
 	private SpriteSet myInventorySprites;
-	private SpriteSet myImportedSprites;
+	private static SpriteSet myImportedSprites;
 	private SpriteSet myImportedInventorySprites;
 	private SpriteSet myInventoryTemplates;
 	private SpriteSet myMenuTemplates;
@@ -124,7 +124,7 @@ public class AuthoringEnvironmentManager {
 		return myDialogs;
 	}
 	
-	public List<String> getNameOfEverySprite(){
+	public static List<String> getNameOfEverySprite(){
 		List<String> ret = new ArrayList<String>();
 		getEveryTypeOfSprite().forEach((type_sprite, list_sprites)->{
 			list_sprites.forEach(sprite->{
@@ -134,11 +134,11 @@ public class AuthoringEnvironmentManager {
 		return ret;
 	}
 
-	public Map<String, List<AbstractSpriteObject>> getEveryTypeOfSprite() {
+	public static Map<String, List<AbstractSpriteObject>> getEveryTypeOfSprite() {
 		Map<String, List<AbstractSpriteObject>> ret = new HashMap<String, List<AbstractSpriteObject>>();
-		ret.put("DefaultSprites", this.getDefaultGameSprites());
-		ret.put("CustomSprites", this.getUserDefinedSprites());
-		ret.put("ImportedSprites", this.getImportedSprites());
+		ret.put("DefaultSprites", getDefaultGameSprites());
+		ret.put("CustomSprites", getUserDefinedSprites());
+		ret.put("ImportedSprites", getImportedSprites());
 		return ret;
 	}
 	
@@ -210,7 +210,7 @@ public class AuthoringEnvironmentManager {
 		});
 	}
 
-	public List<AbstractSpriteObject> getDefaultGameSprites() {
+	public static List<AbstractSpriteObject> getDefaultGameSprites() {
 		return myDefaultSprites.getAllSprites();
 	}
 
@@ -229,7 +229,7 @@ public class AuthoringEnvironmentManager {
 		});
 	}
 
-	public List<AbstractSpriteObject> getUserDefinedSprites() {
+	public static List<AbstractSpriteObject> getUserDefinedSprites() {
 		return myCustomSprites.getAllSprites();
 
 	}
@@ -255,7 +255,7 @@ public class AuthoringEnvironmentManager {
 		});
 	}
 	
-	public List<AbstractSpriteObject> getImportedSprites() {
+	public static List<AbstractSpriteObject> getImportedSprites() {
 		return myImportedSprites.getAllSprites();
 
 	}

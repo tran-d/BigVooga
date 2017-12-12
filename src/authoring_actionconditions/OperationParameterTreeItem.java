@@ -110,7 +110,7 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 	}
 
 	private void makeOperationParameterChildren(String selectedOperation, TreeItem<HBox> operationParameter, HBox hb) {
-
+		System.out.println("SELECTED OPERATIONS: " + selectedOperation);
 		if (selectedOperation.equals(INPUT_A_DOUBLE)) {
 			doubleParameterTF = createDoubleTextField(operationParameter);
 			hb.getChildren().addAll(doubleParameterTF);
@@ -148,7 +148,7 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 
 					} else {
 
-						operationNameTreeItem = new OperationNameTreeItem(voogaParameters.get(i).getName(),
+						operationNameTreeItem = new OperationNameTreeItem(operationParameters.get(i), voogaParameters.get(i).getName(),
 								voogaParameters.get(i).getType());
 						listOfOperations.add(operationNameTreeItem);
 						operationParameter.getChildren().add(operationNameTreeItem);

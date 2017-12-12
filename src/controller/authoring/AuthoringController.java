@@ -101,7 +101,6 @@ public class AuthoringController {
 		if (this.viewMapKeysToManager.containsKey(key)) {
 			System.out.println("Contains key: " + key);
 			this.activeManagerProperty.set(viewMapKeysToManager.get(key));
-
 		} else {
 			this.activeManagerProperty.set(null);
 		}

@@ -27,7 +27,6 @@ import javafx.scene.paint.Color;
 
 public abstract class MapLayer extends GridPane {
 
-	private int myLayerNumber;
 	private int myRows;
 	private int myColumns;
 	private SpriteGridHandler mySGH;
@@ -40,7 +39,7 @@ public abstract class MapLayer extends GridPane {
 	private Set<AuthoringMapStackPane> activeGridCells;
 	private Set<AuthoringMapStackPane> mostRecentActive;
 
-	protected MapLayer(int rows, int columns, int layerNum, SpriteGridHandler SGH, Color c) {
+	protected MapLayer(int rows, int columns, SpriteGridHandler SGH, Color c) {
 		super();
 //		visibilityProperty = new SimpleObjectProperty<Boolean>();
 		this.visibleProperty().addListener((change, previous, next)->{
@@ -114,26 +113,16 @@ public abstract class MapLayer extends GridPane {
 			}
 			}
 		});
-		myLayerNumber = layerNum;
 		mySGH = SGH;
 		this.addAuthoringStackPaneToPosition(0,0);
 		this.setNumRows(rows);
 		this.setNumCols(columns);
-//		setup();
-//		this.setMouseTransparent(true);
-//		this.setPickOnBounds(false);
-//		this.setOnMouseDragged(e->{
-//			AuthoringMapStackPane n = (AuthoringMapStackPane) e.getSource();
-//			n.switchActive();
-////			Event.fireEvent(n, new MouseEvent(MouseEvent.MOUSE_DRAGGED, 0,
-////	                0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
-////	                true, true, true, true, true, true, null));
-//		});
+//		
 	}
 	
 
-	public MapLayer(int rows, int columns, int layerNum, SpriteGridHandler SGH, Color c, List<AbstractSpriteObject> activeSpriteObjects) {
-		this(rows, columns, layerNum, SGH, c);
+	public MapLayer(int rows, int columns, SpriteGridHandler SGH, Color c, List<AbstractSpriteObject> activeSpriteObjects) {
+		this(rows, columns, SGH, c);
 		System.out.println("ASOs to add in panel: " + activeSpriteObjects.size());
 		for (AbstractSpriteObject ASO : activeSpriteObjects) {
 			int x = ASO.getPositionOnGrid()[0];
@@ -147,7 +136,9 @@ public abstract class MapLayer extends GridPane {
 			System.out.println(child.getChildren());
 			//child.removeChild();
 			System.out.println("Were about to chnage background");
-			child.setInactiveBackground(Color.AQUA);
+//			child.setInactiveBackground(Color.AQUA);
+			mySGH.addSpriteDrag(ASO);
+			mySGH.addSpriteMouseClick(ASO);
 			child.addChild(ASO);
 			//this.getChildAtPosition(x, y).addChild(ASO);
 		}
@@ -222,9 +213,6 @@ public abstract class MapLayer extends GridPane {
 	protected void setName(String name)
 	{
 		myName = name;
-	}
-	public int getLayerNumber() {
-		return myLayerNumber;
 	}
 
 	protected void setDefaultColor(Color c) {

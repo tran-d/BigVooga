@@ -7,11 +7,11 @@ import javafx.scene.paint.Color;
 public class HUDLayer extends MapLayer {
 
 	public HUDLayer(int rows, int columns, SpriteGridHandler SGH){
-		this(rows, columns, 3, SGH, Color.TRANSPARENT);
+		this(rows, columns, SGH, Color.TRANSPARENT);
 	}
 
-		public HUDLayer(int rows, int columns, int layerNum, SpriteGridHandler SGH, Color c) {
-		super(rows, columns, layerNum, SGH, c);
+		public HUDLayer(int rows, int columns, SpriteGridHandler SGH, Color c) {
+		super(rows, columns, SGH, c);
 		setDefaultColor(Color.TRANSPARENT);
 		setName("HUD View");
 	}

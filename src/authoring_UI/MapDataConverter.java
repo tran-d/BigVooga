@@ -1,13 +1,11 @@
 package authoring_UI;
 
-import java.util.List;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.security.NullPermission;
 import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
-import authoring.GridManagers.*;
 import javafx.geometry.Point2D;
 
 public class MapDataConverter {
