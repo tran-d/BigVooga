@@ -37,31 +37,15 @@ public class BuildConditionView {
 			conditionRow.reduceTreeView();
 
 			if (ACVBox.getChildren().size() >= conditionRow.getRowID())
-			ACVBox.getChildren().remove(conditionRow.getRowID() - 1);
+				ACVBox.getChildren().remove(conditionRow.getRowID() - 1);
 			ACVBox.getChildren().add(conditionRow.getRowID() - 1, conditionRow);
 
 			stage.close();
+			
+		} catch (Exception e) {
+			ConditionTreeView.showError(e.getMessage());
+			event.consume();
 		}
-		catch (Exception e) {
-			stage.close();
-		}
-
-		// KEEP THIS CODE
-		// if (conditionRow.getCondition() != null) {
-		//
-		// conditionRow.getRootTreeItem().setExpanded(false);
-		// conditionRow.changeRowTVSize();
-		//
-		// if (ACVBox.getChildren().size() >= conditionRow.getRowID())
-		// ACVBox.getChildren().remove(conditionRow.getRowID() - 1);
-		// ACVBox.getChildren().add(conditionRow.getRowID() - 1, conditionRow);
-		//
-		// stage.close();
-		//
-		// } else {
-		// event.consume();
-		// }
-
 	}
-	
+
 }

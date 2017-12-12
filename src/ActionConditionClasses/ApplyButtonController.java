@@ -68,6 +68,7 @@ public class ApplyButtonController {
 			spriteObject.setActions(actions);
 		}
 		catch(NullPointerException | NumberFormatException e) {
+			System.out.println("run");
 			conditionTab.displayRowExceptionMessage(e.getMessage());
 		}
 	}

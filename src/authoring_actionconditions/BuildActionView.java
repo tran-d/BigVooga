@@ -32,7 +32,6 @@ public class BuildActionView {
 
 	private void transportActionRow(WindowEvent event) {
 
-//		 for testing
 		try {
 			ACRow.getTreeView().getAction();
 			ACRow.reduceTreeView();
@@ -41,31 +40,15 @@ public class BuildActionView {
 
 			if (ACVBox.getChildren().size() >= ACRow.getRowID())
 				ACVBox.getChildren().remove(ACRow.getRowID() - 1);
+			
 			ACVBox.getChildren().add(ACRow.getRowID() - 1, ACRow);
+
+			stage.close();
+
 		} catch (NullPointerException | NumberFormatException e) {
 			ConditionTreeView.showError(e.getMessage());
-			//event.consume();
-			stage.close();
+			event.consume();
 		}
-//		stage.close();
-
-		// KEEP THIS CODE
-		// if (ACRow.getAction() != null) {
-		//
-		// ACRow.getRootTreeItem().setExpanded(false);
-		// ACRow.changeRowTVSize();
-		//
-		// System.out.println(ACRow.getPrefHeight());
-		//
-		// if (ACVBox.getChildren().size() >= ACRow.getRowID())
-		// ACVBox.getChildren().remove(ACRow.getRowID() - 1);
-		// ACVBox.getChildren().add(ACRow.getRowID() - 1, ACRow);
-		//
-		// stage.close();
-		//
-		// } else {
-		// event.consume();
-		// }
 	}
 
 	public void createParameterChoiceBox() {

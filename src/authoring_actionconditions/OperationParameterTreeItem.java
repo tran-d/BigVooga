@@ -58,41 +58,50 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 
 	public Object getParameter() {
 
-		if (doubleParameterTF != null) {
-			System.out.println("Double was inputted: " + doubleParameterTF.getText());
-			return operationFactory.wrap(getDoubleInput(doubleParameterTF));
-		} else if (stringParameterTF != null) {
-			System.out.println("String was inputted: " + stringParameterTF.getText());
-			return operationFactory.wrap(stringParameterTF.getText());
-		} else if (booleanParameterTF != null) {
-			System.out.println("Boolean was inputted: " + booleanParameterTF.getText());
-			return operationFactory.wrap(getBooleanInput(booleanParameterTF));
-		} else if (existingItemsChoiceBox != null) {
-			System.out.println(existingItemsChoiceBox.getSelectionModel().getSelectedItem().toString());
-			return operationFactory.makeOperation(selectedOperation, operationFactory.wrap(existingItemsChoiceBox.getSelectionModel().getSelectedItem()));
-			
-		} else {
-			System.out.println(selectedOperation);
-			return operationFactory.makeOperation(selectedOperation, new Object[0]);
+		try {
+			if (doubleParameterTF != null) {
+				System.out.println("Double was inputted: " + doubleParameterTF.getText());
+				return operationFactory.wrap(getDoubleInput(doubleParameterTF));
+			} else if (stringParameterTF != null) {
+				System.out.println("String was inputted: " + stringParameterTF.getText());
+				return operationFactory.wrap(stringParameterTF.getText());
+			} else if (booleanParameterTF != null) {
+				System.out.println("Boolean was inputted: " + booleanParameterTF.getText());
+				return operationFactory.wrap(getBooleanInput(booleanParameterTF));
+			} else if (existingItemsChoiceBox != null) {
+				System.out.println(existingItemsChoiceBox.getSelectionModel().getSelectedItem().toString());
+				return operationFactory.makeOperation(selectedOperation,
+						operationFactory.wrap(existingItemsChoiceBox.getSelectionModel().getSelectedItem()));
+
+			} else {
+				System.out.println(selectedOperation);
+				return operationFactory.makeOperation(selectedOperation, new Object[0]);
+			}
+		} catch (Exception e) {
+			throw e;
 		}
 
 	}
 
-	//removed Operation<?> cast
+	// removed Operation<?> cast
 	public Object makeOperation() {
-		List<Object> listOfStringParams = new ArrayList<>();
+		try {
+			List<Object> listOfStringParams = new ArrayList<>();
 
-		for (OperationNameTreeItem op : listOfOperations) {
+			for (OperationNameTreeItem op : listOfOperations) {
 
-			listOfStringParams.add(op.makeOperation());
+				listOfStringParams.add(op.makeOperation());
+			}
+
+			for (Object param : listOfStringParams) {
+				System.out.println("Selected operation w/ param: " + selectedOperation + " " + param.toString());
+			}
+
+			System.out.println("Making Operation...");
+			return operationFactory.makeOperation(selectedOperation, listOfStringParams.toArray());
+		} catch (Exception e) {
+			throw e;
 		}
-
-		for (Object param : listOfStringParams) {
-			System.out.println("Selected operation w/ param: " + selectedOperation + " " + param.toString());
-		}
-
-		System.out.println("Making Operation...");
-		return operationFactory.makeOperation(selectedOperation, listOfStringParams.toArray());
 
 	}
 
@@ -148,8 +157,8 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 
 					} else {
 
-						operationNameTreeItem = new OperationNameTreeItem(operationParameters.get(i), voogaParameters.get(i).getName(),
-								voogaParameters.get(i).getType());
+						operationNameTreeItem = new OperationNameTreeItem(operationParameters.get(i),
+								voogaParameters.get(i).getName(), voogaParameters.get(i).getType());
 						listOfOperations.add(operationNameTreeItem);
 						operationParameter.getChildren().add(operationNameTreeItem);
 					}
@@ -205,7 +214,7 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 			else
 				return null;
 		} catch (NumberFormatException e) {
-			 showError(INVALID_INPUT_MESSAGE, DOUBLE_INPUT_MESSAGE);
+			showError(INVALID_INPUT_MESSAGE, DOUBLE_INPUT_MESSAGE);
 			tf.clear();
 			return null;
 		}

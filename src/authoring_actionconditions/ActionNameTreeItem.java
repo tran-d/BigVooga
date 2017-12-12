@@ -1,9 +1,8 @@
-package authoring;
+package authoring_actionconditions;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import authoring_actionconditions.OperationNameTreeItem;
 import engine.Action;
 import engine.Actions.ActionFactory;
 import engine.operations.Operation;
