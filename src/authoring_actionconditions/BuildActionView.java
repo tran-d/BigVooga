@@ -34,8 +34,7 @@ public class BuildActionView {
 
 		//for testing
 		ACRow.getAction();
-		ACRow.getRootTreeItem().setExpanded(false);
-		ACRow.changeRowTVSize();
+		ACRow.reduceTreeView();
 
 		System.out.println(ACRow.getPrefHeight());
 

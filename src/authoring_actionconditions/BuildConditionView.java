@@ -34,8 +34,7 @@ public class BuildConditionView {
 
 		// for testing
 		conditionRow.getCondition();
-		conditionRow.getRootTreeItem().setExpanded(false);
-		conditionRow.changeRowTVSize();
+		conditionRow.reduceTreeView();
 
 		if (ACVBox.getChildren().size() >= conditionRow.getRowID())
 			ACVBox.getChildren().remove(conditionRow.getRowID() - 1);
@@ -60,8 +59,5 @@ public class BuildConditionView {
 //		}
 
 	}
-
-	public void createParameterChoiceBox() {
-
-	}
+	
 }

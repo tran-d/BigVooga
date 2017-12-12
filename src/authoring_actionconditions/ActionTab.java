@@ -109,7 +109,7 @@ public class ActionTab<T> extends Tab implements ActionTabI<T> {
 
 	@Override
 	public ActionConditionVBox<T> setActionConditionVBox() {
-		return new ActionVBox<T>(getSelectorLabel());
+		return new ActionVBox<T>();
 	}
 
 	@Override

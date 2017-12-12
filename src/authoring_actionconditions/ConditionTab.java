@@ -27,7 +27,7 @@ public class ConditionTab<T> extends ActionTab<T> implements ConditionTabI {
 
 	@Override
 	public ActionConditionVBox<T> setActionConditionVBox() {
-		return new ConditionVBox<T>(getSelectorLabel());
+		return new ConditionVBox<T>();
 	}
 	
 	@Override
