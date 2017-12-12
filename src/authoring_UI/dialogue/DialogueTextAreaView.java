@@ -44,8 +44,8 @@ import tools.DisplayLanguage;
 public class DialogueTextAreaView extends VBox {
 
 	private static final double VBOX_SPACING = 25;
-	private static final double DIALOG_PROMPT_WIDTH = 600;
-	private static final double DIALOG_PROMPT_HEIGHT = 300;
+	private static final double DIALOG_PROMPT_WIDTH = 800;
+	private static final double DIALOG_PROMPT_HEIGHT = 200;
 	private static final String NEXT_BUTTON_PROMPT = "Next";
 	private static final String PREV_BUTTON_PROMPT = "Previous";
 	private static final String ADD_PANEL_BUTTON_PROMPT = "AddPanel";
@@ -175,15 +175,13 @@ public class DialogueTextAreaView extends VBox {
 		TextArea ta = new TextArea();
 		ta.setPrefSize(25, 25);
 
-		ta.setBorder(new Border(new BorderStroke(Color.BLACK, 
-	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		ta.setBackground(paneList.get(0).getBackground());
 		ta.setWrapText(true);
 		String css = this.getClass().getResource("dialogue.css").toExternalForm();
 		ta.getStylesheets().add(css);
 
 		taList.add(ta);
-		Pane k = (Pane) this.getChildren().get(0);
+		Pane k = (Pane) dialoguePreview.getChildren().get(0);
 		k.getChildren().add(ta);
 		
 		DragResizer draggableTA = new DragResizer(ta);

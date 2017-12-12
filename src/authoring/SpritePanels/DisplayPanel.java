@@ -309,7 +309,7 @@ public class DisplayPanel extends VBox {
 			mySpriteTabs.getTabs().set(CONDITIONTAB_INDEX, conditions);
 			mySpriteTabs.getTabs().set(ACTIONTAB_INDEX, actions);
 			if (!mySPSM.multipleActive()) {
-				System.out.println("Trying to update not multiple actvie");
+				System.out.println("Trying to update not multiple active");
 				mySTagTAI.setSpriteObjectAndUpdate(activeCell);
 				mySInventoryTAI.setSpriteObjectAndUpdate(activeCell);
 				mySUtilityTAI.setSpriteObjectAndUpdate(activeCell);
