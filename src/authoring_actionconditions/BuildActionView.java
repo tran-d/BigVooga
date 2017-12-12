@@ -33,6 +33,7 @@ public class BuildActionView {
 	private void transportActionRow(WindowEvent event) {
 
 		//for testing
+		ACRow.getAction();
 		ACRow.getRootTreeItem().setExpanded(false);
 		ACRow.changeRowTVSize();
 

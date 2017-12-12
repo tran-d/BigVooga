@@ -22,7 +22,7 @@ import tools.DisplayLanguage;
 
 public class ActionNameTreeItem extends TreeItem<HBox> {
 
-	private static String EMPTY_CHOICEBOX = "EmptyChoiceBox";
+	private static String EMPTY_INPUT = "EmptyInput";
 	private static final String INVALID_INPUT_MESSAGE = "InvalidInput";
 	private static final String INPUT_A_DOUBLE = "InputInteger";
 
@@ -45,14 +45,16 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 			for (OperationNameTreeItem opItem : opNameTreeItemList) {
 
 				operationList.add((Operation<?>) opItem.makeOperation());
+				System.out.println("Operation: " + opItem.makeOperation().toString());
 
 			}
-			System.out.println("Making action...");
+		
+			System.out.println("Making action for " + selectedAction + "...");
 			action = actionFactory.makeAction(selectedAction, operationList.toArray());
 			System.out.println(action);
 			return action;
 		} catch (NullPointerException e) {
-			showError(INVALID_INPUT_MESSAGE, EMPTY_CHOICEBOX);
+			showError(INVALID_INPUT_MESSAGE, EMPTY_INPUT);
 		} catch (NumberFormatException e) {
 			showError(INVALID_INPUT_MESSAGE, INPUT_A_DOUBLE);
 		}

@@ -26,6 +26,8 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 	private List<OperationParameterTreeItem> opParameterList = new ArrayList<>();
 	private Runnable changeTreeViewSize;
 	private VoogaType voogaType;
+	
+
 
 	private String voogaParameterGetName;
 
@@ -85,9 +87,10 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 		ObservableList<String> operations = FXCollections
 				.observableList(operationFactory.getOperations(voogaTypeString));
 
-//		ObservableList<String> voogaParameters = FXCollections
-//				.observableList(operationFactory.getOperations(voogaType));
-		
+		ObservableList<String> voogaParameters = FXCollections
+				.observableList(operationFactory.getOperations(voogaType));
+		for (String s : voogaParameters) 
+			System.out.println("Vooga Parameters for" + " voogaTypeString: " + s.toString());
 		
 
 		operationCB = new ChoiceBox<>(operations);
@@ -106,12 +109,11 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 
-				System.out.println("Selected: " + operations.get(operationCB.getSelectionModel().getSelectedIndex()));
+				System.out.println("Selected Operation: " + operations.get(operationCB.getSelectionModel().getSelectedIndex()));
 				operationName.getChildren().clear();
-				String selectedAction = operations.get(operationCB.getSelectionModel().getSelectedIndex());
+				String selectedOperation = operations.get(operationCB.getSelectionModel().getSelectedIndex());
 				
-				
-				operationParameterTreeItem = new OperationParameterTreeItem(selectedAction);
+				operationParameterTreeItem = new OperationParameterTreeItem(selectedOperation);
 				
 				opParameterList.add(operationParameterTreeItem);
 				operationName.getChildren().add(operationParameterTreeItem);
