@@ -1,12 +1,10 @@
 package engine;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -46,7 +44,7 @@ public class GameObject extends VariableContainer implements Element {
 
 	private CollisionEvent lastCollision;
 	private Inventory inventory;
-	private List<DisplayableText> dialogueHandler = new ArrayList<>();
+	private List<DisplayableText> dialogueHandler = new ArrayList<DisplayableText>();
 
 	private double heading;
 	private List<Point2D> ithDerivative;
@@ -292,5 +290,10 @@ public class GameObject extends VariableContainer implements Element {
 		dialogueHandler = new ArrayList<DisplayableText>();
 		dialogueHandler.add(newText);
 		
+	}
+	
+	public Set<String> getTags()
+	{
+		return new HashSet<String>(tagSet);
 	}
 }

@@ -1,10 +1,12 @@
 package gui.player;
 
 import java.net.URISyntaxException;
-import java.util.Collections;
 import java.util.List;
+
+import controller.player.Debugging;
 import controller.player.PlayerManager;
 import controller.welcomeScreen.SceneController;
+import engine.EngineController;
 import engine.sprite.Displayable;
 import engine.sprite.DisplayableImage;
 import engine.sprite.DisplayableText;
@@ -164,6 +166,19 @@ public class GameDisplay {
 	 */
 	public Scene getScene() {
 		return scene;
+	}
+	
+	public void setScene(Scene newScene)
+	{
+		scene = newScene;
+		stage.setScene(scene);
+	}
+	
+	public void debugMenu(EngineController controls) {
+		Debugging debug = new Debugging(this, scene, controls);
+		controls.stop();
+		scene = debug.createFrame(controls.getCurrentWorld());
+		stage.setScene(scene);
 	}
 
 	public void exitToMenu() {
