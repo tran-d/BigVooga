@@ -27,6 +27,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
@@ -93,7 +94,7 @@ public class DialogueEditor {
 
 	public int getFontSize() {
 		if (sizeTF.getText().equals(""))
-			return 0;
+			return 16;
 		else
 			return Integer.parseInt(sizeTF.getText());
 	}
@@ -102,8 +103,12 @@ public class DialogueEditor {
 		return fontColorCP.getValue();
 	}
 
-	public List<TextArea> getDialogueList() {
-		return dsp.getDialogueList();
+//	public List<TextArea> getDialogueList() {
+//		return dsp.getDialogueList();
+//	}
+	
+	public List<Pane> getDialogueSequence() {
+		return dsp.getDialogueSequence();
 	}
 	
 	public Color getBackgroundColor() {
@@ -199,7 +204,7 @@ public class DialogueEditor {
 				int size = Integer.parseInt(sizeTF.getText());
 				saveConsumer.accept(getName());
 				System.out.println("size changed! saving!");
-				dsp.setFontSize(size);
+				dsp.setFont(getFontType(), size);
 			} catch (NumberFormatException ex) {
 				sizeTF.clear();
 				Alert alert = new Alert(AlertType.ERROR);
@@ -208,6 +213,7 @@ public class DialogueEditor {
 				alert.show();
 				}
 			}
+		dsp.setFont(getFontType(), getFontSize());
 	}
 	
     private void changeFontColor() {
@@ -215,7 +221,7 @@ public class DialogueEditor {
     }
     
     private void changeBackgroundColor() {
-    	dsp.setBackgroundColor(backgroundColorCP.getValue());
+    		dsp.setBackgroundColor(backgroundColorCP.getValue());
     }
     
     private String toRGBString(Color c) {
@@ -232,20 +238,14 @@ public class DialogueEditor {
 
 	private ColorPicker makeColorPallette(String color) {
 		ColorPicker cp = new ColorPicker(Color.web(color));
-		svg = new SVGPath();
-		svg.setContent("M70,50 L90,50 L120,90 L150,50 L170,50"
-				+ "L210,90 L180,120 L170,110 L170,200 L70,200 L70,110 L60,120 L30,90"
-				+ "L70,50");
-		svg.setStroke(Color.DARKGREY);
-		svg.setStrokeWidth(2);
-		svg.setEffect(new DropShadow());
-		svg.setFill(cp.getValue());
-		
-//
-//		cp.setOnAction(e -> {
-//			saveConsumer.accept(getName());
-//			System.out.println("font changed! saving!");
-//		});
+//		svg = new SVGPath();
+//		svg.setContent("M70,50 L90,50 L120,90 L150,50 L170,50"
+//				+ "L210,90 L180,120 L170,110 L170,200 L70,200 L70,110 L60,120 L30,90"
+//				+ "L70,50");
+//		svg.setStroke(Color.DARKGREY);
+//		svg.setStrokeWidth(2);
+//		svg.setEffect(new DropShadow());
+//		svg.setFill(cp.getValue());
 
 		return cp;
 	}
@@ -262,7 +262,7 @@ public class DialogueEditor {
 
 				saveConsumer.accept(getName());
 				System.out.println("font changed! saving!");
-				dsp.setFontType(observableList.get(cb.getSelectionModel().getSelectedIndex()));
+				dsp.setFont(observableList.get(cb.getSelectionModel().getSelectedIndex()), getFontSize());
 			}
 		});
 		return cb;
