@@ -65,33 +65,36 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 	public void loadLayers(List<SpriteObjectGridManager> SOGMList) {
 		Random rand = new Random();
 		if (allGrids == null) allGrids = new ArrayList<SpriteObjectGridManager>();
-		mySGH = new SpriteGridHandler(rand.nextInt(), this);
-		for (SpriteObjectGridManager SOGM : SOGMList) {
-			if (SOGM.getLayerNum() == 0) {
-				System.out.println("NUM ROWS IN DG: " + SOGM.getRowsForImport());
-				TerrainObjectGridManager TOGM = new TerrainObjectGridManager(SOGM.getRowsForImport(), SOGM.getColsForImport(), SOGM.getLayerNum(), SOGM.getColor());
-				TOGM.setSpriteGridHandler(mySGH);
-				System.out.println("TOGM HAS THIS MANY SPRITES: " + SOGM.getStoredSpriteList().size());
-				TOGM.createMapLayer(SOGM.getStoredSpriteList()); 
-				allGrids.add(TOGM);
-			}
-			if (SOGM.getLayerNum() == 1) {
-				System.out.println("NUM ROWS IN DG: " + SOGM.getRowsForImport());
-				SpriteObjectGridManagerForSprites SOGMS = new SpriteObjectGridManagerForSprites(SOGM.getRowsForImport(), SOGM.getColsForImport(), SOGM.getLayerNum(), SOGM.getColor());
-				SOGMS.setSpriteGridHandler(mySGH);
-				System.out.println("SOGMS HAS THIS MANY SPRITES: " + SOGM.getStoredSpriteList().size());
-				SOGMS.createMapLayer(SOGM.getStoredSpriteList()); 
-				allGrids.add(SOGMS);
-			}
-			if (SOGM.getLayerNum() == 2) {
-				System.out.println("NUM ROWS IN DG: " + SOGM.getRowsForImport());
-				PanelObjectGridManager POGM = new PanelObjectGridManager(SOGM.getRowsForImport(), SOGM.getColsForImport(), SOGM.getLayerNum(), SOGM.getColor());
-				POGM.setSpriteGridHandler(mySGH);
-				System.out.println("POGM HAS THIS MANY SPRITES: " + SOGM.getStoredSpriteList().size());
-				POGM.createMapLayer(SOGM.getStoredSpriteList());
-				allGrids.add(POGM);
-			}
-		}
+		this.setAllGrids(SOGMList);
+//		mySGH = new SpriteGridHandler(rand.nextInt(), this);
+//		for (SpriteObjectGridManager SOGM : SOGMList) {
+//			SOGM.setSpriteGridHandler(mySGH);
+			
+//			if (SOGM.getLayerNum() == 0) {
+//				System.out.println("NUM ROWS IN DG: " + SOGM.getRowsForImport());
+//				TerrainObjectGridManager TOGM = new TerrainObjectGridManager(SOGM.getRowsForImport(), SOGM.getColsForImport(), SOGM.getLayerNum(), SOGM.getColor());
+//				TOGM.setSpriteGridHandler(mySGH);
+//				System.out.println("TOGM HAS THIS MANY SPRITES: " + SOGM.getStoredSpriteList().size());
+//				TOGM.createMapLayer(SOGM.getStoredSpriteList()); 
+//				allGrids.add(TOGM);
+//			}
+//			if (SOGM.getLayerNum() == 1) {
+//				System.out.println("NUM ROWS IN DG: " + SOGM.getRowsForImport());
+//				SpriteObjectGridManagerForSprites SOGMS = new SpriteObjectGridManagerForSprites(SOGM.getRowsForImport(), SOGM.getColsForImport(), SOGM.getLayerNum(), SOGM.getColor());
+//				SOGMS.setSpriteGridHandler(mySGH);
+//				System.out.println("SOGMS HAS THIS MANY SPRITES: " + SOGM.getStoredSpriteList().size());
+//				SOGMS.createMapLayer(SOGM.getStoredSpriteList()); 
+//				allGrids.add(SOGMS);
+//			}
+//			if (SOGM.getLayerNum() == 2) {
+//				System.out.println("NUM ROWS IN DG: " + SOGM.getRowsForImport());
+//				PanelObjectGridManager POGM = new PanelObjectGridManager(SOGM.getRowsForImport(), SOGM.getColsForImport(), SOGM.getLayerNum(), SOGM.getColor());
+//				POGM.setSpriteGridHandler(mySGH);
+//				System.out.println("POGM HAS THIS MANY SPRITES: " + SOGM.getStoredSpriteList().size());
+//				POGM.createMapLayer(SOGM.getStoredSpriteList());
+//				allGrids.add(POGM);
+//			}
+		
 		System.out.println("successfully added all grids, allGrids size is: " + allGrids.size());
 	}
 	
@@ -184,8 +187,10 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 			allGrids.forEach(item->{
 				System.out.println("already has a grid!: "+item);
 				item.setSpriteGridHandler(spriteGridHandler);
-				//item.createMapLayer();
+				item.createMapLayer();
+				
 				item.setSizeToMatchDefaults();
+			
 //				item.getMapLayer().setSpriteGridHandler();
 				showingGrids.add(item);
 			});
@@ -201,7 +206,7 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 				} else if (o2 instanceof BackgroundGridManager){
 					return -1;
 				}
-				return o2.getMapLayer().getLayerNumber()-o1.getMapLayer().getLayerNumber();
+				return o2.getLayerNum()-o1.getLayerNum();
 			}
 		});
 

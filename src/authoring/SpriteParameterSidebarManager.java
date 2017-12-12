@@ -31,6 +31,7 @@ public class SpriteParameterSidebarManager {
 		if (firstSprite==null){
 			throw new Exception("No active cells");
 		}
+		System.out.println("sprite coming back from SPSM: "+firstSprite);
 		return firstSprite;
 	}
 

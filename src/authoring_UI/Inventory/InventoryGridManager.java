@@ -33,15 +33,4 @@ public class InventoryGridManager extends SpriteObjectGridManager {
 		
 	}
 	
-	@Override
-	public int getLayerNum() {
-		return myMapLayer.getLayerNumber();
-	}
-
-	@Override
-	public void createMapLayer(List<AbstractSpriteObject> activeSpriteObjects) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

@@ -20,6 +20,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
@@ -49,7 +50,7 @@ public class MapManager extends TabPane {
 	private GameElementSelector mySprites;
 	protected AuthoringEnvironmentManager myAEM;
 	private int myTabCount = 1;
-	private Tab currentTab;
+	private Tab startTab;
 	private boolean oldProject;
 	private String projectName = "TestProject";
 	private GameDataHandler myGDH;
@@ -76,17 +77,19 @@ public class MapManager extends TabPane {
 		this.setLayoutX(ViewSideBar.VIEW_MENU_HIDDEN_WIDTH);
 
 		List<DraggableGrid> DGs = getListOfDraggableGrids();
+		createAddTab();
 		if (DGs.size() > 0) {
 			oldProject = true;
 			System.out.println("size: number of worlds " + DGs.size());
 			System.out.println("AN OLD GRID WAS SAVED AND NOW WILL BE LOADED");
 			for (DraggableGrid w : DGs) {
-				setTab(w);
+				createTab(w);
 			}
 		} else {
 			System.out.println("displaying a new grid");
-			setTab();
+			createTab(makeDraggableGrid());
 		}
+		this.mySelectModel.select(startTab);
 	}
 
 	protected void setManagerName() {
@@ -109,17 +112,6 @@ public class MapManager extends TabPane {
 		return new DraggableGrid();
 	}
 
-	private void setTab(DraggableGrid w) { // ?
-		this.setSide(Side.TOP);
-		addTab = new Tab();
-		addTab.setText(ADD_TAB);
-		addTab.setOnSelectionChanged(e -> {
-			createTab(w);
-			mySelectModel.select(currentTab);
-		});
-		this.getTabs().add(addTab);
-	}
-
 	public void gridIsShowing() {
 		gridIsShowing.set(true);
 	}
@@ -135,16 +127,20 @@ public class MapManager extends TabPane {
 	public boolean isGridShowing() {
 		return gridIsShowing.get();
 	}
-
-	private void setTab() { // ?
+	
+	private void createAddTab(){
 		this.setSide(Side.TOP);
-		addTab = new Tab(ADD_TAB);
-		addTab.setOnSelectionChanged(e -> {
+		addTab = new Tab();
+		
+		Button button = new Button();
+		button.setText(ADD_TAB);
+		button.setOnAction(e->{
 			createTab(makeDraggableGrid());
-			mySelectModel.select(currentTab);
 		});
+		addTab.setGraphic(button);
 		this.getTabs().add(addTab);
 	}
+
 
 	private HBox setupScene(DraggableGrid w) {
 		return setupFEAuthClasses(w);
@@ -152,10 +148,12 @@ public class MapManager extends TabPane {
 
 	private HBox setupFEAuthClasses(DraggableGrid w) {
 		allWorlds.add(w);
-		if (oldProject) {
-			mySpriteGridHandler = w.getSGH();
-		}
-		else mySpriteGridHandler = new SpriteGridHandler(myTabCount, w);
+//		if (oldProject) {
+//			mySpriteGridHandler = w.getSGH();
+//		}
+//		else {
+			mySpriteGridHandler = new SpriteGridHandler(myTabCount, w);
+//		}
 		w.construct(mySpriteGridHandler);
 		mySpriteGridHandler.addKeyPress(scene);
 		spritePanels = makeSpritePanels(mySpriteGridHandler);
@@ -170,11 +168,16 @@ public class MapManager extends TabPane {
 	}
 
 	private void createTab(DraggableGrid w) { // ?
-		currentTab = createEditableTab();
-		currentTab.setOnClosed(e -> this.removeWorld(w));
-		currentTab.setContent(setupScene(w));
-		this.getTabs().add(this.getTabs().size() - 1, currentTab);
+		
+		Tab newtab = createEditableTab();
+		newtab.setOnClosed(e -> this.removeWorld(w));
+		newtab.setContent(setupScene(w));
+		if (this.getTabs().size()==1){
+			startTab = newtab;
+		}
+		this.getTabs().add(this.getTabs().size() - 1, newtab);
 		myTabCount++;
+		this.mySelectModel.select(newtab);
 		System.out.println("tab incremented");
 	}
 

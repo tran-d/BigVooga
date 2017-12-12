@@ -98,6 +98,7 @@ public class SpriteParameterTabsAndInfo {
 	public void createFromSO(AbstractSpriteObject SO) {
 		categoryCounter = 1;
 		this.catNames.clear();
+		System.out.println("SO is not nulL "+SO);
 		Map<String, List<SpriteParameterI>> params = SO.getParameters();
 //		System.out.println(params);
 		boolean loopedOnce = false;
