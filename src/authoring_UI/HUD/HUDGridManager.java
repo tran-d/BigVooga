@@ -1,6 +1,9 @@
 package authoring_UI.HUD;
 
+import java.util.List;
+
 import authoring.GridManagers.SpriteObjectGridManager;
+import authoring.Sprite.AbstractSpriteObject;
 import authoring_UI.SpriteGridHandler;
 
 public class HUDGridManager extends SpriteObjectGridManager {
@@ -25,10 +28,6 @@ public class HUDGridManager extends SpriteObjectGridManager {
 	public void createMapLayer() {
 		myMapLayer = new HUDLayer(getNumRows(), getNumCols(), mySpriteGridHandler);		
 	}
-	
-	@Override
-	public int getLayerNum() {
-		return myMapLayer.getLayerNumber();
-	}
+
 
 }

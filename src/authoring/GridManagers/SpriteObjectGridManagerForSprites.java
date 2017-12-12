@@ -12,40 +12,30 @@ public class SpriteObjectGridManagerForSprites extends SpriteObjectGridManager{
 
 	public SpriteObjectGridManagerForSprites(int rows, int columns, SpriteGridHandler SGH) {
 		super(rows, columns, SGH);
-		myLayerNum = 1;
+		myLayerNum = 2;
 	}
 	
 	public SpriteObjectGridManagerForSprites(int rows, int columns) {
 		super(rows, columns);
-		myLayerNum = 1;
+		myLayerNum = 2;
 	}
 
-	public SpriteObjectGridManagerForSprites(int myNumRows, int myNumCols, int layerNum, Color myColor) {
-		super(myNumRows, myNumCols, layerNum, myColor);
-		myLayerNum = layerNum;
+	public SpriteObjectGridManagerForSprites(int myNumRows, int myNumCols, Color myColor) {
+		super(myNumRows, myNumCols, myColor);
+		myLayerNum = 2;
 	}
 
 	@Override
 	public void createMapLayer() {
+		if (hasStoredSprites()){
+			loadedFromData = true;
+			myMapLayer = new SpriteLayer(defaultRows, defaultColumns,mySpriteGridHandler,getStoredSpriteList());
+		} else{
 		myMapLayer = new SpriteLayer(getNumRows(), getNumCols(), mySpriteGridHandler);
+		
+		}
 	}
 	
-	@Override
-	public int getLayerNum() {
-		return myLayerNum;
-		//return myMapLayer.getLayerNumber();
-	}
-
-	public void createMapLayer(List<AbstractSpriteObject> activeSpriteObjects) {
-		if (activeSpriteObjects.size() == 0) createMapLayer();
-		else myMapLayer = new SpriteLayer(getNumRows(), getNumCols(), mySpriteGridHandler, activeSpriteObjects);
-	}
-
-//	@Override
-//	public ImageView[][] getGrid() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 	
 
 }

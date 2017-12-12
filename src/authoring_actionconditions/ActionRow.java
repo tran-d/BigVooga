@@ -33,7 +33,12 @@ public class ActionRow extends ActionConditionRow {
 	}
 
 	public Action getAction() {
-		return operationTreeView.getAction();
+		try {
+			return operationTreeView.getAction();
+		}
+		catch(NullPointerException | NumberFormatException e) {
+			throw e;
+		}
 	}
 	
 	public void reduceTreeView() {

@@ -12,8 +12,6 @@ public class ActionTreeView extends TreeView<HBox> {
 	private static final double TREE_VIEW_WIDTH = 400;
 	private static final double EXPANDED_HEIGHT = 300;
 	private static final double COLLAPSED_HEIGHT = 25;
-	private static final String ENTER_VALID_INPUT = "EnterValid";
-	private static final String INVALID_INPUT_MESSAGE = "InvalidInput";
 	
 	private ActionCategoryTreeItem categoryAction;
 	private ActionRow actionRow;
@@ -27,15 +25,16 @@ public class ActionTreeView extends TreeView<HBox> {
 	}
 	
 	public Action getAction() {
-
 		try {
 			Action action = categoryAction.extract();
 			if (action == null)
 				System.out.println("NULL ACTION");
 			return action;
-		} catch (Exception e) {
-			showError(INVALID_INPUT_MESSAGE, ENTER_VALID_INPUT);
-			return null;
+		} catch (NullPointerException e) {
+	//					showError(INVALID_INPUT_MESSAGE, ENTER_VALID_INPUT);
+			throw e;
+		} catch (NumberFormatException e) {
+			throw e;
 		}
 	}
 	

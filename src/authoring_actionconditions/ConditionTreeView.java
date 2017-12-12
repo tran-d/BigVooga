@@ -19,9 +19,6 @@ public class ConditionTreeView extends TreeView<HBox> {
 	private static final double EXPANDED_HEIGHT = 300;
 	private static final double COLLAPSED_HEIGHT = 25;
 	private static final double VBOX_SPACING = 10;
-	private static final String ENTER_VALID_INPUT = "EnterValid";
-	private static final String INVALID_INPUT_MESSAGE = "InvalidInput";
-	private static final String INTEGER_INPUT_MESSAGE = "EnterInteger";
 	private static final String PRIORITY_NUMBER_PROMPT = "EnterPriority";
 	
 	private OperationNameTreeItem operationNameTreeItem;
@@ -32,7 +29,7 @@ public class ConditionTreeView extends TreeView<HBox> {
 	public ConditionTreeView(ConditionRow conditionRow) {
 		super();
 		this.conditionRow = conditionRow;
-		operationNameTreeItem = new OperationNameTreeItem("Boolean: ", VoogaType.BOOLEAN, () -> changeRowTVSize());
+		operationNameTreeItem = new OperationNameTreeItem("Boolean", "Boolean: ", VoogaType.BOOLEAN, () -> changeRowTVSize());
 		setRoot(operationNameTreeItem);
 		setPrefSize(TREE_VIEW_WIDTH, EXPANDED_HEIGHT);
 		integerTF = createIntegerTextField();
@@ -43,19 +40,23 @@ public class ConditionTreeView extends TreeView<HBox> {
 		return booleanOperationTreeView;
 	}
 	
-	public Condition getCondition() {
+	public Condition getCondition() throws NumberFormatException {
 
 		try {
 			if (integerTF.getText().equals("")) {
-				showError(INVALID_INPUT_MESSAGE, INTEGER_INPUT_MESSAGE);
-				return null;
+//				showError(INVALID_INPUT_MESSAGE, INTEGER_INPUT_MESSAGE);
+//				return null;
+				throw new NumberFormatException();
 			} else
 				return new Condition(Integer.parseInt(integerTF.getText()),
 						(BooleanOperation) operationNameTreeItem.makeOperation());
 
-		} catch (Exception e) {
-			showError(INVALID_INPUT_MESSAGE, ENTER_VALID_INPUT);
-			return null;
+		} catch (NullPointerException e) {
+//			showError(INVALID_INPUT_MESSAGE, ENTER_VALID_INPUT);
+			throw e;
+//			return null;
+		} catch (NumberFormatException e) {
+			throw e;
 		}
 	}
 	
@@ -90,8 +91,9 @@ public class ConditionTreeView extends TreeView<HBox> {
 			if (!tf.getText().equals(""))
 				Integer.parseInt(tf.getText());
 		} catch (NumberFormatException e) {
-			showError(INVALID_INPUT_MESSAGE, INTEGER_INPUT_MESSAGE);
+			//showError(INVALID_INPUT_MESSAGE, INTEGER_INPUT_MESSAGE);
 			tf.clear();
+			throw e;
 		}
 	}
 	
@@ -104,10 +106,10 @@ public class ConditionTreeView extends TreeView<HBox> {
 		return tf;
 	}
 	
-	private void showError(String header, String content) {
+	protected static void showError(String content) {
 		Alert alert = new Alert(AlertType.ERROR);
-		alert.headerTextProperty().bind(DisplayLanguage.createStringBinding(header));
-		alert.contentTextProperty().bind(DisplayLanguage.createStringBinding(content));
+		alert.setHeaderText("Invalid input");
+		alert.setContentText(content);
 		alert.show();
 	}
 

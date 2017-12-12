@@ -32,15 +32,19 @@ public class BuildConditionView {
 
 	private void transportActionRow(WindowEvent event) {
 
-		// for testing
-		conditionRow.getCondition();
-		conditionRow.reduceTreeView();
+		try {
+			conditionRow.getCondition();
+			conditionRow.reduceTreeView();
 
-		if (ACVBox.getChildren().size() >= conditionRow.getRowID())
+			if (ACVBox.getChildren().size() >= conditionRow.getRowID())
 			ACVBox.getChildren().remove(conditionRow.getRowID() - 1);
-		ACVBox.getChildren().add(conditionRow.getRowID() - 1, conditionRow);
+			ACVBox.getChildren().add(conditionRow.getRowID() - 1, conditionRow);
 
-		stage.close();
+			stage.close();
+		}
+		catch (Exception e) {
+			stage.close();
+		}
 
 		// KEEP THIS CODE
 //		if (conditionRow.getCondition() != null) {

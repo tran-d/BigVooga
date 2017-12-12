@@ -170,6 +170,9 @@ public abstract class AbstractSpriteObject extends ImageView {
 	}
 	
 	public void setTags(Collection<String> newTags){
+		if (myTags == null){
+			myTags = new ArrayList<String>();
+		}
 		this.myTags.clear();
 		this.myTags.addAll(newTags);
 	}

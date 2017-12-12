@@ -32,35 +32,39 @@ public class BuildActionView {
 
 	private void transportActionRow(WindowEvent event) {
 
-		//for testing
-		ACRow.getAction();
-		ACRow.reduceTreeView();
+		// for testing
+		try {
+			ACRow.getAction();
+			ACRow.reduceTreeView();
 
-		System.out.println(ACRow.getPrefHeight());
+			System.out.println(ACRow.getPrefHeight());
 
-		if (ACVBox.getChildren().size() >= ACRow.getRowID())
-			ACVBox.getChildren().remove(ACRow.getRowID() - 1);
-		ACVBox.getChildren().add(ACRow.getRowID() - 1, ACRow);
+			if (ACVBox.getChildren().size() >= ACRow.getRowID())
+				ACVBox.getChildren().remove(ACRow.getRowID() - 1);
+			ACVBox.getChildren().add(ACRow.getRowID() - 1, ACRow);
+		} catch (NullPointerException | NumberFormatException e) {
+			ConditionTreeView.showError(e.getMessage());
+			//event.consume();
+			stage.close();
+		}
 
-		stage.close();
-		
 		// KEEP THIS CODE
-//		if (ACRow.getAction() != null) {
-//
-//			ACRow.getRootTreeItem().setExpanded(false);
-//			ACRow.changeRowTVSize();
-//
-//			System.out.println(ACRow.getPrefHeight());
-//
-//			if (ACVBox.getChildren().size() >= ACRow.getRowID())
-//				ACVBox.getChildren().remove(ACRow.getRowID() - 1);
-//			ACVBox.getChildren().add(ACRow.getRowID() - 1, ACRow);
-//
-//			stage.close();
-//
-//		} else {
-//			event.consume();
-//		}
+		// if (ACRow.getAction() != null) {
+		//
+		// ACRow.getRootTreeItem().setExpanded(false);
+		// ACRow.changeRowTVSize();
+		//
+		// System.out.println(ACRow.getPrefHeight());
+		//
+		// if (ACVBox.getChildren().size() >= ACRow.getRowID())
+		// ACVBox.getChildren().remove(ACRow.getRowID() - 1);
+		// ACVBox.getChildren().add(ACRow.getRowID() - 1, ACRow);
+		//
+		// stage.close();
+		//
+		// } else {
+		// event.consume();
+		// }
 	}
 
 	public void createParameterChoiceBox() {

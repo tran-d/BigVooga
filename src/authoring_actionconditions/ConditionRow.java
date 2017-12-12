@@ -46,14 +46,23 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 	public ConditionTreeView getTreeView() {
 		return operationTreeView;
 	}
-
-	public Condition getCondition() {
-		return operationTreeView.getCondition();
-	}
 	
 	protected void reduceTreeView() {
 		this.getTreeView().getRoot().setExpanded(false);
 		this.getTreeView().changeRowTVSize();
+	}
+	
+	public void changeRowTVSize() {
+		operationTreeView.changeRowTVSize();
+	}
+
+	public Condition getCondition() {
+		try {
+			return operationTreeView.getCondition();
+		}
+		catch(NullPointerException | NumberFormatException e) {
+			throw e;
+		}
 	}
 
 	@Override
