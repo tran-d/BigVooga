@@ -12,13 +12,10 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.HBox;
-import tools.DisplayLanguage;
 
 public class ActionNameTreeItem extends TreeItem<HBox> {
 

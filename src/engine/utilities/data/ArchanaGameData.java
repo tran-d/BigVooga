@@ -55,7 +55,7 @@ import javafx.stage.Window;
  * @author Ian Eldridge-Allegra and other?
  */
 
-public class GameDataHandler {
+public class ArchanaGameData {
 	private static final XStream SERIALIZER = setupXStream();
 	private static final String KNOWN_PROJECTS = "KnownProjectNames";
 	public static final String PATH = "data/UserCreatedGames/";
@@ -89,11 +89,11 @@ public class GameDataHandler {
 		return xstream;
 	}
 	
-	public GameDataHandler() {
+	public ArchanaGameData() {
 		this("Test Project");
 	}
 	
-	public GameDataHandler(String projectName) {
+	public ArchanaGameData(String projectName) {
 		this.projectName = projectName;
 		this.projectPath = PATH + projectName + "/";
 		makeDirectory(projectPath+CONTROLLER_DIRECTORY);
