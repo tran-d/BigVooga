@@ -137,8 +137,8 @@ public class GameDataHandler {
 	 * @throws IOException
 	 */
 	private void addToKnownProjects(String saveName) {
-		Properties prop = new Properties();
-
+		Properties prop = getProperties();
+		
 		if(knownProjects().containsKey(projectName)) {
 			if(knownProjects().get(projectName).contains(saveName))
 				return;
@@ -162,8 +162,8 @@ public class GameDataHandler {
 			throw new RuntimeException("KNOWN PROJECTS NOT FOUND");
 		}
 	}
-	
-	private void clearKnown() {
+
+	private Properties getProperties() {
 		Properties prop = new Properties();
 
 		try {
@@ -173,6 +173,11 @@ public class GameDataHandler {
 		} catch (IOException e) {
 			// Intentionally Blank
 		}
+		return prop;
+	}
+	
+	private void clearKnown() {
+		Properties prop = getProperties();
 		
 		prop.put(projectName,"");
 		
