@@ -333,9 +333,9 @@ public abstract class SpriteObjectGridManager {
 		for (AbstractSpriteObject SOI : getActiveSpriteObjects()) {
 			System.out.println("Active Sprite Params: " + SOI.getParameters());
 			SOI.applyParameterUpdate(firstSprite.getParameters());
-			SOI.setAllActions(firstSprite.getAllActions());
-			SOI.setCondidtionRows(firstSprite.getConditionRows());
-			SOI.setActionRows(firstSprite.getActionRows());
+//			SOI.setAllActions(firstSprite.getAllActions());
+//			SOI.setCondidtionRows(firstSprite.getConditionRows());
+//			SOI.setActionRows(firstSprite.getActionRows());
 		}
 	}
 
