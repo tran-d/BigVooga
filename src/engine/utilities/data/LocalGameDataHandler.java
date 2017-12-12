@@ -37,6 +37,10 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.FileChooser.ExtensionFilter;
 
+/**
+ * @author Ian Eldridge-Allegra
+ *
+ */
 public class LocalGameDataHandler {
 	private static final String DIRECTORY_PATH = "Directory Path";
 
@@ -102,10 +106,7 @@ public class LocalGameDataHandler {
 				makeDirectory(projectPath+s);
 			}
 		}
-		File file = new File(root+RESOURCES);
-		if (!file.exists()) {
-			makeDirectory(projectPath+RESOURCES);
-		}
+		makeDirectory(root+RESOURCES);	
 	}
 
 	private static void makeDirectory(String path) {
