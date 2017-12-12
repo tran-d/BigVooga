@@ -47,13 +47,12 @@ public class MapManager extends TabPane {
 
 	private ViewSideBar sideBar;
 	private GameElementSelector mySprites;
-	private AuthoringEnvironmentManager myAEM;
+	protected AuthoringEnvironmentManager myAEM;
 	private int myTabCount = 1;
 	private Tab currentTab;
 	private boolean oldProject;
 	private String projectName = "TestProject";
 	private GameDataHandler myGDH;
-	private int numWorlds = 1;
 	private List<DraggableGrid> allWorlds = new ArrayList<DraggableGrid>();
 	private Pane mapEditor = new Pane();
 	private SpritePanels spritePanels;
@@ -79,17 +78,16 @@ public class MapManager extends TabPane {
 		
 		List<DraggableGrid> DGs = getListOfDraggableGrids();
 		if (DGs.size()>0){
+			oldProject = true;
 			System.out.println("size: number of worlds " + DGs.size());
 			System.out.println("AN OLD GRID WAS SAVED AND NOW WILL BE LOADED");
 			for (DraggableGrid w: DGs){
-				setTab();
-				createTab(w);
+				setTab(w);
+				//createTab(myTabCount, w);
 			}
 		} else {
 			System.out.println("displaying a new grid");
 			setTab();
-//			DraggableGrid DG = makeDraggableGrid();
-//			createTab(myTabCount, DG);
 		}
 	}
 	
@@ -113,6 +111,17 @@ public class MapManager extends TabPane {
 		return new DraggableGrid();
 	}
 	
+	private void setTab(DraggableGrid w) { //?
+		this.setSide(Side.TOP);
+		addTab = new Tab();
+		addTab.setText(ADD_TAB);
+		addTab.setOnSelectionChanged(e -> {
+			createTab(w);
+			mySelectModel.select(currentTab);
+		});
+		this.getTabs().add(addTab);
+	}
+
 	public void gridIsShowing(){
 		gridIsShowing.set(true);
 	}
@@ -129,9 +138,6 @@ public class MapManager extends TabPane {
 		return gridIsShowing.get();
 	}
 	
-	
-	
-	
 	private void setTab() { //?
 		this.setSide(Side.TOP);
 		addTab = new Tab(ADD_TAB);
@@ -144,20 +150,27 @@ public class MapManager extends TabPane {
 
 	private HBox setupScene(DraggableGrid w) { 
 		return setupFEAuthClasses(w);
-//		return authMap;
 	}
-	
 	
 	private HBox setupFEAuthClasses(DraggableGrid w) { 
 		// TODO if it's old project, want all possible worlds, so many worlds!
 		allWorlds.add(w);
-		mySpriteGridHandler = new SpriteGridHandler(myTabCount, w);
+		
+		if (oldProject) {
+			mySpriteGridHandler = w.getSGH();
+		}
+		else mySpriteGridHandler = new SpriteGridHandler(myTabCount, w);
 		w.construct(mySpriteGridHandler);
 		mySpriteGridHandler.addKeyPress(scene);
-		spritePanels = new SpritePanels(mySpriteGridHandler, myAEM);
-		mySpriteGridHandler.setDisplayPanel(spritePanels);
-		AuthoringMapEnvironment authMap = new AuthoringMapEnvironment(spritePanels, w);
+		spritePanels = makeSpritePanels(mySpriteGridHandler);
+		mySpriteGridHandler.setGridDisplayPanel(spritePanels.getDisplayPanel());
+		mySpriteGridHandler.setElementSelectorDisplayPanel(spritePanels.getElementSelectorDisplayPanel());
+		AuthoringMapEnvironment authMap = makeAuthoringMapEnvironment(spritePanels, w);
 		return authMap;
+	}
+	
+	protected AuthoringMapEnvironment makeAuthoringMapEnvironment(SpritePanels spritePanels, DraggableGrid dg){
+		return new AuthoringMapEnvironment(spritePanels, dg);
 	}
 
 	private void createTab(DraggableGrid w) { //?
@@ -175,6 +188,7 @@ public class MapManager extends TabPane {
 	
 	private void removeWorld(DraggableGrid w) {
 		allWorlds.remove(w);
+		myTabCount--;
 	}
 	 
 	private List<AuthoringMapEnvironment> getAllMapEnvironments(){

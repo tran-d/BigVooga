@@ -77,11 +77,6 @@ public class SpriteDataConverter {
 		ASO.getInventory().forEach(sprite -> {
 			inventory.add(new SpriteDataConverter(sprite));
 		});
-//		widthFunction = ASO.getWidthFunction();
-//		heightFunction = ASO.getHeightFunction();
-		////////////////////////////////////////////////////////////////////////////////////////////////////////myCondAct = So>getconditionAction();
-
-
 		if (ASO instanceof SpriteObject) {
 			spriteType = "SpriteObject";
 		} else if (ASO instanceof InventoryObject) {
@@ -91,14 +86,12 @@ public class SpriteDataConverter {
 
 	public AbstractSpriteObject createSprite() {
 		System.out.println("Trying to convert into sprite");
-		// SpriteObject ret = new SpriteObject(true);
 		AbstractSpriteObject ret = null;
 		if (spriteType.equals("SpriteObject")) {
 			ret = new SpriteObject(true);
 		} else if (spriteType.equals("InventoryObject")) {
 			ret = new InventoryObject(true);
 		} else {
-			// Default
 			ret = new SpriteObject(true);
 		}
 		ret.setImageURL(imageURL);
@@ -109,9 +102,7 @@ public class SpriteDataConverter {
 		ret.setUniqueID(UUID);
 		ret.setName(name);
 		ret.setSavePath(mySavePath);
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////ret.setCondAct(private var)
-//		ret.setWidthFunction(widthFunction);
-//		ret.setHeightFunction(heightFunction);
+
 		List<AbstractSpriteObject> newInventory = new ArrayList<AbstractSpriteObject>();
 		inventory.forEach(SDC ->{
 			newInventory.add(SDC.createSprite());

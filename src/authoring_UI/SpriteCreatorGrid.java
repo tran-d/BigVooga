@@ -2,10 +2,9 @@ package authoring_UI;
 
 import java.util.List;
 
-import authoring.AbstractSpriteObject;
+import authoring.Sprite.AbstractSpriteObject;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.geometry.Insets;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;

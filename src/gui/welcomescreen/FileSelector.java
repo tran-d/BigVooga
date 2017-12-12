@@ -132,10 +132,11 @@ public class FileSelector extends MenuOptionsTemplate {
 	}
 
 	public void importWorlds(String fileName) {
-		System.out.println("ya make that new authoring GUI WOOOO");
+		System.out.println("make new authoring GUI for PROJECT: " + fileName);
 		myAuthoringGUI = new MainAuthoringGUI(stage, sceneController, fileName);
 		myAuthoringGUI.createAuthoringGUI();
 		stage.setScene(myAuthoringGUI.getScene());
 		stage.centerOnScreen();
+		scene = stage.getScene();
 	}
 }
