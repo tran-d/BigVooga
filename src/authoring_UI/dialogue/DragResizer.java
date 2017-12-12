@@ -23,6 +23,8 @@ public class DragResizer {
 	private static double paneLeft, paneRight, paneTop, paneBottom;
 
     private final TextArea region;
+    private final Pane pane;
+    private final Rectangle bound;
 
     private double y, x;
 
@@ -40,6 +42,10 @@ public class DragResizer {
     protected DragResizer(TextArea aRegion) {
         region = aRegion;
         region.applyCss();
+        // set clip bound
+        pane = (Pane) region.getParent();
+        bound = new Rectangle(pane.getWidth(),pane.getHeight());
+        pane.setClip(bound);
         
     }
 
@@ -106,30 +112,40 @@ public class DragResizer {
 
 
     private void mouseDragged(MouseEvent event) {
+    	
     		if (dragging == SOUTH) {
-            region.setMinHeight(event.getY());
+    			if((region.getTranslateY() + region.getHeight()) < bound.getHeight()){
+    				region.setMinHeight(event.getY());
+  	         }
         } else if (dragging == EAST) {
-            region.setMinWidth(event.getX());
+        		if((region.getTranslateX() + region.getWidth()) < bound.getWidth()){
+ 		         region.setMinWidth(event.getX());
+	         } 
         } else if (dragging == NORTH) {
             double prevMin = region.getMinHeight();
-            region.setMinHeight(region.getMinHeight() - event.getY());
-            if (region.getMinHeight() < region.getPrefHeight()) {
-                region.setMinHeight(region.getPrefHeight());
-                region.setTranslateY(region.getTranslateY() - (region.getPrefHeight() - prevMin));
-                return;
+            if (region.getTranslateY() > 0) {
+    				region.setMinHeight(region.getMinHeight() - event.getY());
+    	            if (region.getMinHeight() < region.getPrefHeight()) {
+    	                region.setMinHeight(region.getPrefHeight());
+    	   		        region.setTranslateY(region.getTranslateY() - (region.getPrefHeight() - prevMin));
+    	                return;
+    	            }
+    	            if (region.getMinHeight() > region.getPrefHeight() || event.getY() < 0)
+    	            		region.setTranslateY(region.getTranslateY() + event.getY());
             }
-            if (region.getMinHeight() > region.getPrefHeight() || event.getY() < 0)
-                region.setTranslateY(region.getTranslateY() + event.getY());
+            		
         } else if (dragging == WEST) {
             double prevMin = region.getMinWidth();
-            region.setMinWidth(region.getMinWidth() - event.getX());
-            if (region.getMinWidth() < region.getPrefWidth()) {
-                region.setMinWidth(region.getPrefWidth());
-                region.setTranslateX(region.getTranslateX() - (region.getPrefWidth() - prevMin));
-                return;
+            if (region.getTranslateX() > 0) {
+                region.setMinWidth(region.getMinWidth() - event.getX());
+                if (region.getMinWidth() < region.getPrefWidth()) {
+                    region.setMinWidth(region.getPrefWidth());
+       		        region.setTranslateX(region.getTranslateX() - (region.getPrefWidth() - prevMin));
+                    return;
+                }
+                if (region.getMinWidth() > region.getPrefWidth() || event.getX() < 0)
+                		region.setTranslateX(region.getTranslateX() + event.getX());
             }
-            if (region.getMinWidth() > region.getPrefWidth() || event.getX() < 0)
-                region.setTranslateX(region.getTranslateX() + event.getX());
         }
 
 
@@ -164,55 +180,42 @@ public class DragResizer {
     	 
     	Node textAreaContent = region.lookup(".content");
 
-           textAreaContent.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+    	textAreaContent.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
 
-           		System.out.println("is clicked");
+        	orgSceneX = e.getSceneX();
+        	orgSceneY = e.getSceneY();
+        	orgTranslateX = region.getTranslateX();
+        	orgTranslateY = region.getTranslateY();
 
-             	orgSceneX = e.getSceneX();
-             	orgSceneY = e.getSceneY();
-             	orgTranslateX = region.getTranslateX();
-             	orgTranslateY = region.getTranslateY();
+        	region.toFront();
+        textAreaContent.setCursor(Cursor.MOVE);
 
-             	region.toFront();
-           });
+      });
 
-           textAreaContent.addEventHandler(MouseEvent.MOUSE_DRAGGED, e -> {
+      textAreaContent.addEventHandler(MouseEvent.MOUSE_DRAGGED, e -> {
+      		double offsetX = e.getSceneX() - orgSceneX;
+      		double offsetY = e.getSceneY() - orgSceneY;
+      		double newTranslateX = orgTranslateX + offsetX;
+      		double newTranslateY = orgTranslateY + offsetY;
 
-           		System.out.println("is dragged");
+	        if(newTranslateX > 0 &&
+	        		(newTranslateX + region.getWidth()) < bound.getWidth()){
+	             region.setTranslateX(newTranslateX);
+	        	}
+	        if(newTranslateY > 0 &&
+	            (newTranslateY + region.getHeight()) < bound.getHeight()){
+	            region.setTranslateY(newTranslateY);
+	        }
 
-           		double offsetX = e.getSceneX() - orgSceneX;
-           		double offsetY = e.getSceneY() - orgSceneY;
-           		double newTranslateX = orgTranslateX + offsetX;
-           		double newTranslateY = orgTranslateY + offsetY;
-           		if (newTranslateX != paneLeft && newTranslateX != paneRight) {
-               		region.setTranslateX(newTranslateX);
-           		}
-           		if (newTranslateY != paneTop && newTranslateY != paneBottom) {
-               		region.setTranslateY(newTranslateY);
-           		}
-           });
+	        textAreaContent.setCursor(Cursor.HAND);
+
+      });
+      
+      textAreaContent.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> {
+            textAreaContent.setCursor(Cursor.HAND);
+          }
+       );
            
-//       	Node textAreaContent = region.lookup(".content");
-//        Pane pane = (Pane) region.getParent();
-//
-//        	textAreaContent.setOnMouseDragged(event -> {
-//
-//    	        Point2D currentPointer = new Point2D(event.getSceneX(), event.getSceneY());
-//    		    // set the clip boundary
-//    		    Rectangle bound = new Rectangle(pane.getWidth(), pane.getHeight());
-//    		    pane.setClip(bound);
-//
-//    	        if(bound.getBoundsInLocal().contains(currentPointer)){
-//
-//    	            if(currentPointer.getX() > 0 &&
-//    	                    (currentPointer.getX() + region.getWidth()) < pane.getWidth()){
-//    	                region.setTranslateX(currentPointer.getX());
-//    	            }
-//    	            if(currentPointer.getY() > 0 &&
-//    	                    (currentPointer.getY() + region.getHeight()) < pane.getHeight()){
-//    	                region.setTranslateY(currentPointer.getY());
-//    	            }
-//    	        }
-//    	    });
+
     }
 }

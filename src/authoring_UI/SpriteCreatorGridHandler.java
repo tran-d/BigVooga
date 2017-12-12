@@ -4,59 +4,48 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 
+import authoring.SpriteCreatorSpriteManager;
 import authoring.Sprite.AbstractSpriteObject;
 import authoring.Sprite.InventoryObject;
 import authoring.Sprite.SpriteObject;
-import authoring.SpritePanels.DisplayPanel;
-import authoring.SpritePanels.SpritePanels;
 import authoring_UI.Map.MapLayer;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Effect;
 import javafx.scene.effect.Glow;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
-public class SpriteGridHandler {
+public class SpriteCreatorGridHandler {
 	private AbstractSpriteObject draggingObject;
+	private SpriteCreatorSpriteManager mySM;
 	private DataFormat objectFormat;
-	private DisplayPanel myDP;
+	private SpriteCreatorDisplayPanel myDP;
 	private DraggableGrid myDG;
-	protected boolean gridIsShown;
+	private SpriteCreatorImageGrid myImageGrid;
+	private SpriteImagePanel myImagePanel;
 
-	public SpriteGridHandler(int mapCount, DraggableGrid DG) {
-		Random rand = new Random();
-		int parent = rand.nextInt();
-		objectFormat = new DataFormat("MyObject" + parent + Integer.toString(mapCount));
-		System.out.println("SGH made with objForm: " + objectFormat);
-		myDG = DG;
-	}
-
-	public void setGridIsShown(boolean shown) {
-		System.out.println("Grid is shown (" + shown + ") for " + myDG.getActiveGrid().getClass());
-		this.gridIsShown = shown;
+	public SpriteCreatorGridHandler(SpriteCreatorSpriteManager SM, SpriteCreatorImageGrid imageGrid) {
+		mySM = SM;
+		myImageGrid = imageGrid;
 
 	}
 
-	public SpriteGridHandler(int mapCount, DraggableGrid DG, int sprite) {
+	public SpriteCreatorGridHandler(int mapCount, DraggableGrid DG, int sprite) {
 		objectFormat = new DataFormat("MySprite" + Integer.toString(mapCount));
 		myDG = DG;
 	}
 
-	public void setDisplayPanel(SpritePanels spritePanels) {
+	public void setDisplayPanel(SpriteCreatorSpritePanel spritePanels) {
 		myDP = spritePanels.getDisplayPanel();
 	}
 
@@ -64,136 +53,34 @@ public class SpriteGridHandler {
 		return myDG;
 	}
 
-	public void addKeyPress(Scene scene) {
-		System.out.println("Added key press");
-		scene.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-
-			// });
-			// scene.setOnKeyPressed(e -> {
-			// System.out.println("Key pressed: "+ e.getCode());
-
-			@Override
-			public void handle(KeyEvent e) {
-				System.out.println("handling a key??: " + e.getCode());
-
-				switch (e.getCode()) {
-				case BACK_SPACE:
-					onBackSpace();
-					break;
-				case W:
-					onTop();
-					break;
-				case D:
-					onRight();
-					break;
-				case A:
-					onLeft();
-					break;
-				case S:
-					onBottom();
-					break;
-				case Q:
-					onNW();
-					break;
-				case E:
-					onNE();
-					break;
-				case Z:
-					onSW();
-					break;
-				case X:
-					onSE();
-					break;
-				default:
-					// nothing
-					break;
-				}
+	protected void addKeyPress(Scene scene) {
+		scene.setOnKeyPressed(e -> {
+			System.out.println("Key pressed: " + e.getCode());
+			if (e.getCode().equals(KeyCode.BACK_SPACE)) {
+				deleteSelectedSprites();
 			}
 		});
 	}
 
-	private void onBackSpace() {
-		System.out.println("In if statement");
-		if (gridIsShown) {
-			System.out.println("Grid shown for ");
-			System.out.println("Class " + myDG.getActiveGrid().getClass());
-			deleteSelectedSprites();
-		}
-	}
-
-	private void onRight() {
-		activateNeighbor(0, 1);
-	}
-
-	private void onLeft() {
-		activateNeighbor(0, -1);
-	}
-
-	private void onTop() {
-		activateNeighbor(-1, 0);
-	}
-
-	private void onBottom() {
-		activateNeighbor(1, 0);
-	}
-
-	private void onNE() {
-		activateNeighbor(-1, 1);
-	}
-
-	private void onSE() {
-		activateNeighbor(1, 1);
-	}
-
-	private void onNW() {
-		activateNeighbor(-1, -1);
-	}
-
-	private void onSW() {
-		activateNeighbor(1, -1);
-	}
-
-	private void activateNeighbor(int rowChange, int colChange) {
-		if (gridIsShown) {
-			MapLayer ML = myDG.getActiveGrid().getMapLayer();
-			Set<AuthoringMapStackPane> activeSet = new HashSet<AuthoringMapStackPane>();
-			activeSet.addAll(ML.getActive());
-			activeSet.forEach(activeCell -> {
-				int row = activeCell.getRowIndex();
-				int col = activeCell.getColIndex();
-				AuthoringMapStackPane Neighbor = ML.getChildAtPosition(row + rowChange, col + colChange);
-				if (Neighbor != null) {
-					Neighbor.setActive();
-				}
-			});
-		}
-	}
-
 	private void deleteSelectedSprites() {
-		System.out.println(myDG.getClass());
-		System.out.println("Should delete sprites");
 		List<Integer[]> cellsToDelete = new ArrayList<Integer[]>();
-		System.out.println(myDG.getActiveGrid());
 		myDG.getActiveGrid().getActiveSpriteObjects().forEach(s -> {
-			System.out.println("In the lambda");
 			Integer[] row_col = s.getPositionOnGrid();
-			System.out.println(row_col);
-			// System.out.println("row_col: " + row_col);
+			System.out.println("row_col: " + row_col);
 			cellsToDelete.add(row_col);
 		});
-		System.out.println(myDG.getActiveGrid().getActiveSpriteObjects().size());
-		myDG.getActiveGrid().clearCells(cellsToDelete);
 		resetActiveSprites();
 		myDP.removeSpriteEditorVBox();
 
+		System.out.println();
+		myDG.getActiveGrid().clearCells(cellsToDelete);
 	}
 
 	private void resetActiveSprites() {
-		System.out.println("resetting activeCells");
 		myDG.getActiveGrid().resetActiveCells();
 	}
 
-	public void addGridMouseClick(AuthoringMapStackPane pane) {
+	protected void addGridMouseClick(AuthoringMapStackPane pane) {
 		pane.setOnMouseClicked(e -> {
 			if (!pane.hasChild()) {
 				if (!pane.isCoveredByOtherSprite()) {
@@ -207,7 +94,7 @@ public class SpriteGridHandler {
 		});
 	}
 
-	public void addGridMouseDrag(AuthoringMapStackPane pane) {
+	protected void addGridMouseDrag(AuthoringMapStackPane pane) {
 		// pane.setOnMouseDragged(e -> {
 		// if (pane.isCoveredByOtherSprite()){
 		//// Event.fireEvent(pane.getCoveringSprite(), new MouseEvent(MouseEvent.));
@@ -269,35 +156,39 @@ public class SpriteGridHandler {
 	public void addSpriteMouseClick(AbstractSpriteObject s) {
 		s.setOnMouseClicked(e -> {
 			System.out.println("I clicked sprite : " + s);
-			if (s instanceof SpriteObject) {
-				if (myDG.getActiveGrid().getMapLayer().getActive().size() > 0) {
-					populateGridCells((SpriteObject) s);
-				} else {
-					boolean activeStatus;
-					if (s.getPositionOnGrid() != null) {
-						activeStatus = myDG.getActiveGrid().switchCellActiveStatus(s.getPositionOnGrid());
-						System.out.println("Cell is active? " + activeStatus);
-						if (activeStatus) {
-							s.setEffect(makeSpriteEffect());
-						} else {
-							s.setEffect(null);
-						}
-						System.out.println("In addSpriteMClick: numActiveCells: "
-								+ myDG.getActiveGrid().getActiveSpriteObjects().size());
-
-						if (myDG.getActiveGrid().getActiveSpriteObjects().size() == 0) {
-							myDP.removeSpriteEditorVBox();
-						} else {
-							myDP.addSpriteEditorVBox();
-							myDP.updateParameterTab();
-						}
-					}
-				}
-			} else if (s instanceof InventoryObject) {
-				// TODO: what if it is an inventory object?
-			}
+			
+			myImageGrid.setSprite(s.newCopy());
+			myImagePanel.setName(s.getName());
+			myImagePanel.setCategory("load category correctly");
+			myDP.addSpriteEditorVBox();
+			myDP.updateParameterTab(s);
 		});
 	}
+	// add to grid
+
+	// }else{
+	//
+	// boolean activeStatus;if(s.getPositionOnGrid()!=null)
+	// {
+	// activeStatus =
+	// myDG.getActiveGrid().switchCellActiveStatus(s.getPositionOnGrid());
+	// if (activeStatus) {
+	// s.setEffect(makeSpriteEffect());
+	// myDG.getActiveGrid().addActiveCell(s);
+	// } else {
+	// s.setEffect(null);
+	// myDG.getActiveGrid().removeActiveCell(s);
+	// }
+	//
+	// if (myDG.getActiveGrid().getActiveSpriteObjects().size() == 0) {
+	// myDP.removeSpriteEditorVBox();
+	// } else {
+	// myDP.addSpriteEditorVBox();
+	// myDP.updateParameterTab();
+	// }
+	// }
+	// }}else if(s instanceof InventoryObject){
+	// // TODO: what if it is an inventory object?
 
 	private Effect makeSpriteEffect() {
 		DropShadow dropShadow = new DropShadow();
@@ -319,10 +210,6 @@ public class SpriteGridHandler {
 		// this.myDG.getActiveGrid().resetActiveCells();
 
 		myDP.removeSpriteEditorVBox();
-	}
-
-	public void deactivateActiveAuthoringMapStackPaneCells() {
-		myDG.getActiveGrid().getMapLayer().removeAllActive();
 	}
 
 	// public void makeCellInactive(){
@@ -364,7 +251,7 @@ public class SpriteGridHandler {
 			myDG.getActiveGrid().populateCell(SO, cellPos);
 			SO.setPositionOnGrid(cellPos);
 			addSpriteMouseClick(SO);
-			addSpriteDrag(SO);
+			// addSpriteDrag(SO);
 			return true;
 		}
 		return false;
@@ -377,7 +264,7 @@ public class SpriteGridHandler {
 		return row_col;
 	}
 
-	public void addDropHandling(AuthoringMapStackPane pane) {
+	protected void addDropHandling(AuthoringMapStackPane pane) {
 		pane.setOnDragOver(e -> {
 			Dragboard db = e.getDragboard();
 			if (db.hasContent(objectFormat) && draggingObject != null) {
@@ -389,11 +276,11 @@ public class SpriteGridHandler {
 			if (pane.checkCanAcceptChild(draggingObject)) {
 				Dragboard db = e.getDragboard();
 				MapLayer ML = pane.getMapLayer();
-				// System.out.println("MapLayer: " + ML.getName());
+				System.out.println("MapLayer: " + ML.getName());
 				int row = ML.getRowIndex(pane);
 				int col = ML.getColumnIndex(pane);
 				Integer[] row_col = new Integer[] { row, col };
-				// System.out.println(row_col);
+				System.out.println(row_col);
 
 				if (db.hasContent(objectFormat)) {
 					if (draggingObject instanceof SpriteObject) {
@@ -401,7 +288,7 @@ public class SpriteGridHandler {
 							StackPane SP = (StackPane) draggingObject.getParent();
 							SP.getChildren().clear();
 							AbstractSpriteObject SO = draggingObject.newCopy();
-							this.addSpriteDrag(SO);
+							// this.addSpriteDrag(SO);
 							this.addSpriteMouseClick(SO);
 							SP.getChildren().add(SO);
 						} else if (draggingObject.getParent() instanceof AuthoringMapStackPane) {
@@ -421,16 +308,24 @@ public class SpriteGridHandler {
 		});
 	}
 
-	public void addSpriteDrag(AbstractSpriteObject s) {
-		s.setOnDragDetected(e -> {
-			if (!myDG.getActiveGrid().getActiveSpriteObjects().contains(s)) {
-				Dragboard db = s.startDragAndDrop(TransferMode.MOVE);
-				db.setDragView(s.snapshot(null, null));
-				ClipboardContent cc = new ClipboardContent();
-				cc.put(objectFormat, " ");
-				db.setContent(cc);
-				draggingObject = s;
-			}
-		});
+	public void setImagePanel(SpriteImagePanel spriteImagePanel) {
+		myImagePanel = spriteImagePanel;
 	}
+
+	public SpriteImagePanel getImagePanel() {
+		return myImagePanel;
+	}
+
+	// public void addSpriteDrag(AbstractSpriteObject s) {
+	// s.setOnDragDetected(e -> {
+	// if (!myDG.getActiveGrid().getActiveSpriteObjects().contains(s)) {
+	// Dragboard db = s.startDragAndDrop(TransferMode.MOVE);
+	// db.setDragView(s.snapshot(null, null));
+	// ClipboardContent cc = new ClipboardContent();
+	// cc.put(objectFormat, " ");
+	// db.setContent(cc);
+	// draggingObject = s;
+	// }
+	// });
+	// }
 }

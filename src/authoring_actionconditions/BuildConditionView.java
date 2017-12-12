@@ -32,34 +32,32 @@ public class BuildConditionView {
 
 	private void transportActionRow(WindowEvent event) {
 
-		if (conditionRow.getCondition() != null) {
+		// for testing
+		conditionRow.getCondition();
+		conditionRow.getRootTreeItem().setExpanded(false);
+		conditionRow.changeRowTVSize();
 
-			conditionRow.getRootTreeItem().setExpanded(false);
-			conditionRow.changeRowTVSize();
+		if (ACVBox.getChildren().size() >= conditionRow.getRowID())
+			ACVBox.getChildren().remove(conditionRow.getRowID() - 1);
+		ACVBox.getChildren().add(conditionRow.getRowID() - 1, conditionRow);
 
-			if (ACVBox.getChildren().size() >= conditionRow.getRowID())
-				ACVBox.getChildren().remove(conditionRow.getRowID() - 1);
-			ACVBox.getChildren().add(conditionRow.getRowID() - 1, conditionRow);
+		stage.close();
 
-			stage.close();
-
-		} else {
-			event.consume();
-		}
-
-		// conditionRow.getRootTreeItem().setExpanded(false);
-		// conditionRow.changeRowTVSize();
-		//
-		// System.out.println(conditionRow.getPrefHeight());
-		//
-		// if (ACVBox.getChildren().size() >= conditionRow.getRowID())
-		// ACVBox.getChildren().remove(conditionRow.getRowID() - 1);
-		// ACVBox.getChildren().add(conditionRow.getRowID() - 1, conditionRow);
-		//
-		// stage.close();
-		//
-		// // test
-		// conditionRow.getCondition();
+		// KEEP THIS CODE
+//		if (conditionRow.getCondition() != null) {
+//
+//			conditionRow.getRootTreeItem().setExpanded(false);
+//			conditionRow.changeRowTVSize();
+//
+//			if (ACVBox.getChildren().size() >= conditionRow.getRowID())
+//				ACVBox.getChildren().remove(conditionRow.getRowID() - 1);
+//			ACVBox.getChildren().add(conditionRow.getRowID() - 1, conditionRow);
+//
+//			stage.close();
+//
+//		} else {
+//			event.consume();
+//		}
 
 	}
 

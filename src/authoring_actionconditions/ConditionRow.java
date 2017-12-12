@@ -5,6 +5,7 @@ import java.util.List;
 import ActionConditionClasses.ActionCheckBoxVBox;
 import ActionConditionClasses.ActionCheckBoxVBoxI;
 import engine.Condition;
+import engine.operations.VoogaType;
 import engine.operations.booleanops.BooleanOperation;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -41,7 +42,7 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 
 		this.setPrefSize(ROW_WIDTH, EXPANDED_HEIGHT);
 
-		operationNameTreeItem = new OperationNameTreeItem("Boolean", () -> changeRowTVSize());
+		operationNameTreeItem = new OperationNameTreeItem("Boolean: ", VoogaType.BOOLEAN, () -> changeRowTVSize());
 		operationTreeView = new TreeView<>(operationNameTreeItem);
 		operationTreeView.setPrefSize(TREE_VIEW_WIDTH, EXPANDED_HEIGHT);
 		integerTF = createIntegerTextField();

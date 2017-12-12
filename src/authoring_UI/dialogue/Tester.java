@@ -3,6 +3,7 @@ package authoring_UI.dialogue;
 import authoring.Sprite.AbstractSpriteObject;
 import javafx.application.Application;
 import javafx.geometry.Point2D;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -71,47 +72,34 @@ public class Tester extends Application {
         	orgTranslateY = ta.getTranslateY();
 
         	ta.toFront();
+        ta.setCursor(Cursor.MOVE);
+
       });
 
       rect.addEventHandler(MouseEvent.MOUSE_DRAGGED, e -> {
 
-      		System.out.println("is dragged");
 
       		double offsetX = e.getSceneX() - orgSceneX;
       		double offsetY = e.getSceneY() - orgSceneY;
       		double newTranslateX = orgTranslateX + offsetX;
       		double newTranslateY = orgTranslateY + offsetY;
       		Point2D currentPointer = new Point2D(e.getX(), e.getY());
-
 	        if(bound.getBoundsInLocal().contains(currentPointer)){
 
-	            if(currentPointer.getX() > 0 &&
-	                    (currentPointer.getX() + ta.getWidth()) < bound.getWidth()){
+	            if(newTranslateX > 0 &&
+	                    (newTranslateX + ta.getWidth()) < bound.getWidth()){
 	                ta.setTranslateX(newTranslateX);
 	            }
-	            if(currentPointer.getY() > 0 &&
-	                    (currentPointer.getY() + ta.getHeight()) < bound.getHeight()){
+	            if(newTranslateY > 0 &&
+	                    (newTranslateY + ta.getHeight()) < bound.getHeight()){
 	                ta.setTranslateY(newTranslateY);
 	            }
 	        }
       });
-	    
-//	    rect.setOnMouseDragged(event -> {
-//
-//	        Point2D currentPointer = new Point2D(event.getX(), event.getY());
-//
-//	        if(bound.getBoundsInLocal().contains(currentPointer)){
-//
-//	            if(currentPointer.getX() > 0 &&
-//	                    (currentPointer.getX() + rectWidth) < bound.getWidth()){
-//	                ta.setX(currentPointer.getX());
-//	            }
-//	            if(currentPointer.getY() > 0 &&
-//	                    (currentPointer.getY() + rectHeight) < bound.getHeight()){
-//	                rect.setTranslateY(currentPointer.getY());
-//	            }
-//	        }
-//	    });
-//	 
+      rect.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> {
+            rect.setCursor(Cursor.HAND);
+          }
+       );
+
 	}
 }
