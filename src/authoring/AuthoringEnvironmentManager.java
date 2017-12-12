@@ -15,6 +15,7 @@ import authoring.SpriteManagers.SpriteSetImported;
 import authoring.SpriteManagers.SpriteSetImportedInventory;
 import authoring.SpriteManagers.SpriteSetInventory;
 import authoring.SpriteManagers.SpriteSetInventoryTemplate;
+import authoring.SpriteManagers.DialogSpriteManager;
 import authoring.SpriteManagers.SpriteSetMenuTemplate;
 import authoring.SpriteManagers.SpriteSetUserDefined;
 import engine.utilities.data.GameDataHandler;
@@ -34,6 +35,7 @@ public class AuthoringEnvironmentManager {
 	private SpriteSet myImportedInventorySprites;
 	private SpriteSet myInventoryTemplates;
 	private SpriteSet myMenuTemplates;
+	private DialogSpriteManager myDialogs;
 
 	public AuthoringEnvironmentManager(GameDataHandler GDH) {
 		myGDH = GDH;
@@ -44,6 +46,7 @@ public class AuthoringEnvironmentManager {
 		initializeInventoryTemplates();
 		initializeMenuTemplates();
 		initializeImportedInventorySprites();
+		initializeDialogs();
 		
 		defaultEmptySprite = new DefaultSpriteObject();
 		
@@ -55,6 +58,10 @@ public class AuthoringEnvironmentManager {
 	private void initializeInventoryTemplates() {
 		System.out.println("Initializing inventory templates");
 		myInventoryTemplates = new SpriteSetInventoryTemplate(myGDH);
+	}
+	
+	private void initializeDialogs(){
+		myDialogs = new DialogSpriteManager(myGDH);
 	}
 	
 	private void initializeMenuTemplates() {
@@ -111,6 +118,10 @@ public class AuthoringEnvironmentManager {
 	
 	public SpriteSet getMenuTemplateController(){
 		return myMenuTemplates;
+	}
+	
+	public DialogSpriteManager getDialogSpriteController(){
+		return myDialogs;
 	}
 	
 	public List<String> getNameOfEverySprite(){
