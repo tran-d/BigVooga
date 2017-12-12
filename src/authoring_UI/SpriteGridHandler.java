@@ -37,6 +37,7 @@ public class SpriteGridHandler {
 	private DisplayPanel myElementSelectorDP;
 	private DraggableGrid myDG;
 	protected boolean gridIsShown;
+	private boolean shiftDown;
 	
 	public SpriteGridHandler(int mapCount, DraggableGrid DG) {
 		Random rand = new Random();
@@ -77,6 +78,25 @@ public class SpriteGridHandler {
 
 	public void addKeyPress(Scene scene) {
 		System.out.println("Added key press");
+		scene.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>(){
+
+			@Override
+			public void handle(KeyEvent event) {
+				switch (event.getCode()){
+				case SHIFT:
+					if(gridIsShown){
+					shiftDown = false;
+					}
+					break;
+				default:
+					//Nothing
+					break;
+				}
+				
+			}
+			
+		});
+		
 		scene.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>(){
 			
 //		});
@@ -91,6 +111,17 @@ public class SpriteGridHandler {
 				switch (e.getCode()){
 				case BACK_SPACE:
 					onBackSpace();
+					break;
+				case SHIFT:
+					if (gridIsShown){
+					shiftDown = true;
+					}
+					break;
+				case C:
+					deactivateActiveAuthoringMapStackPaneCells();
+					break;
+				case L:
+					clearLayerOfSprites();
 					break;
 				case W:
 					onTop();
@@ -166,24 +197,42 @@ public class SpriteGridHandler {
 	private void activateNeighbor(int rowChange, int colChange){
 		if (gridIsShown){
 			MapLayer ML = myDG.getActiveGrid().getMapLayer();
-			Set<AuthoringMapStackPane> activeSet = new HashSet<AuthoringMapStackPane>();
-			activeSet.addAll(ML.getActive());
+			Set<AuthoringMapStackPane> activeSet  = new HashSet<AuthoringMapStackPane>();
+			if (shiftDown){
+				activeSet.addAll(ML.getActive());
+			} else {
+				activeSet.addAll(ML.getMostRecentActive());
+			}
+			Set<AuthoringMapStackPane> newMostRecent  = new HashSet<AuthoringMapStackPane>();
 			activeSet.forEach(activeCell->{
 				int row = activeCell.getRowIndex();
 				int col = activeCell.getColIndex();
 				AuthoringMapStackPane Neighbor = ML.getChildAtPosition(row+rowChange, col+colChange);
 				if (Neighbor!=null){
 					Neighbor.setActive();
+					if (ML.getMostRecentActive().contains(activeCell)){
+					newMostRecent.add(Neighbor);
+					}
 				}
 			});
+			ML.setMostRecentActive(newMostRecent);
 		}
+	}
+	
+	private void clearLayerOfSprites(){
+		deleteSprites(myDG.getActiveGrid().getEntireListOfSpriteObjects());
 	}
 
 	private void deleteSelectedSprites() {
-		System.out.println(myDG.getClass());
-		System.out.println("Should delete sprites");
+		deleteSprites(myDG.getActiveGrid().getActiveSpriteObjects());
+		resetActiveSprites();
+		myGridDP.removeSpriteEditorVBox();
+		
+	}
+	
+	private void deleteSprites(List<AbstractSpriteObject> toDelete){
 		List<Integer[]> cellsToDelete = new ArrayList<Integer[]>();
-		myDG.getActiveGrid().getActiveSpriteObjects().forEach(s -> {
+		toDelete.forEach(s -> {
 			System.out.println("In the lambda");
 			Integer[] row_col = s.getPositionOnGrid();
 //			System.out.println("row_col: " + row_col);
@@ -191,9 +240,6 @@ public class SpriteGridHandler {
 		});
 		System.out.println(myDG.getActiveGrid().getActiveSpriteObjects().size());
 		myDG.getActiveGrid().clearCells(cellsToDelete);
-		resetActiveSprites();
-		myGridDP.removeSpriteEditorVBox();
-		
 	}
 
 private	void resetActiveSprites() {
@@ -206,6 +252,9 @@ private	void resetActiveSprites() {
 			if (!pane.hasChild()) {
 				if (!pane.isCoveredByOtherSprite()) {
 					changeCellStatus(pane);
+					if (pane.isActive()){
+						myDG.getActiveGrid().getMapLayer().addMostRecentActive(pane);
+					}
 				} else if (pane.isCoveredByOtherSprite()) {
 					// pane.se
 					Event.fireEvent(pane.getCoveringSprite(), new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0,
@@ -396,10 +445,13 @@ private	void resetActiveSprites() {
 
 						myDG.getActiveGrid().populateCell((SpriteObject) draggingObject, row_col);
 						draggingObject.setPositionOnGrid(row_col);
+						pane.addChild(draggingObject);
 					} else if (draggingObject instanceof InventoryObject) {
-						// TODO: What if the dragged sprite is inventory?
+						if (pane.hasChild()){
+						pane.getChild().addToInventory(draggingObject);
+						}
 					}
-					pane.addChild(draggingObject);
+					
 					e.setDropCompleted(true);
 					draggingObject = null;
 				}

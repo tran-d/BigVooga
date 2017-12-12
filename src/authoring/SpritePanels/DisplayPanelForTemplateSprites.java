@@ -19,20 +19,11 @@ public class DisplayPanelForTemplateSprites extends DisplayPanel{
 		super(AEM);
 		elementSelectorSpriteActive = new SimpleObjectProperty<Boolean>();
 		elementSelectorSpriteActive.set(false);
-		setOnElementSpriteActive(new Consumer<Boolean>(){
-			@Override
-			public void accept(Boolean newVal) {
-				// Nothing by default
-					}
-			
-		});
-		elementSelectorSpriteActive.addListener((change, oldVal, newVal)->{
-			System.out.println("oldval: "+oldVal);
-			System.out.println("newval: "+newVal);
-			if (newVal!=oldVal){
-			getOnElementSpriteActiveConsumer().accept(newVal);
-			}
-		});
+	}
+	
+	private void setElementSelectorSprite(boolean newStatus){
+		getOnElementSpriteActiveConsumer().accept(newStatus);
+		elementSelectorSpriteActive.set(newStatus);
 	}
 	
 	@Override
@@ -53,20 +44,24 @@ public class DisplayPanelForTemplateSprites extends DisplayPanel{
 	@Override
 	public AbstractSpriteObject setActiveSprite(AbstractSpriteObject ASO) {
 		System.out.println("settingActiveSpriteInTemplate");
-		AbstractSpriteObject ret = null;
+		AbstractSpriteObject ret = activeSprite;
 		if (ASO!=null){
 			System.out.println("activeSprite: "+activeSprite);
 			System.out.println("ASO isnt null");
 			if (activeSprite==null || !activeSprite.equals(ASO)) {
-				AbstractSpriteObject prevActive = activeSprite;
 				activeSprite = ASO;
-				
-				ret = prevActive;
-				System.out.println("prevActive in DPTemplate: "+prevActive);
+				this.setElementSelectorSprite(true);
+				System.out.println("prevActive in DPTemplate: "+ret);
+			} else {
+				activeSprite = null;
+				this.setElementSelectorSprite(false);
 			}
-			elementSelectorSpriteActive.set(true);
+			
 		} else {
-			elementSelectorSpriteActive.set(false);
+			this.setElementSelectorSprite(false);		
+			}
+		if (ret!=null){
+			ret.clearPossibleParameters();
 		}
 		System.out.println("Returning: "+ret);
 		return ret;

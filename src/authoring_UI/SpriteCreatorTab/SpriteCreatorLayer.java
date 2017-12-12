@@ -1,7 +1,11 @@
 package authoring_UI.SpriteCreatorTab;
 
+import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.SpriteObject;
+import authoring_UI.AuthoringMapStackPane;
 import authoring_UI.SpriteGridHandler;
 import authoring_UI.Map.MapLayer;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public class SpriteCreatorLayer extends MapLayer {
@@ -15,6 +19,6 @@ public class SpriteCreatorLayer extends MapLayer {
 		setDefaultColor(Color.TRANSPARENT);
 		setName("SpriteCreator View");
 	}
-
+		
 }
 

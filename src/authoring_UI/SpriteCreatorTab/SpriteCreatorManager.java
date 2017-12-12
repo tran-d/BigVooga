@@ -22,7 +22,6 @@ public class SpriteCreatorManager extends MapManager{
 
 	public SpriteCreatorManager(AuthoringEnvironmentManager AEM, Scene currentScene) {
 		super(AEM, currentScene);
-		myAEM = AEM;
 	}
 	
 	@Override 
