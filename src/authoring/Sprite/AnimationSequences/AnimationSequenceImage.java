@@ -6,7 +6,6 @@ import javafx.scene.layout.StackPane;
 public class AnimationSequenceImage {
 	
 	private AuthoringImageView myImage;
-	private BoundedImage boundedImage;
 
 	AnimationSequenceImage(AuthoringImageView AEI){
 		myImage = AEI;
