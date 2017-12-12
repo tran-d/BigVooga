@@ -107,6 +107,7 @@ public class DisplayPanel extends VBox {
 		return mySPSM.getActiveSprite().getParameters();
 	}
 
+
 	protected AbstractSpriteObject getActiveCell() throws Exception {
 		// System.out.println("MYAEMACTIVE: " + myAEM.getActiveCell());
 		return mySPSM.getActiveSprite();

@@ -27,7 +27,9 @@ public abstract class SpriteObjectGridManager{
 	protected int defaultRows;
 	protected int defaultColumns;
 	protected boolean canFillBackground;
-
+	private List<AbstractSpriteObject> storedSpriteList;
+	private int numRowsForImport;
+	private int numColsForImport;
 	
 	protected ObjectProperty<Integer> numRowsProperty;
 	protected ObjectProperty<Integer> numColumnsProperty;
@@ -35,7 +37,18 @@ public abstract class SpriteObjectGridManager{
 	public SpriteObjectGridManager(int rows, int columns, int layerNum, Color c){
 		this(rows, columns);
 		myColor = c;
-		createMapLayer();
+		numRowsForImport = rows;
+		numColsForImport = columns;
+		// createMapLayer() do elsewhere now
+	}
+	
+	
+	public void storeSpriteObjectsToAdd(List<AbstractSpriteObject> spritesToAdd) {
+		storedSpriteList = spritesToAdd;
+	}
+	
+	public List<AbstractSpriteObject> getStoredSpriteList() {
+		return storedSpriteList;
 	}
 	
 	public SpriteObjectGridManager(int rows, int cols) {
@@ -146,6 +159,8 @@ public abstract class SpriteObjectGridManager{
 	
 	public abstract void createMapLayer();
 	
+	public abstract void createMapLayer(List<AbstractSpriteObject> activeSpriteObjects);
+	
 	public MapLayer getMapLayer(){
 		return this.myMapLayer;
 	}
@@ -252,6 +267,14 @@ public abstract class SpriteObjectGridManager{
 		removeActiveCell(ASO.getPositionOnGrid());
 	}
 	
+	public int getRowsForImport() {
+		return numRowsForImport;
+	}
+	
+	public int getColsForImport() {
+		return numColsForImport;
+	}
+	
 	public void removeActiveCells(List<Integer[]> dummy){
 		dummy.forEach(a->{
 			removeActiveCell(a);
@@ -264,7 +287,6 @@ public abstract class SpriteObjectGridManager{
 	}
 	
 	public List<AbstractSpriteObject> getActiveSpriteObjects(){
-		System.out.println("NUm active cells: "+activeCells.size());
 		List<AbstractSpriteObject> ret = new ArrayList<AbstractSpriteObject>();
 		for (Integer[] loc: activeCells){
 			ret.add(getCell(loc));
@@ -288,7 +310,7 @@ public abstract class SpriteObjectGridManager{
 		return spriteGrid.get(loc[0]).get(loc[1]);
 	}
 
-	public void matchActiveCellsToSprite(SpriteObject firstSprite) {
+	public void matchActiveCellsToSprite(AbstractSpriteObject firstSprite) {
 		for (AbstractSpriteObject SOI: getActiveSpriteObjects()){
 			System.out.println("Active Sprite Params: "+SOI.getParameters());
 			SOI.applyParameterUpdate(firstSprite.getParameters());

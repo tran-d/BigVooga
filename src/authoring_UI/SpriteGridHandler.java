@@ -363,7 +363,7 @@ private	void resetActiveSprites() {
 	}
 	
 	public void deactivateActiveAuthoringMapStackPaneCells(){
-		myDG.getActiveGrid().getMapLayer().removeAllActive();
+		myDG.getActiveGrid().getMapLayer().removeAllActive(); // CHECK 
 	}
 	
 	private void populateGridCells(SpriteObject s) {

@@ -78,17 +78,16 @@ public class MapManager extends TabPane {
 		
 		List<DraggableGrid> DGs = getListOfDraggableGrids();
 		if (DGs.size()>0){
+			oldProject = true;
 			System.out.println("size: number of worlds " + DGs.size());
 			System.out.println("AN OLD GRID WAS SAVED AND NOW WILL BE LOADED");
 			for (DraggableGrid w: DGs){
-				setTab();
-				createTab(w);
+				setTab(w);
+				//createTab(myTabCount, w);
 			}
 		} else {
 			System.out.println("displaying a new grid");
 			setTab();
-//			DraggableGrid DG = makeDraggableGrid();
-//			createTab(myTabCount, DG);
 		}
 	}
 	
@@ -112,6 +111,17 @@ public class MapManager extends TabPane {
 		return new DraggableGrid();
 	}
 	
+	private void setTab(DraggableGrid w) { //?
+		this.setSide(Side.TOP);
+		addTab = new Tab();
+		addTab.setText(ADD_TAB);
+		addTab.setOnSelectionChanged(e -> {
+			createTab(w);
+			mySelectModel.select(currentTab);
+		});
+		this.getTabs().add(addTab);
+	}
+
 	public void gridIsShowing(){
 		gridIsShowing.set(true);
 	}
@@ -128,9 +138,6 @@ public class MapManager extends TabPane {
 		return gridIsShowing.get();
 	}
 	
-	
-	
-	
 	private void setTab() { //?
 		this.setSide(Side.TOP);
 		addTab = new Tab(ADD_TAB);
@@ -143,14 +150,16 @@ public class MapManager extends TabPane {
 
 	private HBox setupScene(DraggableGrid w) { 
 		return setupFEAuthClasses(w);
-//		return authMap;
 	}
-	
 	
 	private HBox setupFEAuthClasses(DraggableGrid w) { 
 		// TODO if it's old project, want all possible worlds, so many worlds!
 		allWorlds.add(w);
-		mySpriteGridHandler = new SpriteGridHandler(myTabCount, w);
+		
+		if (oldProject) {
+			mySpriteGridHandler = w.getSGH();
+		}
+		else mySpriteGridHandler = new SpriteGridHandler(myTabCount, w);
 		w.construct(mySpriteGridHandler);
 		mySpriteGridHandler.addKeyPress(scene);
 		spritePanels = makeSpritePanels(mySpriteGridHandler);
@@ -179,6 +188,7 @@ public class MapManager extends TabPane {
 	
 	private void removeWorld(DraggableGrid w) {
 		allWorlds.remove(w);
+		myTabCount--;
 	}
 	 
 	private List<AuthoringMapEnvironment> getAllMapEnvironments(){
