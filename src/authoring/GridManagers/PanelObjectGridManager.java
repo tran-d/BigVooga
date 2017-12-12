@@ -4,6 +4,7 @@ import java.util.List;
 
 import authoring.Sprite.AbstractSpriteObject;
 import authoring_UI.SpriteGridHandler;
+import authoring_UI.Map.MapLayer;
 import authoring_UI.Map.PanelLayer;
 import authoring_UI.Map.TerrainLayer;
 import javafx.scene.paint.Color;
@@ -43,5 +44,10 @@ public class PanelObjectGridManager extends SpriteObjectGridManager{
 			myMapLayer = new PanelLayer(getRowsForImport(), getColsForImport(), mySpriteGridHandler, activeSpriteObjects);
 		}
 		
+	}
+	
+	@Override
+	public MapLayer getMapLayer() { // IS THIS OKAY IDK TODO
+		return myMapLayer;
 	}
 }

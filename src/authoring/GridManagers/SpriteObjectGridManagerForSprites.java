@@ -4,6 +4,7 @@ import java.util.List;
 
 import authoring.Sprite.AbstractSpriteObject;
 import authoring_UI.SpriteGridHandler;
+import authoring_UI.Map.MapLayer;
 import authoring_UI.Map.SpriteLayer;
 import authoring_UI.Map.TerrainLayer;
 import javafx.scene.paint.Color;
@@ -39,5 +40,10 @@ public class SpriteObjectGridManagerForSprites extends SpriteObjectGridManager{
 	public void createMapLayer(List<AbstractSpriteObject> activeSpriteObjects) {
 		if (activeSpriteObjects.size() == 0) createMapLayer();
 		else myMapLayer = new SpriteLayer(getNumRows(), getNumCols(), mySpriteGridHandler, activeSpriteObjects);
+	}
+	
+	@Override
+	public MapLayer getMapLayer() { // IS THIS OKAY IDK TODO
+		return myMapLayer;
 	}
 }

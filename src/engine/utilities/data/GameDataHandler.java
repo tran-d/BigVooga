@@ -532,8 +532,8 @@ public class GameDataHandler {
 		return ret;
 	}
 	
-	public String getWorldDirectoryPath() {
-		String ret = projectPath + PROJECT_WORLD_PATH; // TODO 
+	public String getWorldDirectoryPath(int worldCount) {
+		String ret = projectPath + PROJECT_WORLD_PATH + worldCount + "/"; // TODO 
 		return ret;
 	}
 	
@@ -583,7 +583,7 @@ public class GameDataHandler {
 			System.out.println(SOGM.getName() + " count: " + count);
 		}
 		System.out.println("ULTIMATE COUNT of sprite objects: " + count);
-		String worldPath = this.getWorldDirectoryPath();
+		String worldPath = this.getWorldDirectoryPath(worldCount);
 		saveWorld(DG, worldPath);
 	}
 	
@@ -602,6 +602,7 @@ public class GameDataHandler {
 	}
 	
 	private DraggableGrid loadWorld(int worldNum, File worldFile) throws Exception {
+		System.out.println("just checking worldFile here: " + worldFile.getName());
 		if (!isValidFile(worldFile)){
 			throw new Exception("Invalid file to load");
 		}
@@ -622,10 +623,12 @@ public class GameDataHandler {
 	
 	private List<DraggableGrid> loadWorldsFromDirectory(int worldNum, File directory) throws Exception {
 		List<DraggableGrid> worlds = new ArrayList<>();
+		System.out.println("WORLD DIRECTORY SHOULD BE: " + directory.getName());
 		if (!isValidDirectory(directory)) {
+			System.out.println("not a directory");
 			throw new Exception("Not a directory");
 		}
-		File[] files = directory.listFiles();
+		File[] files = directory.listFiles(); // goes through all layer files, not world 
 		for (File f : files) {
 			try {
 				DraggableGrid temp = loadWorld(worldNum, f);
@@ -660,10 +663,10 @@ public class GameDataHandler {
 	}
 	
 	public List<DraggableGrid> loadWorldsFromWorldDirectory(){
-		List<List<DraggableGrid>> DG_LIST = new ArrayList<List<DraggableGrid>>();
+		List<DraggableGrid> DG_LIST = new ArrayList<DraggableGrid>();
 		try{
 			for (int worldNum = 1; worldNum < 10; worldNum++) {
-				DG_LIST = loadWorldsFromDirectoryName(worldNum, this.getInitializingWorldDirectoryPath(worldNum));
+				DG_LIST.add(loadWorldsFromDirectoryName(worldNum, this.getInitializingWorldDirectoryPath(worldNum)).get(0));
 			}
 		} catch (Exception e){
 			// do nothing

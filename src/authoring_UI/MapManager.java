@@ -156,6 +156,7 @@ public class MapManager extends TabPane {
 			mySpriteGridHandler = w.getSGH();
 		}
 		else mySpriteGridHandler = new SpriteGridHandler(myTabCount, w);
+		if (mySpriteGridHandler == null) System.out.println("SGH IS NULL IN MAPMAN");
 		w.construct(mySpriteGridHandler);
 		mySpriteGridHandler = w.getSGH();
 		mySpriteGridHandler.addKeyPress(scene);
