@@ -290,8 +290,6 @@ public abstract class SpriteObjectGridManager{
 		List<AbstractSpriteObject> ret = new ArrayList<AbstractSpriteObject>();
 		for (Integer[] loc: activeCells){
 			ret.add(getCell(loc));
-			System.out.println("WTF YO");
-			System.out.println(getCell(loc));
 		}
 		return ret;
 	}

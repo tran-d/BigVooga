@@ -107,6 +107,7 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 	@Override
 	public void construct(SpriteGridHandler spriteGridHandler){
 		if (allGrids == null){
+			System.out.println("GRIDS IS NULL!");
 			allGrids = new ArrayList<SpriteObjectGridManager>();
 		}
 		mySGH = spriteGridHandler;
@@ -184,20 +185,15 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 			showingGrids.add(item);
 		});
 		} else {
-			if (spriteGridHandler == null) System.out.println("SGH is NULL IN DRAGGABLE GRID");
-			if (allGrids == null) System.out.println("ALL GRIDS IS NULL IN DG");
-			if (allGrids.size() == 0) System.out.println("ALL GRIDS SIZE 0");
-			//  allGrids.get(0) <--- THIS IS THE ISSUE
 			allGrids.forEach(item->{
 				System.out.println("already has a grid!: "+item);
 				item.setSpriteGridHandler(spriteGridHandler);
-				item.createMapLayer();
+				//item.createMapLayer();
 				item.setSizeToMatchDefaults();
 //				item.getMapLayer().setSpriteGridHandler();
 				showingGrids.add(item);
 			});
 		}
-//		allGrids = new ArrayList<SpriteObjectGridManager>(gridManagers);
 	}
 	
 	public SpriteObjectGridManager getActiveGrid(){

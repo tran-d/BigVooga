@@ -64,8 +64,6 @@ public class GameElementSelector extends TabPane implements Observer {
 	private Tab dialoguesTab;
 
 	protected GameElementSelector(SpriteGridHandler spriteGridHandler, AuthoringEnvironmentManager AEM) {
-//		mySPF = new SpriteParameterFactory();
-		System.out.println("AEM: "+AEM);
 		myAEM = AEM;
 		mySpriteGridHandler = spriteGridHandler;
 		this.setPrefHeight(280);
@@ -74,7 +72,6 @@ public class GameElementSelector extends TabPane implements Observer {
 
 	/**
 	 * creates new user sprite
-	 * 
 	 * @author taekwhunchung
 	 * @author Samuel
 	 * @param sp
@@ -143,7 +140,6 @@ public class GameElementSelector extends TabPane implements Observer {
 	private TabPane makeCategoryTabPane(SpriteSet controller){
 		TabPane categoryTabPane = new TabPane();
 		categoryTabPane.setSide(Side.LEFT);
-		System.out.println("COMTROLLER:" + controller.getAllSpritesAsMap());
 		for (Entry<String, List<AbstractSpriteObject>> cat: controller.getAllSpritesAsMap().entrySet()){
 			Tab catTab = new Tab();
 			catTab.setClosable(false);
