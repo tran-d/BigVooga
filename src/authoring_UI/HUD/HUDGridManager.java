@@ -1,19 +1,7 @@
 package authoring_UI.HUD;
 
-import authoring.GridManagers.*;
-import authoring.Sprite.*;
-import authoring.Sprite.Parameters.SpriteParameterI;
-import authoring.SpriteManagers.*;
-import authoring.SpritePanels.*;
-import authoring.util.*;
-import authoring_UI.Map.*;
-import javafx.scene.image.ImageView;
-import authoring_UI.*;
-
-import java.util.ArrayList;
-
-import authoring.*;
-import authoring_UI.Inventory.*;
+import authoring.GridManagers.SpriteObjectGridManager;
+import authoring_UI.SpriteGridHandler;
 
 public class HUDGridManager extends SpriteObjectGridManager {
 	
@@ -35,9 +23,7 @@ public class HUDGridManager extends SpriteObjectGridManager {
 	
 	@Override
 	public void createMapLayer() {
-		myMapLayer = new HUDLayer(getNumRows(), getNumCols(), mySpriteGridHandler);
-
-		
+		myMapLayer = new HUDLayer(getNumRows(), getNumCols(), mySpriteGridHandler);		
 	}
 	
 	@Override

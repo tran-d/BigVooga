@@ -17,10 +17,13 @@ public class SpriteCreatorManager extends HBox {
 	private AuthoringEnvironmentManager myAEM;
 	private SpriteCreatorSpritePanel mySpritePanel;
 	private SpriteCreatorSpriteManager mySM;
+	private SpriteCreatorGridHandler myGridHandler;
 	private int myTabCount = 1;
 
-	public SpriteCreatorManager(AuthoringEnvironmentManager AEM, SpriteCreatorImageGrid imageGrid) {
+	public SpriteCreatorManager(AuthoringEnvironmentManager AEM, SpriteCreatorImageGrid imageGrid, SpriteCreatorGridHandler SCG, SpriteCreatorSpriteManager SM) {
 		myAEM = AEM;
+		mySM = SM;
+		myGridHandler = SCG;
 		this.setPrefWidth(VIEW_WIDTH);
 		this.setPrefHeight(VIEW_HEIGHT);
 		this.setLayoutX(ViewSideBar.VIEW_MENU_HIDDEN_WIDTH);
@@ -29,11 +32,8 @@ public class SpriteCreatorManager extends HBox {
 	}
 
 	private SpriteCreatorSpritePanel setupScene(SpriteCreatorImageGrid imageGrid) {
-		mySM = new SpriteCreatorSpriteManager();
-		
-		SpriteCreatorGridHandler mySCGridHandler = new SpriteCreatorGridHandler(myTabCount,mySM,imageGrid);
-		SpriteCreatorSpritePanel spritePanels = new SpriteCreatorSpritePanel(mySCGridHandler, myAEM, mySM);
-		mySCGridHandler.setDisplayPanel(spritePanels);
+		SpriteCreatorSpritePanel spritePanels = new SpriteCreatorSpritePanel(myGridHandler, myAEM, mySM);
+		myGridHandler.setDisplayPanel(spritePanels);
 		return spritePanels;
 	}
 

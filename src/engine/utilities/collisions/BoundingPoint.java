@@ -45,16 +45,15 @@ public class BoundingPoint extends BoundingGeometry {
 		return equals(point)?new Point2D(0,0):null;
 	}
 
-	//TODO not correct
 	@Override
 	public BoundingGeometry getScaled(double xFactor, double yFactor) {
-		return this;
+		return new BoundingPoint(new Point2D(point.getX() * xFactor, point.getY() * yFactor));
 	}
 
-	//TODO not correct
 	@Override
 	public BoundingGeometry getRotated(double rotation) {
-		return this;
+		BoundingPolygon.rotateByAngle(point, rotation);
+		return new BoundingPoint(point);
 	}
 
 	@Override

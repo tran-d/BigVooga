@@ -20,8 +20,6 @@ public class GameMaster implements EngineController{
 	private static final int DEFAULT_DELAY = 1000/DEFAULT_FPS;
 	private static final String TRASH = "TRASH (unnamed save)";
 	
-	private String gameFileName = TRASH;
-	
 	private GameWorld currentWorld;
 	private List<GameWorld> madeWorlds;
 	private Timeline gameLoop;
@@ -34,10 +32,6 @@ public class GameMaster implements EngineController{
 	public GameMaster() {
 		madeWorlds = new ArrayList<>();
 		globalVars = new GlobalVariables();
-	}
-	
-	public void setGameFileName(String name) {
-		gameFileName = name;
 	}
 	
 	/**
@@ -138,6 +132,6 @@ public class GameMaster implements EngineController{
 	}
 
 	public void save() {
-		playerManager.save(gameFileName);
+		playerManager.save();;
 	}
 }

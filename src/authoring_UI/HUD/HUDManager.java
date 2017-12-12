@@ -11,7 +11,6 @@ import authoring_UI.DraggableGrid;
 import authoring_UI.MapManager;
 import authoring_UI.SpriteGridHandler;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 public class HUDManager extends MapManager{
 

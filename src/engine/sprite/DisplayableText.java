@@ -14,6 +14,7 @@ public class DisplayableText extends PositionableObject implements Displayable {
 	private String font;
 	private double fontSize;
 	private String color;
+	private Positionable relativePosition;
 	
 	public DisplayableText(String string, String font, double fontSize, String webColor) {
 		this(Integer.MAX_VALUE, string, font, fontSize, webColor);
@@ -46,9 +47,29 @@ public class DisplayableText extends PositionableObject implements Displayable {
 	public String getColor() {
 		return color;
 	}
+	
+	public void setRelativePosition(Positionable p) {
+		this.relativePosition = p;
+	}
 
 	public DisplayableText getWithMessage(String dialogue) {
 		return new DisplayableText(getDrawingPriority(), dialogue, font, fontSize, color);
 	}
 
+	public double getRelativeX() {
+		return relativePosition.getX();
+	}
+
+	public double getRelativeY() {
+		return relativePosition.getY();
+	}
+
+	public double getRelativeWidth() {
+		return relativePosition.getWidth();
+	}
+	
+	public double getRelativeHeight() {
+		return relativePosition.getHeight();
+	}
+	
 }

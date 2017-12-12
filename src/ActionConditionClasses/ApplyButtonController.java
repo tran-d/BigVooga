@@ -36,10 +36,11 @@ public class ApplyButtonController {
 		int rowCond = 1;
 		List<ConditionRow> conditionRows = new LinkedList<ConditionRow>();
 		ConditionVBox<ConditionRow> conditionVBox = new ConditionVBox<ConditionRow>(conditionTab.getSelectorLabel());
-		for (Condition condition : conditions.keySet()) {
-			ConditionRow conditionRow = new ConditionRow(rowCond, labels.get(LABEL_INDEX),
-					labels.get(SELECTOR_LABEL_INDEX), labels.get(SELECTOR_VALUE_INDEX), allConditions,
-					conditions.get(labels), conditionVBox);
+		for (Condition co : conditions.keySet()) {
+//			ConditionRow conditionRow = new ConditionRow(rowCond, labels.get(LABEL_INDEX),
+//					labels.get(SELECTOR_LABEL_INDEX), labels.get(SELECTOR_VALUE_INDEX), allConditions,
+//					conditions.get(labels), conditionVBox);
+			ConditionRow conditionRow = new ConditionRow(rowCond, allConditions, conditionVBox);
 			conditionRows.add(conditionRow);
 			rowCond++;
 		}

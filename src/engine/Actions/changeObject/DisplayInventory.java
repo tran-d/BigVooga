@@ -7,7 +7,6 @@ import engine.operations.VoogaAnnotation;
 import engine.operations.VoogaType;
 import engine.operations.gameobjectops.GameObjectOperation;
 
-//TODO: DisplayInventory
 public class DisplayInventory implements Action {
 
 	private GameObjectOperation obj;

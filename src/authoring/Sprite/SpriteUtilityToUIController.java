@@ -8,6 +8,7 @@ import java.util.function.Function;
 
 import authoring.Sprite.AbstractSpriteObject.*;
 import authoring.util.NumberSpinner;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -71,8 +72,10 @@ public class SpriteUtilityToUIController {
 		
 //		setSetMethodSignature(setMethod);
 
-		Pane p = new HBox(20);
+		HBox p = new HBox(20);
 
+		p.setAlignment(Pos.CENTER);
+		
 		Label nameLabel = new Label();
 		nameLabel.setText(readableName);
 //		isLocked = false;
@@ -92,7 +95,9 @@ public class SpriteUtilityToUIController {
 		
 //		isLocked = true;
 
-		Pane p = new HBox(20);
+		HBox p = new HBox(20);
+		
+		p.setAlignment(Pos.CENTER);
 
 		Label nameLabel = new Label();
 		nameLabel.setText(readableName);

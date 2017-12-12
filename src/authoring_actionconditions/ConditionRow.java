@@ -5,6 +5,7 @@ import java.util.List;
 import ActionConditionClasses.ActionCheckBoxVBox;
 import ActionConditionClasses.ActionCheckBoxVBoxI;
 import engine.Condition;
+import engine.operations.VoogaType;
 import engine.operations.booleanops.BooleanOperation;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -35,28 +36,26 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 	private TreeView<HBox> operationTreeView;
 	private TextField integerTF;
 
-	public ConditionRow(int ID, String label, String selectorLabel, String selectedCondition,
-			ObservableList<Integer> newActionOptions, ConditionVBox<ConditionRow> ACVBox) {
+	public ConditionRow(int ID, ObservableList<Integer> newActionOptions, ConditionVBox<ConditionRow> ACVBox) {
 		super(ID, ACVBox);
 		addActionCheckBox(newActionOptions);
 
 		this.setPrefSize(ROW_WIDTH, EXPANDED_HEIGHT);
 
-		operationNameTreeItem = new OperationNameTreeItem("Boolean", () -> changeRowTVSize());
+		operationNameTreeItem = new OperationNameTreeItem("Boolean: ", VoogaType.BOOLEAN, () -> changeRowTVSize());
 		operationTreeView = new TreeView<>(operationNameTreeItem);
 		operationTreeView.setPrefSize(TREE_VIEW_WIDTH, EXPANDED_HEIGHT);
 		integerTF = createIntegerTextField();
-				
+
 		VBox vb = new VBox(VBOX_SPACING);
 		vb.getChildren().addAll(makeIntegerInputPrompt(integerTF), new Label("Choose Boolean Operation: "),
 				operationTreeView);
 		this.getItems().addAll(vb);
 	}
 
-	public ConditionRow(int ID, String label, String selectorLabel, String selectedCondition,
-			ObservableList<Integer> newActionOptions, List<Integer> selectedActionOptions,
+	public ConditionRow(int ID, ObservableList<Integer> newActionOptions, List<Integer> selectedActionOptions,
 			ConditionVBox<ConditionRow> ACVBox) {
-		this(ID, label, selectorLabel, selectedCondition, newActionOptions, ACVBox);
+		this(ID, newActionOptions, ACVBox);
 		getItems().remove(actionCheckBoxVBox);
 		actionCheckBoxVBox = new ActionCheckBoxVBox<Integer>(newActionOptions, selectedActionOptions);
 		getItems().add(2, actionCheckBoxVBox);
@@ -125,8 +124,6 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 		actionCheckBoxVBox = new ActionCheckBoxVBox<Integer>(newActionOptions);
 		getItems().add(actionCheckBoxVBox);
 	}
-	
-	
 
 	private HBox makeIntegerInputPrompt(TextField tf) {
 		Label lb = new Label();

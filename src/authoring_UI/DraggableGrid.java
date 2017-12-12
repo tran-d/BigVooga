@@ -189,6 +189,7 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 				return o2.getMapLayer().getLayerNumber()-o1.getMapLayer().getLayerNumber();
 			}
 		});
+
 		return showingGrids.get(0);
 	}
 	
@@ -231,7 +232,7 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 		hbox.getChildren().addAll(label, checkbox);
 		if (ML.canFillBackground()){
 			//ColorPicker
-			ColorPicker cp = new ColorPicker(Color.SANDYBROWN);
+			ColorPicker cp = new ColorPicker(Color.TRANSPARENT);
 			cp.setOnAction((event)->{
 				ML.setColor(cp.getValue());
 			});

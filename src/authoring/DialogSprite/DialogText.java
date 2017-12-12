@@ -54,27 +54,7 @@ public class DialogText {
 	}
 	}
 	
-	/**
-	 * https://stackoverflow.com/questions/20357542/changing-text-area-string-colors-in-javafx-using-the-colorpicker
-	 * @param c 
-	 * @return String RGB representation
-	 */
-	private String toRgbString(Color c) {
-        return "rgb("
-                          + to255Int(c.getRed())
-                    + "," + to255Int(c.getGreen())
-                    + "," + to255Int(c.getBlue())
-             + ")";
-    }
 
-    /**
-     * https://stackoverflow.com/questions/20357542/changing-text-area-string-colors-in-javafx-using-the-colorpicker
-     * @param d
-     * @return int representation of color channel
-     */
-    private int to255Int(double d) {
-        return (int) (d * 255);
-    }
     
     public String getFont(){
     	return this.myFont;

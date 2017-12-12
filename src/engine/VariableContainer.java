@@ -21,23 +21,17 @@ public abstract class VariableContainer {
 	private static final int DEFAULT_DOUBLE = 0;
 
 	protected Map<String, Double> doubleVars;
-	protected Map<String, Point2D> vectorVars;
 	protected Map<String, String> stringVars;
 	protected Map<String, Boolean> booleanVars;
 
 	public VariableContainer() {
 		doubleVars = new HashMap<String, Double>();
-		vectorVars = new HashMap<String, Point2D>();
 		stringVars = new HashMap<String, String>();
 		booleanVars = new HashMap<String, Boolean>();
 	}
 	
 	public Map<String, Double> getAllDoubleVars() {
 		return doubleVars;
-	}
-	
-	public Map<String, Point2D> getAllVectorVars() {
-		return vectorVars;
 	}
 	
 	public Map<String, String> getAllStringVars() {
@@ -66,10 +60,6 @@ public abstract class VariableContainer {
 	}
 
 
-	public Point2D getVector(String key) {
-		return vectorVars.get(key);
-	}
-
 	public String getString(String key) {
 		if (stringVars.containsKey(key))
 			return stringVars.get(key);
@@ -84,10 +74,6 @@ public abstract class VariableContainer {
 
 	public void setDoubleVariable(String name, double val) {
 		doubleVars.put(name, val);
-	}
-
-	public void setVectorVariable(String name, Point2D val) {
-		vectorVars.put(name, val);
 	}
 
 	public void setStringVariable(String name, String val) {

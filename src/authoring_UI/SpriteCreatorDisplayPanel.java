@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import ActionConditionClasses.ResourceBundleUtil;
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteCreatorSpriteManager;
 import authoring.Sprite.AbstractSpriteObject;
@@ -12,6 +13,10 @@ import authoring.Sprite.SpriteAnimationSequenceTabsAndInfo;
 import authoring.Sprite.SpriteInventoryTabAndInfo;
 import authoring.Sprite.SpriteParameterTabsAndInfo;
 import authoring.Sprite.SpriteUtilityTabAndInfo;
+import authoring_actionconditions.ActionRow;
+import authoring_actionconditions.ActionTab;
+import authoring_actionconditions.ConditionRow;
+import authoring_actionconditions.ConditionTab;
 import authoring_actionconditions.ControllerConditionActionTabs;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -35,6 +40,9 @@ public class SpriteCreatorDisplayPanel extends VBox {
 	private SpriteAnimationSequenceTabsAndInfo mySAnimationSequenceTAI;
 	private ObjectProperty<Boolean> multipleCellsActiveProperty;
 	private VBox spriteEditorAndApplyButtonVBox;
+	private ActionTab<ActionRow> actions;
+	private ConditionTab<ConditionRow> conditions;
+	private ControllerConditionActionTabs controllerConditionActionTabs;
 	private AuthoringEnvironmentManager myAEM;
 
 	private static final String ACTIONCONDITIONTITLES_PATH = "TextResources/ConditionActionTitles";
@@ -45,9 +53,8 @@ public class SpriteCreatorDisplayPanel extends VBox {
 	public static final ResourceBundle conditionActionTitles = ResourceBundle.getBundle(ACTIONCONDITIONTITLES_PATH);
 	// private SpriteSetHelper mySSH;
 
-	protected SpriteCreatorDisplayPanel(SpriteCreatorSpriteManager spriteManager, AuthoringEnvironmentManager AEM) {
+	public SpriteCreatorDisplayPanel(SpriteCreatorSpriteManager spriteManager, AuthoringEnvironmentManager AEM) {
 		myAEM = AEM;
-		mySM = spriteManager;
 		multipleCellsActiveProperty = new SimpleObjectProperty<Boolean>();
 		mySParameterTAI = new SpriteParameterTabsAndInfo();
 		mySInventoryTAI = new SpriteInventoryTabAndInfo(myAEM);
@@ -87,10 +94,10 @@ public class SpriteCreatorDisplayPanel extends VBox {
 	}
 
 	private void createActionConditionTabs() {
-		ActionConditionTab conditions = new ActionConditionTab(conditionActionTitles.getString("ConditionsTabTitle"));
-		ActionConditionTab actions = new ActionConditionTab(conditionActionTitles.getString("ActionsTabTitle"));
-		ControllerConditionActionTabs controllerConditionActionTabs = new ControllerConditionActionTabs(conditions,
-				actions);
+		conditions = new ConditionTab<ConditionRow>(ResourceBundleUtil.getTabTitle("ConditionsTabTitle"));
+		actions = new ActionTab<ActionRow>(ResourceBundleUtil.getTabTitle("ActionsTabTitle"));
+		controllerConditionActionTabs = new ControllerConditionActionTabs(conditions, actions);
+		//applyButtonController = new ApplyButtonController();
 		mySpriteTabs.getTabs().addAll(conditions, actions);
 	}
 
@@ -129,8 +136,8 @@ public class SpriteCreatorDisplayPanel extends VBox {
 
 	private void createAnimationTab() {
 		Tab animations = new Tab("Animations");
-		animations.setContent(mySAnimationSequenceTAI.getScrollPane());
-		mySpriteTabs.getTabs().addAll(animations);
+		animations.setContent(mySAnimationSequenceTAI.getAnimationBox());
+		mySpriteTabs.getTabs().add(animations);
 		multipleCellsActiveProperty.addListener((observable, oldStatus, newStatus) -> {
 			animations.setDisable(newStatus);
 		});
@@ -221,7 +228,7 @@ public class SpriteCreatorDisplayPanel extends VBox {
 		}
 	}
 
-	void addSpriteEditorVBox() {
+	public void addSpriteEditorVBox() {
 		if (!this.getChildren().contains(spriteEditorAndApplyButtonVBox)) {
 			this.getChildren().addAll(spriteEditorAndApplyButtonVBox);
 		}
@@ -247,7 +254,7 @@ public class SpriteCreatorDisplayPanel extends VBox {
 		}
 	}
 
-	protected void updateParameterTab(AbstractSpriteObject s) {
+	public void updateParameterTab(AbstractSpriteObject s) {
 
 		System.out.println("Updating....");
 		try {

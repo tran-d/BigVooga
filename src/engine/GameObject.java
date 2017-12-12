@@ -46,7 +46,7 @@ public class GameObject extends VariableContainer implements Element {
 
 	private CollisionEvent lastCollision;
 	private Inventory inventory;
-	private DisplayableText dialogueHandler;
+	private List<DisplayableText> dialogueHandler = new ArrayList<>();
 
 	private double heading;
 	private List<Point2D> ithDerivative;
@@ -70,8 +70,7 @@ public class GameObject extends VariableContainer implements Element {
 		ithDerivative.add(new Point2D(0, 0));
 		inventory = new Inventory(this, getX(), getY());
 	}
-
-	@Override
+	
 	public String getName() {
 		return name;
 	}
@@ -204,11 +203,6 @@ public class GameObject extends VariableContainer implements Element {
 
 	@Override
 	public Displayable getDisplayable() {
-		if (dialogueHandler == null)
-			return getBounds();
-		dialogueHandler.setHeading(getHeading());
-		dialogueHandler.setSize(getHeight(), getWidth());
-		dialogueHandler.setPosition(getX(), getY());
 		return new CompositeImage(getBounds(), dialogueHandler);
 	}
 
@@ -222,6 +216,7 @@ public class GameObject extends VariableContainer implements Element {
 		copy.setHeading(heading);
 		copy.currentSprite = currentSprite.clone();
 		copy.setSize(width, height);
+		copy.setUniqueID(uniqueID);
 		for (String tag : tagSet)
 			copy.addTag(tag);
 		for (String var : stringVars.keySet())
@@ -232,6 +227,9 @@ public class GameObject extends VariableContainer implements Element {
 			copy.setBooleanVariable(var, booleanVars.get(var));
 		for (Condition c : events.keySet())
 			copy.addConditionAction(c, new ArrayList<>(events.get(c)));
+		copy.setDialogue(dialogueHandler);
+		//for(Holdable h : inventory.getFullInventory())
+		//	copy.addToInventory(h.clone());
 		return copy;
 	}
 
@@ -278,14 +276,21 @@ public class GameObject extends VariableContainer implements Element {
 	public void addToInventory(Holdable o) {
 		inventory.addObject(o);
 	}
+	
+	public void removeFromInventory(Holdable o) {
+		inventory.removeObject(o);
+	}
 
-	public void setDialogue(DisplayableText text) {
+	public void setDialogue(List<DisplayableText> text) {
 		dialogueHandler = text;
 	}
 
 	public void setDialogue(String s) {
-		if (dialogueHandler == null)
-			dialogueHandler = DisplayableText.DEFAULT;
-		dialogueHandler = dialogueHandler.getWithMessage(s);
+		if (dialogueHandler.isEmpty())
+			dialogueHandler.add(DisplayableText.DEFAULT);
+		DisplayableText newText = dialogueHandler.get(0).getWithMessage(s);
+		dialogueHandler = new ArrayList<DisplayableText>();
+		dialogueHandler.add(newText);
+		
 	}
 }

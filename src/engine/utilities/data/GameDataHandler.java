@@ -26,6 +26,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.security.NullPermission;
 import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
+import authoring.DialogSprite.DialogSequence;
 import authoring.GridManagers.SpriteObjectGridManager;
 import authoring.Sprite.AbstractSpriteObject;
 import authoring.Sprite.SpriteObject;
@@ -137,8 +138,8 @@ public class GameDataHandler {
 	 * @throws IOException
 	 */
 	private void addToKnownProjects(String saveName) {
-		Properties prop = new Properties();
-
+		Properties prop = getProperties();
+		
 		if(knownProjects().containsKey(projectName)) {
 			if(knownProjects().get(projectName).contains(saveName))
 				return;
@@ -162,8 +163,8 @@ public class GameDataHandler {
 			throw new RuntimeException("KNOWN PROJECTS NOT FOUND");
 		}
 	}
-	
-	private void clearKnown() {
+
+	private Properties getProperties() {
 		Properties prop = new Properties();
 
 		try {
@@ -173,6 +174,11 @@ public class GameDataHandler {
 		} catch (IOException e) {
 			// Intentionally Blank
 		}
+		return prop;
+	}
+	
+	private void clearKnown() {
+		Properties prop = getProperties();
 		
 		prop.put(projectName,"");
 		
@@ -589,9 +595,9 @@ public class GameDataHandler {
 		int layerCount = 0;
 		for (SpriteObjectGridManager SOGM : SOGMList) {
 			layerCount++;
-			List<SpriteObject> spriteObjects = SOGM.getActiveSpriteObjects();
+			List<AbstractSpriteObject> spriteObjects = SOGM.getActiveSpriteObjects();
 			System.out.println("SIZE OF SOGM " + spriteObjects.size());
-			for (SpriteObject SO : spriteObjects) {
+			for (AbstractSpriteObject SO : spriteObjects) {
 				String path = this.getLayerSpritesDirectoryPath(layerCount);
 				path = this.makeValidFileName(path);
 				saveSprite(SO, path);
@@ -669,7 +675,6 @@ public class GameDataHandler {
 				System.out.println(dummy);
 
 			} catch (Exception e) {
-
 //				e.printStackTrace();
 				// do nothing
 			}
@@ -754,6 +759,16 @@ public class GameDataHandler {
 				makeDirectory(s);
 			}
 		}
+	}
+
+	public Map<String, List<DialogSequence>> loadDialogsFromNestedDirectories(String folderToLoad) {
+		// TODO FILL THIS IN!
+		return null;
+	}
+
+	public void saveDialogSequence(DialogSequence dS, String folderToSaveTo) {
+		// TODO FILL THIS IN!
+		
 	}
 	
 }

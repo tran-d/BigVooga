@@ -42,15 +42,15 @@ public class SpriteGridHandler {
 	public SpriteGridHandler(int mapCount, DraggableGrid DG) {
 		Random rand = new Random();
 		int parent = rand.nextInt();
-		objectFormat = new DataFormat("MyObject" + parent+ Integer.toString(mapCount));
-		System.out.println("SGH made with objForm: "+objectFormat);
+		objectFormat = new DataFormat("MyObject" + parent + Integer.toString(mapCount));
+		System.out.println("SGH made with objForm: " + objectFormat);
 		myDG = DG;
 	}
-	
-	public void setGridIsShown(boolean shown){
-		System.out.println("Grid is shown ("+shown+") for "+myDG.getActiveGrid().getClass());
+
+	public void setGridIsShown(boolean shown) {
+		System.out.println("Grid is shown (" + shown + ") for " + myDG.getActiveGrid().getClass());
 		this.gridIsShown = shown;
-		
+
 	}
 
 	public SpriteGridHandler(int mapCount, DraggableGrid DG, int sprite) {
@@ -98,17 +98,12 @@ public class SpriteGridHandler {
 		});
 		
 		scene.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>(){
-			
-//		});
-//		scene.setOnKeyPressed(e -> {
-//			System.out.println("Key pressed: "+ e.getCode());
-		
 
 			@Override
 			public void handle(KeyEvent e) {
-				System.out.println("handling a key??: "+e.getCode());
-				
-				switch (e.getCode()){
+				System.out.println("handling a key??: " + e.getCode());
+
+				switch (e.getCode()) {
 				case BACK_SPACE:
 					onBackSpace();
 					break;
@@ -128,7 +123,7 @@ public class SpriteGridHandler {
 					break;
 				case D:
 					onRight();
-					break;				
+					break;
 				case A:
 					onLeft();
 					break;
@@ -140,7 +135,7 @@ public class SpriteGridHandler {
 					break;
 				case E:
 					onNE();
-					break;				
+					break;
 				case Z:
 					onSW();
 					break;
@@ -148,54 +143,56 @@ public class SpriteGridHandler {
 					onSE();
 					break;
 				default:
-					//nothing
+					// nothing
 					break;
+				}
 			}
-	}
 		});
 	}
-	
-	private void onBackSpace(){
+
+	private void onBackSpace() {
 		System.out.println("In if statement");
-		if (gridIsShown){
+		if (gridIsShown) {
 			System.out.println("Grid shown for ");
-			System.out.println("Class "+myDG.getActiveGrid().getClass());
-		deleteSelectedSprites();
+			System.out.println("Class " + myDG.getActiveGrid().getClass());
+			deleteSelectedSprites();
 		}
 	}
-	
-	private void onRight(){
+
+	private void onRight() {
 		activateNeighbor(0, 1);
 	}
-	
-	private void onLeft(){
+
+	private void onLeft() {
 		activateNeighbor(0, -1);
 	}
-	
-	private void onTop(){
+
+	private void onTop() {
 		activateNeighbor(-1, 0);
 	}
-	
-	private void onBottom(){
+
+	private void onBottom() {
 		activateNeighbor(1, 0);
 	}
-	
-	private void onNE(){
+
+	private void onNE() {
 		activateNeighbor(-1, 1);
 	}
-	private void onSE(){
+
+	private void onSE() {
 		activateNeighbor(1, 1);
 	}
-	private void onNW(){
+
+	private void onNW() {
 		activateNeighbor(-1, -1);
 	}
-	
-	private void onSW(){
+
+	private void onSW() {
 		activateNeighbor(1, -1);
 	}
-	
-	private void activateNeighbor(int rowChange, int colChange){
-		if (gridIsShown){
+
+	private void activateNeighbor(int rowChange, int colChange) {
+		if (gridIsShown) {
 			MapLayer ML = myDG.getActiveGrid().getMapLayer();
 			Set<AuthoringMapStackPane> activeSet  = new HashSet<AuthoringMapStackPane>();
 			if (shiftDown){
@@ -207,8 +204,8 @@ public class SpriteGridHandler {
 			activeSet.forEach(activeCell->{
 				int row = activeCell.getRowIndex();
 				int col = activeCell.getColIndex();
-				AuthoringMapStackPane Neighbor = ML.getChildAtPosition(row+rowChange, col+colChange);
-				if (Neighbor!=null){
+				AuthoringMapStackPane Neighbor = ML.getChildAtPosition(row + rowChange, col + colChange);
+				if (Neighbor != null) {
 					Neighbor.setActive();
 					if (ML.getMostRecentActive().contains(activeCell)){
 					newMostRecent.add(Neighbor);
@@ -235,7 +232,8 @@ public class SpriteGridHandler {
 		toDelete.forEach(s -> {
 			System.out.println("In the lambda");
 			Integer[] row_col = s.getPositionOnGrid();
-//			System.out.println("row_col: " + row_col);
+			System.out.println(row_col);
+			// System.out.println("row_col: " + row_col);
 			cellsToDelete.add(row_col);
 		});
 		System.out.println(myDG.getActiveGrid().getActiveSpriteObjects().size());
@@ -424,11 +422,11 @@ private	void resetActiveSprites() {
 			if (pane.checkCanAcceptChild(draggingObject)) {
 				Dragboard db = e.getDragboard();
 				MapLayer ML = pane.getMapLayer();
-//				System.out.println("MapLayer: " + ML.getName());
+				// System.out.println("MapLayer: " + ML.getName());
 				int row = ML.getRowIndex(pane);
 				int col = ML.getColumnIndex(pane);
 				Integer[] row_col = new Integer[] { row, col };
-//				System.out.println(row_col);
+				// System.out.println(row_col);
 
 				if (db.hasContent(objectFormat)) {
 					if (draggingObject instanceof SpriteObject) {

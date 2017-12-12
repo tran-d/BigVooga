@@ -5,10 +5,11 @@ import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
 
-import authoring.AbstractSpriteObject;
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteCreatorSpriteManager;
-import authoring.SpriteObject;
+import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.SpriteObject;
+import authoring.SpriteManagers.SpriteSet;
 import javafx.geometry.Insets;
 import javafx.geometry.Side;
 import javafx.scene.control.ScrollPane;
@@ -28,22 +29,17 @@ import javafx.scene.paint.Color;
 public class SpriteCreatorSpriteSelector extends TabPane implements Observer {
 
 	private static final String SPRITES = "Sprites";
-	private static final String DIALOGUES = "Dialogues";
 	private static final String DEFAULT = "Default";
 	private static final String USER = "User";
 	private static final String IMPORTED = "Imported";
-	private static final String IMPORTEDINVENTORY = "Imported Inventory";
-	private static final String INVENTORY = "Inventory";
 
-	private DraggableGrid myGrid;
-	private final int NUM_COLUMNS = 10;
 
 	private AuthoringEnvironmentManager myAEM;
 	private SpriteCreatorSpriteManager mySM;
 	private SpriteCreatorGridHandler mySpriteGridHandler;
-	private Tab dialoguesTab;
 
-	protected SpriteCreatorSpriteSelector(SpriteCreatorSpriteManager SM, SpriteCreatorGridHandler spriteGridHandler, AuthoringEnvironmentManager AEM) {
+	protected SpriteCreatorSpriteSelector(SpriteCreatorSpriteManager SM, SpriteCreatorGridHandler spriteGridHandler,
+			AuthoringEnvironmentManager AEM) {
 		myAEM = AEM;
 		mySM = SM;
 		mySpriteGridHandler = spriteGridHandler;
@@ -79,12 +75,20 @@ public class SpriteCreatorSpriteSelector extends TabPane implements Observer {
 		spritesTabPane.getTabs().addAll(defaultSpriteTab, userSpriteTab, importedSpriteTab);
 		spritesTabPane.setSide(Side.RIGHT);
 
-//
+		//
 		Tab spritesTab = createElementTab(SPRITES, spritesTabPane);
 		spritesTab.setClosable(false);
 		this.getTabs().add(spritesTab);
 
 		this.setSide(Side.TOP);
+	}
+
+	private Tab createElementTab(String tabName, TabPane tabPane) {
+		Tab elementTab = new Tab();
+		elementTab.setText(tabName);
+		elementTab.setContent(tabPane);
+		elementTab.setClosable(false);
+		return elementTab;
 	}
 
 	private Tab createSubTab(String tabName, SpriteSet controller) {
@@ -118,14 +122,6 @@ public class SpriteCreatorSpriteSelector extends TabPane implements Observer {
 		return categoryTabPane;
 	}
 
-	private Tab createElementTab(String tabName, TabPane tabPane) {
-		Tab elementTab = new Tab();
-		elementTab.setText(tabName);
-		elementTab.setContent(tabPane);
-		elementTab.setClosable(false);
-		return elementTab;
-	}
-
 	private ScrollPane makeGrid(List<AbstractSpriteObject> sprites) {
 		GridPane gp = new GridPane();
 		int totalRows = (int) Math.ceil(sprites.size() / 10);
@@ -155,6 +151,18 @@ public class SpriteCreatorSpriteSelector extends TabPane implements Observer {
 
 		ScrollPane SP = new ScrollPane(gp);
 		return SP;
+	}
+
+	public void updateSpriteTabs() {
+		this.getTabs().remove(0);
+		createSpriteTabs();
+
+		// userSpriteTab = createSubTab(USER, myAEM.getCustomSpriteController());
+		// spritesTabPane.getTabs().removeAll();
+		// spritesTabPane.getTabs().addAll(defaultSpriteTab, userSpriteTab,
+		// importedSpriteTab);
+		// (defaultSpriteTab, userSpriteTab, importedSpriteTab);
+		System.out.println("userspritestab updated");
 	}
 
 	@Override

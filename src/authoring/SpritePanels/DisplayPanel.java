@@ -58,8 +58,8 @@ public class DisplayPanel extends VBox {
 	private static final double DISPLAY_PANEL_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH / 2
 			- ViewSideBar.VIEW_MENU_HIDDEN_WIDTH - 155;
 	private static final double DISPLAY_PANEL_HEIGHT = 347;
-	private static final int CONDITIONTAB_INDEX = 2;
-	private static final int ACTIONTAB_INDEX = 3;
+	private static final int CONDITIONTAB_INDEX = 3;
+	private static final int ACTIONTAB_INDEX = 4;
 	private SpriteParameterSidebarManager mySPSM;
 	private AuthoringEnvironmentManager myAEM;
 
