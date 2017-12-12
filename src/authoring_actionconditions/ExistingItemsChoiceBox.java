@@ -2,8 +2,11 @@ package authoring_actionconditions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
+import authoring.AuthoringEnvironmentManager;
+import authoring.Sprite.AbstractSpriteObject;
 import engine.operations.VoogaType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,13 +17,13 @@ public class ExistingItemsChoiceBox {
 
 	private static final String PACKAGE_NAME = ExistingItemsChoiceBox.class.getPackage().getName();
 	private static final String KEY_BUNDLE_LOCATION = PACKAGE_NAME + ".codes";
-	private ChoiceBox<String> cb;
+	private ChoiceBox<String> cb ;
 	private ResourceBundle keys;
 
 	public ExistingItemsChoiceBox(VoogaType type) {
 		keys = Resources.getBundle(KEY_BUNDLE_LOCATION);
 		List<String> list = this.makeObservableList(type);
-		if (list.size() > 0)
+		if (list.size() >= 0)
 			cb = this.makeChoiceBox(list);
 	}
 
@@ -30,6 +33,13 @@ public class ExistingItemsChoiceBox {
 		if (type == VoogaType.ANIMATIONNAME) {
 
 		} else if (type == VoogaType.BOOLEANNAME) {
+			Map<String, List<AbstractSpriteObject>> map = AuthoringEnvironmentManager.getEveryTypeOfSprite();
+			List<AbstractSpriteObject> sprites = map.get("DefaultSprites");
+			sprites.addAll(map.get("CustomSprites"));
+			for (AbstractSpriteObject sprite : sprites) {
+				list.addAll(sprite.getParameterNamesMatching("Boolean"));
+			}
+			return list;
 
 		} else if (type == VoogaType.DOUBLENAME) {
 
@@ -38,8 +48,7 @@ public class ExistingItemsChoiceBox {
 		} else if (type == VoogaType.KEY) {
 			list = makeKeyList();
 		} else if (type == VoogaType.OBJECTNAME) {
-			list.add("item 1");
-			list.add("item 2");
+			list = AuthoringEnvironmentManager.getNameOfEverySprite();
 		} else if (type == VoogaType.STRINGNAME) {
 
 		} else if (type == VoogaType.TAG) {
@@ -51,6 +60,7 @@ public class ExistingItemsChoiceBox {
 			list.add("item 4");
 		}
 		System.out.println("making an existingItemsList");
+		System.out.println("List: " + list);
 		return list;
 	}
 
