@@ -48,7 +48,6 @@ public class GameElementSelector extends TabPane implements Observer {
 	private static final String IMPORTED = "Imported";
 	private static final String IMPORTEDINVENTORY = "Imported Inventory";
 	private static final String INVENTORY = "Inventory";
-	
 	protected DraggableGrid myGrid;
 //	private SpriteSelectPanel mySprites;
 //	private SpriteSelectPanel myUserSprites;

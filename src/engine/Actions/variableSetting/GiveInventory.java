@@ -8,7 +8,7 @@ import engine.operations.gameobjectops.GameObjectOperation;
 /**
  *
  * 
- * @author aaronpaskin
+ * @author Aaron Paskin
  *
  */
 //TODO: GiveInventory

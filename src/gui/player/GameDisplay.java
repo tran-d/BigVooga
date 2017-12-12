@@ -1,6 +1,7 @@
 package gui.player;
 
 import java.net.URISyntaxException;
+import java.util.Collections;
 import java.util.List;
 import controller.player.PlayerManager;
 import controller.welcomeScreen.SceneController;
@@ -118,6 +119,7 @@ public class GameDisplay {
 	 */
 	public void setUpdatedDisplayables(List<Displayable> images) {
 		gamePane.getChildren().clear();
+		
 		for (Displayable d : images) {
 			d.visit(this);
 		}

@@ -1,7 +1,11 @@
 package engine.sprite;
 
+import java.util.List;
+
 import engine.VoogaException;
+import engine.utilities.collisions.BoundingPolygon;
 import gui.player.GameDisplay;
+import javafx.geometry.Point2D;
 
 /**
  * 
@@ -11,21 +15,30 @@ import gui.player.GameDisplay;
 public class CompositeImage implements Displayable {
 
 	private Displayable displayable1;
-	private Displayable displayable2;
+	private List<? extends DisplayableText> text;
 
-	public CompositeImage(Displayable bottom, Displayable top) {
+	public CompositeImage(Displayable bottom, List<? extends DisplayableText> text) {
 		displayable1 = bottom;
-		displayable2 = top;
-		if(displayable1 == null || displayable2 == null)
+		this.text = text;
+		if (displayable1 == null)
 			throw new VoogaException("CompositeFail");
 	}
 
 	@Override
 	public void visit(GameDisplay display) {
-			displayable1.visit(display);
-			displayable2.visit(display);
+		displayable1.visit(display);
+		for (DisplayableText t : text) {
+			t.setHeading(displayable1.getHeading());
+			Point2D newLocation = BoundingPolygon
+					.rotateByAngle(new Point2D(t.getRelativeX() * displayable1.getWidth() / 2,
+							t.getRelativeY() * displayable1.getHeight() / 2), t.getHeading())
+					.add(new Point2D(displayable1.getX(), displayable1.getY()));
+			t.setPosition(newLocation.getX(), newLocation.getY());
+			t.setSize(t.getRelativeWidth() * displayable1.getWidth(), t.getRelativeHeight() * displayable1.getHeight());
+			t.visit(display);
+		}
 	}
-		
+
 	public int getDrawingPriority() {
 		return displayable1.getDrawingPriority();
 	}
@@ -33,7 +46,6 @@ public class CompositeImage implements Displayable {
 	@Override
 	public void setPosition(double x, double y) {
 		displayable1.setPosition(x, y);
-		displayable2.setPosition(x, y);
 	}
 
 	@Override
@@ -49,7 +61,6 @@ public class CompositeImage implements Displayable {
 	@Override
 	public void setSize(double width, double height) {
 		displayable1.setSize(width, height);
-		displayable2.setSize(width, height);
 	}
 
 	@Override
@@ -65,7 +76,6 @@ public class CompositeImage implements Displayable {
 	@Override
 	public void setHeading(double heading) {
 		displayable1.setHeading(heading);
-		displayable2.setHeading(heading);
 	}
 
 	@Override

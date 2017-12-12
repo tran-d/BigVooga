@@ -35,7 +35,7 @@ public class ActionConditionRow extends ToolBar implements ActionConditionRowI {
 	protected static final double COLLAPSED_HEIGHT = 25;
 
 	protected static final String ENTER_VALID_INPUT = "EnterValid";
-	protected static String EMPTY_CHOICEBOX = "EmptyChoiceBox";
+	protected static String EMPTY_INPUT = "EmptyInput";
 	protected static final String INVALID_INPUT_MESSAGE = "InvalidInput";
 	protected static final String DOUBLE_INPUT_MESSAGE = "EnterDouble";
 	protected static final String BOOLEAN_INPUT_MESSAGE = "EnterBoolean";

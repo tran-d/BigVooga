@@ -7,6 +7,7 @@ import authoring_actionconditions.OperationNameTreeItem;
 import engine.Action;
 import engine.Actions.ActionFactory;
 import engine.operations.Operation;
+import engine.operations.VoogaParameter;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -21,7 +22,7 @@ import tools.DisplayLanguage;
 
 public class ActionNameTreeItem extends TreeItem<HBox> {
 
-	private static String EMPTY_CHOICEBOX = "EmptyChoiceBox";
+	private static String EMPTY_INPUT = "EmptyInput";
 	private static final String INVALID_INPUT_MESSAGE = "InvalidInput";
 	private static final String INPUT_A_DOUBLE = "InputInteger";
 
@@ -44,14 +45,16 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 			for (OperationNameTreeItem opItem : opNameTreeItemList) {
 
 				operationList.add((Operation<?>) opItem.makeOperation());
+				System.out.println("Operation: " + opItem.makeOperation().toString());
 
 			}
-			System.out.println("Making action...");
+		
+			System.out.println("Making action for " + selectedAction + "...");
 			action = actionFactory.makeAction(selectedAction, operationList.toArray());
 			System.out.println(action);
 			return action;
 		} catch (NullPointerException e) {
-			showError(INVALID_INPUT_MESSAGE, EMPTY_CHOICEBOX);
+			showError(INVALID_INPUT_MESSAGE, EMPTY_INPUT);
 		} catch (NumberFormatException e) {
 			showError(INVALID_INPUT_MESSAGE, INPUT_A_DOUBLE);
 		}
@@ -98,19 +101,30 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 
 	private void makeActionParameterChildren(String action, TreeItem<HBox> parameterAction, HBox hb) {
 		ObservableList<String> actionParameterTypes = FXCollections.observableList(actionFactory.getParameters(action));
+		
+		ObservableList<VoogaParameter> voogaParameters = FXCollections.observableList(actionFactory.getParametersWithNames(action));
+		
+		
 		System.out.println("Params: " + actionParameterTypes);
 		opNameTreeItemList = new ArrayList<>();
 
 		hb.getChildren().add(new Label("[ "));
 
-		for (String param : actionParameterTypes) {
-			hb.getChildren().add(new Label(param + " "));
+		for (int i=0; i<actionParameterTypes.size(); i++) {
+			hb.getChildren().add(new Label(actionParameterTypes.get(i) + " "));
 
-			OperationNameTreeItem opNameTreeItem = new OperationNameTreeItem(param);
+			OperationNameTreeItem opNameTreeItem = new OperationNameTreeItem(voogaParameters.get(i).getName(), voogaParameters.get(i).getType());
 			opNameTreeItemList.add(opNameTreeItem);
 			parameterAction.getChildren().add(opNameTreeItem);
-
 		}
+		// for (String param : actionParameterTypes) {
+		// hb.getChildren().add(new Label(param + " "));
+		//
+		// OperationNameTreeItem opNameTreeItem = new OperationNameTreeItem(param);
+		// opNameTreeItemList.add(opNameTreeItem);
+		// parameterAction.getChildren().add(opNameTreeItem);
+		//
+		// }
 
 		hb.getChildren().add(new Label("]"));
 	}
