@@ -1,6 +1,9 @@
 package authoring.GridManagers;
 
+import java.util.List;
+
 import authoring.Layers.BackgroundLayer;
+import authoring.Sprite.AbstractSpriteObject;
 import authoring_UI.SpriteGridHandler;
 
 public class BackgroundGridManager extends SpriteObjectGridManager{
@@ -33,6 +36,12 @@ public class BackgroundGridManager extends SpriteObjectGridManager{
 	@Override
 	public void setCanFillBackground(){
 		canFillBackground = true;
+	}
+
+	@Override
+	public void createMapLayer(List<AbstractSpriteObject> activeSpriteObjects) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
