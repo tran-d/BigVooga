@@ -55,6 +55,6 @@ public class FactoryTesterJUnit {
 	@Test
 	public void testAnnotations() {
 		OperationFactory factory = new OperationFactory();
-		System.out.println(factory.getOperations(factory.getParametersWithNames("Sum").get(0)));
+		System.out.println(factory.getOperations(factory.getParametersWithNames("Sum").get(0).getType()));
 	}
 }

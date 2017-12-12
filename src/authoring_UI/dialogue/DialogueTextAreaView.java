@@ -4,15 +4,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
@@ -27,6 +32,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import tools.DisplayLanguage;
 
 /**
@@ -66,8 +72,12 @@ public class DialogueTextAreaView extends VBox {
 	private double orgSceneX, orgSceneY;
 	private double orgTranslateX, orgTranslateY;
 	private ArrayList<TextArea> taList;
+	
+	private double oldHeight = 0;
+	private Supplier<Color> currentBgColor;
 
-	public DialogueTextAreaView(Runnable save) {
+	public DialogueTextAreaView(Runnable save, Supplier <Color> bgColor) {
+		currentBgColor = bgColor;
 		taList = new ArrayList<TextArea>();
 		paneList = new ArrayList<Pane>();
 		dialoguePreview = new HBox();
@@ -115,6 +125,14 @@ public class DialogueTextAreaView extends VBox {
                                                                  null, null)));
 		}
 	}
+	
+	protected void setTextAreaBackgroundColor(Color color) {
+		for (TextArea ta : taList) {
+			ta.setBackground(new Background(new BackgroundFill(
+                                                                 color,
+                                                                 null, null)));
+		}
+	}
 
 	public void removePanel() {
 
@@ -148,18 +166,22 @@ public class DialogueTextAreaView extends VBox {
 		Pane dialoguePane = new Pane();
 		dialoguePane.setPrefSize(DIALOG_PROMPT_WIDTH, DIALOG_PROMPT_HEIGHT);
 		paneList.add(dialoguePane);
-		setCurrentPanel();
+		setBackgroundColor(currentBgColor.get());
+		setCurrentPane();
 		totalPaneCount.set(totalPaneCount.get()+1);
-		this.getChildren().add(dialoguePane);
 	}
 	
 	protected void addTextArea() {
 		TextArea ta = new TextArea();
 		ta.setPrefSize(25, 25);
-//		ta.setStyle("-fx-background-color: transparent;");
+
 		ta.setBorder(new Border(new BorderStroke(Color.BLACK, 
 	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+		ta.setBackground(paneList.get(0).getBackground());
 		ta.setWrapText(true);
+		String css = this.getClass().getResource("dialogue.css").toExternalForm();
+		ta.getStylesheets().add(css);
+
 		taList.add(ta);
 		Pane k = (Pane) this.getChildren().get(0);
 		k.getChildren().add(ta);
@@ -172,7 +194,7 @@ public class DialogueTextAreaView extends VBox {
 
 	/************************ PRIVATE METHODS ***************************/
 
-	private void setCurrentPanel() {
+	private void setCurrentPane() {
 		currentPaneIndex += 1;
 		current.set(current.get()+1);
 		if (!paneList.isEmpty()) {

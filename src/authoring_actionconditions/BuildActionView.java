@@ -32,22 +32,35 @@ public class BuildActionView {
 
 	private void transportActionRow(WindowEvent event) {
 
-		if (ACRow.getAction() != null) {
+		//for testing
+		ACRow.getRootTreeItem().setExpanded(false);
+		ACRow.changeRowTVSize();
 
-			ACRow.getRootTreeItem().setExpanded(false);
-			ACRow.changeRowTVSize();
+		System.out.println(ACRow.getPrefHeight());
 
-			System.out.println(ACRow.getPrefHeight());
+		if (ACVBox.getChildren().size() >= ACRow.getRowID())
+			ACVBox.getChildren().remove(ACRow.getRowID() - 1);
+		ACVBox.getChildren().add(ACRow.getRowID() - 1, ACRow);
 
-			if (ACVBox.getChildren().size() >= ACRow.getRowID())
-				ACVBox.getChildren().remove(ACRow.getRowID() - 1);
-			ACVBox.getChildren().add(ACRow.getRowID() - 1, ACRow);
-
-			stage.close();
-
-		} else {
-			event.consume();
-		}
+		stage.close();
+		
+		// KEEP THIS CODE
+//		if (ACRow.getAction() != null) {
+//
+//			ACRow.getRootTreeItem().setExpanded(false);
+//			ACRow.changeRowTVSize();
+//
+//			System.out.println(ACRow.getPrefHeight());
+//
+//			if (ACVBox.getChildren().size() >= ACRow.getRowID())
+//				ACVBox.getChildren().remove(ACRow.getRowID() - 1);
+//			ACVBox.getChildren().add(ACRow.getRowID() - 1, ACRow);
+//
+//			stage.close();
+//
+//		} else {
+//			event.consume();
+//		}
 	}
 
 	public void createParameterChoiceBox() {

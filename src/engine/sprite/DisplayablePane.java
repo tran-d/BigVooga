@@ -36,8 +36,6 @@ public class DisplayablePane implements Displayable, Positionable {
 				display.displayImage(h);
 			}
 		}
-		
-		//TODO: display scrollers
 	}
 
 	@Override
@@ -45,7 +43,6 @@ public class DisplayablePane implements Displayable, Positionable {
 		return Integer.MAX_VALUE;
 	}
 
-	//TODO: check these methods
 	public void setPosition(double x, double y) {
 		paneImage.setPosition(x, y);
 	}
