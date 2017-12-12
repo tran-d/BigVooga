@@ -25,7 +25,7 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 
 	private ActionFactory actionFactory = new ActionFactory();
 	private List<OperationNameTreeItem> opNameTreeItemList;
-	private List<Object> operationList = new ArrayList<>();
+	private List<Object> operationList;
 	private String selectedAction;
 	private Action action;
 
@@ -37,7 +37,7 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 	}
 
 	public Action extract() {
-
+		operationList = new ArrayList<>();
 		try {
 			for (OperationNameTreeItem opItem : opNameTreeItemList) {
 
