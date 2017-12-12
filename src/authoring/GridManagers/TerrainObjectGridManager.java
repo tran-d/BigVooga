@@ -11,17 +11,17 @@ public class TerrainObjectGridManager extends SpriteObjectGridManager{
 
 	public TerrainObjectGridManager(int rows, int cols, SpriteGridHandler SGH){
 		super(rows, cols, SGH);
-		myLayerNum = 0;
+		myLayerNum = 1;
 	}
 	
 	public TerrainObjectGridManager(int rows, int cols) {
 		super(rows, cols);
-		myLayerNum = 0;
+		myLayerNum = 1;
 	}
 	
 	public TerrainObjectGridManager(int myNumRows, int myNumCols, int layerNum, Color myColor) {
 		super(myNumRows, myNumCols, layerNum, myColor);
-		myLayerNum = 0;
+		myLayerNum = 1;
 	}
 
 	@Override

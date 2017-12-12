@@ -68,13 +68,21 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 		for (SpriteObjectGridManager SOGM : SOGMList) {
 			if (SOGM.getLayerNum() == 0) {
 				System.out.println("NUM ROWS IN DG: " + SOGM.getRowsForImport());
+				BackgroundGridManager BGM = new BackgroundGridManager(SOGM.getRowsForImport(), SOGM.getColsForImport(), SOGM.getLayerNum(), SOGM.getColor());
+				BGM.setSpriteGridHandler(mySGH);
+				System.out.println("TOGM HAS THIS MANY SPRITES: " + SOGM.getStoredSpriteList().size());
+				BGM.createMapLayer(SOGM.getStoredSpriteList()); 
+				allGrids.add(BGM);
+			}
+			if (SOGM.getLayerNum() == 1) {
+				System.out.println("NUM ROWS IN DG: " + SOGM.getRowsForImport());
 				TerrainObjectGridManager TOGM = new TerrainObjectGridManager(SOGM.getRowsForImport(), SOGM.getColsForImport(), SOGM.getLayerNum(), SOGM.getColor());
 				TOGM.setSpriteGridHandler(mySGH);
 				System.out.println("TOGM HAS THIS MANY SPRITES: " + SOGM.getStoredSpriteList().size());
 				TOGM.createMapLayer(SOGM.getStoredSpriteList()); 
 				allGrids.add(TOGM);
 			}
-			if (SOGM.getLayerNum() == 1) {
+			if (SOGM.getLayerNum() == 2) {
 				System.out.println("NUM ROWS IN DG: " + SOGM.getRowsForImport());
 				SpriteObjectGridManagerForSprites SOGMS = new SpriteObjectGridManagerForSprites(SOGM.getRowsForImport(), SOGM.getColsForImport(), SOGM.getLayerNum(), SOGM.getColor());
 				SOGMS.setSpriteGridHandler(mySGH);
@@ -82,7 +90,7 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 				SOGMS.createMapLayer(SOGM.getStoredSpriteList()); 
 				allGrids.add(SOGMS);
 			}
-			if (SOGM.getLayerNum() == 2) {
+			if (SOGM.getLayerNum() == 3) {
 				System.out.println("NUM ROWS IN DG: " + SOGM.getRowsForImport());
 				PanelObjectGridManager POGM = new PanelObjectGridManager(SOGM.getRowsForImport(), SOGM.getColsForImport(), SOGM.getLayerNum(), SOGM.getColor());
 				POGM.setSpriteGridHandler(mySGH);
@@ -172,7 +180,8 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 	private void makeLayers(SpriteGridHandler spriteGridHandler){
 		showingGrids = new ArrayList<SpriteObjectGridManager>();
 		if (allGrids.size()==0){
-			System.out.println("SHOULD NOT BE GOING THROUGH THIS ALERT ALERT ALERT");
+			System.out.println("SHOULD NOT BE GOING THROUGH THIS ALERT ALERT ALERT"); 
+			// within each of these managers, the associated layer is also created
 		SpriteObjectGridManager background = new BackgroundGridManager(rows, cols, spriteGridHandler);
 		SpriteObjectGridManager terrain = new TerrainObjectGridManager(rows, cols, spriteGridHandler);
 		SpriteObjectGridManagerForSprites sprites = new SpriteObjectGridManagerForSprites(rows, cols, spriteGridHandler);
@@ -188,7 +197,7 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 			allGrids.forEach(item->{
 				System.out.println("already has a grid!: "+item);
 				item.setSpriteGridHandler(spriteGridHandler);
-				//item.createMapLayer();
+				//item.createMapLayer(); UNNECESSARY BC THERE IS ALREADY A GRID
 				item.setSizeToMatchDefaults();
 //				item.getMapLayer().setSpriteGridHandler();
 				showingGrids.add(item);

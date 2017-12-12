@@ -75,6 +75,7 @@ public class GameDataHandler {
 	private Map<String, Image> cache = new HashMap<>();
 	private String projectPath;
 	private String projectName;
+	private int worldCount = 0;
 
 	private static XStream setupXStream() {
 		XStream xstream = new XStream(new DomDriver());
@@ -95,7 +96,7 @@ public class GameDataHandler {
 		this.projectPath = PATH + projectName + "/";
 		makeDirectory(projectPath+CONTROLLER_DIRECTORY);
 		makeSpriteDirectories();
-		makeWorldAndLayerAndSpriteDirectories();
+		//makeWorldAndLayerAndSpriteDirectories();
 	}
 
 	public String getProjectName() {
@@ -428,12 +429,12 @@ public class GameDataHandler {
 		return ret;
 	}
 	
-	private List<SpriteObjectGridManager> loadLayersFromDirectoryName() {
+	private List<SpriteObjectGridManager> loadLayersFromDirectoryName(int worldNum) {
 		List<SpriteObjectGridManager> loadedSOGMs = new ArrayList<SpriteObjectGridManager>();
 		try{
 			for (int i = 1; i < 5; i++) {
-				if (loadLayerFromDirectory(this.getInitializingLayerDirectoryPath(i), i) != null) {
-					loadedSOGMs.add(loadLayerFromDirectory(this.getInitializingLayerDirectoryPath(i), i));
+				if (loadLayerFromDirectory(this.getInitializingLayerDirectoryPath(worldNum, i), i, worldNum) != null) {
+					loadedSOGMs.add(loadLayerFromDirectory(this.getInitializingLayerDirectoryPath(worldNum, i), i, worldNum));
 				}
 			}
 		} catch (Exception e){
@@ -442,7 +443,7 @@ public class GameDataHandler {
 		return loadedSOGMs;
 	}
 	
-	private SpriteObjectGridManager loadLayerFromDirectory(String initializingLayerDirectoryPath, int layerNum) {
+	private SpriteObjectGridManager loadLayerFromDirectory(String initializingLayerDirectoryPath, int layerNum, int worldNum) {
 		SpriteObjectGridManager temp = null;
 		File directory = new File(initializingLayerDirectoryPath);
 		if (!isValidDirectory(directory)) {
@@ -458,7 +459,7 @@ public class GameDataHandler {
 		for (File f : files) {
 			System.out.println("here is the file that is unable to be loaded: " + f.getPath());
 			try {
-				temp = loadLayer(f, layerNum); //THROWS AN ERROR
+				temp = loadLayer(f, layerNum, worldNum); //THROWS AN ERROR
 				System.out.println("ADDED A LAYER AFTER DE-SERIALIZAING");
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -468,7 +469,7 @@ public class GameDataHandler {
 		return temp;
 	}
 
-	public SpriteObjectGridManager loadLayer(File layerFile, int num) throws Exception {
+	public SpriteObjectGridManager loadLayer(File layerFile, int num, int worldNum) throws Exception {
 		if (!isValidFile(layerFile)){
 			System.out.println(layerFile + " BAD BAD BAD ");
 			throw new Exception("Invalid file to load");
@@ -479,7 +480,7 @@ public class GameDataHandler {
 		LayerDataConverter SDC = (LayerDataConverter) SERIALIZER.fromXML(fileContents);
 		SpriteObjectGridManager ret = SDC.createLayer();
 		
-		List<AbstractSpriteObject> spritesToAdd = this.loadSpritesFromDirectoryName(this.getLayerSpritesDirectoryPath(num));
+		List<AbstractSpriteObject> spritesToAdd = this.loadSpritesFromDirectoryName(this.getLayerSpritesDirectoryPath(worldNum, num));
 		System.out.println("ADDED " + spritesToAdd.size() + " NUMBER OF SPRITES TO THE GRID.. MAYBE");
 		ret.storeSpriteObjectsToAdd(spritesToAdd);
 		//ret.setSpriteGridHandler(new SpriteGridHandler(1, new DraggableGrid())); // random draggable grid
@@ -521,13 +522,13 @@ public class GameDataHandler {
 		return ret;
 	}
 	
-	public String getInitializingWorldDirectoryPath() {
-		String ret = projectPath + PROJECT_WORLD_PATH + "/";
+	public String getInitializingWorldDirectoryPath(int worldNum) {
+		String ret = projectPath + PROJECT_WORLD_PATH + worldNum + "/";
 		return ret;
 	}
 	
-	public String getInitializingLayerDirectoryPath(int num) {
-		String ret = this.getInitializingWorldDirectoryPath() + PROJECT_LAYER_PATH + num + "/";
+	public String getInitializingLayerDirectoryPath(int worldNum, int num) {
+		String ret = this.getInitializingWorldDirectoryPath(worldNum) + PROJECT_LAYER_PATH + num + "/";
 		return ret;
 	}
 	
@@ -536,13 +537,13 @@ public class GameDataHandler {
 		return ret;
 	}
 	
-	public String getLayerDirectoryPath(int num) {
-		String ret = this.getInitializingWorldDirectoryPath() + PROJECT_LAYER_PATH + num + "/";
+	public String getLayerDirectoryPath(int worldNum, int num) {
+		String ret = this.getInitializingWorldDirectoryPath(worldNum) + PROJECT_LAYER_PATH + num + "/";
 		return ret;
 	}
 	
-	public String getLayerSpritesDirectoryPath(int num) {
-		String ret = this.getInitializingLayerDirectoryPath(num) + PROJECT_LAYER_SPRITE_PATH;
+	public String getLayerSpritesDirectoryPath(int worldNum, int layerNum) {
+		String ret = this.getInitializingLayerDirectoryPath(worldNum, layerNum) + PROJECT_LAYER_SPRITE_PATH;
 		return ret;
 	}
 	
@@ -563,6 +564,8 @@ public class GameDataHandler {
 	}
 	
 	public void saveWorld(DraggableGrid DG) throws Exception { // called by MainAuthoringGUI
+		worldCount++;
+		makeWorldAndLayerAndSpriteDirectories(worldCount);
 		List<SpriteObjectGridManager> SOGMList = DG.getGrids();
 		int count = 0;
 		int layerCount = 0;
@@ -571,12 +574,12 @@ public class GameDataHandler {
 			List<AbstractSpriteObject> spriteObjects = SOGM.getActiveSpriteObjects();
 			System.out.println("SIZE OF SOGM " + spriteObjects.size());
 			for (AbstractSpriteObject SO : spriteObjects) {
-				String path = this.getLayerSpritesDirectoryPath(layerCount);
+				String path = this.getLayerSpritesDirectoryPath(worldCount, layerCount);
 				path = this.makeValidFileName(path);
 				saveSprite(SO, path);
 				count++;
 			}
-			saveLayer(SOGM, layerCount);
+			saveLayer(SOGM, worldCount, layerCount);
 			System.out.println(SOGM.getName() + " count: " + count);
 		}
 		System.out.println("ULTIMATE COUNT of sprite objects: " + count);
@@ -584,9 +587,9 @@ public class GameDataHandler {
 		saveWorld(DG, worldPath);
 	}
 	
-	private void saveLayer(SpriteObjectGridManager SOGM, int num) throws Exception {
+	private void saveLayer(SpriteObjectGridManager SOGM, int worldCount, int num) throws Exception {
 		LayerDataConverter LDC = new LayerDataConverter(SOGM);
-		String path = this.makeValidFileName(getInitializingLayerDirectoryPath(num));
+		String path = this.makeValidFileName(getInitializingLayerDirectoryPath(worldCount, num));
 		saveLayer(LDC, path);
 	}
 	
@@ -598,7 +601,7 @@ public class GameDataHandler {
 		 writer.close();
 	}
 	
-	private DraggableGrid loadWorld(File worldFile) throws Exception {
+	private DraggableGrid loadWorld(int worldNum, File worldFile) throws Exception {
 		if (!isValidFile(worldFile)){
 			throw new Exception("Invalid file to load");
 		}
@@ -609,15 +612,15 @@ public class GameDataHandler {
 		MapDataConverter MDC = (MapDataConverter) SERIALIZER.fromXML(fileContents);
 		DraggableGrid ret = MDC.createMap();
 		
-		List<SpriteObjectGridManager> addToWorld = this.loadLayersFromDirectoryName();
-		System.out.println("SIZE OF SOGMS FOR EACH DG SHOULD BE 3 : " + addToWorld.size());
+		List<SpriteObjectGridManager> addToWorld = this.loadLayersFromDirectoryName(worldNum);
+		System.out.println("SIZE OF SOGMS FOR EACH DG SHOULD BE 4 : " + addToWorld.size());
 		
 		ret.loadLayers(addToWorld);
 		System.out.println("FINISHED CREATING WORLD"); 
 		return ret;
 	}
 	
-	private List<DraggableGrid> loadWorldsFromDirectory(File directory) throws Exception {
+	private List<DraggableGrid> loadWorldsFromDirectory(int worldNum, File directory) throws Exception {
 		List<DraggableGrid> worlds = new ArrayList<>();
 		if (!isValidDirectory(directory)) {
 			throw new Exception("Not a directory");
@@ -625,7 +628,7 @@ public class GameDataHandler {
 		File[] files = directory.listFiles();
 		for (File f : files) {
 			try {
-				DraggableGrid temp = loadWorld(f);
+				DraggableGrid temp = loadWorld(worldNum, f);
 				worlds.add(temp);
 				System.out.println("ADDED A WORLD AFTER DE-SERIALIZAING");
 			} catch (Exception e) {
@@ -657,9 +660,11 @@ public class GameDataHandler {
 	}
 	
 	public List<DraggableGrid> loadWorldsFromWorldDirectory(){
-		List<DraggableGrid> DG_LIST = new ArrayList<DraggableGrid>();
+		List<List<DraggableGrid>> DG_LIST = new ArrayList<List<DraggableGrid>>();
 		try{
-			DG_LIST = loadWorldsFromDirectoryName(this.getInitializingWorldDirectoryPath());
+			for (int worldNum = 1; worldNum < 10; worldNum++) {
+				DG_LIST = loadWorldsFromDirectoryName(worldNum, this.getInitializingWorldDirectoryPath(worldNum));
+			}
 		} catch (Exception e){
 			// do nothing
 		}
@@ -667,10 +672,12 @@ public class GameDataHandler {
 		return DG_LIST;
 	}
 
-	public List<DraggableGrid> loadWorldsFromDirectoryName(String filePath) throws Exception {
+	public List<DraggableGrid> loadWorldsFromDirectoryName(int worldNum, String filePath) throws Exception {
 		System.out.println("LOAD WORLDS FROM DIRECTORY NAME " + filePath);
+		
 		File directory = new File(filePath);
-		return loadWorldsFromDirectory(directory);
+		System.out.println("loading from world number " + worldNum);
+		return loadWorldsFromDirectory(worldNum, directory);
 	}
 
 	private List<AbstractSpriteObject> loadSpritesFromDirectoryName(String filePath) throws Exception {
@@ -701,25 +708,24 @@ public class GameDataHandler {
 		return ret;
 	}
 	
-	private void makeWorldAndLayerAndSpriteDirectories() {
-		File file1 = new File(getInitializingWorldDirectoryPath());
-		File file2 = new File(getInitializingLayerDirectoryPath(1));
-		File file3 = new File(getLayerSpritesDirectoryPath(1));
+	private void makeWorldAndLayerAndSpriteDirectories(int worldNum) {
+		File file1 = new File(getInitializingWorldDirectoryPath(worldNum));
+		File file2 = new File(getInitializingLayerDirectoryPath(worldNum, 1));
+		File file3 = new File(getLayerSpritesDirectoryPath(worldNum, 1));
 		if (! file1.exists()) {
-			makeDirectory(getInitializingWorldDirectoryPath());
+			System.out.println("WORLDNUM : " + worldNum);
+			makeDirectory(getInitializingWorldDirectoryPath(worldNum));
 		}
-		if (! file2.exists()) {
-			for (int i = 1; i < 4; i++) {
-				makeDirectory(getInitializingLayerDirectoryPath(i));
-				makeDirectory(getInitializingLayerDirectoryPath(i));
-				makeDirectory(getInitializingLayerDirectoryPath(i));
-			}
-		}
-		if (! file3.exists()) {
-			for (int i = 1; i < 4; i++) {
-				makeDirectory(getLayerSpritesDirectoryPath(1));
-				makeDirectory(getLayerSpritesDirectoryPath(2));
-				makeDirectory(getLayerSpritesDirectoryPath(3));
+		if (! file2.exists() && ! file3.exists()) {
+			for (int i = 1; i < 5; i++) {
+				makeDirectory(getInitializingLayerDirectoryPath(worldNum, i));
+				makeDirectory(getInitializingLayerDirectoryPath(worldNum, i));
+				makeDirectory(getInitializingLayerDirectoryPath(worldNum, i));
+				makeDirectory(getInitializingLayerDirectoryPath(worldNum, i));
+				makeDirectory(getLayerSpritesDirectoryPath(worldNum, i));
+				makeDirectory(getLayerSpritesDirectoryPath(worldNum, i));
+				makeDirectory(getLayerSpritesDirectoryPath(worldNum, i));
+				makeDirectory(getLayerSpritesDirectoryPath(worldNum, i));
 			}
 		}
 	}

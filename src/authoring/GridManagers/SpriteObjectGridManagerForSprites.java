@@ -12,17 +12,17 @@ public class SpriteObjectGridManagerForSprites extends SpriteObjectGridManager{
 
 	public SpriteObjectGridManagerForSprites(int rows, int columns, SpriteGridHandler SGH) {
 		super(rows, columns, SGH);
-		myLayerNum = 1;
+		myLayerNum = 2;
 	}
 	
 	public SpriteObjectGridManagerForSprites(int rows, int columns) {
 		super(rows, columns);
-		myLayerNum = 1;
+		myLayerNum = 2;
 	}
 
 	public SpriteObjectGridManagerForSprites(int myNumRows, int myNumCols, int layerNum, Color myColor) {
 		super(myNumRows, myNumCols, layerNum, myColor);
-		myLayerNum = layerNum;
+		myLayerNum = 2;
 	}
 
 	@Override
@@ -40,12 +40,4 @@ public class SpriteObjectGridManagerForSprites extends SpriteObjectGridManager{
 		if (activeSpriteObjects.size() == 0) createMapLayer();
 		else myMapLayer = new SpriteLayer(getNumRows(), getNumCols(), mySpriteGridHandler, activeSpriteObjects);
 	}
-
-//	@Override
-//	public ImageView[][] getGrid() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-	
-
 }

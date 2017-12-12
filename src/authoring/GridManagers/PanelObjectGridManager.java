@@ -12,17 +12,17 @@ public class PanelObjectGridManager extends SpriteObjectGridManager{
 
 	public PanelObjectGridManager(int rows, int columns, SpriteGridHandler SGH) {
 		super(rows, columns, SGH);
-		myLayerNum = 2;
+		myLayerNum = 3;
 	}
 	
 	public PanelObjectGridManager(int rows, int columns) {
 		super(rows, columns);
-		myLayerNum = 2;
+		myLayerNum = 3;
 	}
 
 	public PanelObjectGridManager(int myNumRows, int myNumCols, int layerNum, Color myColor) {
 		super(myNumRows, myNumCols, layerNum, myColor);
-		myLayerNum = layerNum;
+		myLayerNum = 3;
 	}
 
 	@Override

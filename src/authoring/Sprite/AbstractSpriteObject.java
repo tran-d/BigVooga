@@ -689,13 +689,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 				actions.add(actionRows.get(i));
 			}
 			temp.put(c, actions);
-			
 		}
-		
 		return temp;
 	}
-
-	
-//	protected abstract Object writeReplace() throws ObjectStreamException;
-
 }

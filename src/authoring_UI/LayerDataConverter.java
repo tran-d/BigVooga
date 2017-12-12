@@ -8,6 +8,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.security.NullPermission;
 import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
+import authoring.GridManagers.BackgroundGridManager;
 import authoring.GridManagers.PanelObjectGridManager;
 import authoring.GridManagers.SpriteObjectGridManager;
 import authoring.GridManagers.SpriteObjectGridManagerForSprites;
@@ -56,12 +57,15 @@ public class LayerDataConverter {
 	
 	public SpriteObjectGridManager createLayer() {
 		SpriteObjectGridManager newLayer = null;
-	
 		if (layerNum == 0) {
-			newLayer = new TerrainObjectGridManager(myNumRows, myNumCols, layerNum, myColor);
+			newLayer = new BackgroundGridManager(myNumRows, myNumCols, layerNum, myColor);
 			System.out.println("NUM ROWS IN LDC: "+  myNumRows);
 		}
 		if (layerNum == 1) {
+			newLayer = new TerrainObjectGridManager(myNumRows, myNumCols, layerNum, myColor);
+			System.out.println("NUM ROWS IN LDC: "+  myNumRows);
+		}
+		if (layerNum == 2) {
 			newLayer = new SpriteObjectGridManagerForSprites(myNumRows, myNumCols, layerNum, myColor);
 			System.out.println("NUM ROWS IN LDC: "+  myNumRows);
 		}
