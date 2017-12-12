@@ -128,6 +128,11 @@ public class DraggableGrid extends VBox {
 		allGrids.add(SGM);
 	}
 	
+	public void setAllGrids(List<SpriteObjectGridManager> SGMs){
+		allGrids = new ArrayList<SpriteObjectGridManager>();
+		allGrids.addAll(SGMs);
+	}
+	
 	private void makeLayers(SpriteGridHandler spriteGridHandler){
 		showingGrids = new ArrayList<SpriteObjectGridManager>();
 		if (allGrids.size()==0){
@@ -135,12 +140,12 @@ public class DraggableGrid extends VBox {
 		SpriteObjectGridManager terrain = new TerrainObjectGridManager(rows, cols, spriteGridHandler);
 		SpriteObjectGridManagerForSprites sprites = new SpriteObjectGridManagerForSprites(rows, cols, spriteGridHandler);
 		PanelObjectGridManager panels = new PanelObjectGridManager(rows, cols, spriteGridHandler);
-		showingGrids.add(background);
-		showingGrids.add(terrain);
-		showingGrids.add(sprites);
-		showingGrids.add(panels);
-		showingGrids.forEach(item->{
-			allGrids.add(item);
+		allGrids.add(background);
+		allGrids.add(terrain);
+		allGrids.add(sprites);
+		allGrids.add(panels);
+		allGrids.forEach(item->{
+			showingGrids.add(item);
 		});
 		} else {
 			if (spriteGridHandler == null) System.out.println("SGH is NULL IN DRAGGABLE GRID");
@@ -151,6 +156,7 @@ public class DraggableGrid extends VBox {
 				System.out.println("lready has a grid!: "+item);
 				item.setSpriteGridHandler(spriteGridHandler);
 				item.createMapLayer();
+				item.setSizeToMatchDefaults();
 //				item.getMapLayer().setSpriteGridHandler();
 				showingGrids.add(item);
 			});
@@ -159,25 +165,32 @@ public class DraggableGrid extends VBox {
 	}
 	
 	public SpriteObjectGridManager getActiveGrid(){
-		allGrids.sort(new Comparator<SpriteObjectGridManager>(){
+		showingGrids.sort(new Comparator<SpriteObjectGridManager>(){
 			@Override
 			public int compare(SpriteObjectGridManager o1, SpriteObjectGridManager o2) {
+				if (o1 instanceof BackgroundGridManager){
+					return 1;
+				} else if (o2 instanceof BackgroundGridManager){
+					return -1;
+				}
 				return o2.getMapLayer().getLayerNumber()-o1.getMapLayer().getLayerNumber();
 			}
 		});
-		return allGrids.get(0);
+
+		return showingGrids.get(0);
 	}
 	
 	private void showLayer(SpriteObjectGridManager ML){
 //		System.out.println("Adding layer: "+ML.getName());
-		if (!allGrids.contains(ML)){
-			allGrids.add(ML);
+		if (!showingGrids.contains(ML)){
+			showingGrids.add(ML);
 		}
 		ML.setVisible(true);
 	}
 	
 	private void hideLayer(SpriteObjectGridManager ML){
 //		myStackPane.getChildren().remove(ML);
+//		ML.getActiveSpriteObjects()
 		mySGH.deactivateActiveSprites();
 		if (showingGrids.contains(ML)){
 			showingGrids.remove(ML);
@@ -206,7 +219,7 @@ public class DraggableGrid extends VBox {
 		hbox.getChildren().addAll(label, checkbox);
 		if (ML.canFillBackground()){
 			//ColorPicker
-			ColorPicker cp = new ColorPicker(Color.SANDYBROWN);
+			ColorPicker cp = new ColorPicker(Color.TRANSPARENT);
 			cp.setOnAction((event)->{
 				ML.setColor(cp.getValue());
 			});

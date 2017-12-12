@@ -27,6 +27,7 @@ import authoring.Sprite.Parameters.SpriteParameterI;
 import authoring.Sprite.Parameters.StringSpriteParameter;
 import engine.Action;
 import engine.Condition;
+import engine.sprite.AnimationSequence;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -87,9 +88,11 @@ public abstract class AbstractSpriteObject extends ImageView {
 	protected String mySavePath;
 	protected ObservableList<Integer> allConditions;
 	protected ObservableList<Integer> allActions;
-	protected HashMap<Condition,List<Integer>> conditionRows;
+	protected HashMap<Condition, List<Integer>> conditionRows;
 	protected List<Action> actionRows;
-	protected List<AnimationSequence> myAnimationSequences;
+	protected List<AuthoringAnimationSequence> myAnimationSequences;
+	protected List<String> myTags;
+
 
 	public AbstractSpriteObject() {
 		super();
@@ -106,6 +109,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 	}
 
 	private void initializeVariables() {
+		myTags = new ArrayList<String>();
 		myInventory = new ArrayList<AbstractSpriteObject>();
 		initializePositionOnGridProperty();
 		initializeHeightWidthProperties();
@@ -157,6 +161,15 @@ public abstract class AbstractSpriteObject extends ImageView {
 
 	public String getUniqueID() {
 		return myUniqueID;
+	}
+	
+	public List<String> getTags(){
+		return this.myTags;
+	}
+	
+	public void setTags(Collection<String> newTags){
+		this.myTags.clear();
+		this.myTags.addAll(newTags);
 	}
 
 	public List<AbstractSpriteObject> getInventory() {
@@ -605,7 +618,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return myAnimationSequences;
 	}
 	
-	public void setAnimationSequences(ArrayList<AuthoringAnimationSequence> animations){
+	public void setAnimationSequences(List<AuthoringAnimationSequence> animations){
 		myAnimationSequences = animations;
 	}
 	

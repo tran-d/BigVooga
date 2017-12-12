@@ -53,6 +53,7 @@ public class NumberTextField extends TextField {
 
     public NumberTextField(BigDecimal value, NumberFormat nf) {
         super();
+        this.setDisable(true);
         this.nf = nf;
         initHandlers();
         setNumber(value);

@@ -19,7 +19,7 @@ public class ConditionVBox<T> extends ActionConditionVBox<T> implements Conditio
 
 	@Override
 	public void addCondition(String label, ObservableList<Integer> currentActions) {
-		ConditionRow conditionRow = new ConditionRow(getRows().size() + 1, label, getSelectorLabel(),null,currentActions, (ConditionVBox<ConditionRow>) this);
+		ConditionRow conditionRow = new ConditionRow(getRows().size() + 1,currentActions, (ConditionVBox<ConditionRow>) this);
 		addToRows(conditionRow);
 		BuildConditionView bcd = new BuildConditionView(this, conditionRow);
 	}
