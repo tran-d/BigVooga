@@ -5,7 +5,11 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Orientation;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Separator;
+import javafx.scene.control.TextField;
+import javafx.scene.text.Font;
 
 /**
  * Class that displays a list of dialogues.
@@ -18,6 +22,7 @@ public class DialogueListView extends ListView<String> {
 	private static double HEIGHT = 20;
 	// private List<DialogueListCell> dList = new ArrayList<>();
 	private List<String> dList = new ArrayList<>();
+	private int dialogueCount = 0;
 
 	public DialogueListView(List<Dialogue> list) {
 
@@ -25,6 +30,7 @@ public class DialogueListView extends ListView<String> {
 
 		for (Dialogue d : list) {
 			dList.add(d.getName());
+			dialogueCount++;
 		}
 		ObservableList<String> items = FXCollections.observableArrayList(dList);
 
@@ -33,6 +39,11 @@ public class DialogueListView extends ListView<String> {
 	}
 
 	private String createListCellText(Dialogue d) {
-		return "Name: " + d.getName() + " | Font: " + d.getFontType() + " | Font Size: " + d.getFontSize();
+		TextField styled = new TextField(d.getName());
+		styled.setFont(Font.font(d.getFontType()));
+		styled.setStyle(d.getFontColor().toString());
+		Separator separator = new Separator();
+		separator.setOrientation(Orientation.VERTICAL);
+		return dialogueCount + ":" + separator + " " + styled;
 	}
 }

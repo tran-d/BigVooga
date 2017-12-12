@@ -96,19 +96,17 @@ public class DialogueTextAreaView extends VBox {
 
 	/************************ PUBLIC METHODS ***************************/
 
-	public List<TextArea> getDialogueList() {
-		return taList;
+//	public List<TextArea> getDialogueList() {
+//		return taList;
+//	}
+	
+	public List<Pane> getDialogueSequence() {
+		return paneList;
 	}
-
-	public void setFontType(String family) {
+	
+	protected void setFont(String family, int size) {
 		for (TextArea ta : taList) {
-			ta.setFont(Font.font(family));
-		}
-	}
-
-	public void setFontSize(int size) {
-		for (TextArea ta : taList) {
-			ta.setFont(Font.font(size));
+			ta.setFont(Font.font(family, size));
 		}
 	}
 	
