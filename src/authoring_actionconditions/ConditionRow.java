@@ -84,19 +84,23 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 		}
 	}
 
-	public Condition getCondition() {
+	public Condition getCondition() throws NumberFormatException {
 
 		try {
 			if (integerTF.getText().equals("")) {
-				showError(INVALID_INPUT_MESSAGE, INTEGER_INPUT_MESSAGE);
-				return null;
+//				showError(INVALID_INPUT_MESSAGE, INTEGER_INPUT_MESSAGE);
+//				return null;
+				throw new NumberFormatException();
 			} else
 				return new Condition(Integer.parseInt(integerTF.getText()),
 						(BooleanOperation) operationNameTreeItem.makeOperation());
 
-		} catch (Exception e) {
-			showError(INVALID_INPUT_MESSAGE, ENTER_VALID_INPUT);
-			return null;
+		} catch (NullPointerException e) {
+//			showError(INVALID_INPUT_MESSAGE, ENTER_VALID_INPUT);
+			throw e;
+//			return null;
+		} catch (NumberFormatException e) {
+			throw e;
 		}
 
 	}

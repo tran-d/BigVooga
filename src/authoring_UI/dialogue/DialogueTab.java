@@ -64,5 +64,9 @@ public class DialogueTab extends Tab {
 		dialogueLister.getChildren().remove(index);
 
 	}
+	
+	public int getButtonIndex(Button btn) {
+		return dialogueLister.getChildren().indexOf(btn);
+	}
 
 }

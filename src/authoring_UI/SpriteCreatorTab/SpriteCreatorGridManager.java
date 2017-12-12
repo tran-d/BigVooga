@@ -1,33 +1,35 @@
-package authoring_UI.Inventory;
+package authoring_UI.SpriteCreatorTab;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import authoring.GridManagers.SpriteObjectGridManager;
 import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.Parameters.SpriteParameterI;
 import authoring_UI.SpriteGridHandler;
+import javafx.scene.image.ImageView;
 
-public class InventoryGridManager extends SpriteObjectGridManager {
+public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 	
-	private static int ROWS = 5;
-	private static int COLUMNS = 5;
+	private static int ROWS = 10;
+	private static int COLUMNS = 6;
 	
 	
-	public InventoryGridManager(SpriteGridHandler SGH){
+	public SpriteCreatorGridManager(SpriteGridHandler SGH){
 		super(ROWS, COLUMNS, SGH);
 	}
 	
-	public InventoryGridManager(){
+	public SpriteCreatorGridManager(){
 		super(ROWS, COLUMNS);
 	}
 
-	protected InventoryGridManager(int rows, int columns, SpriteGridHandler SGH) {
+	protected SpriteCreatorGridManager(int rows, int columns, SpriteGridHandler SGH) {
 		super(rows, columns, SGH);
 	}
 	
 	@Override
 	public void createMapLayer() {
-		
-		myMapLayer = new InventoryLayer(getNumRows(), getNumCols(), mySpriteGridHandler);
+		myMapLayer = new SpriteCreatorLayer(getNumRows(), getNumCols(), mySpriteGridHandler);
 		this.setNumCols(defaultColumns);
 		this.setNumRows(defaultRows);
 		

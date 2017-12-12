@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.DefaultSpriteObject;
 import authoring.Sprite.SpriteObject;
 import authoring_UI.SpriteGridHandler;
 import authoring_UI.Map.MapLayer;
@@ -16,8 +17,8 @@ import javafx.scene.paint.Color;
 public abstract class SpriteObjectGridManager{
 	
 	
-	protected List<List<SpriteObject>> spriteGrid;
-	private SpriteObject defaultEmptySprite;
+	protected List<List<AbstractSpriteObject>> spriteGrid;
+	private AbstractSpriteObject defaultEmptySprite;
 	private Set<Integer []> activeCells;
 	protected MapLayer myMapLayer;
 	protected SpriteGridHandler mySpriteGridHandler;
@@ -26,7 +27,9 @@ public abstract class SpriteObjectGridManager{
 	protected int defaultRows;
 	protected int defaultColumns;
 	protected boolean canFillBackground;
-
+	private List<AbstractSpriteObject> storedSpriteList;
+	private int numRowsForImport;
+	private int numColsForImport;
 	
 	protected ObjectProperty<Integer> numRowsProperty;
 	protected ObjectProperty<Integer> numColumnsProperty;
@@ -34,18 +37,29 @@ public abstract class SpriteObjectGridManager{
 	public SpriteObjectGridManager(int rows, int columns, int layerNum, Color c){
 		this(rows, columns);
 		myColor = c;
-		createMapLayer();
+		numRowsForImport = rows;
+		numColsForImport = columns;
+		// createMapLayer() do elsewhere now
+	}
+	
+	
+	public void storeSpriteObjectsToAdd(List<AbstractSpriteObject> spritesToAdd) {
+		storedSpriteList = spritesToAdd;
+	}
+	
+	public List<AbstractSpriteObject> getStoredSpriteList() {
+		return storedSpriteList;
 	}
 	
 	public SpriteObjectGridManager(int rows, int cols) {
 		setCanFillBackground();
-		setDefaultEmptySprite(new SpriteObject());
+		setDefaultEmptySprite(new DefaultSpriteObject());
 		numRowsProperty = new SimpleObjectProperty<Integer>();
 		numColumnsProperty = new SimpleObjectProperty<Integer>();
 		numRowsProperty.set(1);
 		numColumnsProperty.set(1);
-		spriteGrid = new ArrayList<List<SpriteObject>>();
-		List<SpriteObject> row1 = new ArrayList<SpriteObject>();
+		spriteGrid = new ArrayList<List<AbstractSpriteObject>>();
+		List<AbstractSpriteObject> row1 = new ArrayList<AbstractSpriteObject>();
 		row1.add(defaultEmptySprite.newCopy());
 		spriteGrid.add(row1);
 		activeCells = new HashSet<Integer[]>();
@@ -59,7 +73,7 @@ public abstract class SpriteObjectGridManager{
 			Integer diff = newNumRows-oldNumRows;
 			if (diff>0){
 				for (int i=0; i<diff;i++){
-					List<SpriteObject> newRow = new ArrayList<SpriteObject>();
+					List<AbstractSpriteObject> newRow = new ArrayList<AbstractSpriteObject>();
 					for (int j=0; j<numColumnsProperty.get(); j++){
 						newRow.add(defaultEmptySprite.newCopy());
 						}
@@ -82,7 +96,7 @@ public abstract class SpriteObjectGridManager{
 			}
 			Integer diff = newNumColumns-oldNumColumns;
 			
-				for (List<SpriteObject> row: spriteGrid){
+				for (List<AbstractSpriteObject> row: spriteGrid){
 					if (diff>0){
 						for (int i=0; i<diff;i++){
 							row.add(defaultEmptySprite.newCopy());
@@ -145,6 +159,8 @@ public abstract class SpriteObjectGridManager{
 	
 	public abstract void createMapLayer();
 	
+	public abstract void createMapLayer(List<AbstractSpriteObject> activeSpriteObjects);
+	
 	public MapLayer getMapLayer(){
 		return this.myMapLayer;
 	}
@@ -157,13 +173,19 @@ public abstract class SpriteObjectGridManager{
 		return getMapLayer().getName();
 	}
 	
-	public List<SpriteObject> getEntireListOfSpriteObjects() {
-		List<SpriteObject> ret = new ArrayList<SpriteObject>();
-		for (List<SpriteObject> SOI_LIST: spriteGrid){
-			for (SpriteObject SOI: SOI_LIST){
-				ret.add(SOI);
+	public List<AbstractSpriteObject> getEntireListOfSpriteObjects() {
+		List<AbstractSpriteObject> ret = new ArrayList<AbstractSpriteObject>();
+		for (List<AbstractSpriteObject> SOI_LIST: spriteGrid){
+			SOI_LIST.forEach(sprite->{
+				if (sprite instanceof SpriteObject){
+				ret.add(sprite);
+				}
+				});
+				
 			}
-		}
+		
+		System.out.println("List of sprites: "+ret);
+		System.out.println("List of sprites size: "+ret.size());
 		return ret;
 	}
 	
@@ -182,7 +204,7 @@ public abstract class SpriteObjectGridManager{
 		}
 	}
 	
-	private void setCell(SpriteObject SOI, Integer[] loc) {
+	private void setCell(AbstractSpriteObject SOI, Integer[] loc) {
 		spriteGrid.get(loc[0]).set(loc[1], SOI);
 	}
 	
@@ -190,7 +212,7 @@ public abstract class SpriteObjectGridManager{
 		setCell(defaultEmptySprite.newCopy(), loc);
 	}
 	
-	public void setDefaultEmptySprite(SpriteObject SPI) {
+	public void setDefaultEmptySprite(AbstractSpriteObject SPI) {
 		defaultEmptySprite  = SPI.newCopy();
 	}
 	
@@ -245,6 +267,14 @@ public abstract class SpriteObjectGridManager{
 		removeActiveCell(ASO.getPositionOnGrid());
 	}
 	
+	public int getRowsForImport() {
+		return numRowsForImport;
+	}
+	
+	public int getColsForImport() {
+		return numColsForImport;
+	}
+	
 	public void removeActiveCells(List<Integer[]> dummy){
 		dummy.forEach(a->{
 			removeActiveCell(a);
@@ -256,13 +286,10 @@ public abstract class SpriteObjectGridManager{
 		removeActiveCells(dummy);
 	}
 	
-	public List<SpriteObject> getActiveSpriteObjects(){
-		System.out.println("NUm active cells: "+activeCells.size());
-		List<SpriteObject> ret = new ArrayList<SpriteObject>();
+	public List<AbstractSpriteObject> getActiveSpriteObjects(){
+		List<AbstractSpriteObject> ret = new ArrayList<AbstractSpriteObject>();
 		for (Integer[] loc: activeCells){
 			ret.add(getCell(loc));
-			System.out.println("WTF YO");
-			System.out.println(getCell(loc));
 		}
 		return ret;
 	}
@@ -277,12 +304,12 @@ public abstract class SpriteObjectGridManager{
 		}
 	}
 
-	private SpriteObject getCell(Integer [] loc){
+	private AbstractSpriteObject getCell(Integer [] loc){
 		return spriteGrid.get(loc[0]).get(loc[1]);
 	}
 
-	public void matchActiveCellsToSprite(SpriteObject firstSprite) {
-		for (SpriteObject SOI: getActiveSpriteObjects()){
+	public void matchActiveCellsToSprite(AbstractSpriteObject firstSprite) {
+		for (AbstractSpriteObject SOI: getActiveSpriteObjects()){
 			System.out.println("Active Sprite Params: "+SOI.getParameters());
 			SOI.applyParameterUpdate(firstSprite.getParameters());
 			SOI.setAllActions(firstSprite.getAllActions());

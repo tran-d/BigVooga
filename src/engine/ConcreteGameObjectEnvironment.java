@@ -84,7 +84,7 @@ public class ConcreteGameObjectEnvironment implements GameObjectEnvironment {
 
 	@Override
 	public Point2D getAbsoluteMouseCoordinates() {
-		return world.makeScreenCoordinatesAbsolute(master.getPlayerManager().getClickX(), master.getPlayerManager().getClickY());
+		return world.makeScreenCoordinatesAbsolute(master.getPlayerManager().getMouseXY().getX(), master.getPlayerManager().getMouseXY().getY());
 	}
 
 	@Override

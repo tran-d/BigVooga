@@ -38,9 +38,12 @@ public class ActionCategoryTreeItem extends TreeItem<HBox> {
 	public Action extract() {
 		try {
 			return actionName.extract();
-		} catch (Exception e) {
-			showError(INVALID_INPUT_MESSAGE, ENTER_VALID_INPUT);
-			return null;
+		} catch (NullPointerException e) {
+			// showError(INVALID_INPUT_MESSAGE, ENTER_VALID_INPUT);
+			// return null;
+			throw e;
+		} catch (NumberFormatException e) {
+			throw e;
 		}
 
 	}

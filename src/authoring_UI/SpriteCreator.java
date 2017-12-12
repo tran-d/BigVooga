@@ -58,15 +58,14 @@ public class SpriteCreator extends TabPane {
 	private int spriteCount = 1;
 	private int myTabCount = 1;
 
-	public SpriteCreator(Stage stage, AuthoringEnvironmentManager AEM, SpriteCreatorManager SCM, SpriteCreatorImageGrid imageGrid, SpriteCreatorSpriteManager SM, SpriteCreatorGridHandler mySCGridHandler) {
-		setup(stage, AEM, SCM, SM);
+	public SpriteCreator(AuthoringEnvironmentManager AEM, SpriteCreatorManager SCM, SpriteCreatorImageGrid imageGrid, SpriteCreatorSpriteManager SM, SpriteCreatorGridHandler mySCGridHandler) {
+		setup(AEM, SCM, SM);
 		SpriteTab tab = new SpriteTab(AEM,SCM, imageGrid, mySM, mySCGridHandler);
 		this.getTabs().add(tab);
 
 	}
 
-	private void setup(Stage stage, AuthoringEnvironmentManager AEM, SpriteCreatorManager SCM, SpriteCreatorSpriteManager SM) {
-		myStage = stage;
+	private void setup(AuthoringEnvironmentManager AEM, SpriteCreatorManager SCM, SpriteCreatorSpriteManager SM) {
 		spriteCreatorResources = ResourceBundle.getBundle(SPRITECREATORRESOURCES_PATH);
 		myAEM = AEM;
 		mySCM = SCM;

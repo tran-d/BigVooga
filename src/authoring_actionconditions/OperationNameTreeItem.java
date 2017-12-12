@@ -26,10 +26,9 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 	private List<OperationParameterTreeItem> opParameterList = new ArrayList<>();
 	private Runnable changeTreeViewSize;
 	private VoogaType voogaType;
-	
-
 
 	private String voogaParameterGetName;
+	private String actionParameterType;
 
 	// public OperationNameTreeItem(String actionParameter) {
 	//
@@ -47,18 +46,19 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 	// this.makeOperationNameTreeItem(voogaType.toString());
 	// }
 
-	public OperationNameTreeItem(String voogaParameterGetName, VoogaType voogaType) {
+	public OperationNameTreeItem(String actionParameterType, String voogaParameterGetName, VoogaType voogaType) {
 		this.voogaType = voogaType;
 		this.voogaParameterGetName = voogaParameterGetName;
-		
+		this.actionParameterType = actionParameterType;
+		System.out.println("actionParameterType: " + actionParameterType);
 		this.makeOperationNameTreeItem(voogaType.toString());
 	}
 
-	public OperationNameTreeItem(String actionParameterDescription, VoogaType voogaType, Runnable changeSize) {
-		this(actionParameterDescription, voogaType);
+	public OperationNameTreeItem(String actionParameterType, String actionParameterDescription, VoogaType voogaType, Runnable changeSize) {
+		this(actionParameterType, actionParameterDescription, voogaType);
 		this.changeTreeViewSize = changeSize;
 		this.expandedProperty().addListener(e -> changeTreeViewSize.run());
-		
+
 	}
 
 	public Object makeOperation() {
@@ -76,7 +76,8 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 		HBox hb = new HBox();
 		// hb.getChildren().addAll(new Label("Choose Operation: "));
 
-		hb.getChildren().addAll(new Label(voogaParameterGetName + ": "), makeOperationNameChoiceBox(voogaTypeString, this));
+		hb.getChildren().addAll(new Label(voogaParameterGetName + ": "),
+				makeOperationNameChoiceBox(voogaTypeString, this));
 		this.setValue(hb);
 		this.setExpanded(true);
 
@@ -89,32 +90,39 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 
 		ObservableList<String> voogaParameters = FXCollections
 				.observableList(operationFactory.getOperations(voogaType));
-		for (String s : voogaParameters) 
+
+		List<String> newOps = new ArrayList<>();
+		for (String s : voogaParameters) {
 			System.out.println("Vooga Parameters for" + " voogaTypeString: " + s.toString());
-		
+			newOps.add(s.toString());
 
-		operationCB = new ChoiceBox<>(operations);
+		}
 
-		if (voogaTypeString.equals("Double"))
-			operations.add(0, INPUT_A_DOUBLE);
-		else if (voogaTypeString.equals("String"))
-			operations.add(0, (INPUT_A_STRING));
-		else if (voogaTypeString.equals("Boolean"))
-			operations.add(0, (INPUT_A_BOOLEAN));
+		ObservableList<String> newOperations = FXCollections.observableList(newOps);
 
-		System.out.println("ops: " + operations);
+		operationCB = new ChoiceBox<>(newOperations);
+
+		if (actionParameterType.equals("Double"))
+			newOperations.add(0, INPUT_A_DOUBLE);
+		else if (actionParameterType.equals("String"))
+			newOperations.add(0, (INPUT_A_STRING));
+		else if (actionParameterType.equals("Boolean"))
+			newOperations.add(0, (INPUT_A_BOOLEAN));
+
+		System.out.println("ops: " + newOperations);
 
 		operationCB.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 
-				System.out.println("Selected Operation: " + operations.get(operationCB.getSelectionModel().getSelectedIndex()));
+				System.out.println(
+						"Selected Operation: " + newOperations.get(operationCB.getSelectionModel().getSelectedIndex()));
 				operationName.getChildren().clear();
-				String selectedOperation = operations.get(operationCB.getSelectionModel().getSelectedIndex());
-				
+				String selectedOperation = newOperations.get(operationCB.getSelectionModel().getSelectedIndex());
+
 				operationParameterTreeItem = new OperationParameterTreeItem(selectedOperation);
-				
+
 				opParameterList.add(operationParameterTreeItem);
 				operationName.getChildren().add(operationParameterTreeItem);
 			}
