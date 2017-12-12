@@ -15,6 +15,8 @@ import authoring.Sprite.SpriteParameterTabsAndInfo;
 import authoring.SpritePanels.GameElementSelector;
 import engine.utilities.data.GameDataHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -60,7 +62,7 @@ public class SpriteCreator_2 extends Observable {
 
 	protected SpriteCreator_2(Stage stage, GameElementSelector spriteManager, AuthoringEnvironmentManager AEM) {
 
-		myStage = stage;
+//		myStage = stage;
 		mySPTAI = new SpriteParameterTabsAndInfo();
 		myAEM = AEM;
 		myGDH = myAEM.getGameDataHandler();
@@ -281,17 +283,21 @@ public class SpriteCreator_2 extends Observable {
 		imageChooser.setTitle("Open Image");
 		File file = imageChooser.showOpenDialog(myStage);
 		
+		
 		if (file != null) {
+			System.out.println("pathhhh " + file.getAbsolutePath());
+
 			Files.copy(file.toPath(), Paths.get(PATH+file.getName()), StandardCopyOption.REPLACE_EXISTING);
-			
 			System.out.println(file.getName());
-			mySpriteObject.setImageURL(file.getName());
+			File absFile = new File(file.getAbsolutePath());
+			mySpriteObject.setImageURL(absFile.getName());
 //			setChanged();
 //			System.out.print(file.getName());
 //			notifyObservers(file.getName());
 			System.out.println("image chosen");
 
 		}
+
 	}
 	
 	public void onCreate(Consumer<Button> button){

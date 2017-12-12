@@ -72,6 +72,7 @@ public class GameDataHandler {
 	private static final String RESOURCES = "resources/";
 	private static final String CONTROLLER_DIRECTORY = "SAVES/";
 	private static final String DELIMITER = ", ";
+	public static final String RES_PATH = "resources/";
 	private Map<String, Image> cache = new HashMap<>();
 	private String projectPath;
 	private String projectName;
@@ -288,6 +289,8 @@ public class GameDataHandler {
 	public static File chooseFile(Stage stage) {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle(SELECTOR_TITLE);
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Image Files (.png)", "*.png"));
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Image Files (.gif)", "*.gif"));
 		return fileChooser.showOpenDialog(stage);
 	}
 	
@@ -315,6 +318,18 @@ public class GameDataHandler {
 		
 		return newFile;
 		
+	}
+	
+	public static String getImageURIAndCopyToResources(File file) {
+		try {
+			Files.copy(file.toPath(), Paths.get(RES_PATH+file.getName()), StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String URI = file.toURI().toString();
+		
+		return URI;
 	}
 
 	private static void makeDirectory(String path) {
