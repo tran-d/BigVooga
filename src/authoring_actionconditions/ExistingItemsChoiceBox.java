@@ -2,18 +2,23 @@ package authoring_actionconditions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import engine.operations.VoogaType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.input.KeyCombination.Modifier;
+import sun.security.tools.keytool.Resources;
 
 public class ExistingItemsChoiceBox {
 
+	private static final String PACKAGE_NAME = ExistingItemsChoiceBox.class.getPackage().getName();
+	private static final String KEY_BUNDLE_LOCATION = PACKAGE_NAME + ".codes";
 	private ChoiceBox<String> cb;
+	private ResourceBundle keys;
 
 	public ExistingItemsChoiceBox(VoogaType type) {
+		keys = Resources.getBundle(KEY_BUNDLE_LOCATION);
 		List<String> list = this.makeObservableList(type);
 		if (list.size() > 0)
 			cb = this.makeChoiceBox(list);
@@ -31,7 +36,7 @@ public class ExistingItemsChoiceBox {
 		} else if (type == VoogaType.DIALOGNAME) {
 
 		} else if (type == VoogaType.KEY) {
-
+			list = makeKeyList();
 		} else if (type == VoogaType.OBJECTNAME) {
 			list.add("item 1");
 			list.add("item 2");
@@ -54,9 +59,11 @@ public class ExistingItemsChoiceBox {
 		ChoiceBox<String> cb = new ChoiceBox<>(obList);
 		return cb;
 	}
-	
+
 	private List<String> makeKeyList() {
-		
+		List<String> list = new ArrayList<>();
+		list.addAll(keys.keySet());
+		return list;
 	}
 
 	public ChoiceBox<String> getChoiceBox() {
