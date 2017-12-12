@@ -2,8 +2,6 @@ package authoring_actionconditions;
 
 import java.util.LinkedList;
 import java.util.ResourceBundle;
-
-import ActionConditionClasses.ChoiceBoxVBox;
 import ActionConditionClasses.ResourceBundleUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -14,18 +12,14 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Separator;
-import javafx.scene.control.ToolBar;
 import javafx.scene.layout.HBox;
 
 public class ActionConditionHBox extends HBox implements ActionConditionHBoxI {
 
 	private ResourceBundle tabResources;
 	private Button addButton;
-	private ChoiceBoxVBox<String> selectorVBox;
 	private Button removeButton;
 	private RemoveChoiceBoxVBox removeRowVBox;
-	private EditChoiceBoxVBox editRowVBox;
-	private Button editButton;
 
 	public ActionConditionHBox(String tabType) {
 		super();
@@ -42,14 +36,11 @@ public class ActionConditionHBox extends HBox implements ActionConditionHBoxI {
 	
 		tabResources = ResourceBundleUtil.getResourceBundle(tabType);
 		addButton = new Button(tabResources.getString("AddButtonLabel"));
-		ObservableList<String> additionOptions = ActionConditionTabUtil
-				.convertToObservableList(tabResources.getString("Options"));
-		selectorVBox = new ChoiceBoxVBox<String>(tabResources.getString("SelectorLabel"), additionOptions);
 		Separator separator = ActionConditionTabUtil.makeVerticalSeparator();
 		removeButton = new Button(tabResources.getString("RemoveButtonLabel"));
 		removeRowVBox = new RemoveChoiceBoxVBox(tabResources.getString("RemoverLabel"),
 				FXCollections.observableList(new LinkedList<Integer>()));
-		getChildren().addAll(addButton, selectorVBox, separator, removeRowVBox, removeButton);
+		getChildren().addAll(addButton, separator, removeRowVBox, removeButton);
 	}
 
 	public ActionConditionHBox(String tabType, ObservableList<Integer> actions) {
@@ -69,11 +60,6 @@ public class ActionConditionHBox extends HBox implements ActionConditionHBoxI {
 	@Override
 	public Integer getRemoveValue() {
 		return (Integer) removeRowVBox.getCurrentValue();
-	}
-
-	@Override
-	public String getOptionsValue() {
-		return (String) selectorVBox.getCurrentValue();
 	}
 
 	@Override

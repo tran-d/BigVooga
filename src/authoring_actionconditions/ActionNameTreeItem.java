@@ -1,9 +1,8 @@
-package authoring;
+package authoring_actionconditions;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import authoring_actionconditions.OperationNameTreeItem;
 import engine.Action;
 import engine.Actions.ActionFactory;
 import engine.operations.Operation;
@@ -12,13 +11,10 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.HBox;
-import tools.DisplayLanguage;
 
 public class ActionNameTreeItem extends TreeItem<HBox> {
 
@@ -28,7 +24,7 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 
 	private ActionFactory actionFactory = new ActionFactory();
 	private List<OperationNameTreeItem> opNameTreeItemList;
-	private List<Operation<?>> operationList = new ArrayList<>();
+	private List<Object> operationList;
 	private String selectedAction;
 	private Action action;
 
@@ -40,15 +36,15 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 	}
 
 	public Action extract() {
-
+		operationList = new ArrayList<>();
 		try {
 			for (OperationNameTreeItem opItem : opNameTreeItemList) {
 
-				operationList.add((Operation<?>) opItem.makeOperation());
+				operationList.add(opItem.makeOperation());
 				System.out.println("Operation: " + opItem.makeOperation().toString());
 
 			}
-
+//			System.out.println(operationList);
 			System.out.println("Making action for " + selectedAction + "...");
 			action = actionFactory.makeAction(selectedAction, operationList.toArray());
 			System.out.println(action);

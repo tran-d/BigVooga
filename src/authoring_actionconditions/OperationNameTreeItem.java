@@ -54,7 +54,8 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 		this.makeOperationNameTreeItem(voogaType.toString());
 	}
 
-	public OperationNameTreeItem(String actionParameterType, String actionParameterDescription, VoogaType voogaType, Runnable changeSize) {
+	public OperationNameTreeItem(String actionParameterType, String actionParameterDescription, VoogaType voogaType,
+			Runnable changeSize) {
 		this(actionParameterType, actionParameterDescription, voogaType);
 		this.changeTreeViewSize = changeSize;
 		this.expandedProperty().addListener(e -> changeTreeViewSize.run());
@@ -63,11 +64,15 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 
 	public Object makeOperation() {
 
-		if (operationParameterTreeItem.getNumberOfParameters() == 0) {
-			return operationParameterTreeItem.getParameter();
-		} else {
-			System.out.println("there's atleast operation parameter choicebox");
-			return operationParameterTreeItem.makeOperation();
+		try {
+			if (operationParameterTreeItem.getNumberOfParameters() == 0) {
+				return operationParameterTreeItem.getParameter();
+			} else {
+				System.out.println("there's atleast operation parameter choicebox");
+				return operationParameterTreeItem.makeOperation();
+			}
+		} catch (Exception e) {
+			throw e;
 		}
 
 	}

@@ -30,14 +30,13 @@ public class ActionTab<T> extends Tab implements ActionTabI<T> {
 		setUpActionConditionManager(title);
 	}
 
-	public ActionTab(String title, ActionConditionVBox<T> actionConditionVBox, ActionConditionHBox topToolBar,
-			AuthoringEnvironmentManager AEM) {
+	public ActionTab(String title, ActionConditionVBox<T> actionConditionVBox, ActionConditionHBox topToolBar) {
 		this(title);
 		mainVBox.getChildren().removeAll(this.actionConditionVBox, this.buttons);
 		this.actionConditionVBox = actionConditionVBox;
 		buttons = topToolBar;
 		mainVBox.getChildren().addAll(this.buttons, this.actionConditionVBox);
-		myAEM = AEM;
+		//myAEM = AEM;	TODO maybe incorporate the AEM?
 	}
 
 	private void setUpActionConditionManager(String title) {
@@ -59,13 +58,8 @@ public class ActionTab<T> extends Tab implements ActionTabI<T> {
 	}
 
 	@Override
-	public String getActionCondition() {
-		return buttons.getOptionsValue();
-	}
-
-	@Override
-	public void addAction(String label) {
-		((ActionVBox<T>) actionConditionVBox).addAction(label);
+	public void addAction() {
+		((ActionVBox<T>) actionConditionVBox).addAction();
 	}
 
 	@Override
@@ -115,7 +109,7 @@ public class ActionTab<T> extends Tab implements ActionTabI<T> {
 
 	@Override
 	public ActionConditionVBox<T> setActionConditionVBox() {
-		return new ActionVBox<T>(getSelectorLabel());
+		return new ActionVBox<T>();
 	}
 
 	@Override
