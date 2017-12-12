@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -20,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
@@ -70,7 +72,6 @@ public class DialogueEditor {
 	public DialogueEditor(Consumer<String> saveCons) {
 		this.saveConsumer = saveCons;
 		view = new VBox(10);
-		view.setPrefSize((WelcomeScreen.WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH) / 2, INPUT_HBOX_HEIGHT);
 		view.getStylesheets().add(DialogueManager.class.getResource("dialogue.css").toExternalForm());
 
 		this.makeTemplate();
@@ -108,12 +109,23 @@ public class DialogueEditor {
 	public Color getBackgroundColor() {
 		return backgroundColorCP.getValue();
 	}
+	
+	public VBox getView() {
+		System.out.println(view.getHeight());
+		return view;
+	}
 
 	/*************************** PRIVATE METHODS *********************************/
 
 	private void save(String name) {
 		if (!name.trim().equals(""))
 			saveConsumer.accept(name);
+	}
+	
+	private Separator createSeparator() {
+		Separator separator = new Separator();
+		separator.setOrientation(Orientation.VERTICAL);
+		return separator;
 	}
 
 	private void makeTemplate() {
@@ -124,15 +136,35 @@ public class DialogueEditor {
 //				new HBox(makeEntry(FONT_TYPE_PROMPT, fontTypeCB)), new HBox(makeEntry(FONT_SIZE_PROMPT, sizeTF)),
 //				new HBox(makeEntry(FONT_COLOR_PROMPT, fontColorCP)), new HBox(makeEntry(BACKGROUND_COLOR_PROMPT, backgroundColorCP)), dsp);
 		
-		view.getChildren().addAll(new HBox(makeEntry(NAME_PROMPT, nameTF)), createAddTextAreaButton(),
-				 new HBox(new HBox(makeEntry(BACKGROUND_COLOR_PROMPT, backgroundColorCP)),
-						  new HBox(makeEntry(FONT_COLOR_PROMPT, fontColorCP)),
-						  new HBox(makeEntry(FONT_TYPE_PROMPT, fontTypeCB)),
-						  new HBox(makeEntry(FONT_SIZE_PROMPT, sizeTF))), dsp);
+		HBox textHBox = new HBox(5);
+		textHBox.setAlignment(Pos.CENTER);
+		textHBox.getChildren().addAll(createAddTextAreaButton(),
+				  createSeparator(),
+				  new HBox(makeEntry(FONT_COLOR_PROMPT, fontColorCP)),
+				  createSeparator(),
+				  new HBox(makeEntry(FONT_TYPE_PROMPT, fontTypeCB)),
+				  createSeparator(),
+				  new HBox(makeEntry(FONT_SIZE_PROMPT, sizeTF)));
+		
+		HBox backgroundHBox = new HBox(5);
+		backgroundHBox.getChildren().addAll(new HBox(makeEntry(BACKGROUND_COLOR_PROMPT, backgroundColorCP)), 
+											createSeparator(), createSetBackgroundButton());
+		
+		VBox dialogueModifiersBox = new VBox(20);
+		dialogueModifiersBox.getChildren().addAll(new HBox(makeEntry(NAME_PROMPT, nameTF)), textHBox, backgroundHBox);
+		
+		view.getChildren().addAll(dialogueModifiersBox, dsp);
 	}
-	
+
 	private Button createAddTextAreaButton() {
 		Button addText = new Button("Add Text");
+		addText.setOnAction(e -> dsp.addTextArea());
+		
+		return addText;
+	}
+	
+	private Button createSetBackgroundButton() {
+		Button addText = new Button("Set Background");
 		addText.setOnAction(e -> dsp.addTextArea());
 		
 		return addText;
@@ -243,7 +275,7 @@ public class DialogueEditor {
 	}
 
 	private HBox makeEntry(String prompt, Node tf) {
-		HBox hb = new HBox();
+		HBox hb = new HBox(5);
 		Label lb = new Label();
 		lb.textProperty().bind(DisplayLanguage.createStringBinding(prompt));
 		hb.getChildren().addAll(lb, tf);
