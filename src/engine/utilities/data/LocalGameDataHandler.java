@@ -31,6 +31,7 @@ import engine.EngineController;
 import engine.VoogaException;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -123,7 +124,7 @@ public class LocalGameDataHandler {
 		}
 	}
 
-	private void setDirectoryPath(String path) {
+	public void setDirectoryPath(String path) {
 		Properties prop = new Properties();
 		try {
 			FileInputStream in = new FileInputStream(LOCAL);
@@ -283,10 +284,12 @@ public class LocalGameDataHandler {
 		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files (.png)", "*.png"),
 				new ExtensionFilter("Image Files (.gif)", "*.gif"), new ExtensionFilter("Image Files (.jpg)", "*.jpg"));
 		File newFile = fileChooser.showOpenDialog(window);
-
 		return newFile;
 	}
 
-	
-	
+	public static File selectDirectory(Stage stage) {
+		DirectoryChooser chooser = new DirectoryChooser();
+		chooser.setTitle("Select Directory");
+		return chooser.showDialog(stage);
+	}
 }
