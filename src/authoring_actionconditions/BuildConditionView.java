@@ -43,7 +43,8 @@ public class BuildConditionView {
 			stage.close();
 		}
 		catch (Exception e) {
-			stage.close();
+			ConditionTreeView.showError(e.getMessage());
+			event.consume();
 		}
 
 		// KEEP THIS CODE

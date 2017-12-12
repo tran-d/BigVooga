@@ -40,7 +40,7 @@ public class ConditionTreeView extends TreeView<HBox> {
 		return booleanOperationTreeView;
 	}
 	
-	public Condition getCondition() throws NumberFormatException {
+	public Condition getCondition() {
 
 		try {
 			if (integerTF.getText().equals("")) {
