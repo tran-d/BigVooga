@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 public class PanelLayer extends MapLayer {
 	
 	public PanelLayer(int rows, int columns, SpriteGridHandler SGH){
-		this(rows, columns, 2, SGH, Color.TRANSPARENT);
+		this(rows, columns, 3, SGH, Color.TRANSPARENT);
 	}
 
 	PanelLayer(int rows, int columns, int layerNum, SpriteGridHandler SGH, Color c) {
@@ -19,7 +19,8 @@ public class PanelLayer extends MapLayer {
 
 	public PanelLayer(int rows, int columns, SpriteGridHandler SGH,
 			List<AbstractSpriteObject> activeSpriteObjects) {
-		super(rows, columns, 0, SGH, Color.TRANSPARENT, activeSpriteObjects);
+		super(rows, columns, 3, SGH, Color.TRANSPARENT, activeSpriteObjects);
+		setName("Panels");
 	}
 
 }

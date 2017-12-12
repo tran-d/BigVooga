@@ -19,7 +19,8 @@ public class SpriteLayer extends MapLayer {
 
 	public SpriteLayer(int rows, int columns, SpriteGridHandler SGH,
 			List<AbstractSpriteObject> activeSpriteObjects) {
-		super(rows, columns, 0, SGH, Color.TRANSPARENT, activeSpriteObjects);
+		super(rows, columns, 2, SGH, Color.TRANSPARENT, activeSpriteObjects);
+		setName("Main View");
 	}
 
 }

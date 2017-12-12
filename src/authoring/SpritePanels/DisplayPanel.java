@@ -336,7 +336,7 @@ public class DisplayPanel extends VBox {
 			addSpriteEditorVBox();
 		} catch (Exception e) {
 			// throw new RuntimeException();
-//			e.printStackTrace();
+			e.printStackTrace();
 			setDefaultErrorNoSpriteTabPane();
 		}
 		this.setPrefWidth(DISPLAY_PANEL_WIDTH);

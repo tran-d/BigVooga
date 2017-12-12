@@ -20,6 +20,7 @@ import java.util.MissingResourceException;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -29,6 +30,7 @@ import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 import authoring.DialogSprite.DialogSequence;
 import authoring.GridManagers.SpriteObjectGridManager;
 import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.DefaultSpriteObject;
 import authoring.Sprite.SpriteObject;
 import authoring_UI.DraggableGrid;
 import authoring_UI.LayerDataConverter;
@@ -583,7 +585,10 @@ public class GameDataHandler {
 		int layerCount = 0;
 		for (SpriteObjectGridManager SOGM : SOGMList) {
 			layerCount++;
-			List<AbstractSpriteObject> spriteObjects = SOGM.getActiveSpriteObjects();
+			System.out.println("Before stream");
+			List<AbstractSpriteObject> spriteObjects = SOGM.getEntireListOfSpriteObjects().stream().filter(e -> !(e instanceof DefaultSpriteObject)).collect(Collectors.toList());
+//			System.out.println("Stream size: "+spriteObjects2.size());
+//			List<AbstractSpriteObject> spriteObjects = SOGM.getActiveSpriteObjects();
 			System.out.println("SIZE OF SOGM " + spriteObjects.size());
 			for (AbstractSpriteObject SO : spriteObjects) {
 				String path = this.getLayerSpritesDirectoryPath(layerCount);
@@ -727,17 +732,14 @@ public class GameDataHandler {
 			makeDirectory(getInitializingWorldDirectoryPath());
 		}
 		if (! file2.exists()) {
-			for (int i = 1; i < 4; i++) {
+			for (int i = 1; i < 5; i++) {
 				makeDirectory(getInitializingLayerDirectoryPath(i));
-				makeDirectory(getInitializingLayerDirectoryPath(i));
-				makeDirectory(getInitializingLayerDirectoryPath(i));
+
 			}
 		}
 		if (! file3.exists()) {
 			for (int i = 1; i < 4; i++) {
-				makeDirectory(getLayerSpritesDirectoryPath(1));
-				makeDirectory(getLayerSpritesDirectoryPath(2));
-				makeDirectory(getLayerSpritesDirectoryPath(3));
+				makeDirectory(getLayerSpritesDirectoryPath(i));
 			}
 		}
 	}

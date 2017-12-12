@@ -324,7 +324,7 @@ public abstract class SpriteObjectGridManager {
 
 	private AbstractSpriteObject getCell(Integer[] loc) {
 		AbstractSpriteObject ret = spriteGrid.get(loc[0]).get(loc[1]);
-		System.out.println("Returning from getCell :" + ret.getClass());
+		System.out.println("Returning from getCell :" + ret);
 		return ret;
 
 	}
