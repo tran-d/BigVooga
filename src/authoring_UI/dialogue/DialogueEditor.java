@@ -125,7 +125,10 @@ public class DialogueEditor {
 //				new HBox(makeEntry(FONT_COLOR_PROMPT, fontColorCP)), new HBox(makeEntry(BACKGROUND_COLOR_PROMPT, backgroundColorCP)), dsp);
 		
 		view.getChildren().addAll(new HBox(makeEntry(NAME_PROMPT, nameTF)), createAddTextAreaButton(),
-				 new HBox(makeEntry(BACKGROUND_COLOR_PROMPT, backgroundColorCP)), dsp);
+				 new HBox(new HBox(makeEntry(BACKGROUND_COLOR_PROMPT, backgroundColorCP)),
+						  new HBox(makeEntry(FONT_COLOR_PROMPT, fontColorCP)),
+						  new HBox(makeEntry(FONT_TYPE_PROMPT, fontTypeCB)),
+						  new HBox(makeEntry(FONT_SIZE_PROMPT, sizeTF))), dsp);
 	}
 	
 	private Button createAddTextAreaButton() {
@@ -153,7 +156,7 @@ public class DialogueEditor {
 
 		numPanelsTF = makeTextField(NUM_PANELS_PROMPT_WIDTH, PROMPT_HEIGHT);
 
-		dsp = new DialogueTextAreaView(() -> saveConsumer.accept(getName()));
+		dsp = new DialogueTextAreaView(() -> saveConsumer.accept(getName()), () -> backgroundColorCP.getValue());
 		// numPanelsTF.setOnInputMethodTextChanged(e -> checkInput());
 	}
 	
@@ -180,7 +183,7 @@ public class DialogueEditor {
     }
     
     private void changeBackgroundColor() {
-    		dsp.setBackgroundColor(backgroundColorCP.getValue());
+    	dsp.setBackgroundColor(backgroundColorCP.getValue());
     }
     
     private String toRGBString(Color c) {
@@ -243,7 +246,6 @@ public class DialogueEditor {
 		HBox hb = new HBox();
 		Label lb = new Label();
 		lb.textProperty().bind(DisplayLanguage.createStringBinding(prompt));
-		lb.setStyle("-fx-text-fill: #47BDFF;");
 		hb.getChildren().addAll(lb, tf);
 		hb.setAlignment(Pos.CENTER);
 		return hb;

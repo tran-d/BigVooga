@@ -216,6 +216,8 @@ public class AuthoringMapStackPane extends StackPane {
 		});
 	}
 	
+	
+	
 
 	public boolean isActive() {
 		return activeProperty.get();
@@ -377,6 +379,10 @@ public class AuthoringMapStackPane extends StackPane {
 		this.getChildren().clear();
 	}
 
+	public AbstractSpriteObject getChild(){
+		return this.mySO;
+
+	}
 	// public boolean isEmpty(){
 	// return this.getChildren().size();
 	// }

@@ -44,7 +44,6 @@ public class SpriteCreatorDisplayPanel extends VBox {
 	private ConditionTab<ConditionRow> conditions;
 	private ControllerConditionActionTabs controllerConditionActionTabs;
 	private AuthoringEnvironmentManager myAEM;
-	private SpriteCreatorSpriteManager mySM;
 
 	private static final String ACTIONCONDITIONTITLES_PATH = "TextResources/ConditionActionTitles";
 	private static final double DISPLAY_PANEL_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH / 2
@@ -56,7 +55,6 @@ public class SpriteCreatorDisplayPanel extends VBox {
 
 	public SpriteCreatorDisplayPanel(SpriteCreatorSpriteManager spriteManager, AuthoringEnvironmentManager AEM) {
 		myAEM = AEM;
-		mySM = spriteManager;
 		multipleCellsActiveProperty = new SimpleObjectProperty<Boolean>();
 		mySParameterTAI = new SpriteParameterTabsAndInfo();
 		mySInventoryTAI = new SpriteInventoryTabAndInfo(myAEM);

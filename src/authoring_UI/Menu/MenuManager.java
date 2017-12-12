@@ -17,11 +17,9 @@ import javafx.stage.Stage;
 public class MenuManager extends MapManager{
 	
 	private SpriteObjectGridManager MenuGridBE;
-	private AuthoringEnvironmentManager myAEM;
 
 	public MenuManager(AuthoringEnvironmentManager AEM, Scene currentScene) {
 		super(AEM, currentScene);
-		myAEM = AEM;
 	}
 	
 	@Override 
@@ -51,7 +49,6 @@ public class MenuManager extends MapManager{
 		return new ArrayList<DraggableGrid>();
 	}
 	
-	@Override
 	protected SpritePanels makeSpritePanels(SpriteGridHandler mySpriteGridHandler){
 		return new MenuSpritePanels(mySpriteGridHandler, myAEM);
 	}
