@@ -97,10 +97,14 @@ public class LocalGameDataHandler {
 				PROJECT_LAYER_PATH, PROJECT_LAYER_SPRITE_PATH, DEFAULT_SPRITE_FOLDER, CUSTOM_SPRITE_FOLDER,
 				INVENTORY_SPRITE_FOLDER };
 		for (String s : pathsToMake) {
-			File file = new File(s);
+			File file = new File(projectPath+s);
 			if (!file.exists()) {
-				makeDirectory(s);
+				makeDirectory(projectPath+s);
 			}
+		}
+		File file = new File(root+RESOURCES);
+		if (!file.exists()) {
+			makeDirectory(projectPath+RESOURCES);
 		}
 	}
 
@@ -118,8 +122,9 @@ public class LocalGameDataHandler {
 				throw new FileNotFoundException();
 			return s;
 		} catch (Exception e) {
-			root = pathSupplier.get();
+			root = pathSupplier.get() + "\\";
 			setDirectoryPath(root);
+			makeDirectory(root+RESOURCES);
 			return root;
 		}
 	}
@@ -127,7 +132,7 @@ public class LocalGameDataHandler {
 	public void setDirectoryPath(String path) {
 		Properties prop = new Properties();
 		try {
-			FileInputStream in = new FileInputStream(LOCAL);
+			FileInputStream in = new FileInputStream(RESOURCES+LOCAL+".properties");
 			prop.load(in);
 			in.close();
 		} catch (IOException e) {
@@ -135,7 +140,7 @@ public class LocalGameDataHandler {
 		}
 		prop.put(DIRECTORY_PATH, path);
 		try {
-			FileOutputStream out = new FileOutputStream(LOCAL);
+			FileOutputStream out = new FileOutputStream(RESOURCES+LOCAL+".properties");
 			prop.store(out, null);
 			out.close();
 		} catch (IOException e) {
@@ -163,8 +168,9 @@ public class LocalGameDataHandler {
 
 	private void addToKnown() throws IOException {
 		List<String> known = knownProjects();
-		known.add(projectName);
-		FileWriter fileWriter = new FileWriter(projectPath + KNOWN_PROJECTS);
+		if(!known.contains(projectName))
+			known.add(projectName);
+		FileWriter fileWriter = new FileWriter(root + KNOWN_PROJECTS);
 		BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 		for (String s : known) {
 			bufferedWriter.write(s);
@@ -173,10 +179,10 @@ public class LocalGameDataHandler {
 		bufferedWriter.close();
 	}
 
-	private List<String> knownProjects() {
+	public List<String> knownProjects() {
 		List<String> known = new ArrayList<>();
 		try {
-			FileReader fileReader = new FileReader(projectPath + KNOWN_PROJECTS);
+			FileReader fileReader = new FileReader(root + KNOWN_PROJECTS);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			String line;
 			while ((line = bufferedReader.readLine()) != null) {
@@ -239,7 +245,7 @@ public class LocalGameDataHandler {
 		if (cache.containsKey(fileName)) {
 			return cache.get(fileName);
 		}
-		String path = new File(projectPath + fileName).toURI().toString();
+		String path = new File(projectPath + RESOURCES + fileName).toURI().toString();
 		Image i = new Image(path);
 		cache.put(fileName, i);
 		return i;
