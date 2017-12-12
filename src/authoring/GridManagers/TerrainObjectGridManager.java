@@ -1,5 +1,8 @@
 package authoring.GridManagers;
 
+import java.util.List;
+
+import authoring.Sprite.AbstractSpriteObject;
 import authoring_UI.SpriteGridHandler;
 import authoring_UI.Map.TerrainLayer;
 import javafx.scene.paint.Color;
@@ -13,10 +16,12 @@ public class TerrainObjectGridManager extends SpriteObjectGridManager{
 	
 	public TerrainObjectGridManager(int rows, int cols) {
 		super(rows, cols);
+		myLayerNum = 0;
 	}
 	
 	public TerrainObjectGridManager(int myNumRows, int myNumCols, int layerNum, Color myColor) {
 		super(myNumRows, myNumCols, layerNum, myColor);
+		myLayerNum = 0;
 	}
 
 	@Override
@@ -24,8 +29,15 @@ public class TerrainObjectGridManager extends SpriteObjectGridManager{
 		myMapLayer = new TerrainLayer(getNumRows(), getNumCols(), mySpriteGridHandler);
 	}
 	
+	public void createMapLayer(List<AbstractSpriteObject> activeSpriteObjects) {
+		if (activeSpriteObjects.size() == 0) createMapLayer();
+		else myMapLayer = new TerrainLayer(getNumRows(), getNumCols(), mySpriteGridHandler, activeSpriteObjects);
+	}
+	
 	@Override
 	public int getLayerNum() {
-		return myMapLayer.getLayerNumber();
+		return myLayerNum;
+		//return myMapLayer.getLayerNumber();
 	}
+
 }
