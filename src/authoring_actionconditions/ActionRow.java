@@ -66,9 +66,11 @@ public class ActionRow extends ActionConditionRow {
 			if (action == null)
 				System.out.println("NULL ACTION");
 			return action;
-		} catch (Exception e) {
-			showError(INVALID_INPUT_MESSAGE, ENTER_VALID_INPUT);
-			return null;
+		} catch (NullPointerException e) {
+//			showError(INVALID_INPUT_MESSAGE, ENTER_VALID_INPUT);
+			throw e;
+		} catch (NumberFormatException e) {
+			throw e;
 		}
 	}
 
