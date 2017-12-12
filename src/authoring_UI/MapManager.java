@@ -152,10 +152,12 @@ public class MapManager extends TabPane {
 
 	private HBox setupFEAuthClasses(DraggableGrid w) {
 		allWorlds.add(w);
-		if (oldProject) {
-			mySpriteGridHandler = w.getSGH();
-		}
-		else mySpriteGridHandler = new SpriteGridHandler(myTabCount, w);
+//		if (oldProject) {
+//			mySpriteGridHandler = w.getSGH();
+//		}
+//		else {
+			mySpriteGridHandler = new SpriteGridHandler(myTabCount, w);
+//		}
 		w.construct(mySpriteGridHandler);
 		mySpriteGridHandler.addKeyPress(scene);
 		spritePanels = makeSpritePanels(mySpriteGridHandler);

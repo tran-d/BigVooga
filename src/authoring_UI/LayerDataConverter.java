@@ -8,6 +8,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.security.NullPermission;
 import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
+import authoring.GridManagers.BackgroundGridManager;
 import authoring.GridManagers.PanelObjectGridManager;
 import authoring.GridManagers.SpriteObjectGridManager;
 import authoring.GridManagers.SpriteObjectGridManagerForSprites;
@@ -18,8 +19,7 @@ import javafx.scene.paint.Color;
 
 public class LayerDataConverter {
 	private static final XStream SERIALIZER = setupXStream();
-	private List<SpriteObject> allSpriteObjects;
-	private Color myColor;
+
 	private int myNumRows;
 	private int myNumCols;
 	private int layerNum;
@@ -47,7 +47,7 @@ public class LayerDataConverter {
 	}
 	
 	public void convertLayer(SpriteObjectGridManager SOGM){
-		myColor = SOGM.getColor();
+//		myColor = SOGM.getColor();
 		myName = SOGM.getName();
 		myNumRows = SOGM.getNumRows();
 		myNumCols = SOGM.getNumCols();
@@ -56,17 +56,27 @@ public class LayerDataConverter {
 	
 	public SpriteObjectGridManager createLayer() {
 		SpriteObjectGridManager newLayer = null;
-	
+		System.out.println("Layer num!!: "+layerNum);
+		
 		if (layerNum == 0) {
-			newLayer = new TerrainObjectGridManager(myNumRows, myNumCols, layerNum, myColor);
+			System.out.println("layerNUm: "+layerNum+" , background");
+			newLayer = new BackgroundGridManager(myNumRows, myNumCols);
 			System.out.println("NUM ROWS IN LDC: "+  myNumRows);
 		}
-		if (layerNum == 1) {
-			newLayer = new SpriteObjectGridManagerForSprites(myNumRows, myNumCols, layerNum, myColor);
+	
+		else if (layerNum == 1) {
+			System.out.println("layerNUm: "+layerNum+" , terrain");
+			newLayer = new TerrainObjectGridManager(myNumRows, myNumCols);
+			System.out.println("NUM ROWS IN LDC: "+  myNumRows);
+		}
+		else if (layerNum == 2) {
+			System.out.println("layerNUm: "+layerNum+" , sprites");
+			newLayer = new SpriteObjectGridManagerForSprites(myNumRows, myNumCols);
 			System.out.println("NUM ROWS IN LDC: "+  myNumRows);
 		}
 		else {
-			newLayer = new PanelObjectGridManager(myNumRows, myNumCols, layerNum, myColor);
+			System.out.println("layerNUm: "+layerNum+" , panels");
+			newLayer = new PanelObjectGridManager(myNumRows, myNumCols);
 			System.out.println("NUM ROWS IN LDC: "+  myNumRows);
 		}
 		return newLayer;

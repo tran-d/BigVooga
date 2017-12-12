@@ -432,8 +432,10 @@ public class GameDataHandler {
 		List<SpriteObjectGridManager> loadedSOGMs = new ArrayList<SpriteObjectGridManager>();
 		try{
 			for (int i = 1; i < 5; i++) {
-				if (loadLayerFromDirectory(this.getInitializingLayerDirectoryPath(i), i) != null) {
-					loadedSOGMs.add(loadLayerFromDirectory(this.getInitializingLayerDirectoryPath(i), i));
+				SpriteObjectGridManager dummy = loadLayerFromDirectory(this.getInitializingLayerDirectoryPath(i), i);
+				if ( dummy != null) {
+					System.out.println("SUCC Loaded SOGM: type, "+dummy.getClass());
+					loadedSOGMs.add(dummy);
 				}
 			}
 		} catch (Exception e){
@@ -456,16 +458,23 @@ public class GameDataHandler {
 		System.out.println("NAME NAME " + directory.getName());
 		File[] files = directory.listFiles();
 		for (File f : files) {
+			
+			if (!f.isDirectory()){
+				System.out.println("FILE f: "+f);
 			System.out.println("here is the file that is unable to be loaded: " + f.getPath());
 			try {
 				temp = loadLayer(f, layerNum); //THROWS AN ERROR
 				System.out.println("ADDED A LAYER AFTER DE-SERIALIZAING");
+				return temp;
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.out.println("HMM WEIRD");
 			}
+			
+			}
 		}
-		return temp;
+		return null;
+		
 	}
 
 	public SpriteObjectGridManager loadLayer(File layerFile, int num) throws Exception {
@@ -480,7 +489,13 @@ public class GameDataHandler {
 		SpriteObjectGridManager ret = SDC.createLayer();
 		
 		List<AbstractSpriteObject> spritesToAdd = this.loadSpritesFromDirectoryName(this.getLayerSpritesDirectoryPath(num));
+		
 		System.out.println("ADDED " + spritesToAdd.size() + " NUMBER OF SPRITES TO THE GRID.. MAYBE");
+		if (spritesToAdd.size()>0){
+			System.out.println("LOADED SPRITE: "+spritesToAdd.get(0).getName());
+			System.out.println("LOADED SPRITE POS: "+spritesToAdd.get(0).getPositionOnGrid());
+		}
+		
 		ret.storeSpriteObjectsToAdd(spritesToAdd);
 		//ret.setSpriteGridHandler(new SpriteGridHandler(1, new DraggableGrid())); // random draggable grid
 		//ret.createMapLayer(spritesToAdd);
@@ -606,8 +621,9 @@ public class GameDataHandler {
 		Scanner scanner = new Scanner(worldFile);
 		String fileContents = scanner.useDelimiter("\\Z").next();
 		scanner.close();
-		MapDataConverter MDC = (MapDataConverter) SERIALIZER.fromXML(fileContents);
-		DraggableGrid ret = MDC.createMap();
+//		MapDataConverter MDC = (MapDataConverter) SERIALIZER.fromXML(fileContents);
+//		DraggableGrid ret = MDC.createMap();
+		DraggableGrid ret = new DraggableGrid();
 		
 		List<SpriteObjectGridManager> addToWorld = this.loadLayersFromDirectoryName();
 		System.out.println("SIZE OF SOGMS FOR EACH DG SHOULD BE 3 : " + addToWorld.size());
@@ -624,6 +640,7 @@ public class GameDataHandler {
 		}
 		File[] files = directory.listFiles();
 		for (File f : files) {
+			if (!f.isDirectory()){
 			try {
 				DraggableGrid temp = loadWorld(f);
 				worlds.add(temp);
@@ -631,6 +648,7 @@ public class GameDataHandler {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}
 		}
 		System.out.println("number of draggable grids returned: " + worlds.size());
 		return worlds;

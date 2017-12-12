@@ -11,28 +11,29 @@ public class TerrainObjectGridManager extends SpriteObjectGridManager{
 
 	public TerrainObjectGridManager(int rows, int cols, SpriteGridHandler SGH){
 		super(rows, cols, SGH);
-		myLayerNum = 0;
+		myLayerNum = 1;
 	}
 	
 	public TerrainObjectGridManager(int rows, int cols) {
 		super(rows, cols);
-		myLayerNum = 0;
+		myLayerNum = 1;
 	}
 	
 	public TerrainObjectGridManager(int myNumRows, int myNumCols, int layerNum, Color myColor) {
 		super(myNumRows, myNumCols, layerNum, myColor);
-		myLayerNum = 0;
+		myLayerNum = 1;
 	}
 
+	
 	@Override
 	public void createMapLayer() {
-		myMapLayer = new TerrainLayer(getNumRows(), getNumCols(), mySpriteGridHandler);
-	}
-	
-	public void createMapLayer(List<AbstractSpriteObject> activeSpriteObjects) {
-		if (activeSpriteObjects.size() == 0) createMapLayer();
-		else myMapLayer = new TerrainLayer(getNumRows(), getNumCols(), mySpriteGridHandler, activeSpriteObjects);
-	}
+			if (hasStoredSprites()){
+				loadedFromData = true;
+				myMapLayer = new TerrainLayer(defaultRows, defaultColumns,mySpriteGridHandler,getStoredSpriteList());
+			} else{
+			myMapLayer = new TerrainLayer(getNumRows(), getNumCols(), mySpriteGridHandler);
+			}
+			}
 	
 	@Override
 	public int getLayerNum() {

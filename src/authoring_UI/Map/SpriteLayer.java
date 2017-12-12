@@ -14,7 +14,6 @@ public class SpriteLayer extends MapLayer {
 
 	SpriteLayer(int rows, int columns, int layerNum, SpriteGridHandler SGH, Color c) {
 		super(rows, columns, layerNum, SGH, c);
-		setDefaultColor(Color.TRANSPARENT);
 		setName("Main View");
 	}
 

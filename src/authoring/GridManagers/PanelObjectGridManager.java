@@ -25,10 +25,6 @@ public class PanelObjectGridManager extends SpriteObjectGridManager{
 		myLayerNum = layerNum;
 	}
 
-	@Override
-	public void createMapLayer() {
-		myMapLayer = new PanelLayer(getNumRows(), getNumCols(), mySpriteGridHandler);
-	}
 	
 	@Override
 	public int getLayerNum() {
@@ -36,12 +32,15 @@ public class PanelObjectGridManager extends SpriteObjectGridManager{
 		//return myMapLayer.getLayerNumber();
 	}
 
-	public void createMapLayer(List<AbstractSpriteObject> activeSpriteObjects) {
-		if (activeSpriteObjects.size() == 0) createMapLayer();
-		else {
-			System.out.println("POGM SPECIAL MAP LAYER CONSTRUCTOR IS CALLED");
-			myMapLayer = new PanelLayer(getRowsForImport(), getColsForImport(), mySpriteGridHandler, activeSpriteObjects);
+	@Override
+	public void createMapLayer() {
+		if (hasStoredSprites()){
+			loadedFromData = true;
+			myMapLayer = new PanelLayer(defaultRows, defaultColumns,mySpriteGridHandler,getStoredSpriteList());
+		} else{
+		myMapLayer = new PanelLayer(getNumRows(), getNumCols(), mySpriteGridHandler);
+		}
 		}
 		
-	}
+	
 }

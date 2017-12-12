@@ -14,7 +14,6 @@ public class PanelLayer extends MapLayer {
 
 	PanelLayer(int rows, int columns, int layerNum, SpriteGridHandler SGH, Color c) {
 		super(rows, columns, layerNum, SGH, c);
-		setDefaultColor(Color.TRANSPARENT);
 		setName("Panels");
 	}
 

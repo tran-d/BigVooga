@@ -27,7 +27,13 @@ public class SpriteObjectGridManagerForSprites extends SpriteObjectGridManager{
 
 	@Override
 	public void createMapLayer() {
+		if (hasStoredSprites()){
+			loadedFromData = true;
+			myMapLayer = new SpriteLayer(defaultRows, defaultColumns,mySpriteGridHandler,getStoredSpriteList());
+		} else{
 		myMapLayer = new SpriteLayer(getNumRows(), getNumCols(), mySpriteGridHandler);
+		
+		}
 	}
 	
 	@Override
@@ -36,16 +42,6 @@ public class SpriteObjectGridManagerForSprites extends SpriteObjectGridManager{
 		//return myMapLayer.getLayerNumber();
 	}
 
-	public void createMapLayer(List<AbstractSpriteObject> activeSpriteObjects) {
-		if (activeSpriteObjects.size() == 0) createMapLayer();
-		else myMapLayer = new SpriteLayer(getNumRows(), getNumCols(), mySpriteGridHandler, activeSpriteObjects);
-	}
-
-//	@Override
-//	public ImageView[][] getGrid() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 	
 
 }

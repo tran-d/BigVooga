@@ -147,7 +147,9 @@ public abstract class MapLayer extends GridPane {
 			System.out.println(child.getChildren());
 			//child.removeChild();
 			System.out.println("Were about to chnage background");
-			child.setInactiveBackground(Color.AQUA);
+//			child.setInactiveBackground(Color.AQUA);
+			mySGH.addSpriteDrag(ASO);
+			mySGH.addSpriteMouseClick(ASO);
 			child.addChild(ASO);
 			//this.getChildAtPosition(x, y).addChild(ASO);
 		}

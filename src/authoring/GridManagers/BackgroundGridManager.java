@@ -5,12 +5,13 @@ import java.util.List;
 import authoring.Layers.BackgroundLayer;
 import authoring.Sprite.AbstractSpriteObject;
 import authoring_UI.SpriteGridHandler;
+import javafx.scene.paint.Color;
 
 public class BackgroundGridManager extends SpriteObjectGridManager{
 	
-//	public BackgroundGridManager(){
-//		super(, COLUMNS);
-//	}
+	public BackgroundGridManager(){
+		super();
+	}
 
 	public BackgroundGridManager(int rows, int columns, SpriteGridHandler SGH) {
 		super(rows, columns, SGH);
@@ -38,10 +39,5 @@ public class BackgroundGridManager extends SpriteObjectGridManager{
 		canFillBackground = true;
 	}
 
-	@Override
-	public void createMapLayer(List<AbstractSpriteObject> activeSpriteObjects) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 }
