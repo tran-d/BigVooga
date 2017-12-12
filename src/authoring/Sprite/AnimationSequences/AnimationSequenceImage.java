@@ -1,5 +1,6 @@
 package authoring.Sprite.AnimationSequences;
 
+import engine.sprite.BoundedImage;
 import javafx.scene.layout.StackPane;
 
 public class AnimationSequenceImage {

@@ -155,8 +155,8 @@ public class SpriteObjectGridToEngineController {
 	
 	private List<GameObject> convertSpriteObjectGridToListOfGameObjects(SpriteObjectGridManager SOGM_IN) {
 		List<GameObject> GO_LIST = new ArrayList<GameObject>();
-		for (SpriteObject SOI: SOGM_IN.getEntireListOfSpriteObjects()) {
-			GameObject convertedToGameObject = convertToGameObject(SOI);
+		for (AbstractSpriteObject SOI: SOGM_IN.getEntireListOfSpriteObjects()) {
+			GameObject convertedToGameObject = convertToGameObject((SpriteObject) SOI);
 			GO_LIST.add(convertedToGameObject);
 		}
 		return GO_LIST;

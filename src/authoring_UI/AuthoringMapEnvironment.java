@@ -1,6 +1,7 @@
 package authoring_UI;
 
 import authoring.SpritePanels.SpritePanels;
+import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 
 public class AuthoringMapEnvironment extends HBox{
@@ -19,5 +20,9 @@ public class AuthoringMapEnvironment extends HBox{
 
 	public void setGrid(DraggableGrid myDG) {
 		this.getChildren().add(1, myDG);
+	}
+	
+	public void addComponent(Node node){
+		this.getChildren().add(node);
 	}
 }

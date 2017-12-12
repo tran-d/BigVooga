@@ -52,6 +52,7 @@ public class DisplayPanel extends VBox {
 	private SpriteTagTabAndInfo mySTagTAI;
 	private ObjectProperty<Boolean> multipleCellsActiveProperty;
 	private VBox spriteEditorAndApplyButtonVBox;
+	protected AbstractSpriteObject activeSprite;
 	private ControllerConditionActionTabs controllerConditionActionTabs;
 	private static final String ACTIONCONDITIONTITLES_PATH = "TextResources/ConditionActionTitles";
 	private static final double DISPLAY_PANEL_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH / 2
@@ -65,8 +66,13 @@ public class DisplayPanel extends VBox {
 	public static final ResourceBundle conditionActionTitles = ResourceBundle.getBundle(ACTIONCONDITIONTITLES_PATH);
 	// private SpriteSetHelper mySSH;
 
-	protected DisplayPanel(SpriteParameterSidebarManager SPSM, AuthoringEnvironmentManager AEM) {
+	public DisplayPanel(SpriteParameterSidebarManager SPSM, AuthoringEnvironmentManager AEM) {
+		this(AEM);
 		mySPSM = SPSM;
+		
+	}
+
+	public DisplayPanel(AuthoringEnvironmentManager AEM) {
 		myAEM = AEM;
 		multipleCellsActiveProperty = new SimpleObjectProperty<Boolean>();
 		mySParameterTAI = new SpriteParameterTabsAndInfo();
@@ -78,12 +84,18 @@ public class DisplayPanel extends VBox {
 		setUpMenu();
 	}
 
-	public DisplayPanel() {
-		// TODO Auto-generated constructor stub
-	}
-
 	private void setErrorMessage() {
 		myParameterErrorMessage = new TextArea("Either no active cells or active cells have different parameters");
+	}
+
+	public AbstractSpriteObject setActiveSprite(AbstractSpriteObject ASO) {
+		if (!activeSprite.equals(ASO)) {
+			AbstractSpriteObject prevActive = activeSprite;
+			activeSprite = ASO;
+			return prevActive;
+		}
+		activeSprite = null;
+		return null;
 	}
 
 	private void setSpriteInfoAndVBox() {
@@ -95,13 +107,18 @@ public class DisplayPanel extends VBox {
 		return mySPSM.getActiveSprite().getParameters();
 	}
 
-	private SpriteObject getActiveCell() throws Exception {
+
+	protected AbstractSpriteObject getActiveCell() throws Exception {
 		// System.out.println("MYAEMACTIVE: " + myAEM.getActiveCell());
 		return mySPSM.getActiveSprite();
 	}
 
-	private void checkMultipleCellsActive() {
+	protected void checkMultipleCellsActive() {
 		this.multipleCellsActiveProperty.set(mySPSM.multipleActive());
+	}
+	
+	protected void setMultipleCellsActive(boolean hasMultipleActive) {
+		this.multipleCellsActiveProperty.set(hasMultipleActive);
 	}
 
 	private void setUpMenu() {
@@ -119,7 +136,7 @@ public class DisplayPanel extends VBox {
 		conditions = new ConditionTab<ConditionRow>(ResourceBundleUtil.getTabTitle("ConditionsTabTitle"));
 		actions = new ActionTab<ActionRow>(ResourceBundleUtil.getTabTitle("ActionsTabTitle"));
 		controllerConditionActionTabs = new ControllerConditionActionTabs(conditions, actions);
-		applyButtonController = new ApplyButtonController();
+		// applyButtonController = new ApplyButtonController();
 		mySpriteTabs.getTabs().addAll(conditions, actions);
 	}
 
@@ -299,16 +316,17 @@ public class DisplayPanel extends VBox {
 			AbstractSpriteObject activeCell = getActiveCell();
 			System.out.println("Did i get here?");
 
-			this.checkMultipleCellsActive();
+			checkMultipleCellsActive();
 			clearAllSpriteEditorTabs();
 			removeSpriteEditorErrorMessage();
 			// mySParameterTAI.create(getActiveCell());
 			mySParameterTAI.create(activeCell);
-			applyButtonController.updateActionConditionTabs(conditions, actions, activeCell);
+			// applyButtonController.updateActionConditionTabs(conditions,
+			// actions, activeCell);
 			controllerConditionActionTabs = new ControllerConditionActionTabs(conditions, actions);
 			mySpriteTabs.getTabs().set(CONDITIONTAB_INDEX, conditions);
 			mySpriteTabs.getTabs().set(ACTIONTAB_INDEX, actions);
-			if (!mySPSM.multipleActive()) {
+			if (!multipleActive()) {
 				System.out.println("Trying to update not multiple actvie");
 				mySTagTAI.setSpriteObjectAndUpdate(activeCell);
 				mySInventoryTAI.setSpriteObjectAndUpdate(activeCell);
@@ -318,10 +336,14 @@ public class DisplayPanel extends VBox {
 			addSpriteEditorVBox();
 		} catch (Exception e) {
 			// throw new RuntimeException();
-			e.printStackTrace();
+//			e.printStackTrace();
 			setDefaultErrorNoSpriteTabPane();
 		}
 		this.setPrefWidth(DISPLAY_PANEL_WIDTH);
+	}
+
+	protected boolean multipleActive() {
+		return this.multipleCellsActiveProperty.get();
 	}
 
 	private ScrollPane createStatePane(VBox temp) {
@@ -340,13 +362,18 @@ public class DisplayPanel extends VBox {
 	private void apply() throws Exception {
 		mySParameterTAI.apply();
 		System.out.println("SHOULD BE APPLYING");
-		if (!mySPSM.multipleActive()) {
+		if (!multipleActive()) {
 			System.out.println("Trying to set ivent etc.");
 			mySTagTAI.apply();
 			mySInventoryTAI.apply();
 			mySAnimationSequenceTAI.apply();
 		}
-		applyButtonController.updateSpriteObject(conditions, actions, getActiveCell());
+		// applyButtonController.updateSpriteObject(conditions, actions,
+		// getActiveCell());
+		applyToMultipleAtOnce();
+	}
+	
+	protected void applyToMultipleAtOnce(){
 		mySPSM.apply();
 	}
 
