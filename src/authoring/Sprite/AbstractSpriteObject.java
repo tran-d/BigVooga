@@ -618,6 +618,14 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return myAnimationSequences;
 	}
 	
+	public List<String> getAnimationSequenceNames(){
+		List<String> ret = new ArrayList<String>();
+		getAnimationSequences().forEach(sequence->{
+			ret.add(sequence.getName());
+		});
+		return ret;
+	}
+	
 	public void setAnimationSequences(List<AuthoringAnimationSequence> animations){
 		myAnimationSequences = animations;
 	}

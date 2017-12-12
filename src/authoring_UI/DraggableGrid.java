@@ -71,6 +71,17 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 		}
 	}
 	
+	public DraggableGrid(int row, int col) {
+		rows = row;
+		cols = col;
+	}
+	
+	public DraggableGrid(List<SpriteObjectGridManager> SGMs) {
+		this();
+		allGrids = SGMs;
+	}
+
+	@Override
 	public void construct(SpriteGridHandler spriteGridHandler){
 		if (allGrids == null){
 			allGrids = new ArrayList<SpriteObjectGridManager>();
@@ -120,6 +131,9 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 	public List<SpriteObjectGridManager> getGrids(){
 		//TODO
 		return allGrids;
+	}
+	public void setAllGrids(ArrayList<SpriteObjectGridManager> SGMs){
+		allGrids = SGMs;
 	}
 	
 	public void setAllGrids(SpriteObjectGridManager SGM){

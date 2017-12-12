@@ -39,6 +39,7 @@ public abstract class MapLayer extends GridPane {
 	protected ObjectProperty<Integer> numRowsProperty;
 	protected ObjectProperty<Integer> numColumnsProperty;
 	private Set<AuthoringMapStackPane> activeGridCells;
+	private Set<AuthoringMapStackPane> mostRecentActive;
 
 	protected MapLayer(int rows, int columns, int layerNum, SpriteGridHandler SGH, Color c) {
 		super();
@@ -48,8 +49,10 @@ public abstract class MapLayer extends GridPane {
 				this.removeAllActive();
 			}
 		});
+		
 		defaultColor = c;
 		activeGridCells = new HashSet<AuthoringMapStackPane>();
+		mostRecentActive = new HashSet<AuthoringMapStackPane>();
 		numRowsProperty = new SimpleObjectProperty<Integer>();
 		numColumnsProperty = new SimpleObjectProperty<Integer>();
 		numRowsProperty.set(1);
@@ -156,6 +159,18 @@ public abstract class MapLayer extends GridPane {
 	public void setBackgroundImage(Image image, String imagePath){
 		// NOTHING ON DEFAULT	
 	}
+	
+	public void addMostRecentActive(AuthoringMapStackPane newMostRecentActive){
+		mostRecentActive.add(newMostRecentActive);
+	}
+	
+	public void setMostRecentActive(Set<AuthoringMapStackPane> newMostRecentActive){
+		mostRecentActive = newMostRecentActive;
+	}
+	
+	public Set<AuthoringMapStackPane> getMostRecentActive(){
+		return mostRecentActive;
+	}
 
 	
 	public void setSpriteGridHandler(SpriteGridHandler SGH){
@@ -172,6 +187,9 @@ public abstract class MapLayer extends GridPane {
 	
 	public void removeActive(AuthoringMapStackPane pane){
 		this.activeGridCells.remove(pane);
+		if (this.getMostRecentActive().contains(pane)){
+			this.getMostRecentActive().remove(pane);
+		}
 	}
 	
 	public void removeAllActive(){
