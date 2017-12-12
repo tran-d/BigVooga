@@ -9,13 +9,23 @@ import authoring.SpritePanels.SpritePanels;
 import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -32,27 +42,34 @@ public class MapManager extends TabPane {
 	protected Scene scene;
 	protected SingleSelectionModel<Tab> mySelectModel;
 	protected Tab addTab;
+	protected ObjectProperty<Boolean> gridIsShowing;
 //	private AuthoringMapEnvironment authMap;
 
 	private ViewSideBar sideBar;
 	private GameElementSelector mySprites;
-	private AuthoringEnvironmentManager myAEM;
+	protected AuthoringEnvironmentManager myAEM;
 	private int myTabCount = 1;
 	private Tab currentTab;
 	private boolean oldProject;
 	private String projectName = "TestProject";
 	private GameDataHandler myGDH;
-	private int numWorlds = 1;
 	private List<DraggableGrid> allWorlds = new ArrayList<DraggableGrid>();
 	private Pane mapEditor = new Pane();
 	private SpritePanels spritePanels;
+	private SpriteGridHandler mySpriteGridHandler;
 
-	public MapManager(AuthoringEnvironmentManager AEM, Stage currentStage)  {
+	public MapManager(AuthoringEnvironmentManager AEM, Scene currentScene)  {
 		setTabTag();
 		setManagerName();
+		gridIsShowing = new SimpleObjectProperty<Boolean>();
+		gridIsShowing.addListener((change, oldValue, newValue)->{
+			System.out.println(getClass()+"is updating showing from "+oldValue + "to "+newValue);
+			this.mySpriteGridHandler.setGridIsShown(newValue);
+		});
+		
 		myAEM = AEM;
 		myGDH = myAEM.getGameDataHandler();
-		stage = currentStage;
+		scene = currentScene;
 		mapEditor.getChildren().add(this);
 		mySelectModel = this.getSelectionModel();
 		this.setPrefWidth(VIEW_WIDTH);
@@ -99,18 +116,33 @@ public class MapManager extends TabPane {
 		addTab = new Tab();
 		addTab.setText(ADD_TAB);
 		addTab.setOnSelectionChanged(e -> {
-			createTab(myTabCount, w);
+			createTab(w);
 			mySelectModel.select(currentTab);
 		});
 		this.getTabs().add(addTab);
 	}
+
+	public void gridIsShowing(){
+		gridIsShowing.set(true);
+	}
+	
+	public void gridIsNotShowing(){
+		gridIsShowing.set(false);
+	}
+	
+	public void setGridIsShowing(boolean showing){
+		gridIsShowing.set(showing);
+	}
+	
+	public boolean isGridShowing(){
+		return gridIsShowing.get();
+	}
 	
 	private void setTab() { //?
 		this.setSide(Side.TOP);
-		addTab = new Tab();
-		addTab.setText(ADD_TAB);
+		addTab = new Tab(ADD_TAB);
 		addTab.setOnSelectionChanged(e -> {
-			createTab(myTabCount, makeDraggableGrid());
+			createTab(makeDraggableGrid());
 			mySelectModel.select(currentTab);
 		});
 		this.getTabs().add(addTab);
@@ -123,26 +155,27 @@ public class MapManager extends TabPane {
 	private HBox setupFEAuthClasses(DraggableGrid w) { 
 		// TODO if it's old project, want all possible worlds, so many worlds!
 		allWorlds.add(w);
-		SpriteGridHandler mySpriteGridHandler;
+		
 		if (oldProject) {
 			mySpriteGridHandler = w.getSGH();
 		}
 		else mySpriteGridHandler = new SpriteGridHandler(myTabCount, w);
 		w.construct(mySpriteGridHandler);
-		mySpriteGridHandler.addKeyPress(stage.getScene());
-		spritePanels = new SpritePanels(mySpriteGridHandler, myAEM);
-		mySpriteGridHandler.setDisplayPanel(spritePanels);
-		AuthoringMapEnvironment authMap = new AuthoringMapEnvironment(spritePanels, w);
+		mySpriteGridHandler.addKeyPress(scene);
+		spritePanels = makeSpritePanels(mySpriteGridHandler);
+		mySpriteGridHandler.setGridDisplayPanel(spritePanels.getDisplayPanel());
+		mySpriteGridHandler.setElementSelectorDisplayPanel(spritePanels.getElementSelectorDisplayPanel());
+		AuthoringMapEnvironment authMap = makeAuthoringMapEnvironment(spritePanels, w);
 		return authMap;
 	}
+	
+	protected AuthoringMapEnvironment makeAuthoringMapEnvironment(SpritePanels spritePanels, DraggableGrid dg){
+		return new AuthoringMapEnvironment(spritePanels, dg);
+	}
 
-	private void createTab(int tabCount, DraggableGrid w) { //?
-		currentTab = new Tab();
+	private void createTab(DraggableGrid w) { //?
+		currentTab = createEditableTab();
 		currentTab.setOnClosed(e -> this.removeWorld(w));
-		StringProperty tabMap = new SimpleStringProperty();
-		tabMap.bind(Bindings.concat(DisplayLanguage.createStringBinding(TAB_TAG)).concat(" " + Integer.toString(tabCount)));
-		currentTab.textProperty().bind(tabMap);
-//		currentTab.textProperty().set(TODO: World Name);
 		currentTab.setContent(setupScene(w));
 		this.getTabs().add(this.getTabs().size() - 1, currentTab);
 		myTabCount++;
@@ -180,4 +213,50 @@ public class MapManager extends TabPane {
 	public List<DraggableGrid> getAllWorlds() {
 		return allWorlds;
 	}
+	
+	private Tab createEditableTab() {
+		StringProperty tabMap = new SimpleStringProperty();
+		tabMap.bind(Bindings.concat(DisplayLanguage.createStringBinding(TAB_TAG)).concat(" " + Integer.toString(myTabCount)));
+//		
+		final Label label = new Label(tabMap.get());  
+		// cannot bind editable tab label!! 
+		
+		final Tab tab = new Tab();  
+		tab.setGraphic(label);  
+		final TextField textField = new TextField();  
+		label.setOnMouseClicked(new EventHandler<Event>() {  
+			@Override
+			public void handle(Event event) {
+				if (((MouseEvent) event).getClickCount()==2) {  
+					textField.setText(label.getText());  
+					tab.setGraphic(textField);  
+					textField.selectAll();  
+					textField.requestFocus();  
+				}  
+			}  
+		}); 
+
+
+		textField.setOnAction(new EventHandler<ActionEvent>() {  
+			public void handle(ActionEvent event) {  
+				label.setText(textField.getText());  
+				tab.setGraphic(label);  
+			}  
+		});
+
+
+		textField.focusedProperty().addListener(new ChangeListener<Boolean>() {  
+			@Override  
+			public void changed(ObservableValue<? extends Boolean> observable,  
+					Boolean oldValue, Boolean newValue) {  
+				if (! newValue) {  
+					label.setText(textField.getText());  
+					tab.setGraphic(label);            
+				}  
+			}  
+		});  
+		
+		return tab ;  
+	 }
+
 }

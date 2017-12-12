@@ -37,7 +37,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-public class DraggableGrid extends VBox {
+public class DraggableGrid extends VBox implements DraggableGridAPI{
 	private StackPane myGrids;
 	private ComboBox<String> myTerrain;
 	private ImageView terrainImage;
@@ -94,6 +94,17 @@ public class DraggableGrid extends VBox {
 		System.out.println("successfully added all grids, allGrids size is: " + allGrids.size());
 	}
 	
+	public DraggableGrid(int row, int col) {
+		rows = row;
+		cols = col;
+	}
+	
+	public DraggableGrid(List<SpriteObjectGridManager> SGMs) {
+		this();
+		allGrids = SGMs;
+	}
+
+	@Override
 	public void construct(SpriteGridHandler spriteGridHandler){
 		if (allGrids == null){
 			allGrids = new ArrayList<SpriteObjectGridManager>();
@@ -139,15 +150,22 @@ public class DraggableGrid extends VBox {
 		this.setId("MapGridAndLayers");
 		this.setMaxWidth(MainAuthoringGUI.AUTHORING_WIDTH/2 + 124);
 	}
-	
 	public List<SpriteObjectGridManager> getGrids(){
 		//TODO
 		return allGrids;
+	}
+	public void setAllGrids(ArrayList<SpriteObjectGridManager> SGMs){
+		allGrids = SGMs;
 	}
 	
 	public void setAllGrids(SpriteObjectGridManager SGM){
 		allGrids = new ArrayList<SpriteObjectGridManager>();
 		allGrids.add(SGM);
+	}
+	
+	public void setAllGrids(List<SpriteObjectGridManager> SGMs){
+		allGrids = new ArrayList<SpriteObjectGridManager>();
+		allGrids.addAll(SGMs);
 	}
 	
 	private void makeLayers(SpriteGridHandler spriteGridHandler){
@@ -158,12 +176,12 @@ public class DraggableGrid extends VBox {
 		SpriteObjectGridManager terrain = new TerrainObjectGridManager(rows, cols, spriteGridHandler);
 		SpriteObjectGridManagerForSprites sprites = new SpriteObjectGridManagerForSprites(rows, cols, spriteGridHandler);
 		PanelObjectGridManager panels = new PanelObjectGridManager(rows, cols, spriteGridHandler);
-		showingGrids.add(background);
-		showingGrids.add(terrain);
-		showingGrids.add(sprites);
-		showingGrids.add(panels);
-		showingGrids.forEach(item->{
-			allGrids.add(item);
+		allGrids.add(background);
+		allGrids.add(terrain);
+		allGrids.add(sprites);
+		allGrids.add(panels);
+		allGrids.forEach(item->{
+			showingGrids.add(item);
 		});
 		} else {
 			if (spriteGridHandler == null) System.out.println("SGH is NULL IN DRAGGABLE GRID");
@@ -174,6 +192,7 @@ public class DraggableGrid extends VBox {
 				System.out.println("already has a grid!: "+item);
 				item.setSpriteGridHandler(spriteGridHandler);
 				item.createMapLayer();
+				item.setSizeToMatchDefaults();
 //				item.getMapLayer().setSpriteGridHandler();
 				showingGrids.add(item);
 			});
@@ -182,25 +201,32 @@ public class DraggableGrid extends VBox {
 	}
 	
 	public SpriteObjectGridManager getActiveGrid(){
-		allGrids.sort(new Comparator<SpriteObjectGridManager>(){
+		showingGrids.sort(new Comparator<SpriteObjectGridManager>(){
 			@Override
 			public int compare(SpriteObjectGridManager o1, SpriteObjectGridManager o2) {
+				if (o1 instanceof BackgroundGridManager){
+					return 1;
+				} else if (o2 instanceof BackgroundGridManager){
+					return -1;
+				}
 				return o2.getMapLayer().getLayerNumber()-o1.getMapLayer().getLayerNumber();
 			}
 		});
-		return allGrids.get(0);
+
+		return showingGrids.get(0);
 	}
 	
 	private void showLayer(SpriteObjectGridManager ML){
 //		System.out.println("Adding layer: "+ML.getName());
-		if (!allGrids.contains(ML)){
-			allGrids.add(ML);
+		if (!showingGrids.contains(ML)){
+			showingGrids.add(ML);
 		}
 		ML.setVisible(true);
 	}
 	
 	private void hideLayer(SpriteObjectGridManager ML){
 //		myStackPane.getChildren().remove(ML);
+//		ML.getActiveSpriteObjects()
 		mySGH.deactivateActiveSprites();
 		if (showingGrids.contains(ML)){
 			showingGrids.remove(ML);
@@ -229,7 +255,7 @@ public class DraggableGrid extends VBox {
 		hbox.getChildren().addAll(label, checkbox);
 		if (ML.canFillBackground()){
 			//ColorPicker
-			ColorPicker cp = new ColorPicker(Color.SANDYBROWN);
+			ColorPicker cp = new ColorPicker(Color.TRANSPARENT);
 			cp.setOnAction((event)->{
 				ML.setColor(cp.getValue());
 			});

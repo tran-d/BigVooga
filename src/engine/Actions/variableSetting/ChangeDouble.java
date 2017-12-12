@@ -9,6 +9,11 @@ import engine.operations.doubleops.DoubleOperation;
 import engine.operations.gameobjectops.GameObjectOperation;
 import engine.operations.stringops.StringOperation;
 
+/**
+ * 
+ * @author Aaron Paskin
+ *
+ */
 public class ChangeDouble implements Action {
 
 	private StringOperation varName;
@@ -26,6 +31,6 @@ public class ChangeDouble implements Action {
 	@Override
 	public void execute(GameObject asking, GameObjectEnvironment world) {
 		object.evaluate(asking, world).setDoubleVariable(varName.evaluate(asking, world),
-				newDouble.evaluate(asking, world) + asking.getDouble(varName.evaluate(asking, world)));
+				newDouble.evaluate(asking, world));
 	}
 }

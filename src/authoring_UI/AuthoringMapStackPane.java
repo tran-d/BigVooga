@@ -205,13 +205,19 @@ public class AuthoringMapStackPane extends StackPane {
 			// System.out.println("new value: " + newValue);
 			if (newValue) {
 				this.getMapLayer().addActive(this);
+				System.out.println(this.getMapLayer());
+				System.out.println("THIS BACKGROUND IS LITTTTTT");
 				this.setBackground(activeBackground);
 			} else {
+				System.out.println("REMMOOOVVVEEE");
 				this.getMapLayer().removeActive(this);
 				this.setBackground(inactiveBackground);
 			}
 		});
 	}
+	
+	
+	
 
 	public boolean isActive() {
 		return activeProperty.get();
@@ -375,6 +381,10 @@ public class AuthoringMapStackPane extends StackPane {
 		this.getChildren().clear();
 	}
 
+	public AbstractSpriteObject getChild(){
+		return this.mySO;
+
+	}
 	// public boolean isEmpty(){
 	// return this.getChildren().size();
 	// }

@@ -17,7 +17,7 @@ import javafx.scene.control.Separator;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.HBox;
 
-public class ActionConditionHBox extends HBox implements TopToolBarI {
+public class ActionConditionHBox extends HBox implements ActionConditionHBoxI {
 
 	private ResourceBundle tabResources;
 	private Button addButton;

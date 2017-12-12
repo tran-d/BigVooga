@@ -4,5 +4,7 @@ import engine.sprite.Displayable;
 
 public interface Element {
 	public Displayable getDisplayable();
-	void step(GameObjectEnvironment w);
+	public void step(GameObjectEnvironment w);
+	public double getX();
+	public double getY();
 }

@@ -4,22 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import authoring.AuthoringEnvironmentManager;
+import authoring.GridManagers.BackgroundGridManager;
 import authoring.GridManagers.SpriteObjectGridManager;
 import authoring.SpritePanels.SpritePanels;
 import authoring_UI.DraggableGrid;
 import authoring_UI.MapManager;
 import authoring_UI.SpriteGridHandler;
-import javafx.stage.Stage;
+import javafx.scene.Scene;
 
 public class HUDManager extends MapManager{
 
 	
 	private SpriteObjectGridManager HUDGridBE;
-	private AuthoringEnvironmentManager myAEM;
 
-	public HUDManager(AuthoringEnvironmentManager AEM, Stage currentStage) {
-		super(AEM, currentStage);
-		myAEM = AEM;
+	public HUDManager(AuthoringEnvironmentManager AEM, Scene currentScene) {
+		super(AEM, currentScene);
 	}
 	
 	@Override 
@@ -27,7 +26,11 @@ public class HUDManager extends MapManager{
 		System.out.println("DG in HUDMANAGER");
 		DraggableGrid ret = new DraggableGrid();
 		HUDGridBE = new HUDGridManager();
-		ret.setAllGrids(HUDGridBE);
+		BackgroundGridManager BackgroundGrid = new BackgroundGridManager(HUDGridBE.getDefaultRows(), HUDGridBE.getDefaultCols());
+		List<SpriteObjectGridManager> grids = new ArrayList<SpriteObjectGridManager>();
+		grids.add(BackgroundGrid);
+		grids.add(HUDGridBE);
+		ret.setAllGrids(grids);
 		return ret;
 	}
 	

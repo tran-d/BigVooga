@@ -14,11 +14,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class MainAuthoringGUI{
+public class MainAuthoringGUI {
 	public static final int AUTHORING_WIDTH = 1400;
 	public static final String AUTHORING_CSS = "Authoring.css";
 	private static final String BORDERPANE_ID = "borderpane";
-	
+
 	private Stage stage;
 	private Scene scene;
 	private SceneController sceneController;
@@ -31,7 +31,6 @@ public class MainAuthoringGUI{
 	private static final String TEMP_PROJECT_NAME = "TestProject";
 	private String myProjectName;
 	private GameDataHandler myGDH;
-	
 
 	public MainAuthoringGUI(Stage currentStage, SceneController currentSceneController, String projectName) {
 		myProjectName = projectName;
@@ -43,22 +42,22 @@ public class MainAuthoringGUI{
 		scene.getStylesheets().add(MainAuthoringGUI.class.getResource(AUTHORING_CSS).toExternalForm());
 		sceneController = currentSceneController;
 	}
-	
+
 	public void createAuthoringGUI() {
 		toolBar = new Toolbar(stage, sceneController);
 		rootPane.setTop(toolBar);
-		
+
 		authoringPane = new Pane();
 
 		myGDH = new GameDataHandler(myProjectName);
-		authoringController = new AuthoringController(stage, authoringPane, myGDH);
+		authoringController = new AuthoringController(scene, stage, authoringPane, myGDH);
 
 		ViewSideBar sideBar = new ViewSideBar(authoringController);
 		authoringController.switchView(AuthoringController.MAP_EDITOR_KEY, sideBar);
-		
+
 		rootPane.setCenter(authoringPane);
 	}
-	
+
 	/**
 	 * Gets the scene for initialization in SceneController.
 	 * 

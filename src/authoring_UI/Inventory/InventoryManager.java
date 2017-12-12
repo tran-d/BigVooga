@@ -4,22 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import authoring.AuthoringEnvironmentManager;
+import authoring.GridManagers.BackgroundGridManager;
 import authoring.GridManagers.SpriteObjectGridManager;
 import authoring.SpritePanels.InventorySpritePanels;
 import authoring.SpritePanels.SpritePanels;
 import authoring_UI.DraggableGrid;
 import authoring_UI.MapManager;
 import authoring_UI.SpriteGridHandler;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class InventoryManager extends MapManager{
 	
 	private SpriteObjectGridManager InventoryGridBE;
-	private AuthoringEnvironmentManager myAEM;
 
-	public InventoryManager(AuthoringEnvironmentManager AEM, Stage currentStage) {
-		super(AEM, currentStage);
-		myAEM = AEM;
+	public InventoryManager(AuthoringEnvironmentManager AEM, Scene currentScene) {
+		super(AEM, currentScene);
 	}
 	
 	@Override 
@@ -27,7 +27,11 @@ public class InventoryManager extends MapManager{
 		System.out.println("DG in HUDMANAGER");
 		DraggableGrid ret = new DraggableGrid();
 		InventoryGridBE = new InventoryGridManager();
-		ret.setAllGrids(InventoryGridBE);
+		BackgroundGridManager BackgroundGrid = new BackgroundGridManager(InventoryGridBE.getDefaultRows(), InventoryGridBE.getDefaultCols());
+		List<SpriteObjectGridManager> grids = new ArrayList<SpriteObjectGridManager>();
+		grids.add(BackgroundGrid);
+		grids.add(InventoryGridBE);
+		ret.setAllGrids(grids);
 		return ret;
 	}
 	

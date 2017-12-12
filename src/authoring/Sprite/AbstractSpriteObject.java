@@ -18,13 +18,16 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Function;
 
-import authoring.Sprite.AnimationSequences.AnimationSequence;
+import authoring.Sprite.AnimationSequences.AuthoringAnimationSequence;
 import authoring.Sprite.AnimationSequences.AuthoringImageView;
 import authoring.Sprite.Parameters.BooleanSpriteParameter;
 import authoring.Sprite.Parameters.DoubleSpriteParameter;
 import authoring.Sprite.Parameters.SpriteParameter;
 import authoring.Sprite.Parameters.SpriteParameterI;
 import authoring.Sprite.Parameters.StringSpriteParameter;
+import engine.Action;
+import engine.Condition;
+import engine.sprite.AnimationSequence;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -52,6 +55,8 @@ public abstract class AbstractSpriteObject extends ImageView {
 	protected Map<String, List<SpriteParameterI>> categoryMap = new HashMap<String, List<SpriteParameterI>>();
 	protected Map<String, List<SpriteParameterI>> possibleCategoryMap = new HashMap<String, List<SpriteParameterI>>();;
 	protected List<AbstractSpriteObject> myInventory;
+	
+	protected Map<Condition, List<Action>> myBehavior = new HashMap<Condition, List<Action>>();
 
 	@IsLockedUtility(readableName = "Image Path: ", getMethod = "getImageURL")
 	protected String myImageURL;
@@ -83,9 +88,11 @@ public abstract class AbstractSpriteObject extends ImageView {
 	protected String mySavePath;
 	protected ObservableList<Integer> allConditions;
 	protected ObservableList<Integer> allActions;
-	protected HashMap<List<String>,List<Integer>> conditionRows;
-	protected List<List<String>> actionRows;
-	protected List<AnimationSequence> myAnimationSequences;
+	protected HashMap<Condition, List<Integer>> conditionRows;
+	protected List<Action> actionRows;
+	protected List<AuthoringAnimationSequence> myAnimationSequences;
+	protected List<String> myTags;
+
 
 	public AbstractSpriteObject() {
 		super();
@@ -97,11 +104,12 @@ public abstract class AbstractSpriteObject extends ImageView {
 	private void initializeActionConditions() {
 		allConditions = FXCollections.observableArrayList();
 		allActions = FXCollections.observableArrayList();
-		conditionRows = new HashMap<List<String>,List<Integer>>();
-		actionRows = new LinkedList<List<String>>();
+		conditionRows = new HashMap<Condition,List<Integer>>();
+		actionRows = new LinkedList<Action>();
 	}
 
 	private void initializeVariables() {
+		myTags = new ArrayList<String>();
 		myInventory = new ArrayList<AbstractSpriteObject>();
 		initializePositionOnGridProperty();
 		initializeHeightWidthProperties();
@@ -153,6 +161,15 @@ public abstract class AbstractSpriteObject extends ImageView {
 
 	public String getUniqueID() {
 		return myUniqueID;
+	}
+	
+	public List<String> getTags(){
+		return this.myTags;
+	}
+	
+	public void setTags(Collection<String> newTags){
+		this.myTags.clear();
+		this.myTags.addAll(newTags);
 	}
 
 	public List<AbstractSpriteObject> getInventory() {
@@ -593,24 +610,32 @@ public abstract class AbstractSpriteObject extends ImageView {
 		mySavePath = path;
 	}
 	
-	public List<AnimationSequence> getAnimationSequences(){
+	public List<AuthoringAnimationSequence> getAnimationSequences(){
 		if (myAnimationSequences == null){
-			myAnimationSequences = new ArrayList<AnimationSequence>();
-			myAnimationSequences.add(new AnimationSequence("Default", new AuthoringImageView(getImageURL())));
+			myAnimationSequences = new ArrayList<AuthoringAnimationSequence>();
+			myAnimationSequences.add(new AuthoringAnimationSequence("Default", new AuthoringImageView(getImageURL())));
 		}
 		return myAnimationSequences;
 	}
 	
-	public void setAnimationSequences(ArrayList<AnimationSequence> animations){
+	public List<String> getAnimationSequenceNames(){
+		List<String> ret = new ArrayList<String>();
+		getAnimationSequences().forEach(sequence->{
+			ret.add(sequence.getName());
+		});
+		return ret;
+	}
+	
+	public void setAnimationSequences(List<AuthoringAnimationSequence> animations){
 		myAnimationSequences = animations;
 	}
 	
 	public void createNewAnimationSequence(String name){
-		myAnimationSequences.add(new AnimationSequence(name)); 
+		myAnimationSequences.add(new AuthoringAnimationSequence(name)); 
 	}
 	
-	public AnimationSequence getAnimationSequence(String name){
-		AnimationSequence AS = getAnimationSequences().stream()
+	public AuthoringAnimationSequence getAnimationSequence(String name){
+		AuthoringAnimationSequence AS = getAnimationSequences().stream()
 								.filter(sequence -> sequence.getName().equals(name))
 								.findFirst()
 								.get();
@@ -625,11 +650,11 @@ public abstract class AbstractSpriteObject extends ImageView {
 		this.allActions = allActions;
 	}
 
-	public void setCondidtionRows(HashMap<List<String>, List<Integer>> conditionRows) {
+	public void setCondidtionRows(HashMap<Condition,List<Integer>> conditionRows) {
 		this.conditionRows = conditionRows;
 	}
 
-	public void setActionRows(List<List<String>> actionRows) {
+	public void setActionRows(List<Action> actionRows) {
 		this.actionRows = actionRows;
 	}
 	
@@ -641,12 +666,33 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return allActions;
 	}
 
-	public HashMap<List<String>, List<Integer>> getConditionRows() {
+	public HashMap<Condition,List<Integer>> getConditionRows() {
 		return conditionRows;
 	}
 
-	public List<List<String>> getActionRows() {
+	public List<Action> getActionRows() {
 		return actionRows;
+	}
+	
+	/**
+	 * Converts the Front-end formatting into back-end mapping of Conditons and Actions.
+	 * @return Map<Condition, List<Action>>
+	 */
+	public Map<Condition, List<Action>> conditionActionPairings()
+	{
+		Map<Condition, List<Action>> temp= new HashMap<Condition, List<Action>>();
+		for(Condition c: conditionRows.keySet())
+		{
+			List<Action> actions = new ArrayList<Action>();
+			for(Integer i: conditionRows.get(c))
+			{
+				actions.add(actionRows.get(i));
+			}
+			temp.put(c, actions);
+			
+		}
+		
+		return temp;
 	}
 
 	

@@ -20,8 +20,6 @@ public class GameMaster implements EngineController{
 	private static final int DEFAULT_DELAY = 1000/DEFAULT_FPS;
 	private static final String TRASH = "TRASH (unnamed save)";
 	
-	private String gameFileName = TRASH;
-	
 	private GameWorld currentWorld;
 	private List<GameWorld> madeWorlds;
 	private Timeline gameLoop;
@@ -34,10 +32,6 @@ public class GameMaster implements EngineController{
 	public GameMaster() {
 		madeWorlds = new ArrayList<>();
 		globalVars = new GlobalVariables();
-	}
-	
-	public void setGameFileName(String name) {
-		gameFileName = name;
 	}
 	
 	/**
@@ -88,8 +82,14 @@ public class GameMaster implements EngineController{
 		currentWorld.step(environment);
 		imageUpdate();
 		playerManager.step();
+		sendVariables();
 	}
 	
+	private void sendVariables() {
+		if(playerManager.getDataView() != null)
+			playerManager.getDataView().display(currentWorld.getAllGameObjects());
+	}
+
 	@Override
 	public void setPlayerManager(PlayerManager currentPlayerManager) {
 		playerManager = currentPlayerManager;
@@ -105,18 +105,12 @@ public class GameMaster implements EngineController{
 	 * Used in step.
 	 */
 	private void imageUpdate() {
-		double cameraXTranslate = 0;
-		double cameraYTranslate = 0;
 		List<Displayable> imageData = new ArrayList<>();
-		for(Element e: currentWorld.getAllElements()){
-			imageData.add(e.getDisplayable());
-			if(e instanceof GameObject && ((GameObject)e).is("Player")) {		//TODO: make constant
-				cameraXTranslate = ((GameObject)e).getX();
-				cameraYTranslate = ((GameObject)e).getY();
-			}
+		for(Displayable e: currentWorld.getAllDisplayables()){
+			imageData.add(e);
 		}
 		Collections.sort(imageData, (i1, i2)->i1.getDrawingPriority()-i2.getDrawingPriority());
-		playerManager.setImageData(imageData, cameraXTranslate, cameraYTranslate);
+		playerManager.setImageData(imageData);
 	}
 
 	@Override
@@ -130,11 +124,14 @@ public class GameMaster implements EngineController{
 
 
 	public GameWorld getWorldWithName(String newWorld) {
-		// TODO Auto-generated method stub
+		for(GameWorld world : madeWorlds) {
+			if(world.isNamed(newWorld))
+				return world;
+		}
 		return null;
 	}
 
 	public void save() {
-		playerManager.save(gameFileName);
+		playerManager.save();;
 	}
 }

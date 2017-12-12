@@ -8,11 +8,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +26,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.security.NullPermission;
 import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
+import authoring.DialogSprite.DialogSequence;
 import authoring.GridManagers.SpriteObjectGridManager;
 import authoring.Sprite.AbstractSpriteObject;
 import authoring.Sprite.SpriteObject;
@@ -58,6 +58,7 @@ public class GameDataHandler {
 	private static final String KNOWN_PROJECTS = "KnownProjectNames";
 	public static final String PATH = "data/UserCreatedGames/";
 	private static final String CONTROLLER_FILE = "Engine_Controller_Save_File";
+	private static final String CONTINUE_FILE = "Engine_Controller_Load_File";
 	private static final String SELECTOR_TITLE = "Open Resource File";
 	private static final String KNOWN_PROJECTS_PATH = "resources/" + KNOWN_PROJECTS + ".properties";
 	private static final String PROJECT_USER_SPRITE_PATH = "Sprites/";
@@ -70,7 +71,7 @@ public class GameDataHandler {
 	private static final String DEFAULT_CATEGORY = "General/";
 	private static final String RESOURCES = "resources/";
 	private static final String CONTROLLER_DIRECTORY = "SAVES/";
-	private static  Path RESOURCES_PATH;
+	private static final String DELIMITER = ", ";
 	private Map<String, Image> cache = new HashMap<>();
 	private String projectPath;
 	private String projectName;
@@ -90,7 +91,6 @@ public class GameDataHandler {
 	}
 	
 	public GameDataHandler(String projectName) {
-		RESOURCES_PATH = Paths.get(RESOURCES).toAbsolutePath();
 		this.projectName = projectName;
 		this.projectPath = PATH + projectName + "/";
 		makeDirectory(projectPath+CONTROLLER_DIRECTORY);
@@ -109,10 +109,14 @@ public class GameDataHandler {
 	 */
 	public void saveGame(EngineController controller) {
 		saveGame(controller, CONTROLLER_FILE);
-		addToKnownProjects();
+		clearKnown();
 	}
 	
-	public void saveGame(EngineController controller, String gameName) {
+	public void saveForContinue(EngineController controller) {
+		saveGame(controller, CONTINUE_FILE);
+	}
+
+	private void saveGame(EngineController controller, String gameName) {
 		String toSave = SERIALIZER.toXML(controller);
 		FileWriter writer;
 		try {
@@ -122,6 +126,7 @@ public class GameDataHandler {
 		} catch (IOException e) {
 			throw new VoogaException("SaveFail");
 		}
+		addToKnownProjects(gameName);
 	}
 
 	/**
@@ -133,7 +138,34 @@ public class GameDataHandler {
 	 * 
 	 * @throws IOException
 	 */
-	private void addToKnownProjects() {
+	private void addToKnownProjects(String saveName) {
+		Properties prop = getProperties();
+		
+		if(knownProjects().containsKey(projectName)) {
+			if(knownProjects().get(projectName).contains(saveName))
+				return;
+			try {
+				FileInputStream in = new FileInputStream(KNOWN_PROJECTS_PATH);
+				prop.load(in);
+				in.close();
+			} catch (IOException e) {
+				// Intentionally Blank
+			}
+			prop.put(projectName, prop.get(projectName) + DELIMITER + saveName);
+		}
+		else
+			prop.put(projectName, saveName);
+		
+		try {
+			FileOutputStream out = new FileOutputStream(KNOWN_PROJECTS_PATH);
+			prop.store(out, null);
+			out.close();
+		} catch (IOException e) {
+			throw new RuntimeException("KNOWN PROJECTS NOT FOUND");
+		}
+	}
+
+	private Properties getProperties() {
 		Properties prop = new Properties();
 
 		try {
@@ -143,30 +175,36 @@ public class GameDataHandler {
 		} catch (IOException e) {
 			// Intentionally Blank
 		}
-		prop.put(projectName, "Modified " + LocalDateTime.now());
-
+		return prop;
+	}
+	
+	private void clearKnown() {
+		Properties prop = getProperties();
+		
+		prop.put(projectName,"");
+		
 		try {
 			FileOutputStream out = new FileOutputStream(KNOWN_PROJECTS_PATH);
 			prop.store(out, null);
 			out.close();
 		} catch (IOException e) {
-			throw new RuntimeException("KNOWN PROJECTS NOT FOUND");// TODO
-																	// improve
-																	// this
+			throw new RuntimeException("KNOWN PROJECTS NOT FOUND");
 		}
 	}
 
-	/**
-	 * @return A map of all project names to the modified date.
-	 */
-	public static Map<String, String> knownProjectsWithDateModified() {
-		Map<String, String> result = new HashMap<>();
+	public static Map<String, List<String>> knownProjects() {
+		Map<String, List<String>> result = new HashMap<>();
 		try {
 			ResourceBundle bundle = ResourceBundle.getBundle(KNOWN_PROJECTS);
 			Enumeration<String> projects = bundle.getKeys();
 			while (projects.hasMoreElements()) {
 				String p = projects.nextElement();
-				result.put(p, bundle.getString(p));
+				List<String> saves = new ArrayList<>(Arrays.asList(bundle.getString(p).split(DELIMITER)));
+				for(int i = saves.size()-1; i >= 0; i--) {
+					if(saves.get(i).matches("\\s*"))
+						saves.remove(i);
+				}
+				result.put(p, saves);
 			}
 		} catch (MissingResourceException e) {
 			// Intentionally Blank
@@ -182,7 +220,15 @@ public class GameDataHandler {
 		return loadGame(CONTROLLER_FILE);
 	}
 	
-	public EngineController loadGame(String saveGameName) throws FileNotFoundException {
+	public EngineController loadContinueGame() throws FileNotFoundException {
+		try {
+			return loadGame(CONTINUE_FILE);
+		} catch (FileNotFoundException e) {
+			return loadGame();
+		}
+	}
+	
+	private EngineController loadGame(String saveGameName) throws FileNotFoundException {
 		File controllerFile = new File(projectPath+ CONTROLLER_DIRECTORY+ saveGameName);
 		Scanner scanner = new Scanner(controllerFile);
 		String fileContents = scanner.useDelimiter("\\Z").next();
@@ -200,11 +246,21 @@ public class GameDataHandler {
 		if (cache.containsKey(fileName)){
 			return cache.get(fileName);
 		}
-		String path = new File(projectPath+fileName).toURI().toString();
+		String path = new File(projectPath + fileName).toURI().toString();
 		Image i = new Image(path);
 		cache.put(fileName, i);
 		return i;
 	}
+	
+//	public Image imageExists(String fileName) throws URISyntaxException {
+//		File image = new File(projectPath + fileName);
+//		if (!image.exists()){
+//			
+//		}
+//		Image i = new Image(path);
+//		cache.put(fileName, i);
+//		return i;
+//	}
 
 	/**
 	 * @param stage
@@ -234,12 +290,6 @@ public class GameDataHandler {
 		fileChooser.setTitle(SELECTOR_TITLE);
 		return fileChooser.showOpenDialog(stage);
 	}
-
-	private void makeProjectDirectory() {
-		if (!directoryExists(projectPath)) {
-			makeDirectory(projectPath);
-		}
-	}
 	
 	public static Image chooseImage(Window window){
 		File f = chooseFileForImageSave(window);
@@ -251,7 +301,6 @@ public class GameDataHandler {
 			return new Image("pikachu.png");
 		}
 	}
-
 	/**
 	 * @param stage
 	 *            To present dialog
@@ -262,44 +311,12 @@ public class GameDataHandler {
 		fileChooser.setTitle(SELECTOR_TITLE);
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Image Files (.png)", "*.png"));
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Image Files (.gif)", "*.gif"));
-//		File f = new File("/");
-//		Path p = Paths.get(f.getName());
-//		System.out.println("p: "+p);
-		System.out.println("Respath: "+RESOURCES_PATH);
 		File newFile = fileChooser.showOpenDialog(window);
-//		File newFile = fileChooser.showSaveDialog(window);
-//		fileChooser.
 		
-		try {
-			addImageFileToResources(newFile);
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return newFile;
 		
 	}
-	
-	public static void addImageFileToResources(File file) throws IOException {
-		if (file != null){
-//			Path newPath = Paths.get(RESOURCES_PATH);
-			System.out.println("newPath: "+RESOURCES_PATH);
-//			Files.
-//			BufferedImage BI = new BufferedImage()
-//			Files.createFile(newPath, file);
-//			Files.
-//			FileWriter FW = new FileWriter(file);
-//			FW.write(file);
-//			 FW.close();
-			Path p = Paths.get(RESOURCES_PATH.toString(), file.getName());
-			System.out.println("Path p: "+p);
-		
-			System.out.println();
-			Files.copy(file.toPath(), p, StandardCopyOption.REPLACE_EXISTING);
-	}
 
-	}
 	private static void makeDirectory(String path) {
 		File file = new File(path);
 		if (!file.exists()){
@@ -633,7 +650,6 @@ public class GameDataHandler {
 				System.out.println(dummy);
 
 			} catch (Exception e) {
-				System.out.println("WHATSUPDAVIIIDDDDDDD");
 				e.printStackTrace();
 			}
 		}
@@ -719,6 +735,16 @@ public class GameDataHandler {
 				makeDirectory(s);
 			}
 		}
+	}
+
+	public Map<String, List<DialogSequence>> loadDialogsFromNestedDirectories(String folderToLoad) {
+		// TODO FILL THIS IN!
+		return null;
+	}
+
+	public void saveDialogSequence(DialogSequence dS, String folderToSaveTo) {
+		// TODO FILL THIS IN!
+		
 	}
 	
 }

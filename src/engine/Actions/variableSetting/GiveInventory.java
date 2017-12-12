@@ -8,7 +8,7 @@ import engine.operations.gameobjectops.GameObjectOperation;
 /**
  *
  * 
- * @author aaronpaskin
+ * @author Aaron Paskin
  *
  */
 //TODO: GiveInventory
@@ -22,8 +22,7 @@ public class GiveInventory implements Action {
 	
 	@Override
 	public void execute(GameObject asking, GameObjectEnvironment world) {
-		//for(String key : asking.getInventory().keySet())
-		//	obj.evaluate(asking, world).setGameObjectVariable(key, asking.getGameObject(key));
+		
 	}
 
 }
