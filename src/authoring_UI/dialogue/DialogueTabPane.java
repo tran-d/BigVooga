@@ -31,4 +31,12 @@ public class DialogueTabPane extends TabPane {
 		userTab.addDialogue(number, btn);
 	}
 
+	public void removeUserDialogueButton(int id) {
+		userTab.deleteDialogue(id);
+	}
+	
+	public int getButtonIndex(Button btn) {
+		return userTab.getButtonIndex(btn);
+	}
+
 }
