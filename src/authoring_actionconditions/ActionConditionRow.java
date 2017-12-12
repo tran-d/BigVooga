@@ -30,9 +30,9 @@ import tools.DisplayLanguage;
 public class ActionConditionRow extends ToolBar implements ActionConditionRowI {
 	
 	protected static final String ACTIONCONDITION_RESOURCE_PATH = "TextResources/ActionConditionVBoxResources";
-	protected static final double ROW_WIDTH = 600;
-	protected static final double TREE_VIEW_WIDTH = 400;
-	protected static final double EXPANDED_HEIGHT = 300;
+	protected static final double ROW_WIDTH = 700;
+	protected static final double TREE_VIEW_WIDTH = 500;
+	protected static final double EXPANDED_HEIGHT = 400;
 	protected static final double COLLAPSED_HEIGHT = 25;
 
 	protected ResourceBundle actionConditionVBoxResources;

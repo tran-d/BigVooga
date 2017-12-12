@@ -25,7 +25,7 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 
 	private ActionFactory actionFactory = new ActionFactory();
 	private List<OperationNameTreeItem> opNameTreeItemList;
-	private List<Operation<?>> operationList = new ArrayList<>();
+	private List<Object> operationList = new ArrayList<>();
 	private String selectedAction;
 	private Action action;
 
@@ -41,11 +41,11 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 		try {
 			for (OperationNameTreeItem opItem : opNameTreeItemList) {
 
-				operationList.add((Operation<?>) opItem.makeOperation());
+				operationList.add(opItem.makeOperation());
 				System.out.println("Operation: " + opItem.makeOperation().toString());
 
 			}
-
+//			System.out.println(operationList);
 			System.out.println("Making action for " + selectedAction + "...");
 			action = actionFactory.makeAction(selectedAction, operationList.toArray());
 			System.out.println(action);

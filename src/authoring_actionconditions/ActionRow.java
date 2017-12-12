@@ -10,31 +10,31 @@ import engine.Action;
  */
 public class ActionRow extends ActionConditionRow {
 	
-	private ActionTreeView operationTreeView;
+	private ActionTreeView actionTreeView;
 
 	public ActionRow(int ID, ActionVBox<ActionRow> ACVBox) {
 		super(ID, ACVBox);
 		setPrefSize(ROW_WIDTH, EXPANDED_HEIGHT);
-		operationTreeView = new ActionTreeView(this);
-		getItems().add(operationTreeView);
+		actionTreeView = new ActionTreeView(this);
+		getItems().add(actionTreeView);
 	}
 	
 	public ActionRow(int ID,ActionVBox<?> ACVBox, ActionTreeView tv) {
 		super(ID, ACVBox);
-		getItems().remove(operationTreeView);
-		operationTreeView = tv;
-		this.getItems().addAll(operationTreeView);
+		getItems().remove(actionTreeView);
+		actionTreeView = tv;
+		this.getItems().add(actionTreeView);
 	}
 
 	/********************** PUBLIC METHODS ***********************/
 
 	public ActionTreeView getTreeView() {
-		return operationTreeView;
+		return actionTreeView;
 	}
 
 	public Action getAction() {
 		try {
-			return operationTreeView.getAction();
+			return actionTreeView.getAction();
 		}
 		catch(NullPointerException | NumberFormatException e) {
 			throw e;

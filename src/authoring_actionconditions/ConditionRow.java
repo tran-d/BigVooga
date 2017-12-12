@@ -1,6 +1,7 @@
 package authoring_actionconditions;
 
 import java.util.List;
+
 import ActionConditionClasses.ActionCheckBoxVBox;
 import ActionConditionClasses.ActionCheckBoxVBoxI;
 import engine.Condition;
@@ -26,9 +27,11 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 		addActionCheckBox(newActionOptions);
 
 		this.setPrefSize(ROW_WIDTH, EXPANDED_HEIGHT);
+
 		operationTreeView = new ConditionTreeView(this);	
 		treeViewVBox = operationTreeView.getTreeViewVBox();
 		this.getItems().addAll(treeViewVBox);
+
 	}
 
 	public ConditionRow(int ID, ObservableList<Integer> newActionOptions, List<Integer> selectedActionOptions,ConditionVBox<ConditionRow> ACVBox,
@@ -37,6 +40,7 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 		getItems().removeAll(actionCheckBoxVBox,treeViewVBox);
 		actionCheckBoxVBox = new ActionCheckBoxVBox<Integer>(newActionOptions, selectedActionOptions);
 		treeViewVBox = tv.getTreeViewVBox();
+		operationTreeView = tv;
 		getItems().addAll(actionCheckBoxVBox,treeViewVBox);
 
 	}

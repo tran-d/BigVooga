@@ -78,7 +78,8 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 
 	}
 
-	public Operation<?> makeOperation() {
+	//removed Operation<?> cast
+	public Object makeOperation() {
 		List<Object> listOfStringParams = new ArrayList<>();
 
 		for (OperationNameTreeItem op : listOfOperations) {

@@ -6,8 +6,8 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class BuildActionView {
-	private static final double WIDTH = 700;
-	private static final double HEIGHT = 400;
+	private static final double WIDTH = 750;
+	private static final double HEIGHT = 450;
 
 	private Stage stage;
 	private Scene scene;
@@ -32,9 +32,9 @@ public class BuildActionView {
 
 	private void transportActionRow(WindowEvent event) {
 
-		// for testing
+//		 for testing
 		try {
-			ACRow.getAction();
+			ACRow.getTreeView().getAction();
 			ACRow.reduceTreeView();
 
 			System.out.println(ACRow.getPrefHeight());
@@ -47,6 +47,7 @@ public class BuildActionView {
 			//event.consume();
 			stage.close();
 		}
+//		stage.close();
 
 		// KEEP THIS CODE
 		// if (ACRow.getAction() != null) {
