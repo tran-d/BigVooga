@@ -11,11 +11,11 @@ import javafx.scene.paint.Color;
 public class BackgroundLayer extends MapLayer {
 	
 	public BackgroundLayer(int rows, int columns, SpriteGridHandler SGH){
-		this(rows, columns, 0, SGH, Color.TRANSPARENT);
+		this(rows, columns, SGH, Color.TRANSPARENT);
 	}
 
-	BackgroundLayer(int rows, int columns, int layerNum, SpriteGridHandler SGH, Color c) {
-		super(rows, columns, layerNum, SGH, c);
+	BackgroundLayer(int rows, int columns, SpriteGridHandler SGH, Color c) {
+		super(rows, columns, SGH, c);
 		this.setGridLinesVisible(false);
 //		setDefaultColor(Color.YELLOW);
 		setName("Background");

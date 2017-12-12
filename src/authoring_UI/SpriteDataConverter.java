@@ -32,14 +32,16 @@ public class SpriteDataConverter {
 
 	Map<String, List<SpriteParameterI>> catmap;
 	List<SpriteDataConverter> inventory;
+	String imageURL;
 	Integer[] gridPos;
 	String name;
 	Integer width;
 	Integer height;
 	String UUID;
-	String imageURL;
+	
 	String mySavePath;
 	String spriteType;
+	List<String> tags;
 //	Function<Integer, Boolean> heightFunction;
 //	Function<Integer, Boolean> widthFunction;
 
@@ -73,6 +75,7 @@ public class SpriteDataConverter {
 		UUID = ASO.getUniqueID();
 		imageURL = ASO.getImageURL();
 		mySavePath = ASO.getSavePath();
+		tags = ASO.getTags();
 		inventory = new ArrayList<SpriteDataConverter>();
 		ASO.getInventory().forEach(sprite -> {
 			inventory.add(new SpriteDataConverter(sprite));
@@ -102,7 +105,7 @@ public class SpriteDataConverter {
 		ret.setUniqueID(UUID);
 		ret.setName(name);
 		ret.setSavePath(mySavePath);
-
+		ret.setTags(tags);
 		List<AbstractSpriteObject> newInventory = new ArrayList<AbstractSpriteObject>();
 		inventory.forEach(SDC ->{
 			newInventory.add(SDC.createSprite());
