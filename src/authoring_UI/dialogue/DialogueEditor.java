@@ -73,6 +73,7 @@ public class DialogueEditor {
 	private Consumer<String> saveConsumer;
 	private ColorPicker backgroundColorCP;
 	private SVGPath svg;
+	private Image image;
 
 	public DialogueEditor(Consumer<String> saveCons) {
 		this.saveConsumer = saveCons;
@@ -122,6 +123,10 @@ public class DialogueEditor {
 	public VBox getView() {
 		System.out.println(view.getHeight());
 		return view;
+	}
+	
+	public Image getBackgroundImage() {
+		return image;
 	}
 
 	/*************************** PRIVATE METHODS *********************************/
@@ -188,7 +193,7 @@ public class DialogueEditor {
 		}
 		File file = GameDataHandler.chooseFileForImageSave(s.getWindow());
 		if (file != null) {
-			Image image = new Image(GameDataHandler.getImageURIAndCopyToResources(file));
+			image = new Image(GameDataHandler.getImageURIAndCopyToResources(file));
 			dsp.setBackgroundImage(image);
 		}
 	}

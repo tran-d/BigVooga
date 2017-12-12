@@ -81,6 +81,7 @@ public class DialogueTextAreaView extends VBox {
 	
 	private double oldHeight = 0;
 	private Supplier<Color> currentBgColor;
+	private Image currentBgImage;
 
 	public DialogueTextAreaView(Runnable save, Supplier <Color> bgColor) {
 		currentBgColor = bgColor;
@@ -140,12 +141,13 @@ public class DialogueTextAreaView extends VBox {
 	}
 	
 	protected void setBackgroundImage(Image image) {
+		currentBgImage = image;
 		for (Pane pane : paneList) {
-			BackgroundImage bgImg = new BackgroundImage(image, 
+			BackgroundImage bgImage = new BackgroundImage(image, 
 				    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
 				    BackgroundPosition.CENTER, 
 				    new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false));
-			pane.setBackground(new Background(bgImg));
+			pane.setBackground(new Background(bgImage));
 		}
 	}
 
@@ -181,7 +183,11 @@ public class DialogueTextAreaView extends VBox {
 		Pane dialoguePane = new Pane();
 		dialoguePane.setPrefSize(DIALOG_PROMPT_WIDTH, DIALOG_PROMPT_HEIGHT);
 		paneList.add(currentPaneIndex+1, dialoguePane);
-		setBackgroundColor(currentBgColor.get());
+		if (currentBgImage != null) {
+			setBackgroundImage(currentBgImage);
+		} else {
+			setBackgroundColor(currentBgColor.get());
+		}
 		setCurrentPane();
 		totalPaneCount.set(totalPaneCount.get()+1);
 	}
