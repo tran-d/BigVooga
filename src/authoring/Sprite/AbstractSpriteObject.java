@@ -116,6 +116,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 	private void initializeVariables() {
 		myTags = new ArrayList<String>();
 		myInventory = new ArrayList<AbstractSpriteObject>();
+		myAnimationSequences = new ArrayList<AuthoringAnimationSequence>();
 		initializePositionOnGridProperty();
 		initializeHeightWidthProperties();
 	}
@@ -545,8 +546,6 @@ public abstract class AbstractSpriteObject extends ImageView {
 				return false;
 			}
 		}
-		// TODO if(!(conditionRows.equals(other.getConditionRows()) &&
-		// actionRows.equals(other.getActionRows()))) return false;
 		return true;
 	}
 	
@@ -671,6 +670,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 			for (ConditionTreeView conditionTreeView : conditionTree.keySet()) {
 				conditionRows.put(conditionTreeView.getCondition(), conditionTree.get(conditionTreeView));
 			}
+//			}
 		} catch (NullPointerException e) {
 			throw e;
 		} catch (NumberFormatException e) {
@@ -686,6 +686,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 			for (ActionTreeView actionTreeView : actionTree) {
 				actionRows.add(actionTreeView.getAction());
 			}
+//			}
 		} catch (NullPointerException e) {
 			throw e;
 		} catch (NumberFormatException e) {
