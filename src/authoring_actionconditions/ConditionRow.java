@@ -4,36 +4,77 @@ import java.util.List;
 
 import ActionConditionClasses.ActionCheckBoxVBox;
 import ActionConditionClasses.ActionCheckBoxVBoxI;
+import engine.Condition;
 import javafx.collections.ObservableList;
+import javafx.scene.layout.VBox;
 
 /**
  * Class representing a condition row for sprites.
  * 
- * @author DavidTran
+ * @author Owen Smith, David Tran
  *
  */
 public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVBoxI {
-	
-	private ActionCheckBoxVBox<Integer> actionCheckBoxVBox;
 
-	public ConditionRow(int ID, String label, String selectorLabel,String selectedCondition,ObservableList<Integer> newActionOptions, ConditionVBox<ConditionRow> ACVBox) {
-		super(ID, label, selectorLabel,selectedCondition, ACVBox);
+	private static final String INVALID_SELECTED_ACTIONS_MESSAGE = "Please select valid actions";
+	
+	private ConditionTreeView operationTreeView;
+	private ActionCheckBoxVBox<Integer> actionCheckBoxVBox;
+	private VBox treeViewVBox;
+
+	public ConditionRow(int ID,ObservableList<Integer> newActionOptions, ConditionVBox<ConditionRow> ACVBox) {
+		super(ID, ACVBox);
 		addActionCheckBox(newActionOptions);
+
+		this.setPrefSize(ROW_WIDTH, EXPANDED_HEIGHT);
+
+		operationTreeView = new ConditionTreeView(this);	
+		treeViewVBox = operationTreeView.getTreeViewVBox();
+		this.getItems().addAll(treeViewVBox);
+
+	}
+
+	public ConditionRow(int ID, ObservableList<Integer> newActionOptions, List<Integer> selectedActionOptions,ConditionVBox<ConditionRow> ACVBox,
+			ConditionTreeView tv) {
+		this(ID,newActionOptions, ACVBox);
+		getItems().removeAll(actionCheckBoxVBox,treeViewVBox);
+		actionCheckBoxVBox = new ActionCheckBoxVBox<Integer>(newActionOptions, selectedActionOptions);
+		treeViewVBox = tv.getTreeViewVBox();
+		operationTreeView = tv;
+		getItems().addAll(actionCheckBoxVBox,treeViewVBox);
+
+	}
+
+	/********************** PUBLIC METHODS ***********************/
+
+	public ConditionTreeView getTreeView() {
+		return operationTreeView;
 	}
 	
-	public ConditionRow(int ID,String label,String selectorLabel, String selectedCondition, ObservableList<Integer> newActionOptions,
-			List<Integer> selectedActionOptions,ConditionVBox<ConditionRow> ACVBox) {
-		this(ID,label,selectorLabel,selectedCondition,newActionOptions,ACVBox);
-		getItems().remove(actionCheckBoxVBox);
-		actionCheckBoxVBox = new ActionCheckBoxVBox<Integer>(newActionOptions,selectedActionOptions);
-		getItems().add(actionCheckBoxVBox);
+	protected void reduceTreeView() {
+		this.getTreeView().getRoot().setExpanded(false);
+		this.getTreeView().changeRowTVSize();
 	}
 	
+	public void changeRowTVSize() {
+		operationTreeView.changeRowTVSize();
+	}
+
+	public Condition getCondition() {
+		try {
+			return operationTreeView.getCondition();
+		}
+		catch(NullPointerException | NumberFormatException e) {
+			throw e;
+		}
+	}
+
 	@Override
-	public Object getSelectedActions() {
-		return actionCheckBoxVBox.getCurrentValue();
+	public Object getSelectedActions() throws NullPointerException {
+		if(( (List<Integer>)actionCheckBoxVBox.getCurrentValue()).isEmpty()) throw new NullPointerException(INVALID_SELECTED_ACTIONS_MESSAGE);
+		else return actionCheckBoxVBox.getCurrentValue();
 	}
-	
+
 	@Override
 	public void addAction() {
 		actionCheckBoxVBox.addAction();
@@ -43,11 +84,11 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 	public void removeAction(Integer action) {
 		actionCheckBoxVBox.removeAction(action);
 	}
-	
+
 	protected void setNewActionCheckBoxVBoxOptions(ObservableList<Integer> newOptions) {
 		actionCheckBoxVBox.setNewOptions(newOptions);
 	}
-	
+
 	private void addActionCheckBox(ObservableList<Integer> newActionOptions) {
 		actionCheckBoxVBox = new ActionCheckBoxVBox<Integer>(newActionOptions);
 		getItems().add(actionCheckBoxVBox);

@@ -13,12 +13,11 @@ public interface ActionTabI<T> {
 	public ActionConditionVBox<T> getActionConditionVBox();
 	public ActionConditionVBox<T> setActionConditionVBox();
 	public void setNoReturnActionConditionVBox(ActionConditionVBox<T> actionConditonVBoxNew);
-	public TopToolBar getTopToolBar();
-	public void setTopToolBar(TopToolBar topToolBar);
+	public ActionConditionHBox getTopToolBar();
+	public void setTopToolBar(ActionConditionHBox topToolBar);
 	public String getSelectorLabel();
 	public ObservableList<Integer> getCurrentActions();
-	public String getActionCondition();
-	public void addAction(String label);
+	public void addAction();
 	public void addRemoveOption();
 	public void removeActionCondtion(Integer row);
 	public void removeRowOption(Integer row);

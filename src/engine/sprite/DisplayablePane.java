@@ -33,12 +33,9 @@ public class DisplayablePane implements Displayable, Positionable {
 				DisplayableImage h = holdableImages.get(r).get(c);
 				h.setPosition(x0 + (cellWidth * c) + (0.5 * cellWidth), y0 + (cellHeight * r) + (0.5 * cellHeight));
 				h.setSize(cellWidth, cellHeight);
-				//h.setSize(10, 10);
 				display.displayImage(h);
 			}
 		}
-		
-		//TODO: display scrollers
 	}
 
 	@Override
@@ -46,7 +43,6 @@ public class DisplayablePane implements Displayable, Positionable {
 		return Integer.MAX_VALUE;
 	}
 
-	//TODO: check these methods
 	public void setPosition(double x, double y) {
 		paneImage.setPosition(x, y);
 	}

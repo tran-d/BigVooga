@@ -4,6 +4,8 @@ import java.util.List;
 
 import controller.player.PlayerManager;
 import engine.operations.doubleops.DoubleOperation;
+import engine.operations.stringops.StringOperation;
+import javafx.geometry.Point2D;
 
 public class ConcreteGameObjectEnvironment implements GameObjectEnvironment {
 
@@ -55,8 +57,6 @@ public class ConcreteGameObjectEnvironment implements GameObjectEnvironment {
 
 	@Override
 	public void transfer(GameObject gameObject, String newWorld, String layerName) {
-		//TODO ?? master.getWorldWithName(newWorld).addToLayer(gameObject, layer.number()??) ??  
-				//It's unclear how to resolve this in a reasonable way
 		GameWorld world = master.getWorldWithName(newWorld);
 		for(Layer l: world.getLayers())
 		{
@@ -81,6 +81,26 @@ public class ConcreteGameObjectEnvironment implements GameObjectEnvironment {
 	@Override
 	public void save(DoubleOperation currentPoints) {
 		master.save();
+	}
+
+	@Override
+	public Point2D getAbsoluteMouseCoordinates() {
+		return world.makeScreenCoordinatesAbsolute(master.getPlayerManager().getMouseXY().getX(), master.getPlayerManager().getMouseXY().getY());
+	}
+
+	@Override
+	public void removeElement(Element element) {
+		layer.removeElement(element);
+	}
+
+	@Override
+	public void exitToMenu() {
+		master.getPlayerManager().exitToMenu();
+	}
+
+	@Override
+	public GameObject getByID(String uniqueID) {
+		return layer.getByID(uniqueID);
 	}
 
 }

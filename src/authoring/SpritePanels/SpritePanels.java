@@ -1,28 +1,17 @@
 package authoring.SpritePanels;
 
-import java.util.List;
-import java.util.Map;
+import java.util.function.Consumer;
 
-import authoring.GridManagers.*;
-import authoring.Sprite.*;
-import authoring.Sprite.Parameters.*;
-import authoring.Sprite.AnimationSequences.*;
-import authoring.Sprite.UtilityTab.*;
-import authoring.Sprite.InventoryTab.*;
-import authoring.SpriteManagers.*;
-import authoring.SpritePanels.*;
-import authoring.util.*;
-import authoring_UI.Map.*;
-import authoring_UI.*;
-import authoring.*;
-import authoring_UI.Inventory.*;
+import authoring.AuthoringEnvironmentManager;
+import authoring.SpriteParameterSidebarManager;
+import authoring_UI.SpriteGridHandler;
 import javafx.scene.control.Tab;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class SpritePanels extends VBox {
 
 	protected DisplayPanel displayPanel;
+	protected DisplayPanel elementSelectorDisplayPanel;
 	protected GameElementSelector gameElementSelector;
 	protected SpriteParameterSidebarManager SPSM;
 //	private SpriteSetHelper mySpriteSetHelper;
@@ -36,24 +25,56 @@ public class SpritePanels extends VBox {
 //		mySpriteSetHelper = new SpriteSetHelper(thumbnailSprites);
 		System.out.println("CHECK");
 		SPSM = new SpriteParameterSidebarManager(mySGH.getDraggableGrid());
-		makeDisplayPanel(myAEM);
+		makeLayerDisplayPanel(myAEM);
 		makeElementSelector(mySGH, myAEM);
+		makeElementSelectorDisplayPanel(myAEM);
 		this.getChildren().addAll(displayPanel, gameElementSelector);
 		this.setSpacing(5);
 		
 	}
 	
-	public void makeDisplayPanel(AuthoringEnvironmentManager myAEM){
+	private void switchDisplayPanel(DisplayPanel DP){
+		this.getChildren().remove(0);
+		this.getChildren().add(0, DP);
+	}
+	
+	public void makeLayerDisplayPanel(AuthoringEnvironmentManager myAEM){
 		displayPanel = new DisplayPanel(SPSM, myAEM);  
+	}
+	
+	public void makeElementSelectorDisplayPanel(AuthoringEnvironmentManager myAEM){
+		System.out.println("Making el selector display panel");
+		elementSelectorDisplayPanel = new DisplayPanelForTemplateSprites(myAEM);  
+		((DisplayPanelForTemplateSprites) elementSelectorDisplayPanel).setOnElementSpriteActive(new Consumer<Boolean>(){
+
+			@Override
+			public void accept(Boolean t) {
+				if (t){
+					elementSelectorDisplayPanel.updateParameterTab();
+					switchDisplayPanel(elementSelectorDisplayPanel);
+				} else {
+					elementSelectorDisplayPanel.updateParameterTab();
+					switchDisplayPanel(displayPanel);
+				}
+				
+			}
+			
+		});
 	}
 	
 	public void makeElementSelector(SpriteGridHandler mySGH, AuthoringEnvironmentManager myAEM){
 		gameElementSelector = new GameElementSelector(mySGH, myAEM);
 	}
 	
+	public DisplayPanel getElementSelectorDisplayPanel(){
+		return elementSelectorDisplayPanel;
+	}
+	
 	public DisplayPanel getDisplayPanel() {
 		return displayPanel;
 	}
+	
+
 	
 	public Tab getDialoguesTab() {
 		return gameElementSelector.getDialoguesTab();

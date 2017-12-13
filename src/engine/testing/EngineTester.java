@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -16,20 +17,35 @@ import engine.GameMaster;
 import engine.GameObject;
 import engine.GameObjectFactory;
 import engine.GameWorld;
-import engine.Actions.changeObject.RemoveFromWorld;
-import engine.Actions.global.TransferObjectToWorld;
+import engine.Inventory;
+import engine.Actions.changeObject.SetAnimationSequence;
+import engine.Actions.global.ChangeWorld;
+import engine.Actions.global.ExitToMenu;
 import engine.Actions.movement.Move;
-import engine.Actions.movement.MoveTo;
-import engine.Actions.movement.Rotate;
+import engine.Actions.movement.RemoveIntersection;
+import engine.Actions.variableSetting.ChangeBoolean;
+import engine.Actions.variableSetting.ChangeDouble;
+import engine.operations.booleanops.And;
+import engine.operations.booleanops.BooleanValue;
+import engine.operations.booleanops.BooleanVariableOf;
+import engine.operations.booleanops.CollisionByTag;
 import engine.operations.booleanops.KeyHeld;
 import engine.operations.booleanops.KeyPressed;
+import engine.operations.booleanops.Not;
+import engine.operations.booleanops.ObjectClicked;
+import engine.operations.booleanops.ObjectMouseHover;
+import engine.operations.doubleops.DoubleVariableOf;
+import engine.operations.doubleops.Sum;
 import engine.operations.doubleops.Value;
-import engine.operations.gameobjectops.GameObjectOperation;
+import engine.operations.doubleops.XOf;
+import engine.operations.gameobjectops.ByName;
 import engine.operations.gameobjectops.Self;
 import engine.operations.stringops.SelfString;
 import engine.operations.vectorops.BasicVector;
-import engine.operations.vectorops.VectorHeadingOf;
-import engine.operations.vectorops.VectorOperation;
+import engine.operations.vectorops.LocationOf;
+import engine.operations.vectorops.UnitVector;
+import engine.operations.vectorops.VectorDifference;
+import engine.operations.vectorops.VectorScale;
 import engine.sprite.AnimationSequence;
 import engine.sprite.BoundedImage;
 import engine.sprite.Sprite;
@@ -40,7 +56,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
@@ -52,102 +67,102 @@ public class EngineTester extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		// testCollisions(stage);
+		//testCollisions(stage);
 		// testData(stage);
-		// testImageCanvas(stage);
-		// testDrawer(stage);
-		generateGame();
+		//testImageCanvas(stage);
+		//testDrawer(stage);
+		generateGame(stage);
 	}
 
-	public void generateGame() {
-		generateGame("Test1", new BoundedImage(
-				"/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png"));
+	public void generateGame(Stage stage) {
+		generateGame("Terraria-ish", stage);
 	}
 
-	public void generateGame(String name, BoundedImage i) {
+	public void generateGame(String name, Stage stage) {
 		GameObjectFactory blueprints = new GameObjectFactory();
-		GameObject obj1 = makeObject("Ob1", i, 120, 150, this::conditionAction1);
-		obj1.addTag("Ob1");
+		
+		BoundedImage i = new BoundedImage("character.png");
+		GameObject obj1 = makeObject("Player", i, 0, 0, this::conditionAction1);
+		obj1.addTag(GameObject.CAMERA_TAG);
 		obj1.addTag("Player");
-		obj1.setSize(200, 100);
-		
-		GameObject obj2 = makeObject("Ob2", new BoundedImage(
-				"/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png"), 200, 150, this::conditionAction2);
-		obj2.addTag("Ob2");
-		obj2.setSize(200, 100);
-		
-		GameObject obj3 = makeObject("Ob3", new BoundedImage(
-				"/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png"), 100, 300, this::conditionAction2);
-		obj3.addTag("Ob3");
-		obj3.setSize(200, 100);
-		
-		GameObject obj4 = makeObject("Ob4", new BoundedImage(
-				"/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png"), 75, 275, this::conditionAction2);
-		obj4.addTag("Ob4");
-		obj4.setSize(200, 100);
-	
+		obj1.setSize(64, 64);
+		i = new BoundedImage("character_left.png");
+		AnimationSequence as = new AnimationSequence("Left", Arrays.asList(i));
+		obj1.getSprite().addAnimationSequence(as);
+		Inventory inv = obj1.getInventory();
 		blueprints.addBlueprint(obj1);
+		
+		i = new BoundedImage("Background.png");		
+	
+		GameObject bg = makeObject("background", i, 100, 0, this::conditionAction2);		
+		bg.setSize(2000, 1400);
+		
+		GameObject obj2 = makeObject("Brick", new BoundedImage("rock.png"), 0, 0, this::conditionAction2);
+		obj2.addTag("Wall");
+		obj2.setSize(64, 64);
 		blueprints.addBlueprint(obj2);
-		blueprints.addBlueprint(obj3);
-		blueprints.addBlueprint(obj4);
 		
-		BoundedImage t = new BoundedImage("/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png");
-		List<BoundedImage> l = new ArrayList<BoundedImage>();
-		l.add(t);
-		AnimationSequence a = new AnimationSequence("hi", l);
+		GameObject zombo = makeObject("Zombo", new BoundedImage("Zombie.png"), -5500, 400-65, this::conditionAction3);
+		zombo.setSize(39, 65);
+		
+		GameObject button = new GameObject("Button");
+		BoundedImage unpr = new BoundedImage("button-unpressed.png");
+		as = new AnimationSequence("Unpressed", Arrays.asList(unpr));
 		Sprite s = new Sprite();
-		s.addAnimationSequence(a);
-		s.setAnimation("hi");
-		Holdable o = new Holdable(s);
+		s.addAnimationSequence(as);
+		BoundedImage pr = new BoundedImage("button-pressed.png");
+		as = new AnimationSequence("Pressed", Arrays.asList(pr));
+		s.addAnimationSequence(as);
+		s.setAnimation("Unpressed");
+		button.setSprite(s);
 		
-		BoundedImage k = new BoundedImage("/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/brick.png");
-		k.setPosition(400, 200);
-		k.setSize(400, 400);
-		obj1.getInventory().setPane(k);
-		obj1.setInventoryPosition(400, 200);
-		obj1.addToInventory(o);
+		button.setCoords(500, 400);
+		button.setSize(200, 100);
+		buttonConditionAction(button);
 		
-		for(int z = 0; z < 18; z++) {
-			if(z % 2 == 0) t = new BoundedImage("/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/Link.png");
-			else t = new BoundedImage("/Users/aaronpaskin/Documents/CompSci308/voogasalad_bigvooga/resources/ActiveTurtle.png");
-			l = new ArrayList<BoundedImage>();
-			l.add(t);
-			a = new AnimationSequence("hi", l);
-			s = new Sprite();
-			s.addAnimationSequence(a);
-			s.setAnimation("hi");
-			o = new Holdable(s);
-			GameObjectOperation self = new Self();
-			VectorOperation loc = new BasicVector(new Value(500), new Value(500));
-			Action moveTo;
-			if(z % 2 == 0) {
-				loc = new BasicVector(new Value(500), new Value(500));
-				moveTo = new MoveTo(self, loc);
-			}
-			else {
-				loc = new BasicVector(new Value(650), new Value(500));
-				moveTo = new MoveTo(self, loc);
-			}
-			List<Action> selectActions = new ArrayList<>();
-			selectActions.add(moveTo);
-			o.setSelectActions(selectActions);
-			obj1.addToInventory(o);
-		}
+		i = new BoundedImage("start.png");		
+		
+		GameObject menu = makeObject("background", i, 1000, 350, this::conditionAction2);		
+		menu.setSize(1000, 700);
+		menu.setLocation(new Point2D(500, 350));
 			
 
+
+		
+		GameLayer background = new GameLayer("Background");
+		background.addGameObject(bg);
 		GameLayer la = new GameLayer("Layer");
+		la.addGameObject(zombo);
 		la.addGameObject(obj1);
-		la.addGameObject(obj2);
-		la.addGameObject(obj3);
-		la.addGameObject(obj4);
+		
+		for (int j = -40; j <15; j++)
+		{
+			GameObject temp = blueprints.getInstanceOf("Brick");
+			temp.setCoords(j*64, 400);
+			la.addGameObject(temp);
+			temp = blueprints.getInstanceOf("Brick");
+			temp.setCoords(-40*64, 400-64*j);
+			la.addGameObject(temp);
+			temp = blueprints.getInstanceOf("Brick");
+			temp.setCoords(15*64, 400-64*j);
+			la.addGameObject(temp);
+		}
 
 		GameWorld w = new GameWorld("World");
+		w.addLayer(background);
 		w.addLayer(la);
+		
+		GameLayer startL = new GameLayer();
+		startL.addGameObject(button);
+		GameWorld start = new GameWorld("Start");
+		start.addLayer(startL);
+		start.addLayer(new GameLayer("Background"));
+		start.getLayers().get(1).addGameObject(menu);
 		
 		GameMaster master = new GameMaster();
 		master.addWorld(w);
-		master.addWorld(x);
-		master.setNextWorld("World");
+		master.addWorld(start);
+		master.setNextWorld("Start");
 		//try {
 			new GameDataHandler(name).saveGame(master);
 		//} //catch (IOException e) {
@@ -169,60 +184,93 @@ public class EngineTester extends Application {
 		Sprite sprite = new Sprite();
 		List<BoundedImage> images = new ArrayList<>();
 		images.add(i);
-		AnimationSequence animation = new AnimationSequence("Animation", images);
+		AnimationSequence animation = new AnimationSequence("Right", images);
 		sprite.addAnimationSequence(animation);
-		sprite.setAnimation("Animation");
+		sprite.setAnimation("Right");
 		obj.setSprite(sprite);
 		return obj;
 	}
 
 	private void conditionAction1(GameObject obj) {
 		List<Action> actions1 = new ArrayList<Action>();
-		actions1.add(new TransferObjectToWorld(new Self(), new SelfString("Second World"), new SelfString("Layer"), new BooleanValue(true)));
-		obj.addConditionAction(new Condition(2, new KeyPressed(new SelfString("T"))), actions1);
 		actions1 = new ArrayList<Action>();
-		actions1.add(new Move(new Self(), new VectorScale(new VectorHeadingOf(new Self()), new Value(2))));
-		obj.addConditionAction(new Condition(2, new And( new Not(new CollisionByTag(new SelfString("Block"))), new KeyHeld(new SelfString("W")))), actions1);
+		actions1.add(new ChangeDouble(new Self(), new SelfString("Gravity"), new Value(-5)));
+		actions1.add(new ChangeBoolean(new Self(), new SelfString("OnGround"), new BooleanValue(false)));
+		obj.addConditionAction(new Condition(7, new And(new BooleanVariableOf(new Self(), 
+				new SelfString("OnGround")), new KeyPressed(new SelfString("W")))), actions1);
+		
 		actions1 = new ArrayList<Action>();
-		actions1.add(new Rotate(new Self(), new Value(2)));
-		obj.addConditionAction(new Condition(2, new KeyHeld(new SelfString("D"))), actions1);
-		actions1 = new ArrayList<Action>();
-		actions1.add(new Move(new Self(), new VectorHeadingOf(new Self())));
-		obj.addConditionAction(new Condition(2, new KeyHeld(new SelfString("W"))), actions1);
-		actions1 = new ArrayList<Action>();
-		actions1.add(new Rotate(new Self(), new Value(5)));
-		obj.addConditionAction(new Condition(2, new KeyHeld(new SelfString("D"))), actions1);
-		actions1 = new ArrayList<Action>();
-		actions1.add(new Rotate(new Self(), new Value(-5)));
+		actions1.add(new Move(new Self(), new BasicVector(new Value(-5), new Value(0))));
+		actions1.add(new SetAnimationSequence(new Self(), new SelfString("Left")));
 		obj.addConditionAction(new Condition(2, new KeyHeld(new SelfString("A"))), actions1);
+		
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Move(new Self(), new BasicVector(new Value(5), new Value(0))));
+		actions1.add(new SetAnimationSequence(new Self(), new SelfString("Right")));
+		obj.addConditionAction(new Condition(2, new KeyHeld(new SelfString("D"))), actions1);
+		
+		actions1 = new ArrayList<Action>();
+		actions1.add(new RemoveIntersection());
+		actions1.add(new ChangeDouble(new Self(), new SelfString("Gravity"), new Value(0)));
+		actions1.add(new ChangeBoolean(new Self(), new SelfString("OnGround"), new BooleanValue(true)));
+		obj.addConditionAction(new Condition(3, new CollisionByTag(new SelfString("Wall"))), actions1);
+		
+		actions1 = new ArrayList<Action>();
+		actions1.add(new RemoveIntersection());
+		obj.addConditionAction(new Condition(4, new CollisionByTag(new SelfString("Wall"))), actions1);
+		
+		actions1 = new ArrayList<Action>();
+		actions1.add(new ChangeDouble(new Self(), new SelfString("Gravity"), 
+				new Sum(new DoubleVariableOf(new Self(), new SelfString("Gravity")), new Value(.15))));
+		obj.addConditionAction(new Condition(1, new BooleanValue(true)), actions1);
+		
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Move(new Self(), new BasicVector(new Value(0), new DoubleVariableOf(new Self(), new SelfString("Gravity")))));
+		obj.addConditionAction(new Condition(1, new BooleanValue(true)), actions1);
+		
+		
 	}
 
 	private void conditionAction2(GameObject obj) {
 
 		List<Action> actions1 = new ArrayList<Action>();
-		actions1.add(new Move(new Self(), new VectorScale(new VectorHeadingOf(new Self()), new Value(2))));
-		obj.addConditionAction(new Condition(2, new CollisionByTag(new SelfString("Player"))), actions1);
-		
-		actions1 = new ArrayList<Action>();
-		actions1.add(new TransferObjectToWorld(new Self(), new SelfString("World"), new SelfString("Layer"), new BooleanValue(false)));
-		obj.addConditionAction(new Condition(2, new KeyPressed(new SelfString("J"))), actions1);
 		
 	}
 
 	private void conditionAction3(GameObject obj) {
 		List<Action> actions1 = new ArrayList<Action>();
-		actions1.add(new RemoveFromWorld(new Self()));
-		obj.addConditionAction(new Condition(2, new CollisionByTag(new SelfString("Killer"))), actions1);
+		actions1.add(new Move(new Self(), new BasicVector(
+				new XOf(new VectorScale(new UnitVector(new VectorDifference(new LocationOf(new ByName(new SelfString("Player"))), 
+						new LocationOf( new Self()))), new Value(4))), new Value(0))));
+		obj.addConditionAction(new Condition(1, new BooleanValue(true)), actions1);
+		
+		actions1 = new ArrayList<Action>();
+		actions1.add(new ExitToMenu());
+		obj.addConditionAction(new Condition(3, new CollisionByTag(new SelfString("Player"))), actions1);
+	}
+	
+	private void buttonConditionAction(GameObject obj) {
+		List<Action> actions1 = new ArrayList<Action>();
+		actions1.add(new SetAnimationSequence(new Self(), new SelfString("Pressed")));
+		obj.addConditionAction(new Condition(2, new ObjectMouseHover(new Self())), actions1);
+		
+		actions1 = new ArrayList<Action>();
+		actions1.add(new SetAnimationSequence(new Self(), new SelfString("Unpressed")));
+		obj.addConditionAction(new Condition(2, new Not( new ObjectMouseHover(new Self()))), actions1);
+		
+		actions1 = new ArrayList<Action>();
+		actions1.add(new ChangeWorld(new SelfString("World")));
+		obj.addConditionAction(new Condition(2, new ObjectClicked(new Self())), actions1);
 	}
 
 	private void testDrawer(Stage stage) throws IOException {
 		Group g = new Group();
 		Scene scene = new Scene(g);
 		stage.setScene(scene);
-		File f = new GameDataHandler("Bounds Test").addChosenFileToProject(new Stage());
+		File f = new GameDataHandler("Terraria-ish").addChosenFileToProject(new Stage());
 		System.out.println(f.getName());
 		Pane bpd = new BoundingPolygonCreator(new Image(f.toURI().toString()), f.getName(),
-				i -> generateGame("Bounds Test", i));
+				i -> generateGame("Terraria-ish", stage));
 		g.getChildren().add(bpd);
 		stage.show();
 	}
@@ -232,7 +280,7 @@ public class EngineTester extends Application {
 		data.addChosenFileToProject(stage);
 		data.saveGame(new GameMaster());
 		data.loadGame();
-		data.getImage("HexGrid.PNG");
+		data.getImage("skeptical.PNG");
 	}
 
 	private static void testCollisions(Stage stage) {

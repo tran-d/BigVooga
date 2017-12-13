@@ -15,6 +15,7 @@ import authoring.SpriteManagers.SpriteSetImported;
 import authoring.SpriteManagers.SpriteSetImportedInventory;
 import authoring.SpriteManagers.SpriteSetInventory;
 import authoring.SpriteManagers.SpriteSetInventoryTemplate;
+import authoring.SpriteManagers.DialogSpriteManager;
 import authoring.SpriteManagers.SpriteSetMenuTemplate;
 import authoring.SpriteManagers.SpriteSetUserDefined;
 import engine.utilities.data.GameDataHandler;
@@ -27,15 +28,16 @@ public class AuthoringEnvironmentManager {
 	private SpriteObjectGridManagerI SOGM;
 	private List<SpriteObject> userSprites;
 	private GameDataHandler myGDH;
-	private SpriteSet myDefaultSprites;
-	private SpriteSet myCustomSprites;
+	private static SpriteSet myDefaultSprites;
+	private static SpriteSet myCustomSprites;
 	private SpriteSet myInventorySprites;
-	private SpriteSet myImportedSprites;
+	private static SpriteSet myImportedSprites;
 	private SpriteSet myImportedInventorySprites;
 	private SpriteSet myInventoryTemplates;
 	private SpriteSet myMenuTemplates;
+	private DialogSpriteManager myDialogs;
 
-	public AuthoringEnvironmentManager(GameDataHandler GDH, Stage stage) {
+	public AuthoringEnvironmentManager(GameDataHandler GDH) {
 		myGDH = GDH;
 		initializeDefaultSprites();
 		initializeCustomSprites();
@@ -44,6 +46,7 @@ public class AuthoringEnvironmentManager {
 		initializeInventoryTemplates();
 		initializeMenuTemplates();
 		initializeImportedInventorySprites();
+		initializeDialogs();
 		
 		defaultEmptySprite = new DefaultSpriteObject();
 		
@@ -53,7 +56,12 @@ public class AuthoringEnvironmentManager {
 	}
 	
 	private void initializeInventoryTemplates() {
+		System.out.println("Initializing inventory templates");
 		myInventoryTemplates = new SpriteSetInventoryTemplate(myGDH);
+	}
+	
+	private void initializeDialogs(){
+		myDialogs = new DialogSpriteManager(myGDH);
 	}
 	
 	private void initializeMenuTemplates() {
@@ -104,22 +112,50 @@ public class AuthoringEnvironmentManager {
 	}
 	
 	public SpriteSet getInventoryTemplateController(){
+		System.out.println("Invent template controller: "+myInventoryTemplates);
 		return myInventoryTemplates;
 	}
 	
 	public SpriteSet getMenuTemplateController(){
 		return myMenuTemplates;
 	}
+	
+	public DialogSpriteManager getDialogSpriteController(){
+		return myDialogs;
+	}
+	
+	public static List<String> getNameOfEverySprite(){
+		List<String> ret = new ArrayList<String>();
+		getEveryTypeOfSprite().forEach((type_sprite, list_sprites)->{
+			list_sprites.forEach(sprite->{
+				ret.add(sprite.getName());
+			});
+		});
+		return ret;
+	}
 
-	public Map<String, List<AbstractSpriteObject>> getEveryTypeOfSprite() {
+	public static Map<String, List<AbstractSpriteObject>> getEveryTypeOfSprite() {
+		Map<String, List<AbstractSpriteObject>> ret = new HashMap<String, List<AbstractSpriteObject>>();
+		ret.put("DefaultSprites", getDefaultGameSprites());
+		ret.put("CustomSprites", getUserDefinedSprites());
+		ret.put("ImportedSprites", getImportedSprites());
+		return ret;
+	}
+	
+	public Map<String, List<AbstractSpriteObject>> getEveryTypeOfAbstractSprite() {
 		Map<String, List<AbstractSpriteObject>> ret = new HashMap<String, List<AbstractSpriteObject>>();
 		ret.put("DefaultSprites", this.getDefaultGameSprites());
 		ret.put("CustomSprites", this.getUserDefinedSprites());
-		ret.put("InventorySprites", this.getInventorySprites());
 		ret.put("ImportedSprites", this.getImportedSprites());
+		ret.put("InventorySprites", this.getInventorySprites());
 		ret.put("ImportedInventorySprites", this.getImportedInventorySprites());
-//		ret.put("InventoryTemplates", this.getInventoryTemplates());
-//		ret.put("MenuTemplates", this.getMenuTemplates());
+		return ret;
+	}
+	
+	public Map<String, List<AbstractSpriteObject>> getEveryTypeOfInventorySprite() {
+		Map<String, List<AbstractSpriteObject>> ret = new HashMap<String, List<AbstractSpriteObject>>();
+		ret.put("InventorySprites", this.getInventorySprites());
+		ret.put("ImportedInventorySprites", this.getImportedInventorySprites());
 		return ret;
 	}
 
@@ -174,7 +210,7 @@ public class AuthoringEnvironmentManager {
 		});
 	}
 
-	public List<AbstractSpriteObject> getDefaultGameSprites() {
+	public static List<AbstractSpriteObject> getDefaultGameSprites() {
 		return myDefaultSprites.getAllSprites();
 	}
 
@@ -193,7 +229,7 @@ public class AuthoringEnvironmentManager {
 		});
 	}
 
-	public List<AbstractSpriteObject> getUserDefinedSprites() {
+	public static List<AbstractSpriteObject> getUserDefinedSprites() {
 		return myCustomSprites.getAllSprites();
 
 	}
@@ -219,7 +255,7 @@ public class AuthoringEnvironmentManager {
 		});
 	}
 	
-	public List<AbstractSpriteObject> getImportedSprites() {
+	public static List<AbstractSpriteObject> getImportedSprites() {
 		return myImportedSprites.getAllSprites();
 
 	}

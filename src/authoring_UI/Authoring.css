@@ -2,6 +2,21 @@
     blue-color: #47BDFF;
 }
 
+.color-picker{
+	-fx-color-label-visible: false;
+	-fx-background-color: transparent;
+	-fx-border-color: #47BDFF;
+}
+
+.color-picker:hover {
+	-fx-background-color: #FFCD3C;
+	-fx-background-insets: 0 0 0.5px 0;
+}
+
+.color-picker > .arrow-button > .arrow {
+    -fx-background-color: #47BDFF;
+}
+
 .tool-bar {
 	-fx-background-color: #001E32;
 }
@@ -37,7 +52,7 @@
 }
 
 .scroll-pane > .corner {
-      -fx-background-color: transparent;
+     -fx-background-color: transparent;
 }
 
 .scroll-pane {
@@ -84,10 +99,6 @@
 .button:hover {
     -fx-background-color: #FFCD3C;
     -fx-background-insets: 0 0 0.5px 0;
-}
-
-.text{
-	-fx-text-fill: #47BDFF;
 }
 
 .menu-button{
@@ -141,6 +152,17 @@
 .text-area{
 	-fx-border-color: #47BDFF;
 	-fx-background-color: transparent;
+	-fx-text-fill: #47BDFF;
+}
+
+.text-field{
+	-fx-border-color: #47BDFF;
+	-fx-background-color: transparent;
+	-fx-text-fill: #47BDFF;
+}
+
+.check-box {
+	-fx-text-fill: #47BDFF;
 }
 
 .check-box .box {
@@ -155,6 +177,11 @@
 
 .check-box:selected .mark {
     -fx-background-color: #47BDFF;
+}
+
+#StackPane:hover{
+	-fx-border-color: #47BDFF;
+	transition: -fx-border-color 0.1s;
 }
 
 .separator{
@@ -175,4 +202,5 @@
 
 #InventoryTabPane {
 	-fx-border-color: blue-color blue-color transparent transparent;
+	-fx-background-color: #001E32;
 }

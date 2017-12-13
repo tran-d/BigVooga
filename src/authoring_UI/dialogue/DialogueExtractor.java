@@ -22,7 +22,7 @@ public class DialogueExtractor {
 		dialogueList = new ArrayList<>();
 
 		for (DialogueEditor ed : editorList) {
-			dialogueList.add(new Dialogue(ed.getName(), ed.getFontSize(), ed.getFont(), ed.getDialogueList()));
+			dialogueList.add(new Dialogue(ed.getName(), ed.getFontType(), ed.getFontColor(), ed.getDialogueSequence()));
 		}
 	}
 

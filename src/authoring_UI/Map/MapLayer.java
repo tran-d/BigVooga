@@ -1,32 +1,18 @@
 package authoring_UI.Map;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import authoring.GridManagers.*;
-import authoring.Sprite.*;
-import authoring.Sprite.Parameters.*;
-import authoring.Sprite.AnimationSequences.*;
-import authoring.Sprite.UtilityTab.*;
-import authoring.Sprite.InventoryTab.*;
-import authoring.SpriteManagers.*;
-import authoring.SpritePanels.*;
-import authoring.util.*;
-import authoring_UI.Map.*;
-import authoring_UI.*;
-import authoring.*;
-import authoring_UI.Inventory.*;
+import authoring.Sprite.AbstractSpriteObject;
+import authoring_UI.AuthoringMapStackPane;
+import authoring_UI.SpriteGridHandler;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -35,17 +21,14 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 public abstract class MapLayer extends GridPane {
 
-	private int myLayerNumber;
 	private int myRows;
 	private int myColumns;
-	
 	private SpriteGridHandler mySGH;
 	private Color defaultColor;
 	protected Color fillEmptyCellColor;
@@ -54,18 +37,24 @@ public abstract class MapLayer extends GridPane {
 	protected ObjectProperty<Integer> numRowsProperty;
 	protected ObjectProperty<Integer> numColumnsProperty;
 	private Set<AuthoringMapStackPane> activeGridCells;
+	private Set<AuthoringMapStackPane> mostRecentActive;
 
-	protected MapLayer(int rows, int columns, int layerNum, SpriteGridHandler SGH, Color c) {
+	protected MapLayer(int rows, int columns, SpriteGridHandler SGH, Color c) {
 		super();
+//		visibilityProperty = new SimpleObjectProperty<Boolean>();
+		this.visibleProperty().addListener((change, previous, next)->{
+			if (!next){
+				this.removeAllActive();
+			}
+		});
+		
 		defaultColor = c;
 		activeGridCells = new HashSet<AuthoringMapStackPane>();
+		mostRecentActive = new HashSet<AuthoringMapStackPane>();
 		numRowsProperty = new SimpleObjectProperty<Integer>();
 		numColumnsProperty = new SimpleObjectProperty<Integer>();
 		numRowsProperty.set(1);
 		numColumnsProperty.set(1);
-		
-//		myRows = rows;
-//		myColumns = columns;
 		numRowsProperty.addListener((observable, oldNumRows, newNumRows)->{
 			Integer diff = newNumRows-oldNumRows;
 			if (diff<0){
@@ -124,26 +113,37 @@ public abstract class MapLayer extends GridPane {
 			}
 			}
 		});
-		
-		myLayerNumber = layerNum;
 		mySGH = SGH;
 		this.addAuthoringStackPaneToPosition(0,0);
 		this.setNumRows(rows);
 		this.setNumCols(columns);
-//		setup();
-		
-//		this.setMouseTransparent(true);
-//		this.setPickOnBounds(false);
-//		this.setOnMouseDragged(e->{
-//			AuthoringMapStackPane n = (AuthoringMapStackPane) e.getSource();
-//			n.switchActive();
-////			Event.fireEvent(n, new MouseEvent(MouseEvent.MOUSE_DRAGGED, 0,
-////	                0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
-////	                true, true, true, true, true, true, null));
-//		});
+//		
 	}
 	
 
+	public MapLayer(int rows, int columns, SpriteGridHandler SGH, Color c, List<AbstractSpriteObject> activeSpriteObjects) {
+		this(rows, columns, SGH, c);
+		System.out.println("ASOs to add in panel: " + activeSpriteObjects.size());
+		for (AbstractSpriteObject ASO : activeSpriteObjects) {
+			int x = ASO.getPositionOnGrid()[0];
+			int y = ASO.getPositionOnGrid()[1];
+			System.out.println("POSITION X: " + ASO.getPositionOnGrid()[0]);
+			System.out.println("POSITION Y: " + ASO.getPositionOnGrid()[1]);
+			AuthoringMapStackPane child = this.getChildAtPosition(x, y);
+			System.out.println(child);
+			System.out.println(child.getChildren().size());
+			System.out.println(child.hasChild()); 
+			System.out.println(child.getChildren());
+			//child.removeChild();
+			System.out.println("Were about to chnage background");
+//			child.setInactiveBackground(Color.AQUA);
+			mySGH.addSpriteDrag(ASO);
+			mySGH.addSpriteMouseClick(ASO);
+			child.addChild(ASO);
+			//this.getChildAtPosition(x, y).addChild(ASO);
+		}
+	}
+	
 	public void setFillColor(Color c){
 		this.fillEmptyCellColor = c;
 		for (Node node : this.getChildren()){
@@ -157,8 +157,25 @@ public abstract class MapLayer extends GridPane {
 		}
 	}
 	
+	
 	public void setBackgroundImage(String imagePath){
+		setBackgroundImage(new Image(imagePath), imagePath);
+	}
+	
+	public void setBackgroundImage(Image image, String imagePath){
 		// NOTHING ON DEFAULT	
+	}
+	
+	public void addMostRecentActive(AuthoringMapStackPane newMostRecentActive){
+		mostRecentActive.add(newMostRecentActive);
+	}
+	
+	public void setMostRecentActive(Set<AuthoringMapStackPane> newMostRecentActive){
+		mostRecentActive = newMostRecentActive;
+	}
+	
+	public Set<AuthoringMapStackPane> getMostRecentActive(){
+		return mostRecentActive;
 	}
 
 	
@@ -176,6 +193,17 @@ public abstract class MapLayer extends GridPane {
 	
 	public void removeActive(AuthoringMapStackPane pane){
 		this.activeGridCells.remove(pane);
+		if (this.getMostRecentActive().contains(pane)){
+			this.getMostRecentActive().remove(pane);
+		}
+	}
+	
+	public void removeAllActive(){
+		Set<AuthoringMapStackPane> activeSet = new HashSet<AuthoringMapStackPane>();
+		this.activeGridCells.forEach(authMapStackPane->{
+			activeSet.add(authMapStackPane);
+		});
+		activeSet.forEach(item->item.setInactive());
 	}
 	
 	public String getName(){
@@ -185,9 +213,6 @@ public abstract class MapLayer extends GridPane {
 	protected void setName(String name)
 	{
 		myName = name;
-	}
-	public int getLayerNumber() {
-		return myLayerNumber;
 	}
 
 	protected void setDefaultColor(Color c) {
@@ -206,8 +231,8 @@ public abstract class MapLayer extends GridPane {
 	
 	public AuthoringMapStackPane getChildAtPosition(int row, int col){
 		AuthoringMapStackPane result = null;
+		if (this.getChildren() == null) System.out.println("ALL THE CHILDREN ARE NULL!");
 		ObservableList<Node> childrens = this.getChildren();
-
 	    for (Node node : childrens) {
 //	    	System.out.println("rowIndex: "+this.getRowIndex(node)+", columnIndex: "+this.getColumnIndex(node));
 	        if(this.getRowIndex(node) == row && this.getColumnIndex(node) == col) {
@@ -242,6 +267,9 @@ public abstract class MapLayer extends GridPane {
 	
 	private AuthoringMapStackPane addAuthoringStackPaneToPosition(int row, int col){
 		AuthoringMapStackPane sp = new AuthoringMapStackPane(this);
+		sp.setOnMouseEntered(e -> style(sp));
+		sp.setOnMouseExited(e -> removeStyle(sp));
+		//sp.setId("StackPane");
 		sp.setMinWidth(CELL_SIZE);
 		sp.setMaxWidth(CELL_SIZE);
 		sp.setPrefWidth(CELL_SIZE);
@@ -253,9 +281,9 @@ public abstract class MapLayer extends GridPane {
 		sp.setBackground(
 				new Background(new BackgroundFill(getDefaultColor(), CornerRadii.EMPTY, Insets.EMPTY)));
 		// sp.setStyle();
-		BorderStroke border = new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.DOTTED, CornerRadii.EMPTY,
-				BorderWidths.DEFAULT);
-		sp.setBorder(new Border(border));
+		//BorderStroke border = new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.DOTTED, CornerRadii.EMPTY,
+				//BorderWidths.DEFAULT);
+		//sp.setBorder(new Border(border));
 //		GridPane.setColumnSpan(sp, 1);
 //		GridPane.setRowSpan(sp, 1);
 		GridPane.setHgrow(sp, Priority.NEVER);
@@ -269,6 +297,14 @@ public abstract class MapLayer extends GridPane {
 		mySGH.addGridMouseClick(sp);
 		mySGH.addGridMouseDrag(sp);
 		return sp;
+	}
+	
+	private void style(StackPane sp) {
+		sp.setStyle("-fx-border-color: #47BDFF;");
+	}
+	
+	private void removeStyle(StackPane sp) {
+		sp.setStyle("-fx-border-color: transparent;");
 	}
 	
 	public void addRow(){

@@ -1,25 +1,11 @@
 package authoring_UI;
 
-import java.util.ArrayList;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
-import javax.swing.event.ChangeListener;
-
-import authoring.GridManagers.*;
-import authoring.Sprite.*;
-import authoring.Sprite.Parameters.*;
-import authoring.Sprite.AnimationSequences.*;
-import authoring.Sprite.UtilityTab.*;
-import authoring.Sprite.InventoryTab.*;
-import authoring.SpriteManagers.*;
-import authoring.SpritePanels.*;
-import authoring.util.*;
-import authoring_UI.Map.*;
-import authoring_UI.*;
-import authoring.*;
-import authoring_UI.Inventory.*;
+import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.DefaultSpriteObject;
+import authoring_UI.Map.MapLayer;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Insets;
@@ -219,13 +205,19 @@ public class AuthoringMapStackPane extends StackPane {
 			// System.out.println("new value: " + newValue);
 			if (newValue) {
 				this.getMapLayer().addActive(this);
+				System.out.println(this.getMapLayer());
+				System.out.println("THIS BACKGROUND IS LITTTTTT");
 				this.setBackground(activeBackground);
 			} else {
+				System.out.println("REMMOOOVVVEEE");
 				this.getMapLayer().removeActive(this);
 				this.setBackground(inactiveBackground);
 			}
 		});
 	}
+	
+	
+	
 
 	public boolean isActive() {
 		return activeProperty.get();
@@ -326,7 +318,10 @@ public class AuthoringMapStackPane extends StackPane {
 	}
 
 	public boolean checkCanAcceptChild(AbstractSpriteObject ASO) {
-	
+	System.out.println("RowIndex: "+getRowIndex());
+	System.out.println("ColIndex: "+getColIndex());
+	System.out.println("CellHeight: "+ASO.getNumCellsHeight());
+	System.out.println("CellWidth: "+ASO.getNumCellsWidth());
 		return checkChangeSizeIsValid(ASO, getRowIndex(), getRowIndex() + ASO.getNumCellsHeight() - 1, getColIndex(),
 				getColIndex() + ASO.getNumCellsWidth() - 1);
 	}
@@ -350,6 +345,7 @@ public class AuthoringMapStackPane extends StackPane {
 			this.getChildren().add(mySO);
 			mySO.setWidthFunction(widthCheckValidFunction());
 			mySO.setHeightFunction(heightCheckValidFunction());
+			System.out.println("We added a child which is good SLACK "+ mySO.getName());
 			return true;
 		}
 		return false;
@@ -365,6 +361,7 @@ public class AuthoringMapStackPane extends StackPane {
 	}
 
 	public void removeChild() {
+		System.out.println("ARCHANA removing child: "+((AbstractSpriteObject)this.getChildren().get(0)).getName());
 		createDefaultShapeSpriteWidth();
 		createDefaultShapeSpriteHeight();
 		// int rowStart = this.getRowIndex();
@@ -384,6 +381,10 @@ public class AuthoringMapStackPane extends StackPane {
 		this.getChildren().clear();
 	}
 
+	public AbstractSpriteObject getChild(){
+		return this.mySO;
+
+	}
 	// public boolean isEmpty(){
 	// return this.getChildren().size();
 	// }

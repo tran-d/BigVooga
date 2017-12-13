@@ -1,18 +1,9 @@
 package authoring_UI.Inventory;
 
-import authoring.GridManagers.*;
-import authoring.Sprite.*;
-import authoring.Sprite.Parameters.*;
-import authoring.Sprite.AnimationSequences.*;
-import authoring.Sprite.UtilityTab.*;
-import authoring.Sprite.InventoryTab.*;
-import authoring.SpriteManagers.*;
-import authoring.SpritePanels.*;
-import authoring.util.*;
-import authoring_UI.Map.*;
-import authoring_UI.*;
-import authoring.*;
-import authoring_UI.Inventory.*;
+import java.util.List;
+
+import authoring.GridManagers.SpriteObjectGridManager;
+import authoring.Sprite.AbstractSpriteObject;
 import authoring_UI.SpriteGridHandler;
 
 public class InventoryGridManager extends SpriteObjectGridManager {
@@ -35,15 +26,11 @@ public class InventoryGridManager extends SpriteObjectGridManager {
 	
 	@Override
 	public void createMapLayer() {
+		
 		myMapLayer = new InventoryLayer(getNumRows(), getNumCols(), mySpriteGridHandler);
-		this.setNumCols(temporaryColumns);
-		this.setNumRows(temporaryRows);
+		this.setNumCols(defaultColumns);
+		this.setNumRows(defaultRows);
 		
 	}
 	
-	@Override
-	public int getLayerNum() {
-		return myMapLayer.getLayerNumber();
-	}
-
 }

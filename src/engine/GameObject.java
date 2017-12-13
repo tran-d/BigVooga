@@ -1,12 +1,10 @@
 package engine;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -34,17 +32,19 @@ public class GameObject extends VariableContainer implements Element {
 	private static final double DEFAULT_SIZE = 200;
 	private static final String DEFAULT_NAME = "unnamed";
 	private static final String DEFAULT_TAG = "default";
+	
+	public static final String CAMERA_TAG = "camera";
 
 	private Map<Condition, List<Action>> events;
 	private Sprite currentSprite;
 
-	private int uniqueID;
+	private String uniqueID;
 	private String name;
 	private Set<String> tagSet;
 
 	private CollisionEvent lastCollision;
 	private Inventory inventory;
-	private DisplayableText dialogueHandler;
+	protected List<DisplayableText> dialogueHandler = new ArrayList<>();
 
 	private double heading;
 	private List<Point2D> ithDerivative;
@@ -68,8 +68,7 @@ public class GameObject extends VariableContainer implements Element {
 		ithDerivative.add(new Point2D(0, 0));
 		inventory = new Inventory(this, getX(), getY());
 	}
-
-	@Override
+	
 	public String getName() {
 		return name;
 	}
@@ -182,16 +181,10 @@ public class GameObject extends VariableContainer implements Element {
 		currentSprite = set;
 	}
 
-	public void addParameter(String name, Object o) throws VoogaException {
-		try {
-			getClass().getDeclaredMethod(
-					ResourceBundle.getBundle("engine.TypeRecovery").getString(o.getClass().getSimpleName()),
-					String.class, o.getClass()).invoke(this, name, o);
-		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
-				| SecurityException e) {
-			throw new VoogaException("AddPar", name, o.getClass());
-		}
+	public Sprite getSprite() {
+		return currentSprite;
 	}
+
 
 	/**
 	 * Returns the current BoundedImage of this Object.
@@ -208,11 +201,6 @@ public class GameObject extends VariableContainer implements Element {
 
 	@Override
 	public Displayable getDisplayable() {
-		if (dialogueHandler == null)
-			return getBounds();
-		dialogueHandler.setHeading(getHeading());
-		dialogueHandler.setSize(getHeight(), getWidth());
-		dialogueHandler.setPosition(getX(), getY());
 		return new CompositeImage(getBounds(), dialogueHandler);
 	}
 
@@ -226,6 +214,7 @@ public class GameObject extends VariableContainer implements Element {
 		copy.setHeading(heading);
 		copy.currentSprite = currentSprite.clone();
 		copy.setSize(width, height);
+		copy.setUniqueID(uniqueID);
 		for (String tag : tagSet)
 			copy.addTag(tag);
 		for (String var : stringVars.keySet())
@@ -236,6 +225,9 @@ public class GameObject extends VariableContainer implements Element {
 			copy.setBooleanVariable(var, booleanVars.get(var));
 		for (Condition c : events.keySet())
 			copy.addConditionAction(c, new ArrayList<>(events.get(c)));
+		copy.setDialogue(dialogueHandler);
+		//for(Holdable h : inventory.getFullInventory())
+		//	copy.addToInventory(h.clone());
 		return copy;
 	}
 
@@ -250,7 +242,7 @@ public class GameObject extends VariableContainer implements Element {
 	/**
 	 * @return the uniqueID
 	 */
-	public int getUniqueID() {
+	public String getUniqueID() {
 		return uniqueID;
 	}
 
@@ -258,7 +250,7 @@ public class GameObject extends VariableContainer implements Element {
 	 * @param uniqueID
 	 *            the uniqueID to set
 	 */
-	public void setUniqueID(int uniqueID) {
+	public void setUniqueID(String uniqueID) {
 		this.uniqueID = uniqueID;
 	}
 
@@ -282,14 +274,26 @@ public class GameObject extends VariableContainer implements Element {
 	public void addToInventory(Holdable o) {
 		inventory.addObject(o);
 	}
+	
+	public void removeFromInventory(Holdable o) {
+		inventory.removeObject(o);
+	}
 
-	public void setDialogue(DisplayableText text) {
+	public void setDialogue(List<DisplayableText> text) {
 		dialogueHandler = text;
 	}
 
 	public void setDialogue(String s) {
-		if (dialogueHandler == null)
-			dialogueHandler = DisplayableText.DEFAULT;
-		dialogueHandler = dialogueHandler.getWithMessage(s);
+		if (dialogueHandler.isEmpty())
+			dialogueHandler.add(DisplayableText.DEFAULT);
+		DisplayableText newText = dialogueHandler.get(0).getWithMessage(s);
+		dialogueHandler = new ArrayList<DisplayableText>();
+		dialogueHandler.add(newText);
+		
+	}
+	
+	public Set<String> getTags()
+	{
+		return new HashSet<String>(tagSet);
 	}
 }

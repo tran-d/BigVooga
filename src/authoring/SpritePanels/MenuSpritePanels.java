@@ -21,7 +21,7 @@ public class MenuSpritePanels extends SpritePanels{
 	}
 	
 	@Override
-	public void makeDisplayPanel(AuthoringEnvironmentManager myAEM){
+	public void makeLayerDisplayPanel(AuthoringEnvironmentManager myAEM){
 		displayPanel = new DisplayPanel(SPSM, myAEM);  
 	}
 	

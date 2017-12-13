@@ -1,5 +1,6 @@
 package engine.testing;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import engine.GameLayer;
 import engine.GameMaster;
 import engine.GameObject;
 import engine.GameWorld;
+import engine.Actions.changeObject.RemoveFromWorld;
 import engine.Actions.dialog.ClearTyped;
 import engine.Actions.dialog.PlaceTextOn;
 import engine.Actions.global.SaveGame;
@@ -21,6 +23,7 @@ import engine.operations.booleanops.BooleanValue;
 import engine.operations.booleanops.KeyHeld;
 import engine.operations.booleanops.KeyReleased;
 import engine.operations.doubleops.Value;
+import engine.operations.gameobjectops.Get;
 import engine.operations.gameobjectops.Self;
 import engine.operations.stringops.SelfString;
 import engine.operations.stringops.TypedString;
@@ -29,6 +32,8 @@ import engine.operations.vectorops.VectorScale;
 import engine.sprite.AnimationSequence;
 import engine.sprite.BoundedImage;
 import engine.sprite.DisplayableText;
+import engine.sprite.Positionable;
+import engine.sprite.PositionableObject;
 import engine.sprite.Sprite;
 import engine.utilities.data.GameDataHandler;
 import javafx.application.Application;
@@ -41,25 +46,45 @@ public class TextTester extends Application {
 	}
 
 	public void start(Stage s) throws IOException {
+		GameDataHandler.chooseFileForImageSave(s);
 		generateGame(s, "Text test");
 	}
 
 	public void generateGame(Stage stage, String name) throws IOException {
 		DisplayableText text = new DisplayableText(0,
-				"Testing some really long string, " + "because I want to see if the line wrapping works properly.",
+				"A string of text",
 				"Comic Sans", 12, "#008000");
-		text.setPosition(300, 300);
-		text.setSize(300, 100);
+		Positionable p = new PositionableObject();
+		p.setPosition(-.5, 0);
+		p.setSize(.2, .2);
+		text.setRelativePosition(p);
 
+		DisplayableText text2 = new DisplayableText(0,
+				"another string of text",
+				"Comic Sans", 12, "#008000");
+		p = new PositionableObject();
+		p.setPosition(.3, .3);
+		p.setSize(.2, .2);
+		text2.setRelativePosition(p);
+		
 		GameDataHandler gdh = new GameDataHandler(name);
-		GameObject object = makeObject("Box", new BoundedImage(gdh.addChosenFileToProject(stage).getName()),
+		File f = gdh.chooseFile(stage);
+		gdh.addFileToProject(f);
+		GameObject object = makeObject("Box", new BoundedImage(f.getName()),
 				100, 100, this::condAct);
-
+		object.setSize(400, 400);
 		//object.addTag("Player");
-		object.setDialogue(text);
+		List<DisplayableText> texts = new ArrayList<>();
+		texts.add(text);
+		texts.add(text2);
+		object.setDialogue(texts);
+		
+//		GameObject object2 = makeObject("Box2", new BoundedImage(f.getName()),
+//				100, 100, this::deletable);
 		
 		GameLayer l = new GameLayer("Layer");
 		l.addGameObject(object);
+//		l.addGameObject(object2);
 
 		GameWorld w = new GameWorld("World");
 		w.addLayer(l);
@@ -67,7 +92,6 @@ public class TextTester extends Application {
 		GameMaster master = new GameMaster();
 		master.addWorld(w);
 		master.setNextWorld("World");
-		master.setGameFileName("Test file 1");
 		gdh.saveGame(master);
 	}
 
@@ -85,6 +109,21 @@ public class TextTester extends Application {
 		return obj;
 	}
 
+	private void deletable(GameObject object) {
+		ArrayList<Action> actions1 = new ArrayList<Action>();
+		actions1.add(new RemoveFromWorld(new Get(object)));
+		object.addConditionAction(new Condition(100, new KeyHeld(new SelfString("L"))), actions1);
+		
+		actions1 = new ArrayList<Action>();
+		actions1.add(new ClearTyped());
+		object.addConditionAction(new Condition(3, new KeyHeld(new SelfString(KeyCode.ESCAPE.getName()))), actions1);
+		
+		actions1 = new ArrayList<Action>();
+		actions1.add(new PlaceTextOn(new Self(), new TypedString()));
+		object.addConditionAction(new Condition(4, new BooleanValue(true)), actions1);
+		
+	}
+	
 	private void condAct(GameObject object) {
 //		List<Action> actions1 = new ArrayList<Action>();
 //		actions1.add(new SetAcceleration(new Self(), new UnitVector(new VectorDifference(new MouseLocation(),new LocationOf(new Self())))));
@@ -100,24 +139,19 @@ public class TextTester extends Application {
 
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Rotate(new Self(), new Value(-2)));
-		object.addConditionAction(new Condition(2, new KeyHeld(new SelfString("Left"))), actions1);
+		object.addConditionAction(new Condition(2, new KeyHeld(new SelfString("A"))), actions1);
 		actions1 = new ArrayList<Action>();
 
 		actions1 = new ArrayList<Action>();
 		actions1.add(new Rotate(new Self(), new Value(2)));
-		object.addConditionAction(new Condition(2, new KeyHeld(new SelfString("Right"))), actions1);
+		object.addConditionAction(new Condition(2, new KeyHeld(new SelfString("D"))), actions1);
 		
 		actions1 = new ArrayList<Action>();
 		actions1.add(new SaveGame(new Value(1000)));
 		object.addConditionAction(new Condition(2, new KeyHeld(new SelfString("Down"))), actions1);
 		
 		actions1 = new ArrayList<Action>();
-		actions1.add(new ClearTyped());
-		object.addConditionAction(new Condition(3, new KeyHeld(new SelfString(KeyCode.ESCAPE.getName()))), actions1);
-		
-		actions1 = new ArrayList<Action>();
-		actions1.add(new PlaceTextOn(new Self(), new TypedString()));
-		object.addConditionAction(new Condition(4, new BooleanValue(true)), actions1);
-		
+		actions1.add(new RemoveFromWorld(new Get(object)));
+		object.addConditionAction(new Condition(5, new KeyHeld(new SelfString("R"))), actions1);
 	}
 }

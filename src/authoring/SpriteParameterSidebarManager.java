@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import authoring.Sprite.AbstractSpriteObject;
 import authoring.Sprite.SpriteObject;
 import authoring.Sprite.Parameters.SpriteParameterI;
 import authoring_UI.DraggableGrid;
@@ -12,7 +13,7 @@ public class SpriteParameterSidebarManager {
 	Map<String, List<SpriteParameterI>> everyStateParameter = new HashMap<String, List<SpriteParameterI>>();
 	Map<String, String> newNameOldName = new HashMap<String, String>();
 	boolean firstTimeThrough = true;
-	SpriteObject firstSprite;
+	AbstractSpriteObject firstSprite;
 	DraggableGrid myDG;
 	private boolean multipleCellsActive = false;
 
@@ -24,20 +25,21 @@ public class SpriteParameterSidebarManager {
 		return multipleCellsActive;
 	}
 
-	public SpriteObject getActiveSprite() throws Exception {
-		List<SpriteObject> sprites = myDG.getActiveGrid().getActiveSpriteObjects();
+	public AbstractSpriteObject getActiveSprite() throws Exception {
+		List<AbstractSpriteObject> sprites = myDG.getActiveGrid().getActiveSpriteObjects();
 		checkActiveCellsMatch(sprites);
 		if (firstSprite==null){
 			throw new Exception("No active cells");
 		}
+		System.out.println("sprite coming back from SPSM: "+firstSprite);
 		return firstSprite;
 	}
 
-	private void checkActiveCellsMatch(List<SpriteObject> SO_List) throws Exception {
+	private void checkActiveCellsMatch(List<AbstractSpriteObject> SO_List) throws Exception {
 		multipleCellsActive = (SO_List.size()>1);
 		if (SO_List.size() > 0) {
 			firstTimeThrough = true;
-			for (SpriteObject SO : SO_List) {
+			for (AbstractSpriteObject SO : SO_List) {
 				if (firstTimeThrough) {
 					initializeMaps(SO);
 					firstTimeThrough = false;
@@ -53,7 +55,7 @@ public class SpriteParameterSidebarManager {
 		}
 	}
 
-	private void initializeMaps(SpriteObject SO) {
+	private void initializeMaps(AbstractSpriteObject SO) {
 		firstSprite = SO;
 		everyStateParameter = SO.getParameters();
 		newNameOldName = new HashMap<String, String>();

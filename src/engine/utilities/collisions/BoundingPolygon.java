@@ -89,7 +89,7 @@ public class BoundingPolygon extends BoundingGeometry {
 		return normals;
 	}
 
-	private static Point2D rotateByAngle(Point2D vector, double angle) {
+	public static Point2D rotateByAngle(Point2D vector, double angle) {
 		angle = Math.toRadians(angle);
 		return new Point2D(vector.getX() * Math.cos(angle) - vector.getY() * Math.sin(angle),
 				vector.getX() * Math.sin(angle) + vector.getY() * Math.cos(angle));

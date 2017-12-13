@@ -3,20 +3,19 @@ package authoring_actionconditions;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class BuildActionView {
-	private static final double WIDTH = 800;
-	private static final double HEIGHT = 500;
-
-	private static final double COLLAPSED_ROW_HEIGHT = 50;
+	private static final double WIDTH = 750;
+	private static final double HEIGHT = 450;
 
 	private Stage stage;
 	private Scene scene;
 	private Group root;
-	ActionConditionVBox ACVBox;
+	ActionConditionVBox<?> ACVBox;
 	private ActionRow ACRow;
 
-	public BuildActionView(ActionConditionVBox ACVBox, ActionRow ACRow) {
+	public BuildActionView(ActionConditionVBox<?> ACVBox, ActionRow ACRow) {
 		root = new Group();
 		scene = new Scene(root, WIDTH, HEIGHT);
 		stage = new Stage();
@@ -26,28 +25,30 @@ public class BuildActionView {
 		this.ACRow = ACRow;
 		this.ACVBox = ACVBox;
 
-		stage.setOnCloseRequest(e -> transportActionRow());
+		stage.setOnCloseRequest(event -> transportActionRow(event));
 
 		root.getChildren().add(this.ACRow);
 	}
 
-	private void transportActionRow() {
+	private void transportActionRow(WindowEvent event) {
 
-		ACRow.getRootTreeItem().setExpanded(false);
-		ACRow.changeRowTVSize();
+		try {
+			ACRow.getTreeView().getAction();
+			ACRow.reduceTreeView();
 
-		System.out.println(ACRow.getPrefHeight());
-		
-		if (ACVBox.getChildren().size() >= ACRow.getRowID())
-			ACVBox.getChildren().remove(ACRow.getRowID() - 1);
-		ACVBox.getChildren().add(ACRow.getRowID() - 1, ACRow);
+			System.out.println(ACRow.getPrefHeight());
 
-		stage.close();
+			if (ACVBox.getChildren().size() >= ACRow.getRowID())
+				ACVBox.getChildren().remove(ACRow.getRowID() - 1);
+			
+			ACVBox.getChildren().add(ACRow.getRowID() - 1, ACRow);
 
-		// test
-		ACRow.getAction();
-		
-		
+			stage.close();
+
+		} catch (NullPointerException | NumberFormatException e) {
+			ConditionTreeView.showError(e.getMessage());
+			event.consume();
+		}
 	}
 
 	public void createParameterChoiceBox() {

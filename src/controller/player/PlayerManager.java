@@ -35,6 +35,7 @@ public class PlayerManager {
 	private double mouseX;
 	private double mouseY;
 	private String typed = "";
+	private DataView dataView;
 	
 	/**
 	 * Empty constructor for PlayerManager.
@@ -42,6 +43,10 @@ public class PlayerManager {
 	 */
 	public PlayerManager(GameDataHandler gameDataHandler) {
 		this.gameDataHandler = gameDataHandler;
+	}
+	
+	public void setDataView(DataView dataView) {
+		this.dataView = dataView;
 	}
 	
 	/**
@@ -71,7 +76,13 @@ public class PlayerManager {
 	 * @param keyCode - The key that was pressed in the player
 	 */
 	public void setKeyPressed(KeyCode keyCode) {
-		keysDown.add(keyCode.getName());
+		
+		if(keyCode.equals(KeyCode.F1))
+		{
+			gameDisplay.debugMenu(engineController);
+		}
+		else
+			keysDown.add(keyCode.getName());
 	}
 	
 	/**
@@ -226,10 +237,20 @@ public class PlayerManager {
 		return new Point2D(mouseX, mouseY);
 	}
 
-	public void save(String gameName) {
+	public void save() {
 		engineController.stop();
-		gameDataHandler.saveGame(engineController, gameName);
+		engineController.setPlayerManager(null);
+		gameDataHandler.saveForContinue(engineController);
+		engineController.setPlayerManager(this);
 		engineController.start();
+	}
+
+	public void exitToMenu() {
+		gameDisplay.exitToMenu();
+	}
+
+	public DataView getDataView() {
+		return dataView;
 	}
 	
 }

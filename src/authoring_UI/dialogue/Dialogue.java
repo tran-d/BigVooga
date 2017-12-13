@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 /**
  * Class holding dialogue data.
@@ -14,16 +16,15 @@ import javafx.scene.control.TextArea;
 public class Dialogue {
 
 	private String name;
-	private int fontSize;
-	private String font;
-	private List<String> textList;
+	private String fontType;
+	private Color fontColor;
+	private List<Pane> dialogueSequence;
 
-	public Dialogue(String name, int fontSize, String font, List<TextArea> taList) {
+	public Dialogue(String name, String fontType, Color fontColor, List<Pane> dialogueSequence) {
 		this.name = name;
-		this.fontSize = fontSize;
-		this.font = font;
-
-		this.createTextList(taList);
+		this.fontType = fontType;
+		this.fontColor = fontColor;
+		this.dialogueSequence = dialogueSequence;
 	}
 
 	/*************************** PUBLIC METHODS **********************************/
@@ -31,31 +32,39 @@ public class Dialogue {
 	public String getName() {
 		return name;
 	}
-
-	public int getFontSize() {
-		return fontSize;
+	
+	public List<Pane> getDialogueSequence() {
+		return dialogueSequence;
 	}
 
-	public String getFont() {
-		return font;
-	}
-
-	public List<String> getTextList() {
-		return textList;
+//	public int getFontSize() {
+//		return fontSize;
+//	}
+//
+	public String getFontType() {
+		return fontType;
 	}
 	
-	public String toString() {
-		return "Name: " + name + " | Font: " + font + " | Font Size: " + fontSize;
+	public Color getFontColor() {
+		return fontColor;
 	}
+////
+//	public List<String> getTextList() {
+//		return textList;
+//	}
+//	
+//	public String toString() {
+//		return "Name: " + name + " | Font: " + font + " | Font Size: " + fontSize;
+//	}
 
 	/*************************** PRIVATE METHODS **********************************/
 
-	private void createTextList(List<TextArea> taList) {
-		textList = new ArrayList<String>();
-
-		for (TextArea ta : taList) {
-			textList.add(ta.getText());
-		}
-	}
+//	private void createTextList(List<TextArea> taList) {
+//		textList = new ArrayList<String>();
+//
+//		for (TextArea ta : taList) {
+//			textList.add(ta.getText());
+//		}
+//	}
 
 }

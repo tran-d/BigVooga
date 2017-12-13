@@ -10,11 +10,13 @@ import authoring.Sprite.Parameters.SpriteParameterFactory;
 import authoring.Sprite.Parameters.SpriteParameterI;
 import authoring_UI.TabContentVBox;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
@@ -27,8 +29,6 @@ import javafx.scene.text.Text;
 public class SpriteParameterTabsAndInfo {
 
 	private TabPane myTabPane;
-	private final static double MENU_WIDTH = 400;
-	private final static double MENU_HEIGHT = 500;
 	private int categoryCounter = 1;
 	private Map<String, Integer> counters;
 	private AbstractSpriteObject mySO;
@@ -98,6 +98,7 @@ public class SpriteParameterTabsAndInfo {
 	public void createFromSO(AbstractSpriteObject SO) {
 		categoryCounter = 1;
 		this.catNames.clear();
+		System.out.println("SO is not nulL "+SO);
 		Map<String, List<SpriteParameterI>> params = SO.getParameters();
 //		System.out.println(params);
 		boolean loopedOnce = false;
@@ -169,8 +170,8 @@ public class SpriteParameterTabsAndInfo {
 	}
 
 	private HBox createCategoryName(String category, Tab parentTab) {
-		HBox catNameHbox = new HBox();
-		Text cat = new Text("Category Name");
+		HBox catNameHbox = new HBox(5);
+		Label cat = new Label ("Category Name");
 		TextField catName = new TextField("");
 		int num = 1;
 //		System.out.println("CATNAMES: " + catNames);
@@ -216,6 +217,7 @@ public class SpriteParameterTabsAndInfo {
 		});
 
 		catNameHbox.getChildren().addAll(cat, catName);
+		catNameHbox.setAlignment(Pos.CENTER);
 		return catNameHbox;
 	}
 
@@ -233,7 +235,6 @@ public class SpriteParameterTabsAndInfo {
 		VBox vbox = new VBox();
 		formatParametersVBox(vbox);
 		ScrollPane myStateSP_dummy = new ScrollPane();
-		myStateSP_dummy.setPrefSize(MENU_WIDTH, MENU_HEIGHT);
 		myStateSP_dummy.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 		myStateSP_dummy.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 		myStateSP_dummy.setContent(vbox);
@@ -302,8 +303,7 @@ public class SpriteParameterTabsAndInfo {
 	}
 
 	private void formatParametersVBox(VBox in) {
-		in.setPrefWidth(500);
-		in.setPrefHeight(500);
+		in.setPrefHeight(200);
 	}
 
 	private void createAddCategoryTab() {

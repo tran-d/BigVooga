@@ -32,14 +32,16 @@ public class SpriteDataConverter {
 
 	Map<String, List<SpriteParameterI>> catmap;
 	List<SpriteDataConverter> inventory;
+	String imageURL;
 	Integer[] gridPos;
 	String name;
 	Integer width;
 	Integer height;
 	String UUID;
-	String imageURL;
+	
 	String mySavePath;
 	String spriteType;
+	List<String> tags;
 //	Function<Integer, Boolean> heightFunction;
 //	Function<Integer, Boolean> widthFunction;
 
@@ -73,15 +75,11 @@ public class SpriteDataConverter {
 		UUID = ASO.getUniqueID();
 		imageURL = ASO.getImageURL();
 		mySavePath = ASO.getSavePath();
+		tags = ASO.getTags();
 		inventory = new ArrayList<SpriteDataConverter>();
 		ASO.getInventory().forEach(sprite -> {
 			inventory.add(new SpriteDataConverter(sprite));
 		});
-//		widthFunction = ASO.getWidthFunction();
-//		heightFunction = ASO.getHeightFunction();
-		////////////////////////////////////////////////////////////////////////////////////////////////////////myCondAct = So>getconditionAction();
-
-
 		if (ASO instanceof SpriteObject) {
 			spriteType = "SpriteObject";
 		} else if (ASO instanceof InventoryObject) {
@@ -91,14 +89,12 @@ public class SpriteDataConverter {
 
 	public AbstractSpriteObject createSprite() {
 		System.out.println("Trying to convert into sprite");
-		// SpriteObject ret = new SpriteObject(true);
 		AbstractSpriteObject ret = null;
 		if (spriteType.equals("SpriteObject")) {
 			ret = new SpriteObject(true);
 		} else if (spriteType.equals("InventoryObject")) {
 			ret = new InventoryObject(true);
 		} else {
-			// Default
 			ret = new SpriteObject(true);
 		}
 		ret.setImageURL(imageURL);
@@ -109,9 +105,7 @@ public class SpriteDataConverter {
 		ret.setUniqueID(UUID);
 		ret.setName(name);
 		ret.setSavePath(mySavePath);
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////ret.setCondAct(private var)
-//		ret.setWidthFunction(widthFunction);
-//		ret.setHeightFunction(heightFunction);
+		ret.setTags(tags);
 		List<AbstractSpriteObject> newInventory = new ArrayList<AbstractSpriteObject>();
 		inventory.forEach(SDC ->{
 			newInventory.add(SDC.createSprite());

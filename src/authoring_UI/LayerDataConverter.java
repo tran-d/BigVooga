@@ -2,38 +2,31 @@ package authoring_UI;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.security.NullPermission;
 import com.thoughtworks.xstream.security.PrimitiveTypePermission;
-import authoring.GridManagers.*;
-import authoring.Sprite.*;
-import authoring.Sprite.Parameters.*;
-import authoring.Sprite.AnimationSequences.*;
-import authoring.Sprite.UtilityTab.*;
-import authoring.Sprite.InventoryTab.*;
-import authoring.SpriteManagers.*;
-import authoring.SpritePanels.*;
-import authoring.util.*;
-import authoring_UI.Map.*;
-import authoring_UI.*;
-import authoring.*;
-import authoring_UI.Inventory.*;
+
+import authoring.GridManagers.BackgroundGridManager;
+import authoring.GridManagers.PanelObjectGridManager;
+import authoring.GridManagers.SpriteObjectGridManager;
+import authoring.GridManagers.SpriteObjectGridManagerForSprites;
+import authoring.GridManagers.TerrainObjectGridManager;
+import authoring.Sprite.SpriteObject;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
 public class LayerDataConverter {
-	private final XStream SERIALIZER = setupXStream();
-	private List<SpriteObject> allSpriteObjects;
-	private Color myColor;
-	private int numRows;
-	private int numCols;
+	private static final XStream SERIALIZER = setupXStream();
+
+	private int myNumRows;
+	private int myNumCols;
 	private int layerNum;
 	private String myName;
 	
-	public XStream setupXStream() {
+	private static XStream setupXStream() {
 		XStream xstream = new XStream(new DomDriver());
-		// xstream.addPermission(NoTypePermission.NONE);
 		xstream.addPermission(NullPermission.NULL);
 		xstream.addPermission(PrimitiveTypePermission.PRIMITIVES);
 		xstream.allowTypes(new Class[] { Point2D.class });
@@ -54,31 +47,37 @@ public class LayerDataConverter {
 	}
 	
 	public void convertLayer(SpriteObjectGridManager SOGM){
-		allSpriteObjects = SOGM.getEntireListOfSpriteObjects();
+//		myColor = SOGM.getColor();
 		myName = SOGM.getName();
-		numRows = SOGM.getNumRows();
-		numCols = SOGM.getNumCols();
+		myNumRows = SOGM.getNumRows();
+		myNumCols = SOGM.getNumCols();
 		layerNum = SOGM.getLayerNum();
-	}
-	
-	public List<SpriteDataConverter> getSpritesToConvert() {
-		List<SpriteDataConverter> spriteConverters = new ArrayList<>();
-		for (SpriteObject SO : allSpriteObjects) {
-			spriteConverters.add(new SpriteDataConverter(SO));
-		}
-		return spriteConverters;
 	}
 	
 	public SpriteObjectGridManager createLayer() {
 		SpriteObjectGridManager newLayer = null;
-		if (layerNum == 0) {
-			newLayer = new TerrainObjectGridManager(numRows, numCols);
+		System.out.println("Layer num!!: "+layerNum);
+		
+		if (myName.equals("Background")) {
+			System.out.println("layerNUm: "+layerNum+" , background");
+			newLayer = new BackgroundGridManager(myNumRows, myNumCols);
+			System.out.println("NUM ROWS IN LDC: "+  myNumRows);
 		}
-		if (layerNum == 1) {
-			newLayer = new SpriteObjectGridManagerForSprites(numRows, numCols);
+	
+		else if (myName.equals("Terrain")) {
+			System.out.println("layerNUm: "+layerNum+" , terrain");
+			newLayer = new TerrainObjectGridManager(myNumRows, myNumCols);
+			System.out.println("NUM ROWS IN LDC: "+  myNumRows);
 		}
-		else {
-			newLayer = new PanelObjectGridManager(numRows, numCols);
+		else if (myName.equals("Main View")) {
+			System.out.println("layerNUm: "+layerNum+" , sprites");
+			newLayer = new SpriteObjectGridManagerForSprites(myNumRows, myNumCols);
+			System.out.println("NUM ROWS IN LDC: "+  myNumRows);
+		}
+		else if (myName.equals("Panels")){
+			System.out.println("layerNUm: "+layerNum+" , panels");
+			newLayer = new PanelObjectGridManager(myNumRows, myNumCols);
+			System.out.println("NUM ROWS IN LDC: "+  myNumRows);
 		}
 		return newLayer;
 	}

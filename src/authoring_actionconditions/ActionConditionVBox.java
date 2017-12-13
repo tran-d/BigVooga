@@ -10,18 +10,16 @@ import javafx.scene.layout.VBox;
 
 public abstract class ActionConditionVBox<T> extends VBox implements ActionConditionVBoxI<T> {
 
-	private String selectorLabel;
 	private ObservableList<T> rows;
 
-	public ActionConditionVBox(String selectorString) {
+	public ActionConditionVBox() {
 		super();
-		selectorLabel = selectorString;
 		rows = FXCollections.observableArrayList();
 		rows.addListener((ListChangeListener<T>) c -> addOrRemoveRows(c));
 	}
 	
-	public ActionConditionVBox(String selectorString,List<T> rows) {
-		this(selectorString);
+	public ActionConditionVBox(List<T> rows) {
+		this();
 		this.rows.setAll(FXCollections.observableArrayList(rows));
 	}
 	
@@ -45,12 +43,7 @@ public abstract class ActionConditionVBox<T> extends VBox implements ActionCondi
 		for (int i = row; i < rows.size(); i++)
 			((ActionConditionRow) rows.get(i)).decreaseLabelID();
 	}
-
-	@Override
-	public String getSelectorLabel() {
-		return selectorLabel;
-	}
-
+	
 	@Override
 	public void addToRows(ActionConditionRow actionConditionRow) {
 		rows.add((T) actionConditionRow);
@@ -58,16 +51,10 @@ public abstract class ActionConditionVBox<T> extends VBox implements ActionCondi
 	
 	private void addOrRemoveRows(Change<? extends T> c) {
 		while(c.next()) {
-			System.out.println("added row size " + c.getAddedSize());
-			System.out.println("removed row size " + c.getRemovedSize());
 			for(T row : c.getRemoved()) {
-//				System.out.println("should be removing from vbox");
-//				System.out.println("row class" + row.getClass());
 				getChildren().remove(row);
 			}
 			for(T row : c.getAddedSubList()) {
-//				System.out.println("should be adding to vbox");
-//				System.out.println("added row class " + row.getClass());
 				getChildren().add((Node) row);
 			}
 		}

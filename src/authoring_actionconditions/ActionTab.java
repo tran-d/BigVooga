@@ -2,6 +2,7 @@ package authoring_actionconditions;
 
 import java.util.ResourceBundle;
 import ActionConditionClasses.ResourceBundleUtil;
+import authoring.AuthoringEnvironmentManager;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,15 +12,16 @@ import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
 
 public class ActionTab<T> extends Tab implements ActionTabI<T> {
-	
+
 	private static final double SPACING = 10;
-	
+
 	private ScrollPane actionConditionManager;
-	private TopToolBar buttons;
+	private ActionConditionHBox buttons;
 	private ActionConditionVBox<T> actionConditionVBox;
 	private ResourceBundle actionTabResources;
 	private VBox mainVBox;
-	
+	private AuthoringEnvironmentManager myAEM;
+
 	public ActionTab(String title) {
 		super(title);
 		actionTabResources = ResourceBundleUtil.getResourceBundle(title);
@@ -27,53 +29,49 @@ public class ActionTab<T> extends Tab implements ActionTabI<T> {
 		setContent(actionConditionManager);
 		setUpActionConditionManager(title);
 	}
-	
-	public ActionTab(String title,ActionConditionVBox<T> actionConditionVBox,TopToolBar topToolBar) {
+
+	public ActionTab(String title, ActionConditionVBox<T> actionConditionVBox, ActionConditionHBox topToolBar) {
 		this(title);
-		mainVBox.getChildren().removeAll(this.actionConditionVBox,this.buttons);
+		mainVBox.getChildren().removeAll(this.actionConditionVBox, this.buttons);
 		this.actionConditionVBox = actionConditionVBox;
 		buttons = topToolBar;
-		mainVBox.getChildren().addAll(this.buttons,this.actionConditionVBox);
+		mainVBox.getChildren().addAll(this.buttons, this.actionConditionVBox);
+		//myAEM = AEM;	TODO maybe incorporate the AEM?
 	}
-                                                                                                                                                                                                                                                                          
+
 	private void setUpActionConditionManager(String title) {
-		buttons = new TopToolBar(title);
+		buttons = new ActionConditionHBox(title);
 		actionConditionVBox = setActionConditionVBox();
 		mainVBox = new VBox(SPACING);
-		mainVBox.getChildren().addAll(buttons,actionConditionVBox);
+		mainVBox.getChildren().addAll(buttons, actionConditionVBox);
 		actionConditionManager.setContent(mainVBox);
 	}
-	
+
 	@Override
 	public void addTopToolBarListChangeListener(ListChangeListener<Integer> listChangeListener) {
 		buttons.addRemoveRowVBoxListener(listChangeListener);
 	}
-	
+
 	@Override
 	public ObservableList<Integer> getCurrentActions() {
 		return buttons.getRemoveRowVBoxOptions();
 	}
-	
+
 	@Override
-	public String getActionCondition() {
-		return buttons.getOptionsValue();
+	public void addAction() {
+		((ActionVBox<T>) actionConditionVBox).addAction();
 	}
-	
-	@Override
-	public void addAction(String label) {
-		((ActionVBox<T>) actionConditionVBox).addAction(label);
-	}
-	
+
 	@Override
 	public void addRemoveOption() {
 		buttons.addRemoveOption();
 	}
-	
+
 	@Override
 	public void removeActionCondtion(Integer row) {
 		actionConditionVBox.removeConditionAction(row);
 	}
-	
+
 	@Override
 	public void removeRowOption(Integer row) {
 		buttons.removeRemoveOption(row);
@@ -100,7 +98,7 @@ public class ActionTab<T> extends Tab implements ActionTabI<T> {
 	}
 
 	@Override
-	public TopToolBar getTopToolBar() {
+	public ActionConditionHBox getTopToolBar() {
 		return buttons;
 	}
 
@@ -108,17 +106,17 @@ public class ActionTab<T> extends Tab implements ActionTabI<T> {
 	public String getSelectorLabel() {
 		return actionTabResources.getString("SelectorLabel");
 	}
-	
+
 	@Override
 	public ActionConditionVBox<T> setActionConditionVBox() {
-		return new ActionVBox<T>(getSelectorLabel());
+		return new ActionVBox<T>();
 	}
 
 	@Override
-	public void setTopToolBar(TopToolBar topToolBar) {
-		mainVBox.getChildren().removeAll(buttons,actionConditionVBox);
+	public void setTopToolBar(ActionConditionHBox topToolBar) {
+		mainVBox.getChildren().removeAll(buttons, actionConditionVBox);
 		buttons = topToolBar;
-		mainVBox.getChildren().addAll(buttons,actionConditionVBox);
+		mainVBox.getChildren().addAll(buttons, actionConditionVBox);
 	}
 
 	@Override
@@ -128,5 +126,4 @@ public class ActionTab<T> extends Tab implements ActionTabI<T> {
 		mainVBox.getChildren().add(actionConditionVBox);
 	}
 
-	
 }

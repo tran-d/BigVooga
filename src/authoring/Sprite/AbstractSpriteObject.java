@@ -1,15 +1,12 @@
 package authoring.Sprite;
 
-
 import java.io.File;
-import java.io.ObjectStreamException;
-import java.io.Serializable;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.lang.reflect.Field;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -18,28 +15,22 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.function.Consumer;
 import java.util.function.Function;
-
-import authoring.GridManagers.*;
-import authoring.Sprite.*;
-import authoring.Sprite.Parameters.*;
-import authoring.Sprite.AnimationSequences.*;
-import authoring.Sprite.UtilityTab.*;
-import authoring.Sprite.InventoryTab.*;
-import authoring.SpriteManagers.*;
-import authoring.SpritePanels.*;
-import authoring.util.*;
-import authoring_UI.Map.*;
-import authoring_UI.*;
-import authoring.*;
-import authoring_UI.Inventory.*;
+import authoring.Sprite.AnimationSequences.AuthoringAnimationSequence;
+import authoring.Sprite.AnimationSequences.AuthoringImageView;
+import authoring.Sprite.Parameters.BooleanSpriteParameter;
+import authoring.Sprite.Parameters.DoubleSpriteParameter;
+import authoring.Sprite.Parameters.SpriteParameter;
+import authoring.Sprite.Parameters.SpriteParameterI;
+import authoring.Sprite.Parameters.StringSpriteParameter;
+import authoring_actionconditions.ActionTreeView;
+import authoring_actionconditions.ConditionTreeView;
+import engine.Action;
+import engine.Condition;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -49,6 +40,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 	@Retention(RetentionPolicy.RUNTIME)
 	@interface IsLockedUtility {
 		String readableName();
+
 		String getMethod();
 	}
 
@@ -56,13 +48,17 @@ public abstract class AbstractSpriteObject extends ImageView {
 	@Retention(RetentionPolicy.RUNTIME)
 	@interface IsUnlockedUtility {
 		String readableName();
+
 		String getMethod();
+
 		String setMethod();
 	}
-	
+
 	protected Map<String, List<SpriteParameterI>> categoryMap = new HashMap<String, List<SpriteParameterI>>();
 	protected Map<String, List<SpriteParameterI>> possibleCategoryMap = new HashMap<String, List<SpriteParameterI>>();;
 	protected List<AbstractSpriteObject> myInventory;
+
+	protected Map<Condition, List<Action>> myBehavior = new HashMap<Condition, List<Action>>();
 
 	@IsLockedUtility(readableName = "Image Path: ", getMethod = "getImageURL")
 	protected String myImageURL;
@@ -90,13 +86,16 @@ public abstract class AbstractSpriteObject extends ImageView {
 	@IsLockedUtility(readableName = "UniqueID: ", getMethod = "getUniqueID")
 	protected String myUniqueID;
 
-//	@IsLockedUtility(readableName = "Save File", getMethod = "getSavePath")
+	// @IsLockedUtility(readableName = "Save File", getMethod = "getSavePath")
 	protected String mySavePath;
 	protected ObservableList<Integer> allConditions;
 	protected ObservableList<Integer> allActions;
-	protected HashMap<List<String>,List<Integer>> conditionRows;
-	protected List<List<String>> actionRows;
-	protected List<AnimationSequence> myAnimationSequences;
+	protected HashMap<Condition, List<Integer>> conditionRows;
+	protected HashMap<ConditionTreeView, List<Integer>> conditionTreeViews;
+	protected List<Action> actionRows;
+	protected List<ActionTreeView> actionTreeViews;
+	protected List<AuthoringAnimationSequence> myAnimationSequences;
+	protected List<String> myTags;
 
 	public AbstractSpriteObject() {
 		super();
@@ -104,15 +103,18 @@ public abstract class AbstractSpriteObject extends ImageView {
 		setUniqueID();
 		initializeActionConditions();
 	}
-	
+
 	private void initializeActionConditions() {
 		allConditions = FXCollections.observableArrayList();
 		allActions = FXCollections.observableArrayList();
-		conditionRows = new HashMap<List<String>,List<Integer>>();
-		actionRows = new LinkedList<List<String>>();
+		conditionTreeViews = new HashMap<ConditionTreeView, List<Integer>>();
+		actionTreeViews = new LinkedList<ActionTreeView>();
+		actionRows = new LinkedList<Action>();
+		conditionRows = new HashMap<Condition, List<Integer>>();
 	}
 
 	private void initializeVariables() {
+		myTags = new ArrayList<String>();
 		myInventory = new ArrayList<AbstractSpriteObject>();
 		initializePositionOnGridProperty();
 		initializeHeightWidthProperties();
@@ -130,7 +132,13 @@ public abstract class AbstractSpriteObject extends ImageView {
 	public AbstractSpriteObject(String fileURL) {
 		this();
 		setupImageURLAndView(fileURL);
-//		myName = fileURL.split("\\.")[0];
+		// myName = fileURL.split("\\.")[0];
+	}
+
+	public AbstractSpriteObject(Image image, String path) {
+		this();
+		setupImageURLAndView(image, path);
+		// myName = fileURL.split("\\.")[0];
 	}
 
 	AbstractSpriteObject(HashMap<String, List<SpriteParameterI>> inCategoryMap) {
@@ -158,6 +166,18 @@ public abstract class AbstractSpriteObject extends ImageView {
 
 	public String getUniqueID() {
 		return myUniqueID;
+	}
+
+	public List<String> getTags() {
+		return this.myTags;
+	}
+
+	public void setTags(Collection<String> newTags) {
+		if (myTags == null) {
+			myTags = new ArrayList<String>();
+		}
+		this.myTags.clear();
+		this.myTags.addAll(newTags);
 	}
 
 	public List<AbstractSpriteObject> getInventory() {
@@ -192,10 +212,22 @@ public abstract class AbstractSpriteObject extends ImageView {
 	}
 
 	protected void setupImageURLAndView(String fileURL) {
-		myImageURL = fileURL;
-		this.setImage(new Image(fileURL));
-//		this.setFitWidth(45);
-//		this.setFitHeight(45);
+		FileInputStream fis;
+		Image im;
+		try {
+			fis = new FileInputStream(new File(fileURL));
+			im = new Image(fis);
+		} catch (FileNotFoundException e) {
+			im = new Image(fileURL);
+		}
+		setupImageURLAndView(im, fileURL);
+	}
+
+	public void setupImageURLAndView(Image image, String path) {
+		myImageURL = path;
+		this.setImage(image);
+		this.setFitWidth(45);
+		this.setFitHeight(45);
 	}
 
 	private void initializeHeightWidthProperties() {
@@ -203,10 +235,12 @@ public abstract class AbstractSpriteObject extends ImageView {
 		initializeWidthFunction();
 		height = new SimpleObjectProperty<Integer>();
 		initializeHeightFunction();
-		if (this.getNumCellsHeight()==null ){
+		if (this.getNumCellsHeight() == null) {
+			this.myNumCellsHeight = 1;
 			this.height.set(1);
 		}
-		if (this.getNumCellsWidth()== null){
+		if (this.getNumCellsWidth() == null) {
+			this.myNumCellsWidth = 1;
 			this.width.set(1);
 		}
 	}
@@ -215,16 +249,16 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return width;
 	}
 
-	private void setWidthObjectProperty(ObjectProperty<Integer> newWidth) throws Exception{
+	private void setWidthObjectProperty(ObjectProperty<Integer> newWidth) throws Exception {
 		setWidthObjectProperty(newWidth.get());
 	}
 
-	private void setWidthObjectProperty(int newWidth) throws Exception{
+	private void setWidthObjectProperty(int newWidth) throws Exception {
 		if (width == null) {
 			width = new SimpleObjectProperty<Integer>();
 		}
-		if (this.getWidthFunction().apply(newWidth)){
-		width.set(newWidth);
+		if (this.getWidthFunction().apply(newWidth)) {
+			width.set(newWidth);
 		} else {
 			throw new Exception("Could not set width");
 		}
@@ -245,16 +279,16 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return height;
 	}
 
-	private void setHeightObjectProperty(ObjectProperty<Integer> newHeight) throws Exception{
+	private void setHeightObjectProperty(ObjectProperty<Integer> newHeight) throws Exception {
 		setHeightObjectProperty(newHeight.get());
 	}
 
-	private void setHeightObjectProperty(int newWidth) throws Exception{
+	private void setHeightObjectProperty(int newWidth) throws Exception {
 		if (height == null) {
 			height = new SimpleObjectProperty<Integer>();
 		}
-		if (this.getHeightFunction().apply(newWidth)){
-		height.set(newWidth);
+		if (this.getHeightFunction().apply(newWidth)) {
+			height.set(newWidth);
 		} else {
 			throw new Exception("Could not change height");
 		}
@@ -295,11 +329,11 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return myNumCellsWidth;
 	}
 
-	public void setNumCellsWidth(Integer in) throws Exception{
+	public void setNumCellsWidth(Integer in) throws Exception {
 		setWidthObjectProperty(in);
 		myNumCellsWidth = in;
 	}
-	
+
 	public void setNumCellsWidthNoException(Integer in) {
 		if (width == null) {
 			width = new SimpleObjectProperty<Integer>();
@@ -312,11 +346,11 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return myNumCellsHeight;
 	}
 
-	public void setNumCellsHeight(Integer in) throws Exception{
+	public void setNumCellsHeight(Integer in) throws Exception {
 		setHeightObjectProperty(in);
 		myNumCellsHeight = in;
 	}
-	
+
 	public void setNumCellsHeightNoException(Integer in) {
 		if (height == null) {
 			height = new SimpleObjectProperty<Integer>();
@@ -456,21 +490,21 @@ public abstract class AbstractSpriteObject extends ImageView {
 		replaceCategoryMap(newParams);
 	}
 
-	protected void replaceCategoryMap(Map<String,List<SpriteParameterI>> newParams) {
-//		System.out.println("Replacing cat map");
-
+	protected void replaceCategoryMap(Map<String, List<SpriteParameterI>> newParams) {
+		// System.out.println("Replacing cat map");
 
 		this.categoryMap = getNewCopyOfCategoryMap(newParams);
-//		categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(newParams);
-//		System.out.println("new hashmap: "+categoryMap.toString());
+		// categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(newParams);
+		// System.out.println("new hashmap: "+categoryMap.toString());
 	}
-	
-	protected Map<String, List<SpriteParameterI>> getNewCopyOfCategoryMap(Map<String, List<SpriteParameterI>> newParams){
+
+	protected Map<String, List<SpriteParameterI>> getNewCopyOfCategoryMap(
+			Map<String, List<SpriteParameterI>> newParams) {
 		HashMap<String, List<SpriteParameterI>> newCategoryMap = new HashMap<String, List<SpriteParameterI>>();
-		if (newParams!=null){
-			newParams.forEach((key, value)->{
+		if (newParams != null) {
+			newParams.forEach((key, value) -> {
 				ArrayList<SpriteParameterI> params = new ArrayList<SpriteParameterI>();
-				value.forEach((SpriteParam)->{
+				value.forEach((SpriteParam) -> {
 					params.add(SpriteParam.newCopy());
 				});
 				newCategoryMap.put(key, params);
@@ -511,7 +545,8 @@ public abstract class AbstractSpriteObject extends ImageView {
 				return false;
 			}
 		}
-		if(!(conditionRows.equals(other.getConditionRows()) && actionRows.equals(other.getActionRows()))) return false; 
+		// TODO if(!(conditionRows.equals(other.getConditionRows()) &&
+		// actionRows.equals(other.getActionRows()))) return false;
 		return true;
 	}
 
@@ -583,47 +618,74 @@ public abstract class AbstractSpriteObject extends ImageView {
 	public void setSavePath(String path) {
 		mySavePath = path;
 	}
-	
-	public List<AnimationSequence> getAnimationSequences(){
-		if (myAnimationSequences == null){
-			myAnimationSequences = new ArrayList<AnimationSequence>();
-			myAnimationSequences.add(new AnimationSequence("Default", new AuthoringImageView(getImageURL())));
+
+	public List<AuthoringAnimationSequence> getAnimationSequences() {
+		if (myAnimationSequences == null) {
+			myAnimationSequences = new ArrayList<AuthoringAnimationSequence>();
+			myAnimationSequences.add(new AuthoringAnimationSequence("Default", new AuthoringImageView(getImageURL())));
 		}
 		return myAnimationSequences;
 	}
-	
-	public void setAnimationSequences(ArrayList<AnimationSequence> animations){
+
+	public List<String> getAnimationSequenceNames() {
+		List<String> ret = new ArrayList<String>();
+		getAnimationSequences().forEach(sequence -> {
+			ret.add(sequence.getName());
+		});
+		return ret;
+	}
+
+	public void setAnimationSequences(List<AuthoringAnimationSequence> animations) {
 		myAnimationSequences = animations;
 	}
-	
-	public void createNewAnimationSequence(String name){
-		myAnimationSequences.add(new AnimationSequence(name)); 
+
+	public void createNewAnimationSequence(String name) {
+		myAnimationSequences.add(new AuthoringAnimationSequence(name));
 	}
-	
-	public AnimationSequence getAnimationSequence(String name){
-		AnimationSequence AS = getAnimationSequences().stream()
-								.filter(sequence -> sequence.getName().equals(name))
-								.findFirst()
-								.get();
+
+	public AuthoringAnimationSequence getAnimationSequence(String name) {
+		AuthoringAnimationSequence AS = getAnimationSequences().stream()
+				.filter(sequence -> sequence.getName().equals(name)).findFirst().get();
 		return AS;
 	}
-	
+
 	public void setAllConditions(ObservableList<Integer> allConditions) {
 		this.allConditions = allConditions;
 	}
-	
+
 	public void setAllActions(ObservableList<Integer> allActions) {
 		this.allActions = allActions;
 	}
 
-	public void setCondidtionRows(HashMap<List<String>, List<Integer>> conditionRows) {
-		this.conditionRows = conditionRows;
+	public void setConditions(HashMap<ConditionTreeView, List<Integer>> conditionTree) {
+		try {
+			conditionTreeViews = conditionTree;
+			conditionRows.clear();
+			for (ConditionTreeView conditionTreeView : conditionTree.keySet()) {
+				conditionRows.put(conditionTreeView.getCondition(), conditionTree.get(conditionTreeView));
+			}
+		} catch (NullPointerException e) {
+			throw e;
+		} catch (NumberFormatException e) {
+			throw e;
+		}
+
 	}
 
-	public void setActionRows(List<List<String>> actionRows) {
-		this.actionRows = actionRows;
+	public void setActions(List<ActionTreeView> actionTree) {
+		try {
+			actionTreeViews = actionTree;
+			actionRows.clear();
+			for (ActionTreeView actionTreeView : actionTree) {
+				actionRows.add(actionTreeView.getAction());
+			}
+		} catch (NullPointerException e) {
+			throw e;
+		} catch (NumberFormatException e) {
+			throw e;
+		}
 	}
-	
+
 	public ObservableList<Integer> getAllConditions() {
 		return allConditions;
 	}
@@ -632,15 +694,34 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return allActions;
 	}
 
-	public HashMap<List<String>, List<Integer>> getConditionRows() {
-		return conditionRows;
+	public HashMap<ConditionTreeView, List<Integer>> getConditionRows() {
+		return conditionTreeViews;
 	}
 
-	public List<List<String>> getActionRows() {
-		return actionRows;
+	public List<ActionTreeView> getActionRows() {
+		return actionTreeViews;
 	}
 
-	
-//	protected abstract Object writeReplace() throws ObjectStreamException;
+	/**
+	 * Converts the Front-end formatting into back-end mapping of Conditons and
+	 * Actions.
+	 * 
+	 * @return Map<Condition, List<Action>>
+	 */
+	public Map<Condition, List<Action>> conditionActionPairings() {
+		Map<Condition, List<Action>> temp = new HashMap<Condition, List<Action>>();
+		for (Condition c : conditionRows.keySet()) {
+			List<Action> actions = new ArrayList<Action>();
+			for (Integer i : conditionRows.get(c)) {
+				actions.add(actionRows.get(i));
+			}
+			temp.put(c, actions);
+
+		}
+
+		return temp;
+	}
+
+	// protected abstract Object writeReplace() throws ObjectStreamException;
 
 }

@@ -6,18 +6,19 @@ import javafx.collections.ObservableList;
 
 public class ConditionVBox<T> extends ActionConditionVBox<T> implements ConditionVBoxI<T>{
 
-	public ConditionVBox(String selectorString) {
-		super(selectorString);
+	public ConditionVBox() {
+		super();
 	}
 	
-	public ConditionVBox(String selectorString,List<T> rows) {
-		super(selectorString,rows);
+	public ConditionVBox(List<T> rows) {
+		super(rows);
 	}
 
 	@Override
-	public void addCondition(String label, ObservableList<Integer> currentActions) {
-		ConditionRow conditionRow = new ConditionRow(getRows().size() + 1, label, getSelectorLabel(),null,currentActions, (ConditionVBox<ConditionRow>) this);
+	public void addCondition(ObservableList<Integer> currentActions) {
+		ConditionRow conditionRow = new ConditionRow(getRows().size() + 1,currentActions, (ConditionVBox<ConditionRow>) this);
 		addToRows(conditionRow);
+		BuildConditionView bcd = new BuildConditionView(this, conditionRow);
 	}
 	
 	@Override
@@ -34,5 +35,7 @@ public class ConditionVBox<T> extends ActionConditionVBox<T> implements Conditio
 	public void removeActionOption(Integer action) {
 		getRows().forEach(row -> ((ConditionRow) row).removeAction(action));
 	}
+	
+
 
 }
