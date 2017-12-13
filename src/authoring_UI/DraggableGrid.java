@@ -52,6 +52,7 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 	private Integer rows;
 	private Integer cols;
 	private String savePath;
+	private String myName;
 
 	public DraggableGrid() {
 		rows = 20; // TODO HARDCODED
@@ -124,6 +125,14 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 		topHbox = new HBox(10);
 		topHbox.setAlignment(Pos.CENTER);
 		this.getChildren().add(topHbox);
+	}
+	
+	public void setName(String s){
+		myName = s;
+	}
+	
+	public String getName(){
+		return myName;
 	}
 
 	private void createGrid(SpriteGridHandler spriteGridHandler) {

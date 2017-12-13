@@ -91,7 +91,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 	protected ObservableList<Integer> allConditions;
 	protected ObservableList<Integer> allActions;
 	protected Map<Condition, List<Integer>> conditionRows;
-	protected Map<ConditionTreeView, List<Integer>> conditionTreeViews;
+	protected HashMap<ConditionTreeView, List<Integer>> conditionTreeViews;
 	protected List<Action> actionRows;
 	protected List<ActionTreeView> actionTreeViews;
 	protected List<AuthoringAnimationSequence> myAnimationSequences;
@@ -548,6 +548,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 		}
 		return true;
 	}
+	
 
 	public abstract AbstractSpriteObject newCopy();
 
@@ -662,11 +663,10 @@ public abstract class AbstractSpriteObject extends ImageView {
 		this.allActions = allActions;
 	}
 
-	public void setConditions(Map<ConditionTreeView, List<Integer>> conditionTree) {
+	public void setConditions(HashMap<ConditionTreeView, List<Integer>> conditionTree) {
 		try {
 			conditionTreeViews = conditionTree;
-			conditionRows.clear();
-//			if (conditionTree!=null && !conditionTree.isEmpty()){
+			conditionRows = new HashMap<Condition, List<Integer>>();
 			for (ConditionTreeView conditionTreeView : conditionTree.keySet()) {
 				conditionRows.put(conditionTreeView.getCondition(), conditionTree.get(conditionTreeView));
 			}
@@ -682,8 +682,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 	public void setActions(List<ActionTreeView> actionTree) {
 		try {
 			actionTreeViews = actionTree;
-			actionRows.clear();
-//			if (actionTree!=null && !actionTree.isEmpty()){
+			actionRows = new ArrayList<Action>();
 			for (ActionTreeView actionTreeView : actionTree) {
 				actionRows.add(actionTreeView.getAction());
 			}
@@ -703,10 +702,11 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return allActions;
 	}
 
-	public Map<ConditionTreeView, List<Integer>> getConditionTreeViews() {
-		if (conditionTreeViews == null){
-			conditionTreeViews = new HashMap<ConditionTreeView, List<Integer>>();
-		}
+	public HashMap<ConditionTreeView, List<Integer>> getConditionTreeviews() {
+		
+	if (conditionTreeViews==null){
+		conditionTreeViews = new HashMap<ConditionTreeView, List<Integer>>();
+	}
 		return conditionTreeViews;
 	}
 
@@ -717,20 +717,18 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return actionTreeViews;
 	}
 	
+	public void setConditionRows(Map<Condition, List<Integer>> newCondRows){
+		conditionRows = newCondRows;
+	}
 	public void setActionRows(List<Action> newActionRows){
 		actionRows = newActionRows;
 	}
 	
-	public void setConditionRows(Map<Condition, List<Integer>> newConditionRows){
-		conditionRows = newConditionRows;
-	}
-	
-	public List<Action> getActionRows(){
-		return actionRows;
-	}
-	
 	public Map<Condition, List<Integer>> getConditionRows(){
 		return conditionRows;
+	}
+	public List<Action> getActionRows(){
+		return actionRows;
 	}
 
 	/**

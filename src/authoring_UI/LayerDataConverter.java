@@ -13,6 +13,7 @@ import authoring.GridManagers.PanelObjectGridManager;
 import authoring.GridManagers.SpriteObjectGridManager;
 import authoring.GridManagers.SpriteObjectGridManagerForSprites;
 import authoring.GridManagers.TerrainObjectGridManager;
+import authoring.Sprite.AbstractSpriteObject;
 import authoring.Sprite.SpriteObject;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
@@ -24,6 +25,7 @@ public class LayerDataConverter {
 	private int myNumCols;
 	private int layerNum;
 	private String myName;
+	private List<SpriteDataConverter> mySprites;
 	
 	private static XStream setupXStream() {
 		XStream xstream = new XStream(new DomDriver());
@@ -48,10 +50,14 @@ public class LayerDataConverter {
 	
 	public void convertLayer(SpriteObjectGridManager SOGM){
 //		myColor = SOGM.getColor();
+		mySprites = new ArrayList<SpriteDataConverter>();
 		myName = SOGM.getName();
 		myNumRows = SOGM.getNumRows();
 		myNumCols = SOGM.getNumCols();
 		layerNum = SOGM.getLayerNum();
+		SOGM.getEntireListOfSpriteObjects().forEach(sprite->{
+			mySprites.add(new SpriteDataConverter(sprite));
+		});
 	}
 	
 	public SpriteObjectGridManager createLayer() {
@@ -79,6 +85,12 @@ public class LayerDataConverter {
 			newLayer = new PanelObjectGridManager(myNumRows, myNumCols);
 			System.out.println("NUM ROWS IN LDC: "+  myNumRows);
 		}
+		List<AbstractSpriteObject> toStore = new ArrayList<AbstractSpriteObject>();
+		mySprites.forEach(SDC->{
+			toStore.add(SDC.createSprite());
+		});
+		newLayer.storeSpriteObjectsToAdd(toStore);
+		System.out.println("Number of sprites: "+toStore);
 		return newLayer;
 	}
 }
