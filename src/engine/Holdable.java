@@ -17,7 +17,6 @@ public class Holdable extends VariableContainer {
 
 	private Map<String, List<Action>> useOptions;
 	private List<Action> selectActions;
-	private Sprite sprite;
 
 	public Holdable(Sprite sprite) {
 		useOptions = new HashMap<String, List<Action>>();
@@ -28,8 +27,7 @@ public class Holdable extends VariableContainer {
 	public void addUseOption(String useName, List<Action> actions) {
 		if (useOptions.containsKey(useName)) {
 			useOptions.get(useName).addAll(actions);
-		}
-		else
+		} else
 			useOptions.put(useName, actions);
 	}
 
@@ -42,19 +40,26 @@ public class Holdable extends VariableContainer {
 	public List<String> getUses() {
 		return new ArrayList<String>(useOptions.keySet());
 	}
-	
+
 	public BoundedImage getDisplayable() {
 		return sprite.getImage();
 	}
-	
+
 	public void setSelectActions(List<Action> selectActions) {
 		this.selectActions = selectActions;
-	} 
-	
+	}
+
 	public void select(GameObject keeper, GameObjectEnvironment world) {
-		for(Action a : selectActions) {
+		for (Action a : selectActions) {
 			a.execute(keeper, world);
 		}
 	}
-	
+
+	public Holdable clone() {
+		Holdable copy = new Holdable(null);
+		cloneHelp(copy);
+
+		return copy;
+	}
+
 }

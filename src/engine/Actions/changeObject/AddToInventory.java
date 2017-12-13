@@ -29,8 +29,8 @@ public class AddToInventory implements Action {
 	
 	@Override
 	public void execute(GameObject asking, GameObjectEnvironment world) {
-		giver.evaluate(asking, world).removeFromInventory(holdable.evaluate(asking, world));
-		taker.evaluate(asking, world).addToInventory(holdable.evaluate(asking, world));
+		giver.evaluate(asking, world).getInventory().removeObject((holdable.evaluate(asking, world)));
+		taker.evaluate(asking, world).getInventory().removeObject(holdable.evaluate(asking, world));
 	}
 	
 }
