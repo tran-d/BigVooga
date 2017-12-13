@@ -2,7 +2,7 @@ package authoring.Sprite.Parameters;
 
 public class SpriteParameterFactory {
 	
-	public static SpriteParameterI makeParameter(String name, Object value){
+	public static SpriteParameter makeParameter(String name, Object value){
 		if (value instanceof String) {
 			return new StringSpriteParameter(name, (String) value);
 		} else if (value instanceof Boolean) {

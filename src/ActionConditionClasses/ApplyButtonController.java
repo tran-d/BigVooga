@@ -3,6 +3,8 @@ package ActionConditionClasses;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+
 import authoring.Sprite.AbstractSpriteObject;
 import authoring_actionconditions.ActionRow;
 import authoring_actionconditions.ActionTab;
@@ -19,8 +21,8 @@ public class ApplyButtonController {
 
 	public void updateActionConditionTabs(ConditionTab<ConditionRow> conditionTab, ActionTab<ActionRow> actionTab,
 			AbstractSpriteObject spriteObject) {
-		HashMap<ConditionTreeView, List<Integer>> conditions = spriteObject.getConditionRows();
-		List<ActionTreeView> actions = spriteObject.getActionRows();
+		Map<ConditionTreeView, List<Integer>> conditions = spriteObject.getConditionTreeViews();
+		List<ActionTreeView> actions = spriteObject.getActionTreeViews();
 		ObservableList<Integer> allConditions = spriteObject.getAllConditions();
 		ObservableList<Integer> allActions = spriteObject.getAllActions();
 		ActionConditionHBox topToolBarConditions = new ActionConditionHBox(
@@ -30,6 +32,7 @@ public class ApplyButtonController {
 		int rowCond = 1;
 		List<ConditionRow> conditionRows = new LinkedList<ConditionRow>();
 		ConditionVBox<ConditionRow> conditionVBox = new ConditionVBox<ConditionRow>();
+//		if (conditionTreeView)
 		for (ConditionTreeView conditionTreeView : conditions.keySet()) {
 			ConditionRow conditionRow = new ConditionRow(rowCond, allActions,conditions.get(conditionTreeView), conditionVBox,conditionTreeView);
 			conditionRows.add(conditionRow);

@@ -2,6 +2,7 @@ package authoring_UI;
 
 import java.util.List;
 
+import authoring_data.SpriteObjectGridToEngineController;
 import controller.authoring.AuthoringController;
 import controller.welcomeScreen.SceneController;
 import engine.utilities.data.GameDataHandler;
@@ -31,6 +32,7 @@ public class MainAuthoringGUI {
 	private static final String TEMP_PROJECT_NAME = "TestProject";
 	private String myProjectName;
 	private GameDataHandler myGDH;
+	private SpriteObjectGridToEngineController myEngineExporter;
 
 	public MainAuthoringGUI(Stage currentStage, SceneController currentSceneController, String projectName) {
 		myProjectName = projectName;
@@ -50,6 +52,7 @@ public class MainAuthoringGUI {
 		authoringPane = new Pane();
 
 		myGDH = new GameDataHandler(myProjectName);
+		myEngineExporter = new SpriteObjectGridToEngineController(myGDH);
 		authoringController = new AuthoringController(scene, stage, authoringPane, myGDH);
 
 		ViewSideBar sideBar = new ViewSideBar(authoringController);
@@ -65,6 +68,14 @@ public class MainAuthoringGUI {
 	 */
 	public Scene getScene() {
 		return scene;
+	}
+	
+	public void exportToEngine(){
+		List<DraggableGrid> allWorlds = authoringController.getExistingWorlds();
+		allWorlds.forEach(DG->{
+		myEngineExporter.createLayerAndAddToEngine(DG);
+	});
+		myEngineExporter.saveEngine();
 	}
 
 	public void saveWorlds() {

@@ -88,6 +88,10 @@ public class SceneController {
 	public void saveWorlds() {
 		fileSelector.saveWorlds();
 	}
+	
+	public void exportToEngine() {
+		fileSelector.exportToEngine();
+	}
 
 	public void importWorlds(String name) {
 		fileSelector.importWorlds(name);

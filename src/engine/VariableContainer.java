@@ -56,11 +56,16 @@ public abstract class VariableContainer {
 
 	public void addParameter(String name, Object o) throws VoogaException {
 		try {
+			String classType = o.getClass().getSimpleName();
+			System.out.println("class: "+classType);
+			String methodName = ResourceBundle.getBundle("engine.TypeRecovery").getString(classType);
+			System.out.println("meth name: " + methodName);
 			getClass().getDeclaredMethod(
-					ResourceBundle.getBundle("engine.TypeRecovery").getString(o.getClass().getSimpleName()),
+					methodName,
 					String.class, o.getClass()).invoke(this, name, o);
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
 				| SecurityException e) {
+			e.printStackTrace();
 			throw new VoogaException("AddPar", name, o.getClass());
 		}
 	}
@@ -77,7 +82,7 @@ public abstract class VariableContainer {
 		return DEFAULT_BOOLEAN;
 	}
 
-	public void setDoubleVariable(String name, double val) {
+	public void setDoubleVariable(String name, Double val) {
 		doubleVars.put(name, val);
 	}
 
@@ -85,7 +90,7 @@ public abstract class VariableContainer {
 		stringVars.put(name, val);
 	}
 
-	public void setBooleanVariable(String name, boolean val) {
+	public void setBooleanVariable(String name, Boolean val) {
 		booleanVars.put(name, val);
 	}
 
