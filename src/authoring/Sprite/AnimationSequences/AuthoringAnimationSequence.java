@@ -2,8 +2,10 @@ package authoring.Sprite.AnimationSequences;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import authoring.Thumbnail;
+import authoring_data.SerializableAuthoringImageView;
 import engine.utilities.data.GameDataHandler;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -44,8 +46,15 @@ public class AuthoringAnimationSequence {
 		this(name);
 		addNewAuthoringImageViewToSequence(AEI);
 	}
+	
+	public AuthoringAnimationSequence(String name, List<AnimationSequenceImage> images) {
+		this(name);
+		images.forEach(image -> {
+			myImages.add(image);
+		});
+	}
 
-	AuthoringAnimationSequence(String name, ArrayList<AuthoringImageView> images) {
+	public AuthoringAnimationSequence(String name, ArrayList<AuthoringImageView> images) {
 		this(name);
 		images.forEach(image -> {
 			addNewAuthoringImageViewToSequence(image);
@@ -69,7 +78,7 @@ public class AuthoringAnimationSequence {
 	// });
 	// }
 
-	private void addNewAuthoringImageViewToSequence(AuthoringImageView AEI) {
+	public void addNewAuthoringImageViewToSequence(AuthoringImageView AEI) {
 		if (myMostRecentlyAddedAnimationSequenceProperty == null) {
 			myMostRecentlyAddedAnimationSequenceProperty = new SimpleObjectProperty<AnimationSequenceImage>();
 			
@@ -104,7 +113,7 @@ public class AuthoringAnimationSequence {
 		showUI();
 		if (this.outMostVbox==null){
 			outMostVbox = new VBox();
-			outMostVbox.getChildren().addAll(getScrollPane(), getAddImageButton());
+			outMostVbox.getChildren().addAll(getScrollPane());
 		}
 		return outMostVbox;
 	}
@@ -187,35 +196,9 @@ public class AuthoringAnimationSequence {
 		
 		myContainerVbox.getChildren().add(animationBox);
 	}
+
 	
-	private void createAddImageButton(){
-		addNewImage = new Button("Add Image");
-		addNewImage.setOnAction(event->{
-			Node parent = myScrollPane.getParent();
-			Scene s = parent.getScene();
-			while (s == null) {
-				parent = parent.getParent();
-				s = parent.getScene();
-			}
-			
-			File file = GameDataHandler.chooseFileForImageSave(s.getWindow());
-//			System.out.println(file.getName());
-//			Image im = new Image("/"+file.getName());
-//			Image im = new Image("/"+"brick.png");
-//			System.out.println("Image loaded: "+im);
-			
-//			String testFile = File.separator + file.getName();
-			Image im = new Image(file.toURI().toString());
-//			System.out.println(testFile);
-			AuthoringImageView AIV = new AuthoringImageView(file.toURI().toString()); 
-			addNewAuthoringImageViewToSequence(AIV);
-		});
-	}
-	
-	public Button getAddImageButton(){
-		if (addNewImage==null){
-			createAddImageButton();
-		}
-		return addNewImage;
+	private Object writeReplace() throws java.io.ObjectStreamException {
+		return new SerializableAuthoringAnimationSequence(this);
 	}
 }

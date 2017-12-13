@@ -17,6 +17,7 @@ import authoring.Sprite.SpriteObject;
 import authoring.Sprite.SpriteParameterTabsAndInfo;
 import authoring.Sprite.SpriteTagTabAndInfo;
 import authoring.Sprite.SpriteUtilityTabAndInfo;
+import authoring.Sprite.Parameters.SpriteParameter;
 import authoring.Sprite.Parameters.SpriteParameterI;
 import authoring_UI.MainAuthoringGUI;
 import authoring_UI.ViewSideBar;
@@ -103,7 +104,7 @@ public class DisplayPanel extends VBox {
 		spriteEditorAndApplyButtonVBox.getChildren().addAll(mySpriteTabs, this.makeApplyButton());
 	}
 
-	private Map<String, List<SpriteParameterI>> getParametersOfActiveCells() throws Exception {
+	private Map<String, List<SpriteParameter>> getParametersOfActiveCells() throws Exception {
 		return mySPSM.getActiveSprite().getParameters();
 	}
 
@@ -274,7 +275,7 @@ public class DisplayPanel extends VBox {
 		mySParameterTAI.clearTabPane();
 		mySInventoryTAI.reset();
 		// mySUtilityTAI.reset();
-		mySAnimationSequenceTAI.clearExisting();
+		mySAnimationSequenceTAI.clearExistingAnimationSequencesTabPane();
 	}
 
 	public void removeSpriteEditorVBox() {
@@ -338,6 +339,7 @@ public class DisplayPanel extends VBox {
 				setDefaultErrorNoSpriteTabPane();
 			}
 		} catch (Exception e) {
+			setDefaultErrorNoSpriteTabPane();
 			// throw new RuntimeException();
 			e.printStackTrace();
 			
