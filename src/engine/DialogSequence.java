@@ -11,11 +11,14 @@ import engine.operations.stringops.SelfString;
 import engine.operations.vectorops.LocationOf;
 import engine.sprite.AnimationSequence;
 import engine.sprite.BoundedImage;
+import engine.sprite.CompositeImage;
+import engine.sprite.Displayable;
 import engine.sprite.DisplayableText;
 import engine.sprite.Sprite;
 
 public class DialogSequence extends GameObject {
 	public DialogSequence next;
+	private List<BoundedImage> images;
 	
 	public DialogSequence(String name, String imageForBackground, List<DisplayableText> text) {
 		super(name);
@@ -37,5 +40,14 @@ public class DialogSequence extends GameObject {
 		List<Action> actions = new ArrayList<>();
 		actions.add(new DisplayDialog(new SelfString(next.getName()), new LocationOf(new Self())));
 		addConditionAction(new Condition(0, new ObjectClicked(new Self())), actions);
+	}
+	
+	public void imposeImages(List<BoundedImage> images) {
+		this.images = images;
+	}
+	
+	@Override
+	public Displayable getDisplayable() {
+		return new CompositeImage(new CompositeImage(getBounds(), dialogueHandler), images);
 	}
 }

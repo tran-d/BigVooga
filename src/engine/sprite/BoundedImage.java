@@ -21,6 +21,8 @@ public class BoundedImage extends BoundingSet implements DisplayableImage {
 	private List<RelativeBoundingPolygon> relativeBounds;
 	private String fileName;
 
+	private Positionable relativePosition;
+
 	public BoundedImage(String fileName) {
 		super(DEFAULT_DEPTH);
 		this.fileName = fileName;
@@ -65,5 +67,15 @@ public class BoundedImage extends BoundingSet implements DisplayableImage {
 	@Override
 	public void visit(GameDisplay display) {
 		display.displayImage(this);
+	}
+
+	@Override
+	public Positionable getRelativePosition() {
+		return relativePosition;
+	}
+	
+	@Override
+	public void setRelativePosition(Positionable pos) {
+		relativePosition = pos;
 	}
 }

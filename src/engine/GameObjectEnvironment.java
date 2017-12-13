@@ -4,6 +4,7 @@ import java.util.List;
 
 import controller.player.PlayerManager;
 import engine.operations.doubleops.DoubleOperation;
+import engine.operations.stringops.StringOperation;
 import javafx.geometry.Point2D;
 
 public interface GameObjectEnvironment {
@@ -21,4 +22,5 @@ public interface GameObjectEnvironment {
 	public Point2D getAbsoluteMouseCoordinates();
 	public void removeElement(Element element);
 	public void exitToMenu();
+	public GameObject getByID(String uniqueID);
 }

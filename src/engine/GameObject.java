@@ -40,13 +40,13 @@ public class GameObject extends VariableContainer implements Element {
 	private Map<Condition, List<Action>> events;
 	private Sprite currentSprite;
 
-	private int uniqueID;
+	private String uniqueID;
 	private String name;
 	private Set<String> tagSet;
 
 	private CollisionEvent lastCollision;
 	private Inventory inventory;
-	private List<DisplayableText> dialogueHandler = new ArrayList<>();
+	protected List<DisplayableText> dialogueHandler = new ArrayList<>();
 
 	private double heading;
 	private List<Point2D> ithDerivative;
@@ -244,7 +244,7 @@ public class GameObject extends VariableContainer implements Element {
 	/**
 	 * @return the uniqueID
 	 */
-	public int getUniqueID() {
+	public String getUniqueID() {
 		return uniqueID;
 	}
 
@@ -252,7 +252,7 @@ public class GameObject extends VariableContainer implements Element {
 	 * @param uniqueID
 	 *            the uniqueID to set
 	 */
-	public void setUniqueID(int uniqueID) {
+	public void setUniqueID(String uniqueID) {
 		this.uniqueID = uniqueID;
 	}
 
