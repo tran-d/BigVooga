@@ -117,8 +117,35 @@
             <engine.GameObject>
               <doubleVars/>
               <stringVars/>
-              <booleanVars/>
+              <booleanVars>
+                <entry>
+                  <string>start</string>
+                  <boolean>true</boolean>
+                </entry>
+              </booleanVars>
               <events>
+                <entry>
+                  <engine.Condition>
+                    <priorityNum>3</priorityNum>
+                    <operation class="engine.operations.booleanops.CollisionByTag">
+                      <tag class="engine.operations.stringops.SelfString">
+                        <stored>Projectile</stored>
+                      </tag>
+                    </operation>
+                  </engine.Condition>
+                  <list>
+                    <engine.Actions.changeObject.RemoveFromWorld>
+                      <objectToDestroy class="engine.operations.gameobjectops.Nearest">
+                        <tag class="engine.operations.stringops.SelfString">
+                          <stored>Projectile</stored>
+                        </tag>
+                      </objectToDestroy>
+                    </engine.Actions.changeObject.RemoveFromWorld>
+                    <engine.Actions.changeObject.RemoveFromWorld>
+                      <objectToDestroy class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.changeObject.RemoveFromWorld>
+                  </list>
+                </entry>
                 <entry>
                   <engine.Condition>
                     <priorityNum>1</priorityNum>
@@ -145,8 +172,11 @@
                                 </second>
                               </vector>
                             </vector>
-                            <scalar class="engine.operations.doubleops.Value">
-                              <value>4.0</value>
+                            <scalar class="engine.operations.doubleops.DoubleVariableOf">
+                              <varName class="engine.operations.stringops.SelfString">
+                                <stored>Speed</stored>
+                              </varName>
+                              <object class="engine.operations.gameobjectops.Self"/>
                             </scalar>
                           </vector>
                         </x>
@@ -156,6 +186,40 @@
                       </increment>
                       <object class="engine.operations.gameobjectops.Self"/>
                     </engine.Actions.movement.Move>
+                  </list>
+                </entry>
+                <entry>
+                  <engine.Condition>
+                    <priorityNum>1</priorityNum>
+                    <operation class="engine.operations.booleanops.BooleanVariableOf">
+                      <varName class="engine.operations.stringops.SelfString">
+                        <stored>start</stored>
+                      </varName>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </operation>
+                  </engine.Condition>
+                  <list>
+                    <engine.Actions.variableSetting.ChangeDouble>
+                      <varName class="engine.operations.stringops.SelfString">
+                        <stored>Speed</stored>
+                      </varName>
+                      <newDouble class="engine.operations.doubleops.Product">
+                        <first class="engine.operations.doubleops.RandomDouble"/>
+                        <second class="engine.operations.doubleops.Value">
+                          <value>5.0</value>
+                        </second>
+                      </newDouble>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.variableSetting.ChangeDouble>
+                    <engine.Actions.variableSetting.ChangeBoolean>
+                      <varName class="engine.operations.stringops.SelfString">
+                        <stored>start</stored>
+                      </varName>
+                      <newBooleanOperation class="engine.operations.booleanops.BooleanValue">
+                        <value>false</value>
+                      </newBooleanOperation>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.variableSetting.ChangeBoolean>
                   </list>
                 </entry>
                 <entry>
@@ -228,34 +292,15 @@
               <height>65.0</height>
             </engine.GameObject>
             <engine.GameObject>
-              <doubleVars/>
+              <doubleVars>
+                <entry>
+                  <string>Timer</string>
+                  <double>60.0</double>
+                </entry>
+              </doubleVars>
               <stringVars/>
               <booleanVars/>
               <events>
-                <entry>
-                  <engine.Condition>
-                    <priorityNum>1</priorityNum>
-                    <operation class="engine.operations.booleanops.BooleanValue">
-                      <value>true</value>
-                    </operation>
-                  </engine.Condition>
-                  <list>
-                    <engine.Actions.movement.Move>
-                      <increment class="engine.operations.vectorops.BasicVector">
-                        <x class="engine.operations.doubleops.Value">
-                          <value>0.0</value>
-                        </x>
-                        <y class="engine.operations.doubleops.DoubleVariableOf">
-                          <varName class="engine.operations.stringops.SelfString">
-                            <stored>Gravity</stored>
-                          </varName>
-                          <object class="engine.operations.gameobjectops.Self"/>
-                        </y>
-                      </increment>
-                      <object class="engine.operations.gameobjectops.Self"/>
-                    </engine.Actions.movement.Move>
-                  </list>
-                </entry>
                 <entry>
                   <engine.Condition>
                     <priorityNum>4</priorityNum>
@@ -267,66 +312,6 @@
                   </engine.Condition>
                   <list>
                     <engine.Actions.movement.RemoveIntersection/>
-                  </list>
-                </entry>
-                <entry>
-                  <engine.Condition>
-                    <priorityNum>2</priorityNum>
-                    <operation class="engine.operations.booleanops.KeyHeld">
-                      <check class="engine.operations.stringops.SelfString">
-                        <stored>A</stored>
-                      </check>
-                    </operation>
-                  </engine.Condition>
-                  <list>
-                    <engine.Actions.movement.Move>
-                      <increment class="engine.operations.vectorops.BasicVector">
-                        <x class="engine.operations.doubleops.Value">
-                          <value>-5.0</value>
-                        </x>
-                        <y class="engine.operations.doubleops.Value">
-                          <value>0.0</value>
-                        </y>
-                      </increment>
-                      <object class="engine.operations.gameobjectops.Self"/>
-                    </engine.Actions.movement.Move>
-                    <engine.Actions.changeObject.SetAnimationSequence>
-                      <object class="engine.operations.gameobjectops.Self"/>
-                      <name class="engine.operations.stringops.SelfString">
-                        <stored>Left</stored>
-                      </name>
-                    </engine.Actions.changeObject.SetAnimationSequence>
-                  </list>
-                </entry>
-                <entry>
-                  <engine.Condition>
-                    <priorityNum>3</priorityNum>
-                    <operation class="engine.operations.booleanops.CollisionByTag">
-                      <tag class="engine.operations.stringops.SelfString">
-                        <stored>Wall</stored>
-                      </tag>
-                    </operation>
-                  </engine.Condition>
-                  <list>
-                    <engine.Actions.movement.RemoveIntersection/>
-                    <engine.Actions.variableSetting.ChangeDouble>
-                      <varName class="engine.operations.stringops.SelfString">
-                        <stored>Gravity</stored>
-                      </varName>
-                      <newDouble class="engine.operations.doubleops.Value">
-                        <value>0.0</value>
-                      </newDouble>
-                      <object class="engine.operations.gameobjectops.Self"/>
-                    </engine.Actions.variableSetting.ChangeDouble>
-                    <engine.Actions.variableSetting.ChangeBoolean>
-                      <varName class="engine.operations.stringops.SelfString">
-                        <stored>OnGround</stored>
-                      </varName>
-                      <newBooleanOperation class="engine.operations.booleanops.BooleanValue">
-                        <value>true</value>
-                      </newBooleanOperation>
-                      <object class="engine.operations.gameobjectops.Self"/>
-                    </engine.Actions.variableSetting.ChangeBoolean>
                   </list>
                 </entry>
                 <entry>
@@ -369,29 +354,33 @@
                 </entry>
                 <entry>
                   <engine.Condition>
-                    <priorityNum>1</priorityNum>
-                    <operation class="engine.operations.booleanops.BooleanValue">
-                      <value>true</value>
+                    <priorityNum>3</priorityNum>
+                    <operation class="engine.operations.booleanops.CollisionByTag">
+                      <tag class="engine.operations.stringops.SelfString">
+                        <stored>Wall</stored>
+                      </tag>
                     </operation>
                   </engine.Condition>
                   <list>
+                    <engine.Actions.movement.RemoveIntersection/>
                     <engine.Actions.variableSetting.ChangeDouble>
                       <varName class="engine.operations.stringops.SelfString">
                         <stored>Gravity</stored>
                       </varName>
-                      <newDouble class="engine.operations.doubleops.Sum">
-                        <first class="engine.operations.doubleops.DoubleVariableOf">
-                          <varName class="engine.operations.stringops.SelfString">
-                            <stored>Gravity</stored>
-                          </varName>
-                          <object class="engine.operations.gameobjectops.Self"/>
-                        </first>
-                        <second class="engine.operations.doubleops.Value">
-                          <value>0.15</value>
-                        </second>
+                      <newDouble class="engine.operations.doubleops.Value">
+                        <value>0.0</value>
                       </newDouble>
                       <object class="engine.operations.gameobjectops.Self"/>
                     </engine.Actions.variableSetting.ChangeDouble>
+                    <engine.Actions.variableSetting.ChangeBoolean>
+                      <varName class="engine.operations.stringops.SelfString">
+                        <stored>OnGround</stored>
+                      </varName>
+                      <newBooleanOperation class="engine.operations.booleanops.BooleanValue">
+                        <value>true</value>
+                      </newBooleanOperation>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.variableSetting.ChangeBoolean>
                   </list>
                 </entry>
                 <entry>
@@ -415,12 +404,182 @@
                       </increment>
                       <object class="engine.operations.gameobjectops.Self"/>
                     </engine.Actions.movement.Move>
+                    <engine.Actions.variableSetting.ChangeDouble>
+                      <varName class="engine.operations.stringops.SelfString">
+                        <stored>Dir</stored>
+                      </varName>
+                      <newDouble class="engine.operations.doubleops.Value">
+                        <value>0.0</value>
+                      </newDouble>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.variableSetting.ChangeDouble>
                     <engine.Actions.changeObject.SetAnimationSequence>
                       <object class="engine.operations.gameobjectops.Self"/>
                       <name class="engine.operations.stringops.SelfString">
                         <stored>Right</stored>
                       </name>
                     </engine.Actions.changeObject.SetAnimationSequence>
+                  </list>
+                </entry>
+                <entry>
+                  <engine.Condition>
+                    <priorityNum>9</priorityNum>
+                    <operation class="engine.operations.booleanops.And">
+                      <boolOp1 class="engine.operations.booleanops.Not">
+                        <boolOp class="engine.operations.booleanops.GreaterThan">
+                          <first class="engine.operations.doubleops.DoubleVariableOf">
+                            <varName class="engine.operations.stringops.SelfString">
+                              <stored>Timer</stored>
+                            </varName>
+                            <object class="engine.operations.gameobjectops.Self"/>
+                          </first>
+                          <second class="engine.operations.doubleops.Value">
+                            <value>0.0</value>
+                          </second>
+                        </boolOp>
+                      </boolOp1>
+                      <boolOp2 class="engine.operations.booleanops.ScreenClicked"/>
+                    </operation>
+                  </engine.Condition>
+                  <list>
+                    <engine.Actions.variableSetting.ChangeDouble>
+                      <varName class="engine.operations.stringops.SelfString">
+                        <stored>Timer</stored>
+                      </varName>
+                      <newDouble class="engine.operations.doubleops.Value">
+                        <value>180.0</value>
+                      </newDouble>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.variableSetting.ChangeDouble>
+                    <engine.Actions.changeObject.Create>
+                      <name class="engine.operations.stringops.SelfString">
+                        <stored>Fireball</stored>
+                      </name>
+                      <heading class="engine.operations.doubleops.DoubleVariableOf">
+                        <varName class="engine.operations.stringops.SelfString">
+                          <stored>Dir</stored>
+                        </varName>
+                        <object class="engine.operations.gameobjectops.Self"/>
+                      </heading>
+                      <location class="engine.operations.vectorops.BasicVector">
+                        <x class="engine.operations.doubleops.XOf">
+                          <vector class="engine.operations.vectorops.LocationOf">
+                            <gameObject class="engine.operations.gameobjectops.Self"/>
+                          </vector>
+                        </x>
+                        <y class="engine.operations.doubleops.YOf">
+                          <vector class="engine.operations.vectorops.LocationOf">
+                            <gameObject class="engine.operations.gameobjectops.Self"/>
+                          </vector>
+                        </y>
+                      </location>
+                    </engine.Actions.changeObject.Create>
+                  </list>
+                </entry>
+                <entry>
+                  <engine.Condition>
+                    <priorityNum>2</priorityNum>
+                    <operation class="engine.operations.booleanops.KeyHeld">
+                      <check class="engine.operations.stringops.SelfString">
+                        <stored>A</stored>
+                      </check>
+                    </operation>
+                  </engine.Condition>
+                  <list>
+                    <engine.Actions.movement.Move>
+                      <increment class="engine.operations.vectorops.BasicVector">
+                        <x class="engine.operations.doubleops.Value">
+                          <value>-5.0</value>
+                        </x>
+                        <y class="engine.operations.doubleops.Value">
+                          <value>0.0</value>
+                        </y>
+                      </increment>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.movement.Move>
+                    <engine.Actions.changeObject.SetAnimationSequence>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                      <name class="engine.operations.stringops.SelfString">
+                        <stored>Left</stored>
+                      </name>
+                    </engine.Actions.changeObject.SetAnimationSequence>
+                    <engine.Actions.variableSetting.ChangeDouble>
+                      <varName class="engine.operations.stringops.SelfString">
+                        <stored>Dir</stored>
+                      </varName>
+                      <newDouble class="engine.operations.doubleops.Value">
+                        <value>180.0</value>
+                      </newDouble>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.variableSetting.ChangeDouble>
+                  </list>
+                </entry>
+                <entry>
+                  <engine.Condition>
+                    <priorityNum>1</priorityNum>
+                    <operation class="engine.operations.booleanops.BooleanValue">
+                      <value>true</value>
+                    </operation>
+                  </engine.Condition>
+                  <list>
+                    <engine.Actions.variableSetting.ChangeDouble>
+                      <varName class="engine.operations.stringops.SelfString">
+                        <stored>Gravity</stored>
+                      </varName>
+                      <newDouble class="engine.operations.doubleops.Sum">
+                        <first class="engine.operations.doubleops.DoubleVariableOf">
+                          <varName class="engine.operations.stringops.SelfString">
+                            <stored>Gravity</stored>
+                          </varName>
+                          <object class="engine.operations.gameobjectops.Self"/>
+                        </first>
+                        <second class="engine.operations.doubleops.Value">
+                          <value>0.15</value>
+                        </second>
+                      </newDouble>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.variableSetting.ChangeDouble>
+                    <engine.Actions.variableSetting.ChangeDouble>
+                      <varName class="engine.operations.stringops.SelfString">
+                        <stored>Timer</stored>
+                      </varName>
+                      <newDouble class="engine.operations.doubleops.Difference">
+                        <number class="engine.operations.doubleops.DoubleVariableOf">
+                          <varName class="engine.operations.stringops.SelfString">
+                            <stored>Timer</stored>
+                          </varName>
+                          <object class="engine.operations.gameobjectops.Self"/>
+                        </number>
+                        <toSubtract class="engine.operations.doubleops.Value">
+                          <value>1.0</value>
+                        </toSubtract>
+                      </newDouble>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.variableSetting.ChangeDouble>
+                  </list>
+                </entry>
+                <entry>
+                  <engine.Condition>
+                    <priorityNum>1</priorityNum>
+                    <operation class="engine.operations.booleanops.BooleanValue">
+                      <value>true</value>
+                    </operation>
+                  </engine.Condition>
+                  <list>
+                    <engine.Actions.movement.Move>
+                      <increment class="engine.operations.vectorops.BasicVector">
+                        <x class="engine.operations.doubleops.Value">
+                          <value>0.0</value>
+                        </x>
+                        <y class="engine.operations.doubleops.DoubleVariableOf">
+                          <varName class="engine.operations.stringops.SelfString">
+                            <stored>Gravity</stored>
+                          </varName>
+                          <object class="engine.operations.gameobjectops.Self"/>
+                        </y>
+                      </increment>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.movement.Move>
                   </list>
                 </entry>
               </events>
@@ -506,6 +665,183 @@
               <height>64.0</height>
             </engine.GameObject>
             <engine.GameObject>
+              <doubleVars>
+                <entry>
+                  <string>Timer</string>
+                  <double>600.0</double>
+                </entry>
+              </doubleVars>
+              <stringVars/>
+              <booleanVars/>
+              <events>
+                <entry>
+                  <engine.Condition>
+                    <priorityNum>2</priorityNum>
+                    <operation class="engine.operations.booleanops.BooleanValue">
+                      <value>true</value>
+                    </operation>
+                  </engine.Condition>
+                  <list>
+                    <engine.Actions.variableSetting.ChangeDouble>
+                      <varName class="engine.operations.stringops.SelfString">
+                        <stored>Timer</stored>
+                      </varName>
+                      <newDouble class="engine.operations.doubleops.Difference">
+                        <number class="engine.operations.doubleops.DoubleVariableOf">
+                          <varName class="engine.operations.stringops.SelfString">
+                            <stored>Timer</stored>
+                          </varName>
+                          <object class="engine.operations.gameobjectops.Self"/>
+                        </number>
+                        <toSubtract class="engine.operations.doubleops.Value">
+                          <value>1.0</value>
+                        </toSubtract>
+                      </newDouble>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.variableSetting.ChangeDouble>
+                  </list>
+                </entry>
+                <entry>
+                  <engine.Condition>
+                    <priorityNum>7</priorityNum>
+                    <operation class="engine.operations.booleanops.Not">
+                      <boolOp class="engine.operations.booleanops.GreaterThan">
+                        <first class="engine.operations.doubleops.DoubleVariableOf">
+                          <varName class="engine.operations.stringops.SelfString">
+                            <stored>Timer</stored>
+                          </varName>
+                          <object class="engine.operations.gameobjectops.Self"/>
+                        </first>
+                        <second class="engine.operations.doubleops.Value">
+                          <value>0.0</value>
+                        </second>
+                      </boolOp>
+                    </operation>
+                  </engine.Condition>
+                  <list>
+                    <engine.Actions.variableSetting.ChangeDouble>
+                      <varName class="engine.operations.stringops.SelfString">
+                        <stored>Timer</stored>
+                      </varName>
+                      <newDouble class="engine.operations.doubleops.Sum">
+                        <first class="engine.operations.doubleops.Product">
+                          <first class="engine.operations.doubleops.Value">
+                            <value>500.0</value>
+                          </first>
+                          <second class="engine.operations.doubleops.RandomDouble"/>
+                        </first>
+                        <second class="engine.operations.doubleops.Value">
+                          <value>0.0</value>
+                        </second>
+                      </newDouble>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.variableSetting.ChangeDouble>
+                    <engine.Actions.changeObject.Create>
+                      <name class="engine.operations.stringops.SelfString">
+                        <stored>Zombo</stored>
+                      </name>
+                      <heading class="engine.operations.doubleops.Value">
+                        <value>0.0</value>
+                      </heading>
+                      <location class="engine.operations.vectorops.BasicVector">
+                        <x class="engine.operations.doubleops.Sum">
+                          <first class="engine.operations.doubleops.Product">
+                            <first class="engine.operations.doubleops.Value">
+                              <value>-4000.0</value>
+                            </first>
+                            <second class="engine.operations.doubleops.RandomDouble"/>
+                          </first>
+                          <second class="engine.operations.doubleops.Value">
+                            <value>2000.0</value>
+                          </second>
+                        </x>
+                        <y class="engine.operations.doubleops.Value">
+                          <value>335.0</value>
+                        </y>
+                      </location>
+                    </engine.Actions.changeObject.Create>
+                  </list>
+                </entry>
+              </events>
+              <currentSprite>
+                <animations>
+                  <entry>
+                    <string>Pressed</string>
+                    <engine.sprite.AnimationSequence>
+                      <imageIndex>0</imageIndex>
+                      <images>
+                        <engine.sprite.BoundedImage>
+                          <drawingPriority>10</drawingPriority>
+                          <x>0.0</x>
+                          <y>0.0</y>
+                          <width>0.0</width>
+                          <height>0.0</height>
+                          <heading>0.0</heading>
+                          <relativeBounds>
+                            <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../engine.GameLayer/worldElements/engine.GameObject/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                          </relativeBounds>
+                          <fileName>button-pressed.png</fileName>
+                        </engine.sprite.BoundedImage>
+                      </images>
+                      <name>Pressed</name>
+                      <stepsPerFrame>20</stepsPerFrame>
+                      <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                    </engine.sprite.AnimationSequence>
+                  </entry>
+                  <entry>
+                    <string>Unpressed</string>
+                    <engine.sprite.AnimationSequence>
+                      <imageIndex>0</imageIndex>
+                      <images>
+                        <engine.sprite.BoundedImage>
+                          <drawingPriority>10</drawingPriority>
+                          <x>0.0</x>
+                          <y>0.0</y>
+                          <width>0.0</width>
+                          <height>0.0</height>
+                          <heading>0.0</heading>
+                          <relativeBounds>
+                            <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../engine.GameLayer/worldElements/engine.GameObject/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                          </relativeBounds>
+                          <fileName>button-unpressed.png</fileName>
+                        </engine.sprite.BoundedImage>
+                      </images>
+                      <name>Unpressed</name>
+                      <stepsPerFrame>20</stepsPerFrame>
+                      <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                    </engine.sprite.AnimationSequence>
+                  </entry>
+                </animations>
+                <currentAnimation reference="../animations/entry[2]/engine.sprite.AnimationSequence"/>
+              </currentSprite>
+              <uniqueID>0</uniqueID>
+              <name>Spawner</name>
+              <tagSet>
+                <string>default</string>
+                <string>Spawner</string>
+              </tagSet>
+              <inventory>
+                <objects/>
+                <holder reference="../.."/>
+                <rowSpan>5</rowSpan>
+                <colSpan>5</colSpan>
+                <x>0.0</x>
+                <y>0.0</y>
+                <startIndex>0</startIndex>
+              </inventory>
+              <dialogueHandler/>
+              <heading>0.0</heading>
+              <ithDerivative>
+                <javafx.geometry.Point2D>
+                  <x>5000.0</x>
+                  <y>5000.0</y>
+                  <hash>0</hash>
+                </javafx.geometry.Point2D>
+              </ithDerivative>
+              <width>200.0</width>
+              <height>200.0</height>
+            </engine.GameObject>
+            <engine.GameObject>
               <doubleVars/>
               <stringVars/>
               <booleanVars/>
@@ -585,7 +921,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -644,7 +980,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -703,7 +1039,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -762,7 +1098,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -821,7 +1157,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -880,7 +1216,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -939,7 +1275,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -998,7 +1334,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -1057,7 +1393,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -1116,7 +1452,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -1175,7 +1511,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -1234,7 +1570,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -1293,7 +1629,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -1352,7 +1688,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -1411,7 +1747,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -1470,7 +1806,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -1529,7 +1865,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -1588,7 +1924,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -1647,7 +1983,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -1706,7 +2042,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -1765,7 +2101,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -1824,7 +2160,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -1883,7 +2219,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -1942,7 +2278,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -2001,7 +2337,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -2060,7 +2396,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -2119,7 +2455,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -2178,7 +2514,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -2237,7 +2573,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -2296,7 +2632,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -2355,7 +2691,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -2414,7 +2750,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -2473,7 +2809,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -2532,7 +2868,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -2591,7 +2927,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -2650,7 +2986,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -2709,7 +3045,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -2768,7 +3104,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -2827,7 +3163,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -2886,7 +3222,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -2945,7 +3281,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -3004,7 +3340,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -3063,7 +3399,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -3122,7 +3458,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -3181,7 +3517,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -3240,7 +3576,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -3299,7 +3635,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -3358,7 +3694,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -3417,7 +3753,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -3476,7 +3812,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -3535,7 +3871,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -3594,7 +3930,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -3653,7 +3989,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -3712,7 +4048,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -3771,7 +4107,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -3830,7 +4166,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -3889,7 +4225,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -3948,7 +4284,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -4007,7 +4343,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -4066,7 +4402,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -4125,7 +4461,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -4184,7 +4520,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -4243,7 +4579,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -4302,7 +4638,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -4361,7 +4697,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -4420,7 +4756,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -4479,7 +4815,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -4538,7 +4874,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -4597,7 +4933,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -4656,7 +4992,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -4715,7 +5051,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -4774,7 +5110,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -4833,7 +5169,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -4892,7 +5228,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -4951,7 +5287,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -5010,7 +5346,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -5069,7 +5405,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -5128,7 +5464,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -5187,7 +5523,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -5246,7 +5582,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -5305,7 +5641,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -5364,7 +5700,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -5423,7 +5759,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -5482,7 +5818,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -5541,7 +5877,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -5600,7 +5936,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -5659,7 +5995,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -5718,7 +6054,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -5777,7 +6113,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -5836,7 +6172,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -5895,7 +6231,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -5954,7 +6290,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -6013,7 +6349,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -6072,7 +6408,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -6131,7 +6467,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -6190,7 +6526,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -6249,7 +6585,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -6308,7 +6644,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -6367,7 +6703,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -6426,7 +6762,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -6485,7 +6821,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -6544,7 +6880,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -6603,7 +6939,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -6662,7 +6998,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -6721,7 +7057,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -6780,7 +7116,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -6839,7 +7175,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -6898,7 +7234,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -6957,7 +7293,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -7016,7 +7352,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -7075,7 +7411,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -7134,7 +7470,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -7193,7 +7529,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -7252,7 +7588,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -7311,7 +7647,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -7370,7 +7706,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -7429,7 +7765,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -7488,7 +7824,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -7547,7 +7883,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -7606,7 +7942,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -7665,7 +8001,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -7724,7 +8060,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -7783,7 +8119,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -7842,7 +8178,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -7901,7 +8237,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -7960,7 +8296,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -8019,7 +8355,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -8078,7 +8414,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -8137,7 +8473,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -8196,7 +8532,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -8255,7 +8591,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -8314,7 +8650,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -8373,7 +8709,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -8432,7 +8768,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -8491,7 +8827,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -8550,7 +8886,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -8609,7 +8945,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -8668,7 +9004,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -8727,7 +9063,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -8786,7 +9122,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -8845,7 +9181,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -8904,7 +9240,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -8963,7 +9299,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -9022,7 +9358,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -9081,7 +9417,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -9140,7 +9476,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -9199,7 +9535,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -9258,7 +9594,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -9317,7 +9653,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -9376,7 +9712,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -9435,7 +9771,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -9494,7 +9830,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -9553,7 +9889,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -9612,7 +9948,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -9671,7 +10007,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -9730,7 +10066,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -9789,7 +10125,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -9848,7 +10184,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -9907,7 +10243,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -9966,7 +10302,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -10025,7 +10361,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -10084,7 +10420,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -10143,7 +10479,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -10202,7 +10538,7 @@
                           <width>0.0</width>
                           <height>0.0</height>
                           <heading>0.0</heading>
-                          <relativeBounds reference="../../../../../../../../engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                          <relativeBounds reference="../../../../../../../../engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                           <fileName>rock.png</fileName>
                         </engine.sprite.BoundedImage>
                       </images>
@@ -10411,6 +10747,7 @@
             <engine.GameObject reference="../../worldElements/engine.GameObject[165]"/>
             <engine.GameObject reference="../../worldElements/engine.GameObject[166]"/>
             <engine.GameObject reference="../../worldElements/engine.GameObject[167]"/>
+            <engine.GameObject reference="../../worldElements/engine.GameObject[168]"/>
           </objects>
           <conditionPriorities class="java.util.concurrent.ConcurrentSkipListMap" serialization="custom">
             <unserializable-parents/>
@@ -10424,6 +10761,7 @@
               <int>2</int>
               <list>
                 <engine.GameObject reference="../../../../worldElements/engine.GameObject[2]"/>
+                <engine.GameObject reference="../../../../worldElements/engine.GameObject[3]"/>
               </list>
               <int>3</int>
               <list>
@@ -10437,6 +10775,11 @@
               <int>7</int>
               <list>
                 <engine.GameObject reference="../../../../worldElements/engine.GameObject[2]"/>
+                <engine.GameObject reference="../../../../worldElements/engine.GameObject[3]"/>
+              </list>
+              <int>9</int>
+              <list>
+                <engine.GameObject reference="../../../../worldElements/engine.GameObject[2]"/>
               </list>
               <null/>
             </java.util.concurrent.ConcurrentSkipListMap>
@@ -10444,7 +10787,7 @@
           <idToGameObject>
             <entry>
               <int>0</int>
-              <engine.GameObject reference="../../../worldElements/engine.GameObject[167]"/>
+              <engine.GameObject reference="../../../worldElements/engine.GameObject[168]"/>
             </entry>
           </idToGameObject>
           <isTracked>true</isTracked>
@@ -10539,9 +10882,7 @@
                             <width>0.0</width>
                             <height>0.0</height>
                             <heading>0.0</heading>
-                            <relativeBounds>
-                              <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../../../../engine.GameWorld/worldLayers/engine.GameLayer/worldElements/engine.GameObject/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
-                            </relativeBounds>
+                            <relativeBounds reference="../../../../../../../../../../../../../engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[3]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                             <fileName>button-pressed.png</fileName>
                           </engine.sprite.BoundedImage>
                         </a>
@@ -10564,9 +10905,7 @@
                             <width>0.0</width>
                             <height>0.0</height>
                             <heading>0.0</heading>
-                            <relativeBounds>
-                              <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../../../../engine.GameWorld/worldLayers/engine.GameLayer/worldElements/engine.GameObject/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
-                            </relativeBounds>
+                            <relativeBounds reference="../../../../../../../../../../../../../engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[3]/currentSprite/animations/entry[2]/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
                             <fileName>button-unpressed.png</fileName>
                           </engine.sprite.BoundedImage>
                         </a>
@@ -10726,5 +11065,390 @@
     <stringVars/>
     <booleanVars/>
   </globalVars>
+  <blueprintManager>
+    <originals>
+      <entry>
+        <string>Player</string>
+        <engine.GameObject>
+          <doubleVars>
+            <entry>
+              <string>Timer</string>
+              <double>60.0</double>
+            </entry>
+          </doubleVars>
+          <stringVars/>
+          <booleanVars/>
+          <events>
+            <entry>
+              <engine.Condition reference="../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry/engine.Condition"/>
+              <list>
+                <engine.Actions.movement.RemoveIntersection reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry/list/engine.Actions.movement.RemoveIntersection"/>
+              </list>
+            </entry>
+            <entry>
+              <engine.Condition reference="../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[2]/engine.Condition"/>
+              <list>
+                <engine.Actions.variableSetting.ChangeDouble reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[2]/list/engine.Actions.variableSetting.ChangeDouble"/>
+                <engine.Actions.variableSetting.ChangeBoolean reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[2]/list/engine.Actions.variableSetting.ChangeBoolean"/>
+              </list>
+            </entry>
+            <entry>
+              <engine.Condition reference="../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[3]/engine.Condition"/>
+              <list>
+                <engine.Actions.movement.RemoveIntersection reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[3]/list/engine.Actions.movement.RemoveIntersection"/>
+                <engine.Actions.variableSetting.ChangeDouble reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[3]/list/engine.Actions.variableSetting.ChangeDouble"/>
+                <engine.Actions.variableSetting.ChangeBoolean reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[3]/list/engine.Actions.variableSetting.ChangeBoolean"/>
+              </list>
+            </entry>
+            <entry>
+              <engine.Condition reference="../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[4]/engine.Condition"/>
+              <list>
+                <engine.Actions.movement.Move reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[4]/list/engine.Actions.movement.Move"/>
+                <engine.Actions.variableSetting.ChangeDouble reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[4]/list/engine.Actions.variableSetting.ChangeDouble"/>
+                <engine.Actions.changeObject.SetAnimationSequence reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[4]/list/engine.Actions.changeObject.SetAnimationSequence"/>
+              </list>
+            </entry>
+            <entry>
+              <engine.Condition reference="../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[5]/engine.Condition"/>
+              <list>
+                <engine.Actions.variableSetting.ChangeDouble reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[5]/list/engine.Actions.variableSetting.ChangeDouble"/>
+                <engine.Actions.changeObject.Create reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[5]/list/engine.Actions.changeObject.Create"/>
+              </list>
+            </entry>
+            <entry>
+              <engine.Condition reference="../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[6]/engine.Condition"/>
+              <list>
+                <engine.Actions.movement.Move reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[6]/list/engine.Actions.movement.Move"/>
+                <engine.Actions.changeObject.SetAnimationSequence reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[6]/list/engine.Actions.changeObject.SetAnimationSequence"/>
+                <engine.Actions.variableSetting.ChangeDouble reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[6]/list/engine.Actions.variableSetting.ChangeDouble"/>
+              </list>
+            </entry>
+            <entry>
+              <engine.Condition reference="../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[7]/engine.Condition"/>
+              <list>
+                <engine.Actions.variableSetting.ChangeDouble reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[7]/list/engine.Actions.variableSetting.ChangeDouble"/>
+                <engine.Actions.variableSetting.ChangeDouble reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[7]/list/engine.Actions.variableSetting.ChangeDouble[2]"/>
+              </list>
+            </entry>
+            <entry>
+              <engine.Condition reference="../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[8]/engine.Condition"/>
+              <list>
+                <engine.Actions.movement.Move reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[8]/list/engine.Actions.movement.Move"/>
+              </list>
+            </entry>
+          </events>
+          <currentSprite>
+            <animations>
+              <entry>
+                <string>Left</string>
+                <engine.sprite.AnimationSequence>
+                  <imageIndex>0</imageIndex>
+                  <images>
+                    <engine.sprite.BoundedImage>
+                      <drawingPriority>10</drawingPriority>
+                      <x>0.0</x>
+                      <y>0.0</y>
+                      <width>0.0</width>
+                      <height>0.0</height>
+                      <heading>0.0</heading>
+                      <relativeBounds reference="../../../../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/a/engine.sprite.BoundedImage/relativeBounds"/>
+                      <fileName>character_left.png</fileName>
+                    </engine.sprite.BoundedImage>
+                  </images>
+                  <name>Left</name>
+                  <stepsPerFrame>20</stepsPerFrame>
+                  <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                </engine.sprite.AnimationSequence>
+              </entry>
+              <entry>
+                <string>Right</string>
+                <engine.sprite.AnimationSequence>
+                  <imageIndex>0</imageIndex>
+                  <images>
+                    <engine.sprite.BoundedImage>
+                      <drawingPriority>10</drawingPriority>
+                      <x>0.0</x>
+                      <y>0.0</y>
+                      <width>0.0</width>
+                      <height>0.0</height>
+                      <heading>0.0</heading>
+                      <relativeBounds reference="../../../../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/currentSprite/animations/entry[2]/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                      <fileName>character.png</fileName>
+                    </engine.sprite.BoundedImage>
+                  </images>
+                  <name>Right</name>
+                  <stepsPerFrame>20</stepsPerFrame>
+                  <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                </engine.sprite.AnimationSequence>
+              </entry>
+            </animations>
+            <currentAnimation reference="../animations/entry[2]/engine.sprite.AnimationSequence"/>
+          </currentSprite>
+          <uniqueID>0</uniqueID>
+          <name>Player</name>
+          <tagSet>
+            <string>Player</string>
+            <string>default</string>
+            <string>camera</string>
+          </tagSet>
+          <inventory>
+            <objects/>
+            <holder reference="../.."/>
+            <rowSpan>5</rowSpan>
+            <colSpan>5</colSpan>
+            <x>0.0</x>
+            <y>0.0</y>
+            <startIndex>0</startIndex>
+          </inventory>
+          <dialogueHandler/>
+          <heading>0.0</heading>
+          <ithDerivative>
+            <javafx.geometry.Point2D reference="../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/ithDerivative/javafx.geometry.Point2D"/>
+          </ithDerivative>
+          <width>64.0</width>
+          <height>64.0</height>
+        </engine.GameObject>
+      </entry>
+      <entry>
+        <string>Fireball</string>
+        <engine.GameObject>
+          <doubleVars/>
+          <stringVars/>
+          <booleanVars/>
+          <events>
+            <entry>
+              <engine.Condition>
+                <priorityNum>2</priorityNum>
+                <operation class="engine.operations.booleanops.BooleanValue">
+                  <value>true</value>
+                </operation>
+              </engine.Condition>
+              <list>
+                <engine.Actions.movement.Move>
+                  <increment class="engine.operations.vectorops.VectorScale">
+                    <vector class="engine.operations.vectorops.UnitVector">
+                      <vector class="engine.operations.vectorops.VectorHeadingOf">
+                        <object class="engine.operations.gameobjectops.Self"/>
+                      </vector>
+                    </vector>
+                    <scalar class="engine.operations.doubleops.Value">
+                      <value>10.0</value>
+                    </scalar>
+                  </increment>
+                  <object class="engine.operations.gameobjectops.Self"/>
+                </engine.Actions.movement.Move>
+              </list>
+            </entry>
+          </events>
+          <currentSprite>
+            <animations>
+              <entry>
+                <string>Right</string>
+                <engine.sprite.AnimationSequence>
+                  <imageIndex>0</imageIndex>
+                  <images>
+                    <engine.sprite.BoundedImage>
+                      <drawingPriority>10</drawingPriority>
+                      <x>0.0</x>
+                      <y>0.0</y>
+                      <width>0.0</width>
+                      <height>0.0</height>
+                      <heading>0.0</heading>
+                      <relativeBounds>
+                        <engine.utilities.collisions.RelativeBoundingPolygon reference="../../../../../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer/worldElements/engine.GameObject/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds/engine.utilities.collisions.RelativeBoundingPolygon"/>
+                      </relativeBounds>
+                      <fileName>fireball.gif</fileName>
+                    </engine.sprite.BoundedImage>
+                  </images>
+                  <name>Right</name>
+                  <stepsPerFrame>20</stepsPerFrame>
+                  <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                </engine.sprite.AnimationSequence>
+              </entry>
+            </animations>
+            <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+          </currentSprite>
+          <uniqueID>0</uniqueID>
+          <name>Fireball</name>
+          <tagSet>
+            <string>default</string>
+            <string>Fireball</string>
+            <string>Projectile</string>
+          </tagSet>
+          <inventory>
+            <objects/>
+            <holder reference="../.."/>
+            <rowSpan>5</rowSpan>
+            <colSpan>5</colSpan>
+            <x>0.0</x>
+            <y>0.0</y>
+            <startIndex>0</startIndex>
+          </inventory>
+          <dialogueHandler/>
+          <heading>0.0</heading>
+          <ithDerivative>
+            <javafx.geometry.Point2D>
+              <x>0.0</x>
+              <y>0.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+          </ithDerivative>
+          <width>32.0</width>
+          <height>32.0</height>
+        </engine.GameObject>
+      </entry>
+      <entry>
+        <string>Brick</string>
+        <engine.GameObject>
+          <doubleVars/>
+          <stringVars/>
+          <booleanVars/>
+          <events/>
+          <currentSprite>
+            <animations>
+              <entry>
+                <string>Right</string>
+                <engine.sprite.AnimationSequence>
+                  <imageIndex>0</imageIndex>
+                  <images>
+                    <engine.sprite.BoundedImage>
+                      <drawingPriority>10</drawingPriority>
+                      <x>0.0</x>
+                      <y>0.0</y>
+                      <width>0.0</width>
+                      <height>0.0</height>
+                      <heading>0.0</heading>
+                      <relativeBounds reference="../../../../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[4]/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                      <fileName>rock.png</fileName>
+                    </engine.sprite.BoundedImage>
+                  </images>
+                  <name>Right</name>
+                  <stepsPerFrame>20</stepsPerFrame>
+                  <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                </engine.sprite.AnimationSequence>
+              </entry>
+            </animations>
+            <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+          </currentSprite>
+          <uniqueID>0</uniqueID>
+          <name>Brick</name>
+          <tagSet>
+            <string>default</string>
+            <string>Wall</string>
+            <string>Brick</string>
+          </tagSet>
+          <inventory>
+            <objects/>
+            <holder reference="../.."/>
+            <rowSpan>5</rowSpan>
+            <colSpan>5</colSpan>
+            <x>0.0</x>
+            <y>0.0</y>
+            <startIndex>0</startIndex>
+          </inventory>
+          <dialogueHandler/>
+          <heading>0.0</heading>
+          <ithDerivative>
+            <javafx.geometry.Point2D>
+              <x>0.0</x>
+              <y>0.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+          </ithDerivative>
+          <width>64.0</width>
+          <height>64.0</height>
+        </engine.GameObject>
+      </entry>
+      <entry>
+        <string>Zombo</string>
+        <engine.GameObject>
+          <doubleVars/>
+          <stringVars/>
+          <booleanVars>
+            <entry>
+              <string>start</string>
+              <boolean>true</boolean>
+            </entry>
+          </booleanVars>
+          <events>
+            <entry>
+              <engine.Condition reference="../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject/events/entry/engine.Condition"/>
+              <list>
+                <engine.Actions.changeObject.RemoveFromWorld reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject/events/entry/list/engine.Actions.changeObject.RemoveFromWorld"/>
+                <engine.Actions.changeObject.RemoveFromWorld reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject/events/entry/list/engine.Actions.changeObject.RemoveFromWorld[2]"/>
+              </list>
+            </entry>
+            <entry>
+              <engine.Condition reference="../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject/events/entry[2]/engine.Condition"/>
+              <list>
+                <engine.Actions.movement.Move reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject/events/entry[2]/list/engine.Actions.movement.Move"/>
+              </list>
+            </entry>
+            <entry>
+              <engine.Condition reference="../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject/events/entry[3]/engine.Condition"/>
+              <list>
+                <engine.Actions.variableSetting.ChangeDouble reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject/events/entry[3]/list/engine.Actions.variableSetting.ChangeDouble"/>
+                <engine.Actions.variableSetting.ChangeBoolean reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject/events/entry[3]/list/engine.Actions.variableSetting.ChangeBoolean"/>
+              </list>
+            </entry>
+            <entry>
+              <engine.Condition reference="../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject/events/entry[4]/engine.Condition"/>
+              <list>
+                <engine.Actions.global.ExitToMenu reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject/events/entry[4]/list/engine.Actions.global.ExitToMenu"/>
+              </list>
+            </entry>
+          </events>
+          <currentSprite>
+            <animations>
+              <entry>
+                <string>Right</string>
+                <engine.sprite.AnimationSequence>
+                  <imageIndex>0</imageIndex>
+                  <images>
+                    <engine.sprite.BoundedImage>
+                      <drawingPriority>10</drawingPriority>
+                      <x>0.0</x>
+                      <y>0.0</y>
+                      <width>0.0</width>
+                      <height>0.0</height>
+                      <heading>0.0</heading>
+                      <relativeBounds reference="../../../../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject/currentSprite/animations/entry/engine.sprite.AnimationSequence/images/engine.sprite.BoundedImage/relativeBounds"/>
+                      <fileName>Zombie.png</fileName>
+                    </engine.sprite.BoundedImage>
+                  </images>
+                  <name>Right</name>
+                  <stepsPerFrame>20</stepsPerFrame>
+                  <stepsInCurrentFrame>0</stepsInCurrentFrame>
+                </engine.sprite.AnimationSequence>
+              </entry>
+            </animations>
+            <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
+          </currentSprite>
+          <uniqueID>0</uniqueID>
+          <name>Zombo</name>
+          <tagSet>
+            <string>default</string>
+            <string>Zombo</string>
+          </tagSet>
+          <inventory>
+            <objects/>
+            <holder reference="../.."/>
+            <rowSpan>5</rowSpan>
+            <colSpan>5</colSpan>
+            <x>0.0</x>
+            <y>0.0</y>
+            <startIndex>0</startIndex>
+          </inventory>
+          <dialogueHandler/>
+          <heading>0.0</heading>
+          <ithDerivative>
+            <javafx.geometry.Point2D reference="../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject/ithDerivative/javafx.geometry.Point2D"/>
+          </ithDerivative>
+          <width>39.0</width>
+          <height>65.0</height>
+        </engine.GameObject>
+      </entry>
+    </originals>
+  </blueprintManager>
   <nextWorld>Start</nextWorld>
 </engine.GameMaster>
