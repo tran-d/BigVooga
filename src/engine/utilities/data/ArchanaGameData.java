@@ -55,7 +55,7 @@ import javafx.stage.Window;
  * @author Ian Eldridge-Allegra and other?
  */
 
-public class GameDataHandler {
+public class ArchanaGameData {
 	private static final XStream SERIALIZER = setupXStream();
 	private static final String KNOWN_PROJECTS = "KnownProjectNames";
 	public static final String PATH = "data/UserCreatedGames/";
@@ -74,7 +74,6 @@ public class GameDataHandler {
 	private static final String RESOURCES = "resources/";
 	private static final String CONTROLLER_DIRECTORY = "SAVES/";
 	private static final String DELIMITER = ", ";
-	public static final String RES_PATH = "resources/";
 	private Map<String, Image> cache = new HashMap<>();
 	private String projectPath;
 	private String projectName;
@@ -90,11 +89,11 @@ public class GameDataHandler {
 		return xstream;
 	}
 	
-	public GameDataHandler() {
+	public ArchanaGameData() {
 		this("Test Project");
 	}
 	
-	public GameDataHandler(String projectName) {
+	public ArchanaGameData(String projectName) {
 		this.projectName = projectName;
 		this.projectPath = PATH + projectName + "/";
 		makeDirectory(projectPath+CONTROLLER_DIRECTORY);
@@ -292,8 +291,6 @@ public class GameDataHandler {
 	public static File chooseFile(Stage stage) {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle(SELECTOR_TITLE);
-		fileChooser.getExtensionFilters().add(new ExtensionFilter("Image Files (.png)", "*.png"));
-		fileChooser.getExtensionFilters().add(new ExtensionFilter("Image Files (.gif)", "*.gif"));
 		return fileChooser.showOpenDialog(stage);
 	}
 	
@@ -321,18 +318,6 @@ public class GameDataHandler {
 		
 		return newFile;
 		
-	}
-	
-	public static String getImageURIAndCopyToResources(File file) {
-		try {
-			Files.copy(file.toPath(), Paths.get(RES_PATH+file.getName()), StandardCopyOption.REPLACE_EXISTING);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		String URI = file.toURI().toString();
-		
-		return URI;
 	}
 
 	private static void makeDirectory(String path) {
@@ -434,9 +419,9 @@ public class GameDataHandler {
 		saveSprite(SO, newSpritePath);
 	}
 
-	public AbstractSpriteObject loadSprite(File spriteFile) throws FileNotFoundException {
+	public AbstractSpriteObject loadSprite(File spriteFile) throws Exception {
 		if (!isValidFile(spriteFile)){
-			throw new VoogaException("Invalid file to load");
+			throw new Exception("Invalid file to load");
 		}
 		Scanner scanner = new Scanner(spriteFile);
 		String fileContents = scanner.useDelimiter("\\Z").next();
@@ -446,17 +431,6 @@ public class GameDataHandler {
 		return ret;
 	}
 	
-	public DialogSequence loadDialogue(File dFile) throws FileNotFoundException
-	{
-		if (!isValidFile(dFile)){
-			throw new VoogaException("Invalid file to load");
-		}
-		Scanner scanner = new Scanner(dFile);
-		String fileContents = scanner.useDelimiter("\\Z").next();
-		scanner.close();
-		DialogSequence ret = (DialogSequence) SERIALIZER.fromXML(fileContents);
-		return ret;
-	}
 	private List<SpriteObjectGridManager> loadLayersFromDirectoryName(int worldNum) {
 		List<SpriteObjectGridManager> loadedSOGMs = new ArrayList<SpriteObjectGridManager>();
 		try{
@@ -775,37 +749,13 @@ public class GameDataHandler {
 		}
 	}
 
-	public List<DialogSequence> loadDialogsFromDirectory(String folderToLoad) {
+	public Map<String, List<DialogSequence>> loadDialogsFromNestedDirectories(String folderToLoad) {
 		// TODO FILL THIS IN!
-		File file = new File(folderToLoad);
-		File[] files = file.listFiles();
-		List<DialogSequence> ret = new ArrayList<DialogSequence>();
-		for (File f : files) {
-			try {
-				ret.add(loadDialogue(f));
-
-			} catch (FileNotFoundException e) {
-				throw(new VoogaException(e));
-			}
-		}
-
-		
-		return ret;
+		return null;
 	}
 
 	public void saveDialogSequence(DialogSequence dS, String folderToSaveTo) {
 		// TODO FILL THIS IN!
-		String toSave = SERIALIZER.toXML(dS);
-		FileWriter writer;
-		try {
-			writer = new FileWriter(folderToSaveTo);
-			writer.write(toSave);
-			///////////////////////////////////////////////////////////////////////////////////////////////////may need to write to a new file
-			writer.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			throw new VoogaException(e);
-		}
 		
 	}
 	
