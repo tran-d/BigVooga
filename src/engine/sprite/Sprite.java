@@ -14,6 +14,7 @@ import engine.VoogaException;
 public class Sprite {
 	private Map<String, AnimationSequence> animations = new HashMap<String, AnimationSequence>();
 	private AnimationSequence currentAnimation;
+	private AnimationSequence tempAnimation = null;
 
 	public void addAnimationSequence(AnimationSequence animation) {
 		animations.put(animation.getName(), animation);
@@ -33,10 +34,21 @@ public class Sprite {
 	 * Increments the AnimationSequences
 	 */
 	public void step() {
+		if(tempAnimation!= null)
+		{
+			tempAnimation.increment();
+			if(tempAnimation.isDone())
+				tempAnimation = null;
+			return;
+		}
 		currentAnimation.increment();
 	}
 
 	public BoundedImage getImage() {
+		if(tempAnimation!= null)
+		{
+			return tempAnimation.getImage();
+		}
 		if (currentAnimation == null)
 			throw new VoogaException("UndefinedAnimation");
 		return currentAnimation.getImage();
@@ -49,6 +61,11 @@ public class Sprite {
 		}
 		clone.setAnimation(currentAnimation.getName());
 		return clone;
+	}
+	
+	public void playOnce(String name)
+	{
+		tempAnimation = animations.get(name);
 	}
 
 }
