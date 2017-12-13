@@ -348,12 +348,12 @@ public class GameDataHandler {
 	}
 
 	private void removeDirectory(String path) {
-		
+
 		File f = new File(path);
-		if (f.exists()&&f.listFiles().length>0){
-		for (File child : f.listFiles()) {
-			removeDirectory(child.toURI().toString());
-		}
+		if (f.exists() && f.listFiles().length > 0) {
+			for (File child : f.listFiles()) {
+				removeDirectory(child.toURI().toString());
+			}
 		}
 		f.delete();
 	}
@@ -458,9 +458,9 @@ public class GameDataHandler {
 		saveSprite(SO, newSpritePath);
 	}
 
-	public AbstractSpriteObject loadSprite(File spriteFile) throws Exception {
+	public AbstractSpriteObject loadSprite(File spriteFile) throws FileNotFoundException {
 		if (!isValidFile(spriteFile)) {
-			throw new Exception("Invalid file to load");
+			throw new VoogaException("Invalid file to load");
 		}
 		Scanner scanner = new Scanner(spriteFile);
 		String fileContents = scanner.useDelimiter("\\Z").next();
@@ -470,10 +470,20 @@ public class GameDataHandler {
 		return ret;
 	}
 
+	public DialogSequence loadDialogue(File dFile) throws FileNotFoundException {
+		if (!isValidFile(dFile)) {
+			throw new VoogaException("Invalid file to load");
+		}
+		Scanner scanner = new Scanner(dFile);
+		String fileContents = scanner.useDelimiter("\\Z").next();
+		scanner.close();
+		DialogSequence ret = (DialogSequence) SERIALIZER.fromXML(fileContents);
+		return ret;
+	}
+
 	private List<SpriteObjectGridManager> loadLayersFromDirectoryName(File worldFile) {
 		List<SpriteObjectGridManager> loadedSOGMs = new ArrayList<SpriteObjectGridManager>();
 		try {
-			// for (int i = 1; i < 5; i++) {
 			for (File f : worldFile.listFiles()) {
 				SpriteObjectGridManager SOGM = this.loadLayer(f);
 				if (SOGM != null) {
@@ -636,22 +646,21 @@ public class GameDataHandler {
 	 * @author Archana, Samuel
 	 */
 	public void saveWorlds(List<DraggableGrid> worldDraggableGrids) { // called
-																				// by
-																				// MainAuthoringGUI
+																		// by
+																		// MainAuthoringGUI
 		// worldCount++;
 		String worldPath = projectPath + PROJECT_WORLD_PATH;
 		removeExistingSave();
 		makeDirectory(worldPath);
-		worldDraggableGrids.forEach(world->{
+		worldDraggableGrids.forEach(world -> {
 			String savePath = worldPath + world.getName();
 			MapDataConverter MDC = new MapDataConverter(world);
-			try{
-			saveWorld(MDC, savePath);
-			} catch (Exception e){
-				
+			try {
+				saveWorld(MDC, savePath);
+			} catch (Exception e) {
+
 			}
 		});
-		
 
 		// makeWorldAndLayerAndSpriteDirectories(worldDraggableGrid);
 		// List<SpriteObjectGridManager> SOGMList =
@@ -802,9 +811,9 @@ public class GameDataHandler {
 		File worldDirFile = new File(worldDirectory);
 
 		if (worldDirFile.exists()) {
-System.out.println("World directory: "+worldDirFile.toString());
+			System.out.println("World directory: " + worldDirFile.toString());
 			for (File f : worldDirFile.listFiles()) {
-				System.out.println("File : "+f.toString());
+				System.out.println("File : " + f.toString());
 				try {
 					Scanner scanner = new Scanner(f);
 					String fileContents = scanner.useDelimiter("\\Z").next();
@@ -893,13 +902,46 @@ System.out.println("World directory: "+worldDirFile.toString());
 		}
 	}
 
-	public Map<String, List<DialogSequence>> loadDialogsFromNestedDirectories(String folderToLoad) {
+	public List<DialogSequence> loadDialogsFromDirectory(String folderToLoad) {
 		// TODO FILL THIS IN!
-		return null;
+		List<DialogSequence> ret = new ArrayList<DialogSequence>();
+		File file = new File(folderToLoad);
+		if (file.listFiles() !=null) {
+			File[] files = file.listFiles();
+			 ret = new ArrayList<DialogSequence>();
+			for (File f : files) {
+				try {
+					ret.add(loadDialogue(f));
+
+				} catch (FileNotFoundException e) {
+					throw (new VoogaException(e));
+				}
+			}
+		}
+
+		return ret;
 	}
 
 	public void saveDialogSequence(DialogSequence dS, String folderToSaveTo) {
 		// TODO FILL THIS IN!
+		String toSave = SERIALIZER.toXML(dS);
+		FileWriter writer;
+		try {
+			writer = new FileWriter(folderToSaveTo);
+			writer.write(toSave);
+			/////////////////////////////////////////////////////////////////////////////////////////////////// may
+			/////////////////////////////////////////////////////////////////////////////////////////////////// need
+			/////////////////////////////////////////////////////////////////////////////////////////////////// to
+			/////////////////////////////////////////////////////////////////////////////////////////////////// write
+			/////////////////////////////////////////////////////////////////////////////////////////////////// to
+			/////////////////////////////////////////////////////////////////////////////////////////////////// a
+			/////////////////////////////////////////////////////////////////////////////////////////////////// new
+			/////////////////////////////////////////////////////////////////////////////////////////////////// file
+			writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			throw new VoogaException(e);
+		}
 
 	}
 
