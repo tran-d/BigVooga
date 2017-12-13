@@ -44,7 +44,7 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 				System.out.println("Operation: " + opItem.makeOperation().toString());
 
 			}
-//			System.out.println(operationList);
+			// System.out.println(operationList);
 			System.out.println("Making action for " + selectedAction + "...");
 			action = actionFactory.makeAction(selectedAction, operationList.toArray());
 			System.out.println(action);
@@ -56,7 +56,7 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 			throw e;
 			// showError(INVALID_INPUT_MESSAGE, INPUT_A_DOUBLE);
 		}
-//		return null;
+		// return null;
 	}
 
 	private TreeItem<HBox> makeActionTreeItem(String actionCategory) {
@@ -110,9 +110,14 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 
 		for (int i = 0; i < actionParameterTypes.size(); i++) {
 			hb.getChildren().add(new Label(actionParameterTypes.get(i) + " "));
+			
+//			System.out.println("Making Operation for... ActionParameterType: " + actionParameterTypes.get(i)
+//					+ " | VoogaParameterName : " + voogaParameters.get(i).getName() + " | VoogaParameterType: "
+//					+ voogaParameters.get(i).getType());
 
-			OperationNameTreeItem opNameTreeItem = new OperationNameTreeItem(actionParameterTypes.get(i), voogaParameters.get(i).getName(),
-					voogaParameters.get(i).getType());
+			OperationNameTreeItem opNameTreeItem = new OperationNameTreeItem(actionParameterTypes.get(i),
+					voogaParameters.get(i).getName(), voogaParameters.get(i).getType());
+
 			opNameTreeItemList.add(opNameTreeItem);
 			parameterAction.getChildren().add(opNameTreeItem);
 		}

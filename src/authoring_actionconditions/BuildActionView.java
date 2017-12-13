@@ -45,7 +45,8 @@ public class BuildActionView {
 
 			stage.close();
 
-		} catch (NullPointerException | NumberFormatException e) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			ConditionTreeView.showError(e.getMessage());
 			event.consume();
 		}

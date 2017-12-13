@@ -34,9 +34,9 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 	private OperationNameTreeItem operationNameTreeItem;
 	private ObservableList<String> operationParameters;
 	private String selectedOperation;
-	private List<OperationNameTreeItem> listOfOperations = new ArrayList<>();
+	private List<Object> listOfOperations;
 	private ObservableList<VoogaParameter> voogaParameters;
-	private static List<VoogaType> voogaTypesForExistingItems = new ArrayList<>();
+	public static List<VoogaType> voogaTypesForExistingItems;
 	private ChoiceBox<String> existingItemsChoiceBox;
 
 	public OperationParameterTreeItem(String selectedOperation) {
@@ -69,12 +69,12 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 				System.out.println("Boolean was inputted: " + booleanParameterTF.getText());
 				return operationFactory.wrap(getBooleanInput(booleanParameterTF));
 			} else if (existingItemsChoiceBox != null) {
-				System.out.println(existingItemsChoiceBox.getSelectionModel().getSelectedItem().toString());
+				System.out.println("ExistingItem was inputted: "
+						+ existingItemsChoiceBox.getSelectionModel().getSelectedItem().toString());
 				return operationFactory.makeOperation(selectedOperation,
 						operationFactory.wrap(existingItemsChoiceBox.getSelectionModel().getSelectedItem()));
-
 			} else {
-				System.out.println(selectedOperation);
+				System.out.println("Just SelectedOperation was inputted: " + selectedOperation);
 				return operationFactory.makeOperation(selectedOperation, new Object[0]);
 			}
 		} catch (Exception e) {
@@ -87,10 +87,17 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 	public Object makeOperation() {
 		try {
 			List<Object> listOfStringParams = new ArrayList<>();
+			System.out.println("Making an operation with atleast 1 parameter: " + listOfOperations);
 
-			for (OperationNameTreeItem op : listOfOperations) {
+			for (Object op : listOfOperations) {
 
-				listOfStringParams.add(op.makeOperation());
+				if (op instanceof OperationNameTreeItem)
+					listOfStringParams.add(((OperationNameTreeItem) op).makeOperation());
+				else if (existingItemsChoiceBox != null) {
+					listOfStringParams
+							.add(operationFactory.wrap(existingItemsChoiceBox.getSelectionModel().getSelectedItem()));
+				}
+
 			}
 
 			for (Object param : listOfStringParams) {
@@ -119,7 +126,10 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 	}
 
 	private void makeOperationParameterChildren(String selectedOperation, TreeItem<HBox> operationParameter, HBox hb) {
-		System.out.println("SELECTED OPERATIONS: " + selectedOperation);
+		listOfOperations = new ArrayList<>();
+
+		// System.out.println("SELECTED OPERATION: " + selectedOperation);
+
 		if (selectedOperation.equals(INPUT_A_DOUBLE)) {
 			doubleParameterTF = createDoubleTextField(operationParameter);
 			hb.getChildren().addAll(doubleParameterTF);
@@ -138,7 +148,7 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 			operationParameters = FXCollections.observableList(operationFactory.getParameters(selectedOperation));
 			voogaParameters = FXCollections.observableList(operationFactory.getParametersWithNames(selectedOperation));
 			System.out.println("Op Params: " + operationParameters);
-			listOfOperations = new ArrayList<>();
+			// listOfOperations = new ArrayList<>();
 
 			if (!operationParameters.isEmpty()) {
 
@@ -147,13 +157,19 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 
 				for (int i = 0; i < operationParameters.size(); i++) {
 					hb.getChildren().add(new Label(operationParameters.get(i) + " "));
+					
+					System.out.println("MY VOOGA TYPE => " + voogaParameters.get(i).getType().toString());
 
 					if (this.checkVoogaType(voogaParameters.get(i).getType())) {
 
 						System.out.println("SPECIAL VOOGATYPE");
 						existingItemsChoiceBox = new ExistingItemsChoiceBox(voogaParameters.get(i).getType())
 								.getChoiceBox();
-						operationParameter.getChildren().add(new TreeItem<HBox>(new HBox(existingItemsChoiceBox)));
+
+						listOfOperations.add(existingItemsChoiceBox);
+
+						operationParameter.getChildren().add(new TreeItem<HBox>(
+								new HBox(new Label(voogaParameters.get(i).getName() + ": "), existingItemsChoiceBox)));
 
 					} else {
 

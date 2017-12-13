@@ -130,7 +130,7 @@ public class SpriteObjectGridToEngineController {
 	}
 	
 	private void setPositionAndSizeOfGameObject(SpriteObject SOI, GameObject GO){
-		GO.setCoords(SOI.getXCenterCoordinate(), SOI.getYCenterCoordinate());
+		GO.setLocation(SOI.getXCenterCoordinate(), SOI.getYCenterCoordinate());
 		GO.setSize(SOI.getNumCellsWidth(), SOI.getNumCellsHeight());
 		GO.setUniqueID(SOI.getUniqueID());
 	}
