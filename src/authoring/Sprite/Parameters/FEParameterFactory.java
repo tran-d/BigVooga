@@ -7,14 +7,14 @@ import javafx.scene.layout.VBox;
 
 public class FEParameterFactory extends VBox {
 
-	public FEParameterFactory(List<SpriteParameterI> newParams) {
-		for (SpriteParameterI BEParam : newParams) {
+	public FEParameterFactory(List<SpriteParameter> newParams) {
+		for (SpriteParameter BEParam : newParams) {
 			createFEParameter(BEParam);
 		}
 		this.setSpacing(5);
 	}
 
-	private void createFEParameter(SpriteParameterI BEParam) {
+	private void createFEParameter(SpriteParameter BEParam) {
 		if (BEParam instanceof BooleanSpriteParameter) {
 			FEBooleanParameter newBoolean = new FEBooleanParameter(BEParam);
 			this.getChildren().add(newBoolean);

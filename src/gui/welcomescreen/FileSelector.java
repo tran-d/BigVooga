@@ -130,6 +130,10 @@ public class FileSelector extends MenuOptionsTemplate {
 	public void saveWorlds() {
 		myAuthoringGUI.saveWorlds();
 	}
+	
+	public void exportToEngine() {
+		myAuthoringGUI.exportToEngine();
+	}
 
 	public void importWorlds(String fileName) {
 		System.out.println("make new authoring GUI for PROJECT: " + fileName);

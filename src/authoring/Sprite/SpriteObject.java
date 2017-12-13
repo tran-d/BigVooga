@@ -44,6 +44,12 @@ public class SpriteObject extends AbstractSpriteObject{
 		ret.replaceCategoryMap(this.categoryMap);
 		
 		ret.setInventory(new ArrayList<AbstractSpriteObject>(this.getInventory()));
+		ret.setAnimationSequences(this.getAnimationSequences());
+		ret.setAllActions(this.getAllActions());
+		ret.setAllConditions(this.getAllConditions());
+		ret.setConditions(this.getConditionTreeViews());
+		ret.setActions(this.getActionTreeViews());
+		
 		return ret;
 	}
 	

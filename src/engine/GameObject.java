@@ -40,7 +40,7 @@ public class GameObject extends VariableContainer implements Element {
 	private Map<Condition, List<Action>> events;
 	private Sprite currentSprite;
 
-	private int uniqueID;
+	private String uniqueID;
 	private String name;
 	private Set<String> tagSet;
 
@@ -244,7 +244,7 @@ public class GameObject extends VariableContainer implements Element {
 	/**
 	 * @return the uniqueID
 	 */
-	public int getUniqueID() {
+	public String getUniqueID() {
 		return uniqueID;
 	}
 
@@ -252,7 +252,7 @@ public class GameObject extends VariableContainer implements Element {
 	 * @param uniqueID
 	 *            the uniqueID to set
 	 */
-	public void setUniqueID(int uniqueID) {
+	public void setUniqueID(String uniqueID) {
 		this.uniqueID = uniqueID;
 	}
 
@@ -292,5 +292,17 @@ public class GameObject extends VariableContainer implements Element {
 		dialogueHandler = new ArrayList<DisplayableText>();
 		dialogueHandler.add(newText);
 		
+	}
+	
+	public void setDoubleVariable(String name, Double val) {
+		super.setDoubleVariable(name, val);
+	}
+
+	public void setStringVariable(String name, String val) {
+		super.setStringVariable(name, val);
+	}
+
+	public void setBooleanVariable(String name, Boolean val) {
+		super.setBooleanVariable(name, val);;
 	}
 }

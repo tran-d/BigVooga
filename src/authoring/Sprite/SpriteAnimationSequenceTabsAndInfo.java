@@ -1,17 +1,26 @@
 package authoring.Sprite;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import authoring.Sprite.AnimationSequences.AuthoringAnimationSequence;
+import authoring.Sprite.AnimationSequences.AuthoringImageView;
+import engine.utilities.data.GameDataHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
@@ -21,21 +30,24 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 public class SpriteAnimationSequenceTabsAndInfo {
 	
 	private AbstractSpriteObject mySO;
-	private VBox containerScrollPane;
+	private VBox outmostContainerVBox;
 	private List<AuthoringAnimationSequence> animationsSequences;
-	private VBox containerVbox;
+	private VBox tabPaneVbox;
 	private TabPane containerTabPane;
 	private HBox addAnimationSequenceHbox;
 	private Button addAnimationSequenceButton;
 	private Button createAnimationSequenceButton;
 	private TextField promptNewName;
 	private Label promptNameLabel;
-	private Button addImage;
+	private Button addNewImage;
 	private VBox animationVBox;
+	private VBox buttonsVbox;
+	private AuthoringAnimationSequence activeAnimationSeqeunce;
 	
 	
 	public SpriteAnimationSequenceTabsAndInfo(){
@@ -43,36 +55,92 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	}
 	
 	public void setSpriteObject(AbstractSpriteObject SO){
+		
+		this.animationsSequences = new ArrayList<AuthoringAnimationSequence>();
+//		clearAnimationSequencesList();
+//		this.clearExistingAnimationSequencesTabPane();
+		System.out.println("SO ANSEQ SIZE:"+SO.getAnimationSequences().size());
 		mySO = SO;
-		clearAnimationSequencesList();
-		this.clearExisting();
 		SO.getAnimationSequences().forEach(AS->{
 			System.out.println("AnimationSequence: " + AS);
 			this.addAnimationSequence(AS);
 		}); 
+		System.out.println("Num tabs: "+this.containerTabPane.getTabs().size());
+		
+		
 		
 	}
 	
 	private void initialize(){
-		
-		createAnimationSequenceButtons();		
-		
+		System.out.println("Initializig SpireAnimatTab");
 		initializeAnimationSequencesList();
 		
-		createScrollPane();
-		createContainerVBox();
-		createAnimationTabPane();
+		outmostContainerVBox = new VBox();
 		
-		putVBoxIntoScrollPane();
+		tabPaneVbox = new VBox(10);
+		tabPaneVbox.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.FULL)));
+		
+		containerTabPane = new TabPane();
+		containerTabPane.setSide(Side.RIGHT);
+		containerTabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+		
+		tabPaneVbox.getChildren().add(containerTabPane);
+//		tabPaneVbox.getChildren().add(containerTabPane);
+		
+		animationVBox = new VBox(20);
+		createAddImageButton();
+		animationVBox.getChildren().addAll(this.addNewImage, createHBox());
+		animationVBox.setAlignment(Pos.CENTER);
+		
+		outmostContainerVBox.getChildren().add(tabPaneVbox);
+		
+		HBox h = new HBox();
+		h.setBackground(new Background(new BackgroundFill(Color.ALICEBLUE, CornerRadii.EMPTY,Insets.EMPTY)));
+		h.getChildren().add(new Text("hello"));
+//		outmostContainerVBox.getChildren().add(tabPaneVbox);
+		outmostContainerVBox.getChildren().add(h);
+		outmostContainerVBox.getChildren().add(this.animationVBox);
+
 	}
 	
 	private void createAnimationSequenceButtons() {
+		
 		createAddAnimationSequenceHbox();
 		createAddAnimationSequenceButton();
 		createCreateAnimationSequenceButton();
 		createPromptNameText();
 		createPromptNameLabel();
+		createButtonsVBox();
 		putAddAnimationSequenceButtonIntoHbox();
+
+	}
+	
+	private void createAddImageButton(){
+		addNewImage = new Button("Add Image");
+		addNewImage.setOnAction(event->{
+			Node parent = addNewImage.getParent();
+			Scene s = parent.getScene();
+			while (s == null) {
+				parent = parent.getParent();
+				s = parent.getScene();
+			}
+			
+			File file = GameDataHandler.chooseFileForImageSave(s.getWindow());
+			Image im = new Image(file.toURI().toString());
+			AuthoringImageView AIV = new AuthoringImageView(file.toURI().toString()); 
+			addNewAuthoringImageViewToSequence(this.activeAnimationSeqeunce, AIV);
+		});
+	}
+	
+	private void addNewAuthoringImageViewToSequence(AuthoringAnimationSequence AAS, AuthoringImageView AIV){
+		AAS.addNewAuthoringImageViewToSequence(AIV);
+	}
+	
+	public Button getAddImageButton(){
+		if (addNewImage==null){
+			createAddImageButton();
+		}
+		return addNewImage;
 	}
 
 	private void initializeAnimationSequencesList(){
@@ -83,57 +151,71 @@ public class SpriteAnimationSequenceTabsAndInfo {
 		animationsSequences = new ArrayList<AuthoringAnimationSequence>();
 	}
 	
-	private void createAnimationTabPane(){
-		containerTabPane = new TabPane();
-		containerTabPane.setSide(Side.RIGHT);
-		containerTabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-	}
+//	private void createAnimationSequenceTabPane(){
+//		containerTabPane = new TabPane();
+//		containerTabPane.setSide(Side.RIGHT);
+//		containerTabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+//
+//	}
+	
+	
 //	private TabPane getAnimationTabPane(){
 //		return containerTabPane;
 //	}
 	
-	public void clearExisting(){
+	public void clearExistingAnimationSequencesTabPane(){
+		System.out.println("ClearingExistingAnimations");
 		containerTabPane.getTabs().clear();
 	}
 	
 	private void addToVBox(Pane pane){
-		containerVbox.getChildren().add(pane);
+		tabPaneVbox.getChildren().add(pane);
 	}
 	
 	private void clearVBox(){
-		containerVbox.getChildren().clear();
+		tabPaneVbox.getChildren().clear();
 	}
 	
-	public Pane getContainerVBox(){
+	
+	/**
+	 * @return Pane - the surrounding VBox for the TabPane of AnimationSequences
+	 */
+	public Pane getTabPaneVbox(){
 		System.out.println("getting container vbox");
-		return containerVbox;
+		return tabPaneVbox;
 	}
 	
+	/**
+	 * @return HBox to put the buttons and text in to make a new AnimationSequence
+	 */
 	public HBox createHBox(){
 		createAnimationSequenceButtons();
 		return addAnimationSequenceHbox;
 	}
 	
-	private void createContainerVBox(){
-		containerVbox = new VBox(10);
-		containerVbox.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.FULL)));
-	}
+//	private void createContainerVBox(){
+//		tabPaneVbox = new VBox(10);
+//		tabPaneVbox.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.FULL)));
+//	}
 	
-	private void createScrollPane(){
-		System.out.println("Container Scroll Pane");
-		containerScrollPane = new VBox();
-	}
+//	private void createOutmostVBox(){
+//		System.out.println("Container Scroll Pane");
+//		outmostContainerVBox = new VBox();
+//	}
 
+	/**
+	 * @return VBox - the UI view for this entire class -  a tab pane of AnimationSequences and buttons to add to them
+	 */
 	public VBox getAnimationBox(){
 		System.out.println("getting scroll pane");
 		//System.out.println("Content: "+((VBox)containerScrollPane.getContent()).getChildren());
-		animationVBox = new VBox(10);
-		return animationVBox;
+
+		return this.outmostContainerVBox;
 	}
 	
-	public void putVBoxIntoScrollPane(){
-		containerScrollPane.getChildren().add(getContainerVBox());
-	}
+//	public void putVBoxIntoScrollPane(){
+//		
+//	}
 	
 	private void createAddAnimationSequenceHbox(){
 		addAnimationSequenceHbox = new HBox(10);
@@ -177,19 +259,25 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	}
 	
 	private Tab addAnimationSequence(AuthoringAnimationSequence AS){
-		animationVBox.getChildren().clear();
+		
 		this.removePromptNewNameAndCreateButtonToHbox();
 		this.putAddAnimationSequenceButtonIntoHbox();
+		
 		AuthoringAnimationSequence dummyAS = new AuthoringAnimationSequence(AS);
 		this.animationsSequences.add(dummyAS);
 		Tab tab = new Tab();
 		tab.setText(dummyAS.getName());
 		tab.setContent(dummyAS.getUIContent());
-		addImage = dummyAS.getAddImageButton();
-		animationVBox.getChildren().add(containerTabPane);
-		animationVBox.setAlignment(Pos.CENTER);
-		animationVBox.getChildren().addAll(addImage, createHBox());
+		tab.setOnSelectionChanged((event)->{
+			if(tab.isSelected()){
+				activeAnimationSeqeunce = dummyAS;
+			}
+		});
+//		tab.sele
+		System.out.println("contTabPane: "+containerTabPane);
+		System.out.println("contTabPanesizebefore: "+containerTabPane.getTabs().size());
 		containerTabPane.getTabs().add(tab);
+		
 		return tab;
 	}
 	
@@ -206,6 +294,10 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	private void putAddAnimationSequenceButtonIntoHbox(){
 		addAnimationSequenceHbox.getChildren().clear();
 		this.addAnimationSequenceHbox.getChildren().add(addAnimationSequenceButton);
+	}
+	
+	private void createButtonsVBox(){
+		buttonsVbox = new VBox(15);
 	}
 	
 	private void removeAddAnimationSequenceButtonFromHbox(){
