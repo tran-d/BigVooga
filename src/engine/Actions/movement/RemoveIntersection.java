@@ -12,7 +12,8 @@ public class RemoveIntersection implements Action {
 
 	@Override
 	public void execute(GameObject asking, GameObjectEnvironment world) {
-		asking.setLocation(asking.getLocation().add(asking.getLastCollisionChecked().getOverlapVector()));
+		if(asking.getLastCollisionChecked() != null)
+			asking.setLocation(asking.getLocation().add(asking.getLastCollisionChecked().getOverlapVector()));
 	}
 	
 }
