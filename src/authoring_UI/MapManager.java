@@ -97,7 +97,10 @@ public class MapManager extends TabPane {
 	}
 
 	protected List<DraggableGrid> getListOfDraggableGrids() {
-		return myGDH.loadWorldsFromWorldDirectory();
+		List<DraggableGrid> DGs = myGDH.loadWorldsFromWorldDirectory();
+		System.out.println("DGsize: "+DGs.size());
+		
+		return DGs;
 	}
 
 	protected String getManagerName() {
@@ -170,8 +173,19 @@ public class MapManager extends TabPane {
 	private void createTab(DraggableGrid w) { // ?
 		
 		Tab newtab = createEditableTab();
+		if (w.getName()==null){
+			String newName = "World "+this.getTabs().size();
+			((Label)newtab.getGraphic()).setText(newName);
+//			newtab.setText(newName);
+			w.setName(newName);
+		} else {
+			((Label)newtab.getGraphic()).setText(w.getName());
+		}
 		newtab.setOnClosed(e -> this.removeWorld(w));
 		newtab.setContent(setupScene(w));
+		((Label)newtab.getGraphic()).textProperty().addListener((change, oldValue, newValue)->{
+			w.setName(newValue);
+		});
 		if (this.getTabs().size()==1){
 			startTab = newtab;
 		}

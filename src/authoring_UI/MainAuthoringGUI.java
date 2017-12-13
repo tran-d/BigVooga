@@ -79,17 +79,18 @@ public class MainAuthoringGUI {
 	}
 
 	public void saveWorlds() {
-		List<DraggableGrid> allWorlds = authoringController.getExistingWorlds();
-		int count = 0; // temp for debugging
-		for (DraggableGrid toSave : allWorlds) {
-			count++;
-			System.out.println("Saving world # : " + count);
-			try {
-				myGDH.saveWorld(toSave);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+//		List<DraggableGrid> allWorlds = authoringController.getExistingWorlds();
+//		int count = 0; // temp for debugging
+//		for (DraggableGrid toSave : allWorlds) {
+//			count++;
+//			System.out.println("Saving world # : " + count);
+//			try {
+//				myGDH.saveWorld(toSave);
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+		myGDH.saveWorlds(authoringController.getExistingWorlds());
 	}
 }

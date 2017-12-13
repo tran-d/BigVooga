@@ -14,6 +14,7 @@ import authoring.GridManagers.PanelObjectGridManager;
 import authoring.GridManagers.SpriteObjectGridManager;
 import authoring.GridManagers.SpriteObjectGridManagerForSprites;
 import authoring.GridManagers.TerrainObjectGridManager;
+import authoring.Sprite.AnimationSequences.AuthoringImageView;
 import authoring.util.NumberSpinner;
 import engine.utilities.data.GameDataHandler;
 import javafx.beans.value.ChangeListener;
@@ -51,6 +52,7 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 	private Integer rows;
 	private Integer cols;
 	private String savePath;
+	private String myName;
 
 	public DraggableGrid() {
 		rows = 20; // TODO HARDCODED
@@ -124,6 +126,14 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 		topHbox.setAlignment(Pos.CENTER);
 		this.getChildren().add(topHbox);
 	}
+	
+	public void setName(String s){
+		myName = s;
+	}
+	
+	public String getName(){
+		return myName;
+	}
 
 	private void createGrid(SpriteGridHandler spriteGridHandler) {
 		myStackPane = new StackPane();
@@ -138,12 +148,7 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 			System.out.println("LAYER ROWS : " + layerRows);
 			layerColumns = ml.getNumCols();
 		}
-//		Image image = new Image("pikachu.png");
-//		ImageView iv = new ImageView(image);
-//		iv.setFitHeight(myStackPane.getHeight());
-//		iv.setFitWidth(myStackPane.getWidth());
-//		myStackPane.getChildren().add(iv);
-		
+	
 		addChangeRowsNumberSpinner(layerRows);
 		addChangeColumnsNumberSpinner(layerColumns);
 		ScrollPane scrollGrid = new ScrollPane(myStackPane);
@@ -271,15 +276,11 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 					parent = parent.getParent();
 					s = parent.getScene();
 				}
-				File f = GameDataHandler.chooseFileForImageSave(s.getWindow());
-				FileInputStream fis;
-				try{
-				fis = new FileInputStream(f);
-				ML.getMapLayer().setBackgroundImage(new Image(fis), f.getName());
-				} catch (Exception e){
-					// Dont change background 
+				File file = GameDataHandler.chooseFileForImageSave(s.getWindow());
+				if (file != null) {
+					Image image = new Image(GameDataHandler.getImageURIAndCopyToResources(file));
+					ML.getMapLayer().setBackgroundImage(image, file.getName());
 				}
-				
 			});
 	
 			hbox.getChildren().addAll(cp, button);

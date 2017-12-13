@@ -200,5 +200,6 @@ public class AuthoringAnimationSequence {
 	
 	private Object writeReplace() throws java.io.ObjectStreamException {
 		return new SerializableAuthoringAnimationSequence(this);
+
 	}
 }
