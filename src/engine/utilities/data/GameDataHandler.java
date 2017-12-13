@@ -434,9 +434,9 @@ public class GameDataHandler {
 		saveSprite(SO, newSpritePath);
 	}
 
-	public AbstractSpriteObject loadSprite(File spriteFile) throws Exception {
+	public AbstractSpriteObject loadSprite(File spriteFile) throws FileNotFoundException {
 		if (!isValidFile(spriteFile)){
-			throw new Exception("Invalid file to load");
+			throw new VoogaException("Invalid file to load");
 		}
 		Scanner scanner = new Scanner(spriteFile);
 		String fileContents = scanner.useDelimiter("\\Z").next();
@@ -446,6 +446,17 @@ public class GameDataHandler {
 		return ret;
 	}
 	
+	public DialogSequence loadDialogue(File dFile) throws FileNotFoundException
+	{
+		if (!isValidFile(dFile)){
+			throw new VoogaException("Invalid file to load");
+		}
+		Scanner scanner = new Scanner(dFile);
+		String fileContents = scanner.useDelimiter("\\Z").next();
+		scanner.close();
+		DialogSequence ret = (DialogSequence) SERIALIZER.fromXML(fileContents);
+		return ret;
+	}
 	private List<SpriteObjectGridManager> loadLayersFromDirectoryName(int worldNum) {
 		List<SpriteObjectGridManager> loadedSOGMs = new ArrayList<SpriteObjectGridManager>();
 		try{
@@ -764,13 +775,37 @@ public class GameDataHandler {
 		}
 	}
 
-	public Map<String, List<DialogSequence>> loadDialogsFromNestedDirectories(String folderToLoad) {
+	public List<DialogSequence> loadDialogsFromDirectory(String folderToLoad) {
 		// TODO FILL THIS IN!
-		return null;
+		File file = new File(folderToLoad);
+		File[] files = file.listFiles();
+		List<DialogSequence> ret = new ArrayList<DialogSequence>();
+		for (File f : files) {
+			try {
+				ret.add(loadDialogue(f));
+
+			} catch (FileNotFoundException e) {
+				throw(new VoogaException(e));
+			}
+		}
+
+		
+		return ret;
 	}
 
 	public void saveDialogSequence(DialogSequence dS, String folderToSaveTo) {
 		// TODO FILL THIS IN!
+		String toSave = SERIALIZER.toXML(dS);
+		FileWriter writer;
+		try {
+			writer = new FileWriter(folderToSaveTo);
+			writer.write(toSave);
+			///////////////////////////////////////////////////////////////////////////////////////////////////may need to write to a new file
+			writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			throw new VoogaException(e);
+		}
 		
 	}
 	

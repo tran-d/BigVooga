@@ -6,11 +6,12 @@ import java.util.Map;
 
 import authoring.Sprite.AbstractSpriteObject;
 import authoring.Sprite.SpriteObject;
+import authoring.Sprite.Parameters.SpriteParameter;
 import authoring.Sprite.Parameters.SpriteParameterI;
 import authoring_UI.DraggableGrid;
 
 public class SpriteParameterSidebarManager {
-	Map<String, List<SpriteParameterI>> everyStateParameter = new HashMap<String, List<SpriteParameterI>>();
+	Map<String, List<SpriteParameter>> everyStateParameter = new HashMap<String, List<SpriteParameter>>();
 	Map<String, String> newNameOldName = new HashMap<String, String>();
 	boolean firstTimeThrough = true;
 	AbstractSpriteObject firstSprite;

@@ -99,7 +99,7 @@ public class ActionConditionDemo extends Application {
 
 	private GameObject makeObject(String name, BoundedImage i, double x, double y, Consumer<GameObject> condActGen) {
 		GameObject obj = new GameObject(name);
-		obj.setCoords(x, y);
+		obj.setLocation(x, y);
 		condActGen.accept(obj);
 		Sprite sprite = new Sprite();
 		List<BoundedImage> images = new ArrayList<>();

@@ -53,9 +53,9 @@ public abstract class AbstractSpriteObject extends ImageView {
 
 		String setMethod();
 	}
-
-	protected Map<String, List<SpriteParameterI>> categoryMap = new HashMap<String, List<SpriteParameterI>>();
-	protected Map<String, List<SpriteParameterI>> possibleCategoryMap = new HashMap<String, List<SpriteParameterI>>();;
+	
+	protected Map<String, List<SpriteParameter>> categoryMap = new HashMap<String, List<SpriteParameter>>();
+	protected Map<String, List<SpriteParameter>> possibleCategoryMap = new HashMap<String, List<SpriteParameter>>();;
 	protected List<AbstractSpriteObject> myInventory;
 
 	protected Map<Condition, List<Action>> myBehavior = new HashMap<Condition, List<Action>>();
@@ -90,8 +90,8 @@ public abstract class AbstractSpriteObject extends ImageView {
 	protected String mySavePath;
 	protected ObservableList<Integer> allConditions;
 	protected ObservableList<Integer> allActions;
-	protected HashMap<Condition, List<Integer>> conditionRows;
-	protected HashMap<ConditionTreeView, List<Integer>> conditionTreeViews;
+	protected Map<Condition, List<Integer>> conditionRows;
+	protected Map<ConditionTreeView, List<Integer>> conditionTreeViews;
 	protected List<Action> actionRows;
 	protected List<ActionTreeView> actionTreeViews;
 	protected List<AuthoringAnimationSequence> myAnimationSequences;
@@ -116,6 +116,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 	private void initializeVariables() {
 		myTags = new ArrayList<String>();
 		myInventory = new ArrayList<AbstractSpriteObject>();
+		myAnimationSequences = new ArrayList<AuthoringAnimationSequence>();
 		initializePositionOnGridProperty();
 		initializeHeightWidthProperties();
 	}
@@ -141,14 +142,14 @@ public abstract class AbstractSpriteObject extends ImageView {
 		// myName = fileURL.split("\\.")[0];
 	}
 
-	AbstractSpriteObject(HashMap<String, List<SpriteParameterI>> inCategoryMap) {
+	AbstractSpriteObject(HashMap<String, List<SpriteParameter>> inCategoryMap) {
 		this();
-		categoryMap = new HashMap<String, List<SpriteParameterI>>(inCategoryMap);
+		categoryMap = new HashMap<String, List<SpriteParameter>>(inCategoryMap);
 	}
 
-	AbstractSpriteObject(HashMap<String, List<SpriteParameterI>> inCategoryMap, String fileURL) {
+	AbstractSpriteObject(HashMap<String, List<SpriteParameter>> inCategoryMap, String fileURL) {
 		this();
-		categoryMap = new HashMap<String, List<SpriteParameterI>>(inCategoryMap);
+		categoryMap = new HashMap<String, List<SpriteParameter>>(inCategoryMap);
 		setupImageURLAndView(fileURL);
 	}
 
@@ -429,45 +430,45 @@ public abstract class AbstractSpriteObject extends ImageView {
 		myName = name;
 	}
 
-	public Map<String, List<SpriteParameterI>> getParameters() {
+	public Map<String, List<SpriteParameter>> getParameters() {
 		return categoryMap;
 	}
 
-	public void addParameter(SpriteParameterI SP) {
+	public void addParameter(SpriteParameter SP) {
 		addParameter("General", SP);
 
 	}
 
 	public boolean addCategory(String category) {
 		if (!categoryMap.containsKey(category)) {
-			categoryMap.put(category, new ArrayList<SpriteParameterI>());
+			categoryMap.put(category, new ArrayList<SpriteParameter>());
 			return true;
 		}
 		return false;
 	}
 
-	public void addParameter(String category, SpriteParameterI SP) {
+	public void addParameter(String category, SpriteParameter SP) {
 		addCategory(category);
-		List<SpriteParameterI> val = categoryMap.get(category);
+		List<SpriteParameter> val = categoryMap.get(category);
 		val.add(SP);
 		categoryMap.put(category, val);
 	}
 
-	public void addPossibleParameter(String category, SpriteParameterI SP) {
+	public void addPossibleParameter(String category, SpriteParameter SP) {
 		if (!possibleCategoryMap.containsKey(category)) {
-			possibleCategoryMap.put(category, new ArrayList<SpriteParameterI>());
+			possibleCategoryMap.put(category, new ArrayList<SpriteParameter>());
 		}
-		List<SpriteParameterI> val = possibleCategoryMap.get(category);
+		List<SpriteParameter> val = possibleCategoryMap.get(category);
 		val.add(SP);
 		possibleCategoryMap.put(category, val);
 	}
 
 	public Integer acceptPossibleParameters() {
 		int ret = 0;
-		for (Entry<String, List<SpriteParameterI>> keyVal : possibleCategoryMap.entrySet()) {
+		for (Entry<String, List<SpriteParameter>> keyVal : possibleCategoryMap.entrySet()) {
 			String key = keyVal.getKey();
-			List<SpriteParameterI> val = keyVal.getValue();
-			for (SpriteParameterI item : val) {
+			List<SpriteParameter> val = keyVal.getValue();
+			for (SpriteParameter item : val) {
 				boolean added = addCategory(key);
 				if (added) {
 					ret += 1;
@@ -482,29 +483,29 @@ public abstract class AbstractSpriteObject extends ImageView {
 		this.possibleCategoryMap.clear();
 	}
 
-	public void applyParameterUpdate(Map<String, List<SpriteParameterI>> map) {
+	public void applyParameterUpdate(Map<String, List<SpriteParameter>> map) {
 		replaceCategoryMap(map);
 	}
 
-	public void setParameterMap(Map<String, List<SpriteParameterI>> newParams) {
+	public void setParameterMap(Map<String, List<SpriteParameter>> newParams) {
 		replaceCategoryMap(newParams);
 	}
 
-	protected void replaceCategoryMap(Map<String, List<SpriteParameterI>> newParams) {
-		// System.out.println("Replacing cat map");
+	protected void replaceCategoryMap(Map<String,List<SpriteParameter>> newParams) {
+//		System.out.println("Replacing cat map");
+
 
 		this.categoryMap = getNewCopyOfCategoryMap(newParams);
 		// categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(newParams);
 		// System.out.println("new hashmap: "+categoryMap.toString());
 	}
-
-	protected Map<String, List<SpriteParameterI>> getNewCopyOfCategoryMap(
-			Map<String, List<SpriteParameterI>> newParams) {
-		HashMap<String, List<SpriteParameterI>> newCategoryMap = new HashMap<String, List<SpriteParameterI>>();
-		if (newParams != null) {
-			newParams.forEach((key, value) -> {
-				ArrayList<SpriteParameterI> params = new ArrayList<SpriteParameterI>();
-				value.forEach((SpriteParam) -> {
+	
+	protected Map<String, List<SpriteParameter>> getNewCopyOfCategoryMap(Map<String, List<SpriteParameter>> newParams){
+		HashMap<String, List<SpriteParameter>> newCategoryMap = new HashMap<String, List<SpriteParameter>>();
+		if (newParams!=null){
+			newParams.forEach((key, value)->{
+				ArrayList<SpriteParameter> params = new ArrayList<SpriteParameter>();
+				value.forEach((SpriteParam)->{
 					params.add(SpriteParam.newCopy());
 				});
 				newCategoryMap.put(key, params);
@@ -518,23 +519,23 @@ public abstract class AbstractSpriteObject extends ImageView {
 			return false;
 		}
 		AbstractSpriteObject otherSO = (AbstractSpriteObject) other;
-		Map<String, List<SpriteParameterI>> otherMap = otherSO.getParameters();
-		Map<String, List<SpriteParameterI>> thisMap = this.getParameters();
+		Map<String, List<SpriteParameter>> otherMap = otherSO.getParameters();
+		Map<String, List<SpriteParameter>> thisMap = this.getParameters();
 		for (String category : otherMap.keySet()) {
 			if (!thisMap.keySet().contains(category)) {
 				return false;
 			}
-			List<SpriteParameterI> otherParamList = otherMap.get(category);
-			List<SpriteParameterI> thisParamList = new ArrayList<SpriteParameterI>(thisMap.get(category));
+			List<SpriteParameter> otherParamList = otherMap.get(category);
+			List<SpriteParameter> thisParamList = new ArrayList<SpriteParameter>(thisMap.get(category));
 			if (otherParamList.size() != thisParamList.size()) {
 				return false;
 			}
-			Iterator<SpriteParameterI> otherIt = otherParamList.iterator();
+			Iterator<SpriteParameter> otherIt = otherParamList.iterator();
 			while (otherIt.hasNext()) {
 				SpriteParameterI otherSPI = otherIt.next();
-				Iterator<SpriteParameterI> thisIt = thisParamList.iterator();
+				Iterator<SpriteParameter> thisIt = thisParamList.iterator();
 				while (thisIt.hasNext()) {
-					SpriteParameterI thisSPI = thisIt.next();
+					SpriteParameter thisSPI = thisIt.next();
 					if (thisSPI.isSame(otherSPI)) {
 						thisIt.remove();
 						break;
@@ -545,15 +546,13 @@ public abstract class AbstractSpriteObject extends ImageView {
 				return false;
 			}
 		}
-		// TODO if(!(conditionRows.equals(other.getConditionRows()) &&
-		// actionRows.equals(other.getActionRows()))) return false;
 		return true;
 	}
 
 	public abstract AbstractSpriteObject newCopy();
 
-	protected List<SpriteParameterI> getSpriteParametersMatching(String type) {
-		List<SpriteParameterI> ret = new ArrayList<SpriteParameterI>();
+	protected List<SpriteParameter> getSpriteParametersMatching(String type) {
+		List<SpriteParameter> ret = new ArrayList<SpriteParameter>();
 		Class desiredClass;
 		switch (type) {
 		case "Boolean":
@@ -570,7 +569,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 			break;
 		}
 
-		for (SpriteParameterI SPI : getAllParameters()) {
+		for (SpriteParameter SPI : getAllParameters()) {
 			if (SPI.getClass().equals(desiredClass)) {
 				ret.add(SPI);
 			}
@@ -579,7 +578,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 	}
 
 	public List<String> getParameterNamesMatching(String type) {
-		List<SpriteParameterI> concreteParameters = getSpriteParametersMatching(type);
+		List<SpriteParameter> concreteParameters = getSpriteParametersMatching(type);
 		List<String> ret = new ArrayList<String>();
 		concreteParameters.forEach((item) -> {
 			ret.add(item.getName());
@@ -587,10 +586,10 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return ret;
 	}
 
-	protected List<SpriteParameterI> getAllParameters() {
-		List<SpriteParameterI> ret = new ArrayList<SpriteParameterI>();
-		for (List<SpriteParameterI> SPI_LIST : getParameters().values()) {
-			for (SpriteParameterI SPI : SPI_LIST) {
+	protected List<SpriteParameter> getAllParameters() {
+		List<SpriteParameter> ret = new ArrayList<SpriteParameter>();
+		for (List<SpriteParameter> SPI_LIST : getParameters().values()) {
+			for (SpriteParameter SPI : SPI_LIST) {
 				ret.add(SPI);
 			}
 		}
@@ -618,12 +617,12 @@ public abstract class AbstractSpriteObject extends ImageView {
 	public void setSavePath(String path) {
 		mySavePath = path;
 	}
-
-	public List<AuthoringAnimationSequence> getAnimationSequences() {
-		if (myAnimationSequences == null) {
-			myAnimationSequences = new ArrayList<AuthoringAnimationSequence>();
-			myAnimationSequences.add(new AuthoringAnimationSequence("Default", new AuthoringImageView(getImageURL())));
-		}
+	
+	public List<AuthoringAnimationSequence> getAnimationSequences(){
+//		if (myAnimationSequences == null){
+//			myAnimationSequences = new ArrayList<AuthoringAnimationSequence>();
+//			myAnimationSequences.add(new AuthoringAnimationSequence("Default", new AuthoringImageView(getImageURL())));
+//		}
 		return myAnimationSequences;
 	}
 
@@ -637,6 +636,12 @@ public abstract class AbstractSpriteObject extends ImageView {
 
 	public void setAnimationSequences(List<AuthoringAnimationSequence> animations) {
 		myAnimationSequences = animations;
+//		= new ArrayList<AuthoringAnimationSequence>();
+//		animations.forEach(aniseq->{
+//			myAnimationSequences.add(new AuthoringAnimationSequence(aniseq));
+//		});
+		System.out.println("Sprite AnimationSeq set, now is: "+myAnimationSequences);
+		System.out.println("Sprite AnimationSeq set, now size: "+myAnimationSequences.size());
 	}
 
 	public void createNewAnimationSequence(String name) {
@@ -657,13 +662,15 @@ public abstract class AbstractSpriteObject extends ImageView {
 		this.allActions = allActions;
 	}
 
-	public void setConditions(HashMap<ConditionTreeView, List<Integer>> conditionTree) {
+	public void setConditions(Map<ConditionTreeView, List<Integer>> conditionTree) {
 		try {
 			conditionTreeViews = conditionTree;
 			conditionRows.clear();
+//			if (conditionTree!=null && !conditionTree.isEmpty()){
 			for (ConditionTreeView conditionTreeView : conditionTree.keySet()) {
 				conditionRows.put(conditionTreeView.getCondition(), conditionTree.get(conditionTreeView));
 			}
+//			}
 		} catch (NullPointerException e) {
 			throw e;
 		} catch (NumberFormatException e) {
@@ -676,9 +683,11 @@ public abstract class AbstractSpriteObject extends ImageView {
 		try {
 			actionTreeViews = actionTree;
 			actionRows.clear();
+//			if (actionTree!=null && !actionTree.isEmpty()){
 			for (ActionTreeView actionTreeView : actionTree) {
 				actionRows.add(actionTreeView.getAction());
 			}
+//			}
 		} catch (NullPointerException e) {
 			throw e;
 		} catch (NumberFormatException e) {
@@ -694,12 +703,34 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return allActions;
 	}
 
-	public HashMap<ConditionTreeView, List<Integer>> getConditionRows() {
+	public Map<ConditionTreeView, List<Integer>> getConditionTreeViews() {
+		if (conditionTreeViews == null){
+			conditionTreeViews = new HashMap<ConditionTreeView, List<Integer>>();
+		}
 		return conditionTreeViews;
 	}
 
-	public List<ActionTreeView> getActionRows() {
+	public List<ActionTreeView> getActionTreeViews() {
+		if (actionTreeViews==null){
+			actionTreeViews = new ArrayList<ActionTreeView>();
+		}
 		return actionTreeViews;
+	}
+	
+	public void setActionRows(List<Action> newActionRows){
+		actionRows = newActionRows;
+	}
+	
+	public void setConditionRows(Map<Condition, List<Integer>> newConditionRows){
+		conditionRows = newConditionRows;
+	}
+	
+	public List<Action> getActionRows(){
+		return actionRows;
+	}
+	
+	public Map<Condition, List<Integer>> getConditionRows(){
+		return conditionRows;
 	}
 
 	/**

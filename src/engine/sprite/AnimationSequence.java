@@ -47,6 +47,11 @@ public class AnimationSequence{
 			reset();
 	}
 	
+	public boolean isDone()
+	{
+		return (imageIndex == images.size()-1) && (stepsInCurrentFrame == stepsPerFrame -1);
+	}
+	
 	/**
 	 * Move to the first image
 	 */

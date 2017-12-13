@@ -21,6 +21,7 @@ public class Toolbar extends ToolBar {
 	private static final String LOAD_STRING = "Load";
 	private static final String SAVE_STRING = "Save";
 	private static final String IMPORT_STRING = "Import";
+	private static final String EXPORT_STRING = "Export";
 	private static final String EXIT_STRING = "Exit";
 	private static final String VIEWS_STRING = "Views";
 	private static final String ELEMENT_VIEWER_STRING = "ElementViewer";
@@ -48,6 +49,10 @@ public class Toolbar extends ToolBar {
 	}
 	
 	private void createFileOptions() {
+		MenuItem export = new MenuItem();
+		export.textProperty().bind(DisplayLanguage.createStringBinding(EXPORT_STRING));
+		export.setOnAction(e -> sceneController.exportToEngine());
+		
 		MenuItem load = new MenuItem();
 		load.textProperty().bind(DisplayLanguage.createStringBinding(LOAD_STRING));
 		load.setOnAction(e -> this.loadNewGame());
@@ -63,11 +68,14 @@ public class Toolbar extends ToolBar {
 			importOption.getItems().add(item);
 		}
 		importOption.textProperty().bind(DisplayLanguage.createStringBinding(IMPORT_STRING));
+		
 		MenuItem exit = new MenuItem();
 		exit.textProperty().bind(DisplayLanguage.createStringBinding(EXIT_STRING));
 		exit.setOnAction(e -> sceneController.switchScene(SceneController.WELCOME_SCREEN_KEY));
 
-		fileOptions = new MenuButton(FILE_STRING, null, load, save, importOption, exit);
+		
+		
+		fileOptions = new MenuButton(FILE_STRING, null, export, load, save, importOption, exit);
 		fileOptions.textProperty().bind(DisplayLanguage.createStringBinding(FILE_STRING));
 	}
 	

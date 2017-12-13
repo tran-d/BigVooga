@@ -4,17 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import authoring.GridManagers.SpriteObjectGridManager;
-import authoring.GridManagers.SpriteObjectGridManagerI;
 import authoring.Sprite.AbstractSpriteObject;
 import authoring.Sprite.SpriteObject;
-import authoring.Sprite.SpriteObjectI;
 import authoring.Sprite.AnimationSequences.AnimationSequenceImage;
 import authoring.Sprite.AnimationSequences.AuthoringAnimationSequence;
-import authoring.Sprite.Parameters.SpriteParameterI;
+import authoring.Sprite.Parameters.SpriteParameter;
 import authoring_UI.DraggableGrid;
-import authoring_UI.Map.MapLayer;
 import engine.Action;
-import engine.Condition;
 import engine.GameLayer;
 import engine.GameMaster;
 import engine.GameObject;
@@ -130,21 +126,21 @@ public class SpriteObjectGridToEngineController {
 	}
 	
 	private void setPositionAndSizeOfGameObject(SpriteObject SOI, GameObject GO){
-		GO.setCoords(SOI.getXCenterCoordinate(), SOI.getYCenterCoordinate());
+		GO.setLocation(SOI.getXCenterCoordinate(), SOI.getYCenterCoordinate());
 		GO.setSize(SOI.getNumCellsWidth(), SOI.getNumCellsHeight());
 		GO.setUniqueID(SOI.getUniqueID());
 	}
 
 	private void addParametersToVariableContainer(AbstractSpriteObject sOI, VariableContainer varCont) {
-		for (List<SpriteParameterI> SPI_LIST: sOI.getParameters().values()){
-			for (SpriteParameterI SPI: SPI_LIST){
+		for (List<SpriteParameter> SPI_LIST: sOI.getParameters().values()){
+			for (SpriteParameter SPI: SPI_LIST){
 				varCont.addParameter(SPI.getName(), SPI.getValue());
 			}
 		}
 	}
 	
 	private void addConditionsAndActionsToGameObject(AbstractSpriteObject ASO, GameObject GE){
-		ASO.getConditionActionsPair().forEach((condition, actionList)->{
+		ASO.conditionActionPairings().forEach((condition, actionList)->{
 			GE.addConditionAction(condition, actionList);
 		});		
 	}
