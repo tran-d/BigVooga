@@ -57,7 +57,10 @@ public class BoundingPolygonCreator extends Pane {
 	}
 	
 	public void save() {
-		consumer.accept(new BoundedImage(imageName, geometries));
+		if(geometries.isEmpty())
+			consumer.accept(new BoundedImage(imageName));
+		else
+			consumer.accept(new BoundedImage(imageName, geometries));
 	}
 
 	private void setup() {

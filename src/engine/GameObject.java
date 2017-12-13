@@ -247,16 +247,4 @@ public class GameObject extends VariableContainer implements Element {
 		dialogueHandler.add(newText);
 
 	}
-	
-	public void setDoubleVariable(String name, Double val) {
-		super.setDoubleVariable(name, val);
-	}
-
-	public void setStringVariable(String name, String val) {
-		super.setStringVariable(name, val);
-	}
-
-	public void setBooleanVariable(String name, Boolean val) {
-		super.setBooleanVariable(name, val);;
-	}
 }

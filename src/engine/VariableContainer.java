@@ -60,7 +60,7 @@ public abstract class VariableContainer {
 			System.out.println("class: "+classType);
 			String methodName = ResourceBundle.getBundle("engine.TypeRecovery").getString(classType);
 			System.out.println("meth name: " + methodName);
-			getClass().getDeclaredMethod(
+			getClass().getMethod(
 					methodName,
 					String.class, o.getClass()).invoke(this, name, o);
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException

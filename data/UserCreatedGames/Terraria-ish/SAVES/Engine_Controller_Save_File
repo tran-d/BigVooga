@@ -62,12 +62,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>background</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>background</string>
@@ -162,19 +157,6 @@
               <events>
                 <entry>
                   <engine.Condition>
-                    <priorityNum>3</priorityNum>
-                    <operation class="engine.operations.booleanops.CollisionByTag">
-                      <tag class="engine.operations.stringops.SelfString">
-                        <stored>Player</stored>
-                      </tag>
-                    </operation>
-                  </engine.Condition>
-                  <list>
-                    <engine.Actions.global.ExitToMenu/>
-                  </list>
-                </entry>
-                <entry>
-                  <engine.Condition>
                     <priorityNum>1</priorityNum>
                     <operation class="engine.operations.booleanops.BooleanValue">
                       <value>true</value>
@@ -215,7 +197,6 @@
                     </engine.Actions.movement.Move>
                   </list>
                 </entry>
-<<<<<<< HEAD
                 <entry>
                   <engine.Condition>
                     <priorityNum>3</priorityNum>
@@ -285,8 +266,6 @@
                     </engine.Actions.changeObject.RemoveFromWorld>
                   </list>
                 </entry>
-=======
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               </events>
               <name>Zombo</name>
               <inventory>
@@ -371,47 +350,13 @@
                     </engine.sprite.AnimationSequence>
                   </entry>
                 </animations>
-<<<<<<< HEAD
                 <currentAnimation reference="../animations/entry[2]/engine.sprite.AnimationSequence"/>
               </sprite>
-=======
-                <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-              </currentSprite>
-              <name>Zombo</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>Player</string>
                 <string>default</string>
                 <string>camera</string>
               </tagSet>
-<<<<<<< HEAD
-=======
-              <inventory>
-                <objects/>
-                <holder reference="../.."/>
-                <rowSpan>5</rowSpan>
-                <colSpan>5</colSpan>
-                <x>0.0</x>
-                <y>0.0</y>
-                <startIndex>0</startIndex>
-              </inventory>
-              <dialogueHandler/>
-              <heading>0.0</heading>
-              <ithDerivative>
-                <javafx.geometry.Point2D>
-                  <x>-5500.0</x>
-                  <y>335.0</y>
-                  <hash>0</hash>
-                </javafx.geometry.Point2D>
-              </ithDerivative>
-              <width>39.0</width>
-              <height>65.0</height>
-            </engine.GameObject>
-            <engine.GameObject>
-              <doubleVars/>
-              <stringVars/>
-              <booleanVars/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <events>
                 <entry>
                   <engine.Condition>
@@ -438,7 +383,6 @@
                       </newDouble>
                       <object class="engine.operations.gameobjectops.Self"/>
                     </engine.Actions.variableSetting.ChangeDouble>
-<<<<<<< HEAD
                     <engine.Actions.variableSetting.ChangeDouble>
                       <varName class="engine.operations.stringops.SelfString">
                         <stored>Timer</stored>
@@ -456,13 +400,10 @@
                       </newDouble>
                       <object class="engine.operations.gameobjectops.Self"/>
                     </engine.Actions.variableSetting.ChangeDouble>
-=======
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
                   </list>
                 </entry>
                 <entry>
                   <engine.Condition>
-<<<<<<< HEAD
                     <priorityNum>3</priorityNum>
                     <operation class="engine.operations.booleanops.CollisionByTag">
                       <tag class="engine.operations.stringops.SelfString">
@@ -490,38 +431,10 @@
                       </newBooleanOperation>
                       <object class="engine.operations.gameobjectops.Self"/>
                     </engine.Actions.variableSetting.ChangeBoolean>
-=======
-                    <priorityNum>2</priorityNum>
-                    <operation class="engine.operations.booleanops.KeyHeld">
-                      <check class="engine.operations.stringops.SelfString">
-                        <stored>A</stored>
-                      </check>
-                    </operation>
-                  </engine.Condition>
-                  <list>
-                    <engine.Actions.movement.Move>
-                      <increment class="engine.operations.vectorops.BasicVector">
-                        <x class="engine.operations.doubleops.Value">
-                          <value>-5.0</value>
-                        </x>
-                        <y class="engine.operations.doubleops.Value">
-                          <value>0.0</value>
-                        </y>
-                      </increment>
-                      <object class="engine.operations.gameobjectops.Self"/>
-                    </engine.Actions.movement.Move>
-                    <engine.Actions.changeObject.SetAnimationSequence>
-                      <object class="engine.operations.gameobjectops.Self"/>
-                      <name class="engine.operations.stringops.SelfString">
-                        <stored>Left</stored>
-                      </name>
-                    </engine.Actions.changeObject.SetAnimationSequence>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
                   </list>
                 </entry>
                 <entry>
                   <engine.Condition>
-<<<<<<< HEAD
                     <priorityNum>9</priorityNum>
                     <operation class="engine.operations.booleanops.And">
                       <boolOp1 class="engine.operations.booleanops.Not">
@@ -548,37 +461,11 @@
                       <newDouble class="engine.operations.doubleops.Value">
                         <value>180.0</value>
                       </newDouble>
-=======
-                    <priorityNum>2</priorityNum>
-                    <operation class="engine.operations.booleanops.KeyHeld">
-                      <check class="engine.operations.stringops.SelfString">
-                        <stored>D</stored>
-                      </check>
-                    </operation>
-                  </engine.Condition>
-                  <list>
-                    <engine.Actions.movement.Move>
-                      <increment class="engine.operations.vectorops.BasicVector">
-                        <x class="engine.operations.doubleops.Value">
-                          <value>5.0</value>
-                        </x>
-                        <y class="engine.operations.doubleops.Value">
-                          <value>0.0</value>
-                        </y>
-                      </increment>
-                      <object class="engine.operations.gameobjectops.Self"/>
-                    </engine.Actions.movement.Move>
-                    <engine.Actions.changeObject.SetAnimationSequence>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
                       <object class="engine.operations.gameobjectops.Self"/>
                     </engine.Actions.variableSetting.ChangeDouble>
                     <engine.Actions.changeObject.Create>
                       <name class="engine.operations.stringops.SelfString">
-<<<<<<< HEAD
                         <stored>Fireball</stored>
-=======
-                        <stored>Right</stored>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
                       </name>
                       <heading class="engine.operations.doubleops.DoubleVariableOf">
                         <varName class="engine.operations.stringops.SelfString">
@@ -603,7 +490,6 @@
                 </entry>
                 <entry>
                   <engine.Condition>
-<<<<<<< HEAD
                     <priorityNum>4</priorityNum>
                     <operation class="engine.operations.booleanops.CollisionByTag">
                       <tag class="engine.operations.stringops.SelfString">
@@ -613,28 +499,6 @@
                   </engine.Condition>
                   <list>
                     <engine.Actions.movement.RemoveIntersection/>
-=======
-                    <priorityNum>1</priorityNum>
-                    <operation class="engine.operations.booleanops.BooleanValue">
-                      <value>true</value>
-                    </operation>
-                  </engine.Condition>
-                  <list>
-                    <engine.Actions.movement.Move>
-                      <increment class="engine.operations.vectorops.BasicVector">
-                        <x class="engine.operations.doubleops.Value">
-                          <value>0.0</value>
-                        </x>
-                        <y class="engine.operations.doubleops.DoubleVariableOf">
-                          <varName class="engine.operations.stringops.SelfString">
-                            <stored>Gravity</stored>
-                          </varName>
-                          <object class="engine.operations.gameobjectops.Self"/>
-                        </y>
-                      </increment>
-                      <object class="engine.operations.gameobjectops.Self"/>
-                    </engine.Actions.movement.Move>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
                   </list>
                 </entry>
                 <entry>
@@ -677,15 +541,12 @@
                 </entry>
                 <entry>
                   <engine.Condition>
-                    <priorityNum>4</priorityNum>
-                    <operation class="engine.operations.booleanops.CollisionByTag">
-                      <tag class="engine.operations.stringops.SelfString">
-                        <stored>Wall</stored>
-                      </tag>
+                    <priorityNum>1</priorityNum>
+                    <operation class="engine.operations.booleanops.BooleanValue">
+                      <value>true</value>
                     </operation>
                   </engine.Condition>
                   <list>
-<<<<<<< HEAD
                     <engine.Actions.movement.Move>
                       <increment class="engine.operations.vectorops.BasicVector">
                         <x class="engine.operations.doubleops.Value">
@@ -700,31 +561,28 @@
                       </increment>
                       <object class="engine.operations.gameobjectops.Self"/>
                     </engine.Actions.movement.Move>
-=======
-                    <engine.Actions.movement.RemoveIntersection/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
                   </list>
                 </entry>
                 <entry>
                   <engine.Condition>
-                    <priorityNum>3</priorityNum>
-                    <operation class="engine.operations.booleanops.CollisionByTag">
-                      <tag class="engine.operations.stringops.SelfString">
-                        <stored>Wall</stored>
-                      </tag>
+                    <priorityNum>2</priorityNum>
+                    <operation class="engine.operations.booleanops.KeyHeld">
+                      <check class="engine.operations.stringops.SelfString">
+                        <stored>D</stored>
+                      </check>
                     </operation>
                   </engine.Condition>
                   <list>
-                    <engine.Actions.movement.RemoveIntersection/>
-                    <engine.Actions.variableSetting.ChangeDouble>
-                      <varName class="engine.operations.stringops.SelfString">
-                        <stored>Gravity</stored>
-                      </varName>
-                      <newDouble class="engine.operations.doubleops.Value">
-                        <value>0.0</value>
-                      </newDouble>
+                    <engine.Actions.movement.Move>
+                      <increment class="engine.operations.vectorops.BasicVector">
+                        <x class="engine.operations.doubleops.Value">
+                          <value>5.0</value>
+                        </x>
+                        <y class="engine.operations.doubleops.Value">
+                          <value>0.0</value>
+                        </y>
+                      </increment>
                       <object class="engine.operations.gameobjectops.Self"/>
-<<<<<<< HEAD
                     </engine.Actions.movement.Move>
                     <engine.Actions.variableSetting.ChangeDouble>
                       <varName class="engine.operations.stringops.SelfString">
@@ -736,18 +594,11 @@
                       <object class="engine.operations.gameobjectops.Self"/>
                     </engine.Actions.variableSetting.ChangeDouble>
                     <engine.Actions.changeObject.SetAnimationSequence>
-=======
-                    </engine.Actions.variableSetting.ChangeDouble>
-                    <engine.Actions.variableSetting.ChangeBoolean>
-                      <varName class="engine.operations.stringops.SelfString">
-                        <stored>OnGround</stored>
-                      </varName>
-                      <newBooleanOperation class="engine.operations.booleanops.BooleanValue">
-                        <value>true</value>
-                      </newBooleanOperation>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
                       <object class="engine.operations.gameobjectops.Self"/>
-                    </engine.Actions.variableSetting.ChangeBoolean>
+                      <name class="engine.operations.stringops.SelfString">
+                        <stored>Right</stored>
+                      </name>
+                    </engine.Actions.changeObject.SetAnimationSequence>
                   </list>
                 </entry>
                 <entry>
@@ -871,12 +722,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry[2]/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Player</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Spawner</string>
@@ -1025,12 +871,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -1106,11 +947,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -1151,12 +988,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -1174,11 +1006,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -1219,12 +1047,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -1242,11 +1065,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -1287,12 +1106,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -1310,11 +1124,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -1355,12 +1165,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -1378,11 +1183,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -1423,12 +1224,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -1446,11 +1242,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -1491,12 +1283,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -1514,11 +1301,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -1559,12 +1342,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -1582,11 +1360,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -1627,12 +1401,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -1650,11 +1419,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -1695,12 +1460,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -1718,11 +1478,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -1763,12 +1519,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -1786,11 +1537,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -1831,12 +1578,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -1854,11 +1596,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -1899,12 +1637,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -1922,11 +1655,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -1967,12 +1696,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -1990,11 +1714,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -2035,12 +1755,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -2058,11 +1773,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -2103,12 +1814,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -2126,11 +1832,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -2171,12 +1873,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -2194,11 +1891,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -2239,12 +1932,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -2262,11 +1950,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -2307,12 +1991,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -2330,11 +2009,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -2375,12 +2050,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -2398,11 +2068,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -2443,12 +2109,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -2466,11 +2127,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -2511,12 +2168,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -2534,11 +2186,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -2579,12 +2227,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -2602,11 +2245,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -2647,12 +2286,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -2670,11 +2304,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -2715,12 +2345,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -2738,11 +2363,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -2783,12 +2404,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -2806,11 +2422,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -2851,12 +2463,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -2874,11 +2481,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -2919,12 +2522,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -2942,11 +2540,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -2987,12 +2581,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -3010,11 +2599,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -3055,12 +2640,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -3078,11 +2658,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -3123,12 +2699,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -3146,11 +2717,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -3191,12 +2758,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -3214,11 +2776,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -3259,12 +2817,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -3282,11 +2835,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -3327,12 +2876,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -3350,11 +2894,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -3395,12 +2935,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -3418,11 +2953,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -3463,12 +2994,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -3486,11 +3012,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -3531,12 +3053,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -3554,11 +3071,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -3599,12 +3112,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -3622,11 +3130,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -3667,12 +3171,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -3690,11 +3189,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -3735,12 +3230,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -3758,11 +3248,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -3803,12 +3289,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -3826,11 +3307,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -3871,12 +3348,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -3894,11 +3366,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -3939,12 +3407,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -3962,11 +3425,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -4007,12 +3466,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -4030,11 +3484,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -4075,12 +3525,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -4098,11 +3543,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -4143,12 +3584,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -4166,11 +3602,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -4211,12 +3643,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -4234,11 +3661,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -4279,12 +3702,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -4302,11 +3720,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -4347,12 +3761,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -4370,11 +3779,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -4415,12 +3820,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -4438,11 +3838,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -4483,12 +3879,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -4506,11 +3897,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -4551,12 +3938,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -4574,11 +3956,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -4619,12 +3997,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -4642,11 +4015,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -4687,12 +4056,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -4710,11 +4074,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -4755,12 +4115,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -4778,11 +4133,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -4823,12 +4174,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -4846,11 +4192,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -4891,12 +4233,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -4914,11 +4251,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -4959,12 +4292,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -4982,11 +4310,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -5027,12 +4351,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -5050,11 +4369,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -5095,12 +4410,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -5118,11 +4428,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -5163,12 +4469,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -5186,11 +4487,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -5231,12 +4528,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -5254,11 +4546,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -5299,12 +4587,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -5322,11 +4605,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -5367,12 +4646,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -5390,11 +4664,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -5435,12 +4705,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -5458,11 +4723,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -5503,12 +4764,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -5526,11 +4782,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -5571,12 +4823,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -5594,11 +4841,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -5639,12 +4882,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -5662,11 +4900,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -5707,12 +4941,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -5730,11 +4959,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -5775,12 +5000,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -5798,11 +5018,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -5843,12 +5059,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -5866,11 +5077,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -5911,12 +5118,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -5934,11 +5136,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -5979,12 +5177,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -6002,11 +5195,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -6047,12 +5236,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -6070,11 +5254,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -6115,12 +5295,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -6138,11 +5313,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -6183,12 +5354,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -6206,11 +5372,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -6251,12 +5413,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -6274,11 +5431,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -6319,12 +5472,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -6342,11 +5490,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -6387,12 +5531,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -6410,11 +5549,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -6455,12 +5590,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -6478,11 +5608,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -6523,12 +5649,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -6546,11 +5667,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -6591,12 +5708,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -6614,11 +5726,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -6659,12 +5767,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -6682,11 +5785,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -6727,12 +5826,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -6750,11 +5844,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -6795,12 +5885,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -6818,11 +5903,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -6863,12 +5944,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -6886,11 +5962,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -6931,12 +6003,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -6954,11 +6021,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -6999,12 +6062,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -7022,11 +6080,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -7067,12 +6121,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -7090,11 +6139,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -7135,12 +6180,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -7158,11 +6198,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -7203,12 +6239,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -7226,11 +6257,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -7271,12 +6298,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -7294,11 +6316,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -7339,12 +6357,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -7362,11 +6375,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -7407,12 +6416,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -7430,11 +6434,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -7475,12 +6475,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -7498,11 +6493,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -7543,12 +6534,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -7566,11 +6552,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -7611,12 +6593,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -7634,11 +6611,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -7679,12 +6652,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -7702,11 +6670,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -7747,12 +6711,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -7770,11 +6729,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -7815,12 +6770,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -7838,11 +6788,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -7883,12 +6829,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -7906,11 +6847,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -7951,12 +6888,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -7974,11 +6906,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -8019,12 +6947,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -8042,11 +6965,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -8087,12 +7006,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -8110,11 +7024,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -8155,12 +7065,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -8178,11 +7083,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -8223,12 +7124,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -8246,11 +7142,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -8291,12 +7183,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -8314,11 +7201,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -8359,12 +7242,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -8382,11 +7260,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -8427,12 +7301,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -8450,11 +7319,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -8495,12 +7360,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -8518,11 +7378,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -8563,12 +7419,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -8586,11 +7437,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -8631,12 +7478,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -8654,11 +7496,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -8699,12 +7537,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -8722,11 +7555,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -8767,12 +7596,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -8790,11 +7614,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -8835,12 +7655,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -8858,11 +7673,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -8903,12 +7714,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -8926,11 +7732,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -8971,12 +7773,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -8994,11 +7791,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -9039,12 +7832,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -9062,11 +7850,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -9107,12 +7891,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -9130,11 +7909,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -9175,12 +7950,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -9198,11 +7968,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -9243,12 +8009,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -9266,11 +8027,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -9311,12 +8068,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -9334,11 +8086,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -9379,12 +8127,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -9402,11 +8145,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -9447,12 +8186,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -9470,11 +8204,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -9515,12 +8245,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -9538,11 +8263,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -9583,12 +8304,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -9606,11 +8322,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -9651,12 +8363,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -9674,11 +8381,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -9719,12 +8422,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -9742,11 +8440,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -9787,12 +8481,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -9810,11 +8499,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -9855,12 +8540,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -9878,11 +8558,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -9923,12 +8599,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -9946,11 +8617,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -9991,12 +8658,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -10014,11 +8676,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -10059,12 +8717,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -10082,11 +8735,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -10127,12 +8776,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -10150,11 +8794,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -10195,12 +8835,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -10218,11 +8853,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -10263,12 +8894,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -10286,11 +8912,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -10331,12 +8953,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -10354,11 +8971,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -10399,12 +9012,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -10422,11 +9030,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -10467,12 +9071,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -10490,11 +9089,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -10535,12 +9130,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -10558,11 +9148,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -10603,12 +9189,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -10626,11 +9207,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -10671,12 +9248,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -10694,11 +9266,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -10739,12 +9307,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -10762,11 +9325,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -10807,12 +9366,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -10830,11 +9384,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -10875,12 +9425,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -10898,11 +9443,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -10943,12 +9484,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -10966,11 +9502,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -11011,12 +9543,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -11034,11 +9561,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -11079,12 +9602,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -11102,11 +9620,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -11147,12 +9661,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -11170,11 +9679,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -11215,12 +9720,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -11238,11 +9738,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -11283,12 +9779,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -11306,11 +9797,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -11351,12 +9838,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -11374,11 +9856,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -11419,12 +9897,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -11442,11 +9915,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -11487,12 +9956,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -11510,11 +9974,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -11555,12 +10015,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -11578,11 +10033,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -11623,12 +10074,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -11646,11 +10092,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -11691,12 +10133,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -11714,11 +10151,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -11759,12 +10192,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -11782,11 +10210,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -11827,12 +10251,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -11850,11 +10269,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -11895,12 +10310,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -11918,11 +10328,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -11963,12 +10369,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -11986,11 +10387,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -12031,12 +10428,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -12054,11 +10446,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -12099,12 +10487,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -12122,11 +10505,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -12167,12 +10546,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -12190,11 +10564,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -12235,12 +10605,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Brick</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Wall</string>
@@ -12258,11 +10623,7 @@
                 <startIndex>0</startIndex>
                 <name>BrickInventory</name>
               </inventory>
-<<<<<<< HEAD
               <dialogueHandler reference="../../engine.GameObject[4]/inventory/holder/dialogueHandler"/>
-=======
-              <dialogueHandler reference="../../engine.GameObject[3]/dialogueHandler"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <heading>0.0</heading>
               <ithDerivative>
                 <javafx.geometry.Point2D>
@@ -12483,11 +10844,7 @@
           <idToGameObject>
             <entry>
               <null/>
-<<<<<<< HEAD
               <engine.GameObject reference="../../../worldElements/engine.GameObject[168]"/>
-=======
-              <engine.GameObject reference="../../../worldElements/engine.GameObject[167]"/>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
             </entry>
           </idToGameObject>
           <isTracked>true</isTracked>
@@ -12511,67 +10868,7 @@
               <doubleVars/>
               <stringVars/>
               <booleanVars/>
-<<<<<<< HEAD
               <sprite>
-=======
-              <events>
-                <entry>
-                  <engine.Condition>
-                    <priorityNum>2</priorityNum>
-                    <operation class="engine.operations.booleanops.ObjectMouseHover">
-                      <object class="engine.operations.gameobjectops.Self"/>
-                    </operation>
-                  </engine.Condition>
-                  <list>
-                    <engine.Actions.changeObject.SetAnimationSequence>
-                      <object class="engine.operations.gameobjectops.Self"/>
-                      <name class="engine.operations.stringops.SelfString">
-                        <stored>Pressed</stored>
-                      </name>
-                    </engine.Actions.changeObject.SetAnimationSequence>
-                  </list>
-                </entry>
-                <entry>
-                  <engine.Condition>
-                    <priorityNum>2</priorityNum>
-                    <operation class="engine.operations.booleanops.Not">
-                      <boolOp class="engine.operations.booleanops.ObjectMouseHover">
-                        <object class="engine.operations.gameobjectops.Self"/>
-                      </boolOp>
-                    </operation>
-                  </engine.Condition>
-                  <list>
-                    <engine.Actions.changeObject.SetAnimationSequence>
-                      <object class="engine.operations.gameobjectops.Self"/>
-                      <name class="engine.operations.stringops.SelfString">
-                        <stored>Unpressed</stored>
-                      </name>
-                    </engine.Actions.changeObject.SetAnimationSequence>
-                  </list>
-                </entry>
-                <entry>
-                  <engine.Condition>
-                    <priorityNum>2</priorityNum>
-                    <operation class="engine.operations.booleanops.ObjectClicked">
-                      <operation class="engine.operations.booleanops.And">
-                        <boolOp1 class="engine.operations.booleanops.ScreenClicked"/>
-                        <boolOp2 class="engine.operations.booleanops.ObjectClickHeld">
-                          <object class="engine.operations.gameobjectops.Self"/>
-                        </boolOp2>
-                      </operation>
-                    </operation>
-                  </engine.Condition>
-                  <list>
-                    <engine.Actions.global.ChangeWorld>
-                      <nameOfWorld class="engine.operations.stringops.SelfString">
-                        <stored>World</stored>
-                      </nameOfWorld>
-                    </engine.Actions.global.ChangeWorld>
-                  </list>
-                </entry>
-              </events>
-              <currentSprite>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
                 <animations>
                   <entry>
                     <string>Pressed</string>
@@ -12621,12 +10918,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry[2]/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>Button</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>Button</string>
@@ -12767,12 +11059,7 @@
                   </entry>
                 </animations>
                 <currentAnimation reference="../animations/entry/engine.sprite.AnimationSequence"/>
-<<<<<<< HEAD
               </sprite>
-=======
-              </currentSprite>
-              <name>background</name>
->>>>>>> 6fcd2f5f97050d8958246b28ebee0379a5c7de7c
               <tagSet>
                 <string>default</string>
                 <string>background</string>
