@@ -1,7 +1,5 @@
 package authoring.Layers;
 
-import java.util.List;
-
 import authoring.Sprite.AbstractSpriteObject;
 import authoring.Sprite.SpriteObject;
 import authoring_UI.AuthoringMapStackPane;
@@ -23,11 +21,6 @@ public class BackgroundLayer extends MapLayer {
 		setName("Background");
 	}
 	
-	public BackgroundLayer(int rows, int columns, SpriteGridHandler SGH,
-			List<AbstractSpriteObject> activeSpriteObjects) {
-		super(rows, columns, 0, SGH, Color.TRANSPARENT, activeSpriteObjects);
-	}
-
 	@Override 
 	public void setBackgroundImage(Image image, String path){
 		AuthoringMapStackPane AMSP = this.getChildAtPosition(0, 0);

@@ -155,7 +155,6 @@ public class MapManager extends TabPane {
 			mySpriteGridHandler = new SpriteGridHandler(myTabCount, w);
 //		}
 		w.construct(mySpriteGridHandler);
-		mySpriteGridHandler = w.getSGH();
 		mySpriteGridHandler.addKeyPress(scene);
 		spritePanels = makeSpritePanels(mySpriteGridHandler);
 		mySpriteGridHandler.setGridDisplayPanel(spritePanels.getDisplayPanel());
