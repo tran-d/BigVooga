@@ -15,18 +15,24 @@ public class BackgroundGridManager extends SpriteObjectGridManager{
 
 	public BackgroundGridManager(int rows, int columns, SpriteGridHandler SGH) {
 		super(rows, columns, SGH);
+		myLayerNum = 0;
 	}
 	
 	public BackgroundGridManager(int rows, int columns) {
 		super(rows, columns);
+		myLayerNum = 0;
+	}
+
+	public BackgroundGridManager(int myNumRows, int myNumCols, int layerNum, Color myColor) {
+		super(myNumRows, myNumCols, layerNum, myColor);
+		myLayerNum = 0;
 	}
 
 	@Override
 	public void createMapLayer() {
 		myMapLayer = new BackgroundLayer(getNumRows(), getNumCols(), mySpriteGridHandler);
-		System.out.println("tempCols: "+defaultColumns);
-		this.setNumCols(defaultColumns);
-		this.setNumRows(defaultRows);
+		//this.setNumCols(defaultColumns); why? 
+		//this.setNumRows(defaultRows);
 	}
 	
 	
@@ -36,4 +42,8 @@ public class BackgroundGridManager extends SpriteObjectGridManager{
 	}
 
 	
+	@Override
+	public MapLayer getMapLayer() { // IS THIS OKAY IDK TODO
+		return myMapLayer;
+	}
 }

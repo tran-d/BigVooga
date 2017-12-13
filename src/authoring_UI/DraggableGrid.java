@@ -132,6 +132,10 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 		int layerRows = rows;
 		int layerColumns = cols;
 		for (SpriteObjectGridManager ml: allGrids){
+			if (myStackPane == null) System.out.println("STACK PANE IS NULL");
+			if (myStackPane.getChildren() == null) System.out.println("STACK PANE CHLIDREN NULL");
+			if (ml == null) System.out.println("SOGM is null");
+			if (ml.getMapLayer() == null) System.out.println("ML GET MAP LAYER IS NULL");
 			myStackPane.getChildren().add(ml.getMapLayer());
 			makeLayerButton(ml);
 			showLayer(ml);
@@ -171,7 +175,8 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 	private void makeLayers(SpriteGridHandler spriteGridHandler){
 		showingGrids = new ArrayList<SpriteObjectGridManager>();
 		if (allGrids.size()==0){
-			System.out.println("SHOULD NOT BE GOING THROUGH THIS ALERT ALERT ALERT");
+			System.out.println("SHOULD NOT BE GOING THROUGH THIS ALERT ALERT ALERT"); 
+			// within each of these managers, the associated layer is also created
 		SpriteObjectGridManager background = new BackgroundGridManager(rows, cols, spriteGridHandler);
 		SpriteObjectGridManager terrain = new TerrainObjectGridManager(rows, cols, spriteGridHandler);
 		SpriteObjectGridManagerForSprites sprites = new SpriteObjectGridManagerForSprites(rows, cols, spriteGridHandler);
@@ -185,7 +190,6 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 		});
 		} else {
 			allGrids.forEach(item->{
-				System.out.println("already has a grid!: "+item);
 				item.setSpriteGridHandler(spriteGridHandler);
 				item.createMapLayer();
 				

@@ -4,6 +4,7 @@ import java.util.List;
 
 import authoring.Sprite.AbstractSpriteObject;
 import authoring_UI.SpriteGridHandler;
+import authoring_UI.Map.MapLayer;
 import authoring_UI.Map.SpriteLayer;
 import authoring_UI.Map.TerrainLayer;
 import javafx.scene.paint.Color;
@@ -37,5 +38,8 @@ public class SpriteObjectGridManagerForSprites extends SpriteObjectGridManager{
 	}
 	
 	
-
+	@Override
+	public MapLayer getMapLayer() { // IS THIS OKAY IDK TODO
+		return myMapLayer;
+	}
 }
