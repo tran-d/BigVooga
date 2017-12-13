@@ -129,7 +129,7 @@ public class TerrariaMaker extends Application {
 		s.setAnimation("Unpressed");
 		button.setSprite(s);
 
-		button.setCoords(500, 400);
+		button.setLocation(500, 400);
 		button.setSize(200, 100);
 		buttonConditionAction(button);
 
@@ -143,7 +143,7 @@ public class TerrariaMaker extends Application {
 		spawner.setDoubleVariable("Timer", 600);
 		spawnerConditionAction(spawner);
 		spawner.setSprite(s.clone());
-		spawner.setCoords(5000, 5000);
+		spawner.setLocation(5000, 5000);
 
 		GameObject fireball = makeObject("Fireball", new BoundedImage("fireball.gif"), 0, 0, this::projCA);
 		fireball.addTag("Projectile");
@@ -159,13 +159,13 @@ public class TerrariaMaker extends Application {
 
 		for (int j = -40; j < 15; j++) {
 			GameObject temp = blueprints.getInstanceOf("Brick");
-			temp.setCoords(j * 64, 400);
+			temp.setLocation(j * 64, 400);
 			la.addGameObject(temp);
 			temp = blueprints.getInstanceOf("Brick");
-			temp.setCoords(-40 * 64, 400 - 64 * j);
+			temp.setLocation(-40 * 64, 400 - 64 * j);
 			la.addGameObject(temp);
 			temp = blueprints.getInstanceOf("Brick");
-			temp.setCoords(15 * 64, 400 - 64 * j);
+			temp.setLocation(15 * 64, 400 - 64 * j);
 			la.addGameObject(temp);
 		}
 
@@ -201,7 +201,7 @@ public class TerrariaMaker extends Application {
 
 	private GameObject makeObject(String name, BoundedImage i, double x, double y, Consumer<GameObject> condActGen) {
 		GameObject obj = new GameObject(name);
-		obj.setCoords(x, y);
+		obj.setLocation(x, y);
 		condActGen.accept(obj);
 		Sprite sprite = new Sprite();
 		List<BoundedImage> images = new ArrayList<>();

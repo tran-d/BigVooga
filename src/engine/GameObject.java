@@ -32,15 +32,13 @@ public class GameObject extends VariableContainer implements Element {
 	private static final double DEFAULT_SIZE = 200;
 	private static final String DEFAULT_NAME = "unnamed";
 	private static final String DEFAULT_TAG = "default";
-	
+
 	public static final String CAMERA_TAG = "camera";
 
 	private Map<Condition, List<Action>> events;
-	private Sprite currentSprite;
 
 	private String uniqueID;
 	private String name;
-	private Set<String> tagSet;
 
 	private CollisionEvent lastCollision;
 	private Inventory inventory;
@@ -68,22 +66,9 @@ public class GameObject extends VariableContainer implements Element {
 		ithDerivative.add(new Point2D(0, 0));
 		inventory = new Inventory(this, getX(), getY());
 	}
-	
+
 	public String getName() {
 		return name;
-	}
-
-	public void setInventoryPosition(double x, double y) {
-		inventory.setX(x);
-		inventory.setY(y);
-	}
-	
-	public void addTag(String tag) {
-		tagSet.add(tag);
-	}
-
-	public boolean is(String tag) {
-		return tagSet.contains(tag);
 	}
 
 	public void addConditionAction(Condition c, List<Action> a) {
@@ -105,7 +90,7 @@ public class GameObject extends VariableContainer implements Element {
 
 	@Override
 	public void step(GameObjectEnvironment w) {
-		currentSprite.step();
+		sprite.step();
 		for (int i = ithDerivative.size() - 1; i > 0; i--) {
 			ithDerivative.set(i - 1, ithDerivative.get(i - 1).add(ithDerivative.get(i)));
 		}
@@ -117,7 +102,7 @@ public class GameObject extends VariableContainer implements Element {
 	 * @param x,
 	 *            y
 	 */
-	public void setCoords(double x, double y) {
+	public void setLocation(double x, double y) {
 		setLocation(new Point2D(x, y));
 	}
 
@@ -177,22 +162,13 @@ public class GameObject extends VariableContainer implements Element {
 		return priorities;
 	}
 
-	public void setSprite(Sprite set) {
-		currentSprite = set;
-	}
-
-	public Sprite getSprite() {
-		return currentSprite;
-	}
-
-
 	/**
 	 * Returns the current BoundedImage of this Object.
 	 * 
 	 * @return BoundedImage
 	 */
 	public BoundedImage getBounds() {
-		BoundedImage result = currentSprite.getImage();
+		BoundedImage result = sprite.getImage();
 		result.setPosition(getX(), getY());
 		result.setHeading(heading);
 		result.setSize(width, height);
@@ -212,22 +188,13 @@ public class GameObject extends VariableContainer implements Element {
 		GameObject copy = new GameObject(name);
 		copy.setLocation(getLocation());
 		copy.setHeading(heading);
-		copy.currentSprite = currentSprite.clone();
 		copy.setSize(width, height);
 		copy.setUniqueID(uniqueID);
-		for (String tag : tagSet)
-			copy.addTag(tag);
-		for (String var : stringVars.keySet())
-			copy.setStringVariable(var, stringVars.get(var));
-		for (String var : doubleVars.keySet())
-			copy.setDoubleVariable(var, doubleVars.get(var));
-		for (String var : booleanVars.keySet())
-			copy.setBooleanVariable(var, booleanVars.get(var));
+		cloneHelp(copy);
 		for (Condition c : events.keySet())
 			copy.addConditionAction(c, new ArrayList<>(events.get(c)));
 		copy.setDialogue(dialogueHandler);
-		//for(Holdable h : inventory.getFullInventory())
-		//	copy.addToInventory(h.clone());
+		copy.inventory = inventory.clone();
 		return copy;
 	}
 
@@ -259,24 +226,12 @@ public class GameObject extends VariableContainer implements Element {
 		this.height = height;
 	}
 
-	public double getWidth() {
-		return width;
-	}
-
-	public double getHeight() {
-		return height;
+	public Point2D getDimensions() {
+		return new Point2D(width, height);
 	}
 
 	public Inventory getInventory() {
 		return inventory;
-	}
-
-	public void addToInventory(Holdable o) {
-		inventory.addObject(o);
-	}
-	
-	public void removeFromInventory(Holdable o) {
-		inventory.removeObject(o);
 	}
 
 	public void setDialogue(List<DisplayableText> text) {
@@ -289,11 +244,7 @@ public class GameObject extends VariableContainer implements Element {
 		DisplayableText newText = dialogueHandler.get(0).getWithMessage(s);
 		dialogueHandler = new ArrayList<DisplayableText>();
 		dialogueHandler.add(newText);
-		
+
 	}
-	
-	public Set<String> getTags()
-	{
-		return new HashSet<String>(tagSet);
-	}
+
 }
