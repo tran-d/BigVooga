@@ -67,6 +67,7 @@ import javafx.stage.Stage;
 
 public class EngineTester extends Application {
 	public static void main(String[] args) {
+		new GameDataHandler("aa").loadGame();
 		launch(args);
 
 	}
@@ -77,8 +78,8 @@ public class EngineTester extends Application {
 		// testData(stage);
 		//testImageCanvas(stage);
 		//testDrawer(stage);
-		generateGame(stage);
-		slackTest(stage);
+//		generateGame(stage);
+//		slackTest(stage);
 	}
 	
 	public void slackTest(Stage stage){

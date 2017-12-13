@@ -372,8 +372,8 @@ public class DisplayPanel extends VBox {
 			mySTagTAI.apply();
 			mySInventoryTAI.apply();
 			mySAnimationSequenceTAI.apply();
-		}
-		applyButtonController.updateSpriteObject(conditions, actions,getActiveCell());
+			applyButtonController.updateSpriteObject(conditions, actions,getActiveCell());
+		}	
 		applyToMultipleAtOnce();
 	}
 	

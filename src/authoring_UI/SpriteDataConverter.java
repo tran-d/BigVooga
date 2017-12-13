@@ -35,6 +35,8 @@ public class SpriteDataConverter {
 		return xstream;
 	}
 
+	Map<Condition, List<Integer>> conditionRows;
+	List<Action> actionRows;
 	Map<String, List<SpriteParameter>> catmap;
 	List<SpriteDataConverter> inventory;
 	String imageURL;
@@ -48,10 +50,9 @@ public class SpriteDataConverter {
 	String mySavePath;
 	String spriteType;
 	List<String> tags;
-	ObservableList<Integer> allConditions;
-	ObservableList<Integer> allActions;
-	Map<Condition, List<Integer>> conditionRows;
-	List<Action> actionRows;
+//	ObservableList<Integer> allConditions;
+//	ObservableList<Integer> allActions;
+	
 //	Function<Integer, Boolean> heightFunction;
 //	Function<Integer, Boolean> widthFunction;
 
@@ -88,9 +89,13 @@ public class SpriteDataConverter {
 		mySavePath = ASO.getSavePath();
 		tags = ASO.getTags();
 		inventory = new ArrayList<SpriteDataConverter>();
-		allConditions = ASO.getAllConditions();
-		allActions = ASO.getAllActions();
+		System.out.println("SDC allConditions: "+ASO.getAllConditions());
+//		allConditions = ASO.getAllConditions();
+		System.out.println("SDC allAction: "+ASO.getAllActions());
+//		allActions = ASO.getAllActions();
+		System.out.println("SDC allConditionRows: "+ASO.getConditionRows());
 		conditionRows = ASO.getConditionRows();
+		System.out.println("SDC allActionRows: "+ASO.getActionRows());
 		actionRows = ASO.getActionRows();
 		myAnimationSequences = ASO.getAnimationSequences();
 		ASO.getInventory().forEach(sprite -> {
@@ -122,8 +127,8 @@ public class SpriteDataConverter {
 		ret.setName(name);
 		ret.setSavePath(mySavePath);
 		ret.setTags(tags);
-		ret.setAllConditions(allConditions);
-		ret.setAllActions(allActions);
+//		ret.setAllConditions(allConditions);
+//		ret.setAllActions(allActions);
 		ret.setConditionRows(conditionRows);
 		ret.setActionRows(actionRows);
 		System.out.println("SDC AnimationSeq: "+this.myAnimationSequences);
