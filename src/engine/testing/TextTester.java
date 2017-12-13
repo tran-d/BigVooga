@@ -16,10 +16,12 @@ import engine.Actions.changeObject.RemoveFromWorld;
 import engine.Actions.dialog.ClearTyped;
 import engine.Actions.dialog.PlaceTextOn;
 import engine.Actions.global.SaveGame;
+import engine.Actions.movement.Bounce;
 import engine.Actions.movement.Rotate;
 import engine.Actions.movement.SetVelocity;
 import engine.Actions.movement.StopObject;
 import engine.operations.booleanops.BooleanValue;
+import engine.operations.booleanops.CollisionByTag;
 import engine.operations.booleanops.KeyHeld;
 import engine.operations.booleanops.KeyReleased;
 import engine.operations.doubleops.Value;
@@ -37,6 +39,7 @@ import engine.sprite.PositionableObject;
 import engine.sprite.Sprite;
 import engine.utilities.data.GameDataHandler;
 import javafx.application.Application;
+import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
@@ -73,18 +76,21 @@ public class TextTester extends Application {
 		GameObject object = makeObject("Box", new BoundedImage(f.getName()),
 				100, 100, this::condAct);
 		object.setSize(400, 400);
+		object.setDerivative(1, new Point2D(3,1));
 		//object.addTag("Player");
 		List<DisplayableText> texts = new ArrayList<>();
 		texts.add(text);
 		texts.add(text2);
 		object.setDialogue(texts);
-		
-//		GameObject object2 = makeObject("Box2", new BoundedImage(f.getName()),
-//				100, 100, this::deletable);
+
+		GameObject object2 = makeObject("Box", new BoundedImage(f.getName()),
+				700, 100, this::condAct);
+		object2.setSize(400, 400);
+		object2.setDerivative(1, new Point2D(-2,1));
 		
 		GameLayer l = new GameLayer("Layer");
 		l.addGameObject(object);
-//		l.addGameObject(object2);
+		l.addGameObject(object2);
 
 		GameWorld w = new GameWorld("World");
 		w.addLayer(l);
@@ -153,5 +159,9 @@ public class TextTester extends Application {
 		actions1 = new ArrayList<Action>();
 		actions1.add(new RemoveFromWorld(new Get(object)));
 		object.addConditionAction(new Condition(5, new KeyHeld(new SelfString("R"))), actions1);
+		
+		actions1 = new ArrayList<Action>();
+		actions1.add(new Bounce(new Value(.5)));
+		object.addConditionAction(new Condition(6, new CollisionByTag(new SelfString("Box"))), actions1);
 	}
 }

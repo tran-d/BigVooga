@@ -31,8 +31,8 @@ public class CompositeImage implements Displayable {
 			Positionable t = d.getRelativePosition();
 			d.setHeading(displayable1.getHeading());
 			Point2D newLocation = BoundingPolygon
-					.rotateByAngle(new Point2D(t.getX() * displayable1.getWidth() / 2,
-							t.getY() * displayable1.getHeight() / 2), t.getHeading())
+					.rotateByAngle(new Point2D(t.getX() * displayable1.getWidth(),
+							t.getY() * displayable1.getHeight()), d.getHeading())
 					.add(new Point2D(displayable1.getX(), displayable1.getY()));
 			d.setPosition(newLocation.getX(), newLocation.getY());
 			d.setSize(t.getWidth() * displayable1.getWidth(), t.getWidth() * displayable1.getHeight());
