@@ -90,7 +90,8 @@ public class GameObject extends VariableContainer implements Element {
 
 	@Override
 	public void step(GameObjectEnvironment w) {
-		sprite.step();
+		if(sprite != null)
+			sprite.step();
 		for (int i = ithDerivative.size() - 1; i > 0; i--) {
 			ithDerivative.set(i - 1, ithDerivative.get(i - 1).add(ithDerivative.get(i)));
 		}
