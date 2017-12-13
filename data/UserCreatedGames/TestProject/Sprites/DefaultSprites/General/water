@@ -1,0 +1,29 @@
+<authoring__UI.SpriteDataConverter>
+  <catmap>
+    <entry>
+      <string>General</string>
+      <list>
+        <authoring.Sprite.Parameters.BooleanSpriteParameter>
+          <string>canFight</string>
+          <boolean>true</boolean>
+        </authoring.Sprite.Parameters.BooleanSpriteParameter>
+        <authoring.Sprite.Parameters.DoubleSpriteParameter>
+          <string>health</string>
+          <double>10.0</double>
+        </authoring.Sprite.Parameters.DoubleSpriteParameter>
+        <authoring.Sprite.Parameters.StringSpriteParameter>
+          <string>name</string>
+          <string>hello</string>
+        </authoring.Sprite.Parameters.StringSpriteParameter>
+      </list>
+    </entry>
+  </catmap>
+  <inventory/>
+  <name>water</name>
+  <width>1</width>
+  <height>1</height>
+  <UUID>982c36c1-63fa-4cde-8c94-628e45293348</UUID>
+  <imageURL>/water.png</imageURL>
+  <mySavePath>data/UserCreatedGames/TestProject/Sprites/DefaultSprites/General/water</mySavePath>
+  <spriteType>SpriteObject</spriteType>
+</authoring__UI.SpriteDataConverter>

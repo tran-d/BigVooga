@@ -21,7 +21,7 @@ public class ApplyButtonController {
 
 	public void updateActionConditionTabs(ConditionTab<ConditionRow> conditionTab, ActionTab<ActionRow> actionTab,
 			AbstractSpriteObject spriteObject) {
-		Map<ConditionTreeView, List<Integer>> conditions = spriteObject.getConditionTreeViews();
+		HashMap<ConditionTreeView, List<Integer>> conditions = spriteObject.getConditionTreeviews();
 		List<ActionTreeView> actions = spriteObject.getActionTreeViews();
 		ObservableList<Integer> allConditions = spriteObject.getAllConditions();
 		ObservableList<Integer> allActions = spriteObject.getAllActions();
@@ -72,6 +72,7 @@ public class ApplyButtonController {
 		}
 		catch(NullPointerException | NumberFormatException e) {
 			System.out.println("run");
+			e.printStackTrace();
 			conditionTab.displayRowExceptionMessage(e.getMessage());
 		}
 	}

@@ -18,25 +18,26 @@ public class DialogText {
 	private double relativeHeight;
 	private double relativeWidth;
 	
-	private Bounds boundsInParent;
 	
-	private Pane myParent;
-	private TextArea myTextArea;
 	
 	private double absoluteWidth;
 	private double absoluteHeight;
 	private double absoluteCenterX;
 	private double absoluteCenterY;
 	
+	private double paneHeight;
+	private double paneWidth;
+	
 	public DialogText(Pane parent, TextArea child){
-		myParent = parent;
-		myTextArea = child;
+		paneHeight = parent.getHeight();
+		paneWidth=parent.getWidth();
+		
 		myTextSize = child.getFont().getSize();
 		myFont = child.getFont().getName();
 		setColor(child.getStyle());
 		this.setText(child.getText());
-		this.setBoundsInParent(parent, child);
-		this.setAbsoluteDimensions();
+		
+		this.setAbsoluteDimensions(this.getBoundsInParent(parent, child));
 		this.setRelativeYCoor(this.findRelativeYCoor());
 		this.setRelativeXCoor(this.findRelativeXCoor());
 		this.setRelativeHeight(this.findRelativeHeight());
@@ -68,11 +69,11 @@ public class DialogText {
     	return this.myTextSize;
     }
 	
-	private void setBoundsInParent(Pane parent, TextArea child){
-		boundsInParent = child.getBoundsInParent();
+	private Bounds getBoundsInParent(Pane parent, TextArea child){
+		return child.getBoundsInParent();
 	}
 	
-	private void setAbsoluteDimensions(){
+	private void setAbsoluteDimensions(Bounds boundsInParent){
 		absoluteWidth = boundsInParent.getWidth();
 		absoluteHeight = boundsInParent.getHeight();
 		absoluteCenterX = boundsInParent.getMinX()+absoluteWidth/2;
@@ -123,22 +124,22 @@ public class DialogText {
 		
 	
 	private double findRelativeYCoor() {
-		double pos = this.absoluteCenterY/myParent.getHeight();
+		double pos = this.absoluteCenterY/paneHeight;
 		return pos-.5;
 	}
 
 	private double findRelativeXCoor() {
-		double pos = this.absoluteCenterX/myParent.getWidth();
+		double pos = this.absoluteCenterX/paneWidth;
 		return pos-.5;
 	}
 
 	private double findRelativeHeight() {
-		double height = this.absoluteHeight/myParent.getHeight();
+		double height = this.absoluteHeight/paneHeight;
 		return height;
 	}
 
 	private double findRelativeWidth() {
-		double width = this.absoluteWidth/myParent.getWidth();
+		double width = this.absoluteWidth/paneWidth;
 		return width;
 	}
 }

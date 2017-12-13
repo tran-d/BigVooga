@@ -88,7 +88,7 @@ public class EngineTester2 extends Application {
 		{
 			GameObject temp = blueprints.getInstanceOf("Pillar");
 			temp.setSize(temp.getWidth(), temp.getHeight()*(Math.random()+.5)*2);
-			temp.setCoords(1000+(400*j), 400*(j%2)+temp.getHeight()/2);
+			temp.setLocation(1000+(400*j), 400*(j%2)+temp.getHeight()/2);
 			temp.setHeading(0);
 			layer.addElement(temp);
 		}
@@ -109,7 +109,7 @@ public class EngineTester2 extends Application {
 
 	private GameObject makeObject(String name, BoundedImage i, double x, double y, Consumer<GameObject> condActGen) {
 		GameObject obj = new GameObject(name);
-		obj.setCoords(x, y);
+		obj.setLocation(x, y);
 		condActGen.accept(obj);
 		Sprite sprite = new Sprite();
 		List<BoundedImage> images = new ArrayList<>();

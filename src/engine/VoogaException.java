@@ -13,4 +13,8 @@ public class VoogaException extends RuntimeException {
 	public VoogaException(String key, Object... objects) {
 		super(String.format(ERROR_BUNDLE.getString(key), objects));
 	}
+
+	public VoogaException(Exception e) {
+		super(e.getMessage());
+	}
 }

@@ -1,17 +1,23 @@
 package authoring_UI;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.security.NullPermission;
 import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
+import authoring.GridManagers.SpriteObjectGridManager;
 import javafx.geometry.Point2D;
 
 public class MapDataConverter {
 	private final XStream SERIALIZER = setupXStream();
 	private String myName;
-	private String layerPath;
+//	private String layerPath;
+	private List<LayerDataConverter> gridManagers;
+	
 	
 	public XStream setupXStream() {
 		XStream xstream = new XStream(new DomDriver());
@@ -31,19 +37,35 @@ public class MapDataConverter {
 	}
 	
 	public MapDataConverter(DraggableGrid grids) {
-		//convertLayer(grids);
+		convertToMDC(grids);
+		
 	}
 	
-	public String getLayerPath() {
-		return layerPath;
+//	public String getLayerPath() {
+//		return layerPath;
+//	}
+	
+//	public void setLayerPath(String path) {
+//		layerPath = path;
+//	}
+	
+	private void convertToMDC(DraggableGrid grids){
+		this.myName = grids.getName();
+//		List<SpriteObjectGridManager> SOGMs = 
+		gridManagers= new ArrayList<LayerDataConverter>();
+				grids.getGrids().forEach(grid->{
+					gridManagers.add(new LayerDataConverter(grid));
+				});		
 	}
 	
-	public void setLayerPath(String path) {
-		layerPath = path;
-	}
-	
-	public DraggableGrid createMap() {
+	public DraggableGrid createDraggableGrid() {
 		DraggableGrid newMap = new DraggableGrid();
+		newMap.setName(this.myName);
+		List<SpriteObjectGridManager> SOGMs = new ArrayList<SpriteObjectGridManager>();
+		this.gridManagers.forEach(LDC->{
+			SOGMs.add(LDC.createLayer());
+		});
+		newMap.loadLayers(SOGMs);
 		return newMap;
 	}
 }

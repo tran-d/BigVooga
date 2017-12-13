@@ -26,7 +26,7 @@ public class RemoveFromInventory implements Action {
 	
 	@Override
 	public void execute(GameObject asking, GameObjectEnvironment world) {
-		holder.evaluate(asking, world).removeFromInventory(holdable.evaluate(asking, world));
+		holder.evaluate(asking, world).getInventory().removeObject(holdable.evaluate(asking, world));
 	}
 	
 }
