@@ -19,6 +19,8 @@ public class ExistingItemsChoiceBox {
 	private ChoiceBox<String> cb;
 	private ResourceBundle keys;
 
+	// need current sprites
+
 	public ExistingItemsChoiceBox(VoogaType type) {
 		keys = Resources.getBundle(KEY_BUNDLE_LOCATION);
 		List<String> list = this.makeObservableList(type);
@@ -34,6 +36,10 @@ public class ExistingItemsChoiceBox {
 
 		if (type == VoogaType.ANIMATIONNAME) {
 
+			// TODO
+			list.add("need access to animation names for current sprite");
+			list.add("need access to animation names for current sprite");
+
 		} else if (type == VoogaType.BOOLEANNAME) {
 			for (AbstractSpriteObject sprite : sprites) {
 				list.addAll(sprite.getParameterNamesMatching("Boolean"));
@@ -45,7 +51,10 @@ public class ExistingItemsChoiceBox {
 			}
 
 		} else if (type == VoogaType.DIALOGNAME) {
-			
+
+			// TODO
+			list.add("need access to dialogue names");
+			list.add("need access to dialogue names");
 
 		} else if (type == VoogaType.KEY) {
 			list = makeKeyList();
@@ -65,9 +74,13 @@ public class ExistingItemsChoiceBox {
 
 		} else if (type == VoogaType.WORLDNAME) {
 
+			// TODO
+			list.add("need access to world names");
+			list.add("need access to world names");
+
 		} else {
-			list.add("item 3");
-			list.add("item 4");
+			list.add("if this is here, then it is broken");
+			list.add("pls tell david if you see this");
 		}
 		System.out.println("making an existingItemsList");
 		System.out.println("List: " + list);
@@ -85,6 +98,8 @@ public class ExistingItemsChoiceBox {
 		list.addAll(keys.keySet());
 		return list;
 	}
+
+	/****************** PUBLIC METHODS ********************/
 
 	public ChoiceBox<String> getChoiceBox() {
 		return cb;

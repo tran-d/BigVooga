@@ -17,7 +17,7 @@ public class ConditionTreeView extends TreeView<HBox> {
 	private static final double TREE_VIEW_WIDTH = 400;
 	private static final double INTEGER_TEXTFIELD_WIDTH = 100;
 	private static final double EXPANDED_HEIGHT = 300;
-	private static final double COLLAPSED_HEIGHT = 25;
+	private static final double COLLAPSED_HEIGHT = 35;
 	private static final double VBOX_SPACING = 10;
 	private static final String PRIORITY_NUMBER_PROMPT = "EnterPriority";
 
@@ -29,7 +29,7 @@ public class ConditionTreeView extends TreeView<HBox> {
 	public ConditionTreeView(ConditionRow conditionRow) {
 		super();
 		this.conditionRow = conditionRow;
-		operationNameTreeItem = new OperationNameTreeItem("Boolean", "Boolean: ", VoogaType.BOOLEAN,
+		operationNameTreeItem = new OperationNameTreeItem("Boolean", "Choose Boolean Operation: ", VoogaType.BOOLEAN,
 				() -> changeRowTVSize());
 		setRoot(operationNameTreeItem);
 		setPrefSize(TREE_VIEW_WIDTH, EXPANDED_HEIGHT);
@@ -76,8 +76,7 @@ public class ConditionTreeView extends TreeView<HBox> {
 
 	private VBox buildBooleanOperationTreeView(TreeView<HBox> operationTreeView) {
 		VBox booleanOperationTreeView = new VBox(VBOX_SPACING);
-		booleanOperationTreeView.getChildren().addAll(makeIntegerInputPrompt(priorityIntegerTF),
-				new Label("Choose Boolean Operation: "), operationTreeView);
+		booleanOperationTreeView.getChildren().addAll(makeIntegerInputPrompt(priorityIntegerTF), operationTreeView);
 		return booleanOperationTreeView;
 	}
 
