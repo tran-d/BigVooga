@@ -126,6 +126,7 @@ public class SpriteDataConverter {
 		ret.setAllActions(allActions);
 		ret.setConditionRows(conditionRows);
 		ret.setActionRows(actionRows);
+		System.out.println("SDC AnimationSeq: "+this.myAnimationSequences);
 		ret.setAnimationSequences(this.myAnimationSequences);
 		List<AbstractSpriteObject> newInventory = new ArrayList<AbstractSpriteObject>();
 		inventory.forEach(SDC ->{

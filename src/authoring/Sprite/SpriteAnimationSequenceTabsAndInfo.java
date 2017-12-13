@@ -55,11 +55,11 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	}
 	
 	public void setSpriteObject(AbstractSpriteObject SO){
-		System.out.println("SO ANSEQ SIZE:"+SO.getAnimationSequences().size());
 		
+		this.animationsSequences = new ArrayList<AuthoringAnimationSequence>();
 //		clearAnimationSequencesList();
 //		this.clearExistingAnimationSequencesTabPane();
-
+		System.out.println("SO ANSEQ SIZE:"+SO.getAnimationSequences().size());
 		mySO = SO;
 		SO.getAnimationSequences().forEach(AS->{
 			System.out.println("AnimationSequence: " + AS);
@@ -72,6 +72,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	}
 	
 	private void initialize(){
+		System.out.println("Initializig SpireAnimatTab");
 		initializeAnimationSequencesList();
 		
 		outmostContainerVBox = new VBox();
@@ -83,7 +84,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 		containerTabPane.setSide(Side.RIGHT);
 		containerTabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 		
-		this.tabPaneVbox.getChildren().add(this.containerTabPane);
+		tabPaneVbox.getChildren().add(containerTabPane);
 //		tabPaneVbox.getChildren().add(containerTabPane);
 		
 		animationVBox = new VBox(20);
@@ -202,11 +203,14 @@ public class SpriteAnimationSequenceTabsAndInfo {
 //		outmostContainerVBox = new VBox();
 //	}
 
+	/**
+	 * @return VBox - the UI view for this entire class -  a tab pane of AnimationSequences and buttons to add to them
+	 */
 	public VBox getAnimationBox(){
 		System.out.println("getting scroll pane");
 		//System.out.println("Content: "+((VBox)containerScrollPane.getContent()).getChildren());
 
-		return animationVBox;
+		return this.outmostContainerVBox;
 	}
 	
 //	public void putVBoxIntoScrollPane(){
@@ -269,6 +273,9 @@ public class SpriteAnimationSequenceTabsAndInfo {
 				activeAnimationSeqeunce = dummyAS;
 			}
 		});
+//		tab.sele
+		System.out.println("contTabPane: "+containerTabPane);
+		System.out.println("contTabPanesizebefore: "+containerTabPane.getTabs().size());
 		containerTabPane.getTabs().add(tab);
 		
 		return tab;

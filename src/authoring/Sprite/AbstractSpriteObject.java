@@ -614,10 +614,10 @@ public abstract class AbstractSpriteObject extends ImageView {
 	}
 	
 	public List<AuthoringAnimationSequence> getAnimationSequences(){
-		if (myAnimationSequences == null){
-			myAnimationSequences = new ArrayList<AuthoringAnimationSequence>();
-			myAnimationSequences.add(new AuthoringAnimationSequence("Default", new AuthoringImageView(getImageURL())));
-		}
+//		if (myAnimationSequences == null){
+//			myAnimationSequences = new ArrayList<AuthoringAnimationSequence>();
+//			myAnimationSequences.add(new AuthoringAnimationSequence("Default", new AuthoringImageView(getImageURL())));
+//		}
 		return myAnimationSequences;
 	}
 	
@@ -631,6 +631,12 @@ public abstract class AbstractSpriteObject extends ImageView {
 	
 	public void setAnimationSequences(List<AuthoringAnimationSequence> animations){
 		myAnimationSequences = animations;
+//		= new ArrayList<AuthoringAnimationSequence>();
+//		animations.forEach(aniseq->{
+//			myAnimationSequences.add(new AuthoringAnimationSequence(aniseq));
+//		});
+		System.out.println("Sprite AnimationSeq set, now is: "+myAnimationSequences);
+		System.out.println("Sprite AnimationSeq set, now size: "+myAnimationSequences.size());
 	}
 	
 	public void createNewAnimationSequence(String name){
@@ -684,6 +690,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 	public Map<Condition, List<Action>> conditionActionPairings()
 	{
 		Map<Condition, List<Action>> temp= new HashMap<Condition, List<Action>>();
+		if (conditionRows!=null){
 		for(Condition c: conditionRows.keySet())
 		{
 			List<Action> actions = new ArrayList<Action>();
@@ -693,6 +700,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 			}
 			temp.put(c, actions);
 			
+		}
 		}
 		
 		return temp;

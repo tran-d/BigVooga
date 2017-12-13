@@ -63,6 +63,7 @@ import javafx.stage.Stage;
 public class EngineTester extends Application {
 	public static void main(String[] args) {
 		launch(args);
+
 	}
 
 	@Override
@@ -72,6 +73,16 @@ public class EngineTester extends Application {
 		//testImageCanvas(stage);
 		//testDrawer(stage);
 		generateGame(stage);
+		slackTest(stage);
+	}
+	
+	public void slackTest(Stage stage){
+		try {
+			System.out.println("Trying to load game");
+			new GameDataHandler("aa").loadGame().setNextWorld("Map1");
+		} catch (FileNotFoundException e) {
+			System.out.println("Error");
+		}
 	}
 
 	public void generateGame(Stage stage) {
