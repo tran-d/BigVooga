@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import engine.operations.OperationFactory;
+import engine.operations.VoogaType;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.HBox;
 
@@ -23,69 +25,138 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 	private OperationParameterTreeItem operationParameterTreeItem;
 	private List<OperationParameterTreeItem> opParameterList = new ArrayList<>();
 	private Runnable changeTreeViewSize;
+	private VoogaType voogaType;
 
-	public OperationNameTreeItem(String actionParameter) {
+	private String voogaParameterGetName;
+	private String actionParameterType;
+	private static List<VoogaType> voogaTypesForExistingItems;
 
-		this.makeOperationNameTreeItem(actionParameter);
+	public OperationNameTreeItem(String actionParameterType, String voogaParameterGetName, VoogaType voogaType) {
+		this.voogaType = voogaType;
+		this.voogaParameterGetName = voogaParameterGetName;
+		this.actionParameterType = actionParameterType;
+
+		System.out.println("voogaParameterGetName " + voogaParameterGetName);
+		System.out.println("actionParameterType: " + actionParameterType);
+		System.out.println("MY VOOGA TYPE => " + voogaType.toString());
+
+		voogaTypesForExistingItems = new ArrayList<>();
+		voogaTypesForExistingItems.add(VoogaType.ANIMATIONNAME);
+		voogaTypesForExistingItems.add(VoogaType.BOOLEANNAME);
+		voogaTypesForExistingItems.add(VoogaType.DIALOGNAME);
+		voogaTypesForExistingItems.add(VoogaType.DOUBLENAME);
+		voogaTypesForExistingItems.add(VoogaType.KEY);
+		voogaTypesForExistingItems.add(VoogaType.OBJECTNAME);
+		voogaTypesForExistingItems.add(VoogaType.STRINGNAME);
+		voogaTypesForExistingItems.add(VoogaType.TAG);
+		voogaTypesForExistingItems.add(VoogaType.WORLDNAME);
+
+		this.makeOperationNameTreeItem();
+
+		System.out.println("Making Operation for... ActionParameterType: " + actionParameterType
+				+ " | VoogaParameterName : " + voogaParameterGetName + " | VoogaParameterType: " + voogaType);
+
 	}
 
-	public OperationNameTreeItem(String actionParameter, Runnable changeSize) {
-		this(actionParameter);
+	public OperationNameTreeItem(String actionParameterType, String actionParameterDescription, VoogaType voogaType,
+			Runnable changeSize) {
+		this(actionParameterType, actionParameterDescription, voogaType);
 		this.changeTreeViewSize = changeSize;
 		this.expandedProperty().addListener(e -> changeTreeViewSize.run());
+
 	}
 
 	public Object makeOperation() {
 
-		if (operationParameterTreeItem.getNumberOfParameters() == 0) {
-			return operationParameterTreeItem.getParameter();
-		} else {
-			System.out.println("there's atleast operation parameter choicebox");
-			return operationParameterTreeItem.makeOperation();
+		try {
+
+			if (operationParameterTreeItem == null) {
+				return operationFactory.wrap(operationCB.getSelectionModel().getSelectedItem());
+			} else {
+				if (operationParameterTreeItem.getNumberOfParameters() == 0) {
+					System.out.println("Only textfield/noParam/ExistingItemChoiceBox for actionParameterType: "
+							+ actionParameterType);
+					return operationParameterTreeItem.getParameter();
+				} else {
+					System.out.println("there's atleast operation parameter choicebox");
+					return operationParameterTreeItem.makeOperation();
+				}
+			}
+		} catch (Exception e) {
+			throw e;
 		}
 
 	}
 
-	private TreeItem<HBox> makeOperationNameTreeItem(String actionParameter) {
+	private TreeItem<HBox> makeOperationNameTreeItem() {
 		HBox hb = new HBox();
 		// hb.getChildren().addAll(new Label("Choose Operation: "));
 
-		hb.getChildren().add(makeOperationNameChoiceBox(actionParameter, this));
+		hb.getChildren().addAll(new Label(voogaParameterGetName + ": "), makeOperationNameChoiceBox(this));
 		this.setValue(hb);
 		this.setExpanded(true);
-		
+
 		return this;
 	}
 
-	private ChoiceBox<String> makeOperationNameChoiceBox(String actionParameter, TreeItem<HBox> operationName) {
-		ObservableList<String> operations = FXCollections
-				.observableList(operationFactory.getOperations(actionParameter));
-		operationCB = new ChoiceBox<>(operations);
+	private ChoiceBox<String> makeOperationNameChoiceBox(TreeItem<HBox> operationName) {
+		// ObservableList<String> operations = FXCollections
+		// .observableList(operationFactory.getOperations(voogaTypeString));
 
-		if (actionParameter.equals("Double"))
-			operations.add(0, INPUT_A_DOUBLE);
-		else if (actionParameter.equals("String"))
-			operations.add(0, (INPUT_A_STRING));
-		else if (actionParameter.equals("Boolean"))
-			operations.add(0, (INPUT_A_BOOLEAN));
+		if (checkVoogaType(voogaType)) {
+			operationCB = new ExistingItemsChoiceBox(voogaType).getChoiceBox();
+		} else {
 
-		System.out.println("ops: " + operations);
+			ObservableList<String> voogaParameters = FXCollections
+					.observableList(operationFactory.getOperations(voogaType));
 
-		operationCB.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+			List<String> newOps = new ArrayList<>();
+			for (String s : voogaParameters) {
+				System.out.println("Vooga Parameters for voogaTypeToString: " + s.toString());
+				newOps.add(s.toString());
 
-			@Override
-			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-
-				System.out.println("Selected: " + operations.get(operationCB.getSelectionModel().getSelectedIndex()));
-				operationName.getChildren().clear();
-				String selectedAction = operations.get(operationCB.getSelectionModel().getSelectedIndex());
-				operationParameterTreeItem = new OperationParameterTreeItem(selectedAction);
-				opParameterList.add(operationParameterTreeItem);
-				operationName.getChildren().add(operationParameterTreeItem);
 			}
-		});
 
+			ObservableList<String> newOperations = FXCollections.observableList(newOps);
+
+			operationCB = new ChoiceBox<>(newOperations);
+
+			if (actionParameterType.equals("Double"))
+				newOperations.add(0, INPUT_A_DOUBLE);
+			else if (actionParameterType.equals("String"))
+				newOperations.add(0, (INPUT_A_STRING));
+			else if (actionParameterType.equals("Boolean"))
+				newOperations.add(0, (INPUT_A_BOOLEAN));
+
+			System.out.println("ops: " + newOperations);
+
+			operationCB.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+
+				@Override
+				public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+
+					System.out.println("Selected Operation: "
+							+ newOperations.get(operationCB.getSelectionModel().getSelectedIndex()));
+					operationName.getChildren().clear();
+					String selectedOperation = newOperations.get(operationCB.getSelectionModel().getSelectedIndex());
+
+					operationParameterTreeItem = new OperationParameterTreeItem(selectedOperation);
+
+					opParameterList.add(operationParameterTreeItem);
+					operationName.getChildren().add(operationParameterTreeItem);
+				}
+			});
+		}
 		return operationCB;
+	}
+
+	private boolean checkVoogaType(VoogaType type) {
+		for (VoogaType voogaType : voogaTypesForExistingItems) {
+			if (type == voogaType)
+				return true;
+		}
+		return false;
+
 	}
 
 }

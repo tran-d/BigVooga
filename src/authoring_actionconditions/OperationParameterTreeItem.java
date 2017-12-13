@@ -5,10 +5,13 @@ import java.util.List;
 
 import engine.operations.Operation;
 import engine.operations.OperationFactory;
+import engine.operations.VoogaParameter;
+import engine.operations.VoogaType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
@@ -31,45 +34,81 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 	private OperationNameTreeItem operationNameTreeItem;
 	private ObservableList<String> operationParameters;
 	private String selectedOperation;
-	private List<OperationNameTreeItem> listOfOperations = new ArrayList<>();
+	private List<Object> listOfOperations;
+	private ObservableList<VoogaParameter> voogaParameters;
+	public static List<VoogaType> voogaTypesForExistingItems;
+	private ChoiceBox<String> existingItemsChoiceBox;
 
 	public OperationParameterTreeItem(String selectedOperation) {
 		this.selectedOperation = selectedOperation;
+
+		voogaTypesForExistingItems = new ArrayList<>();
+		voogaTypesForExistingItems.add(VoogaType.ANIMATIONNAME);
+		voogaTypesForExistingItems.add(VoogaType.BOOLEANNAME);
+		voogaTypesForExistingItems.add(VoogaType.DIALOGNAME);
+		voogaTypesForExistingItems.add(VoogaType.DOUBLENAME);
+		voogaTypesForExistingItems.add(VoogaType.KEY);
+		voogaTypesForExistingItems.add(VoogaType.OBJECTNAME);
+		voogaTypesForExistingItems.add(VoogaType.STRINGNAME);
+		voogaTypesForExistingItems.add(VoogaType.TAG);
+		voogaTypesForExistingItems.add(VoogaType.WORLDNAME);
+
 		this.makeParameterOperationTreeItem(selectedOperation);
 	}
 
 	public Object getParameter() {
 
-		if (doubleParameterTF != null) {
-			System.out.println("Double was inputted: " + doubleParameterTF.getText());
-			return operationFactory.wrap(Double.parseDouble(doubleParameterTF.getText()));
-		} else if (stringParameterTF != null) {
-			System.out.println("String was inputted: " + stringParameterTF.getText());
-			return operationFactory.wrap(stringParameterTF.getText());
-		} else if (booleanParameterTF != null) {
-			System.out.println("Boolean was inputted: " + booleanParameterTF.getText());
-			return operationFactory.wrap(booleanParameterTF.getText());
-		} else {
-			System.out.println(selectedOperation);
-			return operationFactory.makeOperation(selectedOperation, new Object[0]);
+		try {
+			if (doubleParameterTF != null) {
+				System.out.println("Double was inputted: " + doubleParameterTF.getText());
+				return operationFactory.wrap(getDoubleInput(doubleParameterTF));
+			} else if (stringParameterTF != null) {
+				System.out.println("String was inputted: " + stringParameterTF.getText());
+				return operationFactory.wrap(stringParameterTF.getText());
+			} else if (booleanParameterTF != null) {
+				System.out.println("Boolean was inputted: " + booleanParameterTF.getText());
+				return operationFactory.wrap(getBooleanInput(booleanParameterTF));
+			} else if (existingItemsChoiceBox != null) {
+				System.out.println("ExistingItem was inputted: "
+						+ existingItemsChoiceBox.getSelectionModel().getSelectedItem().toString());
+				return operationFactory.makeOperation(selectedOperation,
+						operationFactory.wrap(existingItemsChoiceBox.getSelectionModel().getSelectedItem()));
+			} else {
+				System.out.println("Just SelectedOperation was inputted: " + selectedOperation);
+				return operationFactory.makeOperation(selectedOperation, new Object[0]);
+			}
+		} catch (Exception e) {
+			throw e;
 		}
 
 	}
 
-	public Operation<?> makeOperation() {
-		List<Object> listOfStringParams = new ArrayList<>();
+	// removed Operation<?> cast
+	public Object makeOperation() {
+		try {
+			List<Object> listOfStringParams = new ArrayList<>();
+			System.out.println("Making an operation with atleast 1 parameter: " + listOfOperations);
 
-		for (OperationNameTreeItem op : listOfOperations) {
+			for (Object op : listOfOperations) {
 
-			listOfStringParams.add(op.makeOperation());
+				if (op instanceof OperationNameTreeItem)
+					listOfStringParams.add(((OperationNameTreeItem) op).makeOperation());
+				else if (existingItemsChoiceBox != null) {
+					listOfStringParams
+							.add(operationFactory.wrap(existingItemsChoiceBox.getSelectionModel().getSelectedItem()));
+				}
+
+			}
+
+			for (Object param : listOfStringParams) {
+				System.out.println("Selected operation w/ param: " + selectedOperation + " " + param.toString());
+			}
+
+			System.out.println("Making Operation...");
+			return operationFactory.makeOperation(selectedOperation, listOfStringParams.toArray());
+		} catch (Exception e) {
+			throw e;
 		}
-
-		for (Object param : listOfStringParams) {
-			System.out.println("Selected operation w/ param: " + selectedOperation + " " + param.toString());
-		}
-
-		System.out.println("Making Operation...");
-		return operationFactory.makeOperation(selectedOperation, listOfStringParams.toArray());
 
 	}
 
@@ -87,6 +126,9 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 	}
 
 	private void makeOperationParameterChildren(String selectedOperation, TreeItem<HBox> operationParameter, HBox hb) {
+		listOfOperations = new ArrayList<>();
+
+		// System.out.println("SELECTED OPERATION: " + selectedOperation);
 
 		if (selectedOperation.equals(INPUT_A_DOUBLE)) {
 			doubleParameterTF = createDoubleTextField(operationParameter);
@@ -104,40 +146,63 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 
 		else {
 			operationParameters = FXCollections.observableList(operationFactory.getParameters(selectedOperation));
+			voogaParameters = FXCollections.observableList(operationFactory.getParametersWithNames(selectedOperation));
 			System.out.println("Op Params: " + operationParameters);
-
-			listOfOperations = new ArrayList<>();
+			// listOfOperations = new ArrayList<>();
 
 			if (!operationParameters.isEmpty()) {
 
 				hb.getChildren().add(new Label("Choose Operation Parameter(s): "));
-
 				hb.getChildren().add(new Label("[ "));
 
-				for (String opParam : operationParameters) {
+				for (int i = 0; i < operationParameters.size(); i++) {
+					hb.getChildren().add(new Label(operationParameters.get(i) + " "));
+					
+					System.out.println("MY VOOGA TYPE => " + voogaParameters.get(i).getType().toString());
 
-					hb.getChildren().add(new Label(opParam + " "));
+					if (this.checkVoogaType(voogaParameters.get(i).getType())) {
 
-					operationNameTreeItem = new OperationNameTreeItem(opParam);
-					listOfOperations.add(operationNameTreeItem);
-					operationParameter.getChildren().add(operationNameTreeItem);
+						System.out.println("SPECIAL VOOGATYPE");
+						existingItemsChoiceBox = new ExistingItemsChoiceBox(voogaParameters.get(i).getType())
+								.getChoiceBox();
+
+						listOfOperations.add(existingItemsChoiceBox);
+
+						operationParameter.getChildren().add(new TreeItem<HBox>(
+								new HBox(new Label(voogaParameters.get(i).getName() + ": "), existingItemsChoiceBox)));
+
+					} else {
+
+						operationNameTreeItem = new OperationNameTreeItem(operationParameters.get(i),
+								voogaParameters.get(i).getName(), voogaParameters.get(i).getType());
+						listOfOperations.add(operationNameTreeItem);
+						operationParameter.getChildren().add(operationNameTreeItem);
+					}
 				}
-
 				hb.getChildren().add(new Label("]"));
 			}
 
 		}
 	}
 
+	private boolean checkVoogaType(VoogaType type) {
+		for (VoogaType voogaType : voogaTypesForExistingItems) {
+			if (type == voogaType)
+				return true;
+		}
+		return false;
+
+	}
+
 	private TextField createDoubleTextField(TreeItem<HBox> treeItem) {
 		TextField tf = new TextField();
 		// TreeItem<HBox> tfTreeItem = new TreeItem<HBox>(new HBox(new Label("Insert
 		// Double: "), tf));
-		tf.setOnKeyReleased(e -> {
-			checkDoubleInput(tf);
-			// checkEmptyInput(tf, parameterAction, paramTV,
-			// parameterAction.getChildren().indexOf(tfTreeItem));
-		});
+		// tf.setOnKeyReleased(e -> {
+		// checkDoubleInput(tf);
+		// checkEmptyInput(tf, parameterAction, paramTV,
+		// parameterAction.getChildren().indexOf(tfTreeItem));
+		// });
 
 		return tf;
 	}
@@ -155,32 +220,31 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 
 	private TextField createBooleanTextField(TreeItem<HBox> operationParameter) {
 		TextField tf = new TextField();
-		tf.setOnKeyReleased(e -> {
-			checkBooleanInput(tf);
-		});
-
 		return tf;
 	}
 
-	private void checkDoubleInput(TextField tf) {
+	private Double getDoubleInput(TextField tf) {
 		try {
 			if (!tf.getText().equals(""))
-				Double.parseDouble(tf.getText());
+				return Double.parseDouble(tf.getText());
+			else
+				return null;
 		} catch (NumberFormatException e) {
 			showError(INVALID_INPUT_MESSAGE, DOUBLE_INPUT_MESSAGE);
 			tf.clear();
+			return null;
 		}
 	}
 
-	private void checkBooleanInput(TextField tf) {
-		try {
-			if (!tf.getText().equals(""))
-				Boolean.parseBoolean(tf.getText());
-		} catch (NumberFormatException e) {
-			showError(INVALID_INPUT_MESSAGE, BOOLEAN_INPUT_MESSAGE);
-			tf.clear();
-		}
+	private Boolean getBooleanInput(TextField tf) {
 
+		if (tf.getText().toLowerCase().equals("true") || tf.getText().toLowerCase().equals("false"))
+			return Boolean.parseBoolean(tf.getText().toLowerCase());
+		else {
+			showError(INVALID_INPUT_MESSAGE, BOOLEAN_INPUT_MESSAGE);
+			// tf.clear();
+			return null;
+		}
 	}
 
 	private void showError(String header, String content) {
@@ -189,4 +253,5 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 		alert.headerTextProperty().bind(DisplayLanguage.createStringBinding(content));
 		alert.show();
 	}
+
 }

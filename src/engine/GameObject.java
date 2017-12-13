@@ -214,6 +214,7 @@ public class GameObject extends VariableContainer implements Element {
 		copy.setHeading(heading);
 		copy.currentSprite = currentSprite.clone();
 		copy.setSize(width, height);
+		copy.setUniqueID(uniqueID);
 		for (String tag : tagSet)
 			copy.addTag(tag);
 		for (String var : stringVars.keySet())
@@ -224,6 +225,9 @@ public class GameObject extends VariableContainer implements Element {
 			copy.setBooleanVariable(var, booleanVars.get(var));
 		for (Condition c : events.keySet())
 			copy.addConditionAction(c, new ArrayList<>(events.get(c)));
+		copy.setDialogue(dialogueHandler);
+		//for(Holdable h : inventory.getFullInventory())
+		//	copy.addToInventory(h.clone());
 		return copy;
 	}
 

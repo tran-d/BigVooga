@@ -1,7 +1,6 @@
 package authoring_actionconditions;
 
 import java.util.ResourceBundle;
-
 import ActionConditionClasses.ChoiceBoxVBox;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -29,18 +28,12 @@ import tools.DisplayLanguage;
  */
 
 public class ActionConditionRow extends ToolBar implements ActionConditionRowI {
-
-	protected static final double ROW_WIDTH = 600;
-	protected static final double TREE_VIEW_WIDTH = 400;
-	protected static final double EXPANDED_HEIGHT = 300;
-	protected static final double COLLAPSED_HEIGHT = 25;
-
-	protected static final String ENTER_VALID_INPUT = "EnterValid";
-	protected static String EMPTY_CHOICEBOX = "EmptyChoiceBox";
-	protected static final String INVALID_INPUT_MESSAGE = "InvalidInput";
-	protected static final String DOUBLE_INPUT_MESSAGE = "EnterDouble";
-	protected static final String BOOLEAN_INPUT_MESSAGE = "EnterBoolean";
+	
 	protected static final String ACTIONCONDITION_RESOURCE_PATH = "TextResources/ActionConditionVBoxResources";
+	protected static final double ROW_WIDTH = 700;
+	protected static final double TREE_VIEW_WIDTH = 500;
+	protected static final double EXPANDED_HEIGHT = 400;
+	protected static final double COLLAPSED_HEIGHT = 25;
 
 	protected ResourceBundle actionConditionVBoxResources;
 	private int labelInt;
@@ -101,13 +94,6 @@ public class ActionConditionRow extends ToolBar implements ActionConditionRowI {
 	@Override
 	public int getRowID() {
 		return labelInt;
-	}
-	
-	protected void showError(String header, String content) {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.headerTextProperty().bind(DisplayLanguage.createStringBinding(header));
-		alert.contentTextProperty().bind(DisplayLanguage.createStringBinding(content));
-		alert.show();
 	}
 
 }

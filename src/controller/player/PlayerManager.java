@@ -237,7 +237,7 @@ public class PlayerManager {
 		return new Point2D(mouseX, mouseY);
 	}
 
-	public void save(String gameName) {
+	public void save() {
 		engineController.stop();
 		engineController.setPlayerManager(null);
 		gameDataHandler.saveForContinue(engineController);

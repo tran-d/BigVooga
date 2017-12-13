@@ -6,8 +6,8 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class BuildConditionView {
-	private static final double WIDTH = 700;
-	private static final double HEIGHT = 400;
+	private static final double WIDTH = 750;
+	private static final double HEIGHT = 500;
 
 	private Stage stage;
 	private Scene scene;
@@ -32,10 +32,9 @@ public class BuildConditionView {
 
 	private void transportActionRow(WindowEvent event) {
 
-		if (conditionRow.getCondition() != null) {
-
-			conditionRow.getRootTreeItem().setExpanded(false);
-			conditionRow.changeRowTVSize();
+		try {
+			conditionRow.getCondition();
+			conditionRow.reduceTreeView();
 
 			if (ACVBox.getChildren().size() >= conditionRow.getRowID())
 				ACVBox.getChildren().remove(conditionRow.getRowID() - 1);
@@ -43,14 +42,18 @@ public class BuildConditionView {
 
 			stage.close();
 
-		} else {
+		} catch (Exception e) {
+			e.printStackTrace();
+			ConditionTreeView.showError(e.getMessage());
 			event.consume();
+
 		}
 
+		// KEEP THIS CODE
+		// if (conditionRow.getCondition() != null) {
+		//
 		// conditionRow.getRootTreeItem().setExpanded(false);
 		// conditionRow.changeRowTVSize();
-		//
-		// System.out.println(conditionRow.getPrefHeight());
 		//
 		// if (ACVBox.getChildren().size() >= conditionRow.getRowID())
 		// ACVBox.getChildren().remove(conditionRow.getRowID() - 1);
@@ -58,12 +61,10 @@ public class BuildConditionView {
 		//
 		// stage.close();
 		//
-		// // test
-		// conditionRow.getCondition();
+		// } else {
+		// event.consume();
+		// }
 
 	}
 
-	public void createParameterChoiceBox() {
-
-	}
 }

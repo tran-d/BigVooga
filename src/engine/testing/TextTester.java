@@ -92,7 +92,6 @@ public class TextTester extends Application {
 		GameMaster master = new GameMaster();
 		master.addWorld(w);
 		master.setNextWorld("World");
-		master.setGameFileName("Test file 1");
 		gdh.saveGame(master);
 	}
 

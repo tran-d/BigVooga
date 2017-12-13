@@ -11,19 +11,26 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Font;
 import tools.DisplayLanguage;
 
@@ -42,6 +49,8 @@ public class DialogueEditor {
 	private static final String NUM_PANELS_PROMPT = "NumberOfPanels";
 	private static final String INVALID_INPUT_MESSAGE = "InvalidInput";
 	private static final String INTEGER_INPUT_PROMPT = "InputInteger";
+	private static final String INITIAL_FONT_COLOR = "#47BDFF";
+	private static final String INITIAL_BACKGROUND_COLOR = "#FFFFFF";
 
 	private static final double NAME_PROMPT_WIDTH = 150;
 	private static final double FONT_PROMPT_WIDTH = 50; // change to choicebox
@@ -59,11 +68,11 @@ public class DialogueEditor {
 	private DialogueTextAreaView dsp;
 	private Consumer<String> saveConsumer;
 	private ColorPicker backgroundColorCP;
+	private SVGPath svg;
 
 	public DialogueEditor(Consumer<String> saveCons) {
 		this.saveConsumer = saveCons;
 		view = new VBox(10);
-		view.setPrefSize((WelcomeScreen.WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH) / 2, INPUT_HBOX_HEIGHT);
 		view.getStylesheets().add(DialogueManager.class.getResource("dialogue.css").toExternalForm());
 
 		this.makeTemplate();
@@ -85,7 +94,7 @@ public class DialogueEditor {
 
 	public int getFontSize() {
 		if (sizeTF.getText().equals(""))
-			return 0;
+			return 16;
 		else
 			return Integer.parseInt(sizeTF.getText());
 	}
@@ -94,12 +103,21 @@ public class DialogueEditor {
 		return fontColorCP.getValue();
 	}
 
-	public List<TextArea> getDialogueList() {
-		return dsp.getDialogueList();
+//	public List<TextArea> getDialogueList() {
+//		return dsp.getDialogueList();
+//	}
+	
+	public List<Pane> getDialogueSequence() {
+		return dsp.getDialogueSequence();
 	}
 	
 	public Color getBackgroundColor() {
 		return backgroundColorCP.getValue();
+	}
+	
+	public VBox getView() {
+		System.out.println(view.getHeight());
+		return view;
 	}
 
 	/*************************** PRIVATE METHODS *********************************/
@@ -108,62 +126,126 @@ public class DialogueEditor {
 		if (!name.trim().equals(""))
 			saveConsumer.accept(name);
 	}
+	
+	private Separator createSeparator() {
+		Separator separator = new Separator();
+		separator.setOrientation(Orientation.VERTICAL);
+		return separator;
+	}
 
 	private void makeTemplate() {
 
 		this.makeInputFields();
 
-		view.getChildren().addAll(new HBox(makeEntry(NAME_PROMPT, nameTF)),
-				new HBox(makeEntry(FONT_TYPE_PROMPT, fontTypeCB)), new HBox(makeEntry(FONT_SIZE_PROMPT, sizeTF)),
-				new HBox(makeEntry(FONT_COLOR_PROMPT, fontColorCP)), new HBox(makeEntry(BACKGROUND_COLOR_PROMPT, backgroundColorCP)), dsp);
-
+//		view.getChildren().addAll(new HBox(makeEntry(NAME_PROMPT, nameTF)),
+//				new HBox(makeEntry(FONT_TYPE_PROMPT, fontTypeCB)), new HBox(makeEntry(FONT_SIZE_PROMPT, sizeTF)),
+//				new HBox(makeEntry(FONT_COLOR_PROMPT, fontColorCP)), new HBox(makeEntry(BACKGROUND_COLOR_PROMPT, backgroundColorCP)), dsp);
+		
+		HBox textHBox = new HBox(5);
+		textHBox.setAlignment(Pos.CENTER);
+		textHBox.getChildren().addAll(createAddTextAreaButton(),
+				  createSeparator(),
+				  new HBox(makeEntry(FONT_COLOR_PROMPT, fontColorCP)),
+				  createSeparator(),
+				  new HBox(makeEntry(FONT_TYPE_PROMPT, fontTypeCB)),
+				  createSeparator(),
+				  new HBox(makeEntry(FONT_SIZE_PROMPT, sizeTF)));
+		
+		HBox backgroundHBox = new HBox(5);
+		backgroundHBox.getChildren().addAll(new HBox(makeEntry(BACKGROUND_COLOR_PROMPT, backgroundColorCP)), 
+											createSeparator(), createSetBackgroundButton());
+		
+		VBox dialogueModifiersBox = new VBox(20);
+		dialogueModifiersBox.getChildren().addAll(new HBox(makeEntry(NAME_PROMPT, nameTF)), textHBox, backgroundHBox);
+		
+		view.getChildren().addAll(dialogueModifiersBox, dsp);
 	}
+
+	private Button createAddTextAreaButton() {
+		Button addText = new Button("Add Text");
+		addText.setOnAction(e -> dsp.addTextArea());
+		
+		return addText;
+	}
+	
+	private Button createSetBackgroundButton() {
+		Button addText = new Button("Set Background");
+		addText.setOnAction(e -> dsp.addTextArea());
+		
+		return addText;
+	}
+	
 
 	private void makeInputFields() {
 
 		nameTF = makeTextField(NAME_PROMPT_WIDTH, PROMPT_HEIGHT);
 		sizeTF = makeTextField(FONT_SIZE_PROMPT_WIDTH, PROMPT_HEIGHT);
 		fontTypeCB = makeChoiceBox(FXCollections.observableList(Font.getFamilies()));
-		fontColorCP = makeColorPallette();
-		backgroundColorCP = makeColorPallette();
+		fontColorCP = makeColorPallette(INITIAL_FONT_COLOR);
+		backgroundColorCP = makeColorPallette(INITIAL_BACKGROUND_COLOR);
+//		changeFontColor();
+//		changeBackgroundColor();
 
-		sizeTF.setOnKeyReleased(e -> {
-			if (!sizeTF.getText().equals("")) {
-
-				try {
-					int size = Integer.parseInt(sizeTF.getText());
-					saveConsumer.accept(getName());
-					System.out.println("size changed! saving!");
-					dsp.setFontSize(size);
-				} catch (NumberFormatException ex) {
-					sizeTF.clear();
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.contentTextProperty().bind(DisplayLanguage.createStringBinding(INTEGER_INPUT_PROMPT));
-					alert.headerTextProperty().bind(DisplayLanguage.createStringBinding(INVALID_INPUT_MESSAGE));
-					alert.show();
-				}
-			}
-		});
-
-		// fontCB.setOnKeyReleased(e -> {
-		//
-		// saveConsumer.accept(getName());
-		// System.out.println("font changed! saving!");
-		// });
+		sizeTF.setOnKeyReleased(e -> changeFontSize());
+		fontColorCP.setOnAction(e -> changeFontColor());
+		backgroundColorCP.setOnAction(e -> changeBackgroundColor());
+		
 
 		numPanelsTF = makeTextField(NUM_PANELS_PROMPT_WIDTH, PROMPT_HEIGHT);
 
-		dsp = new DialogueTextAreaView(() -> saveConsumer.accept(getName()));
+		dsp = new DialogueTextAreaView(() -> saveConsumer.accept(getName()), () -> backgroundColorCP.getValue());
 		// numPanelsTF.setOnInputMethodTextChanged(e -> checkInput());
 	}
+	
+	private void changeFontSize() {
+		if (!sizeTF.getText().equals("")) {
 
-	private ColorPicker makeColorPallette() {
-		ColorPicker cp = new ColorPicker();
+			try {
+				int size = Integer.parseInt(sizeTF.getText());
+				saveConsumer.accept(getName());
+				System.out.println("size changed! saving!");
+				dsp.setFont(getFontType(), size);
+			} catch (NumberFormatException ex) {
+				sizeTF.clear();
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.contentTextProperty().bind(DisplayLanguage.createStringBinding(INTEGER_INPUT_PROMPT));					
+				alert.headerTextProperty().bind(DisplayLanguage.createStringBinding(INVALID_INPUT_MESSAGE));
+				alert.show();
+				}
+			}
+		dsp.setFont(getFontType(), getFontSize());
+	}
+	
+    private void changeFontColor() {
+		dsp.setFontColor(toRGBString(fontColorCP.getValue()));
+    }
+    
+    private void changeBackgroundColor() {
+    		dsp.setBackgroundColor(backgroundColorCP.getValue());
+    }
+    
+    private String toRGBString(Color c) {
+        return "rgb("
+                          + to255Int(c.getRed())
+                    + "," + to255Int(c.getGreen())
+                    + "," + to255Int(c.getBlue())
+             + ")";
+    }
 
-		cp.setOnAction(e -> {
-			saveConsumer.accept(getName());
-			System.out.println("font changed! saving!");
-		});
+    private int to255Int(double d) {
+        return (int) (d * 255);
+    }
+
+	private ColorPicker makeColorPallette(String color) {
+		ColorPicker cp = new ColorPicker(Color.web(color));
+//		svg = new SVGPath();
+//		svg.setContent("M70,50 L90,50 L120,90 L150,50 L170,50"
+//				+ "L210,90 L180,120 L170,110 L170,200 L70,200 L70,110 L60,120 L30,90"
+//				+ "L70,50");
+//		svg.setStroke(Color.DARKGREY);
+//		svg.setStrokeWidth(2);
+//		svg.setEffect(new DropShadow());
+//		svg.setFill(cp.getValue());
 
 		return cp;
 	}
@@ -180,7 +262,7 @@ public class DialogueEditor {
 
 				saveConsumer.accept(getName());
 				System.out.println("font changed! saving!");
-				dsp.setFontType(observableList.get(cb.getSelectionModel().getSelectedIndex()));
+				dsp.setFont(observableList.get(cb.getSelectionModel().getSelectedIndex()), getFontSize());
 			}
 		});
 		return cb;
@@ -193,10 +275,9 @@ public class DialogueEditor {
 	}
 
 	private HBox makeEntry(String prompt, Node tf) {
-		HBox hb = new HBox();
+		HBox hb = new HBox(5);
 		Label lb = new Label();
 		lb.textProperty().bind(DisplayLanguage.createStringBinding(prompt));
-		lb.setStyle("-fx-text-fill: #47BDFF;");
 		hb.getChildren().addAll(lb, tf);
 		hb.setAlignment(Pos.CENTER);
 		return hb;

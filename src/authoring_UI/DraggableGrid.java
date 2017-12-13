@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 import java.util.function.Function;
 
 import authoring.GridManagers.BackgroundGridManager;
@@ -13,6 +14,7 @@ import authoring.GridManagers.PanelObjectGridManager;
 import authoring.GridManagers.SpriteObjectGridManager;
 import authoring.GridManagers.SpriteObjectGridManagerForSprites;
 import authoring.GridManagers.TerrainObjectGridManager;
+import authoring.Sprite.AnimationSequences.AuthoringImageView;
 import authoring.util.NumberSpinner;
 import engine.utilities.data.GameDataHandler;
 import javafx.beans.value.ChangeListener;
@@ -36,7 +38,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-public class DraggableGrid extends VBox {
+public class DraggableGrid extends VBox implements DraggableGridAPI{
 	private StackPane myGrids;
 	private ComboBox<String> myTerrain;
 	private ImageView terrainImage;
@@ -56,23 +58,60 @@ public class DraggableGrid extends VBox {
 		cols = 20;
 	}
 	
-	public void loadLayers(List<SpriteObjectGridManager> SOGMList) {
-		System.out.println("add to layers in DRAGGABLE GRID!");
-		for (SpriteObjectGridManager SOGM : SOGMList) {
-			if (SOGM.getLayerNum() == 0) {
-				allGrids.add(new TerrainObjectGridManager(SOGM.getNumRows(), SOGM.getNumCols(), SOGM.getLayerNum(), SOGM.getColor()));
-			}
-			if (SOGM.getLayerNum() == 1) {
-				allGrids.add(new SpriteObjectGridManagerForSprites(SOGM.getNumRows(), SOGM.getNumCols(), SOGM.getLayerNum(), SOGM.getColor()));
-			}
-			if (SOGM.getLayerNum() == 2) {
-				allGrids.add(new PanelObjectGridManager(SOGM.getNumRows(), SOGM.getNumCols(), SOGM.getLayerNum(), SOGM.getColor()));
-			}
-		}
+	public SpriteGridHandler getSGH() {
+		return mySGH;
 	}
 	
+	public void loadLayers(List<SpriteObjectGridManager> SOGMList) {
+		Random rand = new Random();
+		if (allGrids == null) allGrids = new ArrayList<SpriteObjectGridManager>();
+		this.setAllGrids(SOGMList);
+//		mySGH = new SpriteGridHandler(rand.nextInt(), this);
+//		for (SpriteObjectGridManager SOGM : SOGMList) {
+//			SOGM.setSpriteGridHandler(mySGH);
+			
+//			if (SOGM.getLayerNum() == 0) {
+//				System.out.println("NUM ROWS IN DG: " + SOGM.getRowsForImport());
+//				TerrainObjectGridManager TOGM = new TerrainObjectGridManager(SOGM.getRowsForImport(), SOGM.getColsForImport(), SOGM.getLayerNum(), SOGM.getColor());
+//				TOGM.setSpriteGridHandler(mySGH);
+//				System.out.println("TOGM HAS THIS MANY SPRITES: " + SOGM.getStoredSpriteList().size());
+//				TOGM.createMapLayer(SOGM.getStoredSpriteList()); 
+//				allGrids.add(TOGM);
+//			}
+//			if (SOGM.getLayerNum() == 1) {
+//				System.out.println("NUM ROWS IN DG: " + SOGM.getRowsForImport());
+//				SpriteObjectGridManagerForSprites SOGMS = new SpriteObjectGridManagerForSprites(SOGM.getRowsForImport(), SOGM.getColsForImport(), SOGM.getLayerNum(), SOGM.getColor());
+//				SOGMS.setSpriteGridHandler(mySGH);
+//				System.out.println("SOGMS HAS THIS MANY SPRITES: " + SOGM.getStoredSpriteList().size());
+//				SOGMS.createMapLayer(SOGM.getStoredSpriteList()); 
+//				allGrids.add(SOGMS);
+//			}
+//			if (SOGM.getLayerNum() == 2) {
+//				System.out.println("NUM ROWS IN DG: " + SOGM.getRowsForImport());
+//				PanelObjectGridManager POGM = new PanelObjectGridManager(SOGM.getRowsForImport(), SOGM.getColsForImport(), SOGM.getLayerNum(), SOGM.getColor());
+//				POGM.setSpriteGridHandler(mySGH);
+//				System.out.println("POGM HAS THIS MANY SPRITES: " + SOGM.getStoredSpriteList().size());
+//				POGM.createMapLayer(SOGM.getStoredSpriteList());
+//				allGrids.add(POGM);
+//			}
+		
+		System.out.println("successfully added all grids, allGrids size is: " + allGrids.size());
+	}
+	
+	public DraggableGrid(int row, int col) {
+		rows = row;
+		cols = col;
+	}
+	
+	public DraggableGrid(List<SpriteObjectGridManager> SGMs) {
+		this();
+		allGrids = SGMs;
+	}
+
+	@Override
 	public void construct(SpriteGridHandler spriteGridHandler){
 		if (allGrids == null){
+			System.out.println("GRIDS IS NULL!");
 			allGrids = new ArrayList<SpriteObjectGridManager>();
 		}
 		mySGH = spriteGridHandler;
@@ -90,8 +129,6 @@ public class DraggableGrid extends VBox {
 	private void createGrid(SpriteGridHandler spriteGridHandler) {
 		myStackPane = new StackPane();
 		myStackPane.setAlignment(Pos.CENTER);
-		
-		
 		int layerRows = rows;
 		int layerColumns = cols;
 		for (SpriteObjectGridManager ml: allGrids){
@@ -99,14 +136,10 @@ public class DraggableGrid extends VBox {
 			makeLayerButton(ml);
 			showLayer(ml);
 			layerRows = ml.getNumRows();
+			System.out.println("LAYER ROWS : " + layerRows);
 			layerColumns = ml.getNumCols();
 		}
-//		Image image = new Image("pikachu.png");
-//		ImageView iv = new ImageView(image);
-//		iv.setFitHeight(myStackPane.getHeight());
-//		iv.setFitWidth(myStackPane.getWidth());
-//		myStackPane.getChildren().add(iv);
-		
+	
 		addChangeRowsNumberSpinner(layerRows);
 		addChangeColumnsNumberSpinner(layerColumns);
 		ScrollPane scrollGrid = new ScrollPane(myStackPane);
@@ -117,10 +150,12 @@ public class DraggableGrid extends VBox {
 		this.setId("MapGridAndLayers");
 		this.setMaxWidth(MainAuthoringGUI.AUTHORING_WIDTH/2 + 124);
 	}
-	
 	public List<SpriteObjectGridManager> getGrids(){
 		//TODO
 		return allGrids;
+	}
+	public void setAllGrids(ArrayList<SpriteObjectGridManager> SGMs){
+		allGrids = SGMs;
 	}
 	
 	public void setAllGrids(SpriteObjectGridManager SGM){
@@ -136,6 +171,7 @@ public class DraggableGrid extends VBox {
 	private void makeLayers(SpriteGridHandler spriteGridHandler){
 		showingGrids = new ArrayList<SpriteObjectGridManager>();
 		if (allGrids.size()==0){
+			System.out.println("SHOULD NOT BE GOING THROUGH THIS ALERT ALERT ALERT");
 		SpriteObjectGridManager background = new BackgroundGridManager(rows, cols, spriteGridHandler);
 		SpriteObjectGridManager terrain = new TerrainObjectGridManager(rows, cols, spriteGridHandler);
 		SpriteObjectGridManagerForSprites sprites = new SpriteObjectGridManagerForSprites(rows, cols, spriteGridHandler);
@@ -148,20 +184,17 @@ public class DraggableGrid extends VBox {
 			showingGrids.add(item);
 		});
 		} else {
-			if (spriteGridHandler == null) System.out.println("SGH is NULL IN DRAGGABLE GRID");
-			if (allGrids == null) System.out.println("ALL GRIDS IS NULL IN DG");
-			if (allGrids.size() == 0) System.out.println("ALL GRIDS SIZE 0");
-			//  allGrids.get(0) <--- THIS IS THE ISSUE
 			allGrids.forEach(item->{
-				System.out.println("lready has a grid!: "+item);
+				System.out.println("already has a grid!: "+item);
 				item.setSpriteGridHandler(spriteGridHandler);
 				item.createMapLayer();
+				
 				item.setSizeToMatchDefaults();
+			
 //				item.getMapLayer().setSpriteGridHandler();
 				showingGrids.add(item);
 			});
 		}
-//		allGrids = new ArrayList<SpriteObjectGridManager>(gridManagers);
 	}
 	
 	public SpriteObjectGridManager getActiveGrid(){
@@ -173,7 +206,7 @@ public class DraggableGrid extends VBox {
 				} else if (o2 instanceof BackgroundGridManager){
 					return -1;
 				}
-				return o2.getMapLayer().getLayerNumber()-o1.getMapLayer().getLayerNumber();
+				return o2.getLayerNum()-o1.getLayerNum();
 			}
 		});
 
@@ -234,15 +267,11 @@ public class DraggableGrid extends VBox {
 					parent = parent.getParent();
 					s = parent.getScene();
 				}
-				File f = GameDataHandler.chooseFileForImageSave(s.getWindow());
-				FileInputStream fis;
-				try{
-				fis = new FileInputStream(f);
-				ML.getMapLayer().setBackgroundImage(new Image(fis), f.getName());
-				} catch (Exception e){
-					// Dont change background 
+				File file = GameDataHandler.chooseFileForImageSave(s.getWindow());
+				if (file != null) {
+					Image image = new Image(GameDataHandler.getImageURIAndCopyToResources(file));
+					ML.getMapLayer().setBackgroundImage(image, file.getName());
 				}
-				
 			});
 	
 			hbox.getChildren().addAll(cp, button);
