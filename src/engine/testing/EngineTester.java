@@ -85,6 +85,7 @@ public class EngineTester extends Application {
 
 	public void generateGame(String name, Stage stage) {
 		
+		
 	}
 
 	private void testDrawer(Stage stage) throws IOException {
