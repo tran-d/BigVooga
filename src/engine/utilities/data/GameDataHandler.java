@@ -780,7 +780,7 @@ public class GameDataHandler {
 		File file = new File(folderToLoad);
 		File[] files = file.listFiles();
 		List<DialogSequence> ret = new ArrayList<DialogSequence>();
-		for (File f : files) {
+		for (File f : files!=null?files:new File[0]) {
 			try {
 				ret.add(loadDialogue(f));
 
@@ -788,7 +788,6 @@ public class GameDataHandler {
 				throw(new VoogaException(e));
 			}
 		}
-
 		
 		return ret;
 	}

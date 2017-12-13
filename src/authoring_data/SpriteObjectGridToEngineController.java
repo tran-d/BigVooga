@@ -87,7 +87,7 @@ public class SpriteObjectGridToEngineController {
 	
 	private void setInventory(SpriteObject SO, GameObject GO){
 		SO.getInventory().forEach((inventory)->{
-			GO.addToInventory(convertInventoryObjectToHoldable(inventory));
+			GO.getInventory().addObject(convertInventoryObjectToHoldable(inventory));
 		});
 	}
 	
