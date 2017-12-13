@@ -2,6 +2,7 @@ package authoring_UI;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +14,11 @@ import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 import authoring.Sprite.AbstractSpriteObject;
 import authoring.Sprite.InventoryObject;
 import authoring.Sprite.SpriteObject;
-import authoring.Sprite.Parameters.SpriteParameterI;
+import authoring.Sprite.AnimationSequences.AuthoringAnimationSequence;
+import authoring.Sprite.Parameters.SpriteParameter;
+import engine.Action;
+import engine.Condition;
+import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
 
 public class SpriteDataConverter {
@@ -30,7 +35,7 @@ public class SpriteDataConverter {
 		return xstream;
 	}
 
-	Map<String, List<SpriteParameterI>> catmap;
+	Map<String, List<SpriteParameter>> catmap;
 	List<SpriteDataConverter> inventory;
 	String imageURL;
 	Integer[] gridPos;
@@ -38,10 +43,15 @@ public class SpriteDataConverter {
 	Integer width;
 	Integer height;
 	String UUID;
+	List<AuthoringAnimationSequence> myAnimationSequences;
 	
 	String mySavePath;
 	String spriteType;
 	List<String> tags;
+	ObservableList<Integer> allConditions;
+	ObservableList<Integer> allActions;
+	Map<Condition, List<Integer>> conditionRows;
+	List<Action> actionRows;
 //	Function<Integer, Boolean> heightFunction;
 //	Function<Integer, Boolean> widthFunction;
 
@@ -67,6 +77,7 @@ public class SpriteDataConverter {
 	}
 
 	public void convertSprite(AbstractSpriteObject ASO) {
+		System.out.println("convertingASO to SDC");
 		catmap = ASO.getParameters();
 		gridPos = ASO.getPositionOnGrid();
 		name = ASO.getName();
@@ -77,6 +88,11 @@ public class SpriteDataConverter {
 		mySavePath = ASO.getSavePath();
 		tags = ASO.getTags();
 		inventory = new ArrayList<SpriteDataConverter>();
+		allConditions = ASO.getAllConditions();
+		allActions = ASO.getAllActions();
+		conditionRows = ASO.getConditionRows();
+		actionRows = ASO.getActionRows();
+		myAnimationSequences = ASO.getAnimationSequences();
 		ASO.getInventory().forEach(sprite -> {
 			inventory.add(new SpriteDataConverter(sprite));
 		});
@@ -106,6 +122,12 @@ public class SpriteDataConverter {
 		ret.setName(name);
 		ret.setSavePath(mySavePath);
 		ret.setTags(tags);
+		ret.setAllConditions(allConditions);
+		ret.setAllActions(allActions);
+		ret.setConditionRows(conditionRows);
+		ret.setActionRows(actionRows);
+		System.out.println("SDC AnimationSeq: "+this.myAnimationSequences);
+		ret.setAnimationSequences(this.myAnimationSequences);
 		List<AbstractSpriteObject> newInventory = new ArrayList<AbstractSpriteObject>();
 		inventory.forEach(SDC ->{
 			newInventory.add(SDC.createSprite());

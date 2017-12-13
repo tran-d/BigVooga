@@ -6,6 +6,7 @@ import java.util.Map;
 
 import authoring.Sprite.Parameters.FEParameter;
 import authoring.Sprite.Parameters.FEParameterFactory;
+import authoring.Sprite.Parameters.SpriteParameter;
 import authoring.Sprite.Parameters.SpriteParameterFactory;
 import authoring.Sprite.Parameters.SpriteParameterI;
 import authoring_UI.TabContentVBox;
@@ -99,16 +100,16 @@ public class SpriteParameterTabsAndInfo {
 		categoryCounter = 1;
 		this.catNames.clear();
 		System.out.println("SO is not nulL "+SO);
-		Map<String, List<SpriteParameterI>> params = SO.getParameters();
+		Map<String, List<SpriteParameter>> params = SO.getParameters();
 //		System.out.println(params);
 		boolean loopedOnce = false;
-		for (Map.Entry<String, List<SpriteParameterI>> entry : params.entrySet()) {
+		for (Map.Entry<String, List<SpriteParameter>> entry : params.entrySet()) {
 //			System.out.println("Loading entry");
 
 			String category = entry.getKey();
 //			System.out.println("Loading entry category: " + category);
 			// this.catNames.put(category, category);
-			List<SpriteParameterI> newParams = entry.getValue();
+			List<SpriteParameter> newParams = entry.getValue();
 //			System.out.println("Loading entry val: " + newParams);
 			FEParameterFactory newFactory = new FEParameterFactory(newParams);
 //			System.out.println("Loading entry");
@@ -262,7 +263,7 @@ public class SpriteParameterTabsAndInfo {
 
 			String varName = String.format("%sParameter%d", type, varCount);
 
-			SpriteParameterI SPI = SpriteParameterFactory.makeParameter(varName, varValue);
+			SpriteParameter SPI = SpriteParameterFactory.makeParameter(varName, varValue);
 			// mySO.addParameter(category, SPI);
 
 			mySO.addPossibleParameter(category, SPI);

@@ -247,5 +247,4 @@ public class GameObject extends VariableContainer implements Element {
 		dialogueHandler.add(newText);
 
 	}
-
 }
