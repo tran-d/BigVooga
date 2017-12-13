@@ -1,5 +1,6 @@
 package engine.sprite;
 
+import java.util.Collections;
 import java.util.List;
 
 import engine.VoogaException;
