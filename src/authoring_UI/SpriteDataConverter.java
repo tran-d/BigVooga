@@ -50,7 +50,7 @@ public class SpriteDataConverter {
 	List<String> tags;
 	ObservableList<Integer> allConditions;
 	ObservableList<Integer> allActions;
-	HashMap<Condition, List<Integer>> conditionRows;
+	Map<Condition, List<Integer>> conditionRows;
 	List<Action> actionRows;
 //	Function<Integer, Boolean> heightFunction;
 //	Function<Integer, Boolean> widthFunction;

@@ -137,7 +137,7 @@ public class DisplayPanel extends VBox {
 		conditions = new ConditionTab<ConditionRow>(ResourceBundleUtil.getTabTitle("ConditionsTabTitle"));
 		actions = new ActionTab<ActionRow>(ResourceBundleUtil.getTabTitle("ActionsTabTitle"));
 		controllerConditionActionTabs = new ControllerConditionActionTabs(conditions, actions);
-//		 applyButtonController = new ApplyButtonController();
+		applyButtonController = new ApplyButtonController();
 		mySpriteTabs.getTabs().addAll(conditions, actions);
 	}
 
@@ -323,7 +323,7 @@ public class DisplayPanel extends VBox {
 			removeSpriteEditorErrorMessage();
 			// mySParameterTAI.create(getActiveCell());
 			mySParameterTAI.create(activeCell);
-//			 applyButtonController.updateActionConditionTabs(conditions,actions, activeCell);
+			applyButtonController.updateActionConditionTabs(conditions,actions, activeCell);
 			controllerConditionActionTabs = new ControllerConditionActionTabs(conditions, actions);
 			mySpriteTabs.getTabs().set(CONDITIONTAB_INDEX, conditions);
 			mySpriteTabs.getTabs().set(ACTIONTAB_INDEX, actions);
@@ -373,7 +373,7 @@ public class DisplayPanel extends VBox {
 			mySInventoryTAI.apply();
 			mySAnimationSequenceTAI.apply();
 		}
-//		 applyButtonController.updateSpriteObject(conditions, actions,getActiveCell());
+		applyButtonController.updateSpriteObject(conditions, actions,getActiveCell());
 		applyToMultipleAtOnce();
 	}
 	

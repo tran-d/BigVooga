@@ -1,6 +1,5 @@
 package authoring_actionconditions;
 
-import authoring.ActionNameTreeItem;
 import engine.Action;
 import engine.Actions.ActionFactory;
 import javafx.beans.value.ChangeListener;

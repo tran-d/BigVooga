@@ -231,6 +231,33 @@
               <events>
                 <entry>
                   <engine.Condition>
+                    <priorityNum>1</priorityNum>
+                    <operation class="engine.operations.booleanops.BooleanValue">
+                      <value>true</value>
+                    </operation>
+                  </engine.Condition>
+                  <list>
+                    <engine.Actions.variableSetting.ChangeDouble>
+                      <varName class="engine.operations.stringops.SelfString">
+                        <stored>Gravity</stored>
+                      </varName>
+                      <newDouble class="engine.operations.doubleops.Sum">
+                        <first class="engine.operations.doubleops.DoubleVariableOf">
+                          <varName class="engine.operations.stringops.SelfString">
+                            <stored>Gravity</stored>
+                          </varName>
+                          <object class="engine.operations.gameobjectops.Self"/>
+                        </first>
+                        <second class="engine.operations.doubleops.Value">
+                          <value>0.15</value>
+                        </second>
+                      </newDouble>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.variableSetting.ChangeDouble>
+                  </list>
+                </entry>
+                <entry>
+                  <engine.Condition>
                     <priorityNum>2</priorityNum>
                     <operation class="engine.operations.booleanops.KeyHeld">
                       <check class="engine.operations.stringops.SelfString">
@@ -289,46 +316,26 @@
                 </entry>
                 <entry>
                   <engine.Condition>
-                    <priorityNum>3</priorityNum>
-                    <operation class="engine.operations.booleanops.CollisionByTag">
-                      <tag class="engine.operations.stringops.SelfString">
-                        <stored>Wall</stored>
-                      </tag>
+                    <priorityNum>1</priorityNum>
+                    <operation class="engine.operations.booleanops.BooleanValue">
+                      <value>true</value>
                     </operation>
                   </engine.Condition>
                   <list>
-                    <engine.Actions.movement.RemoveIntersection/>
-                    <engine.Actions.variableSetting.ChangeDouble>
-                      <varName class="engine.operations.stringops.SelfString">
-                        <stored>Gravity</stored>
-                      </varName>
-                      <newDouble class="engine.operations.doubleops.Value">
-                        <value>0.0</value>
-                      </newDouble>
+                    <engine.Actions.movement.Move>
+                      <increment class="engine.operations.vectorops.BasicVector">
+                        <x class="engine.operations.doubleops.Value">
+                          <value>0.0</value>
+                        </x>
+                        <y class="engine.operations.doubleops.DoubleVariableOf">
+                          <varName class="engine.operations.stringops.SelfString">
+                            <stored>Gravity</stored>
+                          </varName>
+                          <object class="engine.operations.gameobjectops.Self"/>
+                        </y>
+                      </increment>
                       <object class="engine.operations.gameobjectops.Self"/>
-                    </engine.Actions.variableSetting.ChangeDouble>
-                    <engine.Actions.variableSetting.ChangeBoolean>
-                      <varName class="engine.operations.stringops.SelfString">
-                        <stored>OnGround</stored>
-                      </varName>
-                      <newBooleanOperation class="engine.operations.booleanops.BooleanValue">
-                        <value>true</value>
-                      </newBooleanOperation>
-                      <object class="engine.operations.gameobjectops.Self"/>
-                    </engine.Actions.variableSetting.ChangeBoolean>
-                  </list>
-                </entry>
-                <entry>
-                  <engine.Condition>
-                    <priorityNum>4</priorityNum>
-                    <operation class="engine.operations.booleanops.CollisionByTag">
-                      <tag class="engine.operations.stringops.SelfString">
-                        <stored>Wall</stored>
-                      </tag>
-                    </operation>
-                  </engine.Condition>
-                  <list>
-                    <engine.Actions.movement.RemoveIntersection/>
+                    </engine.Actions.movement.Move>
                   </list>
                 </entry>
                 <entry>
@@ -371,53 +378,46 @@
                 </entry>
                 <entry>
                   <engine.Condition>
-                    <priorityNum>1</priorityNum>
-                    <operation class="engine.operations.booleanops.BooleanValue">
-                      <value>true</value>
+                    <priorityNum>4</priorityNum>
+                    <operation class="engine.operations.booleanops.CollisionByTag">
+                      <tag class="engine.operations.stringops.SelfString">
+                        <stored>Wall</stored>
+                      </tag>
                     </operation>
                   </engine.Condition>
                   <list>
-                    <engine.Actions.movement.Move>
-                      <increment class="engine.operations.vectorops.BasicVector">
-                        <x class="engine.operations.doubleops.Value">
-                          <value>0.0</value>
-                        </x>
-                        <y class="engine.operations.doubleops.DoubleVariableOf">
-                          <varName class="engine.operations.stringops.SelfString">
-                            <stored>Gravity</stored>
-                          </varName>
-                          <object class="engine.operations.gameobjectops.Self"/>
-                        </y>
-                      </increment>
-                      <object class="engine.operations.gameobjectops.Self"/>
-                    </engine.Actions.movement.Move>
+                    <engine.Actions.movement.RemoveIntersection/>
                   </list>
                 </entry>
                 <entry>
                   <engine.Condition>
-                    <priorityNum>1</priorityNum>
-                    <operation class="engine.operations.booleanops.BooleanValue">
-                      <value>true</value>
+                    <priorityNum>3</priorityNum>
+                    <operation class="engine.operations.booleanops.CollisionByTag">
+                      <tag class="engine.operations.stringops.SelfString">
+                        <stored>Wall</stored>
+                      </tag>
                     </operation>
                   </engine.Condition>
                   <list>
+                    <engine.Actions.movement.RemoveIntersection/>
                     <engine.Actions.variableSetting.ChangeDouble>
                       <varName class="engine.operations.stringops.SelfString">
                         <stored>Gravity</stored>
                       </varName>
-                      <newDouble class="engine.operations.doubleops.Sum">
-                        <first class="engine.operations.doubleops.DoubleVariableOf">
-                          <varName class="engine.operations.stringops.SelfString">
-                            <stored>Gravity</stored>
-                          </varName>
-                          <object class="engine.operations.gameobjectops.Self"/>
-                        </first>
-                        <second class="engine.operations.doubleops.Value">
-                          <value>0.15</value>
-                        </second>
+                      <newDouble class="engine.operations.doubleops.Value">
+                        <value>0.0</value>
                       </newDouble>
                       <object class="engine.operations.gameobjectops.Self"/>
                     </engine.Actions.variableSetting.ChangeDouble>
+                    <engine.Actions.variableSetting.ChangeBoolean>
+                      <varName class="engine.operations.stringops.SelfString">
+                        <stored>OnGround</stored>
+                      </varName>
+                      <newBooleanOperation class="engine.operations.booleanops.BooleanValue">
+                        <value>true</value>
+                      </newBooleanOperation>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.variableSetting.ChangeBoolean>
                   </list>
                 </entry>
               </events>
@@ -10303,26 +10303,6 @@
                 <entry>
                   <engine.Condition>
                     <priorityNum>2</priorityNum>
-                    <operation class="engine.operations.booleanops.ObjectClicked">
-                      <operation class="engine.operations.booleanops.And">
-                        <boolOp1 class="engine.operations.booleanops.ScreenClicked"/>
-                        <boolOp2 class="engine.operations.booleanops.ObjectClickHeld">
-                          <object class="engine.operations.gameobjectops.Self"/>
-                        </boolOp2>
-                      </operation>
-                    </operation>
-                  </engine.Condition>
-                  <list>
-                    <engine.Actions.global.ChangeWorld>
-                      <nameOfWorld class="engine.operations.stringops.SelfString">
-                        <stored>World</stored>
-                      </nameOfWorld>
-                    </engine.Actions.global.ChangeWorld>
-                  </list>
-                </entry>
-                <entry>
-                  <engine.Condition>
-                    <priorityNum>2</priorityNum>
                     <operation class="engine.operations.booleanops.ObjectMouseHover">
                       <object class="engine.operations.gameobjectops.Self"/>
                     </operation>
@@ -10352,6 +10332,26 @@
                         <stored>Unpressed</stored>
                       </name>
                     </engine.Actions.changeObject.SetAnimationSequence>
+                  </list>
+                </entry>
+                <entry>
+                  <engine.Condition>
+                    <priorityNum>2</priorityNum>
+                    <operation class="engine.operations.booleanops.ObjectClicked">
+                      <operation class="engine.operations.booleanops.And">
+                        <boolOp1 class="engine.operations.booleanops.ScreenClicked"/>
+                        <boolOp2 class="engine.operations.booleanops.ObjectClickHeld">
+                          <object class="engine.operations.gameobjectops.Self"/>
+                        </boolOp2>
+                      </operation>
+                    </operation>
+                  </engine.Condition>
+                  <list>
+                    <engine.Actions.global.ChangeWorld>
+                      <nameOfWorld class="engine.operations.stringops.SelfString">
+                        <stored>World</stored>
+                      </nameOfWorld>
+                    </engine.Actions.global.ChangeWorld>
                   </list>
                 </entry>
               </events>

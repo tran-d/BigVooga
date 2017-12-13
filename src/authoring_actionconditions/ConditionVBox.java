@@ -3,22 +3,19 @@ package authoring_actionconditions;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import tools.DisplayLanguage;
 
 public class ConditionVBox<T> extends ActionConditionVBox<T> implements ConditionVBoxI<T>{
 
-	public ConditionVBox(String selectorString) {
-		super(selectorString);
+	public ConditionVBox() {
+		super();
 	}
 	
-	public ConditionVBox(String selectorString,List<T> rows) {
-		super(selectorString,rows);
+	public ConditionVBox(List<T> rows) {
+		super(rows);
 	}
 
 	@Override
-	public void addCondition(String label, ObservableList<Integer> currentActions) {
+	public void addCondition(ObservableList<Integer> currentActions) {
 		ConditionRow conditionRow = new ConditionRow(getRows().size() + 1,currentActions, (ConditionVBox<ConditionRow>) this);
 		addToRows(conditionRow);
 		BuildConditionView bcd = new BuildConditionView(this, conditionRow);

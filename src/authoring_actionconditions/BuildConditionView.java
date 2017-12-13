@@ -6,8 +6,8 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class BuildConditionView {
-	private static final double WIDTH = 700;
-	private static final double HEIGHT = 400;
+	private static final double WIDTH = 750;
+	private static final double HEIGHT = 500;
 
 	private Stage stage;
 	private Scene scene;
@@ -32,36 +32,39 @@ public class BuildConditionView {
 
 	private void transportActionRow(WindowEvent event) {
 
-		// for testing
-		conditionRow.getCondition();
-		conditionRow.getRootTreeItem().setExpanded(false);
-		conditionRow.changeRowTVSize();
+		try {
+			conditionRow.getCondition();
+			conditionRow.reduceTreeView();
 
-		if (ACVBox.getChildren().size() >= conditionRow.getRowID())
-			ACVBox.getChildren().remove(conditionRow.getRowID() - 1);
-		ACVBox.getChildren().add(conditionRow.getRowID() - 1, conditionRow);
+			if (ACVBox.getChildren().size() >= conditionRow.getRowID())
+				ACVBox.getChildren().remove(conditionRow.getRowID() - 1);
+			ACVBox.getChildren().add(conditionRow.getRowID() - 1, conditionRow);
 
-		stage.close();
+			stage.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			ConditionTreeView.showError(e.getMessage());
+			event.consume();
+
+		}
 
 		// KEEP THIS CODE
-//		if (conditionRow.getCondition() != null) {
-//
-//			conditionRow.getRootTreeItem().setExpanded(false);
-//			conditionRow.changeRowTVSize();
-//
-//			if (ACVBox.getChildren().size() >= conditionRow.getRowID())
-//				ACVBox.getChildren().remove(conditionRow.getRowID() - 1);
-//			ACVBox.getChildren().add(conditionRow.getRowID() - 1, conditionRow);
-//
-//			stage.close();
-//
-//		} else {
-//			event.consume();
-//		}
+		// if (conditionRow.getCondition() != null) {
+		//
+		// conditionRow.getRootTreeItem().setExpanded(false);
+		// conditionRow.changeRowTVSize();
+		//
+		// if (ACVBox.getChildren().size() >= conditionRow.getRowID())
+		// ACVBox.getChildren().remove(conditionRow.getRowID() - 1);
+		// ACVBox.getChildren().add(conditionRow.getRowID() - 1, conditionRow);
+		//
+		// stage.close();
+		//
+		// } else {
+		// event.consume();
+		// }
 
 	}
 
-	public void createParameterChoiceBox() {
-
-	}
 }

@@ -47,8 +47,8 @@ public class SpriteObject extends AbstractSpriteObject{
 		ret.setAnimationSequences(this.getAnimationSequences());
 		ret.setAllActions(this.getAllActions());
 		ret.setAllConditions(this.getAllConditions());
-		ret.setConditionRows(this.getConditionRows());
-		ret.setActionRows(this.getActionRows());
+		ret.setConditions(this.getConditionTreeViews());
+		ret.setActions(this.getActionTreeViews());
 		
 		return ret;
 	}

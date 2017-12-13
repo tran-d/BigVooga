@@ -37,9 +37,9 @@ public class OperationFactory {
 		populateMaps();
 	}
 
-	public Operation<?> makeOperation(String operationName, Object... parameters) throws VoogaException {
+	public Object makeOperation(String operationName, Object... parameters) throws VoogaException {
 		try {
-			return (Operation<?>) getConstructor(operationName).newInstance(parameters);
+			return getConstructor(operationName).newInstance(parameters);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| ClassNotFoundException e) {
 			throw new VoogaException("CantMakeOperation", operationName);

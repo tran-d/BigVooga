@@ -21,14 +21,11 @@ public class ControllerConditionActionTabs {
 	}
 	
 	private void addConditionActionRow(ActionTab actionConditionTab) {
-		System.out.println("Action/condition " + actionConditionTab.getActionCondition());
-		if(!(actionConditionTab.getActionCondition() == null)) {
-			if(actionConditionTab instanceof ConditionTab<?>) {
-				((ConditionTab<ConditionRow>) actionConditionTab).addCondition(actionConditionTab.getActionCondition(),actionTab.getCurrentActions());
-			}
-			else ((ActionTab<ActionRow>) actionConditionTab).addAction(actionConditionTab.getActionCondition());
-			actionConditionTab.addRemoveOption();
+		if(actionConditionTab instanceof ConditionTab<?>) {
+			((ConditionTab<ConditionRow>) actionConditionTab).addCondition(actionTab.getCurrentActions());
 		}
+		else ((ActionTab<ActionRow>) actionConditionTab).addAction();
+		actionConditionTab.addRemoveOption();
 	}
 	
 	private void removeConditionActionRow(ActionTab actionConditionTab) {
