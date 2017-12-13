@@ -27,6 +27,9 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.security.NullPermission;
 import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
+import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.SpriteObject;
+import authoring_UI.SpriteDataConverter;
 import engine.EngineController;
 import engine.VoogaException;
 import javafx.geometry.Point2D;
@@ -37,6 +40,10 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.FileChooser.ExtensionFilter;
 
+/**
+ * @author Ian Eldridge-Allegra
+ *
+ */
 public class LocalGameDataHandler {
 	private static final String DIRECTORY_PATH = "Directory Path";
 
@@ -92,20 +99,33 @@ public class LocalGameDataHandler {
 		makeDirectories();
 	}
 
+	private Object getObjectFromFile(String filePath) throws FileNotFoundException {
+		File controllerFile = new File(filePath);
+		Scanner scanner = new Scanner(controllerFile);
+		String fileContents = scanner.useDelimiter("\\Z").next();
+		scanner.close();
+		return SERIALIZER.fromXML(fileContents);
+	}
+	
+	private void saveToFile(Object object, String filePath) {
+		String toSave = SERIALIZER.toXML(object);
+		FileWriter writer;
+		try {
+			writer = new FileWriter(filePath);
+			writer.write(toSave);
+			writer.close();
+		} catch (IOException e) {
+			throw new VoogaException("SaveFail");
+		}
+	}
+	
 	private void makeDirectories() {
 		String[] pathsToMake = new String[] { ENGINE_PATH, RESOURCES, PROJECT_WORLD_PATH, PROJECT_WORLD_PATH,
 				PROJECT_LAYER_PATH, PROJECT_LAYER_SPRITE_PATH, DEFAULT_SPRITE_FOLDER, CUSTOM_SPRITE_FOLDER,
 				INVENTORY_SPRITE_FOLDER };
-		for (String s : pathsToMake) {
-			File file = new File(projectPath+s);
-			if (!file.exists()) {
-				makeDirectory(projectPath+s);
-			}
-		}
-		File file = new File(root+RESOURCES);
-		if (!file.exists()) {
-			makeDirectory(projectPath+RESOURCES);
-		}
+		for (String s : pathsToMake)
+			makeDirectory(projectPath + s);
+		makeDirectory(root + RESOURCES);
 	}
 
 	private static void makeDirectory(String path) {
@@ -124,7 +144,7 @@ public class LocalGameDataHandler {
 		} catch (Exception e) {
 			root = pathSupplier.get() + "\\";
 			setDirectoryPath(root);
-			makeDirectory(root+RESOURCES);
+			makeDirectory(root + RESOURCES);
 			return root;
 		}
 	}
@@ -132,7 +152,7 @@ public class LocalGameDataHandler {
 	public void setDirectoryPath(String path) {
 		Properties prop = new Properties();
 		try {
-			FileInputStream in = new FileInputStream(RESOURCES+LOCAL+".properties");
+			FileInputStream in = new FileInputStream(RESOURCES + LOCAL + ".properties");
 			prop.load(in);
 			in.close();
 		} catch (IOException e) {
@@ -140,11 +160,11 @@ public class LocalGameDataHandler {
 		}
 		prop.put(DIRECTORY_PATH, path);
 		try {
-			FileOutputStream out = new FileOutputStream(RESOURCES+LOCAL+".properties");
+			FileOutputStream out = new FileOutputStream(RESOURCES + LOCAL + ".properties");
 			prop.store(out, null);
 			out.close();
 		} catch (IOException e) {
-			throw new RuntimeException("KNOWN PROJECTS NOT FOUND");
+			throw new RuntimeException(e.getMessage());
 		}
 	}
 
@@ -168,7 +188,7 @@ public class LocalGameDataHandler {
 
 	private void addToKnown() throws IOException {
 		List<String> known = knownProjects();
-		if(!known.contains(projectName))
+		if (!known.contains(projectName))
 			known.add(projectName);
 		FileWriter fileWriter = new FileWriter(root + KNOWN_PROJECTS);
 		BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
@@ -200,15 +220,7 @@ public class LocalGameDataHandler {
 	}
 
 	private void saveGame(EngineController controller, String gameName) {
-		String toSave = SERIALIZER.toXML(controller);
-		FileWriter writer;
-		try {
-			writer = new FileWriter(projectPath + ENGINE_PATH + gameName);
-			writer.write(toSave);
-			writer.close();
-		} catch (IOException e) {
-			throw new VoogaException("SaveFail");
-		}
+		saveToFile(controller, projectPath + ENGINE_PATH + gameName);
 	}
 
 	/**
@@ -228,11 +240,7 @@ public class LocalGameDataHandler {
 	}
 
 	private EngineController loadGame(String saveGameName) throws FileNotFoundException {
-		File controllerFile = new File(projectPath + ENGINE_PATH + saveGameName);
-		Scanner scanner = new Scanner(controllerFile);
-		String fileContents = scanner.useDelimiter("\\Z").next();
-		scanner.close();
-		return (EngineController) SERIALIZER.fromXML(fileContents);
+		return (EngineController) getObjectFromFile(projectPath + ENGINE_PATH + saveGameName);
 	}
 
 	/**
@@ -286,7 +294,7 @@ public class LocalGameDataHandler {
 	public File chooseFileForImageSave(Window window) {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle(SELECTOR_TITLE);
-		fileChooser.setInitialDirectory(new File(root+RESOURCES));
+		fileChooser.setInitialDirectory(new File(root + RESOURCES));
 		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files (.png)", "*.png"),
 				new ExtensionFilter("Image Files (.gif)", "*.gif"), new ExtensionFilter("Image Files (.jpg)", "*.jpg"));
 		File newFile = fileChooser.showOpenDialog(window);
@@ -297,5 +305,48 @@ public class LocalGameDataHandler {
 		DirectoryChooser chooser = new DirectoryChooser();
 		chooser.setTitle("Select Directory");
 		return chooser.showDialog(stage);
+	}
+
+	public void saveSprite(AbstractSpriteObject SO, String path) throws IOException {
+		if (SO.getSavePath() == null) {
+			SO.setSavePath(path);
+		}
+		saveToFile(new SpriteDataConverter(SO), path);
+	}
+
+	public void saveDefaultSprite(AbstractSpriteObject SO) throws IOException {
+		saveSprite(SO, projectPath + DEFAULT_SPRITE_FOLDER + DEFAULT_CATEGORY + SO.getName());
+	}
+
+	public String makeValidFileName(String path) {
+		path = path + "/";
+		makeDirectory(path);
+		int counter = 1;
+		String pathWithInt = path + counter;
+		File temp = new File(path);
+		while (temp.exists()) {
+			counter++;
+			pathWithInt = path + counter;
+			temp = new File(pathWithInt);
+		}
+		return path;
+	}
+	
+	public void saveUserCreatedSprite(SpriteObject SO) throws Exception {
+		String newSpritePath = makeValidFileName(
+				projectPath + CUSTOM_SPRITE_FOLDER + DEFAULT_CATEGORY + SO.getName());
+		saveSprite(SO, newSpritePath);
+	}
+
+	public AbstractSpriteObject loadSprite(File spriteFile) throws Exception {
+		if (!isValidFile(spriteFile)){
+			throw new Exception("Invalid file to load");
+		}
+		Scanner scanner = new Scanner(spriteFile);
+		String fileContents = scanner.useDelimiter("\\Z").next();
+		scanner.close();
+		SpriteDataConverter SDC = (SpriteDataConverter) SERIALIZER.fromXML(fileContents);
+		AbstractSpriteObject ret = SDC.createSprite();
+		return ret;
 	}
 }

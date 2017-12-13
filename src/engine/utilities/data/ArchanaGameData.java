@@ -294,16 +294,16 @@ public class ArchanaGameData {
 		return fileChooser.showOpenDialog(stage);
 	}
 	
-	public static Image chooseImage(Window window){
-		File f = chooseFileForImageSave(window);
-		FileInputStream fis;
-		try {
-			fis = new FileInputStream(f);
-			return new Image(fis);
-		} catch (FileNotFoundException e) {
-			return new Image("pikachu.png");
-		}
-	}
+//	public static Image chooseImage(Window window){
+//		File f = chooseFileForImageSave(window);
+//		FileInputStream fis;
+//		try {
+//			fis = new FileInputStream(f);
+//			return new Image(fis);
+//		} catch (FileNotFoundException e) {
+//			return new Image("pikachu.png");
+//		}
+//	}
 	/**
 	 * @param stage
 	 *            To present dialog

@@ -16,11 +16,11 @@ import javafx.geometry.Point2D;
 public class CompositeImage implements Displayable {
 
 	private Displayable displayable1;
-	private List<? extends DisplayableText> text;
+	private List<? extends RelativeDisplayable> others;
 
-	public CompositeImage(Displayable bottom, List<? extends DisplayableText> text) {
+	public CompositeImage(Displayable bottom, List<? extends RelativeDisplayable> others) {
 		displayable1 = bottom;
-		this.text = text;
+		this.others = others;
 		if (displayable1 == null)
 			throw new VoogaException("CompositeFail");
 	}
@@ -28,15 +28,16 @@ public class CompositeImage implements Displayable {
 	@Override
 	public void visit(GameDisplay display) {
 		displayable1.visit(display);
-		for (DisplayableText t : text) {
-			t.setHeading(displayable1.getHeading());
+		for (RelativeDisplayable d : others) {
+			Positionable t = d.getRelativePosition();
+			d.setHeading(displayable1.getHeading());
 			Point2D newLocation = BoundingPolygon
-					.rotateByAngle(new Point2D(t.getRelativeX() * displayable1.getWidth() / 2,
-							t.getRelativeY() * displayable1.getHeight() / 2), t.getHeading())
+					.rotateByAngle(new Point2D(t.getX() * displayable1.getWidth() / 2,
+							t.getY() * displayable1.getHeight() / 2), t.getHeading())
 					.add(new Point2D(displayable1.getX(), displayable1.getY()));
-			t.setPosition(newLocation.getX(), newLocation.getY());
-			t.setSize(t.getRelativeWidth() * displayable1.getWidth(), t.getRelativeHeight() * displayable1.getHeight());
-			t.visit(display);
+			d.setPosition(newLocation.getX(), newLocation.getY());
+			d.setSize(t.getWidth() * displayable1.getWidth(), t.getWidth() * displayable1.getHeight());
+			d.visit(display);
 		}
 	}
 

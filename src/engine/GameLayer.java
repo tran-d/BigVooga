@@ -20,7 +20,7 @@ public class GameLayer implements Layer {
 	private List<Element> worldElements;
 	private List<GameObject> objects = new ArrayList<>();
 	private Map<Integer, List<GameObject>> conditionPriorities = new ConcurrentSkipListMap<>();
-	private Map<Integer, GameObject> idToGameObject = new HashMap<>();
+	private Map<String, GameObject> idToGameObject = new HashMap<>();
 	private boolean isTracked;
 
 	public GameLayer() {
@@ -95,7 +95,7 @@ public class GameLayer implements Layer {
 		return tempList;
 	}
 
-	public Element getByID(int id) {
+	public GameObject getByID(String id) {
 		return idToGameObject.get(id);
 	}
 
