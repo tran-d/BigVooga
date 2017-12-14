@@ -130,8 +130,8 @@ public class DialogueTextAreaView extends DisplayableTextAreaView {
 	protected void removePanel() {
 
 		if (paneList.size()>1) {
-			System.out.println(paneList.size());
-			System.out.println(currentPaneIndex);
+			;
+			;
 
 			if (currentPaneIndex == paneList.size() - 1) {
 				prev();
@@ -184,7 +184,7 @@ public class DialogueTextAreaView extends DisplayableTextAreaView {
 	protected void prev() {
 		if (currentPaneIndex > 0) {
 			currentPaneIndex -= 1;
-			System.out.println(currentPaneIndex);
+			;
 			current.set(current.get()-1);
 			dialoguePreview.getChildren().clear();
 			dialoguePreview.getChildren().add(paneList.get(currentPaneIndex));
@@ -195,7 +195,7 @@ public class DialogueTextAreaView extends DisplayableTextAreaView {
 	protected void next() {
 		if (currentPaneIndex < paneList.size() - 1) {
 			currentPaneIndex += 1;
-			System.out.println(currentPaneIndex);
+			;
 			current.set(current.get()+1);
 			dialoguePreview.getChildren().clear();
 			dialoguePreview.getChildren().add(paneList.get(currentPaneIndex));

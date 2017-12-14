@@ -50,21 +50,21 @@ public class SpriteUtilityTabAndInfo {
 	}
 	
 	public void addUtilityParametersToContainerVBox(){
-//		System.out.println("ASO: "+myASO);
+//		;
 //		myASO = myASO.getClass().getSuperclass().cast(myASO);
 		Field [] fields = myASO.getClass().getSuperclass().getDeclaredFields();
 		Annotation[] as = myASO.getClass().getAnnotations();
-//		System.out.println(as);
-//		System.out.println("Fields: "+ fields);
+//		;
+//		;
 		for (Field f:fields){
-//			System.out.println("Field f: "+f);
+//			;
 			Annotation[] a = f.getAnnotations();
 //			 IsUnlockedUtility a = f.getAnnotation(IsUnlockedUtility.class);
 			
 			if (a!=null){
-//				System.out.println("a isnt null!");
+//				;
 				SpriteUtilityUI UI_Component = mySUTUIC.getUIComponent(a, f);
-//				System.out.println("UI_Component is "+UI_Component);
+//				;
 				if (UI_Component!=null){
 					addToVBox(UI_Component);
 				}
@@ -133,8 +133,8 @@ public class SpriteUtilityTabAndInfo {
 			@Override
 			public Boolean apply(String t, Object u) {
 				
-//				System.out.println("U equals: "+u);
-//				System.out.println(u.getClass());
+//				;
+//				;
 				Method setMethod = null;
 				if (u!=null){
 					try{
@@ -145,21 +145,21 @@ public class SpriteUtilityTabAndInfo {
 						//TODO: Handle String Changes
 					else if (u instanceof Double){
 						setMethod  = myASO.getClass().getSuperclass().getMethod(t, Double.class);
-//						System.out.println("method: "+setMethod);
+//						;
 						setMethod.invoke(myASO, (Double) u);
 						//TODO: Handle Double Changes
 					}else if (u instanceof Integer){
-//						System.out.println("method: "+setMethod);
-//						System.out.println("method name: "+t);
+//						;
+//						;
 						setMethod  = myASO.getClass().getSuperclass().getMethod(t, Integer.class);
-//						System.out.println("method : "+setMethod);
+//						;
 						setMethod.invoke(myASO, (Integer) u);
 						//TODO: Handle Integer Changes
 					} else if (u instanceof Boolean){
 						//TODO: Handle Boolean Changes
 						setMethod  = myASO.getClass().getSuperclass().getMethod(t, Boolean.class);
 					}
-//					System.out.println("About to return true");
+//					;
 					return true;
 				}
 				 catch (Exception e){

@@ -43,6 +43,7 @@ public class GameController {
 	}
 	
 	private void setup(Stage currentStage, String projectName, SceneController currentSceneController) {
+		
 		stage = currentStage;
 		sceneController = currentSceneController;
 		gameDataHandler = new GameDataHandler(projectName);

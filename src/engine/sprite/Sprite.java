@@ -79,7 +79,8 @@ public class Sprite {
 	}
 
 	/**
-	 * @param name The animation sequence to play once.
+	 * @param name
+	 *            The animation sequence to play once.
 	 */
 	public void playOnce(String name) {
 		tempAnimation = animations.get(name);

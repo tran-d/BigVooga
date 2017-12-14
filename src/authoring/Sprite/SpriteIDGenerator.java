@@ -27,7 +27,7 @@ public class SpriteIDGenerator {
 //			return Long.toString(newTime);
 //		} else {
 //			extraDigit++;
-//			System.out.println("Extra digit as hex: "+ Long.toHexString(extraDigit));
+//			;
 //			return Long.toString(newTime)+Long.toHexString(extraDigit);
 //		}
 	

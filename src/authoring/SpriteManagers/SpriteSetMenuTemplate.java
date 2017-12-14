@@ -10,7 +10,7 @@ public class SpriteSetMenuTemplate extends SpriteSet {
 
 	@Override
 	protected void setFolderToLoad() {
-//		System.out.println(myGDH.getProjectPath());
+//		;
 		setFolderToLoad("");
 	}
 
