@@ -1,4 +1,4 @@
-package authoring.Sprite;
+package authoring.Sprite.DialogTab;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -9,6 +9,10 @@ import java.util.function.Consumer;
 
 import authoring.AuthoringEnvironmentManager;
 import authoring.Holdable;
+import authoring.DialogSprite.DialogImage;
+import authoring.DialogSprite.DialogSequence;
+import authoring.Sprite.AbstractSpriteObject;
+import authoring.DialogSprite.DialogThumbnail;
 import authoring_UI.SpriteScrollView;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
@@ -18,16 +22,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class SpriteInventoryTabAndInfo {
+public class SpriteDialogTabAndInfo {
 
 	private VBox containerVBox;
 	private SpriteScrollView myTabPane;
-//	private ArrayList<AbstractSpriteObject> myInventory;
+	// private ArrayList<AbstractSpriteObject> myInventory;
 	private AbstractSpriteObject myASO;
 	private final static double MENU_WIDTH = 400;
 	private final static double MENU_HEIGHT = 500;
@@ -36,15 +41,15 @@ public class SpriteInventoryTabAndInfo {
 	private String buttonText;
 	private AuthoringEnvironmentManager myAEM;
 
-	private Set<AbstractSpriteObject> temporaryInventory;
+	private Set<DialogSequence> temporaryDialogSequences;
 
-	public SpriteInventoryTabAndInfo(AuthoringEnvironmentManager AEM) {
+	public SpriteDialogTabAndInfo(AuthoringEnvironmentManager AEM) {
 		myAEM = AEM;
 		createBoundingScrollPane();
 		initialize();
 	}
 
-	SpriteInventoryTabAndInfo(AbstractSpriteObject ASO, AuthoringEnvironmentManager AEM) {
+	SpriteDialogTabAndInfo(AbstractSpriteObject ASO, AuthoringEnvironmentManager AEM) {
 		this(AEM);
 		setSpriteObject(ASO);
 		remakeContainingVBoxFromNewInventory();
@@ -55,36 +60,35 @@ public class SpriteInventoryTabAndInfo {
 		containerVBox.setPrefWidth(495);
 		containerVBox.setAlignment(Pos.TOP_CENTER);
 
-//		myInventory = new ArrayList<AbstractSpriteObject>();
+		// myInventory = new ArrayList<AbstractSpriteObject>();
 		setTemporaryInfo();
-//		removedInventory = new ArrayList<AbstractSpriteObject>();
+		// removedInventory = new ArrayList<AbstractSpriteObject>();
 		this.setClickEvent(click -> {
 			// Nothing by default
 		});
-		this.setButton("Add to inventory", action -> {
-			List<AbstractSpriteObject> newInventory = triggerPopUpOfInventoryToChoose();
-			temporaryInventory.addAll(newInventory);
+		this.setButton("Add to dialogue", action -> {
+			List<DialogSequence> newInventory = triggerPopUpOfInventoryToChoose();
+			temporaryDialogSequences.addAll(newInventory);
 			newInventory.forEach(sprite -> {
 				addInventory(sprite);
 			});
 		});
 		containerVBox.getChildren().addAll(myTabPane, makeAddInventoryButton());
 	}
-	
-	protected void setTemporaryInfo(){
-		temporaryInventory = new HashSet<AbstractSpriteObject>();
+
+	protected void setTemporaryInfo() {
+		temporaryDialogSequences = new HashSet<DialogSequence>();
 	}
-	
 
 	public void setSpriteObjectAndUpdate(AbstractSpriteObject ASO) {
-		;
+		System.out.println("Setting sprite" + ASO);
 		setSpriteObject(ASO);
 		remakeContainingVBoxFromNewInventory();
 	}
 
 	public void setSpriteObject(AbstractSpriteObject ASO) {
 		myASO = ASO;
-		setInventory(ASO.getInventory());
+		setDialogSequences(ASO.getDialogSequences());
 	}
 
 	public void reset() {
@@ -92,12 +96,12 @@ public class SpriteInventoryTabAndInfo {
 		resetScrollPane();
 	}
 
-	public void addInventory(AbstractSpriteObject ASO) {
-		SpriteThumbnail ST = new SpriteThumbnail(ASO, true);
+	public void addInventory(DialogSequence ASO) {
+		DialogThumbnail ST = new DialogThumbnail(ASO, true);
 		VBox paneBox = new VBox();
 		paneBox.getChildren().addAll(ST, new Separator());
 		ST.addSideButton("Remove");
-		ST.setSideButtonRunnable(()->{
+		ST.setSideButtonRunnable(() -> {
 			removeFromInventory(ST, paneBox);
 		});
 		ST.setOnMouseClicked(event -> {
@@ -105,23 +109,24 @@ public class SpriteInventoryTabAndInfo {
 		});
 		myTabPane.addToVBoxNoSeparator(paneBox);
 	}
-	
 
 	private void remakeContainingVBoxFromNewInventory() {
 		resetScrollPane();
-		temporaryInventory.forEach(sprite -> {
+		temporaryDialogSequences.forEach(sprite -> {
 			addInventory(sprite);
 		});
 	}
 
-	private void setInventory(List<AbstractSpriteObject> newInventory) {
-		temporaryInventory.clear();
-		temporaryInventory.addAll(newInventory);
+	private void setDialogSequences(List<DialogSequence> newInventory) {
+		temporaryDialogSequences = new HashSet<DialogSequence>();
+		if (newInventory != null) {
+			temporaryDialogSequences.addAll(newInventory);
+		}
 	}
-	
-	private void removeFromInventory(SpriteThumbnail ST, VBox paneBox){
+
+	private void removeFromInventory(DialogThumbnail ST, VBox paneBox) {
 		myTabPane.removeFromVBox(paneBox);
-		temporaryInventory.remove(ST.getSprite());
+		temporaryDialogSequences.remove(ST.getSprite());
 	}
 
 	private void createBoundingScrollPane() {
@@ -144,50 +149,37 @@ public class SpriteInventoryTabAndInfo {
 		return button;
 	}
 
-	private List<AbstractSpriteObject> triggerPopUpOfInventoryToChoose() {
-		
+	private List<DialogSequence> triggerPopUpOfInventoryToChoose() {
+
 		TabPane tp = new TabPane();
 		tp.setSide(Side.TOP);
 
-		Map<String, List<Pane>> panes = myAEM.getEveryTypeOfSpriteAsThumbnails();
-		
-		panes.forEach((key, value) -> {
-			Tab tab = new Tab(key);
-			tab.setClosable(false);
-			SpriteScrollView SSV = new SpriteScrollView();
-			SSV.addToVBox(value);
-			SSV.setChildOnClickAction(pane -> {
-				if (pane instanceof SpriteThumbnail) {
-					SpriteThumbnail ST = (SpriteThumbnail) pane;
-					ST.isClicked(!ST.isClicked());
-					if (ST.isClicked()) {
-						SSV.addToSpriteList(ST.getSprite());
-					} else {
-						SSV.removeFromSpriteList(ST.getSprite());
-					}
-		// SpriteInventoryTabAndInfo dummy = new SpriteInventoryTabAndInfo();
-//		SpriteScrollView SSV = new SpriteScrollView();
-//		SSV.setChildOnClickAction(pane -> {
-//			if (pane instanceof SpriteThumbnail) {
-//				SpriteThumbnail ST = (SpriteThumbnail) pane;
-//				ST.isClicked(!ST.isClicked());
-//				if (ST.isClicked()) {
-//					SSV.addToSpriteList(ST.getSprite());
-//				} else {
-//					SSV.removeFromSpriteList(ST.getSprite());
-//				}
-//			}
-//		});
-//		SSV.addToVBox(myAEM.getEveryTypeOfSpriteAsThumbnails());
-//		VBox vb = new VBox(10);
+		List<Pane> dSeqs = myAEM.getDialogSpriteController().getAllSpritesAsThumbnails();
+
+		Tab tab = new Tab("Dialogs");
+		tab.setClosable(false);
+		// dSeqs.forEach((dseq) -> {
+		// key = dseq.getName();
+		// Tab tab = new Tab(key);
+		// tab.setClosable(false);
+		SpriteScrollView SSV = new SpriteScrollView("Dialog Sequences");
+		SSV.addToVBox(dSeqs);
+		SSV.setChildOnClickAction(pane -> {
+			if (pane instanceof DialogThumbnail) {
+				DialogThumbnail ST = (DialogThumbnail) pane;
+				ST.isClicked(!ST.isClicked());
+				if (ST.isClicked()) {
+					SSV.addToSpriteList(ST.getSprite().getImage());
+				} else {
+					SSV.removeFromSpriteList(ST.getSprite().getImage());
 				}
-			});
-			tab.setContent(SSV);
-			tp.getTabs().add(tab);
-			// ScrollPane SP = new ScrollPane();
-			// VBox VB = new VBox(5);
-			// value.forEach(pane->);
+
+			}
 		});
+		tab.setContent(SSV);
+
+		// });
+		tp.getTabs().add(tab);
 		final Stage dialog = new Stage();
 		dialog.initModality(Modality.APPLICATION_MODAL);
 		Node parent = myTabPane.getParent();
@@ -197,22 +189,17 @@ public class SpriteInventoryTabAndInfo {
 			s = parent.getScene();
 		}
 		dialog.initOwner(s.getWindow());
-		// VBox dialogVbox = new VBox(20);
-		// dialogVbox.getChildren().add(new Text("This is a Dialog"));
 		Scene dialogScene = new Scene(tp, 525, 400);
-		dialogScene.getStylesheets().add(SpriteInventoryTabAndInfo.class.getResource("Inventory.css").toExternalForm());
+//		dialogScene.getStylesheets().add(SpriteDialogTabAndInfo.class.getResource("Inventory.css").toExternalForm());
 		dialog.setScene(dialogScene);
-		
-		// dialog.show();
+
 		dialog.showAndWait();
-		// dialog.setOnCloseRequest
-		List<AbstractSpriteObject>  ret = new ArrayList<AbstractSpriteObject>();
-		tp.getTabs().forEach((tab)->{
-			SpriteScrollView SSV = (SpriteScrollView) tab.getContent();
-			SSV.getSpriteList().forEach(imageview->{
-				ret.add((AbstractSpriteObject)imageview);
+		List<DialogSequence> ret = new ArrayList<DialogSequence>();
+		tp.getTabs().forEach((tab1) -> {
+			SpriteScrollView SSV1 = (SpriteScrollView) tab1.getContent();
+			SSV1.getSpriteList().forEach(dialogIm -> {
+				ret.add(((DialogImage) dialogIm).getDialogSequence());
 			});
-			
 		});
 		return ret;
 
@@ -226,9 +213,9 @@ public class SpriteInventoryTabAndInfo {
 		buttonText = description;
 		buttonAction = consumer;
 	}
-	
-	public void apply(){
-//		myInventory.addAll(temporaryInventory);
-		myASO.setInventory(temporaryInventory);
+
+	public void apply() {
+		// myInventory.addAll(temporaryInventory);
+		myASO.setDialogSequences(temporaryDialogSequences);
 	}
 }

@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Function;
 
+import authoring.Holdable;
 import authoring.DialogSprite.DialogSequence;
 import authoring.Sprite.AnimationSequences.AuthoringAnimationSequence;
 import authoring.Sprite.AnimationSequences.AuthoringImageView;
@@ -133,6 +134,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 		myAnimationSequences = new ArrayList<AuthoringAnimationSequence>();
 		myAASDefault = new AuthoringAnimationSequence("Default");
 		myAnimationSequences.add(myAASDefault);
+		myDialogSequences = new ArrayList<DialogSequence>();
 		setUpImageURLProperty();
 		
 		initializePositionOnGridProperty();
@@ -201,8 +203,9 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return myDialogSequences;
 	}
 
-	public void setDialogSequences(List<DialogSequence> dialogSequences) {
-		myDialogSequences = dialogSequences;
+	public void setDialogSequences(Collection<DialogSequence> dialogSequences) {
+		myDialogSequences = new ArrayList<DialogSequence>();
+		myDialogSequences.addAll(dialogSequences);
 	}
 	
 	public void addDialogSequence(DialogSequence dialogSequence){

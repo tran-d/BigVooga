@@ -7,6 +7,7 @@ import java.util.Map;
 
 import authoring.Thumbnail;
 import authoring.DialogSprite.DialogSequence;
+import authoring.DialogSprite.DialogThumbnail;
 import authoring.Sprite.AbstractSpriteObject;
 import authoring.Sprite.SpriteObject;
 import authoring.Sprite.SpriteThumbnail;
@@ -36,8 +37,8 @@ public class DialogSpriteManager {
 		List<DialogSequence> ASOs = getAllDialogSequences();
 		List<Pane> ret = new ArrayList<Pane>();
 		ASOs.forEach(sprite -> {
-			Image im = new Image(sprite.getDialogSprites().get(0).getImageFileURL());
-			ret.add(new Thumbnail(new ImageView(im), sprite.getName()));
+//			Image im = new Image(sprite.getDialogSprites().get(0).getImageFileURL());
+			ret.add(new DialogThumbnail(sprite.getImage(), sprite.getName()));
 		});
 		return ret;
 	}

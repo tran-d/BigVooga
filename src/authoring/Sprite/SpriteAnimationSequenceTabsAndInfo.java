@@ -10,7 +10,6 @@ import authoring.drawing.BoundingPolygonCreator;
 //import authoring.drawing.BoundingPolygonCreator;
 import engine.sprite.BoundedImage;
 import engine.utilities.data.GameDataHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.Node;
@@ -22,8 +21,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
@@ -125,7 +122,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 
 			File file = GameDataHandler.chooseFileForImageSave(s.getWindow());
 			Image im = new Image(file.toURI().toString());
-			AuthoringImageView AIV = new AuthoringImageView(file.toURI().toString());
+			AuthoringImageView AIV = new AuthoringImageView(file.getName());
 			makeBoundedImagePopup(AIV, im, file.getName());
 			addNewAuthoringImageViewToSequence(this.activeAnimationSeqeunce, AIV);
 		});

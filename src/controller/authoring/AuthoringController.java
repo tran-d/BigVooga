@@ -100,7 +100,7 @@ public class AuthoringController {
 		viewMap.put(INVENTORY_CREATOR_KEY, myInventorySCM.getPane());
 
 		DialogueManager dm = new DialogueManager();
-		dm.addDialogueListener(mapManager.getDialoguesTab());
+//		dm.addDialogueListener(mapManager.getDialoguesTab());
 		viewMap.put(DIALOGUE_KEY, dm.getPane());
 
 		HUDManager hudManager = new HUDManager(AEM, scene);

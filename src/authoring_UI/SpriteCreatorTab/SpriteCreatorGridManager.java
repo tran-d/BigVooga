@@ -161,7 +161,8 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 		createImageButton.setOnAction(e -> {
 			Stage newStage = new Stage();
 			ImageCanvasPane paint = new ImageCanvasPane(500, 500, s -> {
-				final String fileName = "UniqueSprite"+Math.random();
+				final String fileName = ("UniqueSprite"+Math.random()).replaceAll("\\.", "");
+				System.out.println("fileName: "+fileName);
 				newSprite = getMapLayer().setBackgroundImage(()-> getSpriteTypeFunction.apply(s, fileName));
 				saveTo(s, new File(fileName));
 			});
@@ -252,6 +253,7 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 	
 	
 	private void saveTo(Image image, File location) {
+		System.out.println("Location abs path; "+location.getAbsolutePath());
 		if (location == null || image == null)
 			return;
 		try {
