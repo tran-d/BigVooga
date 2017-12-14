@@ -21,7 +21,6 @@ public class ActionTab<T> extends Tab implements ActionTabI<T> {
 	private ActionConditionVBox<T> actionConditionVBox;
 	private ResourceBundle actionTabResources;
 	private VBox mainVBox;
-	private AuthoringEnvironmentManager myAEM;
 	private SpriteParameterSidebarManager mySPSM;
 
 	public ActionTab(String title, SpriteParameterSidebarManager SPSM) {
