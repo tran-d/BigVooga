@@ -23,19 +23,19 @@ public class Dialogue extends Displayable {
 	/*************************** PUBLIC METHODS **********************************/
 
 	protected String getName() {
-		return getName();
+		return super.getName();
 	}
 	
 	public List<Pane> getDialogueSequence() {
-		return getDisplayableSequence();
+		return super.getDisplayableSequence();
 	}
 
 	protected String getFontType() {
-		return getFontType();
+		return super.getFontType();
 	}
 	
 	protected Color getFontColor() {
-		return getFontColor();
+		return super.getFontColor();
 	}
 
 	/*************************** PRIVATE METHODS **********************************/

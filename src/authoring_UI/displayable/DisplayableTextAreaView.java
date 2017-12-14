@@ -3,6 +3,7 @@ package authoring_UI.displayable;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -14,6 +15,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -75,12 +77,14 @@ public abstract class DisplayableTextAreaView extends VBox {
 		ta.setWrapText(true);
 		String css = this.getClass().getResource("dialogue.css").toExternalForm();
 		ta.getStylesheets().add(css);
-	
-		DragResizer draggableTA = new DragResizer(ta);
-		draggableTA.makeResizable();
-		draggableTA.makeDraggable();
 		
 		return ta;
+	}
+	
+	protected void makeDraggableAndResizable(Region region) {
+		DragResizer draggableTA = new DragResizer(region);
+		draggableTA.makeResizable();
+		draggableTA.makeDraggable();
 	}
 	
 	protected Pane createPane(double width, double height) {

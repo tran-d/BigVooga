@@ -5,6 +5,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
@@ -49,7 +50,7 @@ public class DragResizer {
         
     }
 
-    public void makeResizable() {
+    protected void makeResizable() {
         final DragResizer resizer = new DragResizer(region);
 
         region.setOnMousePressed(new EventHandler<MouseEvent>() {

@@ -106,24 +106,24 @@ public class DialogueTextAreaView extends DisplayableTextAreaView {
 	}
 	
 	protected void setFont(String family, int size) {
-		setFont(family, size, taList);
+		super.setFont(family, size, taList);
 	}
 	
 	protected void setFontColor(String color) {
-		setFontColor(color, taList);
+		super.setFontColor(color, taList);
 	}
 	
 	protected void setBackgroundColor(Color color) {
-		setBackgroundColor(color, paneList);
+		super.setBackgroundColor(color, paneList);
 	}
 	
 	protected void setTextAreaBackgroundColor(Color color) {
-		setTextAreaBackgroundColor(color, taList);
+		super.setTextAreaBackgroundColor(color, taList);
 	}
 	
 	protected void setBackgroundImage(Image image) {
 		currentBgImage = image;
-		setBackgroundImage(image, paneList);
+		super.setBackgroundImage(image, paneList);
 	}
 
 	@Override
@@ -165,6 +165,8 @@ public class DialogueTextAreaView extends DisplayableTextAreaView {
 		taList.add(ta);
 		Pane k = (Pane) dialoguePreview.getChildren().get(0);
 		k.getChildren().add(ta);
+		
+		super.makeDraggableAndResizable(ta);	
         
 	}
 
@@ -232,7 +234,7 @@ public class DialogueTextAreaView extends DisplayableTextAreaView {
 
 	@Override
 	protected Button makeButton(String name, EventHandler<ActionEvent> handler) {
-		return makeButton(name, handler);
+		return super.makeButton(name, handler);
 	}
 
 }

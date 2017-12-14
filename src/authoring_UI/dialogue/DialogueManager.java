@@ -58,22 +58,22 @@ public class DialogueManager extends DisplayableManager {
 
 	@Override
 	protected Separator createSeparator() {
-		return createSeparator();
+		return super.createSeparator();
 	}
 
 	@Override
 	protected Separator createShortSeparator() {
-		return createShortSeparator();
+		return super.createShortSeparator();
 	}
 
 	/*************************** PUBLIC METHODS **********************************/
 
-	protected void addDialogueListener(Tab dialoguesTab) {
+	public void addDialogueListener(Tab dialoguesTab) {
 		mapDialoguesTab = dialoguesTab;
 		updateListView();
 	}
 
-	protected HBox getPane() {
+	public HBox getPane() {
 		return hb;
 	}
 
