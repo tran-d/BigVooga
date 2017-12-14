@@ -1,5 +1,7 @@
 package authoring.Layers;
 
+import java.util.function.Supplier;
+
 import authoring.Sprite.AbstractSpriteObject;
 import authoring.Sprite.SpriteObject;
 import authoring_UI.AuthoringMapStackPane;
@@ -16,13 +18,13 @@ public class BackgroundLayer extends MapLayer {
 
 	BackgroundLayer(int rows, int columns, SpriteGridHandler SGH, Color c) {
 		super(rows, columns, SGH, c);
-		this.setGridLinesVisible(false);
+//		this.setGridLinesVisible(false);
 //		setDefaultColor(Color.YELLOW);
 		setName("Background");
 	}
 	
 	@Override 
-	public void setBackgroundImage(Image image, String path){
+	public AbstractSpriteObject setBackgroundImage(Supplier<AbstractSpriteObject> suppliedASO){
 		AuthoringMapStackPane AMSP = this.getChildAtPosition(0, 0);
 		if (AMSP.hasChild()){
 			AMSP.removeChild();
@@ -31,16 +33,26 @@ public class BackgroundLayer extends MapLayer {
 			((AuthoringMapStackPane) cell).setInactiveBackground(Color.TRANSPARENT);
 		});
 
-		AbstractSpriteObject ASO = new SpriteObject(image, path);
+		AbstractSpriteObject ASO = suppliedASO.get();
+		ASO.setNumCellsHeightNoException(this.numRowsProperty.get());
+		ASO.setNumCellsWidthNoException(this.numColumnsProperty.get());
 		AMSP.addChild(ASO);
-		AMSP.setRowSpan(this.numRowsProperty.get());
-		AMSP.setColSpan(this.numColumnsProperty.get());
+//		AMSP.setRowSpan(this.numRowsProperty.get());
+//		AMSP.setColSpan(this.numColumnsProperty.get());
 		numColumnsProperty.addListener((observable, oldNumColumns, newNumColumns)->{
 			AMSP.setColSpan(newNumColumns);
 		});
 		numRowsProperty.addListener((observable, oldNumColumns, newNumColumns)->{
 			AMSP.setRowSpan(newNumColumns);
 		});
+		ASO.getHeightObjectProperty().addListener((change, oldVal, newVal)->{
+			numRowsProperty.set(newVal);
+		});
+		
+		ASO.getWidthObjectProperty().addListener((change, oldVal, newVal)->{
+			numColumnsProperty.set(newVal);
+		});
+		return ASO;
 	}
 	
 	

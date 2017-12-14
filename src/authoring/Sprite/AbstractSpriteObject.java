@@ -142,7 +142,9 @@ public abstract class AbstractSpriteObject extends ImageView {
 
 	public AbstractSpriteObject(Image image, String path) {
 		this();
+		if (image!=null && path!=null){
 		setupImageURLAndView(image, path);
+		}
 		// myName = fileURL.split("\\.")[0];
 	}
 
@@ -745,8 +747,13 @@ public abstract class AbstractSpriteObject extends ImageView {
 		Map<Condition, List<Action>> temp = new HashMap<Condition, List<Action>>();
 		for (Condition c : conditionRows.keySet()) {
 			List<Action> actions = new ArrayList<Action>();
-			for (Integer i : conditionRows.get(c)) {
-				actions.add(actionRows.get(i));
+			List<Integer> i = conditionRows.get(c);
+			System.out.println(i.getClass());
+			System.out.println(i.get(0));
+			System.out.println(i.get(0).toString());
+			
+			for (Integer j : i) {
+				actions.add(actionRows.get(j));
 			}
 			temp.put(c, actions);
 

@@ -28,6 +28,10 @@ public class SpriteParameterSidebarManager {
 
 	public AbstractSpriteObject getActiveSprite() throws Exception {
 		List<AbstractSpriteObject> sprites = myDG.getActiveGrid().getActiveSpriteObjects();
+		System.out.println("SPSM getting active sprites, size: "+sprites.size());
+		if (sprites.size()>0){
+		System.out.println("First sprite: "+sprites.get(0));
+		}
 		checkActiveCellsMatch(sprites);
 		if (firstSprite==null){
 			throw new Exception("No active cells");
@@ -67,6 +71,10 @@ public class SpriteParameterSidebarManager {
 		firstSprite = null;
 		everyStateParameter = null;
 		newNameOldName = null;
+	}
+	
+	private List<AbstractSpriteObject> getAllSpritesFromActiveGrid(){
+		return this.myDG.getActiveGrid().getEntireListOfSpriteObjects();
 	}
 
 	public void apply() {

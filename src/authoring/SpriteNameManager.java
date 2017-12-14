@@ -33,7 +33,7 @@ public class SpriteNameManager {
 	 */
 	
 	public boolean isNameValidTemplate(String name) {
-		return !(myTemplateNames.contains(name));
+		return !(myTemplateNames.contains(name))&&name.replaceAll("\\s+", "").length()!=0;
 	}
 	
 	/**

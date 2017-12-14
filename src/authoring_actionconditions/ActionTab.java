@@ -3,6 +3,7 @@ package authoring_actionconditions;
 import java.util.ResourceBundle;
 import ActionConditionClasses.ResourceBundleUtil;
 import authoring.AuthoringEnvironmentManager;
+import authoring.SpriteParameterSidebarManager;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,7 +22,13 @@ public class ActionTab<T> extends Tab implements ActionTabI<T> {
 	private ResourceBundle actionTabResources;
 	private VBox mainVBox;
 	private AuthoringEnvironmentManager myAEM;
+	private SpriteParameterSidebarManager mySPSM;
 
+	public ActionTab(String title, SpriteParameterSidebarManager SPSM) {
+		this(title);
+		mySPSM = SPSM;
+		
+	}
 	public ActionTab(String title) {
 		super(title);
 		actionTabResources = ResourceBundleUtil.getResourceBundle(title);
@@ -30,14 +37,14 @@ public class ActionTab<T> extends Tab implements ActionTabI<T> {
 		setUpActionConditionManager(title);
 	}
 
-	public ActionTab(String title, ActionConditionVBox<T> actionConditionVBox, ActionConditionHBox topToolBar) {
-		this(title);
-		mainVBox.getChildren().removeAll(this.actionConditionVBox, this.buttons);
-		this.actionConditionVBox = actionConditionVBox;
-		buttons = topToolBar;
-		mainVBox.getChildren().addAll(this.buttons, this.actionConditionVBox);
-		//myAEM = AEM;	TODO maybe incorporate the AEM?
-	}
+//	public ActionTab(String title, ActionConditionVBox<T> actionConditionVBox, ActionConditionHBox topToolBar) {
+//		this(title);
+//		mainVBox.getChildren().removeAll(this.actionConditionVBox, this.buttons);
+//		this.actionConditionVBox = actionConditionVBox;
+//		buttons = topToolBar;
+//		mainVBox.getChildren().addAll(this.buttons, this.actionConditionVBox);
+//		//myAEM = AEM;	TODO maybe incorporate the AEM?
+//	}
 
 	private void setUpActionConditionManager(String title) {
 		buttons = new ActionConditionHBox(title);

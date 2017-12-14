@@ -17,6 +17,7 @@ import authoring.SpriteNameManager;
 import authoring.Sprite.SpriteObject;
 import authoring.Sprite.Parameters.SpriteParameterI;
 import authoring.drawing.ImageCanvasPane;
+import authoring_UI.SpriteCreatorTab.SpriteCreatorManagerSlack;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
@@ -67,15 +68,15 @@ public class SpriteImagePanel extends VBox {
 	private TextField categoryField;
 	private SpriteObject newSprite;
 	private SpriteNameManager mySNM;
-	private SpriteCreatorSpriteManager mySM;
+	private SpriteCreatorManagerSlack mySM;
 	private SpriteCreatorImageGrid myImageGrid;
 	private AuthoringEnvironmentManager myAEM;
 	private SpriteCreatorDisplayPanel myDP;
 	private SpriteCreatorSpriteSelector mySC;
-	private SpriteCreatorGridHandler myGridHandler;
+//	private SpriteCreatorGridHandler myGridHandler;
 
-	protected SpriteImagePanel(AuthoringEnvironmentManager AEM, SpriteCreatorImageGrid imageGrid,
-			SpriteCreatorSpriteManager SM, SpriteCreatorManager SCM, SpriteCreatorGridHandler mySCGridHandler) {
+	protected SpriteImagePanel(AuthoringEnvironmentManager AEM,
+			SpriteCreatorManagerSlack SM) {
 		spriteCreatorResources = ResourceBundle.getBundle(SPRITECREATORRESOURCES_PATH);
 		paintResources = ResourceBundle.getBundle(TOOLSANDNAMES_PATH);
 		this.setMinWidth(PANE_WIDTH / 2 - 300);
@@ -92,8 +93,8 @@ public class SpriteImagePanel extends VBox {
 		myAEM = AEM;
 		mySNM = new SpriteNameManager();
 		
-		myGridHandler = mySCGridHandler;
-		myGridHandler.setImagePanel(this);
+//		myGridHandler = mySCGridHandler;
+//		myGridHandler.setImagePanel(this);
 
 		mySM = SM;
 		buttonBox = new HBox(10);
@@ -104,7 +105,7 @@ public class SpriteImagePanel extends VBox {
 
 		addButtons();
 		addNameCategoryBox();
-		addImageGrid(imageGrid);
+//		addImageGrid(imageGrid);
 
 		paramBox.getChildren().addAll(buttonBox, nameCategoryBox);
 
@@ -123,11 +124,11 @@ public class SpriteImagePanel extends VBox {
 
 	}
 
-	private void addImageGrid(SpriteCreatorImageGrid imageGrid) {
-		myImageGrid = imageGrid;
-		imageBox.getChildren().add(myImageGrid);
-
-	}
+//	private void addImageGrid(SpriteCreatorImageGrid imageGrid) {
+//		myImageGrid = imageGrid;
+//		imageBox.getChildren().add(myImageGrid);
+//
+//	}
 
 	private void addButtons() {
 		Button loadImageButton = new Button(spriteCreatorResources.getString("LoadImageButton"));
@@ -157,7 +158,7 @@ public class SpriteImagePanel extends VBox {
 			if (mySNM.isNameValidTemplate(spriteName)) {
 				try {
 					newSprite.setName(spriteName);
-					if (categoryField.getText() == null) {
+					if (categoryField.getText() == null || categoryField.getText().replaceAll("\\s+", "").length() == 0) {
 						myAEM.addUserSprite(newSprite);
 					} else {
 						myAEM.addUserSprite(categoryField.getText(), newSprite);
@@ -175,9 +176,9 @@ public class SpriteImagePanel extends VBox {
 				nameField.clear();
 				categoryField.clear();
 
-				myImageGrid.getImageStack().getChildren().remove(0);
-				mySM.setActiveSprite(null);
-				myImageGrid.setCurrentSprite(null);
+//				myImageGrid.getImageStack().getChildren().remove(0);
+//				mySM.setActiveSprite(null);
+//				myImageGrid.setCurrentSprite(null);
 
 				mySC.updateSpriteTabs();
 				// this.getChildren().removeAll(newSprite, nameBox);

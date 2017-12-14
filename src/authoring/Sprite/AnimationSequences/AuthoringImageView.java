@@ -1,6 +1,5 @@
 package authoring.Sprite.AnimationSequences;
 
-import authoring_data.SerializableAuthoringImageView;
 import engine.sprite.BoundedImage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

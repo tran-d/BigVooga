@@ -2,14 +2,8 @@ package authoring_UI;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
-import com.thoughtworks.xstream.security.NullPermission;
-import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
 import authoring.Sprite.AbstractSpriteObject;
 import authoring.Sprite.InventoryObject;
@@ -18,25 +12,10 @@ import authoring.Sprite.AnimationSequences.AuthoringAnimationSequence;
 import authoring.Sprite.Parameters.SpriteParameter;
 import engine.Action;
 import engine.Condition;
-import javafx.collections.ObservableList;
-import javafx.geometry.Point2D;
 
 public class SpriteDataConverter {
 
-	private static final XStream SERIALIZER = setupXStream();
-
-	private static XStream setupXStream() {
-		XStream xstream = new XStream(new DomDriver());
-		// xstream.addPermission(NoTypePermission.NONE);
-		xstream.addPermission(NullPermission.NULL);
-		xstream.addPermission(PrimitiveTypePermission.PRIMITIVES);
-		xstream.allowTypes(new Class[] { Point2D.class });
-		xstream.allowTypesByWildcard(new String[] { "engine.**", "java.**" });
-		return xstream;
-	}
-
-	Map<Condition, List<Integer>> conditionRows;
-	List<Action> actionRows;
+	
 	Map<String, List<SpriteParameter>> catmap;
 	List<SpriteDataConverter> inventory;
 	String imageURL;
@@ -50,11 +29,8 @@ public class SpriteDataConverter {
 	String mySavePath;
 	String spriteType;
 	List<String> tags;
-//	ObservableList<Integer> allConditions;
-//	ObservableList<Integer> allActions;
-	
-//	Function<Integer, Boolean> heightFunction;
-//	Function<Integer, Boolean> widthFunction;
+	Map<Condition, List<Integer>> conditionRows;
+	List<Action> actionRows;
 
 	public SpriteDataConverter(AbstractSpriteObject ASO) {
 		convertSprite(ASO);

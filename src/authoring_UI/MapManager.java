@@ -58,8 +58,10 @@ public class MapManager extends TabPane {
 	private Pane mapEditor = new Pane();
 	private SpritePanels spritePanels;
 	private SpriteGridHandler mySpriteGridHandler;
-
-	public MapManager(AuthoringEnvironmentManager AEM, Scene currentScene) {
+	protected String myType;
+	
+	public MapManager(AuthoringEnvironmentManager AEM, Scene currentScene, String type) {
+		myType = type;
 		setTabTag();
 		setManagerName();
 		gridIsShowing = new SimpleObjectProperty<Boolean>();
@@ -90,6 +92,11 @@ public class MapManager extends TabPane {
 			createTab(makeDraggableGrid());
 		}
 		this.mySelectModel.select(startTab);
+	}
+
+	public MapManager(AuthoringEnvironmentManager AEM, Scene currentScene) {
+		this(AEM, currentScene, "");
+		
 	}
 
 	protected void setManagerName() {

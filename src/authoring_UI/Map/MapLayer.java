@@ -3,8 +3,10 @@ package authoring_UI.Map;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Supplier;
 
 import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.SpriteObject;
 import authoring_UI.AuthoringMapStackPane;
 import authoring_UI.SpriteGridHandler;
 import javafx.beans.property.ObjectProperty;
@@ -29,7 +31,7 @@ public abstract class MapLayer extends GridPane {
 
 	private int myRows;
 	private int myColumns;
-	private SpriteGridHandler mySGH;
+	protected SpriteGridHandler mySGH;
 	private Color defaultColor;
 	protected Color fillEmptyCellColor;
 	private String myName;
@@ -159,11 +161,11 @@ public abstract class MapLayer extends GridPane {
 	
 	
 	public void setBackgroundImage(String imagePath){
-		setBackgroundImage(new Image(imagePath), imagePath);
+		this.setBackgroundImage(()->new SpriteObject(new Image(imagePath), imagePath));
 	}
 	
-	public void setBackgroundImage(Image image, String imagePath){
-		// NOTHING ON DEFAULT	
+	public AbstractSpriteObject setBackgroundImage(Supplier<AbstractSpriteObject> spriteSupplier){
+		return null;	
 	}
 	
 	public void addMostRecentActive(AuthoringMapStackPane newMostRecentActive){

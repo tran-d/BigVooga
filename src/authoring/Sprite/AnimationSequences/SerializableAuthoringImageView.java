@@ -1,4 +1,4 @@
-package authoring_data;
+package authoring.Sprite.AnimationSequences;
 
 
 import authoring.Sprite.AnimationSequences.AuthoringImageView;

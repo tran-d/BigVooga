@@ -38,8 +38,11 @@ public class SpriteObjectGridToEngineController {
 		for (SpriteObjectGridManager thisLayer : allLayers) {
 			createEngineLayerAndAddToWorld(thisLayer);
 		}
+//		addHUDToWorld()
 		addWorldToEngine(currentWorld);
 	}
+	
+	
 	
 	private void createWorld() {
 		currentWorld = new GameWorld(); 

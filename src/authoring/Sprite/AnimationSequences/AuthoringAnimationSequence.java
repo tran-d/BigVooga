@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import authoring.Thumbnail;
-import authoring_data.SerializableAuthoringImageView;
 import engine.utilities.data.GameDataHandler;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
