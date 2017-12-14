@@ -912,13 +912,11 @@ public class GameDataHandler {
 			for (File f : files) {
 				try {
 					ret.add(loadDialogue(f));
-
 				} catch (FileNotFoundException e) {
 					throw (new VoogaException(e));
 				}
 			}
 		}
-
 		return ret;
 	}
 
