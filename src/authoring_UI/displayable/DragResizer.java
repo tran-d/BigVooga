@@ -1,4 +1,4 @@
-package authoring_UI.dialogue;
+package authoring_UI.displayable;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
@@ -22,7 +22,7 @@ public class DragResizer {
 	private static double orgTranslateX, orgTranslateY;
 	private static double paneLeft, paneRight, paneTop, paneBottom;
 
-    private final TextArea region;
+    private final Region region;
     private final Pane pane;
     private final Rectangle bound;
 
@@ -39,7 +39,7 @@ public class DragResizer {
     private final short WEST = 4;
 
     
-    protected DragResizer(TextArea aRegion) {
+    protected DragResizer(Region aRegion) {
         region = aRegion;
         region.applyCss();
         // set clip bound
