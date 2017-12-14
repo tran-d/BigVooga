@@ -1,7 +1,5 @@
 package engine.sprite;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,16 +16,22 @@ public class Sprite {
 	private AnimationSequence currentAnimation;
 	private AnimationSequence tempAnimation = null;
 
-
+	/**
+	 * Adds the animation sequence to the known animations. If it is the first
+	 * animation added, it will be used as the default.
+	 * 
+	 * @param animation
+	 *            The new Animation sequence
+	 */
 	public void addAnimationSequence(AnimationSequence animation) {
 		animations.put(animation.getName(), animation);
-		if(animations.size() == 0)
+		if (animations.size() == 0)
 			currentAnimation = animation;
 	}
 
 	/**
 	 * @param name
-	 *            The new animation sequence to switch to
+	 *            The new animation sequence to switch to, by name.
 	 */
 	public void setAnimation(String name) {
 		if (!animations.containsKey(name))
@@ -47,13 +51,14 @@ public class Sprite {
 			return;
 		}
 		if (currentAnimation == null) {
-			// Sets don't have a get() for some ungodly reason. This is shameful but oh
-			// well.
 			throw new VoogaException("UndefinedAnimation");
 		}
 		currentAnimation.increment();
 	}
 
+	/**
+	 * @return Gets the current image.
+	 */
 	public BoundedImage getImage() {
 		if (tempAnimation != null) {
 			return tempAnimation.getImage();
@@ -72,9 +77,11 @@ public class Sprite {
 		return clone;
 	}
 
+	/**
+	 * @param name The animation sequence to play once.
+	 */
 	public void playOnce(String name) {
 		tempAnimation = animations.get(name);
 	}
-
 
 }

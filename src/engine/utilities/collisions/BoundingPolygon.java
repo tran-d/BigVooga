@@ -89,6 +89,11 @@ public class BoundingPolygon extends BoundingGeometry {
 		return normals;
 	}
 
+	/**
+	 * @param vector The vector to rotate
+	 * @param angle The angle to rotate (CCW in right-handed system)
+	 * @return rotated vector
+	 */
 	public static Point2D rotateByAngle(Point2D vector, double angle) {
 		angle = Math.toRadians(angle);
 		return new Point2D(vector.getX() * Math.cos(angle) - vector.getY() * Math.sin(angle),
