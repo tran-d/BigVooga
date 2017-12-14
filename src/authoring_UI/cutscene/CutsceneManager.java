@@ -48,6 +48,7 @@ public class CutsceneManager extends DisplayableManager {
 		editorList = new ArrayList<>();
 		dExtractor = new CutsceneExtractor();
 		hb = new HBox(NODE_SPACING);
+		hb.setLayoutX(10);
 		hb.getChildren().addAll(dView, createSeparator(), createButtonPanel());
 
 		// test

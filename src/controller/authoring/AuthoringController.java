@@ -81,7 +81,7 @@ public class AuthoringController {
 		viewMap.put(INVENTORY_CREATOR_KEY, myInventorySCM.getPane());
 
 		CutsceneManager cm = new CutsceneManager();
-//		cm.addDialogueListener();
+		viewMap.put(CUTSCENES_KEY, cm.getPane());
 		
 		DialogueManager dm = new DialogueManager();
 		dm.addDialogueListener(mapManager.getDialoguesTab());

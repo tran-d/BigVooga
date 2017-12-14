@@ -22,8 +22,8 @@ import javafx.scene.paint.Color;
 public class CutsceneTextAreaView extends DisplayableTextAreaView {
 
 	private static final double VBOX_SPACING = 25;
-	private static final double DIALOG_PROMPT_WIDTH = 400;
-	private static final double DIALOG_PROMPT_HEIGHT = 100;
+	private static final double CUTSCENE_PROMPT_WIDTH = 1000;
+	private static final double CUTSCENE_PROMPT_HEIGHT = 700;
 	private static final String NEXT_BUTTON_PROMPT = "Next";
 	private static final String PREV_BUTTON_PROMPT = "Previous";
 	private static final String ADD_PANEL_BUTTON_PROMPT = "AddPanel";
@@ -120,7 +120,7 @@ public class CutsceneTextAreaView extends DisplayableTextAreaView {
 
 	@Override
 	protected void addPanel() {
-		paneList.add(currentPaneIndex+1, createPane(DIALOG_PROMPT_WIDTH, DIALOG_PROMPT_HEIGHT));
+		paneList.add(currentPaneIndex+1, createPane(CUTSCENE_PROMPT_WIDTH, CUTSCENE_PROMPT_HEIGHT));
 		if (currentBgImage != null) {
 			setBackgroundImage(currentBgImage);
 		} else {
@@ -142,7 +142,7 @@ public class CutsceneTextAreaView extends DisplayableTextAreaView {
 	}
 	
 	protected void addImage() {
-		// TO DO
+		
 	}
 
 	@Override

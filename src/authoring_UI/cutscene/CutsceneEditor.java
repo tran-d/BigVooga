@@ -36,6 +36,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Font;
 import tools.DisplayLanguage;
+import authoring_UI.dialogue.*;
 
 public class CutsceneEditor extends DisplayableEditor {
 
@@ -70,7 +71,7 @@ public class CutsceneEditor extends DisplayableEditor {
 	public CutsceneEditor(Consumer<String> saveCons) {
 		this.saveConsumer = saveCons;
 		view = new VBox(10);
-		view.getStylesheets().add(CutsceneManager.class.getResource("cutscene.css").toExternalForm());
+		view.getStylesheets().add(DialogueManager.class.getResource("dialogue.css").toExternalForm());
 
 		this.makeTemplate();
 	}
@@ -128,8 +129,8 @@ public class CutsceneEditor extends DisplayableEditor {
 
 		HBox textHBox = new HBox(5);
 		textHBox.setAlignment(Pos.CENTER);
-		textHBox.getChildren().addAll(createAddTextAreaButton(),
-				  createSeparator(),
+		textHBox.getChildren().addAll(createImageButton(), createSeparator(), 
+					createAddTextAreaButton(), createSeparator(),
 				  new HBox(makeEntry(FONT_COLOR_PROMPT, fontColorCP)),
 				  createSeparator(),
 				  new HBox(makeEntry(FONT_TYPE_PROMPT, fontTypeCB)),
@@ -144,6 +145,13 @@ public class CutsceneEditor extends DisplayableEditor {
 		dialogueModifiersBox.getChildren().addAll(new HBox(makeEntry(NAME_PROMPT, nameTF)), textHBox, backgroundHBox);
 		
 		view.getChildren().addAll(dialogueModifiersBox, cutsceneView);
+	}
+	
+	protected Button createImageButton() {
+		Button addImage = new Button("Add Image");
+		addImage.setOnAction(e -> cutsceneView.addImage());
+		
+		return addImage;
 	}
 
 	@Override
