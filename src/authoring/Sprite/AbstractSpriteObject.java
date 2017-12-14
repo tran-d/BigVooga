@@ -266,6 +266,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 	protected void setupImageURLAndView(String fileURL) {
 		FileInputStream fis;
 		Image im;
+		System.out.println(fileURL);
 		try {
 			fis = new FileInputStream(new File(fileURL));
 			im = new Image(fis);

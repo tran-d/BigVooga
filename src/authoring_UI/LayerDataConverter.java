@@ -70,6 +70,7 @@ public class LayerDataConverter {
 		}
 		List<AbstractSpriteObject> toStore = new ArrayList<AbstractSpriteObject>();
 		mySprites.forEach(SDC->{
+			System.out.println("sprite url" +SDC.imageURL);
 			toStore.add(SDC.createSprite());
 		});
 		newLayer.storeSpriteObjectsToAdd(toStore);
