@@ -3,6 +3,7 @@ package authoring_UI.dialogue;
 import java.util.ArrayList;
 import java.util.List;
 
+import authoring.DialogSprite.DialogSequence;
 import authoring_UI.MapManager;
 import authoring_UI.displayable.DisplayableManager;
 import javafx.event.ActionEvent;
@@ -89,6 +90,12 @@ public class DialogueManager extends DisplayableManager {
 	@Override
 	protected void save() {
 		if (currentEditor != null && !currentEditor.getName().trim().equals("")) {
+			if (currentEditor.getBackgroundColor() == null && currentEditor.getBackgroundImage() != null) {
+				DialogSequence dialogSequence = new DialogSequence(currentEditor.getName(), currentEditor.getDialogueSequence(), currentEditor.getBackgroundImage());
+			}
+			else if (currentEditor.getBackgroundImage() == null && currentEditor.getBackgroundColor() != null) {
+				DialogSequence dialogSequence = new DialogSequence(currentEditor.getName(), currentEditor.getDialogueSequence(), currentEditor.getBackgroundColor());
+			}
 			
 			if (editorList.contains(currentEditor)) {
 				editorList.remove(currentEditor);

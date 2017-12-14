@@ -66,7 +66,6 @@ public class SpriteCreator extends TabPane {
 	}
 
 	private void setup(AuthoringEnvironmentManager AEM, SpriteCreatorManager SCM, SpriteCreatorSpriteManager SM) {
-		spriteCreatorResources = ResourceBundle.getBundle(SPRITECREATORRESOURCES_PATH);
 		myAEM = AEM;
 		mySCM = SCM;
 		mySM = SM;

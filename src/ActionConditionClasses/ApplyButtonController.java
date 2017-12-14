@@ -115,7 +115,6 @@ public class ApplyButtonController {
 			spriteObject.setSelectedActionOperations(selectedActionOperations);
 			spriteObject.setConditions(conditions);
 			spriteObject.setActions(actions);
-
 		} catch (NullPointerException | NumberFormatException e) {
 			conditionTab.displayRowExceptionMessage(e.getMessage());
 		}

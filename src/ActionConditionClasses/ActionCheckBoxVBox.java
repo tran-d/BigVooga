@@ -26,15 +26,9 @@ public class ActionCheckBoxVBox extends VBoxList implements ActionCheckBoxVBoxI 
 		;
 		;
 		ObservableList<CheckBox> tempCheckBoxes = FXCollections.observableArrayList(checkBoxes);
-<<<<<<< HEAD
-		for(T selectedOption : selectedOptions) {
-			;
-			int selInt = Integer.parseInt((String) selectedOption);
-=======
 		for(Integer selectedOption : selectedOptions) {
 			System.out.println("selected option " + selectedOption);
 			int selInt = (int) selectedOption;
->>>>>>> 0f8ccc705aa5ea35b7ad7dd48bb75c2cb40116ed
 			tempCheckBoxes.get(selInt - 1).setSelected(true);
 		}
 		checkBoxes.setAll(tempCheckBoxes);

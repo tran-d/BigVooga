@@ -84,9 +84,6 @@ public class SpriteImagePanel extends VBox {
 				BorderWidths.DEFAULT);
 		this.setStyle("-fx-background-color: transparent;");
 		this.setBorder(new Border(border));
-
-		myDP = SCM.getDisplayPanel();
-		mySC = SCM.getSpriteSelector();
 		myAEM = AEM;
 		mySNM = new SpriteNameManager();
 		
@@ -215,7 +212,6 @@ public class SpriteImagePanel extends VBox {
 			newSprite.setNumCellsWidthNoException(1);
 			newSprite.setNumCellsHeightNoException(1);
 
-			mySM.setActiveSprite(newSprite);
 			myImageGrid.setSprite(newSprite);
 
 			myDP.addSpriteEditorVBox();
@@ -271,7 +267,6 @@ public class SpriteImagePanel extends VBox {
 		newSprite.setNumCellsWidthNoException(1);
 		newSprite.setNumCellsHeightNoException(1);
 
-		mySM.setActiveSprite(newSprite);
 		myImageGrid.setSprite(newSprite);
 
 		myDP.addSpriteEditorVBox();

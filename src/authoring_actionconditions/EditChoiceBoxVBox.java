@@ -4,10 +4,6 @@ import ActionConditionClasses.ChoiceBoxVBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-/**
- * temporarily unused class
- *
- */
 public class EditChoiceBoxVBox extends ChoiceBoxVBox {
 
 	public EditChoiceBoxVBox(String label, ObservableList<Integer> editOptions) {

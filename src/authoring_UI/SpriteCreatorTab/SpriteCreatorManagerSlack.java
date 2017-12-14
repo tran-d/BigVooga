@@ -45,7 +45,7 @@ public class SpriteCreatorManagerSlack extends MapManager{
 	
 	@Override
 	protected void setManagerName(){
-		MANAGERNAME = myType.equals("InventoryObject") ?"InventoryCreator" : "SpriteCreator";
+		MANAGER_NAME = myType.equals("InventoryObject") ?"InventoryCreator" : "SpriteCreator";
 	}
 	
 	@Override 

@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 public class InventorySpriteCreatorManager extends SpriteCreatorManagerSlack{
 
 	public InventorySpriteCreatorManager(AuthoringEnvironmentManager AEM, Scene currentScene) {
-		super(AEM, currentScene);
+		super(AEM, currentScene, "InventoryObject");
 	}
 
 	
