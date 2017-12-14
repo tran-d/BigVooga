@@ -47,13 +47,6 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 			// ;
 			;
 			action = actionFactory.makeAction(selectedAction, operationList.toArray());
-<<<<<<< HEAD
-			;
-=======
-			System.out.println(action.getClass());
-			System.out.println(action.toString());
-			System.out.println(action);
->>>>>>> 0f8ccc705aa5ea35b7ad7dd48bb75c2cb40116ed
 			return action;
 		} catch (NullPointerException e) {
 			throw e;

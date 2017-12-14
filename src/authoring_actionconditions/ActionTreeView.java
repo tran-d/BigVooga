@@ -71,15 +71,8 @@ public class ActionTreeView extends TreeView<HBox> {
 	}
 
 	public Action getAction() {
-<<<<<<< HEAD
-		try {
-			Action action = categoryAction.extract();
-			if (action == null)
-				;
-=======
 
 		if (action != null)
->>>>>>> 0f8ccc705aa5ea35b7ad7dd48bb75c2cb40116ed
 			return action;
 		else {
 			try {

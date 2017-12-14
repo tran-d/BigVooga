@@ -44,15 +44,12 @@ public class SpriteObjectGridToEngineController {
 		addWorldToEngine(currentWorld);
 	}
 	
-<<<<<<< HEAD
 	private void createWorld(String n) {
 		currentWorld = new GameWorld(n); 
-=======
-	
+	}
 	
 	private void createWorld() {
 		currentWorld = new GameWorld(); 
->>>>>>> 0f8ccc705aa5ea35b7ad7dd48bb75c2cb40116ed
 	}
 
 	private void createEngineLayerAndAddToWorld(SpriteObjectGridManager thisLayer, String name) {
@@ -179,10 +176,7 @@ public class SpriteObjectGridToEngineController {
 	
 	private void addAllGameObjectsToLayer(List<GameObject> GO_LIST, GameLayer layer) {
 		for (GameObject GO: GO_LIST) {
-<<<<<<< HEAD
 			layer.addElement(GO);
-=======
->>>>>>> 0f8ccc705aa5ea35b7ad7dd48bb75c2cb40116ed
 			layer.addGameObject(GO);
 		}
 	}

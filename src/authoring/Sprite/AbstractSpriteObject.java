@@ -550,15 +550,8 @@ public abstract class AbstractSpriteObject extends ImageView {
 	public void setParameterMap(Map<String, List<SpriteParameter>> newParams) {
 		replaceCategoryMap(newParams);
 	}
-
-<<<<<<< HEAD
-	protected void replaceCategoryMap(Map<String,List<SpriteParameter>> newParams) {
-//		;
-
-=======
 	protected void replaceCategoryMap(Map<String, List<SpriteParameter>> newParams) {
 		// System.out.println("Replacing cat map");
->>>>>>> 0f8ccc705aa5ea35b7ad7dd48bb75c2cb40116ed
 
 		this.categoryMap = getNewCopyOfCategoryMap(newParams);
 		// categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(newParams);
@@ -702,24 +695,11 @@ public abstract class AbstractSpriteObject extends ImageView {
 
 	public void setAnimationSequences(List<AuthoringAnimationSequence> animations) {
 		myAnimationSequences = animations;
-<<<<<<< HEAD
-//		= new ArrayList<AuthoringAnimationSequence>();
-//		animations.forEach(aniseq->{
-//			myAnimationSequences.add(new AuthoringAnimationSequence(aniseq));
-//		});
-		;
-		;
-=======
-		// = new ArrayList<AuthoringAnimationSequence>();
-		// animations.forEach(aniseq->{
-		// myAnimationSequences.add(new AuthoringAnimationSequence(aniseq));
-		// });
 		if (animations.size()>0){
 		this.myAASDefault = animations.get(0);
 		}
 		System.out.println("Sprite AnimationSeq set, now is: " + myAnimationSequences);
 		System.out.println("Sprite AnimationSeq set, now size: " + myAnimationSequences.size());
->>>>>>> 0f8ccc705aa5ea35b7ad7dd48bb75c2cb40116ed
 	}
 
 	public void createNewAnimationSequence(String name) {
@@ -838,10 +818,6 @@ public abstract class AbstractSpriteObject extends ImageView {
 		Map<Condition, List<Action>> temp = new HashMap<Condition, List<Action>>();
 		for (Condition c : conditionRows.keySet()) {
 			List<Action> actions = new ArrayList<Action>();
-<<<<<<< HEAD
-			for (Integer i : conditionRows.get(c)) {
-				actions.add(actionRows.get(i-1));
-=======
 			List<Integer> i = conditionRows.get(c);
 			System.out.println(i.getClass());
 			System.out.println(i.get(0));
@@ -849,7 +825,6 @@ public abstract class AbstractSpriteObject extends ImageView {
 			
 			for (Integer j : i) {
 				actions.add(actionRows.get(j-1));
->>>>>>> 0f8ccc705aa5ea35b7ad7dd48bb75c2cb40116ed
 			}
 			temp.put(c, actions);
 		}

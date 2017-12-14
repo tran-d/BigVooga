@@ -104,13 +104,6 @@ public abstract class SpriteSet {
 		loaded = true;
 		if (!getFolderToLoad().equals("")) {
 			categoryToSprites = myGDH.loadSpritesFromNestedDirectories(getFolderToLoad());
-<<<<<<< HEAD
-			;
-			;
-=======
-			System.out.println("!!!!");
-			System.out.println(categoryToSprites);
->>>>>>> 0f8ccc705aa5ea35b7ad7dd48bb75c2cb40116ed
 		}
 	}
 
