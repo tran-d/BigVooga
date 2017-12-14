@@ -1,26 +1,16 @@
 package authoring_UI;
 
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
-import com.thoughtworks.xstream.security.NullPermission;
-import com.thoughtworks.xstream.security.PrimitiveTypePermission;
+import java.util.ArrayList;
+import java.util.List;
 
-import javafx.geometry.Point2D;
+import authoring.GridManagers.SpriteObjectGridManager;
 
 public class MapDataConverter {
-	private final XStream SERIALIZER = setupXStream();
+//	private final XStream SERIALIZER = setupXStream();
 	private String myName;
-	private String layerPath;
-	
-	public XStream setupXStream() {
-		XStream xstream = new XStream(new DomDriver());
-		xstream.addPermission(NullPermission.NULL);
-		xstream.addPermission(PrimitiveTypePermission.PRIMITIVES);
-		xstream.allowTypes(new Class[] { Point2D.class });
-		xstream.allowTypesByWildcard(new String[] { "engine.**", "java.**" });
-		return xstream;
-	}
+//	private String layerPath;
+	private List<LayerDataConverter> gridManagers;
 	
 	public String getName(){
 		return myName;
@@ -31,19 +21,35 @@ public class MapDataConverter {
 	}
 	
 	public MapDataConverter(DraggableGrid grids) {
-		//convertLayer(grids);
+		convertToMDC(grids);
+		
 	}
 	
-	public String getLayerPath() {
-		return layerPath;
+//	public String getLayerPath() {
+//		return layerPath;
+//	}
+	
+//	public void setLayerPath(String path) {
+//		layerPath = path;
+//	}
+	
+	private void convertToMDC(DraggableGrid grids){
+		this.myName = grids.getName();
+//		List<SpriteObjectGridManager> SOGMs = 
+		gridManagers= new ArrayList<LayerDataConverter>();
+				grids.getGrids().forEach(grid->{
+					gridManagers.add(new LayerDataConverter(grid));
+				});		
 	}
 	
-	public void setLayerPath(String path) {
-		layerPath = path;
-	}
-	
-	public DraggableGrid createMap() {
+	public DraggableGrid createDraggableGrid() {
 		DraggableGrid newMap = new DraggableGrid();
+		newMap.setName(this.myName);
+		List<SpriteObjectGridManager> SOGMs = new ArrayList<SpriteObjectGridManager>();
+		this.gridManagers.forEach(LDC->{
+			SOGMs.add(LDC.createLayer());
+		});
+		newMap.loadLayers(SOGMs);
 		return newMap;
 	}
 }

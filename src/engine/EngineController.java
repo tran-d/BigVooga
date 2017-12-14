@@ -10,4 +10,5 @@ public interface EngineController {
 	public void addWorld(GameWorld w);
 	
 	public void addBlueprints(GameObjectFactory f);
+	public GameWorld getCurrentWorld();
 }

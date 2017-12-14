@@ -38,8 +38,11 @@ public class SpriteObjectGridToEngineController {
 		for (SpriteObjectGridManager thisLayer : allLayers) {
 			createEngineLayerAndAddToWorld(thisLayer);
 		}
+//		addHUDToWorld()
 		addWorldToEngine(currentWorld);
 	}
+	
+	
 	
 	private void createWorld() {
 		currentWorld = new GameWorld(); 
@@ -87,7 +90,7 @@ public class SpriteObjectGridToEngineController {
 	
 	private void setInventory(SpriteObject SO, GameObject GO){
 		SO.getInventory().forEach((inventory)->{
-			GO.addToInventory(convertInventoryObjectToHoldable(inventory));
+			GO.getInventory().addObject(convertInventoryObjectToHoldable(inventory));
 		});
 	}
 	
@@ -126,7 +129,7 @@ public class SpriteObjectGridToEngineController {
 	}
 	
 	private void setPositionAndSizeOfGameObject(SpriteObject SOI, GameObject GO){
-		GO.setCoords(SOI.getXCenterCoordinate(), SOI.getYCenterCoordinate());
+		GO.setLocation(SOI.getXCenterCoordinate(), SOI.getYCenterCoordinate());
 		GO.setSize(SOI.getNumCellsWidth(), SOI.getNumCellsHeight());
 		GO.setUniqueID(SOI.getUniqueID());
 	}

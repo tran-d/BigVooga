@@ -7,18 +7,18 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-public abstract class VBoxList<T> extends VBox implements VBoxListI<T> {
+public abstract class VBoxList extends VBox implements VBoxListI {
 
 	private Label topLabel;
-	private ObservableList<T> boxOptions;
+	private ObservableList<Integer> boxOptions;
 
-	public VBoxList(String label, ObservableList<T> options) {
+	public VBoxList(String label, ObservableList<Integer> options) {
 		super();
 		setAlignment(Pos.CENTER);
 		topLabel = new Label(label);
 		getChildren().add(topLabel);
 		boxOptions = FXCollections.observableArrayList();
-		boxOptions.addListener((ListChangeListener<T>) c -> realizeNewOptions(boxOptions));
+		boxOptions.addListener((ListChangeListener<Integer>) c -> realizeNewOptions(boxOptions));
 	}
 
 	@Override
@@ -27,7 +27,7 @@ public abstract class VBoxList<T> extends VBox implements VBoxListI<T> {
 	}
 
 	@Override
-	public void setNewOptions(ObservableList<T> newOptions) {
+	public void setNewOptions(ObservableList<Integer> newOptions) {
 		if (newOptions != null)
 			boxOptions.setAll(newOptions);
 	}
@@ -38,12 +38,12 @@ public abstract class VBoxList<T> extends VBox implements VBoxListI<T> {
 	}
 
 	@Override
-	public ObservableList<T> getOptions() {
+	public ObservableList<Integer> getOptions() {
 		return boxOptions;
 	}
 
 	@Override
-	public void addListChangeListener(ListChangeListener<T> listChangeListener) {
+	public void addListChangeListener(ListChangeListener<Integer> listChangeListener) {
 		boxOptions.addListener(listChangeListener);
 	}
 	

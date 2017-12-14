@@ -346,6 +346,7 @@ public class AuthoringMapStackPane extends StackPane {
 			mySO.setWidthFunction(widthCheckValidFunction());
 			mySO.setHeightFunction(heightCheckValidFunction());
 			System.out.println("We added a child which is good SLACK "+ mySO.getName());
+			mySO.setPositionOnGrid(this.getPositionOnGrid());
 			return true;
 		}
 		return false;
@@ -438,6 +439,13 @@ public class AuthoringMapStackPane extends StackPane {
 
 	public int getColIndex() {
 		return getMapLayer().getColumnIndex(this);
+	}
+	
+	public Integer[] getPositionOnGrid(){
+		Integer[] ret = new Integer[2];
+		ret[0] = getRowIndex();
+		ret[1] = getColIndex();
+		return ret;
 	}
 
 	private int getFarRightColumn() {

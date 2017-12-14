@@ -2,10 +2,12 @@ package engine;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
-import javafx.geometry.Point2D;
+import engine.sprite.Sprite;
 
 /**
  * Holds variables of different types with String names. GameObject and
@@ -29,32 +31,32 @@ public abstract class VariableContainer {
 		stringVars = new HashMap<String, String>();
 		booleanVars = new HashMap<String, Boolean>();
 	}
-	
+
 	public Map<String, Double> getAllDoubleVars() {
 		return doubleVars;
 	}
-	
+
 	public Map<String, String> getAllStringVars() {
 		return stringVars;
 	}
-	
+
 	public Map<String, Boolean> getAllBooleanVars() {
 		return booleanVars;
 	}
-	
+
 	public double getDouble(String key) {
 		if (doubleVars.containsKey(key))
 			return doubleVars.get(key);
 		return DEFAULT_DOUBLE;
 	}
-	
+
 	public void addParameter(String name, Object o) throws VoogaException {
 		try {
 			String classType = o.getClass().getSimpleName();
 			System.out.println("class: "+classType);
 			String methodName = ResourceBundle.getBundle("engine.TypeRecovery").getString(classType);
 			System.out.println("meth name: " + methodName);
-			getClass().getDeclaredMethod(
+			getClass().getMethod(
 					methodName,
 					String.class, o.getClass()).invoke(this, name, o);
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
@@ -63,7 +65,6 @@ public abstract class VariableContainer {
 			throw new VoogaException("AddPar", name, o.getClass());
 		}
 	}
-
 
 	public String getString(String key) {
 		if (stringVars.containsKey(key))
@@ -88,4 +89,5 @@ public abstract class VariableContainer {
 	public void setBooleanVariable(String name, Boolean val) {
 		booleanVars.put(name, val);
 	}
+
 }

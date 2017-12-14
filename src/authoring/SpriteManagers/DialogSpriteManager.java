@@ -16,24 +16,22 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 public class DialogSpriteManager {
-	
-	protected Map<String, List<DialogSequence>> categoryToDialogSequences;
+
+	protected List<DialogSequence> dialogSequences;
 	protected GameDataHandler myGDH;
 	protected String folderToLoad;
 	protected boolean loaded = false;
 	protected List<SpriteObject> toSave;
 
+	private final String FOLDER = "dialogue/";
+
 	public DialogSpriteManager(GameDataHandler GDH) {
 		myGDH = GDH;
-		setFolderToLoad();
+		folderToLoad = FOLDER;
 		loadSprites();
 		toSave = new ArrayList<SpriteObject>();
 	}
 
-	protected void setFolderToLoad() {
-		setFolderToLoad("");
-	}
-	
 	public List<Pane> getAllSpritesAsThumbnails() {
 		List<DialogSequence> ASOs = getAllDialogSequences();
 		List<Pane> ret = new ArrayList<Pane>();
@@ -43,78 +41,57 @@ public class DialogSpriteManager {
 		});
 		return ret;
 	}
-	
+
 	public List<DialogSequence> getAllDialogSequences() {
 		if (!loaded) {
 			this.loadSprites();
 		}
 		List<DialogSequence> ret = new ArrayList<DialogSequence>();
-		categoryToDialogSequences.values().forEach(list -> {
-			list.forEach(obj -> {
-				// System.out.println(obj);
-				ret.add(obj);
-			});
-		});
-		return  ret;
-	
+		ret.addAll(dialogSequences);
+		return ret;
+
 	}
-	
+
 	protected String getFolderToLoad() {
 		// System.out.println("folderToLoad: " + folderToLoad);
 		return folderToLoad;
 	}
-	
+
 	protected void setFolderToLoad(String path) {
 		folderToLoad = path;
 	}
-	
+
 	protected void loadSprites() {
-		if (categoryToDialogSequences == null) {
-			categoryToDialogSequences = new HashMap<String, List<DialogSequence>>();
+		if (dialogSequences == null) {
+			dialogSequences = new ArrayList<DialogSequence>();
 		}
-		
-		
+
 		loaded = true;
 		if (!getFolderToLoad().equals("")) {
-			categoryToDialogSequences = myGDH.loadDialogsFromNestedDirectories(getFolderToLoad());
-			System.out.println(categoryToDialogSequences);
+			dialogSequences = myGDH.loadDialogsFromDirectory(getFolderToLoad());
+			System.out.println(dialogSequences);
 		}
 	}
-	public void addNewDialogSequence(DialogSequence DS) throws Exception {
-		addNewDialogSequence("General", DS);
-	}
-	
+
 	public void setBooleanLoaded(Boolean b) {
 		loaded = b;
 	}
-	
-	private boolean categoryExists(String category){
-		return categoryToDialogSequences.containsKey(category);
-	}
-	
-	private void addCategory(String newCategory){
-		categoryToDialogSequences.put(newCategory, new ArrayList<DialogSequence>());
-	}
-	
-	public void addNewDialogSequence(String category, DialogSequence DS) throws Exception {
-		if (!categoryExists(category)) {
-			addCategory(category);
-		}
-		List<DialogSequence> val = categoryToDialogSequences.get(category);
-		val.add(DS);
-		categoryToDialogSequences.put(category, val);
+
+	public void addNewDialogSequence(DialogSequence DS) throws Exception {
+
+		dialogSequences.add(DS);
 		// }
-//		if (mySSP != null) {
-//			mySSP.addNewDefaultSprite(SO);
-//		}
-//		if (mySSV != null) {
-//			mySSV.addToVBox(new SpriteThumbnail(SO));
-//		}
-		saveDialogSequence(category, DS);
+		// if (mySSP != null) {
+		// mySSP.addNewDefaultSprite(SO);
+		// }
+		// if (mySSV != null) {
+		// mySSV.addToVBox(new SpriteThumbnail(SO));
+		// }
+		saveDialogSequence(DS);
 	}
-	
-	protected void saveDialogSequence(String category, DialogSequence DS) throws Exception {
-		String folderToSaveTo = getFolderToLoad() + category + "/" + DS.getName();
+
+	protected void saveDialogSequence(DialogSequence DS) throws Exception {
+		String folderToSaveTo = getFolderToLoad() + "/" + DS.getName();
 		myGDH.saveDialogSequence(DS, folderToSaveTo);
 	}
 

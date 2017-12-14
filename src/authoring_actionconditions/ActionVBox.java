@@ -16,7 +16,7 @@ public class ActionVBox<T> extends ActionConditionVBox<T> implements ActionVBoxI
 	public void addAction() {
 		ActionRow actionRow = new ActionRow(getRows().size() + 1, (ActionVBox<ActionRow>) this);
 		addToRows(actionRow);
-		BuildActionView bav = new BuildActionView(this, actionRow);
+		new BuildActionView(this, actionRow);
 	}
 	
 

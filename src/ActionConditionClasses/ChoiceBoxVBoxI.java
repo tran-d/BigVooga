@@ -1,7 +1,7 @@
 package ActionConditionClasses;
 
-public interface ChoiceBoxVBoxI<T> {
+public interface ChoiceBoxVBoxI {
 	
-	public void setValue(T newValue);
+	public void setValue(Integer newValue);
 
 }

@@ -81,8 +81,10 @@ public class MapManager extends TabPane {
 	private Pane mapEditor = new Pane();
 	private SpritePanels spritePanels;
 	private SpriteGridHandler mySpriteGridHandler;
-
-	public MapManager(AuthoringEnvironmentManager AEM, Scene currentScene) {
+	protected String myType;
+	
+	public MapManager(AuthoringEnvironmentManager AEM, Scene currentScene, String type) {
+		myType = type;
 		setTabTag();
 		setManagerName();
 		gridIsShowing = new SimpleObjectProperty<Boolean>();
@@ -102,9 +104,6 @@ public class MapManager extends TabPane {
 		List<DraggableGrid> DGs = getListOfDraggableGrids();
 		createAddTab();
 		if (DGs.size() > 0) {
-			oldProject = true;
-			System.out.println("size: number of worlds " + DGs.size());
-			System.out.println("AN OLD GRID WAS SAVED AND NOW WILL BE LOADED");
 			for (DraggableGrid w : DGs) {
 				createTab(w);
 			}
@@ -115,16 +114,30 @@ public class MapManager extends TabPane {
 		this.mySelectModel.select(startTab);
 	}
 
+	public MapManager(AuthoringEnvironmentManager AEM, Scene currentScene) {
+		this(AEM, currentScene, "");
+		
+	}
+
 	protected void setManagerName() {
 		MANAGER_NAME = "MapManager";
 	}
 
 	protected List<DraggableGrid> getListOfDraggableGrids() {
-		return myGDH.loadWorldsFromWorldDirectory();
+		List<DraggableGrid> DGs = myGDH.loadWorldsFromWorldDirectory();
+		System.out.println("DGsize: "+DGs.size());
+		
+		return DGs;
 	}
 
 	protected String getManagerName() {
 		return MANAGER_NAME;
+	}
+	
+	public void addImportedWorlds(List<DraggableGrid> importedWorlds) {
+		for (DraggableGrid w : importedWorlds) {
+			createTab(w);
+		}
 	}
 
 	protected SpritePanels makeSpritePanels(SpriteGridHandler mySpriteGridHandler) {
@@ -173,12 +186,7 @@ public class MapManager extends TabPane {
 
 	private HBox setupFEAuthClasses(DraggableGrid w) {
 		allWorlds.add(w);
-//		if (oldProject) {
-//			mySpriteGridHandler = w.getSGH();
-//		}
-//		else {
-			mySpriteGridHandler = new SpriteGridHandler(myTabCount, w);
-//		}
+		mySpriteGridHandler = new SpriteGridHandler(myTabCount, w);
 		w.construct(mySpriteGridHandler);
 		mySpriteGridHandler.addKeyPress(scene);
 		spritePanels = makeSpritePanels(mySpriteGridHandler);
@@ -192,11 +200,20 @@ public class MapManager extends TabPane {
 		return new AuthoringMapEnvironment(spritePanels, dg);
 	}
 
-	private void createTab(DraggableGrid w) { // ?
-		
+	private void createTab(DraggableGrid w) {
 		Tab newtab = createEditableTab();
+		if (w.getName()==null){
+			String newName = "World "+this.getTabs().size();
+			((Label)newtab.getGraphic()).setText(newName);
+			w.setName(newName);
+		} else {
+			((Label)newtab.getGraphic()).setText(w.getName());
+		}
 		newtab.setOnClosed(e -> this.removeWorld(w));
 		newtab.setContent(setupScene(w));
+		((Label)newtab.getGraphic()).textProperty().addListener((change, oldValue, newValue)->{
+			w.setName(newValue);
+		});
 		if (this.getTabs().size()==1){
 			startTab = newtab;
 		}
@@ -212,6 +229,7 @@ public class MapManager extends TabPane {
 
 	private void removeWorld(DraggableGrid w) {
 		allWorlds.remove(w);
+		System.out.println("JUST REMOVED A WORLD, CURRENT SIZE IS: " + allWorlds.size());
 		myTabCount--;
 	}
 
@@ -235,6 +253,7 @@ public class MapManager extends TabPane {
 	}
 
 	public List<DraggableGrid> getAllWorlds() {
+		System.out.println("SIZE OF ALL WORLDS: " + allWorlds.size()); // 3 even after I delete.
 		return allWorlds;
 	}
 
@@ -277,8 +296,6 @@ public class MapManager extends TabPane {
 				}
 			}
 		});
-
 		return tab;
 	}
-
 }

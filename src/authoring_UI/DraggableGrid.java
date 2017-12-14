@@ -16,6 +16,8 @@ import authoring.GridManagers.SpriteObjectGridManagerForSprites;
 import authoring.GridManagers.TerrainObjectGridManager;
 import authoring.Sprite.AnimationSequences.AuthoringImageView;
 import authoring.util.NumberSpinner;
+import authoring_UI.SpriteCreatorTab.SpriteCreatorGridManager;
+import authoring_UI.SpriteCreatorTab.SpriteCreatorLayer;
 import engine.utilities.data.GameDataHandler;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -52,6 +54,7 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 	private Integer rows;
 	private Integer cols;
 	private String savePath;
+	private String myName;
 
 	public DraggableGrid() {
 		rows = 20; // TODO HARDCODED
@@ -124,6 +127,14 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 		topHbox = new HBox(10);
 		topHbox.setAlignment(Pos.CENTER);
 		this.getChildren().add(topHbox);
+	}
+	
+	public void setName(String s){
+		myName = s;
+	}
+	
+	public String getName(){
+		return myName;
 	}
 
 	private void createGrid(SpriteGridHandler spriteGridHandler) {
@@ -250,6 +261,9 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 			}
 		});
 		hbox.getChildren().addAll(label, checkbox);
+		if (ML instanceof SpriteCreatorGridManager){
+			hbox.getChildren().addAll(((SpriteCreatorGridManager)ML).getExtraUI());
+		}
 		if (ML.canFillBackground()){
 			//ColorPicker
 			ColorPicker cp = new ColorPicker(Color.TRANSPARENT);
@@ -269,8 +283,7 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 				}
 				File file = GameDataHandler.chooseFileForImageSave(s.getWindow());
 				if (file != null) {
-					Image image = new Image(GameDataHandler.getImageURIAndCopyToResources(file));
-					ML.getMapLayer().setBackgroundImage(image, file.getName());
+					ML.getOnBackgroundChangeFunctionality(file);
 				}
 			});
 	

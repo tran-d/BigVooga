@@ -11,10 +11,10 @@ public class DialogSequence {
 	private List<DialogSprite> myDialogSprites;
 	private String myName;
 	
-	public DialogSequence(String sequenceName, Map<Pane, String> panes_urls){
+	public DialogSequence(String sequenceName, List<Pane> panes, String paneURL){
 		myDialogSprites = new ArrayList<DialogSprite>();
-		panes_urls.forEach((pane, fileURL)->{
-			myDialogSprites.add(new DialogSprite(pane, fileURL));
+		panes.forEach((pane)->{
+			myDialogSprites.add(new DialogSprite(pane, paneURL));
 		});
 		myName = sequenceName;
 	}

@@ -16,6 +16,7 @@ import authoring_UI.ViewSideBar;
 import authoring_UI.HUD.HUDManager;
 import authoring_UI.Inventory.InventoryManager;
 import authoring_UI.Menu.MenuManager;
+import authoring_UI.SpriteCreatorTab.SpriteCreatorManagerSlack;
 import authoring_UI.dialogue.DialogueManager;
 import engine.utilities.data.GameDataHandler;
 import javafx.beans.property.ObjectProperty;
@@ -47,6 +48,7 @@ public class AuthoringController {
 	
 	public static final String MAP_EDITOR_KEY = "Map Editor";
 	public static final String SPRITE_CREATOR_KEY = "Sprite Creator";
+	public static final String INVENTORY_CREATOR_KEY = "Inventory Creator";
 	public static final String CUSTOM_PANEL_KEY = "Custom Panel";
 	public static final String CUTSCENES_KEY = "Cutscenes";
 	public static final String DIALOGUE_KEY = "Dialogue";
@@ -61,8 +63,8 @@ public class AuthoringController {
 	private Scene scene;
 	private Pane view;
 	private MapManager mapManager;
-	private SpriteCreatorManager mySCM;
-	private SpriteCreatorSpriteManager mySM;
+	private SpriteCreatorManagerSlack mySCM;
+	private SpriteCreatorManagerSlack myInventorySCM;
 
 	public AuthoringController(Scene currentScene, Stage currentStage, Pane currentAuthoringPane, GameDataHandler GDH) {
 		scene = currentScene;
@@ -84,13 +86,18 @@ public class AuthoringController {
 		viewMap.put(MAP_EDITOR_KEY, mapManager.getPane());
 		viewMapKeysToManager.put(MAP_EDITOR_KEY, mapManager);
 
-		SpriteCreatorImageGrid imageGrid = new SpriteCreatorImageGrid();
-		mySM = new SpriteCreatorSpriteManager();
-		SpriteCreatorGridHandler mySCGridHandler = new SpriteCreatorGridHandler(mySM, imageGrid);
+//		SpriteCreatorImageGrid imageGrid = new SpriteCreatorImageGrid();
+//		mySM = new SpriteCreatorSpriteManager();
+//		SpriteCreatorGridHandler mySCGridHandler = new SpriteCreatorGridHandler(mySM, imageGrid);
 		
-		mySCM = new SpriteCreatorManager(AEM, imageGrid, mySCGridHandler, mySM);
-		SpriteCreator sc = new SpriteCreator(AEM, mySCM, imageGrid, mySM, mySCGridHandler);
-		viewMap.put(SPRITE_CREATOR_KEY, sc.getPane());
+//		mySCM = new SpriteCreatorManager(AEM, imageGrid, mySCGridHandler, mySM);
+//		SpriteCreator sc = new SpriteCreator(AEM, mySCM, imageGrid, mySM, mySCGridHandler);
+		
+		mySCM = new SpriteCreatorManagerSlack(AEM, scene, "SpriteObject");
+		viewMap.put(SPRITE_CREATOR_KEY, mySCM.getPane());
+		
+		myInventorySCM = new SpriteCreatorManagerSlack(AEM, scene, "InventoryObject");
+		viewMap.put(INVENTORY_CREATOR_KEY, myInventorySCM.getPane());
 
 		DialogueManager dm = new DialogueManager();
 		dm.addDialogueListener(mapManager.getDialoguesTab());
@@ -124,11 +131,14 @@ public class AuthoringController {
 		} else {
 			this.activeManagerProperty.set(null);
 		}
-
 		authoringPane.getChildren().addAll(view, currentSideBar);
 	}
 
 	public List<DraggableGrid> getExistingWorlds() {
 		return mapManager.getAllWorlds();
+	}
+	
+	public void importGrids(List<DraggableGrid> importedWorlds) {
+		mapManager.addImportedWorlds(importedWorlds);
 	}
 }

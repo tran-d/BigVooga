@@ -3,33 +3,33 @@ package ActionConditionClasses;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ChoiceBox;
 
-public class ChoiceBoxVBox<T> extends VBoxList<T> implements ChoiceBoxVBoxI<T> {
+public class ChoiceBoxVBox extends VBoxList implements ChoiceBoxVBoxI {
 	
-	private ChoiceBox<T> choiceBox;
+	private ChoiceBox<Integer> choiceBox;
 
-	public ChoiceBoxVBox(String label,ObservableList<T> options) {
+	public ChoiceBoxVBox(String label,ObservableList<Integer> options) {
 		super(label,options);
-		choiceBox = new ChoiceBox<T>();
+		choiceBox = new ChoiceBox<Integer>();
 		setNewOptions(options);
 		getChildren().add(choiceBox);
 	}
 
 	@Override
-	public Object getCurrentValue() {
+	public Integer getCurrentValue() {
 		return choiceBox.getValue();
 	}
 
 	@Override
-	public void setValue(Object newValue) {
-		choiceBox.setValue((T) newValue);
+	public void setValue(Integer newValue) {
+		choiceBox.setValue(newValue);
 	}
 
 	@Override
-	public void realizeNewOptions(ObservableList<T> newOptions) {
+	public void realizeNewOptions(ObservableList<Integer> newOptions) {
 		choiceBox.setItems(newOptions);
 	}
-	public String getSelected() {
-		return (String) choiceBox.getValue();
+	public Integer getSelected() {
+		return choiceBox.getValue();
 	}
 
 }

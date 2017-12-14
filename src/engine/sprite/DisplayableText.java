@@ -7,9 +7,9 @@ import gui.player.GameDisplay;
  * @author Ian Eldridge-Allegra and Nikolas Bramblett
  *
  */
-public class DisplayableText extends PositionableObject implements Displayable {
+public class DisplayableText extends PositionableObject implements RelativeDisplayable {
 
-	public static final DisplayableText DEFAULT = new DisplayableText(Integer.MAX_VALUE, "", "Arial", 12, "#000000");
+	public static final DisplayableText DEFAULT = new DisplayableText(Integer.MAX_VALUE, "", "Comic Sans", 12, "#000000");
 	private String string;
 	private String font;
 	private double fontSize;
@@ -48,28 +48,18 @@ public class DisplayableText extends PositionableObject implements Displayable {
 		return color;
 	}
 	
+	@Override
 	public void setRelativePosition(Positionable p) {
 		this.relativePosition = p;
 	}
 
-	public DisplayableText getWithMessage(String dialogue) {
-		return new DisplayableText(getDrawingPriority(), dialogue, font, fontSize, color);
-	}
-
-	public double getRelativeX() {
-		return relativePosition.getX();
-	}
-
-	public double getRelativeY() {
-		return relativePosition.getY();
-	}
-
-	public double getRelativeWidth() {
-		return relativePosition.getWidth();
+	@Override
+	public Positionable getRelativePosition() {
+		return relativePosition;
 	}
 	
-	public double getRelativeHeight() {
-		return relativePosition.getHeight();
+	public DisplayableText getWithMessage(String dialogue) {
+		return new DisplayableText(getDrawingPriority(), dialogue, font, fontSize, color);
 	}
 	
 }

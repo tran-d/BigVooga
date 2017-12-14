@@ -21,7 +21,6 @@ public class SpriteTab extends Tab {
 
 	private HBox parentBox;
 	private SpriteStatePanel myStatePanel;
-	private SpriteImagePanel myImagePanel;
 	private AuthoringEnvironmentManager myAEM;
 	private SpriteCreatorManager mySCM;
 	private SpriteCreatorSpriteManager mySM;
@@ -37,9 +36,8 @@ public class SpriteTab extends Tab {
 		this.setContent(parentBox);
 
 		myStatePanel = new SpriteStatePanel(myAEM, SCM);
-		myImagePanel = new SpriteImagePanel(myAEM, imageGrid, mySM, SCM, mySCGridHandler);
 
-		parentBox.getChildren().addAll(myStatePanel, myImagePanel);
+		parentBox.getChildren().addAll(myStatePanel);
 
 		// StatePanel
 		// ImageStack

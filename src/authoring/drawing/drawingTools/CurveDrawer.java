@@ -4,6 +4,8 @@ import authoring.drawing.ImageCanvas;
 import javafx.geometry.Point2D;
 
 /**
+ * Draws smooth curves on the canvas. 
+ * 
  * @author Ian Eldridge-Allegra
  */
 public class CurveDrawer extends SmoothDrawer {

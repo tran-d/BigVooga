@@ -1,5 +1,6 @@
 package authoring.GridManagers;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -192,7 +193,7 @@ public abstract class SpriteObjectGridManager {
 		List<AbstractSpriteObject> ret = new ArrayList<AbstractSpriteObject>();
 		for (List<AbstractSpriteObject> SOI_LIST : spriteGrid) {
 			SOI_LIST.forEach(sprite -> {
-				if (sprite instanceof SpriteObject) {
+				if (!(sprite instanceof DefaultSpriteObject)) {
 					ret.add(sprite);
 				}
 			});
@@ -212,11 +213,11 @@ public abstract class SpriteObjectGridManager {
 		}
 	}
 
-	public void populateCell(SpriteObject spriteObject, Integer[] row_col) {
+	public void populateCell(AbstractSpriteObject spriteObject, Integer[] row_col) {
 		setCell(spriteObject, row_col);
 	}
 
-	public void populateCell(SpriteObject spriteObject, ArrayList<Integer[]> row_col) {
+	public void populateCell(AbstractSpriteObject spriteObject, ArrayList<Integer[]> row_col) {
 		for (Integer[] loc : row_col) {
 			setCell(spriteObject, loc);
 		}
@@ -363,5 +364,9 @@ public abstract class SpriteObjectGridManager {
 	public void setNumCols(Integer newCols) {
 		System.out.println("Setting num cols: " + newCols);
 		this.numColumnsProperty.set(newCols);
+	}
+
+	public void getOnBackgroundChangeFunctionality(File file) {
+		// Nothing for most of them
 	}
 }

@@ -18,11 +18,11 @@ public class DialogueExtractor {
 
 	}
 
-	public void extract(List<DialogueEditor> editorList) {
+	protected void extract(List<DialogueEditor> editorList) {
 		dialogueList = new ArrayList<>();
 
 		for (DialogueEditor ed : editorList) {
-			dialogueList.add(new Dialogue(ed.getName(), ed.getFontType(), ed.getFontColor(), ed.getDialogueSequence()));
+			dialogueList.add(new Dialogue (ed.getName(), ed.getFontType(), ed.getFontColor(), ed.getDialogueSequence()));
 		}
 	}
 

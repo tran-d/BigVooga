@@ -32,7 +32,6 @@ public class SpriteCreatorGridHandler {
 	private SpriteCreatorDisplayPanel myDP;
 	private DraggableGrid myDG;
 	private SpriteCreatorImageGrid myImageGrid;
-	private SpriteImagePanel myImagePanel;
 
 	public SpriteCreatorGridHandler(SpriteCreatorSpriteManager SM, SpriteCreatorImageGrid imageGrid) {
 		mySM = SM;
@@ -158,8 +157,6 @@ public class SpriteCreatorGridHandler {
 			System.out.println("I clicked sprite : " + s);
 			
 			myImageGrid.setSprite(s.newCopy());
-			myImagePanel.setName(s.getName());
-			myImagePanel.setCategory("load category correctly");
 			myDP.addSpriteEditorVBox();
 			myDP.updateParameterTab(s);
 		});
@@ -306,14 +303,6 @@ public class SpriteCreatorGridHandler {
 				}
 			}
 		});
-	}
-
-	public void setImagePanel(SpriteImagePanel spriteImagePanel) {
-		myImagePanel = spriteImagePanel;
-	}
-
-	public SpriteImagePanel getImagePanel() {
-		return myImagePanel;
 	}
 
 	// public void addSpriteDrag(AbstractSpriteObject s) {
