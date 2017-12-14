@@ -7,6 +7,7 @@ import controller.player.Debugging;
 import controller.player.PlayerManager;
 import controller.welcomeScreen.SceneController;
 import engine.EngineController;
+import engine.VoogaException;
 import engine.sprite.Displayable;
 import engine.sprite.DisplayableImage;
 import engine.sprite.DisplayableText;
@@ -132,7 +133,7 @@ public class GameDisplay {
 		ImageView gameImage = null;
 		try {
 			gameImage = new ImageView(gameDataHandler.getImage(image.getFileName()));
-		} catch (URISyntaxException e) {
+		} catch (VoogaException e) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setContentText(e.getMessage());
 			alert.showAndWait();

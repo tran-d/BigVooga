@@ -28,6 +28,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.security.NullPermission;
 import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
+import authoring.DialogSprite.DialogSequence;
 import authoring.GridManagers.SpriteObjectGridManager;
 import authoring.Sprite.AbstractSpriteObject;
 import authoring.Sprite.DefaultSpriteObject;
@@ -59,11 +60,8 @@ public class LocalGameDataHandler {
 
 	private static final String KNOWN_PROJECTS = RESOURCES + "KnownProjectNames.txt";
 	private static final String ENGINE_PATH = "engine/";
-	private static final String KNOWN_PROJECTS_PATH = RESOURCES + KNOWN_PROJECTS;
 	private static final String CONTROLLER_FILE = "Engine_Controller_Save_File";
-	private static final String CONTROLLER_FILE_PATH = ENGINE_PATH + CONTROLLER_FILE;
 	private static final String CONTINUE_FILE = "Engine_Controller_Load_File";
-	private static final String CONTINUE_FILE_PATH = ENGINE_PATH + CONTINUE_FILE;
 
 	private static final String AUTHORING_PATH = "authoring/";
 	private static final String PROJECT_USER_SPRITE_PATH = AUTHORING_PATH + "Sprites/";
@@ -78,6 +76,16 @@ public class LocalGameDataHandler {
 	private static final String LOCAL = "local";
 
 	private static final String SELECTOR_TITLE = "Open Resource File";
+
+	private static final ExtensionFilter[] imageFilters = new ExtensionFilter[] {
+			new ExtensionFilter("Image Files", "*.png"), new ExtensionFilter("Image Files", "*.jpg"),
+			new ExtensionFilter("Image Files", "*.jpeg"), new ExtensionFilter("Image Files", "*.gif") };
+
+	private static final String SPRITE_EXTENSION = ".spr";
+
+	private static final String WORLD_EXTENSION = ".wld";
+
+	private static final String DIALOG_EXTENSION = null;
 
 	private Map<String, Image> cache = new HashMap<>();
 	private String projectPath;
@@ -105,17 +113,20 @@ public class LocalGameDataHandler {
 		makeDirectories();
 	}
 
-	private Object getObjectFromFile(String filePath) {
-		File controllerFile = new File(filePath);
+	private Object getObjectFromFile(File file) {
 		Scanner scanner;
 		try {
-			scanner = new Scanner(controllerFile);
+			scanner = new Scanner(file);
 		} catch (FileNotFoundException e) {
 			throw new VoogaException(e);
 		}
 		String fileContents = scanner.useDelimiter("\\Z").next();
 		scanner.close();
 		return SERIALIZER.fromXML(fileContents);
+	}
+
+	private Object getObjectFromFile(String path) {
+		return getObjectFromFile(new File(path));
 	}
 
 	private void saveToFile(Object object, String filePath) {
@@ -137,12 +148,6 @@ public class LocalGameDataHandler {
 		for (String s : pathsToMake)
 			makeDirectory(projectPath + s);
 		makeDirectory(root + RESOURCES);
-	}
-
-	private static void makeDirectory(String path) {
-		File file = new File(path);
-		if (!file.exists())
-			file.mkdirs();
 	}
 
 	private String getPath(Supplier<String> pathSupplier) {
@@ -261,9 +266,8 @@ public class LocalGameDataHandler {
 	 * @throws URISyntaxException
 	 */
 	public Image getImage(String fileName) {
-		if (cache.containsKey(fileName)) {
+		if (cache.containsKey(fileName))
 			return cache.get(fileName);
-		}
 		String path = new File(projectPath + RESOURCES + fileName).toURI().toString();
 		Image i = new Image(path);
 		cache.put(fileName, i);
@@ -276,19 +280,14 @@ public class LocalGameDataHandler {
 	 * @throws IOException
 	 */
 	public void addFileToProject(File file) {
-		if (file != null)
+		if (file != null) {
 			try {
 				Files.copy(file.toPath(), Paths.get(projectPath + RESOURCES + file.getName()),
 						StandardCopyOption.REPLACE_EXISTING);
 			} catch (IOException e) {
 				throw new VoogaException(e);
 			}
-	}
-
-	public static File chooseFile(Stage stage) {
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle(SELECTOR_TITLE);
-		return fileChooser.showOpenDialog(stage);
+		}
 	}
 
 	public static Image toImage(File file) {
@@ -301,192 +300,269 @@ public class LocalGameDataHandler {
 		}
 	}
 
-	/**
-	 * @param stage
-	 *            To present dialog
-	 * @return File Chosen
-	 */
-	public File chooseFileForImageSave(Window window) {
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle(SELECTOR_TITLE);
-		fileChooser.setInitialDirectory(new File(root + RESOURCES));
-		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files (.png)", "*.png"),
-				new ExtensionFilter("Image Files (.gif)", "*.gif"), new ExtensionFilter("Image Files (.jpg)", "*.jpg"));
-		File newFile = fileChooser.showOpenDialog(window);
-		return newFile;
-	}
-
 	public static File selectDirectory(Stage stage) {
 		DirectoryChooser chooser = new DirectoryChooser();
 		chooser.setTitle("Select Directory");
 		return chooser.showDialog(stage);
 	}
 
-	public void saveSprite(AbstractSpriteObject SO, String path) {
+	/**
+	 * @param stage
+	 *            To present dialog
+	 * @return File Chosen
+	 */
+	public static File chooseFileForImageLoad(Window window) {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle(SELECTOR_TITLE);
+		fileChooser.getExtensionFilters().addAll(imageFilters);
+		return fileChooser.showOpenDialog(window);
+	}
+
+	public String getImageURIAndCopyToResources(File file) {
+		try {
+			Files.copy(file.toPath(), Paths.get(root + RESOURCES + file.getName()),
+					StandardCopyOption.REPLACE_EXISTING);
+			addFileToProject(file);
+		} catch (IOException e) {
+			throw new VoogaException(e);
+		}
+		String URI = file.toURI().toString();
+		return URI;
+	}
+
+	private static void makeDirectory(String path) {
+		File file = new File(path);
+		if (!file.exists())
+			file.mkdirs();
+	}
+
+	private boolean directoryExists(String path) {
+		File file = new File(path);
+		return file.exists();
+	}
+
+	private void removeDirectory(String path) {
+		File f = new File(path);
+		if (f.exists() && f.listFiles().length > 0) {
+			for (File child : f.listFiles()) {
+				child.delete();
+			}
+		}
+		f.delete();
+	}
+
+	public void saveSprite(AbstractSpriteObject SO, String categoryPath, String name) throws Exception {
+		if (!directoryExists(categoryPath)) {
+			makeDirectory(categoryPath);
+		}
+		saveSprite(SO, categoryPath + name);
+	}
+
+	public void saveSprite(AbstractSpriteObject SO, String path) throws Exception {
 		if (SO.getSavePath() == null) {
 			SO.setSavePath(path);
 		}
-		saveToFile(new SpriteDataConverter(SO), path);
+		SpriteDataConverter SDC = new SpriteDataConverter(SO);
+		saveSprite(SDC, path);
 	}
 
-	public void saveDefaultSprite(AbstractSpriteObject SO) throws IOException {
-		saveSprite(SO, projectPath + DEFAULT_SPRITE_FOLDER + DEFAULT_CATEGORY + SO.getName());
+	private void saveSprite(SpriteDataConverter SO, String path) {
+		saveToFile(SO, path + SPRITE_EXTENSION);
 	}
 
-	public String makeValidFileName(String path) {
+	public void saveDefaultSprite(AbstractSpriteObject SO) throws Exception {
+		String BasicPath = getDefaultSpriteDirectoryPath() + DEFAULT_CATEGORY + SO.getName();
+		saveSprite(SO, BasicPath);
+	}
+
+	public String makeValidFileName(String path, String ext) {
 		path = path + "/";
-		makeDirectory(path);
+		if (!directoryExists(path)) {
+			System.out.println("MAKE DIRECTORY FIRST TIME");
+			makeDirectory(path);
+		}
 		int counter = 1;
-		String pathWithInt = path + counter;
-		File temp = new File(path);
+		File temp = new File(path + counter + ext);
 		while (temp.exists()) {
 			counter++;
-			pathWithInt = path + counter;
-			temp = new File(pathWithInt);
+			temp = new File(path + counter + ext);
 		}
 		return path;
 	}
 
-	public void saveUserCreatedSprite(SpriteObject SO) {
-		String newSpritePath = makeValidFileName(projectPath + CUSTOM_SPRITE_FOLDER + DEFAULT_CATEGORY + SO.getName());
+	public void saveUserCreatedSprite(SpriteObject SO) throws Exception {
+		String newSpritePath = makeValidFileName(getCustomSpriteDirectoryPath() + DEFAULT_CATEGORY + SO.getName(), SPRITE_EXTENSION);
 		saveSprite(SO, newSpritePath);
 	}
 
-	public AbstractSpriteObject loadSprite(File spriteFile) {
-		SpriteDataConverter SDC = (SpriteDataConverter) getObjectFromFile(spriteFile.getAbsolutePath());
+	public AbstractSpriteObject loadSprite(File spriteFile) throws VoogaException {
+		if (!isValidFile(spriteFile)) {
+			throw new VoogaException("Invalid file to load");
+		}
+		SpriteDataConverter SDC = (SpriteDataConverter) getObjectFromFile(spriteFile);
 		AbstractSpriteObject ret = SDC.createSprite();
 		return ret;
 	}
 
-	private List<SpriteObjectGridManager> loadLayersFromDirectoryName(int worldNum) {
-		List<SpriteObjectGridManager> loadedSOGMs = new ArrayList<SpriteObjectGridManager>();
-		for (int i = 1; i < 5; i++) {
-			SpriteObjectGridManager SOGM = loadLayerFromDirectory(getInitializingLayerDirectoryPath(worldNum, i), i,
-					worldNum);
-			if (SOGM != null) {
-				loadedSOGMs.add(SOGM);
-			}
+	public DialogSequence loadDialogue(File dFile) throws VoogaException {
+		if (!isValidFile(dFile)) {
+			throw new VoogaException("Invalid file to load");
 		}
-		return loadedSOGMs;
+		return (DialogSequence) getObjectFromFile(dFile);
 	}
 
-	private SpriteObjectGridManager loadLayerFromDirectory(String initializingLayerDirectoryPath, int layerNum, int worldNum) {
-		SpriteObjectGridManager temp = null;
-		File directory = new File(initializingLayerDirectoryPath);
-		File[] files = directory.listFiles();
-		for (File f : files) {
-			temp = loadLayer(f, layerNum, worldNum); //TODO
-		}
-		return temp;
-	}
-
-	public SpriteObjectGridManager loadLayer(File layerFile, int num, int worldNum) {
-		LayerDataConverter SDC = (LayerDataConverter) getObjectFromFile(layerFile.getAbsolutePath());
-		SpriteObjectGridManager ret = SDC.createLayer();
-
-		List<AbstractSpriteObject> spritesToAdd = this
-				.loadSpritesFromDirectoryName(this.getLayerSpritesDirectoryPath(worldNum, num));
-		ret.storeSpriteObjectsToAdd(spritesToAdd);
-		return ret;
-	}
-	
 	public File chooseSpriteFile(Stage stage) throws FileNotFoundException {
 		FileChooser imageChooser = new FileChooser();
 		File startDirectory = new File(getCustomSpriteDirectoryPath());
 		imageChooser.setInitialDirectory(startDirectory);
 		imageChooser.setTitle("Choose Sprite");
+		imageChooser.getExtensionFilters().add(new ExtensionFilter("Sprite File", "*" + SPRITE_EXTENSION));
 		File file = imageChooser.showOpenDialog(stage);
 		return file;
 	}
-	
+
+	private boolean isValidDirectory(File directory) {
+		return directory.isDirectory() && !directory.getName().startsWith(".");
+	}
+
+	private boolean isValidFile(File in) {
+		return in.exists() && !in.getName().startsWith(".");
+	}
+
+	public String getDefaultSpriteDirectoryPath() {
+		return projectPath + PROJECT_USER_SPRITE_PATH + DEFAULT_SPRITE_FOLDER;
+	}
+
+	public String getInventorySpriteDirectoryPath() {
+		return projectPath + PROJECT_USER_SPRITE_PATH + INVENTORY_SPRITE_FOLDER;
+	}
+
+	public String getCustomSpriteDirectoryPath() {
+		return projectPath + PROJECT_USER_SPRITE_PATH + CUSTOM_SPRITE_FOLDER;
+	}
+
+	public String getInitializingWorldDirectoryPath(String worldName) {
+		return projectPath + PROJECT_WORLD_PATH + worldName + "/";
+	}
+
+	public String getInitializingLayerDirectoryPath(String worldName, int num) {
+		return getInitializingWorldDirectoryPath(worldName) + PROJECT_LAYER_PATH + num + "/";
+	}
+
+	public String getWorldDirectoryPath(int worldCount) {
+		return projectPath + PROJECT_WORLD_PATH + worldCount + "/"; // TODO
+	}
+
+	public String getLayerDirectoryPath(String worldName, int num) {
+		return getInitializingWorldDirectoryPath(worldName) + PROJECT_LAYER_PATH + num + "/";
+	}
+
+	public String getLayerSpritesDirectoryPath(String worldName, int layerNum) {
+		return getInitializingLayerDirectoryPath(worldName, layerNum) + PROJECT_LAYER_SPRITE_PATH;
+	}
+
 	public void saveWorld(MapDataConverter MDC, String path) {
-		saveToFile(MDC, path);
+		saveToFile(MDC, path + WORLD_EXTENSION);
 	}
-	
-	public void saveWorld(DraggableGrid DG, String path) {
-		if (DG.getSavePath() == null || !path.equals(DG.getSavePath())) {
-			path = this.makeValidFileName(path);
-			DG.setSavePath(path);
-		}
-		MapDataConverter MDC = new MapDataConverter(DG);
-		saveWorld(MDC, path);
+
+	private void removeExistingSave() {
+		System.out.println("REMOVING previously saved: " + projectPath + PROJECT_WORLD_PATH);
+		removeDirectory(projectPath + PROJECT_WORLD_PATH);
 	}
-	
-	///////////////////////////////////////////////////////////////////////////
-	
-	public void saveWorld(DraggableGrid DG) {
-		worldCount++;
-		makeWorldAndLayerAndSpriteDirectories(worldCount);
-		List<SpriteObjectGridManager> SOGMList = DG.getGrids();
-		int count = 0;
-		int layerCount = 0;
-		for (SpriteObjectGridManager SOGM : SOGMList) {
-			layerCount++;
-			for (AbstractSpriteObject SO : SOGM.getEntireListOfSpriteObjects()) {
-				if(SO instanceof DefaultSpriteObject)
-					continue;
-				String path = getLayerSpritesDirectoryPath(worldCount, layerCount);
-				path = this.makeValidFileName(path);
-				saveSprite(SO, path);
-				count++;
+
+	/**
+	 * Entry point to save a world to data. Requires an authoring DraggableGrid
+	 * (i.e., single map)
+	 * 
+	 * @param worldDraggableGrid
+	 *            - the DraggableGrid (Map) from the authoring view to save
+	 * @throws Exception
+	 * @author Archana, Samuel
+	 */
+	public void saveWorlds(List<DraggableGrid> worldDraggableGrids) {
+		String worldPath = projectPath + PROJECT_WORLD_PATH;
+		removeExistingSave();
+		makeDirectory(worldPath);
+		worldDraggableGrids.forEach(world -> {
+			String savePath = worldPath + world.getName();
+			MapDataConverter MDC = new MapDataConverter(world);
+			try {
+				saveWorld(MDC, savePath);
+			} catch (Exception e) {
+				// Intentionally Blank
 			}
-			saveLayer(SOGM, worldCount, layerCount);
-		}
-		String worldPath = getWorldDirectoryPath(worldCount);
-		saveWorld(DG, worldPath);
+		});
 	}
-	
-	private void saveLayer(SpriteObjectGridManager SOGM, int worldCount, int num) throws Exception {
-		LayerDataConverter LDC = new LayerDataConverter(SOGM);
-		String path = makeValidFileName(getInitializingLayerDirectoryPath(worldCount, num));
-		saveToFile(LDC, path);
-	}
-	
-	private DraggableGrid loadWorld(int worldNum, File worldFile) {
-		DraggableGrid ret = new DraggableGrid();
-		List<SpriteObjectGridManager> addToWorld = loadLayersFromDirectoryName(worldNum);
-		ret.loadLayers(addToWorld);
-		return ret;
-	}
-	
-	private List<DraggableGrid> loadWorldsFromDirectory(int worldNum, File directory) {
-		List<DraggableGrid> worlds = new ArrayList<>();
-		File[] files = directory.listFiles();
-		for (File f : files) {
-			if (!f.isDirectory()){
-				DraggableGrid temp = loadWorld(worldNum, f);
-				worlds.add(temp);
-			}
-		}
-		return worlds;
-	}
-	
-	private List<AbstractSpriteObject> loadSpritesFromDirectory(File directory) {
-		File[] files = directory.listFiles();
-		List<AbstractSpriteObject> ret = new ArrayList<AbstractSpriteObject>();
-		for (File f : files) {
-				AbstractSpriteObject dummy = loadSprite(f);
-				ret.add(dummy);
-		}
-		return ret;
-	}
-	
-	//TODO WHY TEN??!!?! Why is this written like this?!
-	public List<DraggableGrid> loadWorldsFromWorldDirectory(){
+
+	public List<DraggableGrid> loadWorldsFromWorldDirectory(String importProjectName) { // ONLY CALLED when importing
 		List<DraggableGrid> DG_LIST = new ArrayList<DraggableGrid>();
-		try{
-			for (int worldNum = 1; worldNum < 10; worldNum++) {
-				DG_LIST.add(loadWorldsFromDirectoryName(worldNum, this.getInitializingWorldDirectoryPath(worldNum)).get(0));
-			}
-		} catch (Exception e){
-			// do nothing
+		String importFilePath = root + importProjectName + "/" + PROJECT_WORLD_PATH;
+		System.out.println(importFilePath + " this is IMPORT FILE PATH");
+
+		File worldDirFile = new File(importFilePath);
+		try {
+			DG_LIST = addToDraggableGridLoadingList(worldDirFile, DG_LIST, importProjectName);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		System.out.println("all the IMPORTED draggable grids we return " + DG_LIST.size());
 		return DG_LIST;
 	}
 
-	private List<AbstractSpriteObject> loadSpritesFromDirectoryName(String filePath) throws Exception {
-		File directory = new File(filePath);
-		return loadSpritesFromDirectory(directory);
+	public List<DraggableGrid> addToDraggableGridLoadingList(File directory, List<DraggableGrid> currentDGList,
+			String importName) throws Exception {
+		if (directory.exists()) {
+			System.out.println("World directory: " + directory.toString());
+			for (File f : directory.listFiles()) {
+				MapDataConverter MDC = (MapDataConverter) getObjectFromFile(f);
+				DraggableGrid DG = MDC.createDraggableGrid();
+				DG.setName(DG.getName() + " (imported)");
+				currentDGList.add(DG);
+			}
+		}
+		return currentDGList;
+	}
+
+	private List<AbstractSpriteObject> loadSpritesFromDirectory(File directory) throws Exception {
+		System.out.println("Directory in loadSpritesFromDirectory: " + directory);
+		if (!isValidDirectory(directory)) {
+			throw new Exception("Not a directory");
+		}
+		File[] files = directory.listFiles();
+		List<AbstractSpriteObject> ret = new ArrayList<AbstractSpriteObject>();
+		for (File f : files) {
+			try {
+				AbstractSpriteObject dummy = loadSprite(f);
+				ret.add(dummy);
+				System.out.println(dummy);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return ret;
+	}
+
+	/**
+	 * Entry point to load worlds from data
+	 * 
+	 * @return List<DraggableGrids>, i.e., the Authoring worlds
+	 * @author Archana, Samuel
+	 * @throws Exception
+	 */
+	public List<DraggableGrid> loadWorldsFromWorldDirectory() {
+		List<DraggableGrid> DG_LIST = new ArrayList<DraggableGrid>();
+		String worldDirectory = projectPath + PROJECT_WORLD_PATH;
+		File worldDirFile = new File(worldDirectory);
+		if (worldDirFile.exists()) {
+			for (File f : worldDirFile.listFiles()) {
+				MapDataConverter MDC = (MapDataConverter) getObjectFromFile(f);
+				DraggableGrid DG_toAdd = MDC.createDraggableGrid();
+				DG_LIST.add(DG_toAdd);
+			}
+		}
+		System.out.println("all the draggable grids we return " + DG_LIST.size());
+		return DG_LIST;
 	}
 
 	public Map<String, List<AbstractSpriteObject>> loadSpritesFromNestedDirectories(String rootDirectory) {
@@ -495,7 +571,7 @@ public class LocalGameDataHandler {
 		if (!isValidDirectory(file)) {
 			return null;
 		}
-		System.out.println("Still going, root directory: "+rootDirectory);
+		System.out.println("Still going, root directory: " + rootDirectory);
 		Map<String, List<AbstractSpriteObject>> ret = new HashMap<String, List<AbstractSpriteObject>>();
 		File[] files = file.listFiles();
 		for (File f : files) {
@@ -511,34 +587,36 @@ public class LocalGameDataHandler {
 		}
 		return ret;
 	}
-	
-	private void makeWorldAndLayerAndSpriteDirectories(int worldNum) {
-		File file1 = new File(getInitializingWorldDirectoryPath(worldNum));
-		File file2 = new File(getInitializingLayerDirectoryPath(worldNum, 1));
-		File file3 = new File(getLayerSpritesDirectoryPath(worldNum, 1));
-		if (! file1.exists()) {
-			System.out.println("WORLDNUM : " + worldNum);
-			makeDirectory(getInitializingWorldDirectoryPath(worldNum));
-		}
-		if (! file2.exists() && ! file3.exists()) {
-			for (int i = 1; i < 5; i++) {
-				makeDirectory(getInitializingLayerDirectoryPath(worldNum, i));
-				makeDirectory(getLayerSpritesDirectoryPath(worldNum, i));
-
-			}
-		}
-	}
 
 	private void makeSpriteDirectories() {
 		List<String> pathsToMake = new ArrayList<String>();
 		pathsToMake.add(getDefaultSpriteDirectoryPath());
 		pathsToMake.add(getCustomSpriteDirectoryPath());
 		pathsToMake.add(getInventorySpriteDirectoryPath());
+		// pathsToMake.add(getImportedSpriteDirectoryPath());
 		for (String s : pathsToMake) {
 			File file = new File(s);
 			if (!file.exists()) {
 				makeDirectory(s);
 			}
 		}
+	}
+
+	public List<DialogSequence> loadDialogsFromDirectory(String folderToLoad) {
+		// TODO FILL THIS IN!
+		List<DialogSequence> ret = new ArrayList<DialogSequence>();
+		File file = new File(folderToLoad);
+		if (file.listFiles() != null) {
+			File[] files = file.listFiles();
+			ret = new ArrayList<DialogSequence>();
+			for (File f : files) {
+				ret.add(loadDialogue(f));
+			}
+		}
+		return ret;
+	}
+
+	public void saveDialogSequence(DialogSequence dS, String folderToSaveTo) {
+		saveToFile(dS, folderToSaveTo+DIALOG_EXTENSION);
 	}
 }

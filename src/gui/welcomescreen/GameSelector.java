@@ -69,8 +69,8 @@ public class GameSelector extends MenuOptionsTemplate {
 	 * Extracts names of user create games and creates an entry for each game
 	 */
 	public void createGameSelector() {
-		Set<String> gameSet = GameDataHandler.knownProjects().keySet();
-		for (String game : gameSet) {
+		List<String> games = new GameDataHandler(stage).knownProjects();
+		for (String game : games) {
 			createGameEntry(game);
 		}
 	}

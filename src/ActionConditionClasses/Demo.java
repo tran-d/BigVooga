@@ -31,7 +31,7 @@ public class Demo extends Application {
 
 		stage.setScene(scene);
 		ImageCanvasPane p = new ImageCanvasPane(ResourceBundle.getBundle("authoring.drawing.drawingTools.drawingTools"), 400, 400,
-				() -> GameDataHandler.chooseFileForImageSave(stage));
+				() -> GameDataHandler.chooseFileForImageLoad(stage));
 		g.getChildren().add(p);
 		stage.show();
 	}

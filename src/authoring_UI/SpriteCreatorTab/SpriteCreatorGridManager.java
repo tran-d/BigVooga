@@ -104,7 +104,7 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 	
 	@Override 
 	public void getOnBackgroundChangeFunctionality(File file){
-		Image image = new Image(GameDataHandler.getImageURIAndCopyToResources(file));
+		Image image = new Image(myAEM.getGameDataHandler().getImageURIAndCopyToResources(file));
 		String fileName = file.getName();
 		nameField.setText(fileName.substring(0, fileName.indexOf(".")));
 		categoryField.setText("General");

@@ -55,7 +55,7 @@ public class MainAuthoringGUI {
 
 		authoringPane = new Pane();
 		
-		myGDH = new GameDataHandler(myProjectName);
+		myGDH = new GameDataHandler(stage, myProjectName);
 		myEngineExporter = new SpriteObjectGridToEngineController(myGDH);
 		authoringController = new AuthoringController(scene, stage, authoringPane, myGDH);
 
