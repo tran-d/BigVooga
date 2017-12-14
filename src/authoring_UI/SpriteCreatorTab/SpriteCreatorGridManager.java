@@ -153,7 +153,7 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 		Button createImageButton = new Button(spriteCreatorResources.getString("CreateImageButton"));
 		createImageButton.setOnAction(e -> {
 			Stage newStage = new Stage();
-			ImageCanvasPane paint = new ImageCanvasPane(paintResources, 500, 500, s -> {
+			ImageCanvasPane paint = new ImageCanvasPane(500, 500, s -> {
 				final String fileName = "UniqueSprite"+Math.random();
 				newSprite = getMapLayer().setBackgroundImage(()-> getSpriteTypeFunction.apply(s, fileName));
 				saveTo(s, new File(fileName));

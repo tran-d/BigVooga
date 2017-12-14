@@ -53,11 +53,9 @@ public class SpriteImagePanel extends VBox {
 	// private static final String IMAGE_PATH =
 	// "data/UserCreatedGames/TestProject/Sprites/CustomSprites/";
 	private static final String SPRITECREATORRESOURCES_PATH = "TextResources/SpriteCreatorResources";
-	private static final String TOOLSANDNAMES_PATH = "authoring/drawing/drawingTools/drawingTools";
 	private static final int PANE_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH;
 
 	private ResourceBundle spriteCreatorResources;
-	private ResourceBundle paintResources;
 	private HBox buttonBox;
 	private HBox nameBox;
 	private HBox imageBox;
@@ -78,7 +76,6 @@ public class SpriteImagePanel extends VBox {
 	protected SpriteImagePanel(AuthoringEnvironmentManager AEM,
 			SpriteCreatorManagerSlack SM) {
 		spriteCreatorResources = ResourceBundle.getBundle(SPRITECREATORRESOURCES_PATH);
-		paintResources = ResourceBundle.getBundle(TOOLSANDNAMES_PATH);
 		this.setMinWidth(PANE_WIDTH / 2 - 300);
 		this.setMinHeight(500);
 		this.setMaxSize(PANE_WIDTH / 2 - 300, WelcomeScreen.HEIGHT);
@@ -144,7 +141,7 @@ public class SpriteImagePanel extends VBox {
 		Button createImageButton = new Button(spriteCreatorResources.getString("CreateImageButton"));
 		createImageButton.setOnAction(e -> {
 			Stage newStage = new Stage();
-			ImageCanvasPane paint = new ImageCanvasPane(paintResources, 500, 500, s -> setImage(s));
+			ImageCanvasPane paint = new ImageCanvasPane(500, 500, s -> setImage(s));
 			Scene paintScene = new Scene(paint);
 			newStage.setScene(paintScene);
 			newStage.show();

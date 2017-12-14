@@ -30,16 +30,16 @@ import tools.DisplayLanguage;
 public class ActionConditionRow extends ToolBar implements ActionConditionRowI {
 	
 	protected static final String ACTIONCONDITION_RESOURCE_PATH = "TextResources/ActionConditionVBoxResources";
-	protected static final double ROW_WIDTH = 700;
-	protected static final double TREE_VIEW_WIDTH = 500;
-	protected static final double EXPANDED_HEIGHT = 400;
+	protected static final double ROW_WIDTH = 650;
+	protected static final double TREE_VIEW_WIDTH = 550;
+	protected static final double EXPANDED_HEIGHT = 350;
 	protected static final double COLLAPSED_HEIGHT = 25;
 
 	protected ResourceBundle actionConditionVBoxResources;
 	private int labelInt;
 	private Label label;
 	private Label IDlabel;
-	private ChoiceBoxVBox<String> implementationSelectorVBox;
+	private ChoiceBoxVBox implementationSelectorVBox;
 
 	public ActionConditionRow(int ID, ActionConditionVBox<?> ACVBox) {
 		super();
@@ -77,8 +77,8 @@ public class ActionConditionRow extends ToolBar implements ActionConditionRowI {
 	}
 
 	@Override
-	public String getImplementationSelectorVBoxValue() {
-		return (String) implementationSelectorVBox.getCurrentValue();
+	public Integer getImplementationSelectorVBoxValue() {
+		return implementationSelectorVBox.getCurrentValue();
 	}
 
 	@Override

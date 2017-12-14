@@ -103,4 +103,9 @@ public class ConcreteGameObjectEnvironment implements GameObjectEnvironment {
 		return layer.getByID(uniqueID);
 	}
 
+	@Override
+	public GlobalVariables getGlobals() {
+		return master.getGlobals();
+	}
+
 }

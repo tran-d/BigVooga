@@ -6,7 +6,7 @@ import java.util.List;
 
 import authoring.Sprite.AnimationSequences.AuthoringAnimationSequence;
 import authoring.Sprite.AnimationSequences.AuthoringImageView;
-import authoring.drawing.BoundingPolygonCreator;
+//import authoring.drawing.BoundingPolygonCreator;
 import engine.sprite.BoundedImage;
 import engine.utilities.data.GameDataHandler;
 import javafx.geometry.Insets;
@@ -129,22 +129,22 @@ public class SpriteAnimationSequenceTabsAndInfo {
 			File file = GameDataHandler.chooseFileForImageSave(s.getWindow());
 			Image im = new Image(file.toURI().toString());
 			AuthoringImageView AIV = new AuthoringImageView(file.getName());
-			makeBoundedImagePopup(AIV, im, file.getName());
+//			makeBoundedImagePopup(AIV, im, file.getName());
 			addNewAuthoringImageViewToSequence(this.activeAnimationSeqeunce, AIV);
 		});
 	}
 	
-	private void makeBoundedImagePopup(AuthoringImageView view, Image im, String name) {
-		Stage popup = new Stage();
-		view.setBoundedImage(new BoundedImage(name));
-		BoundingPolygonCreator bpc = new BoundingPolygonCreator(im, name, bi -> view.setBoundedImage(bi));
-		popup.setScene(new Scene(bpc));
-		popup.setOnCloseRequest(e -> bpc.save());
-		popup.show();
-	}
+//	private void makeBoundedImagePopup(AuthoringImageView view, Image im, String name) {
+//		Stage popup = new Stage();
+//		view.setBoundedImage(new BoundedImage(name));
+////		BoundingPolygonCreator bpc = new BoundingPolygonCreator(im, name, bi -> view.setBoundedImage(bi));
+//		popup.setScene(new Scene(bpc));
+//		popup.setOnCloseRequest(e -> bpc.save());
+//		popup.show();
+//	}
 
 	private void addNewAuthoringImageViewToSequence(AuthoringAnimationSequence AAS, AuthoringImageView AIV) {
-		AAS.addNewAuthoringImageViewToSequence(AIV);
+		AAS.addNewAuthoringImageViewToSequence(AIV, false);
 	}
 
 	public Button getAddImageButton() {

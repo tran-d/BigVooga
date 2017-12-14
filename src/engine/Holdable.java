@@ -13,7 +13,7 @@ import engine.sprite.Sprite;
  * @author Nikolas Bramblett, Aaron Paskin
  *
  */
-public class Holdable extends VariableContainer {
+public class Holdable extends TaggableSpriteableVariableContainer {
 
 	private Map<String, List<Action>> useOptions;
 	private List<Action> selectActions;

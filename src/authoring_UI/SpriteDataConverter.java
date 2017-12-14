@@ -15,7 +15,9 @@ import engine.Condition;
 
 public class SpriteDataConverter {
 
-	
+
+	Map<Condition, List<Integer>> conditionRows;
+	List<Action> actionRows;
 	Map<String, List<SpriteParameter>> catmap;
 	List<SpriteDataConverter> inventory;
 	String imageURL;
@@ -25,12 +27,13 @@ public class SpriteDataConverter {
 	Integer height;
 	String UUID;
 	List<AuthoringAnimationSequence> myAnimationSequences;
+	List<String> spriteConditionOperations;
+	List<List<String>> spriteActionOperations;
+	
 	
 	String mySavePath;
 	String spriteType;
 	List<String> tags;
-	Map<Condition, List<Integer>> conditionRows;
-	List<Action> actionRows;
 
 	public SpriteDataConverter(AbstractSpriteObject ASO) {
 		convertSprite(ASO);
@@ -74,6 +77,10 @@ public class SpriteDataConverter {
 		System.out.println("SDC allActionRows: "+ASO.getActionRows());
 		actionRows = ASO.getActionRows();
 		myAnimationSequences = ASO.getAnimationSequences();
+		spriteConditionOperations = ASO.getSelectedConditionOperations();
+		System.out.println("Selected Condition Operations: " + spriteConditionOperations);
+		spriteActionOperations = ASO.getSelectedActionOperations();
+		System.out.println("Selected Action and Category: " + spriteActionOperations);
 		ASO.getInventory().forEach(sprite -> {
 			inventory.add(new SpriteDataConverter(sprite));
 		});
@@ -103,6 +110,10 @@ public class SpriteDataConverter {
 		ret.setName(name);
 		ret.setSavePath(mySavePath);
 		ret.setTags(tags);
+		ret.setSelectedConditionOperations(spriteConditionOperations);
+		System.out.println("selectedConditionOperations yeah " + spriteConditionOperations);
+		ret.setSelectedActionOperations(spriteActionOperations);
+		System.out.println("selectedActionOperations yeahhhh " + spriteActionOperations);
 //		ret.setAllConditions(allConditions);
 //		ret.setAllActions(allActions);
 		ret.setConditionRows(conditionRows);
