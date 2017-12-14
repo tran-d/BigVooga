@@ -491,11 +491,11 @@ public class LocalGameDataHandler {
 
 	public Map<String, List<AbstractSpriteObject>> loadSpritesFromNestedDirectories(String rootDirectory) {
 		File file = new File(rootDirectory);
-		System.out.println("GET CUSTOM DIRECTORY SPRITE PATH: " + rootDirectory);
+		;
 		if (!isValidDirectory(file)) {
 			return null;
 		}
-		System.out.println("Still going, root directory: "+rootDirectory);
+		;
 		Map<String, List<AbstractSpriteObject>> ret = new HashMap<String, List<AbstractSpriteObject>>();
 		File[] files = file.listFiles();
 		for (File f : files) {
@@ -517,7 +517,7 @@ public class LocalGameDataHandler {
 		File file2 = new File(getInitializingLayerDirectoryPath(worldNum, 1));
 		File file3 = new File(getLayerSpritesDirectoryPath(worldNum, 1));
 		if (! file1.exists()) {
-			System.out.println("WORLDNUM : " + worldNum);
+			;
 			makeDirectory(getInitializingWorldDirectoryPath(worldNum));
 		}
 		if (! file2.exists() && ! file3.exists()) {

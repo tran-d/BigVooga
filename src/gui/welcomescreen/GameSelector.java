@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 import tools.DisplayLanguage;
 
 /**
- * Class that allows user to select a game to play.
+ * Creates the class that allows users to select any game they've created to play, which is implemented as a TreeView.
  * 
  * @author David, Samarth, Ian
  *
@@ -99,7 +99,7 @@ public class GameSelector extends MenuOptionsTemplate {
 		try {
 			new GameController(stage, theGame, sceneController, false);
 		} catch (FileNotFoundException e) {
-			System.out.println("Alert");
+			;
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setContentText(e.getMessage());
 			alert.showAndWait();
@@ -110,7 +110,7 @@ public class GameSelector extends MenuOptionsTemplate {
 		try {
 			new GameController(stage, theGame, sceneController, true);
 		} catch (FileNotFoundException e) {
-			System.out.println("Alert");
+			;
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setContentText(e.getMessage());
 			alert.showAndWait();

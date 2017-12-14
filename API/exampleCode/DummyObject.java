@@ -70,7 +70,7 @@ public class DummyObject implements GameObject {
 	@Override
 	public void setDoubleVariable(String name, double val) {
 		// TODO Auto-generated method stub
-		System.out.println(name+": "+val);
+		;
 	}
 
 	@Override

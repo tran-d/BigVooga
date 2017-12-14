@@ -38,7 +38,7 @@ public class SpriteCreatorGrid extends GridPane {
 				if (counter < sprites.size()) {
 					AbstractSpriteObject toLoad = sprites.get(counter);
 					toLoad.setOnMouseClicked(e -> {
-						System.out.println("SPRITE CLICKED");
+						;
 						// myDP.addSpriteEditorVBox();
 						// myDP.updateParameterTab();
 					});

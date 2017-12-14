@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.Callable;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -36,13 +37,17 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import tools.DisplayLanguage;
 
 public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 	
-	private static final String SPRITECREATORRESOURCES_PATH = "TextResources/SpriteCreatorResources";
 	private static final String TOOLSANDNAMES_PATH = "authoring/drawing/drawingTools/drawingTools";
-	private static final int PANE_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH;
+	private static final String NAME_FIELD = "NameField";
+		private static final int PANE_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH;
 	private static final String PATH = "resources/";
+	private static final String CATEGORY_FIELD = "CategoryField";
+	private static final String CREATE_IMAGE_BUTTON = "CreateImageButton";
+	private static final String CREATE_SPRITE_BUTTON = "CreateSpriteButton";
 	private static int ROWS = 3;
 	private static int COLUMNS = 3;
 //	private String fileName;
@@ -51,7 +56,6 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 	private TextField categoryField;
 	private AbstractSpriteObject newSprite;
 	private AuthoringEnvironmentManager myAEM;
-	private static ResourceBundle spriteCreatorResources = ResourceBundle.getBundle(SPRITECREATORRESOURCES_PATH);
 	private static ResourceBundle paintResources = ResourceBundle.getBundle(TOOLSANDNAMES_PATH);
 	
 	
@@ -130,9 +134,11 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 	}
 	
 	private VBox addNameCategoryBox() {
-		Label enterName = new Label(spriteCreatorResources.getString("NameField"));
+		Label enterName = new Label();
+		enterName.textProperty().bind(DisplayLanguage.createStringBinding("NameField"));
 		nameField = new TextField();
-		Label enterCategory = new Label(spriteCreatorResources.getString("CategoryField"));
+		Label enterCategory = new Label();
+		enterName.textProperty().bind(DisplayLanguage.createStringBinding("CategoryField"));
 		categoryField = new TextField();
 		VBox nameCategoryBox = new VBox(10);
 		nameCategoryBox.getChildren().addAll(enterName, nameField, enterCategory, categoryField);
@@ -150,7 +156,8 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 //			}
 //		});
 
-		Button createImageButton = new Button(spriteCreatorResources.getString("CreateImageButton"));
+		Button createImageButton = new Button();
+		createImageButton.textProperty().bind(DisplayLanguage.createStringBinding(CREATE_IMAGE_BUTTON));
 		createImageButton.setOnAction(e -> {
 			Stage newStage = new Stage();
 			ImageCanvasPane paint = new ImageCanvasPane(500, 500, s -> {
@@ -164,7 +171,8 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 			newStage.show();
 		});
 
-		Button createSpriteButton = new Button(spriteCreatorResources.getString("CreateSpriteButton"));
+		Button createSpriteButton = new Button();
+		createSpriteButton.textProperty().bind(DisplayLanguage.createStringBinding(CREATE_SPRITE_BUTTON));
 
 		createSpriteButton.setOnAction(e -> {
 			AbstractSpriteObject dummySprite = getNewSprite();

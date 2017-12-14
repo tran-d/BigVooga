@@ -63,11 +63,11 @@ public abstract class SpriteSet {
 		if (!loaded) {
 			this.loadSprites();
 		}
-		// System.out.println("Getting all");
+		// ;
 		List<AbstractSpriteObject> ret = new ArrayList<AbstractSpriteObject>();
 		getCategoryToSpritesCopy().values().forEach(list -> {
 			list.forEach(obj -> {
-				// System.out.println(obj);
+				// ;
 				ret.add(obj.newCopy());
 			});
 		});
@@ -82,7 +82,6 @@ public abstract class SpriteSet {
 	}
 
 	protected String getFolderToLoad() {
-		// System.out.println("folderToLoad: " + folderToLoad);
 		return folderToLoad;
 	}
 
@@ -103,8 +102,6 @@ public abstract class SpriteSet {
 		loaded = true;
 		if (!getFolderToLoad().equals("")) {
 			categoryToSprites = myGDH.loadSpritesFromNestedDirectories(getFolderToLoad());
-			System.out.println("!!!!");
-			System.out.println(categoryToSprites);
 		}
 	}
 
@@ -127,9 +124,9 @@ public abstract class SpriteSet {
 //	protected abstract void makeSpritePanel(SpriteGridHandler SGH);
 
 //	protected SpriteSelectPanel getSpritePanel(SpriteGridHandler SGH) {
-//		// System.out.println("Getting sprite panel");
+//		// ;
 //		if (mySSP == null) {
-//			// System.out.println("SSP is null");
+//			// ;
 //			makeSpritePanel(SGH);
 //		}
 //		return mySSP;

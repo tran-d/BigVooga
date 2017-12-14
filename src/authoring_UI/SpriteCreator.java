@@ -66,7 +66,6 @@ public class SpriteCreator extends TabPane {
 	}
 
 	private void setup(AuthoringEnvironmentManager AEM, SpriteCreatorManager SCM, SpriteCreatorSpriteManager SM) {
-		spriteCreatorResources = ResourceBundle.getBundle(SPRITECREATORRESOURCES_PATH);
 		myAEM = AEM;
 		mySCM = SCM;
 		mySM = SM;
@@ -156,7 +155,7 @@ public class SpriteCreator extends TabPane {
 	
 	
 //	private HBox setupFEAuthClasses(DraggableGrid w) { 
-//		System.out.println("setUpFE?");
+//		;
 //		// TODO if it's old project, want all possible worlds, so many worlds!
 //		allWorlds.add(w); // TODO unsure if needed
 //		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, w, 1); 
@@ -195,11 +194,11 @@ public class SpriteCreator extends TabPane {
 //		nameBox.getChildren().addAll(enterName, nameField, enterCategory, categoryField);
 //
 //		// nameField.setOnAction(e -> {
-//		// System.out.println("name entered");
+//		// ;
 //		// if (mySNM.isNameValidTemplate(nameField.getText())) {
 //		// // add to mySNM
 //		// mySNM.addTemplateName(nameField.getText());
-//		// System.out.println("name is valid");
+//		// ;
 //		// } else {
 //		// Alert alert = new Alert(AlertType.ERROR);
 //		// alert.setTitle("Input Error");
@@ -210,10 +209,10 @@ public class SpriteCreator extends TabPane {
 //		// });
 //
 //		// confirm.setOnAction(e -> {
-//		// System.out.println("name entered");
+//		// ;
 //		// if (mySNM.isNameValidTemplate(nameField.getText())) {
 //		// // add to mySNM
-//		// System.out.println("name is valid");
+//		// ;
 //		// } else {
 //		// Alert alert = new Alert(AlertType.ERROR);
 //		// alert.setTitle("Error");
@@ -300,7 +299,7 @@ public class SpriteCreator extends TabPane {
 //					e1.printStackTrace();
 //				}
 //
-//				System.out.println("name is valid");
+//				;
 //
 //				mySNM.addTemplateName(spriteName);
 //
@@ -359,13 +358,13 @@ public class SpriteCreator extends TabPane {
 //			myImageStack.getChildren().addAll(newSprite, nameBox);
 //
 //			// myStatePanel.getChildren().add(imageView);
-//			System.out.println("image loaded");
-//			// System.out.println(file.getName());
+//			;
+//			// ;
 //			// mySpriteObject.setImageURL(file.getName());
 //			// setChanged();
 //			// System.out.print(file.getName());
 //			// notifyObservers(file.getName());
-//			// System.out.println("image chosen");
+//			// ;
 //		}
 //	}
 //
@@ -393,7 +392,7 @@ public class SpriteCreator extends TabPane {
 //				if (counter < sprites.size()) {
 //					AbstractSpriteObject toLoad = sprites.get(counter);
 //					toLoad.setOnMouseClicked(e -> {
-//						System.out.println("SPRITE CLICKED");
+//						;
 //						myDP.addSpriteEditorVBox();
 //						// myDP.updateParameterTab();
 //					});

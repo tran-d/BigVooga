@@ -51,7 +51,7 @@ public class FEDoubleParameter extends FEParameter {
 			try{
 			myValue.setText(newValue);
 			} catch (Exception e){
-				System.out.println("The error");
+				;
 			}
 		});
 	}

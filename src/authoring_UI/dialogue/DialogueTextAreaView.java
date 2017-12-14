@@ -43,9 +43,11 @@ import javafx.scene.text.Text;
 import tools.DisplayLanguage;
 
 /**
- * Class that displays the text areas and utilities for editing dialogues.
+ * Creates the components that display and allow for customization of the dialogue template and text areas.
+ * The different buttons and options for customization also created in this class include text position, font color, background color, etc.,
+ * as well as the ability to create different dialogue boxes in a sequence and toggle between them.
  * 
- * @author DavidTran
+ * @author David Tran, Samarth Desai, Dara Buggay
  *
  */
 public class DialogueTextAreaView extends DisplayableTextAreaView {
@@ -130,8 +132,8 @@ public class DialogueTextAreaView extends DisplayableTextAreaView {
 	protected void removePanel() {
 
 		if (paneList.size()>1) {
-			System.out.println(paneList.size());
-			System.out.println(currentPaneIndex);
+			;
+			;
 
 			if (currentPaneIndex == paneList.size() - 1) {
 				prev();
@@ -184,7 +186,7 @@ public class DialogueTextAreaView extends DisplayableTextAreaView {
 	protected void prev() {
 		if (currentPaneIndex > 0) {
 			currentPaneIndex -= 1;
-			System.out.println(currentPaneIndex);
+			;
 			current.set(current.get()-1);
 			dialoguePreview.getChildren().clear();
 			dialoguePreview.getChildren().add(paneList.get(currentPaneIndex));
@@ -195,7 +197,7 @@ public class DialogueTextAreaView extends DisplayableTextAreaView {
 	protected void next() {
 		if (currentPaneIndex < paneList.size() - 1) {
 			currentPaneIndex += 1;
-			System.out.println(currentPaneIndex);
+			;
 			current.set(current.get()+1);
 			dialoguePreview.getChildren().clear();
 			dialoguePreview.getChildren().add(paneList.get(currentPaneIndex));

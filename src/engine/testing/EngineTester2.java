@@ -74,7 +74,7 @@ public class EngineTester2 extends Application {
 		obj1.setDoubleVariable("xSpeed", 0);
 		obj1.setDoubleVariable("ySpeed", 0);
 		obj1.setSize(64, 64);
-		System.out.println(obj1.getBounds().getWidth());
+		;
 		
 		blueprints.addBlueprint(obj1);
 		obj2.addTag("Pillar");
@@ -179,7 +179,7 @@ public class EngineTester2 extends Application {
 		vertices2.add(new Point2D(20, 220));
 		BoundingPolygon poly2 = new BoundingPolygon(vertices2);
 		Point2D vec = poly2.checkCollision(poly1);
-		System.out.println(vec);
+		;
 		
 		Group g = new Group();
 		Scene scene = new Scene(g);
@@ -193,7 +193,7 @@ public class EngineTester2 extends Application {
 //		long time = System.currentTimeMillis();
 //		for (int i = 0; i < 1000000; i++)
 //			poly1.checkCollision(poly2);
-//		System.out.println(System.currentTimeMillis() - time);
+//		;
 		
 		scene.setOnKeyPressed(e->{
 		g.getChildren().remove(p2);

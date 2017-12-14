@@ -6,7 +6,7 @@ public class SpriteSetImportedInventory extends SpriteSet {
 
 	public SpriteSetImportedInventory(GameDataHandler GDH) {
 		super(GDH);
-//		System.out.println(myGDH.getProjectPath());
+//		;
 	}
 
 	@Override

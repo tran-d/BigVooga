@@ -23,7 +23,7 @@ public class HUDManager extends MapManager{
 	
 	@Override 
 	protected DraggableGrid makeDraggableGrid(){
-		System.out.println("DG in HUDMANAGER");
+		;
 		DraggableGrid ret = new DraggableGrid();
 		HUDGridBE = new HUDGridManager();
 		BackgroundGridManager BackgroundGrid = new BackgroundGridManager(HUDGridBE.getDefaultRows(), HUDGridBE.getDefaultCols());
@@ -36,7 +36,7 @@ public class HUDManager extends MapManager{
 	
 	@Override
 	protected void setManagerName(){
-		MANAGERNAME = "HUDManager";
+		MANAGER_NAME = "HUDManager";
 	}
 	
 	@Override 

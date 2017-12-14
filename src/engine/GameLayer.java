@@ -16,7 +16,7 @@ public class GameLayer implements Layer {
 	private final static String DEFAULT_NAME = "llayer";
 	public final static String PLAYER_TAG = "Player";
 
-	private String worldName;
+	private String layerName;
 	private List<Element> worldElements;
 	private List<GameObject> objects = new ArrayList<>();
 	private Map<Integer, List<GameObject>> conditionPriorities = new ConcurrentSkipListMap<>();
@@ -28,7 +28,7 @@ public class GameLayer implements Layer {
 	}
 
 	public GameLayer(String name) {
-		worldName = name;
+		layerName = name;
 		worldElements = new ArrayList<>();
 		isTracked = true;
 	}
@@ -100,7 +100,7 @@ public class GameLayer implements Layer {
 	}
 
 	public boolean isNamed(String tag) {
-		return worldName.equals(tag);
+		return layerName.equals(tag);
 	}
 
 	public void step(ConcreteGameObjectEnvironment environment) {

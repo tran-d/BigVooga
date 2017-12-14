@@ -165,11 +165,12 @@ public class GameDisplay {
 		Rectangle rect = new Rectangle(pos.getX() - pos.getWidth() / 2, pos.getY() - pos.getHeight() / 2,
 				pos.getWidth(), pos.getHeight());
 		rect.setRotate(pos.getHeading());
+		rect.setFill(Color.web(color));
 		gamePane.getChildren().add(rect);
 	}
 	
 	/**
-	 * Gets the scene for initialization in SceneController.
+	 * Gets the scene for initialization in SceneController. 
 	 * 
 	 * @return the game display scene
 	 */

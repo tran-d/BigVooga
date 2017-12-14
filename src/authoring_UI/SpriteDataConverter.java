@@ -57,7 +57,7 @@ public class SpriteDataConverter {
 	}
 
 	public void convertSprite(AbstractSpriteObject ASO) {
-		System.out.println("convertingASO to SDC");
+		;
 		catmap = ASO.getParameters();
 		gridPos = ASO.getPositionOnGrid();
 		name = ASO.getName();
@@ -68,13 +68,13 @@ public class SpriteDataConverter {
 		mySavePath = ASO.getSavePath();
 		tags = ASO.getTags();
 		inventory = new ArrayList<SpriteDataConverter>();
-		System.out.println("SDC allConditions: "+ASO.getAllConditions());
+		;
 //		allConditions = ASO.getAllConditions();
-		System.out.println("SDC allAction: "+ASO.getAllActions());
+		;
 //		allActions = ASO.getAllActions();
-		System.out.println("SDC allConditionRows: "+ASO.getConditionRows());
+		;
 		conditionRows = ASO.getConditionRows();
-		System.out.println("SDC allActionRows: "+ASO.getActionRows());
+		;
 		actionRows = ASO.getActionRows();
 		myAnimationSequences = ASO.getAnimationSequences();
 		spriteConditionOperations = ASO.getSelectedConditionOperations();
@@ -92,7 +92,7 @@ public class SpriteDataConverter {
 	}
 
 	public AbstractSpriteObject createSprite() {
-		System.out.println("Trying to convert into sprite");
+		;
 		AbstractSpriteObject ret = null;
 		if (spriteType.equals("SpriteObject")) {
 			ret = new SpriteObject(true);
@@ -119,8 +119,8 @@ public class SpriteDataConverter {
 //		ret.setAllActions(allActions);
 		ret.setConditionRows(conditionRows);
 		ret.setActionRows(actionRows);
+		System.out.println("ActionRows Size: "+actionRows.size());
 		System.out.println("SDC AnimationSeq: "+this.myAnimationSequences);
-		
 		List<AbstractSpriteObject> newInventory = new ArrayList<AbstractSpriteObject>();
 		inventory.forEach(SDC ->{
 			newInventory.add(SDC.createSprite());
@@ -132,7 +132,7 @@ public class SpriteDataConverter {
 	}
 	
 //	private Object readResolve() throws java.io.ObjectStreamException{
-//			System.out.println("Resolving in spritedata converter");
+//			;
 //	        return createSprite();   
 //	}
 }
