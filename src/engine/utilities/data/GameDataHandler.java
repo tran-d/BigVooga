@@ -81,7 +81,7 @@ public class GameDataHandler {
 
 	private static final String WORLD_EXTENSION = ".wld";
 
-	private static final String DIALOG_EXTENSION = null;
+	private static final String DIALOG_EXTENSION = "dlg";
 
 	private Map<String, Image> cache = new HashMap<>();
 	private String projectPath;
