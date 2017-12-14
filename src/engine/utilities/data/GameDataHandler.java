@@ -52,7 +52,7 @@ public class GameDataHandler {
 
 	private static final XStream SERIALIZER = setupXStream();
 
-	private static final String RESOURCES = "resources\\";
+	public static final String RESOURCES = "resources\\";
 
 	private static final String KNOWN_PROJECTS = RESOURCES + "KnownProjectNames.txt";
 	private static final String ENGINE_PATH = "engine\\";
@@ -62,7 +62,6 @@ public class GameDataHandler {
 	private static final String AUTHORING_PATH = "authoring\\";
 	private static final String PROJECT_USER_SPRITE_PATH = AUTHORING_PATH + "Sprites\\";
 	private static final String PROJECT_WORLD_PATH = AUTHORING_PATH + "Worlds\\";
-	private static final String PROJECT_LAYER_PATH = AUTHORING_PATH + "Layers";
 	private static final String PROJECT_LAYER_SPRITE_PATH = AUTHORING_PATH + "Sprites\\";
 	private static final String DEFAULT_SPRITE_FOLDER = PROJECT_USER_SPRITE_PATH + "DefaultSprites\\";
 	private static final String CUSTOM_SPRITE_FOLDER = PROJECT_USER_SPRITE_PATH + "CustomSprites\\";
@@ -163,10 +162,9 @@ public class GameDataHandler {
 
 	private void makeDirectories() {
 		String[] pathsToMake = new String[] { ENGINE_PATH, RESOURCES, PROJECT_WORLD_PATH, PROJECT_WORLD_PATH,
-				PROJECT_LAYER_PATH, PROJECT_LAYER_SPRITE_PATH, DEFAULT_SPRITE_FOLDER, CUSTOM_SPRITE_FOLDER,
+				PROJECT_LAYER_SPRITE_PATH, DEFAULT_SPRITE_FOLDER, CUSTOM_SPRITE_FOLDER,
 				INVENTORY_SPRITE_FOLDER };
 		for (String s : pathsToMake) {
-			System.out.println(projectPath + s);
 			makeDirectory(projectPath + s);
 		}
 		makeDirectory(root + RESOURCES);
@@ -179,13 +177,13 @@ public class GameDataHandler {
 			System.out.println(s);
 			if (!isValidDirectory(new File(s)))
 				throw new FileNotFoundException();
-			return s;
+			root = s;
 		} catch (Exception e) {
 			root = pathSupplier.get() + "\\";
 			setDirectoryPath(root);
 			makeDirectory(root + RESOURCES);
-			return root;
 		}
+		return root;
 	}
 
 	public void setDirectoryPath(String path) {
@@ -467,23 +465,11 @@ public class GameDataHandler {
 	}
 
 	public String getInitializingWorldDirectoryPath(String worldName) {
-		return projectPath + PROJECT_WORLD_PATH + worldName + "/";
-	}
-
-	public String getInitializingLayerDirectoryPath(String worldName, int num) {
-		return getInitializingWorldDirectoryPath(worldName) + PROJECT_LAYER_PATH + num + "/";
+		return projectPath + PROJECT_WORLD_PATH + worldName + "\\";
 	}
 
 	public String getWorldDirectoryPath(int worldCount) {
 		return projectPath + PROJECT_WORLD_PATH + worldCount + "/"; // TODO
-	}
-
-	public String getLayerDirectoryPath(String worldName, int num) {
-		return getInitializingWorldDirectoryPath(worldName) + PROJECT_LAYER_PATH + num + "/";
-	}
-
-	public String getLayerSpritesDirectoryPath(String worldName, int layerNum) {
-		return getInitializingLayerDirectoryPath(worldName, layerNum) + PROJECT_LAYER_SPRITE_PATH;
 	}
 
 	public void saveWorld(MapDataConverter MDC, String path) {
@@ -633,5 +619,9 @@ public class GameDataHandler {
 
 	public void saveDialogSequence(DialogSequence dS, String folderToSaveTo) {
 		saveToFile(dS, folderToSaveTo+DIALOG_EXTENSION);
+	}
+
+	public String getRoot() {
+		return root;
 	}
 }

@@ -4,6 +4,7 @@ import java.io.File;
 
 import authoring_UI.MainAuthoringGUI;
 import controller.welcomeScreen.SceneController;
+import engine.utilities.data.GameDataHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -107,10 +108,10 @@ public class FileSelector extends MenuOptionsTemplate {
 	
 	private VBox createFiles() {
 		VBox fileBox = new VBox();
-		File f = new File(PROJECT_FILE_PATH);
+		File f = new File(new GameDataHandler(stage).getRoot());
 		File[] listOfFiles = f.listFiles();
 		for (File file: listOfFiles) {
-			if (file.getName().charAt(0) != '.') {
+			if (file.getName().charAt(0) != '.' && !file.getName().equals(GameDataHandler.RESOURCES.replace("\\", ""))) {
 				Button fileButton = createFileButton(file.getName());
 				fileButton.setMnemonicParsing(false);
 				fileBox.getChildren().add(fileButton);
