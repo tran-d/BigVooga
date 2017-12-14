@@ -46,6 +46,9 @@ public class SpriteDataConverter {
 	Integer height;
 	String UUID;
 	List<AuthoringAnimationSequence> myAnimationSequences;
+	List<String> spriteConditionOperations;
+	List<List<String>> spriteActionOperations;
+	
 	
 	String mySavePath;
 	String spriteType;
@@ -98,6 +101,8 @@ public class SpriteDataConverter {
 		System.out.println("SDC allActionRows: "+ASO.getActionRows());
 		actionRows = ASO.getActionRows();
 		myAnimationSequences = ASO.getAnimationSequences();
+		spriteConditionOperations = ASO.getSelectedConditionOperations();
+		spriteActionOperations = ASO.getSelectedActionOperations();
 		ASO.getInventory().forEach(sprite -> {
 			inventory.add(new SpriteDataConverter(sprite));
 		});
@@ -127,6 +132,8 @@ public class SpriteDataConverter {
 		ret.setName(name);
 		ret.setSavePath(mySavePath);
 		ret.setTags(tags);
+		ret.setSelectedConditionOperations(spriteConditionOperations);
+		ret.setSelectedActionOperations(spriteActionOperations);
 //		ret.setAllConditions(allConditions);
 //		ret.setAllActions(allActions);
 		ret.setConditionRows(conditionRows);

@@ -92,6 +92,10 @@ public abstract class AbstractSpriteObject extends ImageView {
 	protected ObservableList<Integer> allActions;
 	protected Map<Condition, List<Integer>> conditionRows;
 	protected HashMap<ConditionTreeView, List<Integer>> conditionTreeViews;
+	
+	protected List<List<String>> selectedActionOperations;
+	protected List<String> selectedConditionOperations;
+	
 	protected List<Action> actionRows;
 	protected List<ActionTreeView> actionTreeViews;
 	protected List<AuthoringAnimationSequence> myAnimationSequences;
@@ -107,10 +111,10 @@ public abstract class AbstractSpriteObject extends ImageView {
 	private void initializeActionConditions() {
 		allConditions = FXCollections.observableArrayList();
 		allActions = FXCollections.observableArrayList();
-		conditionTreeViews = new HashMap<ConditionTreeView, List<Integer>>();
-		actionTreeViews = new LinkedList<ActionTreeView>();
 		actionRows = new LinkedList<Action>();
 		conditionRows = new HashMap<Condition, List<Integer>>();
+		selectedConditionOperations = new LinkedList<String>();
+		selectedActionOperations = new LinkedList<List<String>>();
 	}
 
 	private void initializeVariables() {
@@ -729,6 +733,20 @@ public abstract class AbstractSpriteObject extends ImageView {
 	}
 	public List<Action> getActionRows(){
 		return actionRows;
+	}
+	
+	public List<List<String>> getSelectedActionOperations() {
+		return selectedActionOperations;
+	}
+	public List<String> getSelectedConditionOperations() {
+		return selectedConditionOperations;
+	}
+	
+	public void setSelectedActionOperations(List<List<String>> selectedActionOperations) {
+		this.selectedActionOperations = selectedActionOperations;
+	}
+	public void setSelectedConditionOperations(List<String> selectedConditionOperations) {
+		this.selectedConditionOperations = selectedConditionOperations;
 	}
 
 	/**
