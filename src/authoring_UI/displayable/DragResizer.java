@@ -1,10 +1,11 @@
-package authoring_UI.dialogue;
+package authoring_UI.displayable;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
@@ -22,7 +23,7 @@ public class DragResizer {
 	private static double orgTranslateX, orgTranslateY;
 	private static double paneLeft, paneRight, paneTop, paneBottom;
 
-    private final TextArea region;
+    private final Region region;
     private final Pane pane;
     private final Rectangle bound;
 
@@ -39,7 +40,7 @@ public class DragResizer {
     private final short WEST = 4;
 
     
-    protected DragResizer(TextArea aRegion) {
+    protected DragResizer(Region aRegion) {
         region = aRegion;
         region.applyCss();
         // set clip bound
@@ -49,7 +50,7 @@ public class DragResizer {
         
     }
 
-    public void makeResizable() {
+    protected void makeResizable() {
         final DragResizer resizer = new DragResizer(region);
 
         region.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -177,22 +178,29 @@ public class DragResizer {
     }
     
     protected void makeDraggable() {
-    	 
-    	Node textAreaContent = region.lookup(".content");
+    		if (region instanceof TextArea) {
+    			makeTextAreaDraggable();
+    		} else {
+    			makeImageDraggable();
+    		}
+    }
+    
+    protected void makeTextAreaDraggable() {
+     	Node textAreaContent = region.lookup(".content");
 
-    	textAreaContent.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+     	textAreaContent.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
 
-        	orgSceneX = e.getSceneX();
-        	orgSceneY = e.getSceneY();
-        	orgTranslateX = region.getTranslateX();
-        	orgTranslateY = region.getTranslateY();
+     		orgSceneX = e.getSceneX();
+     		orgSceneY = e.getSceneY();
+     		orgTranslateX = region.getTranslateX();
+     		orgTranslateY = region.getTranslateY();
 
-        	region.toFront();
-        textAreaContent.setCursor(Cursor.MOVE);
+     		region.toFront();
+     		textAreaContent.setCursor(Cursor.MOVE);
 
-      });
+     	});
 
-      textAreaContent.addEventHandler(MouseEvent.MOUSE_DRAGGED, e -> {
+     	textAreaContent.addEventHandler(MouseEvent.MOUSE_DRAGGED, e -> {
       		double offsetX = e.getSceneX() - orgSceneX;
       		double offsetY = e.getSceneY() - orgSceneY;
       		double newTranslateX = orgTranslateX + offsetX;
@@ -209,13 +217,49 @@ public class DragResizer {
 
 	        textAreaContent.setCursor(Cursor.HAND);
 
-      });
+     	});
       
-      textAreaContent.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> {
+     	textAreaContent.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> {
             textAreaContent.setCursor(Cursor.HAND);
-          }
-       );
+          });
            
+    }
+    
+    protected void makeImageDraggable() {
+    		region.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+
+    			orgSceneX = e.getSceneX();
+    			orgSceneY = e.getSceneY();
+    			orgTranslateX = region.getTranslateX();
+    			orgTranslateY = region.getTranslateY();
+
+    			region.toFront();
+    			region.setCursor(Cursor.MOVE);
+
+    		});
+
+    		region.addEventHandler(MouseEvent.MOUSE_DRAGGED, e -> {
+      		double offsetX = e.getSceneX() - orgSceneX;
+      		double offsetY = e.getSceneY() - orgSceneY;
+      		double newTranslateX = orgTranslateX + offsetX;
+      		double newTranslateY = orgTranslateY + offsetY;
+
+	        if(newTranslateX > 0 &&
+	        		(newTranslateX + region.getWidth()) < bound.getWidth()){
+	             region.setTranslateX(newTranslateX);
+	        	}
+	        if(newTranslateY > 0 &&
+	            (newTranslateY + region.getHeight()) < bound.getHeight()){
+	            region.setTranslateY(newTranslateY);
+	        }
+
+	        region.setCursor(Cursor.HAND);
+
+    		});
+      
+    		region.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> {
+            region.setCursor(Cursor.HAND);
+    		});    
 
     }
 }

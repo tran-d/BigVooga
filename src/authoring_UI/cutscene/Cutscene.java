@@ -1,4 +1,4 @@
-package authoring_UI.dialogue;
+package authoring_UI.cutscene;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,15 +7,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
-/**
- * Class holding dialogue data.
- * 
- * @author DavidTran
- *
- */
-public class Dialogue extends Displayable {
+public class Cutscene extends Displayable {
 
-	public Dialogue(String name, String fontType, Color fontColor, List<Pane> dialogueSequence) {
+	public Cutscene(String name, String fontType, Color fontColor, List<Pane> dialogueSequence) {
 		super(name, fontType, fontColor, dialogueSequence);
 	}
 

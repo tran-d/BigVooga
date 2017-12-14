@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import authoring_UI.MapManager;
+import authoring_UI.displayable.DisplayableManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
@@ -22,7 +23,7 @@ import tools.DisplayLanguage;
  * @author DavidTran
  *
  */
-public class DialogueManager {
+public class DialogueManager extends DisplayableManager {
 
 	private static final double NODE_SPACING = 20;
 	private static final double BUTTON_WIDTH = 300;
@@ -55,19 +56,14 @@ public class DialogueManager {
 
 	}
 
-	private Separator createSeparator() {
-		Separator separator = new Separator();
-		separator.setOrientation(Orientation.VERTICAL);
-		return separator;
+	@Override
+	protected Separator createSeparator() {
+		return super.createSeparator();
 	}
 
-	private Separator createShortSeparator() {
-		Separator separator = new Separator();
-		separator.setOrientation(Orientation.VERTICAL);
-		separator.setPrefHeight(300);
-		separator.setMaxHeight(300);
-		separator.setMinHeight(300);
-		return separator;
+	@Override
+	protected Separator createShortSeparator() {
+		return super.createShortSeparator();
 	}
 
 	/*************************** PUBLIC METHODS **********************************/
@@ -81,9 +77,8 @@ public class DialogueManager {
 		return hb;
 	}
 
-	/*************************** PRIVATE METHODS *********************************/
-
-	private void updateListView() {
+	@Override
+	protected void updateListView() {
 		dExtractor.extract(editorList);
 		listView = new DialogueListView(dExtractor.getDialogueList());
 		System.out.println(listView);
@@ -91,19 +86,10 @@ public class DialogueManager {
 		mapDialoguesTab.setContent(listView);
 	}
 
-	private void save() {
-//		for (DialogueEditor DE: editorList){
-//			if (DE!=null)
-//		}
+	@Override
+	protected void save() {
 		if (currentEditor != null && !currentEditor.getName().trim().equals("")) {
-
-			// if (editorList.size() > currentEditor) {
-			// editorList.remove(currentEditor);
-			// editorList.add(currentEditor, editor);
-			// }
-			// else
-			// editorList.add(editor);
-
+			
 			if (editorList.contains(currentEditor)) {
 				editorList.remove(currentEditor);
 			}
@@ -118,14 +104,14 @@ public class DialogueManager {
 		updateListView();
 	}
 
-	private void newEditor() {
+	protected void newEditor() {
 		currentEditor = new DialogueEditor(e -> save());
 		currentEditorIndex = editorList.size();
 
 		loadEditor(currentEditorIndex);
 	}
 
-	private void loadEditor(int index) {
+	protected void loadEditor(int index) {
 
 		System.out.println("Load index: " + index);
 		
@@ -146,14 +132,14 @@ public class DialogueManager {
 		currentEditorIndex = index;
 	}
 
-	private VBox createButtonPanel() {
+	protected VBox createButtonPanel() {
 		VBox vb = new VBox(NODE_SPACING);
 		vb.getChildren().addAll(createButton(ADD_BUTTON_PROMPT, e -> newEditor()),
 				createButton(SAVE_BUTTON_PROMPT, e -> save()), createButton(DELETE_BUTTON_PROMPT, e -> delete()));
 		return vb;
 	}
 
-	private void prev() {
+	protected void prev() {
 		if (currentEditorIndex > 0) {
 			currentEditorIndex -= 1;
 			hb.getChildren().remove(4);
@@ -161,7 +147,7 @@ public class DialogueManager {
 		}
 	}
 
-	private void next() {
+	protected void next() {
 		if (currentEditorIndex < editorList.size() - 1) {
 			System.out.println("Editor List Size Called in Next: " + editorList.size());
 			System.out.println("Current Editor Index Called in Next: " + currentEditorIndex);
@@ -169,13 +155,6 @@ public class DialogueManager {
 			hb.getChildren().remove(4);
 			hb.getChildren().add(editorList.get(currentEditorIndex).getParent());
 		}
-	}
-
-	private Button createButton(String name, EventHandler<ActionEvent> handler) {
-		Button btn = new Button();
-		btn.textProperty().bind(DisplayLanguage.createStringBinding(name));
-		btn.setOnAction(handler);
-		return btn;
 	}
 
 	private void addDefaultDialogueButton() {
@@ -195,7 +174,7 @@ public class DialogueManager {
 		btn.setOnAction(e -> loadEditor(dView.getButtonIndex(btn)));
 	}
 
-	private void delete() {
+	protected void delete() {
 
 		for(int i = 0; i < editorList.size(); i++) {
 			System.out.println("Element of Editor List Before Delete: " + editorList.get(i));

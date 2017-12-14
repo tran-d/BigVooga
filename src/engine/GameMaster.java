@@ -95,7 +95,6 @@ public class GameMaster implements EngineController{
 		return playerManager;
 	}
 	
-	
 	/**
 	 * Passes image data to playermanager.
 	 * Used in step.
