@@ -104,7 +104,6 @@ public class AuthoringController {
 		} else {
 			this.activeManagerProperty.set(null);
 		}
-
 		authoringPane.getChildren().addAll(view, currentSideBar);
 	}
 
