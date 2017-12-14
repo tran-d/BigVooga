@@ -52,13 +52,7 @@ public class AuthoringEnvironmentManager {
 		
 		defaultEmptySprite = new DefaultSpriteObject();
 		
-<<<<<<< HEAD
-		;
-		
-		if (myDefaultSprites == null) ;
-=======
 		if (myDefaultSprites == null) System.out.println("this was def initialized");
->>>>>>> 0f8ccc705aa5ea35b7ad7dd48bb75c2cb40116ed
 	}
 	
 	private void initializeSpriteNameManager(){
