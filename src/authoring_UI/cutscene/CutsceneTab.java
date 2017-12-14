@@ -1,25 +1,19 @@
-package authoring_UI.dialogue;
+package authoring_UI.cutscene;
 
 import authoring_UI.displayable.DisplayableTab;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
-/**
- * Class that represents a tab listing dialogues to edit
- * 
- * @author DavidTran
- *
- */
-public class DialogueTab extends DisplayableTab {
+public class CutsceneTab extends DisplayableTab {
 
 	private static final double DIALOGUE_SPACING = 25;
 	private static final double PADDING = 25;
 
-	private VBox dialogueLister;
+	private VBox cutsceneLister;
 	private ScrollPane sp;
 
-	public DialogueTab(String name) {
+	public CutsceneTab(String name) {
 		super(name);
 		this.setContent(sp);
 	}
@@ -31,24 +25,24 @@ public class DialogueTab extends DisplayableTab {
 
 	@Override
 	protected void addDisplayable(int index, Button btn) {
-		if (dialogueLister.getChildren().size() > index) {
-			dialogueLister.getChildren().remove(index);
-			dialogueLister.getChildren().add(index, btn);
+		if (cutsceneLister.getChildren().size() > index) {
+			cutsceneLister.getChildren().remove(index);
+			cutsceneLister.getChildren().add(index, btn);
 		} else
-			dialogueLister.getChildren().add(btn);
+			cutsceneLister.getChildren().add(btn);
 		// System.out.println(dialogueLister.getChildren().size() + " " + index);
 
 	}
 
 	@Override
 	protected void deleteDisplayable(int index) {
-		dialogueLister.getChildren().remove(index);
+		cutsceneLister.getChildren().remove(index);
 
 	}
 	
 	@Override
 	protected int getButtonIndex(Button btn) {
-		return dialogueLister.getChildren().indexOf(btn);
+		return cutsceneLister.getChildren().indexOf(btn);
 	}
 
 }

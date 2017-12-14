@@ -1,4 +1,4 @@
-package authoring_UI.dialogue;
+package authoring_UI.cutscene;
 
 import java.io.File;
 import java.util.List;
@@ -37,12 +37,7 @@ import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Font;
 import tools.DisplayLanguage;
 
-/**
- * Class that allows users to edit/save dialogues
- * 
- * @author DavidTran
- */
-public class DialogueEditor extends DisplayableEditor {
+public class CutsceneEditor extends DisplayableEditor {
 
 	private static final String NAME_PROMPT = "Name";
 	private static final String FONT_TYPE_PROMPT = "FontType";
@@ -66,16 +61,16 @@ public class DialogueEditor extends DisplayableEditor {
 	private ChoiceBox<String> fontTypeCB;
 	private ColorPicker fontColorCP;
 	private TextField numPanelsTF;
-	private DialogueTextAreaView dsp;
+	private CutsceneTextAreaView cutsceneView;
 	private Consumer<String> saveConsumer;
 	private ColorPicker backgroundColorCP;
 	private SVGPath svg;
 	private Image image;
 
-	public DialogueEditor(Consumer<String> saveCons) {
+	public CutsceneEditor(Consumer<String> saveCons) {
 		this.saveConsumer = saveCons;
 		view = new VBox(10);
-		view.getStylesheets().add(DialogueManager.class.getResource("dialogue.css").toExternalForm());
+		view.getStylesheets().add(CutsceneManager.class.getResource("cutscene.css").toExternalForm());
 
 		this.makeTemplate();
 	}
@@ -104,7 +99,7 @@ public class DialogueEditor extends DisplayableEditor {
 	}
 	
 	protected List<Pane> getDialogueSequence() {
-		return dsp.getDialogueSequence();
+		return cutsceneView.getCutsceneSequence();
 	}
 	
 	protected Color getBackgroundColor() {
@@ -148,13 +143,13 @@ public class DialogueEditor extends DisplayableEditor {
 		VBox dialogueModifiersBox = new VBox(20);
 		dialogueModifiersBox.getChildren().addAll(new HBox(makeEntry(NAME_PROMPT, nameTF)), textHBox, backgroundHBox);
 		
-		view.getChildren().addAll(dialogueModifiersBox, dsp);
+		view.getChildren().addAll(dialogueModifiersBox, cutsceneView);
 	}
 
 	@Override
 	protected Button createAddTextAreaButton() {
 		Button addText = new Button("Add Text");
-		addText.setOnAction(e -> dsp.addTextArea());
+		addText.setOnAction(e -> cutsceneView.addTextArea());
 		
 		return addText;
 	}
@@ -172,7 +167,7 @@ public class DialogueEditor extends DisplayableEditor {
 		File file = retrieveFileForImageUpload(this.getParent());
 		if (file != null) {
 			image = new Image(GameDataHandler.getImageURIAndCopyToResources(file));
-			dsp.setBackgroundImage(image);
+			cutsceneView.setBackgroundImage(image);
 		}
 	}
 	
@@ -190,7 +185,7 @@ public class DialogueEditor extends DisplayableEditor {
 
 		numPanelsTF = makeTextField(NUM_PANELS_PROMPT_WIDTH, PROMPT_HEIGHT);
 
-		dsp = new DialogueTextAreaView(() -> saveConsumer.accept(getName()), () -> backgroundColorCP.getValue());
+		cutsceneView = new CutsceneTextAreaView(() -> saveConsumer.accept(getName()), () -> backgroundColorCP.getValue());
 		// numPanelsTF.setOnInputMethodTextChanged(e -> checkInput());
 	}
 	
@@ -202,23 +197,23 @@ public class DialogueEditor extends DisplayableEditor {
 				int size = Integer.parseInt(sizeTF.getText());
 				saveConsumer.accept(getName());
 				System.out.println("size changed! saving!");
-				dsp.setFont(getFontType(), size);
+				cutsceneView.setFont(getFontType(), size);
 			} catch (NumberFormatException ex) {
 				sizeTF.clear();
 				makeAlert().show();
 				}
 			}
-		dsp.setFont(getFontType(), getFontSize());
+		cutsceneView.setFont(getFontType(), getFontSize());
 	}
 	
 	@Override
 	protected void changeFontColor() {
-		dsp.setFontColor(toRGBString(fontColorCP.getValue()));
+		cutsceneView.setFontColor(toRGBString(fontColorCP.getValue()));
     }
     
 	@Override
 	protected void changeBackgroundColor() {
-    		dsp.setBackgroundColor(backgroundColorCP.getValue());
+    		cutsceneView.setBackgroundColor(backgroundColorCP.getValue());
     }
 
 	@Override
@@ -231,10 +226,11 @@ public class DialogueEditor extends DisplayableEditor {
 
 				saveConsumer.accept(getName());
 				System.out.println("font changed! saving!");
-				dsp.setFont(observableList.get(cb.getSelectionModel().getSelectedIndex()), getFontSize());
+				cutsceneView.setFont(observableList.get(cb.getSelectionModel().getSelectedIndex()), getFontSize());
 			}
 		});
 		return cb;
 	}
 
 }
+
