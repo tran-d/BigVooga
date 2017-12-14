@@ -35,7 +35,7 @@ public class MenuGridManager extends SpriteObjectGridManager {
 	
 	@Override
 	public int getLayerNum() {
-		return myMapLayer.getLayerNumber();
+		return this.myLayerNum;
 	}
 
 }
