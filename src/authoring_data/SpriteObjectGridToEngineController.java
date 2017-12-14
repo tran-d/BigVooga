@@ -34,25 +34,25 @@ public class SpriteObjectGridToEngineController {
 	// called every time a grid is processed (new world is added to engine)
 	public void createLayerAndAddToEngine(DraggableGrid currentGrid) { //SpriteObjectGridManagerI SOGMI
 		List<SpriteObjectGridManager> allLayers = currentGrid.getGrids();
-		createWorld();
+		createWorld(currentGrid.getName());
 		for (SpriteObjectGridManager thisLayer : allLayers) {
-			createEngineLayerAndAddToWorld(thisLayer);
+			createEngineLayerAndAddToWorld(thisLayer, thisLayer.getName());
 		}
 		addWorldToEngine(currentWorld);
 	}
 	
-	private void createWorld() {
-		currentWorld = new GameWorld(); 
+	private void createWorld(String n) {
+		currentWorld = new GameWorld(n); 
 	}
 
-	private void createEngineLayerAndAddToWorld(SpriteObjectGridManager thisLayer) {
+	private void createEngineLayerAndAddToWorld(SpriteObjectGridManager thisLayer, String name) {
 		List<GameObject> GO_LIST = convertSpriteObjectGridToListOfGameObjects(thisLayer);
-		GameLayer engineLayer = createLayer(GO_LIST);
+		GameLayer engineLayer = createLayer(GO_LIST, name);
 		addLayerToWorld(engineLayer);
 	}
 
-	private GameLayer createLayer(List<GameObject> gO_LIST) {
-		GameLayer thisLayer = new GameLayer();
+	private GameLayer createLayer(List<GameObject> gO_LIST, String name) {
+		GameLayer thisLayer = new GameLayer(name);
 		addAllGameObjectsToLayer(gO_LIST, thisLayer);
 		return thisLayer;
 	}

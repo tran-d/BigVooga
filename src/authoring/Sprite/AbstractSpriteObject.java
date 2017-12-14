@@ -742,7 +742,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 		for (Condition c : conditionRows.keySet()) {
 			List<Action> actions = new ArrayList<Action>();
 			for (Integer i : conditionRows.get(c)) {
-				actions.add(actionRows.get(i));
+				actions.add(actionRows.get(i-1));
 			}
 			temp.put(c, actions);
 		}
