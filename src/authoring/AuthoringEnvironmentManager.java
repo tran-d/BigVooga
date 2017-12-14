@@ -50,8 +50,6 @@ public class AuthoringEnvironmentManager {
 		
 		defaultEmptySprite = new DefaultSpriteObject();
 		
-		System.out.println("init MAPMAN in AEM");
-		
 		if (myDefaultSprites == null) System.out.println("this was def initialized");
 	}
 	

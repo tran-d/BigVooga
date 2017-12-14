@@ -137,13 +137,6 @@ public class FileSelector extends MenuOptionsTemplate {
 	}
 
 	public void importWorlds(String fileName) {
-		saveWorlds();
-		System.out.println("make new authoring GUI for PROJECT: " + fileName);
-		myAuthoringGUI = new MainAuthoringGUI(stage, sceneController, fileName);
-		myAuthoringGUI.setProjectToImportTo(myProjectName);
-		myAuthoringGUI.createAuthoringGUI();
-		stage.setScene(myAuthoringGUI.getScene());
-		stage.centerOnScreen();
-		scene = stage.getScene();
+		this.myAuthoringGUI.importWorlds(fileName);
 	}
 }
