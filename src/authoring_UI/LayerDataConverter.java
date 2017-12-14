@@ -20,7 +20,6 @@ import javafx.scene.paint.Color;
 
 public class LayerDataConverter {
 	private static final XStream SERIALIZER = setupXStream();
-
 	private int myNumRows;
 	private int myNumCols;
 	private int layerNum;

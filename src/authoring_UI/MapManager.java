@@ -201,6 +201,7 @@ public class MapManager extends TabPane {
 
 	private void removeWorld(DraggableGrid w) {
 		allWorlds.remove(w);
+		System.out.println("JUST REMOVED A WORLD, CURRENT SIZE IS: " + allWorlds.size());
 		myTabCount--;
 	}
 
@@ -224,6 +225,7 @@ public class MapManager extends TabPane {
 	}
 
 	public List<DraggableGrid> getAllWorlds() {
+		System.out.println("SIZE OF ALL WORLDS: " + allWorlds.size()); // 3 even after I delete.
 		return allWorlds;
 	}
 
@@ -266,8 +268,6 @@ public class MapManager extends TabPane {
 				}
 			}
 		});
-
 		return tab;
 	}
-
 }

@@ -25,7 +25,7 @@ public class FileSelector extends MenuOptionsTemplate {
 	private static final int SQUARICLE_HEIGHT = 125;
 	private static final String FILE_SELECTOR_CSS = "FileSelector.css";
 	private static final String PROJECT_FILE_PATH = "data/UserCreatedGames";
-	
+	private String myProjectName;
 	private Stage stage;
 	private BorderPane rootPane;
 	private SceneController sceneController;
@@ -121,6 +121,7 @@ public class FileSelector extends MenuOptionsTemplate {
 	}
 	
 	private void switchScene(String fileName) {
+		myProjectName = fileName;
 		myAuthoringGUI = new MainAuthoringGUI(stage, sceneController, fileName);
 		myAuthoringGUI.createAuthoringGUI();
 		stage.setScene(myAuthoringGUI.getScene());
@@ -138,6 +139,7 @@ public class FileSelector extends MenuOptionsTemplate {
 	public void importWorlds(String fileName) {
 		System.out.println("make new authoring GUI for PROJECT: " + fileName);
 		myAuthoringGUI = new MainAuthoringGUI(stage, sceneController, fileName);
+		myAuthoringGUI.setProjectToImportTo(myProjectName);
 		myAuthoringGUI.createAuthoringGUI();
 		stage.setScene(myAuthoringGUI.getScene());
 		stage.centerOnScreen();
