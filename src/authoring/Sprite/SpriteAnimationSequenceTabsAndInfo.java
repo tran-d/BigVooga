@@ -95,11 +95,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 
 		outmostContainerVBox.getChildren().add(tabPaneVbox);
 
-		HBox h = new HBox();
-		h.setBackground(new Background(new BackgroundFill(Color.ALICEBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
-		h.getChildren().add(new Text("hello"));
 		// outmostContainerVBox.getChildren().add(tabPaneVbox);
-		outmostContainerVBox.getChildren().add(h);
 		outmostContainerVBox.getChildren().add(this.animationVBox);
 
 	}

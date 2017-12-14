@@ -101,9 +101,10 @@ public class SpriteDataConverter {
 		} else {
 			ret = new SpriteObject(true);
 		}
-		ret.setImageURL(imageURL);
+		
 		ret.setParameterMap(catmap);
 		ret.setPositionOnGrid(gridPos);
+		ret.setAnimationSequences(this.myAnimationSequences);
 		ret.setNumCellsHeightNoException(height);
 		ret.setNumCellsWidthNoException(width);
 		ret.setUniqueID(UUID);
@@ -119,13 +120,14 @@ public class SpriteDataConverter {
 		ret.setConditionRows(conditionRows);
 		ret.setActionRows(actionRows);
 		System.out.println("SDC AnimationSeq: "+this.myAnimationSequences);
-		ret.setAnimationSequences(this.myAnimationSequences);
+		
 		List<AbstractSpriteObject> newInventory = new ArrayList<AbstractSpriteObject>();
 		inventory.forEach(SDC ->{
 			newInventory.add(SDC.createSprite());
 		});
 		ret.setInventory(newInventory);
 		System.out.println("spriteInventoryinSDC: "+ret.getInventory());
+		ret.setImageURL(imageURL);
 		return ret;
 	}
 	

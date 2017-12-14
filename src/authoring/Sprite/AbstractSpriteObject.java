@@ -173,6 +173,14 @@ public abstract class AbstractSpriteObject extends ImageView {
 			myUniqueID = SpriteIDGenerator.getInstance().getUniqueID();
 		}
 	}
+	
+	private AuthoringAnimationSequence getDefaultAnimationSequence(){
+		return this.myAASDefault;
+	}
+	
+	private void setDefaultAnimationSequence(AuthoringAnimationSequence AASDef){
+		this.myAASDefault = AASDef;
+	}
 
 	public void setUniqueID(String ID) {
 		if (myUniqueID == null) {
@@ -253,8 +261,10 @@ public abstract class AbstractSpriteObject extends ImageView {
 	private void setUpImageURLProperty(){
 		myImageURLProperty = new SimpleObjectProperty<String>();
 		myImageURLProperty.addListener((change, oldImagePath, newImagePath)->{
-			myImageURL = newImagePath;
+			if (oldImagePath!=null){
 			myAASDefault.replacePrimaryAnimationSequenceImage(new AuthoringImageView(newImagePath));
+			}
+			myImageURL = newImagePath;
 		});
 	}
 
@@ -667,6 +677,9 @@ public abstract class AbstractSpriteObject extends ImageView {
 		// animations.forEach(aniseq->{
 		// myAnimationSequences.add(new AuthoringAnimationSequence(aniseq));
 		// });
+		if (animations.size()>0){
+		this.myAASDefault = animations.get(0);
+		}
 		System.out.println("Sprite AnimationSeq set, now is: " + myAnimationSequences);
 		System.out.println("Sprite AnimationSeq set, now size: " + myAnimationSequences.size());
 	}

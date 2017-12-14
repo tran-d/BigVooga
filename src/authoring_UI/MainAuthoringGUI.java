@@ -81,6 +81,11 @@ public class MainAuthoringGUI {
 	});
 		myEngineExporter.saveEngine();
 	}
+	
+	public void importWorlds(String projectName) {
+		List<DraggableGrid> updateGrids = myGDH.loadWorldsFromWorldDirectory(projectName);
+		authoringController.importGrids(updateGrids);
+	}
 
 	public void saveWorlds() {
 		System.out.println("GDH is saving... " + authoringController.getExistingWorlds().size() + " worlds");

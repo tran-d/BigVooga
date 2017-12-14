@@ -117,4 +117,8 @@ public class AuthoringController {
 	public List<DraggableGrid> getExistingWorlds() {
 		return mapManager.getAllWorlds();
 	}
+	
+	public void importGrids(List<DraggableGrid> importedWorlds) {
+		mapManager.addImportedWorlds(importedWorlds);
+	}
 }

@@ -92,6 +92,9 @@ public class DialogueManager {
 	}
 
 	private void save() {
+//		for (DialogueEditor DE: editorList){
+//			if (DE!=null)
+//		}
 		if (currentEditor != null && !currentEditor.getName().trim().equals("")) {
 
 			// if (editorList.size() > currentEditor) {

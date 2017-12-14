@@ -8,7 +8,6 @@ public class SpriteSetImported extends SpriteSet {
 		super(GDH);
 	}
 
-	
 	@Override
 	protected void setFolderToLoad() {
 //		System.out.println(myGDH.getProjectPath());
@@ -22,7 +21,8 @@ public class SpriteSetImported extends SpriteSet {
 //	}
 	
 	public void changeFolderPath(String newFolder){
-		
+		this.categoryToSprites.clear();
+		this.setFolderToLoad(newFolder);
+		this.loadSprites();
 	}
-
 }

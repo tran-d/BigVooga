@@ -81,9 +81,6 @@ public class MapManager extends TabPane {
 		List<DraggableGrid> DGs = getListOfDraggableGrids();
 		createAddTab();
 		if (DGs.size() > 0) {
-			oldProject = true;
-			System.out.println("size: number of worlds " + DGs.size());
-			System.out.println("AN OLD GRID WAS SAVED AND NOW WILL BE LOADED");
 			for (DraggableGrid w : DGs) {
 				createTab(w);
 			}
@@ -112,6 +109,12 @@ public class MapManager extends TabPane {
 
 	protected String getManagerName() {
 		return MANAGERNAME;
+	}
+	
+	public void addImportedWorlds(List<DraggableGrid> importedWorlds) {
+		for (DraggableGrid w : importedWorlds) {
+			createTab(w);
+		}
 	}
 
 	protected SpritePanels makeSpritePanels(SpriteGridHandler mySpriteGridHandler) {
