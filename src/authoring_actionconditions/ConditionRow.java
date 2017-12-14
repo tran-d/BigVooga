@@ -72,8 +72,8 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 	}
 
 	@Override
-	public Object getSelectedActions() throws NullPointerException {
-		if(( (List<Integer>)actionCheckBoxVBox.getCurrentValue()).isEmpty()) throw new NullPointerException(INVALID_SELECTED_ACTIONS_MESSAGE);
+	public List<Integer> getSelectedActions() throws NullPointerException {
+		if((actionCheckBoxVBox.getCurrentValue()).isEmpty()) throw new NullPointerException(INVALID_SELECTED_ACTIONS_MESSAGE);
 		else return actionCheckBoxVBox.getCurrentValue();
 	}
 

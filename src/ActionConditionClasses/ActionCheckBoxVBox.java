@@ -35,11 +35,11 @@ public class ActionCheckBoxVBox<T> extends VBoxList<T> implements ActionCheckBox
 	}
 
 	@Override
-	public Object getCurrentValue() {
-		List<T> checkedBoxValues = new LinkedList<T>();
+	public List<Integer> getCurrentValue() {
+		List<Integer> checkedBoxValues = new LinkedList<Integer>();
 		for (CheckBox checkBox : checkBoxes) {
 			if (checkBox.isSelected())
-				checkedBoxValues.add((T) checkBox.getText());
+				checkedBoxValues.add(Integer.parseInt(checkBox.getText()));
 		}
 		return checkedBoxValues;
 	}
