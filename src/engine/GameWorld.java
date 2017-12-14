@@ -136,5 +136,10 @@ public class GameWorld {
 	public Point2D makeScreenCoordinatesAbsolute(double x, double y) {
 		return camera.makeCoordinatesAbsolute(x, y);
 	}
+	
+	public boolean inBounds(GameObject obj)
+	{
+		return camera.inBounds(obj);
+	}
 
 }

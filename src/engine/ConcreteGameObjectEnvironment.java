@@ -103,4 +103,11 @@ public class ConcreteGameObjectEnvironment implements GameObjectEnvironment {
 		return layer.getByID(uniqueID);
 	}
 
+	@Override
+	public boolean inBounds(GameObject obj) {
+		// TODO Auto-generated method stub
+		
+		return world.inBounds(obj);
+	}
+
 }

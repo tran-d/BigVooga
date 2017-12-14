@@ -93,7 +93,7 @@ public class TerrariaMaker extends Application {
 
 		BoundedImage i = new BoundedImage("character.png");
 		GameObject obj1 = makeObject("Player", i, 0, 0, this::conditionAction1);
-		obj1.setDoubleVariable("Timer", 60);
+		obj1.setDoubleVariable("Timer", 60.0);
 		obj1.addTag(GameObject.CAMERA_TAG);
 		obj1.addTag("Player");
 		obj1.setSize(64, 64);
@@ -140,7 +140,7 @@ public class TerrariaMaker extends Application {
 		menu.setLocation(new Point2D(500, 350));
 
 		GameObject spawner = new GameObject("Spawner");
-		spawner.setDoubleVariable("Timer", 600);
+		spawner.setDoubleVariable("Timer", 600.0);
 		spawnerConditionAction(spawner);
 		spawner.setSprite(s.clone());
 		spawner.setLocation(5000, 5000);

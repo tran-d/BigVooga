@@ -47,8 +47,6 @@ public class Sprite {
 			return;
 		}
 		if (currentAnimation == null) {
-			// Sets don't have a get() for some ungodly reason. This is shameful but oh
-			// well.
 			throw new VoogaException("UndefinedAnimation");
 		}
 		currentAnimation.increment();
