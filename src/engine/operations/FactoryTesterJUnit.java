@@ -22,7 +22,7 @@ public class FactoryTesterJUnit {
 		System.out.println(factory.getOperations("String"));
 		StringOperation first = (a, b) -> "First";
 		StringOperation second = (a, b) -> " and the second";
-		System.out.println(factory.makeOperation("Concatenate", first, second).evaluate(null, null));
+//		System.out.println(factory.makeOperation("Concatenate", first, second).evaluate(null, null));
 
 		ActionFactory actFact = new ActionFactory();
 		System.out.println(actFact.getCategories());

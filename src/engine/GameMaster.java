@@ -134,4 +134,8 @@ public class GameMaster implements EngineController{
 	public void save() {
 		playerManager.save();;
 	}
+	
+	public GlobalVariables getGlobals() {
+		return globalVars;
+	}
 }
