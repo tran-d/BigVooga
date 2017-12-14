@@ -117,6 +117,10 @@ public abstract class AbstractSpriteObject extends ImageView {
 		myTags = new ArrayList<String>();
 		myInventory = new ArrayList<AbstractSpriteObject>();
 		myAnimationSequences = new ArrayList<AuthoringAnimationSequence>();
+		AuthoringAnimationSequence AAS_default = new AuthoringAnimationSequence("Default");
+		if (this.getImageURL()!=null){
+			AAS_default.addNewAuthoringImageViewToSequence(new AuthoringImageView(this.getImageURL()));
+		}
 		initializePositionOnGridProperty();
 		initializeHeightWidthProperties();
 	}
