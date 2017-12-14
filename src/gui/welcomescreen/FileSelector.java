@@ -111,7 +111,7 @@ public class FileSelector extends MenuOptionsTemplate {
 		File f = new File(new GameDataHandler(stage).getRoot());
 		File[] listOfFiles = f.listFiles();
 		for (File file: listOfFiles) {
-			if (file.getName().charAt(0) != '.' && !file.getName().equals(GameDataHandler.RESOURCES.replace("\\", ""))) {
+			if (file.getName().charAt(0) != '.' && !file.getName().equals(GameDataHandler.RESOURCES.replace("/", ""))) {
 				Button fileButton = createFileButton(file.getName());
 				fileButton.setMnemonicParsing(false);
 				fileBox.getChildren().add(fileButton);
