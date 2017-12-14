@@ -23,17 +23,6 @@ import javafx.geometry.Point2D;
 
 public class SpriteDataConverter {
 
-	private static final XStream SERIALIZER = setupXStream();
-
-	private static XStream setupXStream() {
-		XStream xstream = new XStream(new DomDriver());
-		// xstream.addPermission(NoTypePermission.NONE);
-		xstream.addPermission(NullPermission.NULL);
-		xstream.addPermission(PrimitiveTypePermission.PRIMITIVES);
-		xstream.allowTypes(new Class[] { Point2D.class });
-		xstream.allowTypesByWildcard(new String[] { "engine.**", "java.**" });
-		return xstream;
-	}
 
 	Map<Condition, List<Integer>> conditionRows;
 	List<Action> actionRows;
@@ -135,7 +124,9 @@ public class SpriteDataConverter {
 		ret.setSavePath(mySavePath);
 		ret.setTags(tags);
 		ret.setSelectedConditionOperations(spriteConditionOperations);
+		System.out.println("selectedConditionOperations yeah " + spriteConditionOperations);
 		ret.setSelectedActionOperations(spriteActionOperations);
+		System.out.println("selectedActionOperations yeahhhh " + spriteActionOperations);
 //		ret.setAllConditions(allConditions);
 //		ret.setAllActions(allActions);
 		ret.setConditionRows(conditionRows);
