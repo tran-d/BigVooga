@@ -52,11 +52,11 @@ public abstract class SpriteParameter implements SpriteParameterI {
 //		TA.textProperty().addListener((observable, oldValue, newValue) -> {
 //			String newText;
 //			if (newValue.contains("\t")|| newValue.contains(" ")){
-//				System.out.println("ContainsSpace");
+//				;
 ////			String newText = newValue.trim();
-////			System.out.println("newtext: "+newText);
+////			;
 //			newText= newValue.replaceAll("\\s", "");
-////			System.out.println("newtext: "+newText);
+////			;
 //			Platform.runLater(() -> { 
 //				int currentCaretPosition = TA.getCaretPosition();
 //				TA.setText(newText);

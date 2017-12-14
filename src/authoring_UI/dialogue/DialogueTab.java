@@ -36,7 +36,7 @@ public class DialogueTab extends DisplayableTab {
 			dialogueLister.getChildren().add(index, btn);
 		} else
 			dialogueLister.getChildren().add(btn);
-		// System.out.println(dialogueLister.getChildren().size() + " " + index);
+		// ;
 
 	}
 

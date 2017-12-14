@@ -58,16 +58,14 @@ public class ConcreteGameObjectEnvironment implements GameObjectEnvironment {
 	@Override
 	public void transfer(GameObject gameObject, String newWorld, String layerName) {
 		GameWorld world = master.getWorldWithName(newWorld);
-		for(Layer l: world.getLayers())
-		{
-			if(l.isNamed(layerName))
-			{
+		for (Layer l : world.getLayers()) {
+			if (l.isNamed(layerName)) {
 				layer.removeGameObject(gameObject);
 				l.addGameObject(gameObject);
 			}
 		}
 	}
-	
+
 	@Override
 	public void addElement(Element e) {
 		layer.addElement(e);
@@ -85,7 +83,8 @@ public class ConcreteGameObjectEnvironment implements GameObjectEnvironment {
 
 	@Override
 	public Point2D getAbsoluteMouseCoordinates() {
-		return world.makeScreenCoordinatesAbsolute(master.getPlayerManager().getMouseXY().getX(), master.getPlayerManager().getMouseXY().getY());
+		return world.makeScreenCoordinatesAbsolute(master.getPlayerManager().getMouseXY().getX(),
+				master.getPlayerManager().getMouseXY().getY());
 	}
 
 	@Override
@@ -104,6 +103,12 @@ public class ConcreteGameObjectEnvironment implements GameObjectEnvironment {
 	}
 
 	@Override
+	public boolean inBounds(GameObject obj) {
+		// TODO Auto-generated method stub
+
+		return world.inBounds(obj);
+	}
+
 	public GlobalVariables getGlobals() {
 		return master.getGlobals();
 	}

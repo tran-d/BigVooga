@@ -69,8 +69,8 @@ public class GameSelector extends MenuOptionsTemplate {
 	 * Extracts names of user create games and creates an entry for each game
 	 */
 	public void createGameSelector() {
-		Set<String> gameSet = GameDataHandler.knownProjects().keySet();
-		for (String game : gameSet) {
+		List<String> games = new GameDataHandler(stage).knownProjects();
+		for (String game : games) {
 			createGameEntry(game);
 		}
 	}
@@ -99,7 +99,7 @@ public class GameSelector extends MenuOptionsTemplate {
 		try {
 			new GameController(stage, theGame, sceneController, false);
 		} catch (FileNotFoundException e) {
-			System.out.println("Alert");
+			;
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setContentText(e.getMessage());
 			alert.showAndWait();
@@ -110,7 +110,7 @@ public class GameSelector extends MenuOptionsTemplate {
 		try {
 			new GameController(stage, theGame, sceneController, true);
 		} catch (FileNotFoundException e) {
-			System.out.println("Alert");
+			;
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setContentText(e.getMessage());
 			alert.showAndWait();

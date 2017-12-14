@@ -26,6 +26,7 @@ public class HUDManager extends MapManager{
 	
 	@Override 
 	protected DraggableGrid makeDraggableGrid(){
+
 		System.out.println("DG in HUDMANAGER");
 		DraggableGrid ret = new DraggableGrid(GDH);
 		HUDGridBE = new HUDGridManager();

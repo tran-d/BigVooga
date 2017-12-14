@@ -23,7 +23,7 @@ public class DataTester extends Application {
 		LocalGameDataHandler g = new LocalGameDataHandler(sup, "Test Project");
 		g.addFileToProject(GameDataHandler.chooseFile(stage));
 		g.saveGame(new GameMaster());
-		System.out.println(g.knownProjects());
+		;
 		Pane p = new Pane();
 		p.getChildren().add(new ImageView(g.getImage("TestImage2.png")));
 		stage.setScene(new Scene(p));

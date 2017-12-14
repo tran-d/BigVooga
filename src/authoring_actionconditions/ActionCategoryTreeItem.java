@@ -67,14 +67,14 @@ public class ActionCategoryTreeItem extends TreeItem<HBox> {
 	private ChoiceBox<String> makeActionCategoryChoiceBox(TreeItem<HBox> categoryAction) {
 		ObservableList<String> categories = FXCollections.observableList(actionFactory.getCategories());
 		ChoiceBox<String> cb = new ChoiceBox<>(categories);
-		System.out.println("cats: " + categories);
+		;
 
 		cb.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 
-				// System.out.println(actions.get(newValue.intValue()));
+				// ;
 				// getItems().add(makeParameterChoiceBox(actions.get(newValue.intValue())));
 				categoryAction.getChildren().clear();
 				selectedCategory = categories.get(cb.getSelectionModel().getSelectedIndex());

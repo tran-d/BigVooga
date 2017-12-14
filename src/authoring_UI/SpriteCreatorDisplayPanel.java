@@ -60,7 +60,7 @@ public class SpriteCreatorDisplayPanel extends VBox {
 		mySInventoryTAI = new SpriteInventoryTabAndInfo(myAEM);
 		mySAnimationSequenceTAI = new SpriteAnimationSequenceTabsAndInfo();
 		mySUtilityTAI = new SpriteUtilityTabAndInfo();
-		System.out.println("made SPTAI in MENU");
+		;
 		setUpMenu();
 	}
 
@@ -74,7 +74,7 @@ public class SpriteCreatorDisplayPanel extends VBox {
 	}
 
 	// private SpriteObject getActiveCell() throws Exception {
-	// // System.out.println("MYAEMACTIVE: " + myAEM.getActiveCell());
+	// // ;
 	// return mySPSM.getActiveSprite();
 	// }
 	//
@@ -248,7 +248,7 @@ public class SpriteCreatorDisplayPanel extends VBox {
 
 	private void addSpriteEditorErrorMessage() {
 		if (!this.getChildren().contains(myParameterErrorMessage)) {
-			// System.out.println(myParamTabVBox.getChildren().size());
+			// ;
 			int numChildren = this.getChildren().size();
 			this.getChildren().add(numChildren, myParameterErrorMessage);
 		}
@@ -256,7 +256,7 @@ public class SpriteCreatorDisplayPanel extends VBox {
 
 	public void updateParameterTab(AbstractSpriteObject s) {
 
-		System.out.println("Updating....");
+		;
 		try {
 			clearAllSpriteEditorTabs();
 			removeSpriteEditorErrorMessage();

@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+
+import ActionConditionClasses.ApplyButtonController;
 import authoring.AuthoringEnvironmentManager;
+import authoring.SpriteParameterSidebarManager;
+import authoring.DialogSprite.DialogSequence;
 import authoring.Sprite.AbstractSpriteObject;
+import controller.authoring.AuthoringController;
 import engine.operations.VoogaType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,26 +24,37 @@ public class ExistingItemsChoiceBox {
 	private ChoiceBox<String> cb;
 	private ResourceBundle keys;
 
+	private AbstractSpriteObject selectedSprite = ApplyButtonController.selectedSpriteObject;
+	private List<AbstractSpriteObject> sprites;
+
 	// need current sprites
 
 	public ExistingItemsChoiceBox(VoogaType type) {
 		keys = Resources.getBundle(KEY_BUNDLE_LOCATION);
+		this.createSpriteList();
+
 		List<String> list = this.makeObservableList(type);
+
 		if (list.size() >= 0)
 			cb = this.makeChoiceBox(list);
 	}
 
-	private List<String> makeObservableList(VoogaType type) {
-		List<String> list = new ArrayList<>();
+	private void createSpriteList() {
 		Map<String, List<AbstractSpriteObject>> map = AuthoringEnvironmentManager.getEveryTypeOfSprite();
-		List<AbstractSpriteObject> sprites = map.get("DefaultSprites");
+		sprites = map.get("DefaultSprites");
 		sprites.addAll(map.get("CustomSprites"));
+		// sprites.addAll(SpriteParameterSidebarManager.getAllSpritesFromActiveGrid());
+	}
+
+	private List<String> makeObservableList(VoogaType type) {
+
+		List<String> list = new ArrayList<>();
 
 		if (type == VoogaType.ANIMATIONNAME) {
 
+			list.addAll(selectedSprite.getAnimationSequenceNames());
 			// TODO
-			list.add("need access to animation names for current sprite");
-			list.add("need access to animation names for current sprite");
+			list.add("animations should be showing above");
 
 		} else if (type == VoogaType.BOOLEANNAME) {
 			for (AbstractSpriteObject sprite : sprites) {
@@ -52,9 +68,16 @@ public class ExistingItemsChoiceBox {
 
 		} else if (type == VoogaType.DIALOGNAME) {
 
+			if (selectedSprite.getDialogSequences() == null)
+				System.out.println("dialog list is nulllll for selected sprite");
+			else {
+				for (DialogSequence d : selectedSprite.getDialogSequences()) {
+					list.add(d.getName());
+				}
+			}
+
 			// TODO
-			list.add("need access to dialogue names");
-			list.add("need access to dialogue names");
+			list.add("dialogues should be shown above");
 
 		} else if (type == VoogaType.KEY) {
 			list = makeKeyList();
@@ -74,6 +97,7 @@ public class ExistingItemsChoiceBox {
 
 		} else if (type == VoogaType.WORLDNAME) {
 
+			// AuthoringEnvironmentManager.get
 			// TODO
 			list.add("need access to world names");
 			list.add("need access to world names");
@@ -82,8 +106,8 @@ public class ExistingItemsChoiceBox {
 			list.add("if this is here, then it is broken");
 			list.add("pls tell david if you see this");
 		}
-		System.out.println("making an existingItemsList");
-		System.out.println("List: " + list);
+		;
+		;
 		return list;
 	}
 

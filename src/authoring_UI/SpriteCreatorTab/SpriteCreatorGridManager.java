@@ -111,7 +111,9 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 	
 	@Override 
 	public void getOnBackgroundChangeFunctionality(File file){
+
 		Image image = new Image(GDH.getImageURIAndCopyToResources(file));
+
 		String fileName = file.getName();
 		nameField.setText(fileName.substring(0, fileName.indexOf(".")));
 		categoryField.setText("General");

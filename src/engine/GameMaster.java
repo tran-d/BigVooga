@@ -21,6 +21,7 @@ public class GameMaster implements EngineController{
 	private static final String TRASH = "TRASH (unnamed save)";
 	
 	private GameWorld currentWorld;
+	
 	private List<GameWorld> madeWorlds;
 	private Timeline gameLoop;
 	private GlobalVariables globalVars;
@@ -94,7 +95,6 @@ public class GameMaster implements EngineController{
 	public PlayerManager getPlayerManager() {
 		return playerManager;
 	}
-	
 	
 	/**
 	 * Passes image data to playermanager.

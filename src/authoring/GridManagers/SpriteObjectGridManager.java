@@ -72,8 +72,8 @@ public abstract class SpriteObjectGridManager {
 		activeCells = new HashSet<Integer[]>();
 
 		numRowsProperty.addListener((observable, oldNumRows, newNumRows) -> {
-			System.out.println("newNumRows: " + newNumRows);
-			System.out.println("oldNumRows: " + oldNumRows);
+			;
+			;
 			if (this.getMapLayer() != null) {
 				this.getMapLayer().setNumRows(newNumRows);
 			}
@@ -91,13 +91,13 @@ public abstract class SpriteObjectGridManager {
 					spriteGrid.remove(oldNumRows - i - 1);
 				}
 			}
-			System.out.println("spriteGridNuMRows: " + spriteGrid.size());
-			System.out.println("spriteGridNumCols: " + spriteGrid.get(0).size());
+			;
+			;
 		});
 
 		numColumnsProperty.addListener((observable, oldNumColumns, newNumColumns) -> {
-			System.out.println("newNumCols: " + newNumColumns);
-			System.out.println("oldNumCols: " + oldNumColumns);
+			;
+			;
 			if (this.getMapLayer() != null) {
 				this.getMapLayer().setNumCols(newNumColumns);
 			}
@@ -138,9 +138,9 @@ public abstract class SpriteObjectGridManager {
 	}
 
 	public void updateSpriteGrid() {
-		System.out.println("Updating sprite list, sprite grid:");
-		System.out.println(this.spriteGrid);
-		System.out.println("spriteGrid size: " + this.spriteGrid.size());
+		;
+		;
+		;
 		if (getStoredSpriteList().size() != 0) {
 			getStoredSpriteList().forEach(sprite -> {
 				setCell(sprite, sprite.getPositionOnGrid());
@@ -201,9 +201,6 @@ public abstract class SpriteObjectGridManager {
 			});
 
 		}
-
-		System.out.println("List of sprites: " + ret);
-		System.out.println("List of sprites size: " + ret.size());
 		return ret;
 	}
 
@@ -227,7 +224,7 @@ public abstract class SpriteObjectGridManager {
 
 	private void setCell(AbstractSpriteObject SOI, Integer[] loc) {
 		spriteGrid.get(loc[0]).set(loc[1], SOI);
-		System.out.println("setCell, into spriteGrid: "+SOI);
+		;
 	}
 
 	private void setCellAsDefault(Integer[] loc) {
@@ -250,7 +247,7 @@ public abstract class SpriteObjectGridManager {
 	}
 
 	private boolean changeCellActiveStatus(Integer[] pos) {
-		System.out.println("pos: " + pos[0] + " " + pos[1]);
+		;
 
 		for (Integer[] currentActive : activeCells) {
 			if (Arrays.equals(currentActive, pos)) {
@@ -268,10 +265,10 @@ public abstract class SpriteObjectGridManager {
 	}
 
 	public void addActiveCell(Integer[] pos) {
-		System.out.println("Adding active cell!: " + pos[0] + " " + pos[1]);
+		;
 
 		activeCells.add(pos);
-		System.out.println("active cells size!: " + activeCells.size());
+		;
 	}
 
 	public void addActiveCell(AbstractSpriteObject ASO) {
@@ -316,25 +313,25 @@ public abstract class SpriteObjectGridManager {
 	}
 
 	public void clearCells(List<Integer[]> cellsToDelete) {
-		System.out.println("cellsToClear :" + cellsToDelete);
+		;
 		// removeActiveCells(cellsToDelete);
 		getMapLayer().removeSpritesAtPositions(cellsToDelete);
 		for (Integer[] loc : cellsToDelete) {
-			System.out.println("clearCells loc loop: " + loc);
+			;
 			setCellAsDefault(loc);
 		}
 	}
 
 	private AbstractSpriteObject getCell(Integer[] loc) {
 		AbstractSpriteObject ret = spriteGrid.get(loc[0]).get(loc[1]);
-		System.out.println("Returning from getCell :" + ret);
+		;
 		return ret;
 
 	}
 
 	public void matchActiveCellsToSprite(AbstractSpriteObject firstSprite) {
 		for (AbstractSpriteObject SOI : getActiveSpriteObjects()) {
-			System.out.println("Active Sprite Params: " + SOI.getParameters());
+			;
 			SOI.applyParameterUpdate(firstSprite.getParameters());
 //			SOI.setAllActions(firstSprite.getAllActions());
 //			SOI.setCondidtionRows(firstSprite.getConditionRows());
@@ -347,7 +344,7 @@ public abstract class SpriteObjectGridManager {
 	}
 
 	public void setNumRows(Integer newRows) {
-		System.out.println("Setting num rows: " + newRows);
+		;
 		this.numRowsProperty.set(newRows);
 	}
 
@@ -364,7 +361,7 @@ public abstract class SpriteObjectGridManager {
 	}
 
 	public void setNumCols(Integer newCols) {
-		System.out.println("Setting num cols: " + newCols);
+		;
 		this.numColumnsProperty.set(newCols);
 	}
 

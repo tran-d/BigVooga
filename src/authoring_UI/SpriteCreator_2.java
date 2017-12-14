@@ -151,8 +151,8 @@ public class SpriteCreator_2 extends Observable {
 
 		Button createSprite = new Button("Finish Creating");
 		createSprite.setOnAction(e-> {
-			System.out.println(getSpriteObject());
-			System.out.println("Spritename when creating: "+getSpriteObject().getName());
+			;
+			;
 			mySPTAI.apply();
 //			copySpriteFileToProject();
 			setChanged();
@@ -170,8 +170,8 @@ public class SpriteCreator_2 extends Observable {
 	}
 	
 	private SpriteObject getSpriteObject() {
-		System.out.println("Getting sprite object");
-		System.out.println(mySpriteObject);
+		;
+		;
 		return mySpriteObject;
 	}
 
@@ -181,9 +181,9 @@ public class SpriteCreator_2 extends Observable {
 		Text name = new Text("name: ");
 		nameInput = new TextField("Enter Sprite Name");
 		nameInput.textProperty().addListener((observable, oldValue, newValue)->{
-			System.out.println("oldname: "+oldValue);
+			;
 			mySpriteObject.setName(newValue);
-			System.out.println("newname: "+mySpriteObject.getName());
+			;
 		});
 		nameBox.getChildren().addAll(name, nameInput);
 
@@ -264,18 +264,6 @@ public class SpriteCreator_2 extends Observable {
 		mySPTAI.setSpriteObject(mySpriteObject);
 		nameInput.setText(mySpriteObject.getName());
 	}
-	
-	
-	private void copySpriteFileToProject(){
-		if (mySpriteFile!=null) {
-			try {
-				myGDH.addFileToProject(mySpriteFile);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				throw new RuntimeException();
-			}
-		}
-	}
 
 	private void openImage() throws IOException {
 		FileChooser imageChooser = new FileChooser();
@@ -285,16 +273,16 @@ public class SpriteCreator_2 extends Observable {
 		
 		
 		if (file != null) {
-			System.out.println("pathhhh " + file.getAbsolutePath());
+			;
 
 			Files.copy(file.toPath(), Paths.get(PATH+file.getName()), StandardCopyOption.REPLACE_EXISTING);
-			System.out.println(file.getName());
+			;
 			File absFile = new File(file.getAbsolutePath());
 			mySpriteObject.setImageURL(absFile.getName());
 //			setChanged();
 //			System.out.print(file.getName());
 //			notifyObservers(file.getName());
-			System.out.println("image chosen");
+			;
 
 		}
 

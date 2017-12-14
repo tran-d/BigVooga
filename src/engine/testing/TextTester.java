@@ -49,7 +49,6 @@ public class TextTester extends Application {
 	}
 
 	public void start(Stage s) throws IOException {
-		GameDataHandler.chooseFileForImageSave(s);
 		generateGame(s, "Text test");
 	}
 

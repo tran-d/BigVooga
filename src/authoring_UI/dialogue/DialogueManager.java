@@ -85,7 +85,7 @@ public class DialogueManager extends DisplayableManager {
 	protected void updateListView() {
 		dExtractor.extract(editorList);
 		listView = new DialogueListView(dExtractor.getDialogueList());
-		System.out.println(listView);
+		;
 
 		mapDialoguesTab.setContent(listView);
 	}
@@ -109,7 +109,7 @@ public class DialogueManager extends DisplayableManager {
 			addUserDialogueButton(currentEditor.getName());
 			// currentEditor = null;
 		}
-		System.out.println("# editors: " + editorList.size());
+		;
 
 		updateListView();
 	}
@@ -123,7 +123,7 @@ public class DialogueManager extends DisplayableManager {
 
 	protected void loadEditor(int index) {
 
-		System.out.println("Load index: " + index);
+		;
 		
 		if (hb.getChildren().size() >= 4) {
 			hb.getChildren().remove(5 - 1);
@@ -159,8 +159,8 @@ public class DialogueManager extends DisplayableManager {
 
 	protected void next() {
 		if (currentEditorIndex < editorList.size() - 1) {
-			System.out.println("Editor List Size Called in Next: " + editorList.size());
-			System.out.println("Current Editor Index Called in Next: " + currentEditorIndex);
+			;
+			;
 			currentEditorIndex += 1;
 			hb.getChildren().remove(4);
 			hb.getChildren().add(editorList.get(currentEditorIndex).getParent());
@@ -177,7 +177,7 @@ public class DialogueManager extends DisplayableManager {
 	}
 
 	private void addUserDialogueButton(String name) {
-		System.out.println("Click Editor Index: " + currentEditorIndex);
+		;
 		Button btn = new Button(name);
 		btn.setPrefSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 		dView.addUserDialogueButton(currentEditorIndex, btn);
@@ -187,7 +187,7 @@ public class DialogueManager extends DisplayableManager {
 	protected void delete() {
 
 		for(int i = 0; i < editorList.size(); i++) {
-			System.out.println("Element of Editor List Before Delete: " + editorList.get(i));
+			;
 		}
 
 
@@ -196,8 +196,8 @@ public class DialogueManager extends DisplayableManager {
 			removeUserDialogueButton();
 			
 			if (editorList.size() > 1) {
-				System.out.println("Editor List Before Delete: " + editorList.size());
-				System.out.println("Editor Index Before Delete: " + currentEditorIndex);
+				;
+				;
 
 				if (currentEditorIndex == editorList.size() - 1) {
 					prev();
@@ -220,11 +220,11 @@ public class DialogueManager extends DisplayableManager {
 			}
 		}
 
-		System.out.println("Editor List Size After Delete: " + editorList.size());
-		System.out.println("Editor Index After Delete: " + currentEditorIndex);
+		;
+		;
 
 		for(int i = 0; i < editorList.size(); i++) {
-			System.out.println("Element of Editor List After Delete: " + editorList.get(i));
+			;
 		}
 
 	}

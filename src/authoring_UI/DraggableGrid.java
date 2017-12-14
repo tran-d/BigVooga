@@ -77,31 +77,31 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 //			SOGM.setSpriteGridHandler(mySGH);
 			
 //			if (SOGM.getLayerNum() == 0) {
-//				System.out.println("NUM ROWS IN DG: " + SOGM.getRowsForImport());
+//				;
 //				TerrainObjectGridManager TOGM = new TerrainObjectGridManager(SOGM.getRowsForImport(), SOGM.getColsForImport(), SOGM.getLayerNum(), SOGM.getColor());
 //				TOGM.setSpriteGridHandler(mySGH);
-//				System.out.println("TOGM HAS THIS MANY SPRITES: " + SOGM.getStoredSpriteList().size());
+//				;
 //				TOGM.createMapLayer(SOGM.getStoredSpriteList()); 
 //				allGrids.add(TOGM);
 //			}
 //			if (SOGM.getLayerNum() == 1) {
-//				System.out.println("NUM ROWS IN DG: " + SOGM.getRowsForImport());
+//				;
 //				SpriteObjectGridManagerForSprites SOGMS = new SpriteObjectGridManagerForSprites(SOGM.getRowsForImport(), SOGM.getColsForImport(), SOGM.getLayerNum(), SOGM.getColor());
 //				SOGMS.setSpriteGridHandler(mySGH);
-//				System.out.println("SOGMS HAS THIS MANY SPRITES: " + SOGM.getStoredSpriteList().size());
+//				;
 //				SOGMS.createMapLayer(SOGM.getStoredSpriteList()); 
 //				allGrids.add(SOGMS);
 //			}
 //			if (SOGM.getLayerNum() == 2) {
-//				System.out.println("NUM ROWS IN DG: " + SOGM.getRowsForImport());
+//				;
 //				PanelObjectGridManager POGM = new PanelObjectGridManager(SOGM.getRowsForImport(), SOGM.getColsForImport(), SOGM.getLayerNum(), SOGM.getColor());
 //				POGM.setSpriteGridHandler(mySGH);
-//				System.out.println("POGM HAS THIS MANY SPRITES: " + SOGM.getStoredSpriteList().size());
+//				;
 //				POGM.createMapLayer(SOGM.getStoredSpriteList());
 //				allGrids.add(POGM);
 //			}
 		
-		System.out.println("successfully added all grids, allGrids size is: " + allGrids.size());
+		;
 	}
 	
 	public DraggableGrid(int row, int col) {
@@ -117,7 +117,7 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 	@Override
 	public void construct(SpriteGridHandler spriteGridHandler){
 		if (allGrids == null){
-			System.out.println("GRIDS IS NULL!");
+			;
 			allGrids = new ArrayList<SpriteObjectGridManager>();
 		}
 		mySGH = spriteGridHandler;
@@ -151,7 +151,7 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 			makeLayerButton(ml);
 			showLayer(ml);
 			layerRows = ml.getNumRows();
-			System.out.println("LAYER ROWS : " + layerRows);
+			;
 			layerColumns = ml.getNumCols();
 		}
 	
@@ -186,11 +186,13 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 	private void makeLayers(SpriteGridHandler spriteGridHandler){
 		showingGrids = new ArrayList<SpriteObjectGridManager>();
 		if (allGrids.size()==0){
+
 			System.out.println("SHOULD NOT BE GOING THROUGH THIS ALERT ALERT ALERT");
 		SpriteObjectGridManager background = new BackgroundGridManager(rows, cols, spriteGridHandler, GDH);
 		SpriteObjectGridManager terrain = new TerrainObjectGridManager(rows, cols, spriteGridHandler, GDH);
 		SpriteObjectGridManagerForSprites sprites = new SpriteObjectGridManagerForSprites(rows, cols, spriteGridHandler, GDH);
 		PanelObjectGridManager panels = new PanelObjectGridManager(rows, cols, spriteGridHandler, GDH);
+		
 		allGrids.add(background);
 		allGrids.add(terrain);
 		allGrids.add(sprites);
@@ -200,7 +202,7 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 		});
 		} else {
 			allGrids.forEach(item->{
-				System.out.println("already has a grid!: "+item);
+				;
 				item.setSpriteGridHandler(spriteGridHandler);
 				item.createMapLayer();
 				
@@ -229,7 +231,7 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 	}
 	
 	private void showLayer(SpriteObjectGridManager ML){
-//		System.out.println("Adding layer: "+ML.getName());
+//		;
 		if (!showingGrids.contains(ML)){
 			showingGrids.add(ML);
 		}
@@ -327,7 +329,7 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 					parent = parent.getParent();
 					s = parent.getScene();
 				}
-				File file = GameDataHandler.chooseFileForImageSave(s.getWindow());
+				File file = GameDataHandler.chooseFileForImageLoad(s.getWindow());
 				if (file != null) {
 					ML.getOnBackgroundChangeFunctionality(file);
 				}

@@ -6,6 +6,7 @@ import java.util.List;
 
 import authoring.Sprite.AnimationSequences.AuthoringAnimationSequence;
 import authoring.Sprite.AnimationSequences.AuthoringImageView;
+import authoring.drawing.BoundingPolygonCreator;
 //import authoring.drawing.BoundingPolygonCreator;
 import engine.sprite.BoundedImage;
 import engine.utilities.data.GameDataHandler;
@@ -61,18 +62,18 @@ public class SpriteAnimationSequenceTabsAndInfo {
 		this.animationsSequences = new ArrayList<AuthoringAnimationSequence>();
 		// clearAnimationSequencesList();
 		// this.clearExistingAnimationSequencesTabPane();
-		System.out.println("SO ANSEQ SIZE:" + SO.getAnimationSequences().size());
+		;
 		mySO = SO;
 		SO.getAnimationSequences().forEach(AS -> {
-			System.out.println("AnimationSequence: " + AS);
+			;
 			this.addAnimationSequence(AS);
 		});
-		System.out.println("Num tabs: " + this.containerTabPane.getTabs().size());
+		;
 
 	}
 
 	private void initialize() {
-		System.out.println("Initializig SpireAnimatTab");
+		;
 		initializeAnimationSequencesList();
 
 		outmostContainerVBox = new VBox();
@@ -122,22 +123,22 @@ public class SpriteAnimationSequenceTabsAndInfo {
 				s = parent.getScene();
 			}
 
-			File file = GameDataHandler.chooseFileForImageSave(s.getWindow());
+			File file = GameDataHandler.chooseFileForImageLoad(s.getWindow());
 			Image im = new Image(file.toURI().toString());
 			AuthoringImageView AIV = new AuthoringImageView(file.getName());
-//			makeBoundedImagePopup(AIV, im, file.getName());
+			makeBoundedImagePopup(AIV, im, file.getName());
 			addNewAuthoringImageViewToSequence(this.activeAnimationSeqeunce, AIV);
 		});
 	}
 	
-//	private void makeBoundedImagePopup(AuthoringImageView view, Image im, String name) {
-//		Stage popup = new Stage();
-//		view.setBoundedImage(new BoundedImage(name));
-////		BoundingPolygonCreator bpc = new BoundingPolygonCreator(im, name, bi -> view.setBoundedImage(bi));
-//		popup.setScene(new Scene(bpc));
-//		popup.setOnCloseRequest(e -> bpc.save());
-//		popup.show();
-//	}
+	private void makeBoundedImagePopup(AuthoringImageView view, Image im, String name) {
+		Stage popup = new Stage();
+		view.setBoundedImage(new BoundedImage(name));
+		BoundingPolygonCreator bpc = new BoundingPolygonCreator(im, name, bi -> view.setBoundedImage(bi));
+		popup.setScene(new Scene(bpc));
+		popup.setOnCloseRequest(e -> bpc.save());
+		popup.show();
+	}
 
 	private void addNewAuthoringImageViewToSequence(AuthoringAnimationSequence AAS, AuthoringImageView AIV) {
 		AAS.addNewAuthoringImageViewToSequence(AIV, false);
@@ -170,7 +171,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	// }
 
 	public void clearExistingAnimationSequencesTabPane() {
-		System.out.println("ClearingExistingAnimations");
+		;
 		containerTabPane.getTabs().clear();
 	}
 
@@ -186,7 +187,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	 * @return Pane - the surrounding VBox for the TabPane of AnimationSequences
 	 */
 	public Pane getTabPaneVbox() {
-		System.out.println("getting container vbox");
+		;
 		return tabPaneVbox;
 	}
 
@@ -205,7 +206,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	// }
 
 	// private void createOutmostVBox(){
-	// System.out.println("Container Scroll Pane");
+	// ;
 	// outmostContainerVBox = new VBox();
 	// }
 
@@ -214,7 +215,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	 *         AnimationSequences and buttons to add to them
 	 */
 	public VBox getAnimationBox() {
-		System.out.println("getting scroll pane");
+		;
 		// System.out.println("Content:
 		// "+((VBox)containerScrollPane.getContent()).getChildren());
 
@@ -280,8 +281,8 @@ public class SpriteAnimationSequenceTabsAndInfo {
 			}
 		});
 		// tab.sele
-		System.out.println("contTabPane: " + containerTabPane);
-		System.out.println("contTabPanesizebefore: " + containerTabPane.getTabs().size());
+		;
+		;
 		containerTabPane.getTabs().add(tab);
 
 		return tab;

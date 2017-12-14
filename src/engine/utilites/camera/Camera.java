@@ -56,5 +56,12 @@ public class Camera {
 		
 		return new Point2D(x+deltaX*PARALLAX, y+deltaY*PARALLAX);
 	}
+	public boolean inBounds(GameObject obj)
+	{
+		Point2D relCoords = makeCoordinatesRelative(obj.getX(), obj.getY());
+		return relCoords.getX()+obj.getDimensions().getX()/2 < 0 || relCoords.getX()-obj.getDimensions().getX()/2 > SCREEN_WIDTH
+				|| relCoords.getY()+obj.getDimensions().getY()/2 < 0 || relCoords.getY()-obj.getDimensions().getY()/2 > SCREEN_HEIGHT;
+		
+	}
 
 }

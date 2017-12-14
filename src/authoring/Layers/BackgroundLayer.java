@@ -1,5 +1,6 @@
 package authoring.Layers;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 import authoring.Sprite.AbstractSpriteObject;
@@ -14,6 +15,14 @@ public class BackgroundLayer extends MapLayer {
 	
 	public BackgroundLayer(int rows, int columns, SpriteGridHandler SGH){
 		this(rows, columns, SGH, Color.TRANSPARENT);
+	}
+	
+	public BackgroundLayer(int rows, int columns, SpriteGridHandler SGH, AbstractSpriteObject backgroundSpriteObject) {
+		super(rows, columns, SGH, Color.TRANSPARENT);
+//		this.setGridLinesVisible(false);
+//		setDefaultColor(Color.YELLOW);
+		setName("Background");
+		setBackgroundImage(()->backgroundSpriteObject);
 	}
 
 	BackgroundLayer(int rows, int columns, SpriteGridHandler SGH, Color c) {

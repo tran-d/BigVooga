@@ -91,7 +91,7 @@ public class MapManager extends TabPane {
 		setManagerName();
 		gridIsShowing = new SimpleObjectProperty<Boolean>();
 		gridIsShowing.addListener((change, oldValue, newValue) -> {
-			System.out.println(getClass() + "is updating showing from " + oldValue + "to " + newValue);
+			;
 			this.mySpriteGridHandler.setGridIsShown(newValue);
 		});
 		myAEM = AEM;
@@ -110,7 +110,7 @@ public class MapManager extends TabPane {
 				createTab(w);
 			}
 		} else {
-			System.out.println("displaying a new grid");
+			;
 			createTab(makeDraggableGrid());
 		}
 		this.mySelectModel.select(startTab);
@@ -127,7 +127,7 @@ public class MapManager extends TabPane {
 
 	protected List<DraggableGrid> getListOfDraggableGrids() {
 		List<DraggableGrid> DGs = myGDH.loadWorldsFromWorldDirectory();
-		System.out.println("DGsize: "+DGs.size());
+		;
 		
 		return DGs;
 	}
@@ -140,6 +140,9 @@ public class MapManager extends TabPane {
 		for (DraggableGrid w : importedWorlds) {
 			createTab(w);
 		}
+		myAEM.getImportedSpriteController().changeFolderPath();
+		myAEM.getImportedInventorySpriteController().changeFolderPath();
+		System.out.println("ADD IMPORTED WORLDS");
 	}
 
 	protected SpritePanels makeSpritePanels(SpriteGridHandler mySpriteGridHandler) {
@@ -222,7 +225,7 @@ public class MapManager extends TabPane {
 		this.getTabs().add(this.getTabs().size() - 1, newtab);
 		myTabCount++;
 		this.mySelectModel.select(newtab);
-		System.out.println("tab incremented");
+		;
 	}
 
 	protected void setTabTag() {
