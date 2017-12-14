@@ -184,7 +184,7 @@ public class GameDataHandler {
 	private void clearKnown() {
 		Properties prop = getProperties();
 
-		prop.put(projectName, "");
+		prop.put(projectName, ",");
 
 		try {
 			FileOutputStream out = new FileOutputStream(KNOWN_PROJECTS_PATH);
@@ -912,13 +912,11 @@ public class GameDataHandler {
 			for (File f : files) {
 				try {
 					ret.add(loadDialogue(f));
-
 				} catch (FileNotFoundException e) {
 					throw (new VoogaException(e));
 				}
 			}
 		}
-
 		return ret;
 	}
 

@@ -1,5 +1,7 @@
 package engine.sprite;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,12 +18,16 @@ public class Sprite {
 	private AnimationSequence currentAnimation;
 	private AnimationSequence tempAnimation = null;
 
+
 	public void addAnimationSequence(AnimationSequence animation) {
 		animations.put(animation.getName(), animation);
+		if(animations.size() == 0)
+			currentAnimation = animation;
 	}
 
 	/**
-	 * @param name The new animation sequence to switch to
+	 * @param name
+	 *            The new animation sequence to switch to
 	 */
 	public void setAnimation(String name) {
 		if (!animations.containsKey(name))
@@ -34,19 +40,22 @@ public class Sprite {
 	 * Increments the AnimationSequences
 	 */
 	public void step() {
-		if(tempAnimation!= null)
-		{
+		if (tempAnimation != null) {
 			tempAnimation.increment();
-			if(tempAnimation.isDone())
+			if (tempAnimation.isDone())
 				tempAnimation = null;
 			return;
+		}
+		if (currentAnimation == null) {
+			// Sets don't have a get() for some ungodly reason. This is shameful but oh
+			// well.
+			throw new VoogaException("UndefinedAnimation");
 		}
 		currentAnimation.increment();
 	}
 
 	public BoundedImage getImage() {
-		if(tempAnimation!= null)
-		{
+		if (tempAnimation != null) {
 			return tempAnimation.getImage();
 		}
 		if (currentAnimation == null)
@@ -62,10 +71,10 @@ public class Sprite {
 		clone.setAnimation(currentAnimation.getName());
 		return clone;
 	}
-	
-	public void playOnce(String name)
-	{
+
+	public void playOnce(String name) {
 		tempAnimation = animations.get(name);
 	}
+
 
 }

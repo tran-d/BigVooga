@@ -123,9 +123,10 @@ public class BoundingPolygonCreator extends Pane {
 	}
 
 	private void rightClick(MouseEvent event) {
+		if(vertices.isEmpty())
+			return;
 		addLine(generateLine(lastPoint(), vertices.get(0)));
 		changePhantomLine(null);
-
 		generateRelativeGeometry();
 	}
 
