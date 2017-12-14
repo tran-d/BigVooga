@@ -13,20 +13,10 @@ import authoring.GridManagers.SpriteObjectGridManager;
 import javafx.geometry.Point2D;
 
 public class MapDataConverter {
-	private final XStream SERIALIZER = setupXStream();
 	private String myName;
 //	private String layerPath;
 	private List<LayerDataConverter> gridManagers;
 	
-	
-	public XStream setupXStream() {
-		XStream xstream = new XStream(new DomDriver());
-		xstream.addPermission(NullPermission.NULL);
-		xstream.addPermission(PrimitiveTypePermission.PRIMITIVES);
-		xstream.allowTypes(new Class[] { Point2D.class });
-		xstream.allowTypesByWildcard(new String[] { "engine.**", "java.**" });
-		return xstream;
-	}
 	
 	public String getName(){
 		return myName;

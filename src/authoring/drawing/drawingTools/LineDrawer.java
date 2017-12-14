@@ -7,6 +7,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Line;
 
 /**
+ * Draws lines on the canvas, using a phantom line to indicate where the line will be drawn.
+ * 
  * @author Ian Eldridge-Allegra
  *
  */

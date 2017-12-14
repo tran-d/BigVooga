@@ -19,22 +19,12 @@ import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
 public class LayerDataConverter {
-	private static final XStream SERIALIZER = setupXStream();
-
 	private int myNumRows;
 	private int myNumCols;
 	private int layerNum;
 	private String myName;
 	private List<SpriteDataConverter> mySprites;
 	
-	private static XStream setupXStream() {
-		XStream xstream = new XStream(new DomDriver());
-		xstream.addPermission(NullPermission.NULL);
-		xstream.addPermission(PrimitiveTypePermission.PRIMITIVES);
-		xstream.allowTypes(new Class[] { Point2D.class });
-		xstream.allowTypesByWildcard(new String[] { "engine.**", "java.**" });
-		return xstream;
-	}
 	
 	public String getName(){
 		return myName;

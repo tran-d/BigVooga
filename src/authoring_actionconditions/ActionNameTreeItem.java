@@ -47,6 +47,8 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 			// System.out.println(operationList);
 			System.out.println("Making action for " + selectedAction + "...");
 			action = actionFactory.makeAction(selectedAction, operationList.toArray());
+			System.out.println(action.getClass());
+			System.out.println(action.toString());
 			System.out.println(action);
 			return action;
 		} catch (NullPointerException e) {
@@ -57,6 +59,10 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 			// showError(INVALID_INPUT_MESSAGE, INPUT_A_DOUBLE);
 		}
 		// return null;
+	}
+	
+	public String getSelectedAction() {
+		return selectedAction;
 	}
 
 	private TreeItem<HBox> makeActionTreeItem(String actionCategory) {

@@ -49,10 +49,7 @@ public class Toolbar extends ToolBar {
 	}
 	
 	private void createFileOptions() {
-		MenuItem export = new MenuItem();
-		export.textProperty().bind(DisplayLanguage.createStringBinding(EXPORT_STRING));
-		export.setOnAction(e -> sceneController.exportToEngine());
-		
+				
 		MenuItem load = new MenuItem();
 		load.textProperty().bind(DisplayLanguage.createStringBinding(LOAD_STRING));
 		load.setOnAction(e -> this.loadNewGame());
@@ -68,6 +65,10 @@ public class Toolbar extends ToolBar {
 			importOption.getItems().add(item);
 		}
 		importOption.textProperty().bind(DisplayLanguage.createStringBinding(IMPORT_STRING));
+		
+		MenuItem export = new MenuItem();
+		export.textProperty().bind(DisplayLanguage.createStringBinding(EXPORT_STRING));
+		export.setOnAction(e -> sceneController.exportToEngine());
 		
 		MenuItem exit = new MenuItem();
 		exit.textProperty().bind(DisplayLanguage.createStringBinding(EXIT_STRING));

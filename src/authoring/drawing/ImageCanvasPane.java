@@ -11,7 +11,6 @@ import javax.imageio.ImageIO;
 import authoring.drawing.selectors.ColorSelector;
 import authoring.drawing.selectors.StrokeSelector;
 import authoring.drawing.selectors.ToolSelector;
-import engine.VoogaException;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
@@ -24,22 +23,48 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 /**
+ * 
+ * The Pane representing the full paint program -- contains an ImageCanvas,
+ * ColorSelector, StrokeSelector, ToolSelector, and Save Button.
+ * 
+ * This is the primary class for use, and by default holds everything necessary
+ * to simulate paint as a javafx component.
+ * 
  * @author Ian Eldridge-Allegra
  *
  */
 public class ImageCanvasPane extends BorderPane {
+	private static final String DRAWING_TOOLS_PROPERTIES = ".drawingTools.drawingTools";
 	private ImageCanvas imageCanvas;
 	private Consumer<Image> saveTo;
 
-	public ImageCanvasPane(ResourceBundle toolsAndNames, double width, double height, Consumer<Image> saveTo) {
-		this(toolsAndNames, width, height);
+	/**
+	 * @param width
+	 *            of the canvas
+	 * @param height
+	 *            of the canvas
+	 * @param saveTo
+	 *            The consumer to save images to -- for example, the consumer may
+	 *            save to a particular file location or display the image elsewhere.
+	 */
+	public ImageCanvasPane(double width, double height, Consumer<Image> saveTo) {
+		this(width, height);
 		if (saveTo == null)
-			saveTo = i -> {};
+			saveTo = i -> {
+			};
 		this.saveTo = saveTo;
 	}
 
-	public ImageCanvasPane(ResourceBundle toolsAndNames, double width, double height, Supplier<File> fileChooser) {
-		this(toolsAndNames, width, height);
+	/**
+	 * @param width
+	 *            of the canvas
+	 * @param height
+	 *            of the canvas
+	 * @param fileChooser
+	 *            The image will use this to decide where to save the file.
+	 */
+	public ImageCanvasPane(double width, double height, Supplier<File> fileChooser) {
+		this(width, height);
 		final Supplier<File> chooser;
 		if (fileChooser == null)
 			chooser = () -> null;
@@ -48,18 +73,18 @@ public class ImageCanvasPane extends BorderPane {
 		saveTo = i -> saveTo(i, chooser.get());
 	}
 
-	private ImageCanvasPane(ResourceBundle toolsAndNames, double width, double height) {
+	private ImageCanvasPane(double width, double height) {
 		imageCanvas = new ImageCanvas(width, height);
 		setCenter(imageCanvas);
 		setTop(new FlowPane());
-		addToTop(new ColorSelector(c->imageCanvas.setColor(c)));
-		addToTop(new ToolSelector(imageCanvas, toolsAndNames));
+		addToTop(new ColorSelector(c -> imageCanvas.setColor(c)));
+		addToTop(new ToolSelector(imageCanvas, getToolsAndNames()));
 		addToTop(new StrokeSelector(s -> imageCanvas.setStroke(s)));
 		addSaveButton();
 	}
-	
-	public void setImage(Image image) {
-		imageCanvas.setImage(image);
+
+	private ResourceBundle getToolsAndNames() {
+		return ResourceBundle.getBundle(getClass().getPackage().getName() + DRAWING_TOOLS_PROPERTIES);
 	}
 
 	private void addSaveButton() {
@@ -69,7 +94,7 @@ public class ImageCanvasPane extends BorderPane {
 	}
 
 	private void addToTop(Node n) {
-		((Pane)getTop()).getChildren().add(n);
+		((Pane) getTop()).getChildren().add(n);
 	}
 
 	private Image getImage() {
@@ -86,7 +111,7 @@ public class ImageCanvasPane extends BorderPane {
 		try {
 			ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", location);
 		} catch (IOException e) {
-			throw new VoogaException("IllegalFile", location.getAbsolutePath());
+			throw new PaintException("Illegal File: " + location.getAbsolutePath());
 		}
 	}
 }

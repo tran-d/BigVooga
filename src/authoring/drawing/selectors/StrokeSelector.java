@@ -6,6 +6,12 @@ import java.util.function.Consumer;
 
 import javafx.scene.control.ChoiceBox;
 
+/**
+ * Allows Stroke to be chosen and notifies listener.
+ * 
+ * @author Ian Eldridge-Allegra
+ *
+ */
 public class StrokeSelector extends ChoiceBox<Integer>{
 	
 	private static final int DEFAULT_STROKE_INDEX = 9;
@@ -18,6 +24,12 @@ public class StrokeSelector extends ChoiceBox<Integer>{
 		listener.accept(getValue());
 	}
 	
+	/**
+	 * Sets the possible choices, replacing the previous ones.
+	 * 
+	 * @param strokeValues
+	 * @param startingIndex
+	 */
 	public void setStrokes(List<Integer> strokeValues, int startingIndex) {
 		getItems().clear();
 		getItems().addAll(strokeValues);
