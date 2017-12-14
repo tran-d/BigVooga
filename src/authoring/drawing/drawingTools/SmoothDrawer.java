@@ -5,6 +5,12 @@ import authoring.drawing.ImageCanvas;
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * Calls "draw" method smoothly as the mouse is dragged.
+ * 
+ * @author Ian Eldridge-Allegra
+ *
+ */
 public abstract class SmoothDrawer extends DrawingTool {
 
 	private Point2D lastLoc;

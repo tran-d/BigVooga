@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 import engine.sprite.Sprite;
-import javafx.geometry.Point2D;
 
 /**
  * Holds variables of different types with String names. GameObject and
@@ -26,9 +25,6 @@ public abstract class VariableContainer {
 	protected Map<String, Double> doubleVars;
 	protected Map<String, String> stringVars;
 	protected Map<String, Boolean> booleanVars;
-
-	protected Sprite sprite;
-	protected Set<String> tagSet;
 
 	public VariableContainer() {
 		doubleVars = new HashMap<String, Double>();
@@ -92,40 +88,6 @@ public abstract class VariableContainer {
 
 	public void setBooleanVariable(String name, Boolean val) {
 		booleanVars.put(name, val);
-	}
-
-	public Set<String> getTags() {
-		return new HashSet<String>(tagSet);
-	}
-
-	public void setSprite(Sprite set) {
-		sprite = set;
-	}
-
-	public Sprite getSprite() {
-		return sprite;
-	}
-
-	public void cloneHelp(VariableContainer copy) {
-		for (String tag : tagSet)
-			copy.addTag(tag);
-		for (String var : stringVars.keySet())
-			copy.setStringVariable(var, stringVars.get(var));
-		for (String var : doubleVars.keySet())
-			copy.setDoubleVariable(var, doubleVars.get(var));
-		for (String var : booleanVars.keySet())
-			copy.setBooleanVariable(var, booleanVars.get(var));
-
-		copy.sprite = sprite.clone();
-		copy.tagSet = new HashSet<String>(tagSet);
-	}
-
-	public void addTag(String tag) {
-		tagSet.add(tag);
-	}
-
-	public boolean is(String tag) {
-		return tagSet.contains(tag);
 	}
 
 }

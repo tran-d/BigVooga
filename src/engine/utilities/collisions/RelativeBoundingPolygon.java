@@ -36,11 +36,18 @@ public class RelativeBoundingPolygon {
 		this.geometry = geometry;
 	}
 
+	/**
+	 * @param position gives the position, size, and heading
+	 * @return The relative bounding geometry as it would be imposed on the positionable
+	 */
 	public BoundingPolygon getBoundingGeometry(Positionable position) {
 		return getBoundingGeometry(position.getX(), position.getY(), position.getWidth(), position.getHeight(),
 				position.getHeading());
 	}
 
+	/**
+	 * @see #getBoundingGeometry(Positionable)
+	 */
 	public BoundingPolygon getBoundingGeometry(double x, double y, double width, double height, double heading) {
 		return (BoundingPolygon) geometry.getScaled(width, height).getRotated(heading).getTranslated(x, y);
 	}

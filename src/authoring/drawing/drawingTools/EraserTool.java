@@ -6,11 +6,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 /**
+ * Erases smooth curves on the canvas.
+ * 
  * @author Ian Eldridge-Allegra
  *
  */
 public class EraserTool extends SmoothDrawer {
 	
+	private static final double MIN_MAGNITUDE_RATIO = .3;
 	private Rectangle square;
 
 	public EraserTool(String name, ImageCanvas canvas) {
@@ -24,10 +27,12 @@ public class EraserTool extends SmoothDrawer {
 		square.setFill(Color.WHITE);
 		square.setStroke(Color.BLACK);
 		canvas.getChildren().add(square);
+		canvas.eraseLine(newCenter, newCenter.add(new Point2D(1,0)));
 	}
 
 	@Override
 	protected void draw(Point2D lastLoc, Point2D point) {
+		if(lastLoc.subtract(point).magnitude()>MIN_MAGNITUDE_RATIO*canvas.getStroke())
 		canvas.eraseLine(lastLoc, point);
 		handleSquare(point);
 	}

@@ -16,12 +16,22 @@ public class Sprite {
 	private AnimationSequence currentAnimation;
 	private AnimationSequence tempAnimation = null;
 
+	/**
+	 * Adds the animation sequence to the known animations. If it is the first
+	 * animation added, it will be used as the default.
+	 * 
+	 * @param animation
+	 *            The new Animation sequence
+	 */
 	public void addAnimationSequence(AnimationSequence animation) {
 		animations.put(animation.getName(), animation);
+		if (animations.size() == 0)
+			currentAnimation = animation;
 	}
 
 	/**
-	 * @param name The new animation sequence to switch to
+	 * @param name
+	 *            The new animation sequence to switch to, by name.
 	 */
 	public void setAnimation(String name) {
 		if (!animations.containsKey(name))
@@ -34,19 +44,23 @@ public class Sprite {
 	 * Increments the AnimationSequences
 	 */
 	public void step() {
-		if(tempAnimation!= null)
-		{
+		if (tempAnimation != null) {
 			tempAnimation.increment();
-			if(tempAnimation.isDone())
+			if (tempAnimation.isDone())
 				tempAnimation = null;
 			return;
+		}
+		if (currentAnimation == null) {
+			throw new VoogaException("UndefinedAnimation");
 		}
 		currentAnimation.increment();
 	}
 
+	/**
+	 * @return Gets the current image.
+	 */
 	public BoundedImage getImage() {
-		if(tempAnimation!= null)
-		{
+		if (tempAnimation != null) {
 			return tempAnimation.getImage();
 		}
 		if (currentAnimation == null)
@@ -62,9 +76,11 @@ public class Sprite {
 		clone.setAnimation(currentAnimation.getName());
 		return clone;
 	}
-	
-	public void playOnce(String name)
-	{
+
+	/**
+	 * @param name The animation sequence to play once.
+	 */
+	public void playOnce(String name) {
 		tempAnimation = animations.get(name);
 	}
 

@@ -5,6 +5,12 @@ import java.util.function.Consumer;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.paint.Color;
 
+/**
+ * Allows Colors to be chosen and notifies listener.
+ * 
+ * @author Ian Eldridge-Allegra
+ *
+ */
 public class ColorSelector extends ColorPicker {
 	private static final Color DEFAULT_COLOR = Color.BLACK;
 	

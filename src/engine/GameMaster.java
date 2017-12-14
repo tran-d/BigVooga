@@ -56,6 +56,8 @@ public class GameMaster implements EngineController{
 
 	@Override
 	public void addWorld(GameWorld w) {
+		if(madeWorlds.isEmpty())
+			currentWorld = w;
 		madeWorlds.add(w);
 	}
 	
@@ -131,5 +133,9 @@ public class GameMaster implements EngineController{
 
 	public void save() {
 		playerManager.save();;
+	}
+	
+	public GlobalVariables getGlobals() {
+		return globalVars;
 	}
 }

@@ -181,7 +181,7 @@ public class GameDataHandler {
 	private void clearKnown() {
 		Properties prop = getProperties();
 
-		prop.put(projectName, "");
+		prop.put(projectName, ",");
 
 		try {
 			FileOutputStream out = new FileOutputStream(KNOWN_PROJECTS_PATH);
