@@ -125,7 +125,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 
 			File file = GameDataHandler.chooseFileForImageSave(s.getWindow());
 			Image im = new Image(file.toURI().toString());
-			AuthoringImageView AIV = new AuthoringImageView(file.toURI().toString());
+			AuthoringImageView AIV = new AuthoringImageView(file.toName());
 			makeBoundedImagePopup(AIV, im, file.getName());
 			addNewAuthoringImageViewToSequence(this.activeAnimationSeqeunce, AIV);
 		});
