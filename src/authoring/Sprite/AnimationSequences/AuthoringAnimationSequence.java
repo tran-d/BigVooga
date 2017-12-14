@@ -115,7 +115,7 @@ public class AuthoringAnimationSequence {
 				if (showUI) {
 					this.addNewAnimationSequenceToUI(newASI, isPrimary);
 				}
-				int position = isPrimary ? 0 : 1;
+				int position = isPrimary ? 0 : myImages.size();
 				this.myImages.add(position, newASI);
 			});
 		
