@@ -11,18 +11,14 @@ public class SpriteSetImportedInventory extends SpriteSet {
 
 	@Override
 	protected void setFolderToLoad() {
-//		;
-		setFolderToLoad("");
+		String path = myGDH.getImportedInventorySpritesPath();
+		setFolderToLoad(path);
 	}
-
-//	@Override
-//	protected void makeSpritePanel(SpriteGridHandler SGH) {
-//		mySSP = new SpriteSelectPanel("IMPORTEDINVENTORYSPRITES", SGH);
-//		mySSP.setupDefaultSprites(getAllSprites());
-//	}
 	
 	public void changeFolderPath(String newFolder){
-		
+		this.categoryToSprites.clear();
+		this.setFolderToLoad();
+		this.loadSprites();
 	}
 
 }

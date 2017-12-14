@@ -75,7 +75,6 @@ public abstract class SpriteSet {
 	}
 
 	public Map<String, List<AbstractSpriteObject>> getAllSpritesAsMap() {
-		// ;
 		if (!loaded) {
 			this.loadSprites();
 		}
@@ -83,11 +82,10 @@ public abstract class SpriteSet {
 	}
 
 	protected String getFolderToLoad() {
-		// ;
 		return folderToLoad;
 	}
 
-	protected void changeFolderPath() {
+	public void changeFolderPath() {
 		// NOTHING MUST BE OVERRIDEN IF WANT FUNCTIONALITY
 	}
 

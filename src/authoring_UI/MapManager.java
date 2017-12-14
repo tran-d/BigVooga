@@ -138,6 +138,9 @@ public class MapManager extends TabPane {
 		for (DraggableGrid w : importedWorlds) {
 			createTab(w);
 		}
+		myAEM.getImportedSpriteController().changeFolderPath();
+		myAEM.getImportedInventorySpriteController().changeFolderPath();
+		System.out.println("ADD IMPORTED WORLDS");
 	}
 
 	protected SpritePanels makeSpritePanels(SpriteGridHandler mySpriteGridHandler) {
