@@ -86,9 +86,7 @@ public class AuthoringEnvironmentManager {
 	}
 	
 	private void initializeImportedSprites() {
-		
 		myImportedSprites = new SpriteSetImported(myGDH);
-		System.out.println("Made imported sprites");
 	}
 	
 	private void initializeImportedInventorySprites() {

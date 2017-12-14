@@ -75,8 +75,7 @@ public class GameDataHandler {
 	private Map<String, Image> cache = new HashMap<>();
 	private String projectPath;
 	private String projectName;
-	private String myProjectToImportTo;
-	private String projectToImportToPath;
+	private String myImportProjectPath;
 
 	private static XStream setupXStream() {
 		XStream xstream = new XStream(new DomDriver());
@@ -98,6 +97,14 @@ public class GameDataHandler {
 		this.projectPath = PATH + projectName + "/";
 		makeDirectory(projectPath + CONTROLLER_DIRECTORY);
 		makeSpriteDirectories();
+	}
+	
+	public String getImportedSpritesPath() {
+		String path = "";
+		if (myImportProjectPath != null) {
+			path = PATH + myImportProjectPath + "/" + PROJECT_USER_SPRITE_PATH + CUSTOM_SPRITE_FOLDER;
+		}
+		return path;
 	}
 
 	public String getProjectName() {
@@ -588,11 +595,6 @@ public class GameDataHandler {
 	 */
 	public void saveWorlds(List<DraggableGrid> worldDraggableGrids) {
 		String path = projectPath;
-		if (projectToImportToPath != null) {
-			System.out.println("wtf bruh");
-			System.out.println(projectToImportToPath);
-			path = PATH + myProjectToImportTo + "/";
-		}
 		String worldPath = path + PROJECT_WORLD_PATH;
 		removeExistingSave();
 		makeDirectory(worldPath);
@@ -660,6 +662,7 @@ public class GameDataHandler {
 	}
 	
 	public List<DraggableGrid> loadWorldsFromWorldDirectory(String importProjectName) { // ONLY CALLED when importing
+		myImportProjectPath = importProjectName;
 		List<DraggableGrid> DG_LIST = new ArrayList<DraggableGrid>();
 		String importFilePath = PATH + importProjectName + "/" + PROJECT_WORLD_PATH;
 		System.out.println(importFilePath + " this is IMPORT FILE PATH"); 

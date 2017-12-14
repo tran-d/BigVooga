@@ -87,7 +87,7 @@ public abstract class SpriteSet {
 		return folderToLoad;
 	}
 
-	protected void changeFolderPath() {
+	public void changeFolderPath() {
 		// NOTHING MUST BE OVERRIDEN IF WANT FUNCTIONALITY
 	}
 
