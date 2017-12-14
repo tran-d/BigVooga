@@ -56,6 +56,8 @@ public class GameMaster implements EngineController{
 
 	@Override
 	public void addWorld(GameWorld w) {
+		if(madeWorlds.isEmpty())
+			currentWorld = w;
 		madeWorlds.add(w);
 	}
 	
