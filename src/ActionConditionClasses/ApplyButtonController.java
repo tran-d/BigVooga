@@ -110,8 +110,6 @@ public class ApplyButtonController {
 			spriteObject.setActions(actions);
 		}
 		catch(NullPointerException | NumberFormatException e) {
-			System.out.println("run");
-			e.printStackTrace();
 			conditionTab.displayRowExceptionMessage(e.getMessage());
 		}
 	}
