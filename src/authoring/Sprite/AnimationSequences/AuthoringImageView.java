@@ -21,6 +21,7 @@ public class AuthoringImageView extends ImageView{
 	}
 	
 	public AuthoringImageView(String path){
+		System.out.println("AIV path: "+path);
 		Image im = new Image(path);
 		imagePath = path;
 		setImage(im);

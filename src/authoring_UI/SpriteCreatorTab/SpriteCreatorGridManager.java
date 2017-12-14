@@ -157,7 +157,7 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 				final String fileName = ("UniqueSprite"+Math.random()).replaceAll("\\.", "");
 				System.out.println("fileName: "+fileName);
 				newSprite = getMapLayer().setBackgroundImage(()-> getSpriteTypeFunction.apply(s, fileName));
-				saveTo(s, new File(fileName));
+				saveTo(s, fileName);
 			});
 			
 			Scene paintScene = new Scene(paint);
@@ -244,14 +244,15 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 //	}
 	
 	
-	private void saveTo(Image image, File location) {
-		System.out.println("Location abs path; "+location.getAbsolutePath());
+	private void saveTo(Image image, String location) {
+//		System.out.println("Location abs path; "+location.getAbsolutePath());
+		File loc = new File(location);
 		if (location == null || image == null)
 			return;
 		try {
-			ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", location);
+			ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", loc);
 		} catch (IOException e) {
-			throw new VoogaException("IllegalFile", location.getAbsolutePath());
+			throw new VoogaException("IllegalFile", loc.getAbsolutePath());
 		}
 	}
 
