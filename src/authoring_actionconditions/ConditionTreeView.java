@@ -14,11 +14,13 @@ import tools.DisplayLanguage;
 
 public class ConditionTreeView extends TreeView<HBox> {
 
-	private static final double TREE_VIEW_WIDTH = 400;
+	public static final double VBOX_SPACING = 10;
+	public static final double INTEGER_TEXTFIELD_HEIGHT = 35;
+	
 	private static final double INTEGER_TEXTFIELD_WIDTH = 100;
-	private static final double EXPANDED_HEIGHT = 300;
+	private static final double TREE_VIEW_WIDTH = ActionConditionRow.TREE_VIEW_WIDTH;
+	private static final double TREE_VIEW_EXPANDED_HEIGHT = ActionConditionRow.EXPANDED_HEIGHT;
 	private static final double COLLAPSED_HEIGHT = 35;
-	private static final double VBOX_SPACING = 10;
 	private static final String PRIORITY_NUMBER_PROMPT = "EnterPriority";
 
 	private OperationNameTreeItem operationNameTreeItem;
@@ -32,7 +34,7 @@ public class ConditionTreeView extends TreeView<HBox> {
 		operationNameTreeItem = new OperationNameTreeItem("Boolean", "Choose Boolean Operation: ", VoogaType.BOOLEAN,
 				() -> changeRowTVSize());
 		setRoot(operationNameTreeItem);
-		setPrefSize(TREE_VIEW_WIDTH, EXPANDED_HEIGHT);
+		setPrefSize(TREE_VIEW_WIDTH, TREE_VIEW_EXPANDED_HEIGHT);
 		priorityIntegerTF = createIntegerTextField();
 		booleanOperationTreeView = buildBooleanOperationTreeView(this);
 	}
@@ -82,8 +84,8 @@ public class ConditionTreeView extends TreeView<HBox> {
 
 	protected void changeRowTVSize() {
 		if (operationNameTreeItem.isExpanded()) {
-			this.setPrefHeight(EXPANDED_HEIGHT);
-			conditionRow.setPrefHeight(EXPANDED_HEIGHT);
+			this.setPrefHeight(TREE_VIEW_EXPANDED_HEIGHT);
+			conditionRow.setPrefHeight(ConditionRow.ROW_EXPANDED_HEIGHT);
 		} else {
 			this.setPrefHeight(COLLAPSED_HEIGHT);
 			conditionRow.setPrefHeight(COLLAPSED_HEIGHT);

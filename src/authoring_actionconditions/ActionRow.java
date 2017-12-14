@@ -11,10 +11,11 @@ import engine.Action;
 public class ActionRow extends ActionConditionRow {
 	
 	private ActionTreeView actionTreeView;
+	public static final double ROW_EXPANDED_HEIGHT = ActionConditionRow.EXPANDED_HEIGHT + 50;
 
 	public ActionRow(int ID, ActionVBox<ActionRow> ACVBox) {
 		super(ID, ACVBox);
-		setPrefSize(ROW_WIDTH, EXPANDED_HEIGHT);
+		setPrefSize(ROW_WIDTH, ROW_EXPANDED_HEIGHT);
 		actionTreeView = new ActionTreeView(this);
 		getItems().add(actionTreeView);
 	}
@@ -43,6 +44,11 @@ public class ActionRow extends ActionConditionRow {
 	
 	public void reduceTreeView() {
 		this.getTreeView().getRoot().setExpanded(false);
+		this.getTreeView().changeRowTVSize();
+	}
+	
+	public void expandTreeView() {
+		this.getTreeView().getRoot().setExpanded(true);
 		this.getTreeView().changeRowTVSize();
 	}
 }

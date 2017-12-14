@@ -17,7 +17,9 @@ import javafx.scene.layout.VBox;
 public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVBoxI {
 
 	private static final String INVALID_SELECTED_ACTIONS_MESSAGE = "Please select valid actions";
-	
+	public static final double ROW_EXPANDED_HEIGHT = ActionConditionRow.EXPANDED_HEIGHT + ConditionTreeView.INTEGER_TEXTFIELD_HEIGHT
+			+ 2*ConditionTreeView.VBOX_SPACING;
+	public static final double ROW_WIDTH = ActionConditionRow.ROW_WIDTH + 100;
 	private ConditionTreeView operationTreeView;
 	private ActionCheckBoxVBox<Integer> actionCheckBoxVBox;
 	private VBox treeViewVBox;
@@ -26,7 +28,7 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 		super(ID, ACVBox);
 		addActionCheckBox(newActionOptions);
 
-		this.setPrefSize(ROW_WIDTH, EXPANDED_HEIGHT);
+		this.setPrefSize(ROW_WIDTH, ROW_EXPANDED_HEIGHT);
 
 		operationTreeView = new ConditionTreeView(this);	
 		treeViewVBox = operationTreeView.getTreeViewVBox();

@@ -1,13 +1,15 @@
 package authoring_actionconditions;
 
+import authoring_UI.MainAuthoringGUI;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class BuildConditionView {
-	private static final double WIDTH = 750;
-	private static final double HEIGHT = 500;
+	private static final double WIDTH = ConditionRow.ROW_WIDTH;
+	private static final double HEIGHT = ConditionRow.ROW_EXPANDED_HEIGHT;
+	private static final String AUTHORING_CSS = "Authoring.css";
 
 	private Stage stage;
 	private Scene scene;
@@ -28,6 +30,8 @@ public class BuildConditionView {
 		stage.setOnCloseRequest(event -> transportActionRow(event));
 
 		root.getChildren().add(this.conditionRow);
+		
+//		scene.getStylesheets().add(MainAuthoringGUI.class.getResource(AUTHORING_CSS).toExternalForm());
 	}
 
 	private void transportActionRow(WindowEvent event) {
