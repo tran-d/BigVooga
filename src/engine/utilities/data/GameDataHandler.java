@@ -66,6 +66,7 @@ public class GameDataHandler {
 	private static final String DEFAULT_SPRITE_FOLDER = "DefaultSprites/";
 	private static final String CUSTOM_SPRITE_FOLDER = "CustomSprites/";
 	private final String INVENTORY_SPRITE_FOLDER = "InventorySprites/";
+	private final String IMPORTED_SPRITE_FOLDER = "ImportedSprites/";
 	private static final String DEFAULT_CATEGORY = "General/";
 	private static final String RESOURCES = "resources/";
 	private static final String CONTROLLER_DIRECTORY = "SAVES/";
@@ -88,11 +89,11 @@ public class GameDataHandler {
 	}
 
 	public GameDataHandler() {
-		this("Test Project", null);
+		this("Test Project");
 	}
 
-	public GameDataHandler(String projectName, String projectToImportTo) {
-		myProjectToImportTo = projectToImportTo;
+	public GameDataHandler(String projectName) {
+//		myProjectToImportTo = projectToImportTo;
 		this.projectName = projectName;
 		this.projectPath = PATH + projectName + "/";
 		makeDirectory(projectPath + CONTROLLER_DIRECTORY);
@@ -343,6 +344,13 @@ public class GameDataHandler {
 		}
 		f.delete();
 	}
+	
+	public void saveSprite(AbstractSpriteObject SO, String categoryPath, String name) throws Exception{
+		if (!directoryExists(categoryPath)){
+			makeDirectory(categoryPath);
+		}
+		saveSprite(SO, categoryPath+name);
+	}
 
 	public void saveSprite(AbstractSpriteObject SO, String path) throws Exception {
 		if (SO.getSavePath() == null) {
@@ -377,6 +385,8 @@ public class GameDataHandler {
 		SpriteDataConverter SDC = new SpriteDataConverter(SO);
 		saveSprite(SDC, path);
 	}
+	
+
 
 	private void saveSprite(SpriteDataConverter SO, String path) throws IOException {
 		// TODO: make category folder
@@ -778,6 +788,7 @@ public class GameDataHandler {
 		pathsToMake.add(getDefaultSpriteDirectoryPath());
 		pathsToMake.add(getCustomSpriteDirectoryPath());
 		pathsToMake.add(getInventorySpriteDirectoryPath());
+//		pathsToMake.add(getImportedSpriteDirectoryPath());
 		for (String s : pathsToMake) {
 			File file = new File(s);
 			if (!file.exists()) {

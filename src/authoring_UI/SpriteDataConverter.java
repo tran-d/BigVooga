@@ -2,14 +2,8 @@ package authoring_UI;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
-import com.thoughtworks.xstream.security.NullPermission;
-import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
 import authoring.Sprite.AbstractSpriteObject;
 import authoring.Sprite.InventoryObject;
@@ -18,8 +12,6 @@ import authoring.Sprite.AnimationSequences.AuthoringAnimationSequence;
 import authoring.Sprite.Parameters.SpriteParameter;
 import engine.Action;
 import engine.Condition;
-import javafx.collections.ObservableList;
-import javafx.geometry.Point2D;
 
 public class SpriteDataConverter {
 
@@ -42,11 +34,6 @@ public class SpriteDataConverter {
 	String mySavePath;
 	String spriteType;
 	List<String> tags;
-//	ObservableList<Integer> allConditions;
-//	ObservableList<Integer> allActions;
-	
-//	Function<Integer, Boolean> heightFunction;
-//	Function<Integer, Boolean> widthFunction;
 
 	public SpriteDataConverter(AbstractSpriteObject ASO) {
 		convertSprite(ASO);
@@ -114,9 +101,10 @@ public class SpriteDataConverter {
 		} else {
 			ret = new SpriteObject(true);
 		}
-		ret.setImageURL(imageURL);
+		
 		ret.setParameterMap(catmap);
 		ret.setPositionOnGrid(gridPos);
+		ret.setAnimationSequences(this.myAnimationSequences);
 		ret.setNumCellsHeightNoException(height);
 		ret.setNumCellsWidthNoException(width);
 		ret.setUniqueID(UUID);
@@ -132,13 +120,14 @@ public class SpriteDataConverter {
 		ret.setConditionRows(conditionRows);
 		ret.setActionRows(actionRows);
 		System.out.println("SDC AnimationSeq: "+this.myAnimationSequences);
-		ret.setAnimationSequences(this.myAnimationSequences);
+		
 		List<AbstractSpriteObject> newInventory = new ArrayList<AbstractSpriteObject>();
 		inventory.forEach(SDC ->{
 			newInventory.add(SDC.createSprite());
 		});
 		ret.setInventory(newInventory);
 		System.out.println("spriteInventoryinSDC: "+ret.getInventory());
+		ret.setImageURL(imageURL);
 		return ret;
 	}
 	

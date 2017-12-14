@@ -62,6 +62,8 @@ public abstract class AbstractSpriteObject extends ImageView {
 
 	@IsLockedUtility(readableName = "Image Path: ", getMethod = "getImageURL")
 	protected String myImageURL;
+	
+	protected ObjectProperty<String> myImageURLProperty;
 
 	@IsUnlockedUtility(readableName = "Position: ", getMethod = "getMyPositionOnGrid", setMethod = "setMyPositionOnGrid")
 	protected Integer[] myPositionOnGrid;
@@ -100,6 +102,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 	protected List<ActionTreeView> actionTreeViews;
 	protected List<AuthoringAnimationSequence> myAnimationSequences;
 	protected List<String> myTags;
+	protected AuthoringAnimationSequence myAASDefault;
 
 	public AbstractSpriteObject() {
 		super();
@@ -118,9 +121,15 @@ public abstract class AbstractSpriteObject extends ImageView {
 	}
 
 	private void initializeVariables() {
+		
+		
 		myTags = new ArrayList<String>();
 		myInventory = new ArrayList<AbstractSpriteObject>();
 		myAnimationSequences = new ArrayList<AuthoringAnimationSequence>();
+		myAASDefault = new AuthoringAnimationSequence("Default");
+		myAnimationSequences.add(myAASDefault);
+		setUpImageURLProperty();
+		
 		initializePositionOnGridProperty();
 		initializeHeightWidthProperties();
 	}
@@ -142,7 +151,9 @@ public abstract class AbstractSpriteObject extends ImageView {
 
 	public AbstractSpriteObject(Image image, String path) {
 		this();
+		if (image!=null && path!=null){
 		setupImageURLAndView(image, path);
+		}
 		// myName = fileURL.split("\\.")[0];
 	}
 
@@ -161,6 +172,14 @@ public abstract class AbstractSpriteObject extends ImageView {
 		if (myUniqueID == null) {
 			myUniqueID = SpriteIDGenerator.getInstance().getUniqueID();
 		}
+	}
+	
+	private AuthoringAnimationSequence getDefaultAnimationSequence(){
+		return this.myAASDefault;
+	}
+	
+	private void setDefaultAnimationSequence(AuthoringAnimationSequence AASDef){
+		this.myAASDefault = AASDef;
 	}
 
 	public void setUniqueID(String ID) {
@@ -229,10 +248,24 @@ public abstract class AbstractSpriteObject extends ImageView {
 	}
 
 	public void setupImageURLAndView(Image image, String path) {
-		myImageURL = path;
+		if (this.myImageURLProperty==null){
+			setUpImageURLProperty();
+		}
+		this.myImageURLProperty.set(path);
+		
 		this.setImage(image);
 		this.setFitWidth(45);
 		this.setFitHeight(45);
+	}
+	
+	private void setUpImageURLProperty(){
+		myImageURLProperty = new SimpleObjectProperty<String>();
+		myImageURLProperty.addListener((change, oldImagePath, newImagePath)->{
+			if (oldImagePath!=null){
+			myAASDefault.replacePrimaryAnimationSequenceImage(new AuthoringImageView(newImagePath));
+			}
+			myImageURL = newImagePath;
+		});
 	}
 
 	private void initializeHeightWidthProperties() {
@@ -644,6 +677,9 @@ public abstract class AbstractSpriteObject extends ImageView {
 		// animations.forEach(aniseq->{
 		// myAnimationSequences.add(new AuthoringAnimationSequence(aniseq));
 		// });
+		if (animations.size()>0){
+		this.myAASDefault = animations.get(0);
+		}
 		System.out.println("Sprite AnimationSeq set, now is: " + myAnimationSequences);
 		System.out.println("Sprite AnimationSeq set, now size: " + myAnimationSequences.size());
 	}
@@ -764,8 +800,13 @@ public abstract class AbstractSpriteObject extends ImageView {
 		Map<Condition, List<Action>> temp = new HashMap<Condition, List<Action>>();
 		for (Condition c : conditionRows.keySet()) {
 			List<Action> actions = new ArrayList<Action>();
-			for (Integer i : conditionRows.get(c)) {
-				actions.add(actionRows.get(i));
+			List<Integer> i = conditionRows.get(c);
+			System.out.println(i.getClass());
+			System.out.println(i.get(0));
+			System.out.println(i.get(0).toString());
+			
+			for (Integer j : i) {
+				actions.add(actionRows.get(j-1));
 			}
 			temp.put(c, actions);
 
