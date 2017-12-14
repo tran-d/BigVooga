@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
+import authoring_UI.displayable.DisplayableTextAreaView;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -47,7 +48,7 @@ import tools.DisplayLanguage;
  * @author DavidTran
  *
  */
-public class DialogueTextAreaView extends VBox {
+public class DialogueTextAreaView extends DisplayableTextAreaView {
 
 	private static final double VBOX_SPACING = 25;
 	private static final double DIALOG_PROMPT_WIDTH = 400;
@@ -61,7 +62,7 @@ public class DialogueTextAreaView extends VBox {
 	private String currentFontType;
 	private int currentFontSize;
 
-	private List<Pane> paneList;
+	private ArrayList<Pane> paneList;
 	private Button nextButton;
 	private Button prevButton;
 	private Button addPaneButton;
@@ -75,15 +76,13 @@ public class DialogueTextAreaView extends VBox {
 	private SimpleIntegerProperty totalPaneCount;
 
 	private Runnable save;
-	private double orgSceneX, orgSceneY;
-	private double orgTranslateX, orgTranslateY;
 	private ArrayList<TextArea> taList;
 	
 	private double oldHeight = 0;
 	private Supplier<Color> currentBgColor;
 	private Image currentBgImage;
 
-	public DialogueTextAreaView(Runnable save, Supplier <Color> bgColor) {
+	protected DialogueTextAreaView(Runnable save, Supplier <Color> bgColor) {
 		currentBgColor = bgColor;
 		taList = new ArrayList<TextArea>();
 		paneList = new ArrayList<Pane>();
@@ -95,63 +94,40 @@ public class DialogueTextAreaView extends VBox {
 		current = new SimpleIntegerProperty(0);
 		totalPaneCount = new SimpleIntegerProperty(0);
 		
-		addPane();
+		addPanel();
 
 		this.setAlignment(Pos.CENTER);
 		this.getChildren().addAll(dialoguePreview, makeToolPanel());
 
 	}
-
-	/************************ PUBLIC METHODS ***************************/
-
-//	public List<TextArea> getDialogueList() {
-//		return taList;
-//	}
 	
-	public List<Pane> getDialogueSequence() {
+	protected List<Pane> getDialogueSequence() {
 		return paneList;
 	}
 	
 	protected void setFont(String family, int size) {
-		for (TextArea ta : taList) {
-			ta.setFont(Font.font(family, size));
-		}
+		setFont(family, size, taList);
 	}
 	
 	protected void setFontColor(String color) {
-		for (TextArea ta: taList) {
-			ta.setStyle("-fx-text-fill: " + color + ";")	;
-		}
+		setFontColor(color, taList);
 	}
 	
 	protected void setBackgroundColor(Color color) {
-		for (Pane pane : paneList) {
-			pane.setBackground(new Background(new BackgroundFill(
-                                                                 color,
-                                                                 null, null)));
-		}
+		setBackgroundColor(color, paneList);
 	}
 	
 	protected void setTextAreaBackgroundColor(Color color) {
-		for (TextArea ta : taList) {
-			ta.setBackground(new Background(new BackgroundFill(
-                                                                 color,
-                                                                 null, null)));
-		}
+		setTextAreaBackgroundColor(color, taList);
 	}
 	
 	protected void setBackgroundImage(Image image) {
 		currentBgImage = image;
-		for (Pane pane : paneList) {
-			BackgroundImage bgImage = new BackgroundImage(image, 
-				    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-				    BackgroundPosition.CENTER, 
-				    new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false));
-			pane.setBackground(new Background(bgImage));
-		}
+		setBackgroundImage(image, paneList);
 	}
 
-	public void removePanel() {
+	@Override
+	protected void removePanel() {
 
 		if (paneList.size()>1) {
 			System.out.println(paneList.size());
@@ -171,18 +147,9 @@ public class DialogueTextAreaView extends VBox {
 		}
 	}
 
-	public void addPane() {
-//		TextArea ta = new TextArea();
-//		ta.setPrefSize(DIALOG_PROMPT_WIDTH, DIALOG_PROMPT_HEIGHT);
-//		ta.setWrapText(true);
-//		taList.add(ta);
-//
-//		ta.setOnKeyTyped(e -> save.run());
-//
-//		setCurrentPanel(taList.size() - 1);
-		Pane dialoguePane = new Pane();
-		dialoguePane.setPrefSize(DIALOG_PROMPT_WIDTH, DIALOG_PROMPT_HEIGHT);
-		paneList.add(currentPaneIndex+1, dialoguePane);
+	@Override
+	protected void addPanel() {
+		paneList.add(currentPaneIndex+1, createPane(DIALOG_PROMPT_WIDTH, DIALOG_PROMPT_HEIGHT));
 		if (currentBgImage != null) {
 			setBackgroundImage(currentBgImage);
 		} else {
@@ -193,27 +160,16 @@ public class DialogueTextAreaView extends VBox {
 	}
 	
 	protected void addTextArea() {
-		TextArea ta = new TextArea();
-		ta.setPrefSize(25, 25);
-
-		ta.setBackground(paneList.get(0).getBackground());
-		ta.setWrapText(true);
-		String css = this.getClass().getResource("dialogue.css").toExternalForm();
-		ta.getStylesheets().add(css);
-
+		TextArea ta = createTextArea(25, 25, paneList.get(0).getBackground());
+		
 		taList.add(ta);
 		Pane k = (Pane) dialoguePreview.getChildren().get(0);
 		k.getChildren().add(ta);
-		
-		DragResizer draggableTA = new DragResizer(ta);
-		draggableTA.makeResizable();
-		draggableTA.makeDraggable();
         
 	}
 
-	/************************ PRIVATE METHODS ***************************/
-
-	private void setCurrentPane() {
+	@Override
+	protected void setCurrentPane() {
 		currentPaneIndex += 1;
 		current.set(current.get()+1);
 		if (!paneList.isEmpty()) {
@@ -222,7 +178,8 @@ public class DialogueTextAreaView extends VBox {
 		dialoguePreview.getChildren().add(paneList.get(currentPaneIndex));
 	}
 
-	private void prev() {
+	@Override
+	protected void prev() {
 		if (currentPaneIndex > 0) {
 			currentPaneIndex -= 1;
 			System.out.println(currentPaneIndex);
@@ -232,7 +189,8 @@ public class DialogueTextAreaView extends VBox {
 		}
 	}
 
-	private void next() {
+	@Override
+	protected void next() {
 		if (currentPaneIndex < paneList.size() - 1) {
 			currentPaneIndex += 1;
 			System.out.println(currentPaneIndex);
@@ -242,9 +200,9 @@ public class DialogueTextAreaView extends VBox {
 		}
 	}
 
-	private HBox makeToolPanel() {
+	@Override
+	protected HBox makeToolPanel() {
 		HBox hb = new HBox(55);
-		//hb.setPrefWidth(DIALOG_PROMPT_WIDTH);
 		currentPane = new Label();
 		currentPane.textProperty().bind(current.asString());
 		Label slash = new Label("/");
@@ -258,12 +216,13 @@ public class DialogueTextAreaView extends VBox {
 		return hb;
 	}
 
-	private HBox makeButtonPanel() {
+	@Override
+	protected HBox makeButtonPanel() {
 		HBox hb = new HBox(15);
 		//hb.setAlignment(Pos.CENTER_LEFT);
 		nextButton = makeButton(NEXT_BUTTON_PROMPT, e -> next());
 		prevButton = makeButton(PREV_BUTTON_PROMPT, e -> prev());
-		addPaneButton = makeButton(ADD_PANEL_BUTTON_PROMPT, e -> this.addPane());
+		addPaneButton = makeButton(ADD_PANEL_BUTTON_PROMPT, e -> this.addPanel());
 		removePanelButton = makeButton(REMOVE_PANEL_BUTTON_PROMPT, e -> this.removePanel());
 		// change number
 		// saveButton = makeButton(SAVE_BUTTON_PROMPT, e -> save(nameTF.getText()));
@@ -271,11 +230,9 @@ public class DialogueTextAreaView extends VBox {
 		return hb;
 	}
 
-	private Button makeButton(String name, EventHandler<ActionEvent> handler) {
-		Button btn = new Button();
-		btn.textProperty().bind(DisplayLanguage.createStringBinding(name));
-		btn.setOnAction(handler);
-		return btn;
+	@Override
+	protected Button makeButton(String name, EventHandler<ActionEvent> handler) {
+		return makeButton(name, handler);
 	}
 
 }

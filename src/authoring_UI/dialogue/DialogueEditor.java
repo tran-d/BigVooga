@@ -3,8 +3,7 @@ package authoring_UI.dialogue;
 import java.io.File;
 import java.util.List;
 import java.util.function.Consumer;
-
-import authoring_UI.ViewSideBar;
+import authoring_UI.displayable.DisplayableEditor;
 import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.beans.value.ChangeListener;
@@ -43,7 +42,7 @@ import tools.DisplayLanguage;
  * 
  * @author DavidTran
  */
-public class DialogueEditor {
+public class DialogueEditor extends DisplayableEditor {
 
 	private static final String NAME_PROMPT = "Name";
 	private static final String FONT_TYPE_PROMPT = "FontType";
@@ -51,8 +50,6 @@ public class DialogueEditor {
 	private static final String FONT_COLOR_PROMPT = "FontColor";
 	private static final String BACKGROUND_COLOR_PROMPT = "BackgroundColor";
 	private static final String NUM_PANELS_PROMPT = "NumberOfPanels";
-	private static final String INVALID_INPUT_MESSAGE = "InvalidInput";
-	private static final String INTEGER_INPUT_PROMPT = "InputInteger";
 	private static final String INITIAL_FONT_COLOR = "#47BDFF";
 	private static final String INITIAL_BACKGROUND_COLOR = "#FFFFFF";
 
@@ -83,49 +80,43 @@ public class DialogueEditor {
 		this.makeTemplate();
 	}
 
-	/*************************** PUBLIC METHODS *********************************/
-
-	public VBox getParent() {
+	protected VBox getParent() {
 		return view;
 	}
 
-	public String getName() {
+	protected String getName() {
 		return nameTF.getText();
 	}
 
-	public String getFontType() {
+	protected String getFontType() {
 		return fontTypeCB.getSelectionModel().getSelectedItem();
 	}
 
-	public int getFontSize() {
+	protected int getFontSize() {
 		if (sizeTF.getText().equals(""))
 			return 16;
 		else
 			return Integer.parseInt(sizeTF.getText());
 	}
 
-	public Color getFontColor() {
+	protected Color getFontColor() {
 		return fontColorCP.getValue();
 	}
-
-//	public List<TextArea> getDialogueList() {
-//		return dsp.getDialogueList();
-//	}
 	
-	public List<Pane> getDialogueSequence() {
+	protected List<Pane> getDialogueSequence() {
 		return dsp.getDialogueSequence();
 	}
 	
-	public Color getBackgroundColor() {
+	protected Color getBackgroundColor() {
 		return backgroundColorCP.getValue();
 	}
 	
-	public VBox getView() {
+	protected VBox getView() {
 		System.out.println(view.getHeight());
 		return view;
 	}
 	
-	public Image getBackgroundImage() {
+	protected Image getBackgroundImage() {
 		return image;
 	}
 
@@ -135,21 +126,11 @@ public class DialogueEditor {
 		if (!name.trim().equals(""))
 			saveConsumer.accept(name);
 	}
-	
-	private Separator createSeparator() {
-		Separator separator = new Separator();
-		separator.setOrientation(Orientation.VERTICAL);
-		return separator;
-	}
 
-	private void makeTemplate() {
-
+	@Override
+	protected void makeTemplate() {
 		this.makeInputFields();
 
-//		view.getChildren().addAll(new HBox(makeEntry(NAME_PROMPT, nameTF)),
-//				new HBox(makeEntry(FONT_TYPE_PROMPT, fontTypeCB)), new HBox(makeEntry(FONT_SIZE_PROMPT, sizeTF)),
-//				new HBox(makeEntry(FONT_COLOR_PROMPT, fontColorCP)), new HBox(makeEntry(BACKGROUND_COLOR_PROMPT, backgroundColorCP)), dsp);
-		
 		HBox textHBox = new HBox(5);
 		textHBox.setAlignment(Pos.CENTER);
 		textHBox.getChildren().addAll(createAddTextAreaButton(),
@@ -170,28 +151,25 @@ public class DialogueEditor {
 		view.getChildren().addAll(dialogueModifiersBox, dsp);
 	}
 
-	private Button createAddTextAreaButton() {
+	@Override
+	protected Button createAddTextAreaButton() {
 		Button addText = new Button("Add Text");
 		addText.setOnAction(e -> dsp.addTextArea());
 		
 		return addText;
 	}
 	
-	private Button createSetBackgroundButton() {
+	@Override
+	protected Button createSetBackgroundButton() {
 		Button setBackground = new Button("Set Background");
 		setBackground.setOnAction(e -> chooseBackgroundImage());
 		
 		return setBackground;
 	}
 	
-	private void chooseBackgroundImage() {
-		Node parent = this.getParent();
-		Scene s = parent.getScene();
-		while (s == null) {
-			parent = parent.getParent();
-			s = parent.getScene();
-		}
-		File file = GameDataHandler.chooseFileForImageSave(s.getWindow());
+	@Override
+	protected void chooseBackgroundImage() {
+		File file = retrieveFileForImageUpload(this.getParent());
 		if (file != null) {
 			image = new Image(GameDataHandler.getImageURIAndCopyToResources(file));
 			dsp.setBackgroundImage(image);
@@ -200,19 +178,15 @@ public class DialogueEditor {
 	
 
 	private void makeInputFields() {
-
 		nameTF = makeTextField(NAME_PROMPT_WIDTH, PROMPT_HEIGHT);
 		sizeTF = makeTextField(FONT_SIZE_PROMPT_WIDTH, PROMPT_HEIGHT);
 		fontTypeCB = makeChoiceBox(FXCollections.observableList(Font.getFamilies()));
 		fontColorCP = makeColorPallette(INITIAL_FONT_COLOR);
 		backgroundColorCP = makeColorPallette(INITIAL_BACKGROUND_COLOR);
-//		changeFontColor();
-//		changeBackgroundColor();
 
 		sizeTF.setOnKeyReleased(e -> changeFontSize());
 		fontColorCP.setOnAction(e -> changeFontColor());
 		backgroundColorCP.setOnAction(e -> changeBackgroundColor());
-		
 
 		numPanelsTF = makeTextField(NUM_PANELS_PROMPT_WIDTH, PROMPT_HEIGHT);
 
@@ -220,7 +194,8 @@ public class DialogueEditor {
 		// numPanelsTF.setOnInputMethodTextChanged(e -> checkInput());
 	}
 	
-	private void changeFontSize() {
+	@Override
+	protected void changeFontSize() {
 		if (!sizeTF.getText().equals("")) {
 
 			try {
@@ -230,54 +205,25 @@ public class DialogueEditor {
 				dsp.setFont(getFontType(), size);
 			} catch (NumberFormatException ex) {
 				sizeTF.clear();
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.contentTextProperty().bind(DisplayLanguage.createStringBinding(INTEGER_INPUT_PROMPT));					
-				alert.headerTextProperty().bind(DisplayLanguage.createStringBinding(INVALID_INPUT_MESSAGE));
-				alert.show();
+				makeAlert().show();
 				}
 			}
 		dsp.setFont(getFontType(), getFontSize());
 	}
 	
-    private void changeFontColor() {
+	@Override
+	protected void changeFontColor() {
 		dsp.setFontColor(toRGBString(fontColorCP.getValue()));
     }
     
-    private void changeBackgroundColor() {
+	@Override
+	protected void changeBackgroundColor() {
     		dsp.setBackgroundColor(backgroundColorCP.getValue());
     }
-    
-    private String toRGBString(Color c) {
-        return "rgb("
-                          + to255Int(c.getRed())
-                    + "," + to255Int(c.getGreen())
-                    + "," + to255Int(c.getBlue())
-             + ")";
-    }
 
-    private int to255Int(double d) {
-        return (int) (d * 255);
-    }
-
-	private ColorPicker makeColorPallette(String color) {
-		ColorPicker cp = new ColorPicker(Color.web(color));
-//		svg = new SVGPath();
-//		svg.setContent("M70,50 L90,50 L120,90 L150,50 L170,50"
-//				+ "L210,90 L180,120 L170,110 L170,200 L70,200 L70,110 L60,120 L30,90"
-//				+ "L70,50");
-//		svg.setStroke(Color.DARKGREY);
-//		svg.setStrokeWidth(2);
-//		svg.setEffect(new DropShadow());
-//		svg.setFill(cp.getValue());
-
-		return cp;
-	}
-
-	private ChoiceBox<String> makeChoiceBox(ObservableList<String> observableList) {
+	@Override
+	protected ChoiceBox<String> makeChoiceBox(ObservableList<String> observableList) {
 		ChoiceBox<String> cb = new ChoiceBox<String>(observableList);
-
-		System.out.println("fonts: " + observableList);
-
 		cb.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 
 			@Override
@@ -289,28 +235,6 @@ public class DialogueEditor {
 			}
 		});
 		return cb;
-	}
-
-	private TextField makeTextField(double width, double height) {
-		TextField tf = new TextField();
-		tf.setPrefWidth(width);
-		return tf;
-	}
-
-	private HBox makeEntry(String prompt, Node tf) {
-		HBox hb = new HBox(5);
-		Label lb = new Label();
-		lb.textProperty().bind(DisplayLanguage.createStringBinding(prompt));
-		hb.getChildren().addAll(lb, tf);
-		hb.setAlignment(Pos.CENTER);
-		return hb;
-	}
-
-	private Button makeButton(String name, EventHandler<ActionEvent> handler) {
-		Button btn = new Button();
-		btn.textProperty().bind(DisplayLanguage.createStringBinding(name));
-		btn.setOnAction(handler);
-		return btn;
 	}
 
 }

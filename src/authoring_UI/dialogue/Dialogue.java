@@ -3,6 +3,7 @@ package authoring_UI.dialogue;
 import java.util.ArrayList;
 import java.util.List;
 
+import authoring_UI.displayable.Displayable;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -13,49 +14,29 @@ import javafx.scene.paint.Color;
  * @author DavidTran
  *
  */
-public class Dialogue {
-
-	private String name;
-	private String fontType;
-	private Color fontColor;
-	private List<Pane> dialogueSequence;
+public class Dialogue extends Displayable {
 
 	public Dialogue(String name, String fontType, Color fontColor, List<Pane> dialogueSequence) {
-		this.name = name;
-		this.fontType = fontType;
-		this.fontColor = fontColor;
-		this.dialogueSequence = dialogueSequence;
+		super(name, fontType, fontColor, dialogueSequence);
 	}
 
 	/*************************** PUBLIC METHODS **********************************/
 
-	public String getName() {
-		return name;
+	protected String getName() {
+		return getName();
 	}
 	
 	public List<Pane> getDialogueSequence() {
-		return dialogueSequence;
+		return getDisplayableSequence();
 	}
 
-//	public int getFontSize() {
-//		return fontSize;
-//	}
-//
-	public String getFontType() {
-		return fontType;
+	protected String getFontType() {
+		return getFontType();
 	}
 	
-	public Color getFontColor() {
-		return fontColor;
+	protected Color getFontColor() {
+		return getFontColor();
 	}
-////
-//	public List<String> getTextList() {
-//		return textList;
-//	}
-//	
-//	public String toString() {
-//		return "Name: " + name + " | Font: " + font + " | Font Size: " + fontSize;
-//	}
 
 	/*************************** PRIVATE METHODS **********************************/
 
