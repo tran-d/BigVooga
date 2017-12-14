@@ -34,7 +34,7 @@ public class DialogText {
 		
 		myTextSize = child.getFont().getSize();
 		myFont = child.getFont().getName();
-		setColor(child.getStyle());
+		setColorFromCSS(child.getStyle());
 		this.setText(child.getText());
 		
 		this.setAbsoluteDimensions(this.getBoundsInParent(parent, child));
@@ -44,7 +44,10 @@ public class DialogText {
 		this.setRelativeWidth(this.findRelativeWidth());
 	}
 	
-	private void setColor(String cssRepresentation){
+	public DialogText(){
+		
+	}
+	private void setColorFromCSS(String cssRepresentation){
 	String[] css = cssRepresentation.split(":");
 	for (int i=0; i<css.length;i++){
 		String curr = css[i];
@@ -55,14 +58,25 @@ public class DialogText {
 	}
 	}
 	
+	public void setFont(String newFont){
+    	myFont = newFont;
+    }
 
     
     public String getFont(){
     	return this.myFont;
     }
     
+    public void setColor(String newColor){
+    	myColor = newColor;
+    }
+    
     public String getColor(){
     	return this.myColor;
+    }
+    
+    public void setTextSize(double newSize){
+    	myTextSize = newSize;
     }
     
     public double getTextSize(){
@@ -141,5 +155,19 @@ public class DialogText {
 	private double findRelativeWidth() {
 		double width = this.absoluteWidth/paneWidth;
 		return width;
+	}
+	
+	public DialogText clone(){
+		DialogText ret = new DialogText();
+		ret.setText(new String(this.getText()));
+		ret.setFont(this.getFont());
+		ret.setColor(this.getColor());
+		ret.setTextSize(this.getTextSize());
+		
+		ret.setRelativeHeight(this.getRelativeHeight());
+		ret.setRelativeWidth(this.getRelativeWidth());
+		ret.setRelativeXCoor(this.getRelativeXCoor());
+		ret.setRelativeYCoor(this.getRelativeYCoor());
+		return ret;
 	}
 }

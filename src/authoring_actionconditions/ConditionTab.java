@@ -13,9 +13,9 @@ public class ConditionTab<T> extends ActionTab<T> implements ConditionTabI {
 		super(title);
 	}
 	
-	public ConditionTab(String title,ConditionVBox<T> actionConditionVBox, ActionConditionHBox topToolBar) {
-		super(title,actionConditionVBox,topToolBar);
-	}
+//	public ConditionTab(String title,ConditionVBox<T> actionConditionVBox, ActionConditionHBox topToolBar) {
+//		super(title,actionConditionVBox,topToolBar);
+//	}
 	
 	public void displayRowExceptionMessage(String message) {
 		Alert alert = new Alert(AlertType.ERROR);

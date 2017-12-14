@@ -324,6 +324,13 @@ private	void resetActiveSprites() {
 		});
 	}
 	
+	public void setActiveDisplayPanelSprite(AbstractSpriteObject ASO){
+		this.deactivateActiveSprites();
+		myDG.getActiveGrid().addActiveCell(ASO);
+		myGridDP.addSpriteEditorVBox();
+		myGridDP.updateParameterTab();	
+	}
+	
 	private void setActiveElementSprite(AbstractSpriteObject ASO){
 		;
 		;

@@ -17,6 +17,28 @@ import engine.operations.VoogaAnnotation;
 import engine.operations.VoogaParameter;
 
 /**
+ * Responsible for constructing Actions and describing how to do so.
+ * ActionFactories give what actions are available, describe the parameters
+ * required for a particular Action, and construct Actions via reflection.
+ * 
+ * This class assumes:
+ * 
+ * 1. All Action categories are included in the Actions.properties file, mapped
+ * to the relative locations of the properties file for that category.
+ * 
+ * 2. Each category has a properties file containing the descriptive name of all
+ * actions of that category mapped to the full class name of their
+ * implementation.
+ * 
+ * 3. All Action names are unique.
+ * 
+ * 4a. All Actions only one constructor.
+ * 
+ * 4b. These constructors only take specific extensions of Operation which are
+ * included in the properties for Operations OR other Actions. 
+ * 
+ * 4c. Each parameter has a VoogaAnnotation. 
+ * 
  * @author Ian Eldridge-Allegra
  *
  */
@@ -42,16 +64,29 @@ public class ActionFactory {
 		}
 	}
 
+	/**
+	 * @return The categories of Actions available. These are all the legal inputs
+	 *         to getActions.
+	 */
 	public List<String> getCategories() {
 		return new ArrayList<>(categoryBundles.keySet());
 	}
 
+	/**
+	 * @param category
+	 *            The category of Actions to list.
+	 * @return All Actions available in the given category. These
+	 */
 	public List<String> getActions(String category) {
 		return Collections.list(categoryBundles.get(category).getKeys());
 	}
 
+	/**
+	 * @param actionName The name of the action (one of those given by getActions)
+	 * @param parameters Whatever Operations/Actions are taken by the Action's constructor.
+	 * @return The Action
+	 */
 	public Action makeAction(String actionName, Object... parameters) {
-		;
 		try {
 			return (Action) getConstructor(actionName).newInstance(parameters);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
@@ -60,6 +95,9 @@ public class ActionFactory {
 		}
 	}
 
+	/**
+	 * @deprecated @see {@link #getParametersWithNames(String)}
+	 */
 	@Deprecated
 	public List<String> getParameters(String actionName) {
 		List<String> types = new ArrayList<>();
@@ -72,6 +110,10 @@ public class ActionFactory {
 		return types;
 	}
 
+	/**
+	 * @param actionName The action name to get parameters from
+	 * @return The parameters required by the action, with descriptive names of the parameters. 
+	 */
 	public List<VoogaParameter> getParametersWithNames(String actionName) {
 		List<VoogaParameter> types = new ArrayList<>();
 		try {
@@ -85,8 +127,8 @@ public class ActionFactory {
 		return types;
 	}
 
-	private Constructor<?> getConstructor(String operationName) throws ClassNotFoundException {
-		return Class.forName(getClassName(operationName)).getDeclaredConstructors()[0];
+	private Constructor<?> getConstructor(String actionName) throws ClassNotFoundException {
+		return Class.forName(getClassName(actionName)).getDeclaredConstructors()[0];
 	}
 
 	private String getClassName(String actionName) {

@@ -33,7 +33,7 @@ public abstract class SpriteSet {
 		toSave = new ArrayList<SpriteObject>();
 	}
 
-	protected Map<String, List<AbstractSpriteObject>> getCategoryToSprites() {
+	protected Map<String, List<AbstractSpriteObject>> getCategoryToSpritesCopy() {
 		Map<String, List<AbstractSpriteObject>> catSpritesMap = new HashMap<String, List<AbstractSpriteObject>>();
 		categoryToSprites.forEach((key, val)->{
 			catSpritesMap.put(key,new ArrayList<AbstractSpriteObject>());
@@ -44,6 +44,10 @@ public abstract class SpriteSet {
 			});
 		});
 		return catSpritesMap;
+	}
+	
+	protected Map<String, List<AbstractSpriteObject>> getCategoryToSprites(){
+		return categoryToSprites;
 	}
 
 	public List<Pane> getAllSpritesAsThumbnails() {
@@ -61,7 +65,7 @@ public abstract class SpriteSet {
 		}
 		// ;
 		List<AbstractSpriteObject> ret = new ArrayList<AbstractSpriteObject>();
-		getCategoryToSprites().values().forEach(list -> {
+		getCategoryToSpritesCopy().values().forEach(list -> {
 			list.forEach(obj -> {
 				// ;
 				ret.add(obj.newCopy());
@@ -75,7 +79,7 @@ public abstract class SpriteSet {
 		if (!loaded) {
 			this.loadSprites();
 		}
-		return this.getCategoryToSprites();
+		return this.getCategoryToSpritesCopy();
 	}
 
 	protected String getFolderToLoad() {
@@ -97,14 +101,16 @@ public abstract class SpriteSet {
 		if (categoryToSprites == null) {
 			categoryToSprites = new HashMap<String, List<AbstractSpriteObject>>();
 		}
-		// if (getFolderToLoad()==null){
-		// setFolderToLoad();
-		// }
 		loaded = true;
 		if (!getFolderToLoad().equals("")) {
 			categoryToSprites = myGDH.loadSpritesFromNestedDirectories(getFolderToLoad());
+<<<<<<< HEAD
 			;
 			;
+=======
+			System.out.println("!!!!");
+			System.out.println(categoryToSprites);
+>>>>>>> 0f8ccc705aa5ea35b7ad7dd48bb75c2cb40116ed
 		}
 	}
 
@@ -180,8 +186,8 @@ public abstract class SpriteSet {
 	}
 
 	protected void saveSprite(String category, AbstractSpriteObject SO) throws Exception {
-		String folderToSaveTo = getFolderToLoad() + category + "/" + SO.getName();
-		myGDH.saveSprite(SO, folderToSaveTo);
+		String folderToSaveTo = getFolderToLoad() + category + "/";
+		myGDH.saveSprite(SO, folderToSaveTo, SO.getName());
 	}
 
 	protected void saveAllSprites() throws Exception {

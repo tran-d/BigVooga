@@ -23,7 +23,7 @@ public class DialogSpriteManager {
 	protected boolean loaded = false;
 	protected List<SpriteObject> toSave;
 
-	private final String FOLDER = "dialogue/";
+	private final String FOLDER = "Dialogue/";
 
 	public DialogSpriteManager(GameDataHandler GDH) {
 		myGDH = GDH;

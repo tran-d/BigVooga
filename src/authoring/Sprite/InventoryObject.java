@@ -1,9 +1,19 @@
 package authoring.Sprite;
 
+import javafx.scene.image.Image;
+
 public class InventoryObject extends AbstractSpriteObject {
 	
 	public InventoryObject(){
 		
+	}
+	
+	public InventoryObject(Image im, String file){
+		super(im, file);
+	}
+	
+	public InventoryObject(String fileURL){
+		super(fileURL);
 	}
 
 	public InventoryObject(boolean b) {

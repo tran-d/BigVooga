@@ -24,10 +24,10 @@ public class Sprite {
 	 *            The new Animation sequence
 	 */
 	public void addAnimationSequence(AnimationSequence animation) {
-
-		if (animations.size() == 0)
-			animations.put(animation.getName(), animation);
-		currentAnimation = animation;
+		if (animations.size() == 0){
+			currentAnimation = animation;
+		}
+		animations.put(animation.getName(), animation);
 	}
 
 	/**

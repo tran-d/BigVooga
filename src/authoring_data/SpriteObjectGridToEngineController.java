@@ -26,6 +26,8 @@ public class SpriteObjectGridToEngineController {
 	private GameMaster myEC;
 	private GameDataHandler myGDH;
 	private GameWorld currentWorld;
+	private static Integer CELL_WIDTH = 50;
+	private static Integer CELL_HEIGHT = 50;
 
 	public SpriteObjectGridToEngineController(GameDataHandler GDH){
 		myGDH = GDH;
@@ -38,11 +40,19 @@ public class SpriteObjectGridToEngineController {
 		for (SpriteObjectGridManager thisLayer : allLayers) {
 			createEngineLayerAndAddToWorld(thisLayer, thisLayer.getName());
 		}
+//		addHUDToWorld()
 		addWorldToEngine(currentWorld);
 	}
 	
+<<<<<<< HEAD
 	private void createWorld(String n) {
 		currentWorld = new GameWorld(n); 
+=======
+	
+	
+	private void createWorld() {
+		currentWorld = new GameWorld(); 
+>>>>>>> 0f8ccc705aa5ea35b7ad7dd48bb75c2cb40116ed
 	}
 
 	private void createEngineLayerAndAddToWorld(SpriteObjectGridManager thisLayer, String name) {
@@ -127,12 +137,12 @@ public class SpriteObjectGridToEngineController {
 	}
 	
 	private BoundedImage convertAnimationSequenceImageToBoundedImage(AnimationSequenceImage ASI){
-		return new BoundedImage(ASI.getImage().getImagePath());
+		return new BoundedImage(ASI.getImage().getImagePath().replaceAll(".*\\", ""));
 	}
 	
 	private void setPositionAndSizeOfGameObject(SpriteObject SOI, GameObject GO){
-		GO.setLocation(SOI.getXCenterCoordinate(), SOI.getYCenterCoordinate());
-		GO.setSize(SOI.getNumCellsWidth(), SOI.getNumCellsHeight());
+		GO.setLocation(SOI.getXCenterCoordinate()*CELL_WIDTH, SOI.getYCenterCoordinate()*CELL_HEIGHT);
+		GO.setSize(SOI.getNumCellsWidth()*CELL_WIDTH, SOI.getNumCellsHeight()*CELL_HEIGHT);
 		GO.setUniqueID(SOI.getUniqueID());
 	}
 
@@ -169,7 +179,10 @@ public class SpriteObjectGridToEngineController {
 	
 	private void addAllGameObjectsToLayer(List<GameObject> GO_LIST, GameLayer layer) {
 		for (GameObject GO: GO_LIST) {
+<<<<<<< HEAD
 			layer.addElement(GO);
+=======
+>>>>>>> 0f8ccc705aa5ea35b7ad7dd48bb75c2cb40116ed
 			layer.addGameObject(GO);
 		}
 	}

@@ -4,7 +4,7 @@ import ActionConditionClasses.ChoiceBoxVBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class RemoveChoiceBoxVBox extends ChoiceBoxVBox<Integer> {
+public class RemoveChoiceBoxVBox extends ChoiceBoxVBox {
 	
 	public RemoveChoiceBoxVBox(String label,ObservableList<Integer> removalOptions) {
 		super(label,removalOptions);

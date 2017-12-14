@@ -36,6 +36,7 @@ public class AuthoringEnvironmentManager {
 	private SpriteSet myInventoryTemplates;
 	private SpriteSet myMenuTemplates;
 	private DialogSpriteManager myDialogs;
+	private SpriteNameManager mySNM;
 
 	public AuthoringEnvironmentManager(GameDataHandler GDH) {
 		myGDH = GDH;
@@ -47,12 +48,30 @@ public class AuthoringEnvironmentManager {
 		initializeMenuTemplates();
 		initializeImportedInventorySprites();
 		initializeDialogs();
+		initializeSpriteNameManager();
 		
 		defaultEmptySprite = new DefaultSpriteObject();
 		
+<<<<<<< HEAD
 		;
 		
 		if (myDefaultSprites == null) ;
+=======
+		if (myDefaultSprites == null) System.out.println("this was def initialized");
+>>>>>>> 0f8ccc705aa5ea35b7ad7dd48bb75c2cb40116ed
+	}
+	
+	private void initializeSpriteNameManager(){
+		mySNM = new SpriteNameManager();
+		getEveryTypeOfAbstractSprite().forEach((type, listSprites)->{
+			listSprites.forEach(sprite->{
+				mySNM.addTemplateName(sprite.getName());
+			});
+		});
+	}
+	
+	public SpriteNameManager getSpriteNameManager(){
+		return mySNM;
 	}
 	
 	private void initializeInventoryTemplates() {
@@ -197,6 +216,10 @@ public class AuthoringEnvironmentManager {
 
 	public void addInventorySprite(AbstractSpriteObject SOI) throws Exception {
 		myInventorySprites.addNewSprite(SOI);
+	}
+	
+	public void addInventorySprite(String category, AbstractSpriteObject SOI) throws Exception {
+		myInventorySprites.addNewSprite(category, SOI);
 	}
 
 	public void addInventorySprite(ArrayList<AbstractSpriteObject> SOI_LIST) {

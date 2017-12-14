@@ -7,6 +7,7 @@ import java.util.List;
 import authoring.Sprite.AnimationSequences.AuthoringAnimationSequence;
 import authoring.Sprite.AnimationSequences.AuthoringImageView;
 import authoring.drawing.BoundingPolygonCreator;
+//import authoring.drawing.BoundingPolygonCreator;
 import engine.sprite.BoundedImage;
 import engine.utilities.data.GameDataHandler;
 import javafx.geometry.Insets;
@@ -95,11 +96,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 
 		outmostContainerVBox.getChildren().add(tabPaneVbox);
 
-		HBox h = new HBox();
-		h.setBackground(new Background(new BackgroundFill(Color.ALICEBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
-		h.getChildren().add(new Text("hello"));
 		// outmostContainerVBox.getChildren().add(tabPaneVbox);
-		outmostContainerVBox.getChildren().add(h);
 		outmostContainerVBox.getChildren().add(this.animationVBox);
 
 	}
@@ -128,7 +125,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 
 			File file = GameDataHandler.chooseFileForImageSave(s.getWindow());
 			Image im = new Image(file.toURI().toString());
-			AuthoringImageView AIV = new AuthoringImageView(file.toURI().toString());
+			AuthoringImageView AIV = new AuthoringImageView(file.toName());
 			makeBoundedImagePopup(AIV, im, file.getName());
 			addNewAuthoringImageViewToSequence(this.activeAnimationSeqeunce, AIV);
 		});
@@ -144,7 +141,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	}
 
 	private void addNewAuthoringImageViewToSequence(AuthoringAnimationSequence AAS, AuthoringImageView AIV) {
-		AAS.addNewAuthoringImageViewToSequence(AIV);
+		AAS.addNewAuthoringImageViewToSequence(AIV, false);
 	}
 
 	public Button getAddImageButton() {
