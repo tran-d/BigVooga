@@ -8,6 +8,13 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import tools.DisplayLanguage;
 
+/**
+ * Creates the sliding side bar that allows the user to toggle between the views, which are the Map Editor, Sprite Creator, Custom Panels, Cutscenes, Dialogues,
+ * Heads Up Display, Inventory, and Menu Creator. The applications of these views are described in detail in the AuthoringController class documentation.
+ * 
+ * @author Samarth Desai
+ *
+ */
 public class ViewSideBar extends VBox {
 
 	private static final String ID_NAME = "sideBar";

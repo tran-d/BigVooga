@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 import tools.DisplayLanguage;
 
 /**
- * Class that allows user to select a game to play.
+ * Creates the class that allows users to 
  * 
  * @author David, Samarth, Ian
  *

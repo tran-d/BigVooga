@@ -17,22 +17,18 @@ import javafx.scene.layout.HBox;
  */
 public class SpriteTab extends Tab {
 
-	private static final String SPRITECREATORRESOURCES_PATH = "TextResources/SpriteCreatorResources";
 	private static final int PANE_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH;
 
-	private ResourceBundle spriteCreatorResources;
 	private HBox parentBox;
 	private SpriteStatePanel myStatePanel;
 	private SpriteImagePanel myImagePanel;
-	private SpriteToolPanel myToolBoxPanel;
 	private AuthoringEnvironmentManager myAEM;
 	private SpriteCreatorManager mySCM;
 	private SpriteCreatorSpriteManager mySM;
 
 	protected SpriteTab(AuthoringEnvironmentManager AEM, SpriteCreatorManager SCM, SpriteCreatorImageGrid imageGrid,
 			SpriteCreatorSpriteManager SM, SpriteCreatorGridHandler mySCGridHandler) {
-		spriteCreatorResources = ResourceBundle.getBundle(SPRITECREATORRESOURCES_PATH);
-		this.setText(spriteCreatorResources.getString("SpriteTab"));
+		this.setText("Sprite");
 		myAEM = AEM;
 		mySCM = SCM;
 		mySM = SM;
@@ -42,9 +38,8 @@ public class SpriteTab extends Tab {
 
 		myStatePanel = new SpriteStatePanel(myAEM, SCM);
 		myImagePanel = new SpriteImagePanel(myAEM, imageGrid, mySM, SCM, mySCGridHandler);
-		myToolBoxPanel = new SpriteToolPanel();
 
-		parentBox.getChildren().addAll(myStatePanel, myImagePanel, myToolBoxPanel);
+		parentBox.getChildren().addAll(myStatePanel, myImagePanel);
 
 		// StatePanel
 		// ImageStack

@@ -36,9 +36,11 @@ import javafx.scene.text.Text;
 import tools.DisplayLanguage;
 
 /**
- * Class that displays the text areas and utilities for editing dialogues.
+ * Creates the components that display and allow for customization of the dialogue template and text areas.
+ * The different buttons and options for customization also created in this class include text position, font color, background color, etc.,
+ * as well as the ability to create different dialogue boxes in a sequence and toggle between them.
  * 
- * @author DavidTran
+ * @author David Tran, Samarth Desai, Dara Buggay
  *
  */
 public class DialogueTextAreaView extends VBox {

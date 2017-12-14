@@ -18,6 +18,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * Creates the list of saved games that appears after a user selects 'Create.' Here, the user can choose one of these projects to continue editing
+ * in the authoring environment, or they can name and create a new project to begin working on.
+ * 
+ * @author Samarth Desai and Archana Ahlawat
+ *
+ */
 public class FileSelector extends MenuOptionsTemplate {
 
 	private static final String SQUARICLE_PATH = "Squaricle.gif";

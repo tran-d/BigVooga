@@ -36,7 +36,7 @@ public class HUDManager extends MapManager{
 	
 	@Override
 	protected void setManagerName(){
-		MANAGERNAME = "HUDManager";
+		MANAGER_NAME = "HUDManager";
 	}
 	
 	@Override 

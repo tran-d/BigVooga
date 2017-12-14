@@ -16,14 +16,17 @@ import authoring.SpriteCreatorSpriteManager;
 import authoring.SpriteNameManager;
 import authoring.Sprite.SpriteObject;
 import authoring.Sprite.Parameters.SpriteParameterI;
+import authoring.drawing.BoundingPolygonCreator;
 import authoring.drawing.ImageCanvasPane;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
@@ -51,11 +54,9 @@ public class SpriteImagePanel extends VBox {
 	private static final String PATH = "resources/";
 	// private static final String IMAGE_PATH =
 	// "data/UserCreatedGames/TestProject/Sprites/CustomSprites/";
-	private static final String SPRITECREATORRESOURCES_PATH = "TextResources/SpriteCreatorResources";
 	private static final String TOOLSANDNAMES_PATH = "authoring/drawing/drawingTools/drawingTools";
 	private static final int PANE_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH;
 
-	private ResourceBundle spriteCreatorResources;
 	private ResourceBundle paintResources;
 	private HBox buttonBox;
 	private HBox nameBox;
@@ -76,7 +77,6 @@ public class SpriteImagePanel extends VBox {
 
 	protected SpriteImagePanel(AuthoringEnvironmentManager AEM, SpriteCreatorImageGrid imageGrid,
 			SpriteCreatorSpriteManager SM, SpriteCreatorManager SCM, SpriteCreatorGridHandler mySCGridHandler) {
-		spriteCreatorResources = ResourceBundle.getBundle(SPRITECREATORRESOURCES_PATH);
 		paintResources = ResourceBundle.getBundle(TOOLSANDNAMES_PATH);
 		this.setMinWidth(PANE_WIDTH / 2 - 300);
 		this.setMinHeight(500);
@@ -112,14 +112,13 @@ public class SpriteImagePanel extends VBox {
 	}
 
 	private void addNameCategoryBox() {
-		Text enterName = new Text(spriteCreatorResources.getString("NameField"));
-		enterName.setStroke(Color.WHITE);
+		Label enterName = new Label("Blej");
 		nameField = new TextField();
-		Text enterCategory = new Text(spriteCreatorResources.getString("CategoryField"));
-		enterCategory.setStroke(Color.WHITE);
+		Label enterCategory = new Label("eh");
 		categoryField = new TextField();
 
 		nameCategoryBox.getChildren().addAll(enterName, nameField, enterCategory, categoryField);
+		nameCategoryBox.setAlignment(Pos.CENTER);
 
 	}
 
@@ -130,7 +129,7 @@ public class SpriteImagePanel extends VBox {
 	}
 
 	private void addButtons() {
-		Button loadImageButton = new Button(spriteCreatorResources.getString("LoadImageButton"));
+		Button loadImageButton = new Button("Load");
 		loadImageButton.setOnAction(e -> {
 			try {
 				openImage();
@@ -140,7 +139,7 @@ public class SpriteImagePanel extends VBox {
 			}
 		});
 
-		Button createImageButton = new Button(spriteCreatorResources.getString("CreateImageButton"));
+		Button createImageButton = new Button("Draw");
 		createImageButton.setOnAction(e -> {
 			Stage newStage = new Stage();
 			ImageCanvasPane paint = new ImageCanvasPane(paintResources, 500, 500, s -> setImage(s));
@@ -148,8 +147,9 @@ public class SpriteImagePanel extends VBox {
 			newStage.setScene(paintScene);
 			newStage.show();
 		});
+		
 
-		Button createSpriteButton = new Button(spriteCreatorResources.getString("CreateSpriteButton"));
+		Button createSpriteButton = new Button("Create Template");
 
 		createSpriteButton.setOnAction(e -> {
 
@@ -167,7 +167,7 @@ public class SpriteImagePanel extends VBox {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-
+				
 				System.out.println("name is valid");
 
 				mySNM.addTemplateName(spriteName);
@@ -196,13 +196,14 @@ public class SpriteImagePanel extends VBox {
 			}
 
 		});
+				
 		buttonBox.getChildren().addAll(loadImageButton, createImageButton, createSpriteButton);
 	}
 
 	private void openImage() throws IOException {
 		FileChooser imageChooser = new FileChooser();
 		imageChooser.setInitialDirectory(new File("resources/"));
-		imageChooser.setTitle(spriteCreatorResources.getString("ImageChooser"));
+		imageChooser.setTitle("Choose Image");
 		File file = imageChooser.showOpenDialog(new Stage());
 
 		if (file != null) {
