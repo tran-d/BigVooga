@@ -124,16 +124,16 @@
                                                   <shouldSerializeMemberMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/unserializable-parents/wrapped/wrapped"/>
                                                   <typeToName>
                                                     <entry>
-                                                      <java-class>java.nio.file.Path</java-class>
-                                                      <string>path</string>
+                                                      <java-class>java.time.ZoneId</java-class>
+                                                      <string>zone-id</string>
                                                     </entry>
                                                     <entry>
                                                       <java-class>java.time.chrono.Chronology</java-class>
                                                       <string>chronology</string>
                                                     </entry>
                                                     <entry>
-                                                      <java-class>java.time.ZoneId</java-class>
-                                                      <string>zone-id</string>
+                                                      <java-class>java.nio.file.Path</java-class>
+                                                      <string>path</string>
                                                     </entry>
                                                     <entry>
                                                       <java-class>java.nio.charset.Charset</java-class>
@@ -707,6 +707,10 @@
                                       <java-class>java.util.TreeSet</java-class>
                                     </entry>
                                     <entry>
+                                      <java-class>com.thoughtworks.xstream.mapper.Mapper$Null</java-class>
+                                      <null/>
+                                    </entry>
+                                    <entry>
                                       <java-class>long</java-class>
                                       <java-class>java.lang.Long</java-class>
                                     </entry>
@@ -715,28 +719,28 @@
                                       <java-class>java.util.ArrayList</java-class>
                                     </entry>
                                     <entry>
-                                      <java-class>java.util.Map</java-class>
-                                      <java-class>java.util.HashMap</java-class>
+                                      <java-class>java.util.Set</java-class>
+                                      <java-class>java.util.HashSet</java-class>
                                     </entry>
                                     <entry>
                                       <java-class>float</java-class>
                                       <java-class>java.lang.Float</java-class>
                                     </entry>
                                     <entry>
-                                      <java-class>com.thoughtworks.xstream.mapper.Mapper$Null</java-class>
-                                      <null/>
+                                      <java-class>short</java-class>
+                                      <java-class>java.lang.Short</java-class>
+                                    </entry>
+                                    <entry>
+                                      <java-class>java.util.Calendar</java-class>
+                                      <java-class>java.util.GregorianCalendar</java-class>
                                     </entry>
                                     <entry>
                                       <java-class>byte</java-class>
                                       <java-class>java.lang.Byte</java-class>
                                     </entry>
                                     <entry>
-                                      <java-class>short</java-class>
-                                      <java-class>java.lang.Short</java-class>
-                                    </entry>
-                                    <entry>
-                                      <java-class>java.util.Set</java-class>
-                                      <java-class>java.util.HashSet</java-class>
+                                      <java-class>java.util.Map</java-class>
+                                      <java-class>java.util.HashMap</java-class>
                                     </entry>
                                     <entry>
                                       <java-class>char</java-class>
@@ -745,10 +749,6 @@
                                     <entry>
                                       <java-class>boolean</java-class>
                                       <java-class>java.lang.Boolean</java-class>
-                                    </entry>
-                                    <entry>
-                                      <java-class>java.util.Calendar</java-class>
-                                      <java-class>java.util.GregorianCalendar</java-class>
                                     </entry>
                                     <entry>
                                       <java-class>int</java-class>
@@ -840,119 +840,119 @@
                           <unreferenceableTypes>
                             <java-class>double</java-class>
                             <java-class>java.lang.String</java-class>
-                            <java-class>java.time.temporal.IsoFields$Unit</java-class>
+                            <java-class>java.time.ZoneOffset</java-class>
+                            <java-class>java.time.chrono.MinguoDate</java-class>
+                            <java-class>byte</java-class>
+                            <java-class>java.net.URL</java-class>
+                            <java-class>java.time.chrono.JapaneseEra</java-class>
                             <java-class>java.time.Instant</java-class>
-                            <java-class>java.lang.Long</java-class>
-                            <java-class>java.time.chrono.JapaneseDate</java-class>
-                            <java-class>java.time.LocalTime</java-class>
-                            <java-class>java.time.ZoneRegion</java-class>
-                            <java-class>java.time.MonthDay</java-class>
-                            <java-class>java.lang.Character</java-class>
                             <java-class>java.time.chrono.MinguoChronology</java-class>
-                            <java-class>java.time.chrono.IsoChronology</java-class>
-                            <java-class>java.lang.Short</java-class>
+                            <java-class>java.time.chrono.JapaneseDate</java-class>
+                            <java-class>java.time.chrono.HijrahChronology</java-class>
+                            <java-class>java.time.LocalDateTime</java-class>
+                            <java-class>java.time.LocalTime</java-class>
                             <java-class>boolean</java-class>
-                            <java-class>java.math.BigInteger</java-class>
-                            <java-class>java.time.temporal.JulianFields$Field</java-class>
-                            <java-class>java.math.BigDecimal</java-class>
+                            <java-class>java.time.temporal.IsoFields$Field</java-class>
+                            <java-class>java.time.ZoneId</java-class>
                             <java-class>java.io.File</java-class>
                             <java-class>long</java-class>
-                            <java-class>java.time.LocalDate</java-class>
-                            <java-class>float</java-class>
                             <java-class>com.thoughtworks.xstream.mapper.Mapper$Null</java-class>
-                            <java-class>java.lang.Float</java-class>
-                            <java-class>java.time.ZoneId</java-class>
-                            <java-class>java.time.chrono.HijrahDate</java-class>
-                            <java-class>java.time.chrono.MinguoDate</java-class>
-                            <java-class>java.time.Period</java-class>
-                            <java-class>java.time.OffsetDateTime</java-class>
-                            <java-class>int</java-class>
-                            <java-class>java.time.chrono.ThaiBuddhistChronology</java-class>
-                            <java-class>java.time.chrono.JapaneseEra</java-class>
-                            <java-class>java.lang.Integer</java-class>
-                            <java-class>java.time.OffsetTime</java-class>
-                            <java-class>java.time.Duration</java-class>
-                            <java-class>java.time.ZonedDateTime</java-class>
+                            <java-class>float</java-class>
                             <java-class>java.lang.Byte</java-class>
-                            <java-class>java.net.URL</java-class>
-                            <java-class>java.time.temporal.IsoFields$Field</java-class>
-                            <java-class>java.time.chrono.ThaiBuddhistDate</java-class>
-                            <java-class>java.time.ZoneOffset</java-class>
-                            <java-class>java.time.LocalDateTime</java-class>
-                            <java-class>java.time.chrono.JapaneseChronology</java-class>
-                            <java-class>java.time.chrono.HijrahChronology</java-class>
-                            <java-class>java.awt.font.TextAttribute</java-class>
-                            <java-class>java.lang.Class</java-class>
-                            <java-class>java.lang.Double</java-class>
-                            <java-class>sun.nio.fs.UnixPath</java-class>
-                            <java-class>java.lang.Boolean</java-class>
+                            <java-class>java.lang.Long</java-class>
                             <java-class>java.time.YearMonth</java-class>
-                            <java-class>byte</java-class>
-                            <java-class>java.time.Year</java-class>
+                            <java-class>int</java-class>
+                            <java-class>java.time.temporal.JulianFields$Field</java-class>
+                            <java-class>sun.nio.fs.UnixPath</java-class>
+                            <java-class>java.lang.Double</java-class>
+                            <java-class>java.time.Period</java-class>
+                            <java-class>java.lang.Integer</java-class>
+                            <java-class>java.time.chrono.ThaiBuddhistChronology</java-class>
+                            <java-class>java.time.chrono.JapaneseChronology</java-class>
+                            <java-class>java.time.chrono.IsoChronology</java-class>
+                            <java-class>java.time.chrono.ThaiBuddhistDate</java-class>
+                            <java-class>java.lang.Character</java-class>
+                            <java-class>java.time.temporal.IsoFields$Unit</java-class>
+                            <java-class>java.time.OffsetTime</java-class>
+                            <java-class>java.lang.Class</java-class>
+                            <java-class>java.awt.font.TextAttribute</java-class>
+                            <java-class>java.time.chrono.HijrahDate</java-class>
+                            <java-class>java.math.BigInteger</java-class>
+                            <java-class>java.lang.Boolean</java-class>
+                            <java-class>java.time.MonthDay</java-class>
+                            <java-class>java.time.OffsetDateTime</java-class>
+                            <java-class>java.time.ZonedDateTime</java-class>
                             <java-class>short</java-class>
+                            <java-class>java.time.Year</java-class>
+                            <java-class>java.time.Duration</java-class>
+                            <java-class>java.math.BigDecimal</java-class>
+                            <java-class>java.lang.Float</java-class>
+                            <java-class>java.lang.Short</java-class>
+                            <java-class>java.time.ZoneRegion</java-class>
                             <java-class>char</java-class>
+                            <java-class>java.time.LocalDate</java-class>
                           </unreferenceableTypes>
                           <immutableTypes>
                             <java-class>double</java-class>
-                            <java-class>java.util.Collections$EmptySet</java-class>
                             <java-class>java.lang.String</java-class>
-                            <java-class>java.time.temporal.IsoFields$Unit</java-class>
+                            <java-class>java.time.ZoneOffset</java-class>
+                            <java-class>java.time.chrono.MinguoDate</java-class>
+                            <java-class>java.util.Collections$EmptySet</java-class>
+                            <java-class>byte</java-class>
+                            <java-class>java.net.URL</java-class>
+                            <java-class>java.time.chrono.JapaneseEra</java-class>
                             <java-class>java.time.Instant</java-class>
-                            <java-class>java.lang.Long</java-class>
-                            <java-class>java.util.Currency</java-class>
-                            <java-class>java.time.chrono.JapaneseDate</java-class>
-                            <java-class>java.time.LocalTime</java-class>
-                            <java-class>java.time.ZoneRegion</java-class>
-                            <java-class>java.util.Collections$EmptyMap</java-class>
-                            <java-class>java.time.MonthDay</java-class>
-                            <java-class>java.util.UUID</java-class>
-                            <java-class>java.lang.Character</java-class>
                             <java-class>java.time.chrono.MinguoChronology</java-class>
-                            <java-class>java.time.chrono.IsoChronology</java-class>
-                            <java-class>java.lang.Short</java-class>
+                            <java-class>java.time.chrono.JapaneseDate</java-class>
+                            <java-class>java.time.chrono.HijrahChronology</java-class>
+                            <java-class>java.time.LocalDateTime</java-class>
+                            <java-class>java.time.LocalTime</java-class>
                             <java-class>boolean</java-class>
-                            <java-class>java.math.BigInteger</java-class>
-                            <java-class>java.time.temporal.JulianFields$Field</java-class>
-                            <java-class>java.math.BigDecimal</java-class>
+                            <java-class>java.time.temporal.IsoFields$Field</java-class>
+                            <java-class>java.time.ZoneId</java-class>
                             <java-class>java.io.File</java-class>
                             <java-class>long</java-class>
-                            <java-class>java.time.LocalDate</java-class>
-                            <java-class>float</java-class>
                             <java-class>com.thoughtworks.xstream.mapper.Mapper$Null</java-class>
-                            <java-class>java.lang.Float</java-class>
-                            <java-class>java.time.ZoneId</java-class>
-                            <java-class>java.time.chrono.HijrahDate</java-class>
+                            <java-class>float</java-class>
                             <java-class>java.nio.charset.Charset</java-class>
-                            <java-class>java.time.chrono.MinguoDate</java-class>
-                            <java-class>java.time.Period</java-class>
-                            <java-class>java.time.OffsetDateTime</java-class>
-                            <java-class>int</java-class>
-                            <java-class>java.time.chrono.ThaiBuddhistChronology</java-class>
-                            <java-class>java.util.Collections$EmptyList</java-class>
-                            <java-class>java.time.chrono.JapaneseEra</java-class>
-                            <java-class>java.lang.Integer</java-class>
-                            <java-class>java.time.OffsetTime</java-class>
-                            <java-class>java.time.Duration</java-class>
-                            <java-class>java.time.ZonedDateTime</java-class>
                             <java-class>java.lang.Byte</java-class>
-                            <java-class>java.net.URL</java-class>
-                            <java-class>java.time.temporal.IsoFields$Field</java-class>
-                            <java-class>java.time.chrono.ThaiBuddhistDate</java-class>
-                            <java-class>java.time.ZoneOffset</java-class>
-                            <java-class>java.time.LocalDateTime</java-class>
-                            <java-class>java.time.chrono.JapaneseChronology</java-class>
-                            <java-class>java.time.chrono.HijrahChronology</java-class>
-                            <java-class>java.awt.font.TextAttribute</java-class>
-                            <java-class>java.lang.Class</java-class>
-                            <java-class>java.lang.Double</java-class>
-                            <java-class>java.net.URI</java-class>
-                            <java-class>sun.nio.fs.UnixPath</java-class>
-                            <java-class>java.lang.Boolean</java-class>
+                            <java-class>java.lang.Long</java-class>
                             <java-class>java.time.YearMonth</java-class>
-                            <java-class>byte</java-class>
-                            <java-class>java.time.Year</java-class>
+                            <java-class>int</java-class>
+                            <java-class>java.time.temporal.JulianFields$Field</java-class>
+                            <java-class>sun.nio.fs.UnixPath</java-class>
+                            <java-class>java.lang.Double</java-class>
+                            <java-class>java.time.Period</java-class>
+                            <java-class>java.lang.Integer</java-class>
+                            <java-class>java.time.chrono.ThaiBuddhistChronology</java-class>
+                            <java-class>java.time.chrono.JapaneseChronology</java-class>
+                            <java-class>java.time.chrono.IsoChronology</java-class>
+                            <java-class>java.util.Collections$EmptyMap</java-class>
+                            <java-class>java.time.chrono.ThaiBuddhistDate</java-class>
+                            <java-class>java.lang.Character</java-class>
+                            <java-class>java.time.temporal.IsoFields$Unit</java-class>
+                            <java-class>java.time.OffsetTime</java-class>
+                            <java-class>java.lang.Class</java-class>
+                            <java-class>java.awt.font.TextAttribute</java-class>
+                            <java-class>java.time.chrono.HijrahDate</java-class>
+                            <java-class>java.math.BigInteger</java-class>
+                            <java-class>java.lang.Boolean</java-class>
+                            <java-class>java.util.Collections$EmptyList</java-class>
+                            <java-class>java.time.MonthDay</java-class>
+                            <java-class>java.time.OffsetDateTime</java-class>
+                            <java-class>java.time.ZonedDateTime</java-class>
                             <java-class>short</java-class>
+                            <java-class>java.util.Currency</java-class>
+                            <java-class>java.time.Year</java-class>
+                            <java-class>java.net.URI</java-class>
+                            <java-class>java.time.Duration</java-class>
+                            <java-class>java.math.BigDecimal</java-class>
+                            <java-class>java.lang.Float</java-class>
+                            <java-class>java.lang.Short</java-class>
+                            <java-class>java.time.ZoneRegion</java-class>
+                            <java-class>java.util.UUID</java-class>
                             <java-class>char</java-class>
+                            <java-class>java.time.LocalDate</java-class>
                           </immutableTypes>
                         </wrapped>
                         <aliasForAttributeMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
@@ -1948,13 +1948,13 @@
           <inventory/>
           <imageURL>/pikachu.png</imageURL>
           <gridPos>
-            <int>7</int>
-            <int>3</int>
+            <int>4</int>
+            <int>5</int>
           </gridPos>
           <name>pikachu</name>
           <width>1</width>
           <height>1</height>
-          <UUID>3a7d0018-0c62-4d85-be69-7323b40d1ac6</UUID>
+          <UUID>efee33ef-7128-4134-a2ee-f431f620d87b</UUID>
           <myAnimationSequences>
             <authoring.Sprite.AnimationSequences.AuthoringAnimationSequence resolves-to="authoring.Sprite.AnimationSequences.SerializableAuthoringAnimationSequence">
               <myName>Default</myName>
@@ -2005,13 +2005,265 @@
           <inventory/>
           <imageURL>/pikachu.png</imageURL>
           <gridPos>
-            <int>7</int>
+            <int>4</int>
             <int>6</int>
           </gridPos>
           <name>pikachu</name>
           <width>1</width>
           <height>1</height>
-          <UUID>6797a590-2601-4840-b465-9cdfaa424841</UUID>
+          <UUID>52b5e224-2cf7-4341-ae62-8e0f0c613370</UUID>
+          <myAnimationSequences reference="../../authoring__UI.SpriteDataConverter/myAnimationSequences"/>
+          <spriteType>SpriteObject</spriteType>
+          <tags/>
+        </authoring__UI.SpriteDataConverter>
+        <authoring__UI.SpriteDataConverter>
+          <conditionRows/>
+          <actionRows/>
+          <catmap>
+            <entry>
+              <string>General</string>
+              <list>
+                <authoring.Sprite.Parameters.BooleanSpriteParameter>
+                  <string>canFight</string>
+                  <boolean>true</boolean>
+                </authoring.Sprite.Parameters.BooleanSpriteParameter>
+                <authoring.Sprite.Parameters.DoubleSpriteParameter>
+                  <string>health</string>
+                  <double>10.0</double>
+                </authoring.Sprite.Parameters.DoubleSpriteParameter>
+                <authoring.Sprite.Parameters.StringSpriteParameter>
+                  <string>name</string>
+                  <string>hello</string>
+                </authoring.Sprite.Parameters.StringSpriteParameter>
+              </list>
+            </entry>
+          </catmap>
+          <inventory/>
+          <imageURL>/pikachu.png</imageURL>
+          <gridPos>
+            <int>4</int>
+            <int>7</int>
+          </gridPos>
+          <name>pikachu</name>
+          <width>1</width>
+          <height>1</height>
+          <UUID>dd93d948-377b-4051-ae29-f97fd87558be</UUID>
+          <myAnimationSequences reference="../../authoring__UI.SpriteDataConverter/myAnimationSequences"/>
+          <spriteType>SpriteObject</spriteType>
+          <tags/>
+        </authoring__UI.SpriteDataConverter>
+        <authoring__UI.SpriteDataConverter>
+          <conditionRows/>
+          <actionRows/>
+          <catmap>
+            <entry>
+              <string>General</string>
+              <list>
+                <authoring.Sprite.Parameters.BooleanSpriteParameter>
+                  <string>canFight</string>
+                  <boolean>true</boolean>
+                </authoring.Sprite.Parameters.BooleanSpriteParameter>
+                <authoring.Sprite.Parameters.DoubleSpriteParameter>
+                  <string>health</string>
+                  <double>10.0</double>
+                </authoring.Sprite.Parameters.DoubleSpriteParameter>
+                <authoring.Sprite.Parameters.StringSpriteParameter>
+                  <string>name</string>
+                  <string>hello</string>
+                </authoring.Sprite.Parameters.StringSpriteParameter>
+              </list>
+            </entry>
+          </catmap>
+          <inventory/>
+          <imageURL>/pikachu.png</imageURL>
+          <gridPos>
+            <int>5</int>
+            <int>5</int>
+          </gridPos>
+          <name>pikachu</name>
+          <width>1</width>
+          <height>1</height>
+          <UUID>c2bd5947-7204-4efb-b987-640af93ed766</UUID>
+          <myAnimationSequences reference="../../authoring__UI.SpriteDataConverter/myAnimationSequences"/>
+          <spriteType>SpriteObject</spriteType>
+          <tags/>
+        </authoring__UI.SpriteDataConverter>
+        <authoring__UI.SpriteDataConverter>
+          <conditionRows/>
+          <actionRows/>
+          <catmap>
+            <entry>
+              <string>General</string>
+              <list>
+                <authoring.Sprite.Parameters.BooleanSpriteParameter>
+                  <string>canFight</string>
+                  <boolean>true</boolean>
+                </authoring.Sprite.Parameters.BooleanSpriteParameter>
+                <authoring.Sprite.Parameters.DoubleSpriteParameter>
+                  <string>health</string>
+                  <double>10.0</double>
+                </authoring.Sprite.Parameters.DoubleSpriteParameter>
+                <authoring.Sprite.Parameters.StringSpriteParameter>
+                  <string>name</string>
+                  <string>hello</string>
+                </authoring.Sprite.Parameters.StringSpriteParameter>
+              </list>
+            </entry>
+          </catmap>
+          <inventory/>
+          <imageURL>/pikachu.png</imageURL>
+          <gridPos>
+            <int>5</int>
+            <int>6</int>
+          </gridPos>
+          <name>pikachu</name>
+          <width>1</width>
+          <height>1</height>
+          <UUID>e553d7b4-eea9-4311-b896-38db11d279da</UUID>
+          <myAnimationSequences reference="../../authoring__UI.SpriteDataConverter/myAnimationSequences"/>
+          <spriteType>SpriteObject</spriteType>
+          <tags/>
+        </authoring__UI.SpriteDataConverter>
+        <authoring__UI.SpriteDataConverter>
+          <conditionRows/>
+          <actionRows/>
+          <catmap>
+            <entry>
+              <string>General</string>
+              <list>
+                <authoring.Sprite.Parameters.BooleanSpriteParameter>
+                  <string>canFight</string>
+                  <boolean>true</boolean>
+                </authoring.Sprite.Parameters.BooleanSpriteParameter>
+                <authoring.Sprite.Parameters.DoubleSpriteParameter>
+                  <string>health</string>
+                  <double>10.0</double>
+                </authoring.Sprite.Parameters.DoubleSpriteParameter>
+                <authoring.Sprite.Parameters.StringSpriteParameter>
+                  <string>name</string>
+                  <string>hello</string>
+                </authoring.Sprite.Parameters.StringSpriteParameter>
+              </list>
+            </entry>
+          </catmap>
+          <inventory/>
+          <imageURL>/pikachu.png</imageURL>
+          <gridPos>
+            <int>5</int>
+            <int>7</int>
+          </gridPos>
+          <name>pikachu</name>
+          <width>1</width>
+          <height>1</height>
+          <UUID>5019771f-d1b3-4a48-80b5-70e8d9af995c</UUID>
+          <myAnimationSequences reference="../../authoring__UI.SpriteDataConverter/myAnimationSequences"/>
+          <spriteType>SpriteObject</spriteType>
+          <tags/>
+        </authoring__UI.SpriteDataConverter>
+        <authoring__UI.SpriteDataConverter>
+          <conditionRows/>
+          <actionRows/>
+          <catmap>
+            <entry>
+              <string>General</string>
+              <list>
+                <authoring.Sprite.Parameters.BooleanSpriteParameter>
+                  <string>canFight</string>
+                  <boolean>true</boolean>
+                </authoring.Sprite.Parameters.BooleanSpriteParameter>
+                <authoring.Sprite.Parameters.DoubleSpriteParameter>
+                  <string>health</string>
+                  <double>10.0</double>
+                </authoring.Sprite.Parameters.DoubleSpriteParameter>
+                <authoring.Sprite.Parameters.StringSpriteParameter>
+                  <string>name</string>
+                  <string>hello</string>
+                </authoring.Sprite.Parameters.StringSpriteParameter>
+              </list>
+            </entry>
+          </catmap>
+          <inventory/>
+          <imageURL>/pikachu.png</imageURL>
+          <gridPos>
+            <int>6</int>
+            <int>5</int>
+          </gridPos>
+          <name>pikachu</name>
+          <width>1</width>
+          <height>1</height>
+          <UUID>0c10de53-c7ef-4a38-b7b3-be7a006217ff</UUID>
+          <myAnimationSequences reference="../../authoring__UI.SpriteDataConverter/myAnimationSequences"/>
+          <spriteType>SpriteObject</spriteType>
+          <tags/>
+        </authoring__UI.SpriteDataConverter>
+        <authoring__UI.SpriteDataConverter>
+          <conditionRows/>
+          <actionRows/>
+          <catmap>
+            <entry>
+              <string>General</string>
+              <list>
+                <authoring.Sprite.Parameters.BooleanSpriteParameter>
+                  <string>canFight</string>
+                  <boolean>true</boolean>
+                </authoring.Sprite.Parameters.BooleanSpriteParameter>
+                <authoring.Sprite.Parameters.DoubleSpriteParameter>
+                  <string>health</string>
+                  <double>10.0</double>
+                </authoring.Sprite.Parameters.DoubleSpriteParameter>
+                <authoring.Sprite.Parameters.StringSpriteParameter>
+                  <string>name</string>
+                  <string>hello</string>
+                </authoring.Sprite.Parameters.StringSpriteParameter>
+              </list>
+            </entry>
+          </catmap>
+          <inventory/>
+          <imageURL>/pikachu.png</imageURL>
+          <gridPos>
+            <int>6</int>
+            <int>6</int>
+          </gridPos>
+          <name>pikachu</name>
+          <width>1</width>
+          <height>1</height>
+          <UUID>528a0a15-22d3-435a-9b2d-c975204cc7d4</UUID>
+          <myAnimationSequences reference="../../authoring__UI.SpriteDataConverter/myAnimationSequences"/>
+          <spriteType>SpriteObject</spriteType>
+          <tags/>
+        </authoring__UI.SpriteDataConverter>
+        <authoring__UI.SpriteDataConverter>
+          <conditionRows/>
+          <actionRows/>
+          <catmap>
+            <entry>
+              <string>General</string>
+              <list>
+                <authoring.Sprite.Parameters.BooleanSpriteParameter>
+                  <string>canFight</string>
+                  <boolean>true</boolean>
+                </authoring.Sprite.Parameters.BooleanSpriteParameter>
+                <authoring.Sprite.Parameters.DoubleSpriteParameter>
+                  <string>health</string>
+                  <double>10.0</double>
+                </authoring.Sprite.Parameters.DoubleSpriteParameter>
+                <authoring.Sprite.Parameters.StringSpriteParameter>
+                  <string>name</string>
+                  <string>hello</string>
+                </authoring.Sprite.Parameters.StringSpriteParameter>
+              </list>
+            </entry>
+          </catmap>
+          <inventory/>
+          <imageURL>/pikachu.png</imageURL>
+          <gridPos>
+            <int>6</int>
+            <int>7</int>
+          </gridPos>
+          <name>pikachu</name>
+          <width>1</width>
+          <height>1</height>
+          <UUID>c282686f-b993-424b-b9ee-f0c8c9ab4eef</UUID>
           <myAnimationSequences reference="../../authoring__UI.SpriteDataConverter/myAnimationSequences"/>
           <spriteType>SpriteObject</spriteType>
           <tags/>

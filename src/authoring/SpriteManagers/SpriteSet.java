@@ -97,13 +97,10 @@ public abstract class SpriteSet {
 		if (categoryToSprites == null) {
 			categoryToSprites = new HashMap<String, List<AbstractSpriteObject>>();
 		}
-		// if (getFolderToLoad()==null){
-		// setFolderToLoad();
-		// }
 		loaded = true;
 		if (!getFolderToLoad().equals("")) {
 			categoryToSprites = myGDH.loadSpritesFromNestedDirectories(getFolderToLoad());
-			System.out.println("!!!!!!!!!!!!!!");
+			System.out.println("!!!!");
 			System.out.println(categoryToSprites);
 		}
 	}
