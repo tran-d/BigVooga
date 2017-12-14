@@ -471,42 +471,9 @@ public class GameDataHandler {
 		return ret;
 	}
 
-	private List<SpriteObjectGridManager> loadLayersFromDirectoryName(File worldFile) {
-		List<SpriteObjectGridManager> loadedSOGMs = new ArrayList<>();
-		try {
-			for (File f : worldFile.listFiles()) {
-				SpriteObjectGridManager SOGM = this.loadLayer(f);
-				if (SOGM != null) {
-					loadedSOGMs.add(SOGM);
-				}
-			}
-		} catch (Exception e) {
-		}
-		return loadedSOGMs;
-	}
 	
-	public SpriteObjectGridManager loadLayer(File layerFile) throws Exception {
-		if (!isValidFile(layerFile)) {
-			throw new Exception("Invalid file to load");
-		}
-		List<AbstractSpriteObject> spritesToAdd = new ArrayList<AbstractSpriteObject>();
-		LayerDataConverter SDC = null;
-		SpriteObjectGridManager ret = null;
-		for (File f : layerFile.listFiles()) {
-			if (!f.isDirectory()) {
-				Scanner scanner = new Scanner(f);
-				String fileContents = scanner.useDelimiter("\\Z").next();
-				scanner.close();
-				SDC = (LayerDataConverter) SERIALIZER.fromXML(fileContents);
-				ret = SDC.createLayer();
-			} else {
-				spritesToAdd.addAll(loadSpritesFromDirectory(f));
-			}
-		}
-		System.out.println("ADDED " + spritesToAdd.size() + " NUMBER OF SPRITES TO THE GRID.. MAYBE");
-		ret.storeSpriteObjectsToAdd(spritesToAdd);
-		return ret;
-	}
+	
+	
 
 	public File chooseSpriteFile(Stage stage) throws FileNotFoundException {
 		FileChooser imageChooser = new FileChooser();
@@ -641,23 +608,9 @@ public class GameDataHandler {
 		writer.close();
 	}
 
-	private DraggableGrid loadWorld(File worldFile) throws Exception {
-		if (!isValidFile(worldFile)) {
-			throw new Exception("Invalid file to load");
-		}
-		DraggableGrid ret = new DraggableGrid();
-		ret.setName(worldFile.getName());
-		List<SpriteObjectGridManager> addToWorld = this.loadLayersFromDirectoryName(worldFile);
-		System.out.println("SIZE OF SOGMS FOR EACH DG SHOULD BE 4 : " + addToWorld.size());
-		ret.loadLayers(addToWorld);
-		return ret;
-	}
 	
-	public List<DraggableGrid> loadWorldsFromDirectory(String projectName) throws Exception {
-		String filePath = PATH + projectName + "/";
-		File importFile = new File(filePath);
-		return loadWorldsFromDirectory(importFile);
-	}
+	
+	
 	
 	public List<DraggableGrid> loadWorldsFromWorldDirectory(String importProjectName) { // ONLY CALLED when importing
 		List<DraggableGrid> DG_LIST = new ArrayList<DraggableGrid>();
@@ -691,25 +644,7 @@ public class GameDataHandler {
 		return currentDGList;
 	}
 
-	private List<DraggableGrid> loadWorldsFromDirectory(File directory) throws Exception {
-		List<DraggableGrid> worlds = new ArrayList<>();
-		if (!isValidDirectory(directory)) {
-			throw new Exception("Not a directory");
-		}
-		File[] files = directory.listFiles(); 
-		for (File f : files) {
-			try {
-				DraggableGrid temp = loadWorld(f);
-				worlds.add(temp);
-				System.out.println("ADDED A WORLD AFTER DE-SERIALIZAING");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		System.out.println("number of draggable grids returned: " + worlds.size());
-		return worlds;
-	}
-
+	
 	private List<AbstractSpriteObject> loadSpritesFromDirectory(File directory) throws Exception {
 		System.out.println("Directory in loadSpritesFromDirectory: " + directory);
 		if (!isValidDirectory(directory)) {

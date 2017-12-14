@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 public class DialogSequence {
@@ -37,6 +39,10 @@ public class DialogSequence {
 	
 	public void setDialogSprites(List<DialogSprite> dSequences){
 		myDialogSprites = dSequences;
+	}
+	
+	public ImageView getImage(){
+		return new DialogImage(myDialogSprites.get(0), ()->this);
 	}
 	
 	public DialogSequence clone(){
