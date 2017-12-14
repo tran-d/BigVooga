@@ -577,7 +577,11 @@ public class GameDataHandler {
 	 * @author Archana, Samuel
 	 */
 	public void saveWorlds(List<DraggableGrid> worldDraggableGrids) {
-		String worldPath = projectPath + PROJECT_WORLD_PATH;
+		String path = projectPath;
+		if (projectToImportToPath != null) {
+			path = PATH + myProjectToImportTo + "/";
+		}
+		String worldPath = path + PROJECT_WORLD_PATH;
 		removeExistingSave();
 		makeDirectory(worldPath);
 		worldDraggableGrids.forEach(world -> {
@@ -712,7 +716,7 @@ public class GameDataHandler {
 						Scanner scanner = new Scanner(f);
 						String fileContents = scanner.useDelimiter("\\Z").next();
 						scanner.close();
-						if (newImport && projectToImportToPath != null) {
+						if (newImport && projectToImportToPath != null) { // adds 
 							String copyPath = projectToImportToPath + "/" + f.getName();
 							File importedFile = new File(copyPath + " imported");
 							System.out.println("copied! to " + importedFile.getName() + " with path " + copyPath);
@@ -722,8 +726,8 @@ public class GameDataHandler {
 						}
 						MapDataConverter MDC = (MapDataConverter) SERIALIZER.fromXML(fileContents);
 						DraggableGrid DG = MDC.createDraggableGrid();
-						if (! newImport) {
-							DG.setName(DG.getName() + " (imported)");
+						if (newImport) {
+							DG.setName(DG.getName() + " (imported)"); // when we save, make sure to check for imported and take out
 						}
 						currentDGList.add(DG);
 					} catch (Exception e) {
