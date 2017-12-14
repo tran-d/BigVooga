@@ -9,9 +9,9 @@ import tools.DisplayLanguage;
 
 public class ActionTreeView extends TreeView<HBox> {
 	
-	private static final double TREE_VIEW_WIDTH = 400;
-	private static final double EXPANDED_HEIGHT = 300;
-	private static final double COLLAPSED_HEIGHT = 25;
+	private static final double TREE_VIEW_WIDTH = ActionConditionRow.TREE_VIEW_WIDTH;
+	private static final double COLLAPSED_HEIGHT = ActionConditionRow.COLLAPSED_HEIGHT;
+	private static final double EXPANDED_HEIGHT = ActionConditionRow.EXPANDED_HEIGHT;
 	
 	private ActionCategoryTreeItem categoryAction;
 	private ActionRow actionRow;

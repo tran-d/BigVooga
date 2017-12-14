@@ -1,4 +1,4 @@
-package engine.operations;
+package engine.testing;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -11,6 +11,7 @@ import engine.GameObject;
 import engine.GameObjectEnvironment;
 import engine.Actions.ActionFactory;
 import engine.Actions.changeObject.Create;
+import engine.operations.OperationFactory;
 import engine.operations.doubleops.Sum;
 import engine.operations.stringops.StringOperation;
 
@@ -22,7 +23,7 @@ public class FactoryTesterJUnit {
 		;
 		StringOperation first = (a, b) -> "First";
 		StringOperation second = (a, b) -> " and the second";
-		;
+//		System.out.println(factory.makeOperation("Concatenate", first, second).evaluate(null, null));
 
 		ActionFactory actFact = new ActionFactory();
 		;

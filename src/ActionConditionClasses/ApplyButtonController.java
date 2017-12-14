@@ -1,5 +1,6 @@
 package ActionConditionClasses;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -59,7 +60,7 @@ public class ApplyButtonController {
 		try {
 			HashMap<ConditionTreeView, List<Integer>> conditions = new HashMap<ConditionTreeView, List<Integer>>();
 			conditionTab.getActionConditionVBox().getRows().forEach(row -> {
-				conditions.put(row.getTreeView(), (List<Integer>) row.getSelectedActions());
+				conditions.put(row.getTreeView(), row.getSelectedActions());
 			});
 			List<ActionTreeView> actions = new LinkedList<ActionTreeView>();
 			actionTab.getActionConditionVBox().getRows().forEach(row -> {

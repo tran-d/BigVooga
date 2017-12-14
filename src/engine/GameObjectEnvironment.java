@@ -24,4 +24,5 @@ public interface GameObjectEnvironment {
 	public void exitToMenu();
 	public GameObject getByID(String uniqueID);
 	public boolean inBounds(GameObject obj);
+	public GlobalVariables getGlobals();
 }
