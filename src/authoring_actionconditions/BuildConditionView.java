@@ -31,7 +31,7 @@ public class BuildConditionView {
 
 		root.getChildren().add(this.conditionRow);
 		
-		scene.getStylesheets().add(MainAuthoringGUI.class.getResource(AUTHORING_CSS).toExternalForm());
+//		scene.getStylesheets().add(MainAuthoringGUI.class.getResource(AUTHORING_CSS).toExternalForm());
 	}
 
 	private void transportActionRow(WindowEvent event) {

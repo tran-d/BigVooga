@@ -10,7 +10,7 @@ public class BuildActionView {
 	private static final double WIDTH = ActionConditionRow.ROW_WIDTH;
 	private static final double HEIGHT = ActionRow.ROW_EXPANDED_HEIGHT;
 	private static final String BUILDVIEW_CSS = "BuildView.css";
-	
+
 	private Stage stage;
 	private Scene scene;
 	private Group root;
@@ -30,8 +30,8 @@ public class BuildActionView {
 		stage.setOnCloseRequest(event -> transportActionRow(event));
 
 		root.getChildren().add(this.ACRow);
-		
-//		scene.getStylesheets().add(BuildActionView.class.getResource(BUILDVIEW_CSS).toExternalForm());
+
+		// scene.getStylesheets().add(BuildActionView.class.getResource(BUILDVIEW_CSS).toExternalForm());
 	}
 
 	private void transportActionRow(WindowEvent event) {
@@ -44,7 +44,7 @@ public class BuildActionView {
 
 			if (ACVBox.getChildren().size() >= ACRow.getRowID())
 				ACVBox.getChildren().remove(ACRow.getRowID() - 1);
-			
+
 			ACVBox.getChildren().add(ACRow.getRowID() - 1, ACRow);
 
 			stage.close();
@@ -54,9 +54,5 @@ public class BuildActionView {
 			ConditionTreeView.showError(e.getMessage());
 			event.consume();
 		}
-	}
-
-	public void createParameterChoiceBox() {
-
 	}
 }
