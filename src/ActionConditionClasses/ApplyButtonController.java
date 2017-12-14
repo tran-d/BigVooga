@@ -1,6 +1,5 @@
 package ActionConditionClasses;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -8,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import authoring.Sprite.AbstractSpriteObject;
+import authoring_actionconditions.ActionConditionHBox;
 import authoring_actionconditions.ActionRow;
 import authoring_actionconditions.ActionTab;
 import authoring_actionconditions.ActionTreeView;
@@ -18,7 +18,6 @@ import authoring_actionconditions.ConditionTreeView;
 import authoring_actionconditions.ConditionVBox;
 import engine.Action;
 import engine.Condition;
-import authoring_actionconditions.ActionConditionHBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -32,29 +31,31 @@ public class ApplyButtonController {
 		ObservableList<Integer> allActions = spriteObject.getAllActions();
 		List<String> selectedConditionOperations = spriteObject.getSelectedConditionOperations();
 		List<List<String>> selectedActionOperations = spriteObject.getSelectedActionOperations();
-		Map<Condition,List<Integer>> spriteConditions = spriteObject.getConditionRows();
+		Map<Condition, List<Integer>> spriteConditions = spriteObject.getConditionRows();
 		List<Action> spriteActions = spriteObject.getActionRows();
 		ActionConditionHBox topToolBarConditions = new ActionConditionHBox(
-				ResourceBundleUtil.getTabTitle("ConditionsTabTitle"), createObservableIntegerList(selectedConditionOperations.size()));
+				ResourceBundleUtil.getTabTitle("ConditionsTabTitle"),
+				createObservableIntegerList(selectedConditionOperations.size()));
 		ActionConditionHBox topToolBarActions = new ActionConditionHBox(
-				ResourceBundleUtil.getTabTitle("ActionsTabTitle"), createObservableIntegerList(selectedActionOperations.size()));
+				ResourceBundleUtil.getTabTitle("ActionsTabTitle"),
+				createObservableIntegerList(selectedActionOperations.size()));
 		int rowCond = 1;
 		List<ConditionRow> conditionRows = new LinkedList<ConditionRow>();
 		ConditionVBox<ConditionRow> conditionVBox = new ConditionVBox<ConditionRow>();
 		if (conditions == null) {
 			Iterator<Condition> it = spriteConditions.keySet().iterator();
 			ObservableList<Integer> actionOperations = createObservableIntegerList(spriteActions.size());
-			while(it.hasNext()) {
-				ConditionRow conditionRow = new ConditionRow(rowCond,actionOperations,spriteConditions.get(it.next()),
-						conditionVBox,selectedConditionOperations.get(rowCond - 1),it.next());
+			while (it.hasNext()) {
+				ConditionRow conditionRow = new ConditionRow(rowCond, actionOperations, spriteConditions.get(it.next()),
+						conditionVBox, selectedConditionOperations.get(rowCond - 1), it.next());
 				conditionRows.add(conditionRow);
 				rowCond++;
 			}
-		}
-		else {
+		} else {
 			for (ConditionTreeView conditionTreeView : conditions.keySet()) {
-				ConditionRow conditionRow = new ConditionRow(rowCond, createObservableIntegerList(selectedActionOperations.size()),
-						conditions.get(conditionTreeView), conditionVBox,conditionTreeView);
+				ConditionRow conditionRow = new ConditionRow(rowCond,
+						createObservableIntegerList(selectedActionOperations.size()), conditions.get(conditionTreeView),
+						conditionVBox, conditionTreeView);
 				conditionRows.add(conditionRow);
 				rowCond++;
 			}
@@ -63,15 +64,14 @@ public class ApplyButtonController {
 		List<ActionRow> actionRows = new LinkedList<ActionRow>();
 		ActionVBox<ActionRow> actionVBox = new ActionVBox<ActionRow>();
 		int rowAct = 1;
-		if(actions == null) {
-			ActionRow actionRow = new ActionRow(rowAct,actionVBox,selectedActionOperations.get(rowAct - 1), 
+		if (actions == null) {
+			ActionRow actionRow = new ActionRow(rowAct, actionVBox, selectedActionOperations.get(rowAct - 1),
 					spriteActions.get(rowAct - 1));
 			actionRows.add(actionRow);
 			rowAct++;
-		}
-		else {
+		} else {
 			for (ActionTreeView actionTreeView : actions) {
-				ActionRow actionRow = new ActionRow(rowAct, actionVBox,actionTreeView);
+				ActionRow actionRow = new ActionRow(rowAct, actionVBox, actionTreeView);
 				actionRows.add(actionRow);
 				rowAct++;
 			}
@@ -89,8 +89,10 @@ public class ApplyButtonController {
 			HashMap<ConditionTreeView, List<Integer>> conditions = new HashMap<ConditionTreeView, List<Integer>>();
 			List<String> selectedConditionOperations = new LinkedList<String>();
 			conditionTab.getActionConditionVBox().getRows().forEach(row -> {
-				conditions.put(row.getTreeView(), (List<Integer>) row.getSelectedActions());
+
+				conditions.put(row.getTreeView(), row.getSelectedActions());
 				selectedConditionOperations.add(row.getTreeView().getSelectedOperation());
+
 			});
 			List<ActionTreeView> actions = new LinkedList<ActionTreeView>();
 			List<List<String>> selectedActionOperations = new LinkedList<List<String>>();
@@ -104,19 +106,18 @@ public class ApplyButtonController {
 			spriteObject.setAllConditions(conditionTab.getTopToolBar().getRemoveRowVBoxOptions());
 			spriteObject.setAllActions(actionTab.getTopToolBar().getRemoveRowVBoxOptions());
 			spriteObject.setSelectedConditionOperations(selectedConditionOperations);
-			spriteObject.setSelectedConditionOperations(selectedConditionOperations);		
+			spriteObject.setSelectedConditionOperations(selectedConditionOperations);
 			spriteObject.setSelectedActionOperations(selectedActionOperations);
 			spriteObject.setConditions(conditions);
 			spriteObject.setActions(actions);
-		}
-		catch(NullPointerException | NumberFormatException e) {
+		} catch (NullPointerException | NumberFormatException e) {
 			conditionTab.displayRowExceptionMessage(e.getMessage());
 		}
 	}
-	
+
 	private ObservableList<Integer> createObservableIntegerList(int size) {
 		ObservableList<Integer> ret = FXCollections.observableArrayList();
-		for(int i = 1; i <= size; i++) {
+		for (int i = 1; i <= size; i++) {
 			ret.add(i);
 		}
 		return ret;

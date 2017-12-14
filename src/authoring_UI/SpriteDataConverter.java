@@ -102,7 +102,9 @@ public class SpriteDataConverter {
 		actionRows = ASO.getActionRows();
 		myAnimationSequences = ASO.getAnimationSequences();
 		spriteConditionOperations = ASO.getSelectedConditionOperations();
+		System.out.println("Selected Condition Operations: " + spriteConditionOperations);
 		spriteActionOperations = ASO.getSelectedActionOperations();
+		System.out.println("Selected Action and Category: " + spriteActionOperations);
 		ASO.getInventory().forEach(sprite -> {
 			inventory.add(new SpriteDataConverter(sprite));
 		});

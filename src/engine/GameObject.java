@@ -24,10 +24,10 @@ import javafx.geometry.Point2D;
  * Step() calls the Object's conditions and actions, which evaluate and modify
  * its current state based on the conditions of the game.
  * 
- * @author Nikolas Bramblett, Ian Eldridge-Allegra
+ * @author Nikolas Bramblett, Ian Eldridge-Allegra, Aaron Paskin
  *
  */
-public class GameObject extends VariableContainer implements Element {
+public class GameObject extends TaggableSpriteableVariableContainer implements Element {
 
 	private static final double DEFAULT_SIZE = 200;
 	private static final String DEFAULT_NAME = "unnamed";
