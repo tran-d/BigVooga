@@ -6,7 +6,6 @@ import javafx.event.EventHandler;
 
 public interface ActionConditionHBoxI {
 	
-	public String getOptionsValue();
 	public Integer getRemoveValue();
 	public void addButtonListener(EventHandler<ActionEvent> e);
 	public void addRemoveListener(EventHandler<ActionEvent> e);

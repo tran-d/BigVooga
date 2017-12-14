@@ -2,6 +2,7 @@ package authoring_UI;
 
 import java.util.List;
 
+import authoring_data.SpriteObjectGridToEngineController;
 import controller.authoring.AuthoringController;
 import controller.welcomeScreen.SceneController;
 import engine.utilities.data.GameDataHandler;
@@ -18,7 +19,6 @@ public class MainAuthoringGUI {
 	public static final int AUTHORING_WIDTH = 1400;
 	public static final String AUTHORING_CSS = "Authoring.css";
 	private static final String BORDERPANE_ID = "borderpane";
-
 	private Stage stage;
 	private Scene scene;
 	private SceneController sceneController;
@@ -31,6 +31,8 @@ public class MainAuthoringGUI {
 	private static final String TEMP_PROJECT_NAME = "TestProject";
 	private String myProjectName;
 	private GameDataHandler myGDH;
+	private SpriteObjectGridToEngineController myEngineExporter;
+	private String projectToImportTo;
 
 	public MainAuthoringGUI(Stage currentStage, SceneController currentSceneController, String projectName) {
 		myProjectName = projectName;
@@ -42,14 +44,19 @@ public class MainAuthoringGUI {
 		scene.getStylesheets().add(MainAuthoringGUI.class.getResource(AUTHORING_CSS).toExternalForm());
 		sceneController = currentSceneController;
 	}
+	
+	public void setProjectToImportTo(String projectName) {
+		projectToImportTo = projectName;
+	}
 
 	public void createAuthoringGUI() {
 		toolBar = new Toolbar(stage, sceneController);
 		rootPane.setTop(toolBar);
 
 		authoringPane = new Pane();
-
+		
 		myGDH = new GameDataHandler(myProjectName);
+		myEngineExporter = new SpriteObjectGridToEngineController(myGDH);
 		authoringController = new AuthoringController(scene, stage, authoringPane, myGDH);
 
 		ViewSideBar sideBar = new ViewSideBar(authoringController);
@@ -66,19 +73,22 @@ public class MainAuthoringGUI {
 	public Scene getScene() {
 		return scene;
 	}
+	
+	public void exportToEngine(){
+		List<DraggableGrid> allWorlds = authoringController.getExistingWorlds();
+		allWorlds.forEach(DG->{
+		myEngineExporter.createLayerAndAddToEngine(DG);
+	});
+		myEngineExporter.saveEngine();
+	}
+	
+	public void importWorlds(String projectName) {
+		List<DraggableGrid> updateGrids = myGDH.loadWorldsFromWorldDirectory(projectName);
+		authoringController.importGrids(updateGrids);
+	}
 
 	public void saveWorlds() {
-		List<DraggableGrid> allWorlds = authoringController.getExistingWorlds();
-		int count = 0; // temp for debugging
-		for (DraggableGrid toSave : allWorlds) {
-			count++;
-			System.out.println("Saving world # : " + count);
-			try {
-				myGDH.saveWorld(toSave);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		System.out.println("GDH is saving... " + authoringController.getExistingWorlds().size() + " worlds");
+		myGDH.saveWorlds(authoringController.getExistingWorlds());
 	}
 }

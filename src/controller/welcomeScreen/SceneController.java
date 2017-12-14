@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import authoring_UI.MainAuthoringGUI;
+import controller.player.Debugging;
 import gui.welcomescreen.FileSelector;
 import gui.welcomescreen.GameSelector;
 import gui.welcomescreen.Learn;
@@ -23,6 +24,7 @@ public class SceneController {
 	public static final String WELCOME_SCREEN_KEY = "Welcome Screen";
 	public static final String GAME_SELECTOR_KEY = "Game Selector";
 	public static final String GAME_DISPLAY_KEY = "Game Display";
+	public static final String GAME_DEBUG_KEY = "Game Debug";
 	public static final String FILE_SELECTOR_KEY = "File Selector";
 	public static final String FILE_SELECTOR_KEY_FOR_LOAD = "File Selector For Load";
 	public static final String LEARN_KEY = "Learn";
@@ -70,6 +72,8 @@ public class SceneController {
 		settings.createSettings();
 		scene = settings.getScene();
 		sceneMap.put(SETTINGS_KEY, scene);
+		
+		
 	}
 	
 	/**
@@ -83,6 +87,10 @@ public class SceneController {
 	
 	public void saveWorlds() {
 		fileSelector.saveWorlds();
+	}
+	
+	public void exportToEngine() {
+		fileSelector.exportToEngine();
 	}
 
 	public void importWorlds(String name) {

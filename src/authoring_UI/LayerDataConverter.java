@@ -3,36 +3,21 @@ package authoring_UI;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
-import com.thoughtworks.xstream.security.NullPermission;
-import com.thoughtworks.xstream.security.PrimitiveTypePermission;
-
 import authoring.GridManagers.BackgroundGridManager;
 import authoring.GridManagers.PanelObjectGridManager;
 import authoring.GridManagers.SpriteObjectGridManager;
 import authoring.GridManagers.SpriteObjectGridManagerForSprites;
 import authoring.GridManagers.TerrainObjectGridManager;
-import authoring.Sprite.SpriteObject;
-import javafx.geometry.Point2D;
-import javafx.scene.paint.Color;
+import authoring.Sprite.AbstractSpriteObject;
 
 public class LayerDataConverter {
-	private static final XStream SERIALIZER = setupXStream();
 
 	private int myNumRows;
 	private int myNumCols;
 	private int layerNum;
 	private String myName;
+	private List<SpriteDataConverter> mySprites;
 	
-	private static XStream setupXStream() {
-		XStream xstream = new XStream(new DomDriver());
-		xstream.addPermission(NullPermission.NULL);
-		xstream.addPermission(PrimitiveTypePermission.PRIMITIVES);
-		xstream.allowTypes(new Class[] { Point2D.class });
-		xstream.allowTypesByWildcard(new String[] { "engine.**", "java.**" });
-		return xstream;
-	}
 	
 	public String getName(){
 		return myName;
@@ -48,10 +33,14 @@ public class LayerDataConverter {
 	
 	public void convertLayer(SpriteObjectGridManager SOGM){
 //		myColor = SOGM.getColor();
+		mySprites = new ArrayList<SpriteDataConverter>();
 		myName = SOGM.getName();
 		myNumRows = SOGM.getNumRows();
 		myNumCols = SOGM.getNumCols();
 		layerNum = SOGM.getLayerNum();
+		SOGM.getEntireListOfSpriteObjects().forEach(sprite->{
+			mySprites.add(new SpriteDataConverter(sprite));
+		});
 	}
 	
 	public SpriteObjectGridManager createLayer() {
@@ -79,6 +68,12 @@ public class LayerDataConverter {
 			newLayer = new PanelObjectGridManager(myNumRows, myNumCols);
 			System.out.println("NUM ROWS IN LDC: "+  myNumRows);
 		}
+		List<AbstractSpriteObject> toStore = new ArrayList<AbstractSpriteObject>();
+		mySprites.forEach(SDC->{
+			toStore.add(SDC.createSprite());
+		});
+		newLayer.storeSpriteObjectsToAdd(toStore);
+		System.out.println("Number of sprites: "+toStore);
 		return newLayer;
 	}
 }

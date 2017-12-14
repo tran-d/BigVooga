@@ -48,6 +48,13 @@ public class AnimationSequence{
 	}
 	
 	/**
+	 * @return If the animation has reached its last step. 
+	 */
+	public boolean isDone() {
+		return imageIndex == images.size()-1 && stepsInCurrentFrame == stepsPerFrame -1;
+	}
+	
+	/**
 	 * Move to the first image
 	 */
 	public void reset() {
@@ -61,8 +68,7 @@ public class AnimationSequence{
 		return images.get(imageIndex);
 	}
 	
-	public AnimationSequence clone()
-	{
+	public AnimationSequence clone() {
 		List<BoundedImage> clones = new ArrayList<>();
 		for(BoundedImage i : images)
 		{

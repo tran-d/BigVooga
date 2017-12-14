@@ -1,6 +1,5 @@
 package authoring_actionconditions;
 
-import authoring.ActionNameTreeItem;
 import engine.Action;
 import engine.Actions.ActionFactory;
 import javafx.beans.value.ChangeListener;
@@ -35,8 +34,16 @@ public class ActionCategoryTreeItem extends TreeItem<HBox> {
 		return categoryAction;
 	}
 
+	public String getSelectedCategory() {
+		return selectedCategory;
+	}
+	
+	public String getSelectedAction() {
+		return actionName.getSelectedAction();
+	}
 	public Action extract() {
 		try {
+			
 			return actionName.extract();
 		} catch (NullPointerException e) {
 			// showError(INVALID_INPUT_MESSAGE, ENTER_VALID_INPUT);

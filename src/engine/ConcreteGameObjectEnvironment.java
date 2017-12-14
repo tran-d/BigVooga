@@ -4,6 +4,7 @@ import java.util.List;
 
 import controller.player.PlayerManager;
 import engine.operations.doubleops.DoubleOperation;
+import engine.operations.stringops.StringOperation;
 import javafx.geometry.Point2D;
 
 public class ConcreteGameObjectEnvironment implements GameObjectEnvironment {
@@ -95,6 +96,16 @@ public class ConcreteGameObjectEnvironment implements GameObjectEnvironment {
 	@Override
 	public void exitToMenu() {
 		master.getPlayerManager().exitToMenu();
+	}
+
+	@Override
+	public GameObject getByID(String uniqueID) {
+		return layer.getByID(uniqueID);
+	}
+
+	@Override
+	public GlobalVariables getGlobals() {
+		return master.getGlobals();
 	}
 
 }

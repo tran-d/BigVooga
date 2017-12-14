@@ -19,4 +19,5 @@ public interface Layer {
 	public List<Element> getAllElements();
 	void removeGameObject(GameObject obj);
 	public List<? extends GameObject> getAllGameObjects();
+	public GameObject getByID(String uniqueID);
 }

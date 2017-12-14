@@ -1,13 +1,15 @@
 package authoring_actionconditions;
 
+import authoring_UI.MainAuthoringGUI;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class BuildActionView {
-	private static final double WIDTH = 700;
-	private static final double HEIGHT = 400;
+	private static final double WIDTH = ActionConditionRow.ROW_WIDTH;
+	private static final double HEIGHT = ActionRow.ROW_EXPANDED_HEIGHT;
+	private static final String BUILDVIEW_CSS = "BuildView.css";
 
 	private Stage stage;
 	private Scene scene;
@@ -28,49 +30,29 @@ public class BuildActionView {
 		stage.setOnCloseRequest(event -> transportActionRow(event));
 
 		root.getChildren().add(this.ACRow);
+
+		// scene.getStylesheets().add(BuildActionView.class.getResource(BUILDVIEW_CSS).toExternalForm());
 	}
 
 	private void transportActionRow(WindowEvent event) {
 
-		// for testing
 		try {
-			ACRow.getAction();
-
-			ACRow.getRootTreeItem().setExpanded(false);
-			ACRow.changeRowTVSize();
+			ACRow.getTreeView().getAction();
+			ACRow.reduceTreeView();
 
 			System.out.println(ACRow.getPrefHeight());
 
 			if (ACVBox.getChildren().size() >= ACRow.getRowID())
 				ACVBox.getChildren().remove(ACRow.getRowID() - 1);
+
 			ACVBox.getChildren().add(ACRow.getRowID() - 1, ACRow);
 
 			stage.close();
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			stage.close();
+			ConditionTreeView.showError(e.getMessage());
+			event.consume();
 		}
-
-		// KEEP THIS CODE
-		// if (ACRow.getAction() != null) {
-		//
-		// ACRow.getRootTreeItem().setExpanded(false);
-		// ACRow.changeRowTVSize();
-		//
-		// System.out.println(ACRow.getPrefHeight());
-		//
-		// if (ACVBox.getChildren().size() >= ACRow.getRowID())
-		// ACVBox.getChildren().remove(ACRow.getRowID() - 1);
-		// ACVBox.getChildren().add(ACRow.getRowID() - 1, ACRow);
-		//
-		// stage.close();
-		//
-		// } else {
-		// event.consume();
-		// }
-	}
-
-	public void createParameterChoiceBox() {
-
 	}
 }

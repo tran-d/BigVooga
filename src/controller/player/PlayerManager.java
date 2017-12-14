@@ -76,7 +76,13 @@ public class PlayerManager {
 	 * @param keyCode - The key that was pressed in the player
 	 */
 	public void setKeyPressed(KeyCode keyCode) {
-		keysDown.add(keyCode.getName());
+		
+		if(keyCode.equals(KeyCode.F1))
+		{
+			gameDisplay.debugMenu(engineController);
+		}
+		else
+			keysDown.add(keyCode.getName());
 	}
 	
 	/**

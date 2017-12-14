@@ -6,11 +6,12 @@ import java.util.Map;
 
 import authoring.Sprite.AbstractSpriteObject;
 import authoring.Sprite.SpriteObject;
+import authoring.Sprite.Parameters.SpriteParameter;
 import authoring.Sprite.Parameters.SpriteParameterI;
 import authoring_UI.DraggableGrid;
 
 public class SpriteParameterSidebarManager {
-	Map<String, List<SpriteParameterI>> everyStateParameter = new HashMap<String, List<SpriteParameterI>>();
+	Map<String, List<SpriteParameter>> everyStateParameter = new HashMap<String, List<SpriteParameter>>();
 	Map<String, String> newNameOldName = new HashMap<String, String>();
 	boolean firstTimeThrough = true;
 	AbstractSpriteObject firstSprite;
@@ -27,6 +28,10 @@ public class SpriteParameterSidebarManager {
 
 	public AbstractSpriteObject getActiveSprite() throws Exception {
 		List<AbstractSpriteObject> sprites = myDG.getActiveGrid().getActiveSpriteObjects();
+		System.out.println("SPSM getting active sprites, size: "+sprites.size());
+		if (sprites.size()>0){
+		System.out.println("First sprite: "+sprites.get(0));
+		}
 		checkActiveCellsMatch(sprites);
 		if (firstSprite==null){
 			throw new Exception("No active cells");
@@ -66,6 +71,10 @@ public class SpriteParameterSidebarManager {
 		firstSprite = null;
 		everyStateParameter = null;
 		newNameOldName = null;
+	}
+	
+	private List<AbstractSpriteObject> getAllSpritesFromActiveGrid(){
+		return this.myDG.getActiveGrid().getEntireListOfSpriteObjects();
 	}
 
 	public void apply() {

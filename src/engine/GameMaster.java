@@ -56,6 +56,8 @@ public class GameMaster implements EngineController{
 
 	@Override
 	public void addWorld(GameWorld w) {
+		if(madeWorlds.isEmpty())
+			currentWorld = w;
 		madeWorlds.add(w);
 	}
 	
@@ -82,12 +84,6 @@ public class GameMaster implements EngineController{
 		currentWorld.step(environment);
 		imageUpdate();
 		playerManager.step();
-		sendVariables();
-	}
-	
-	private void sendVariables() {
-		if(playerManager.getDataView() != null)
-			playerManager.getDataView().display(currentWorld.getAllGameObjects());
 	}
 
 	@Override
@@ -122,6 +118,10 @@ public class GameMaster implements EngineController{
 		return blueprintManager;
 	}
 
+	public GameWorld getCurrentWorld()
+	{
+		return currentWorld;
+	}
 
 	public GameWorld getWorldWithName(String newWorld) {
 		for(GameWorld world : madeWorlds) {
@@ -133,5 +133,9 @@ public class GameMaster implements EngineController{
 
 	public void save() {
 		playerManager.save();;
+	}
+	
+	public GlobalVariables getGlobals() {
+		return globalVars;
 	}
 }

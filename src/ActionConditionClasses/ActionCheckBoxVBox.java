@@ -9,47 +9,43 @@ import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
 import javafx.scene.control.CheckBox;
 
-public class ActionCheckBoxVBox<T> extends VBoxList<T> implements ActionCheckBoxVBoxI {
+public class ActionCheckBoxVBox extends VBoxList implements ActionCheckBoxVBoxI {
 
 	private ObservableList<CheckBox> checkBoxes;
 	private static final String ASSOCIATED_ACTIONS = "Associated actions";
 
-	public ActionCheckBoxVBox(ObservableList<T> options) {
+	public ActionCheckBoxVBox(ObservableList<Integer> options) {
 		super(ASSOCIATED_ACTIONS, options);
 		checkBoxes = FXCollections.observableList(new LinkedList<CheckBox>());
 		checkBoxes.addListener((ListChangeListener<CheckBox>) c -> addOrRemoveCheckBoxes(c));
 		setNewOptions(options);
 	}
 	
-	public ActionCheckBoxVBox(ObservableList<T> options,List<T> selectedOptions) {
+	public ActionCheckBoxVBox(ObservableList<Integer> options,List<Integer> selectedOptions) {
 		this(options);
-		System.out.println("Starting, with selected options " + selectedOptions);
+		System.out.println("all options " + options);
+		System.out.println("selected options " + options);
 		ObservableList<CheckBox> tempCheckBoxes = FXCollections.observableArrayList(checkBoxes);
-		for(T selectedOption : selectedOptions) {
-			int selInt = Integer.parseInt((String) selectedOption);
-			System.out.println("selInt " + selInt);
+		for(Integer selectedOption : selectedOptions) {
+			System.out.println("selected option " + selectedOption);
+			int selInt = (int) selectedOption;
 			tempCheckBoxes.get(selInt - 1).setSelected(true);
-			System.out.println(tempCheckBoxes.size());
 		}
 		checkBoxes.setAll(tempCheckBoxes);
-		System.out.println("Starting, seeing private checkbox list");
-		for(CheckBox checkBox : checkBoxes) {
-			System.out.println("checkbox is selected" + checkBox.isSelected());
-		}
 	}
 
 	@Override
-	public Object getCurrentValue() {
-		List<T> checkedBoxValues = new LinkedList<T>();
+	public List<Integer> getCurrentValue() {
+		List<Integer> checkedBoxValues = new LinkedList<Integer>();
 		for (CheckBox checkBox : checkBoxes) {
 			if (checkBox.isSelected())
-				checkedBoxValues.add((T) checkBox.getText());
+				checkedBoxValues.add(Integer.parseInt(checkBox.getText()));
 		}
 		return checkedBoxValues;
 	}
 
 	@Override
-	public void realizeNewOptions(ObservableList<T> newOptions) {
+	public void realizeNewOptions(ObservableList<Integer> newOptions) {
 		ObservableList<CheckBox> newCheckBoxes = FXCollections.observableArrayList();
 		newOptions.forEach(newOption -> newCheckBoxes.add(new CheckBox(newOption.toString())));
 		checkBoxes.setAll(newCheckBoxes);
