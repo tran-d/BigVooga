@@ -1,16 +1,9 @@
 package authoring_UI.dialogue;
 
-import authoring_UI.ViewSideBar;
-import gui.welcomescreen.WelcomeScreen;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import authoring_UI.displayable.DisplayableTab;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
-import tools.DisplayLanguage;
 
 /**
  * Class that represents a tab listing dialogues to edit
@@ -18,7 +11,7 @@ import tools.DisplayLanguage;
  * @author DavidTran
  *
  */
-public class DialogueTab extends Tab {
+public class DialogueTab extends DisplayableTab {
 
 	private static final double DIALOGUE_SPACING = 25;
 	private static final double PADDING = 25;
@@ -27,29 +20,17 @@ public class DialogueTab extends Tab {
 	private ScrollPane sp;
 
 	public DialogueTab(String name) {
-		this.textProperty().bind(DisplayLanguage.createStringBinding(name));
-
-		dialogueLister = makeVBox((WelcomeScreen.WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH) / 2, WelcomeScreen.HEIGHT,
-				DIALOGUE_SPACING);
-		dialogueLister.setAlignment(Pos.TOP_CENTER);
-		dialogueLister.setPadding(new Insets(PADDING));
-
-		sp = new ScrollPane();
-		sp.setContent(dialogueLister);
-		sp.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
-		sp.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-
+		super(name);
 		this.setContent(sp);
 	}
 
-	private VBox makeVBox(double width, double height, double spacing) {
-		VBox hb = new VBox(spacing);
-		hb.setPrefWidth(width);
-		hb.setPrefHeight(height);
-		return hb;
+	@Override
+	protected VBox makeVBox(double width, double height, double spacing) {
+		return makeVBox(width, height, spacing);
 	}
 
-	public void addDialogue(int index, Button btn) {
+	@Override
+	protected void addDisplayable(int index, Button btn) {
 		if (dialogueLister.getChildren().size() > index) {
 			dialogueLister.getChildren().remove(index);
 			dialogueLister.getChildren().add(index, btn);
@@ -59,13 +40,14 @@ public class DialogueTab extends Tab {
 
 	}
 
-	public void deleteDialogue(int index) {
-
+	@Override
+	protected void deleteDisplayable(int index) {
 		dialogueLister.getChildren().remove(index);
 
 	}
 	
-	public int getButtonIndex(Button btn) {
+	@Override
+	protected int getButtonIndex(Button btn) {
 		return dialogueLister.getChildren().indexOf(btn);
 	}
 

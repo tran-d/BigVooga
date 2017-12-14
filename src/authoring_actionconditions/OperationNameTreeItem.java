@@ -88,6 +88,14 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 
 	}
 
+	public String getSelectedOperation() {
+		try {
+			return operationCB.getSelectionModel().getSelectedItem();
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
 	private TreeItem<HBox> makeOperationNameTreeItem() {
 		HBox hb = new HBox();
 		// hb.getChildren().addAll(new Label("Choose Operation: "));

@@ -24,15 +24,15 @@ public class DialogueTabPane extends TabPane {
 	}
 	
 	public void addDefaultDialogueButton(int number, Button btn) {
-		defaultTab.addDialogue(number, btn);
+		defaultTab.addDisplayable(number, btn);
 	}
 	
 	public void addUserDialogueButton(int number, Button btn) {
-		userTab.addDialogue(number, btn);
+		userTab.addDisplayable(number, btn);
 	}
 
 	public void removeUserDialogueButton(int id) {
-		userTab.deleteDialogue(id);
+		userTab.deleteDisplayable(id);
 	}
 	
 	public int getButtonIndex(Button btn) {

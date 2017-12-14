@@ -39,7 +39,7 @@ public class ActionConditionRow extends ToolBar implements ActionConditionRowI {
 	private int labelInt;
 	private Label label;
 	private Label IDlabel;
-	private ChoiceBoxVBox<String> implementationSelectorVBox;
+	private ChoiceBoxVBox implementationSelectorVBox;
 
 	public ActionConditionRow(int ID, ActionConditionVBox<?> ACVBox) {
 		super();
@@ -77,8 +77,8 @@ public class ActionConditionRow extends ToolBar implements ActionConditionRowI {
 	}
 
 	@Override
-	public String getImplementationSelectorVBoxValue() {
-		return (String) implementationSelectorVBox.getCurrentValue();
+	public Integer getImplementationSelectorVBoxValue() {
+		return implementationSelectorVBox.getCurrentValue();
 	}
 
 	@Override

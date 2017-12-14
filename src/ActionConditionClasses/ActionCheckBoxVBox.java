@@ -9,26 +9,26 @@ import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
 import javafx.scene.control.CheckBox;
 
-public class ActionCheckBoxVBox<T> extends VBoxList<T> implements ActionCheckBoxVBoxI {
+public class ActionCheckBoxVBox extends VBoxList implements ActionCheckBoxVBoxI {
 
 	private ObservableList<CheckBox> checkBoxes;
 	private static final String ASSOCIATED_ACTIONS = "Associated actions";
 
-	public ActionCheckBoxVBox(ObservableList<T> options) {
+	public ActionCheckBoxVBox(ObservableList<Integer> options) {
 		super(ASSOCIATED_ACTIONS, options);
 		checkBoxes = FXCollections.observableList(new LinkedList<CheckBox>());
 		checkBoxes.addListener((ListChangeListener<CheckBox>) c -> addOrRemoveCheckBoxes(c));
 		setNewOptions(options);
 	}
 	
-	public ActionCheckBoxVBox(ObservableList<T> options,List<T> selectedOptions) {
+	public ActionCheckBoxVBox(ObservableList<Integer> options,List<Integer> selectedOptions) {
 		this(options);
 		System.out.println("all options " + options);
 		System.out.println("selected options " + options);
 		ObservableList<CheckBox> tempCheckBoxes = FXCollections.observableArrayList(checkBoxes);
-		for(T selectedOption : selectedOptions) {
+		for(Integer selectedOption : selectedOptions) {
 			System.out.println("selected option " + selectedOption);
-			int selInt = Integer.parseInt((String) selectedOption);
+			int selInt = (int) selectedOption;
 			tempCheckBoxes.get(selInt - 1).setSelected(true);
 		}
 		checkBoxes.setAll(tempCheckBoxes);
@@ -45,7 +45,7 @@ public class ActionCheckBoxVBox<T> extends VBoxList<T> implements ActionCheckBox
 	}
 
 	@Override
-	public void realizeNewOptions(ObservableList<T> newOptions) {
+	public void realizeNewOptions(ObservableList<Integer> newOptions) {
 		ObservableList<CheckBox> newCheckBoxes = FXCollections.observableArrayList();
 		newOptions.forEach(newOption -> newCheckBoxes.add(new CheckBox(newOption.toString())));
 		checkBoxes.setAll(newCheckBoxes);

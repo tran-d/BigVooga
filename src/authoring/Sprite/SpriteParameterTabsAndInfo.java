@@ -372,6 +372,8 @@ public class SpriteParameterTabsAndInfo {
 			}
 
 		}
+		System.out.println("ParamterTab applying to sprite: "+mySO);
+		mySO.clearPossibleParameters();
 
 	}
 
