@@ -36,7 +36,6 @@ public class ElementViewer {
 	// private GridPane myGrid;
 	// private CheckBox myCB;
 	// private ArrayList<String> mySelection;
-	private OverviewManager myOM;
 	private ArrayList<String> myObjList;
 	private ArrayList<String> myOptionList;
 

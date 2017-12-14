@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 import tools.DisplayLanguage;
 
 /**
- * Class that allows user to select a game to play.
+ * Creates the class that allows users to select any game they've created to play, which is implemented as a TreeView.
  * 
  * @author David, Samarth, Ian
  *

@@ -37,7 +37,7 @@ public class InventoryManager extends MapManager{
 	
 	@Override
 	protected void setManagerName(){
-		MANAGERNAME = "InventoryManager";
+		MANAGER_NAME = "InventoryManager";
 	}
 	
 	@Override 

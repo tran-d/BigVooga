@@ -170,7 +170,7 @@ public class GameDisplay {
 	}
 	
 	/**
-	 * Gets the scene for initialization in SceneController.
+	 * Gets the scene for initialization in SceneController. 
 	 * 
 	 * @return the game display scene
 	 */
