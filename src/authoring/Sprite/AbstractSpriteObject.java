@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Function;
+
+import authoring.DialogSprite.DialogSequence;
 import authoring.Sprite.AnimationSequences.AuthoringAnimationSequence;
 import authoring.Sprite.AnimationSequences.AuthoringImageView;
 import authoring.Sprite.Parameters.BooleanSpriteParameter;
@@ -103,6 +105,9 @@ public abstract class AbstractSpriteObject extends ImageView {
 	protected List<AuthoringAnimationSequence> myAnimationSequences;
 	protected List<String> myTags;
 	protected AuthoringAnimationSequence myAASDefault;
+	protected List<DialogSequence> myDialogSequences;
+
+
 
 	public AbstractSpriteObject() {
 		super();
@@ -191,6 +196,26 @@ public abstract class AbstractSpriteObject extends ImageView {
 	public String getUniqueID() {
 		return myUniqueID;
 	}
+	
+	public List<DialogSequence> getDialogSequences() {
+		return myDialogSequences;
+	}
+
+	public void setDialogSequences(List<DialogSequence> dialogSequences) {
+		myDialogSequences = dialogSequences;
+	}
+	
+	public void addDialogSequence(DialogSequence dialogSequence){
+		myDialogSequences.add(dialogSequence.clone());
+	}
+	
+	public void addDialogSequence(List<DialogSequence> dialogSequences){
+		dialogSequences.forEach(dialogSeq->{
+			addDialogSequence(dialogSeq);
+		});
+	}
+	
+	
 
 	public List<String> getTags() {
 		return this.myTags;
@@ -261,9 +286,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 	private void setUpImageURLProperty(){
 		myImageURLProperty = new SimpleObjectProperty<String>();
 		myImageURLProperty.addListener((change, oldImagePath, newImagePath)->{
-			if (oldImagePath!=null){
 			myAASDefault.replacePrimaryAnimationSequenceImage(new AuthoringImageView(newImagePath));
-			}
 			myImageURL = newImagePath;
 		});
 	}
