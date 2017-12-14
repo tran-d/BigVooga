@@ -116,6 +116,7 @@ public class MapManager extends TabPane {
 			createTab(w);
 		}
 		myAEM.getImportedSpriteController().changeFolderPath();
+		myAEM.getImportedInventorySpriteController().changeFolderPath();
 		System.out.println("ADD IMPORTED WORLDS");
 	}
 

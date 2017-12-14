@@ -27,7 +27,53 @@
       <myNumCols>20</myNumCols>
       <layerNum>3</layerNum>
       <myName>Panels</myName>
-      <mySprites/>
+      <mySprites>
+        <authoring__UI.SpriteDataConverter>
+          <conditionRows/>
+          <actionRows/>
+          <catmap/>
+          <inventory/>
+          <imageURL>UniqueSprite0.08304530192919113</imageURL>
+          <gridPos>
+            <int>2</int>
+            <int>6</int>
+          </gridPos>
+          <name>test spot</name>
+          <width>3</width>
+          <height>3</height>
+          <UUID>ca8d6dec-d98c-47df-8e08-a6d976412290</UUID>
+          <myAnimationSequences>
+            <authoring.Sprite.AnimationSequences.AuthoringAnimationSequence resolves-to="authoring.Sprite.AnimationSequences.SerializableAuthoringAnimationSequence">
+              <myName>Default</myName>
+              <myImages/>
+            </authoring.Sprite.AnimationSequences.AuthoringAnimationSequence>
+          </myAnimationSequences>
+          <spriteConditionOperations class="linked-list"/>
+          <spriteActionOperations class="linked-list"/>
+          <spriteType>SpriteObject</spriteType>
+          <tags/>
+        </authoring__UI.SpriteDataConverter>
+        <authoring__UI.SpriteDataConverter>
+          <conditionRows/>
+          <actionRows/>
+          <catmap/>
+          <inventory/>
+          <imageURL>UniqueSprite0.08304530192919113</imageURL>
+          <gridPos>
+            <int>6</int>
+            <int>6</int>
+          </gridPos>
+          <name>test spot</name>
+          <width>3</width>
+          <height>3</height>
+          <UUID>988a7333-26e5-456e-8074-8e34cdf17742</UUID>
+          <myAnimationSequences reference="../../authoring__UI.SpriteDataConverter/myAnimationSequences"/>
+          <spriteConditionOperations class="linked-list"/>
+          <spriteActionOperations class="linked-list"/>
+          <spriteType>SpriteObject</spriteType>
+          <tags/>
+        </authoring__UI.SpriteDataConverter>
+      </mySprites>
     </authoring__UI.LayerDataConverter>
   </gridManagers>
 </authoring__UI.MapDataConverter>

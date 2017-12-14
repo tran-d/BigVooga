@@ -75,7 +75,6 @@ public abstract class SpriteSet {
 	}
 
 	public Map<String, List<AbstractSpriteObject>> getAllSpritesAsMap() {
-		// System.out.println("Getting them");
 		if (!loaded) {
 			this.loadSprites();
 		}

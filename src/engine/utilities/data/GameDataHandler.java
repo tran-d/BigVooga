@@ -99,6 +99,14 @@ public class GameDataHandler {
 		makeSpriteDirectories();
 	}
 	
+	public String getImportedInventorySpritesPath() {
+		String path = "";
+		if (myImportProjectPath != null) {
+			path = PATH + myImportProjectPath + "/" + PROJECT_USER_SPRITE_PATH + INVENTORY_SPRITE_FOLDER;
+		}
+		return path;
+	}
+	
 	public String getImportedSpritesPath() {
 		String path = "";
 		if (myImportProjectPath != null) {
