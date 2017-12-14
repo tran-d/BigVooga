@@ -96,7 +96,7 @@ public class SpriteTagTabAndInfo {
 		hbox.setSpacing(3);
 		
 		this.interiorVBox.getChildren().add(hbox);
-		System.out.println("ASO TAGS: "+myASO.getTags());
+		;
 	}
 	
 
@@ -185,12 +185,12 @@ public class SpriteTagTabAndInfo {
 			
 			public void handle(WindowEvent event){
 			String ret = tp.getText();
-			System.out.println(ret);
+			;
 			if (!temporaryTags.contains(ret)){
 					// Nothing let it close
 				}
 			else {
-				System.out.println("That tag already exists");
+				;
 				tp.setText("That tag already exists");
 				((Event) event).consume();
 			}
@@ -210,7 +210,7 @@ public class SpriteTagTabAndInfo {
 	
 	
 	public void apply(){
-		System.out.println("Updating tags");
+		;
 		myASO.setTags(this.temporaryTags);
 	}
 

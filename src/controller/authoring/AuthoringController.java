@@ -51,7 +51,7 @@ public class AuthoringController {
 		authoringPane = currentAuthoringPane;
 		activeManagerProperty = new SimpleObjectProperty<MapManager>();
 		activeManagerProperty.addListener((change, previousManager, newManager) -> {
-			System.out.println("previousManager: " + previousManager + "newManager " + newManager);
+			;
 			if (previousManager != null) {
 				previousManager.gridIsNotShowing();
 			}
@@ -106,7 +106,7 @@ public class AuthoringController {
 		authoringPane.getChildren().removeAll(view, currentSideBar);
 		view = viewMap.get(key);
 		if (this.viewMapKeysToManager.containsKey(key)) {
-			System.out.println("Contains key: " + key);
+			;
 			this.activeManagerProperty.set(viewMapKeysToManager.get(key));
 		} else {
 			this.activeManagerProperty.set(null);

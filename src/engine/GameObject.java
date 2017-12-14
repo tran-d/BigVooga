@@ -46,6 +46,7 @@ public class GameObject extends TaggableSpriteableVariableContainer implements E
 
 	private double heading;
 	private List<Point2D> ithDerivative;
+	private Path pathToFollow;
 	private double width = DEFAULT_SIZE;
 	private double height = DEFAULT_SIZE;
 
@@ -245,6 +246,14 @@ public class GameObject extends TaggableSpriteableVariableContainer implements E
 		DisplayableText newText = dialogueHandler.get(0).getWithMessage(s);
 		dialogueHandler = new ArrayList<DisplayableText>();
 		dialogueHandler.add(newText);
-
+	}
+	
+	public void addToPath(Point2D point)
+	{
+		pathToFollow.addPathPoint(point);
+	}
+	public void moveOnPath(double speed)
+	{
+		pathToFollow.moveToTarget(this, speed);
 	}
 }

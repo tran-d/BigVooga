@@ -1,0 +1,2127 @@
+<authoring__UI.MapDataConverter>
+  <SERIALIZER>
+    <reflectionProvider class="com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider">
+      <fieldDictionary>
+        <sorter class="com.thoughtworks.xstream.converters.reflection.ImmutableFieldKeySorter"/>
+      </fieldDictionary>
+    </reflectionProvider>
+    <hierarchicalStreamDriver class="com.thoughtworks.xstream.io.xml.DomDriver">
+      <replacer class="com.thoughtworks.xstream.io.xml.XmlFriendlyNameCoder">
+        <dollarReplacement>_-</dollarReplacement>
+        <escapeCharReplacement>__</escapeCharReplacement>
+        <hexPrefix>_.</hexPrefix>
+      </replacer>
+    </hierarchicalStreamDriver>
+    <classLoaderReference/>
+    <marshallingStrategy class="com.thoughtworks.xstream.core.ReferenceByXPathMarshallingStrategy">
+      <mode>0</mode>
+    </marshallingStrategy>
+    <converterLookup class="com.thoughtworks.xstream.XStream$1">
+      <val_-defaultConverterLookup>
+        <converters>
+          <set class="sorted-set">
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.basic.NullConverter"/>
+              <priority>10000</priority>
+              <id>5</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.core.util.SelfStreamingInstanceChecker">
+                <self class="com.thoughtworks.xstream.XStream" reference="../../../../../../.."/>
+                <lookup class="com.thoughtworks.xstream.XStream$1" reference="../../../../../.."/>
+              </value>
+              <priority>0</priority>
+              <id>83</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.reflection.LambdaConverter">
+                <reflectionProvider class="com.thoughtworks.xstream.converters.reflection.SerializableConverter$UnserializableParentsReflectionProvider">
+                  <wrapped class="com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider" reference="../../../../../../../../reflectionProvider"/>
+                </reflectionProvider>
+                <mapper class="com.thoughtworks.xstream.mapper.CachingMapper">
+                  <wrapped class="com.thoughtworks.xstream.mapper.AnnotationMapper">
+                    <wrapped class="com.thoughtworks.xstream.mapper.SecurityMapper">
+                      <wrapped class="com.thoughtworks.xstream.mapper.LambdaMapper">
+                        <wrapped class="com.thoughtworks.xstream.mapper.ImmutableTypesMapper">
+                          <wrapped class="com.thoughtworks.xstream.mapper.LocalConversionMapper">
+                            <wrapped class="com.thoughtworks.xstream.mapper.EnumMapper">
+                              <wrapped class="com.thoughtworks.xstream.mapper.AttributeMapper">
+                                <wrapped class="com.thoughtworks.xstream.mapper.DefaultImplementationsMapper">
+                                  <wrapped class="com.thoughtworks.xstream.mapper.ArrayMapper">
+                                    <wrapped class="com.thoughtworks.xstream.mapper.OuterClassMapper">
+                                      <wrapped class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper">
+                                        <wrapped class="com.thoughtworks.xstream.mapper.SystemAttributeAliasingMapper">
+                                          <wrapped class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper">
+                                            <wrapped class="com.thoughtworks.xstream.mapper.FieldAliasingMapper">
+                                              <wrapped class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper">
+                                                <wrapped class="com.thoughtworks.xstream.mapper.ClassAliasingMapper">
+                                                  <wrapped class="com.thoughtworks.xstream.mapper.PackageAliasingMapper" serialization="custom">
+                                                    <unserializable-parents>
+                                                      <wrapped class="com.thoughtworks.xstream.mapper.DynamicProxyMapper">
+                                                        <wrapped class="com.thoughtworks.xstream.mapper.DefaultMapper">
+                                                          <classLoaderReference reference="../../../../../../../../../../../../../../../../../../../../../../../../../../../../classLoaderReference"/>
+                                                        </wrapped>
+                                                        <aliasForAttributeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped"/>
+                                                        <aliasForSystemAttributeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped"/>
+                                                        <attributeForAliasMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped"/>
+                                                        <defaultImplementationOfMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped"/>
+                                                        <getConverterFromAttributeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped"/>
+                                                        <getConverterFromItemTypeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped"/>
+                                                        <getFieldNameForItemTypeAndNameMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped"/>
+                                                        <getImplicitCollectionDefForFieldNameMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped"/>
+                                                        <getItemTypeForItemFieldNameMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped"/>
+                                                        <getLocalConverterMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped"/>
+                                                        <isIgnoredElementMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped"/>
+                                                        <isImmutableValueTypeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped"/>
+                                                        <isReferenceableMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped"/>
+                                                        <realClassMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped"/>
+                                                        <realMemberMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped"/>
+                                                        <serializedClassMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped"/>
+                                                        <serializedMemberMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped"/>
+                                                        <shouldSerializeMemberMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped"/>
+                                                        <alias>dynamic-proxy</alias>
+                                                      </wrapped>
+                                                      <aliasForAttributeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped"/>
+                                                      <aliasForSystemAttributeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped"/>
+                                                      <attributeForAliasMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped"/>
+                                                      <defaultImplementationOfMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped"/>
+                                                      <getConverterFromAttributeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped"/>
+                                                      <getConverterFromItemTypeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped"/>
+                                                      <getFieldNameForItemTypeAndNameMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped"/>
+                                                      <getImplicitCollectionDefForFieldNameMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped"/>
+                                                      <getItemTypeForItemFieldNameMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped"/>
+                                                      <getLocalConverterMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped"/>
+                                                      <isIgnoredElementMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped"/>
+                                                      <isImmutableValueTypeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped"/>
+                                                      <isReferenceableMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped"/>
+                                                      <realClassMapper class="com.thoughtworks.xstream.mapper.DynamicProxyMapper" reference="../wrapped"/>
+                                                      <realMemberMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped"/>
+                                                      <serializedClassMapper class="com.thoughtworks.xstream.mapper.DynamicProxyMapper" reference="../wrapped"/>
+                                                      <serializedMemberMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped"/>
+                                                      <shouldSerializeMemberMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped"/>
+                                                    </unserializable-parents>
+                                                    <com.thoughtworks.xstream.mapper.PackageAliasingMapper>
+                                                      <map/>
+                                                    </com.thoughtworks.xstream.mapper.PackageAliasingMapper>
+                                                  </wrapped>
+                                                  <aliasForAttributeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                  <aliasForSystemAttributeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                  <attributeForAliasMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                  <defaultImplementationOfMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                  <getConverterFromAttributeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                  <getConverterFromItemTypeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                  <getFieldNameForItemTypeAndNameMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                  <getImplicitCollectionDefForFieldNameMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                  <getItemTypeForItemFieldNameMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                  <getLocalConverterMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                  <isIgnoredElementMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                  <isImmutableValueTypeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                  <isReferenceableMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                  <realClassMapper class="com.thoughtworks.xstream.mapper.PackageAliasingMapper" reference="../wrapped"/>
+                                                  <realMemberMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                  <serializedClassMapper class="com.thoughtworks.xstream.mapper.PackageAliasingMapper" reference="../wrapped"/>
+                                                  <serializedMemberMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                  <shouldSerializeMemberMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                  <typeToName>
+                                                    <entry>
+                                                      <java-class>java.time.ZoneId</java-class>
+                                                      <string>zone-id</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <java-class>java.time.chrono.Chronology</java-class>
+                                                      <string>chronology</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <java-class>java.nio.file.Path</java-class>
+                                                      <string>path</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <java-class>java.nio.charset.Charset</java-class>
+                                                      <string>charset</string>
+                                                    </entry>
+                                                  </typeToName>
+                                                  <classToName>
+                                                    <entry>
+                                                      <string>java.awt.Color</string>
+                                                      <string>awt-color</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.lang.Float</string>
+                                                      <string>float</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.chrono.HijrahDate</string>
+                                                      <string>hijrah-date</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.chrono.JapaneseDate</string>
+                                                      <string>japanese-date</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.util.SortedSet</string>
+                                                      <string>sorted-set</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.sql.Time</string>
+                                                      <string>sql-time</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>javax.activation.ActivationDataFlavor</string>
+                                                      <string>activation-data-flavor</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.util.Date</string>
+                                                      <string>date</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.net.URL</string>
+                                                      <string>url</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.util.Collections$EmptyMap</string>
+                                                      <string>empty-map</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.ZonedDateTime</string>
+                                                      <string>zoned-date-time</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.chrono.ThaiBuddhistDate</string>
+                                                      <string>thai-buddhist-date</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>com.thoughtworks.xstream.mapper.Mapper$Null</string>
+                                                      <string>null</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.lang.Integer</string>
+                                                      <string>int</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.math.BigDecimal</string>
+                                                      <string>big-decimal</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.temporal.ValueRange</string>
+                                                      <string>temporal-value-range</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.util.Vector</string>
+                                                      <string>vector</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>javax.xml.datatype.Duration</string>
+                                                      <string>xml-duration</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.lang.Character</string>
+                                                      <string>char</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.chrono.JapaneseEra</string>
+                                                      <string>japanese-era</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.lang.Long</string>
+                                                      <string>long</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.chrono.MinguoEra</string>
+                                                      <string>minguo-era</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.lang.Short</string>
+                                                      <string>short</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.util.Locale</string>
+                                                      <string>locale</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.util.Map</string>
+                                                      <string>map</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.Duration</string>
+                                                      <string>duration</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.LocalTime</string>
+                                                      <string>local-time</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.math.BigInteger</string>
+                                                      <string>big-int</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.net.URI</string>
+                                                      <string>uri</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.lang.Byte</string>
+                                                      <string>byte</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.lang.reflect.Method</string>
+                                                      <string>method</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.util.EnumSet</string>
+                                                      <string>enum-set</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.OffsetTime</string>
+                                                      <string>offset-time</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.Clock$TickClock</string>
+                                                      <string>tick-clock</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.util.EnumMap</string>
+                                                      <string>enum-map</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.awt.Font</string>
+                                                      <string>awt-font</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.sql.Timestamp</string>
+                                                      <string>sql-timestamp</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.util.concurrent.ConcurrentHashMap</string>
+                                                      <string>concurrent-hash-map</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.util.Set</string>
+                                                      <string>set</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.util.UUID</string>
+                                                      <string>uuid</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.Instant</string>
+                                                      <string>instant</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.util.List</string>
+                                                      <string>list</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.OffsetDateTime</string>
+                                                      <string>offset-date-time</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.chrono.MinguoDate</string>
+                                                      <string>minguo-date</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.Year</string>
+                                                      <string>year</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.temporal.IsoFields$Field</string>
+                                                      <string>iso-field</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.LocalDate</string>
+                                                      <string>local-date</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.lang.StringBuilder</string>
+                                                      <string>string-builder</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.util.Collections$EmptySet</string>
+                                                      <string>empty-set</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.Clock$OffsetClock</string>
+                                                      <string>offset-clock</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.chrono.HijrahEra</string>
+                                                      <string>hijrah-era</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.temporal.ChronoField</string>
+                                                      <string>chrono-field</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.lang.Double</string>
+                                                      <string>double</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.awt.font.TextAttribute</string>
+                                                      <string>awt-text-attribute</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.LocalDateTime</string>
+                                                      <string>local-date-time</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.util.Currency</string>
+                                                      <string>currency</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.lang.reflect.Constructor</string>
+                                                      <string>constructor</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.util.TreeSet</string>
+                                                      <string>tree-set</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.util.LinkedHashMap</string>
+                                                      <string>linked-hash-map</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.util.Calendar</string>
+                                                      <string>gregorian-calendar</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.lang.StringBuffer</string>
+                                                      <string>string-buffer</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.chrono.ThaiBuddhistEra</string>
+                                                      <string>thai-buddhist-era</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.lang.invoke.SerializedLambda</string>
+                                                      <string>serialized-lambda</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.lang.Boolean</string>
+                                                      <string>boolean</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.lang.StackTraceElement</string>
+                                                      <string>trace</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.lang.String</string>
+                                                      <string>string</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.util.Collections$SingletonSet</string>
+                                                      <string>singleton-set</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.lang.Number</string>
+                                                      <string>number</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.util.LinkedList</string>
+                                                      <string>linked-list</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.util.Collections$SingletonMap</string>
+                                                      <string>singleton-map</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.util.Hashtable</string>
+                                                      <string>hashtable</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.util.LinkedHashSet</string>
+                                                      <string>linked-hash-set</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.Period</string>
+                                                      <string>period</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.temporal.WeekFields</string>
+                                                      <string>week-fields</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.util.Map$Entry</string>
+                                                      <string>entry</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.temporal.JulianFields$Field</string>
+                                                      <string>julian-field</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.util.Properties</string>
+                                                      <string>properties</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.Month</string>
+                                                      <string>month</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.MonthDay</string>
+                                                      <string>month-day</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.lang.reflect.Field</string>
+                                                      <string>field</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.util.Collections$SingletonList</string>
+                                                      <string>singleton-list</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.io.File</string>
+                                                      <string>file</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>javax.security.auth.Subject</string>
+                                                      <string>auth-subject</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.sql.Date</string>
+                                                      <string>sql-date</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.Clock$SystemClock</string>
+                                                      <string>system-clock</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.temporal.IsoFields$Unit</string>
+                                                      <string>iso-unit</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.temporal.ChronoUnit</string>
+                                                      <string>chrono-unit</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.util.TreeMap</string>
+                                                      <string>tree-map</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.util.Collections$EmptyList</string>
+                                                      <string>empty-list</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.Clock$FixedClock</string>
+                                                      <string>fixed-clock</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.DayOfWeek</string>
+                                                      <string>day-of-week</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.time.YearMonth</string>
+                                                      <string>year-month</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.lang.Object</string>
+                                                      <string>object</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.lang.Class</string>
+                                                      <string>java-class</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <string>java.util.BitSet</string>
+                                                      <string>bit-set</string>
+                                                    </entry>
+                                                  </classToName>
+                                                </wrapped>
+                                                <aliasForAttributeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                <aliasForSystemAttributeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                <attributeForAliasMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                <defaultImplementationOfMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                <getConverterFromAttributeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                <getConverterFromItemTypeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                <getFieldNameForItemTypeAndNameMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                <getImplicitCollectionDefForFieldNameMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                <getItemTypeForItemFieldNameMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                <getLocalConverterMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                <isIgnoredElementMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                <isImmutableValueTypeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                <isReferenceableMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                <realClassMapper class="com.thoughtworks.xstream.mapper.ClassAliasingMapper" reference="../wrapped"/>
+                                                <realMemberMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                <serializedClassMapper class="com.thoughtworks.xstream.mapper.ClassAliasingMapper" reference="../wrapped"/>
+                                                <serializedMemberMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                <shouldSerializeMemberMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                                <fieldsToOmit/>
+                                                <unknownElementsToIgnore class="linked-hash-set"/>
+                                              </wrapped>
+                                              <aliasForAttributeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                              <aliasForSystemAttributeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                              <attributeForAliasMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                              <defaultImplementationOfMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                              <getConverterFromAttributeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                              <getConverterFromItemTypeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                              <getFieldNameForItemTypeAndNameMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                              <getImplicitCollectionDefForFieldNameMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                              <getItemTypeForItemFieldNameMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                              <getLocalConverterMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                              <isIgnoredElementMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped"/>
+                                              <isImmutableValueTypeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                              <isReferenceableMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                              <realClassMapper class="com.thoughtworks.xstream.mapper.ClassAliasingMapper" reference="../wrapped/wrapped"/>
+                                              <realMemberMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                              <serializedClassMapper class="com.thoughtworks.xstream.mapper.ClassAliasingMapper" reference="../wrapped/wrapped"/>
+                                              <serializedMemberMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                              <shouldSerializeMemberMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped"/>
+                                              <fieldToAliasMap/>
+                                              <aliasToFieldMap/>
+                                              <elementIgnoringMapper reference="../wrapped"/>
+                                            </wrapped>
+                                            <aliasForAttributeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                            <aliasForSystemAttributeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                            <attributeForAliasMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                            <defaultImplementationOfMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                            <getConverterFromAttributeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                            <getConverterFromItemTypeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                            <getFieldNameForItemTypeAndNameMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                            <getImplicitCollectionDefForFieldNameMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                            <getItemTypeForItemFieldNameMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                            <getLocalConverterMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                            <isIgnoredElementMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped"/>
+                                            <isImmutableValueTypeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                            <isReferenceableMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                            <realClassMapper class="com.thoughtworks.xstream.mapper.ClassAliasingMapper" reference="../wrapped/wrapped/wrapped"/>
+                                            <realMemberMapper class="com.thoughtworks.xstream.mapper.FieldAliasingMapper" reference="../wrapped"/>
+                                            <serializedClassMapper class="com.thoughtworks.xstream.mapper.ClassAliasingMapper" reference="../wrapped/wrapped/wrapped"/>
+                                            <serializedMemberMapper class="com.thoughtworks.xstream.mapper.FieldAliasingMapper" reference="../wrapped"/>
+                                            <shouldSerializeMemberMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped"/>
+                                            <aliasToName/>
+                                          </wrapped>
+                                          <aliasForAttributeMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped"/>
+                                          <aliasForSystemAttributeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                          <attributeForAliasMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped"/>
+                                          <defaultImplementationOfMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                          <getConverterFromAttributeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                          <getConverterFromItemTypeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                          <getFieldNameForItemTypeAndNameMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                          <getImplicitCollectionDefForFieldNameMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                          <getItemTypeForItemFieldNameMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                          <getLocalConverterMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                          <isIgnoredElementMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped/wrapped"/>
+                                          <isImmutableValueTypeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                          <isReferenceableMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                          <realClassMapper class="com.thoughtworks.xstream.mapper.ClassAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped"/>
+                                          <realMemberMapper class="com.thoughtworks.xstream.mapper.FieldAliasingMapper" reference="../wrapped/wrapped"/>
+                                          <serializedClassMapper class="com.thoughtworks.xstream.mapper.ClassAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped"/>
+                                          <serializedMemberMapper class="com.thoughtworks.xstream.mapper.FieldAliasingMapper" reference="../wrapped/wrapped"/>
+                                          <shouldSerializeMemberMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped/wrapped"/>
+                                          <aliasToName/>
+                                        </wrapped>
+                                        <aliasForAttributeMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped/wrapped"/>
+                                        <aliasForSystemAttributeMapper class="com.thoughtworks.xstream.mapper.SystemAttributeAliasingMapper" reference="../wrapped"/>
+                                        <attributeForAliasMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped/wrapped"/>
+                                        <defaultImplementationOfMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                        <getConverterFromAttributeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                        <getConverterFromItemTypeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                        <getFieldNameForItemTypeAndNameMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                        <getImplicitCollectionDefForFieldNameMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                        <getItemTypeForItemFieldNameMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                        <getLocalConverterMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                        <isIgnoredElementMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped/wrapped/wrapped"/>
+                                        <isImmutableValueTypeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                        <isReferenceableMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                        <realClassMapper class="com.thoughtworks.xstream.mapper.ClassAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                                        <realMemberMapper class="com.thoughtworks.xstream.mapper.FieldAliasingMapper" reference="../wrapped/wrapped/wrapped"/>
+                                        <serializedClassMapper class="com.thoughtworks.xstream.mapper.ClassAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                                        <serializedMemberMapper class="com.thoughtworks.xstream.mapper.FieldAliasingMapper" reference="../wrapped/wrapped/wrapped"/>
+                                        <shouldSerializeMemberMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped/wrapped/wrapped"/>
+                                        <reflectionProvider class="com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider" reference="../../../../../../../../../../../../../../../../../../../reflectionProvider"/>
+                                        <classNameToMapper/>
+                                      </wrapped>
+                                      <aliasForAttributeMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped/wrapped/wrapped"/>
+                                      <aliasForSystemAttributeMapper class="com.thoughtworks.xstream.mapper.SystemAttributeAliasingMapper" reference="../wrapped/wrapped"/>
+                                      <attributeForAliasMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped/wrapped/wrapped"/>
+                                      <defaultImplementationOfMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                      <getConverterFromAttributeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                      <getConverterFromItemTypeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                      <getFieldNameForItemTypeAndNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped"/>
+                                      <getImplicitCollectionDefForFieldNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped"/>
+                                      <getItemTypeForItemFieldNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped"/>
+                                      <getLocalConverterMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                      <isIgnoredElementMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                                      <isImmutableValueTypeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                      <isReferenceableMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                      <realClassMapper class="com.thoughtworks.xstream.mapper.ClassAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                                      <realMemberMapper class="com.thoughtworks.xstream.mapper.FieldAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped"/>
+                                      <serializedClassMapper class="com.thoughtworks.xstream.mapper.ClassAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                                      <serializedMemberMapper class="com.thoughtworks.xstream.mapper.FieldAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped"/>
+                                      <shouldSerializeMemberMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                                      <alias>outer-class</alias>
+                                      <innerFields class="java.util.Collections$SynchronizedMap" serialization="custom">
+                                        <java.util.Collections_-SynchronizedMap>
+                                          <default>
+                                            <m>
+                                              <entry>
+                                                <string>java.lang.Object</string>
+                                                <string-array/>
+                                              </entry>
+                                            </m>
+                                            <mutex class="java.util.Collections$SynchronizedMap" reference="../../.."/>
+                                          </default>
+                                        </java.util.Collections_-SynchronizedMap>
+                                      </innerFields>
+                                    </wrapped>
+                                    <aliasForAttributeMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped"/>
+                                    <aliasForSystemAttributeMapper class="com.thoughtworks.xstream.mapper.SystemAttributeAliasingMapper" reference="../wrapped/wrapped/wrapped"/>
+                                    <attributeForAliasMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped"/>
+                                    <defaultImplementationOfMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                    <getConverterFromAttributeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                    <getConverterFromItemTypeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                    <getFieldNameForItemTypeAndNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped"/>
+                                    <getImplicitCollectionDefForFieldNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped"/>
+                                    <getItemTypeForItemFieldNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped"/>
+                                    <getLocalConverterMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                    <isIgnoredElementMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                                    <isImmutableValueTypeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                    <isReferenceableMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                    <realClassMapper class="com.thoughtworks.xstream.mapper.ClassAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                                    <realMemberMapper class="com.thoughtworks.xstream.mapper.OuterClassMapper" reference="../wrapped"/>
+                                    <serializedClassMapper class="com.thoughtworks.xstream.mapper.ClassAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                                    <serializedMemberMapper class="com.thoughtworks.xstream.mapper.OuterClassMapper" reference="../wrapped"/>
+                                    <shouldSerializeMemberMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                                  </wrapped>
+                                  <aliasForAttributeMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                                  <aliasForSystemAttributeMapper class="com.thoughtworks.xstream.mapper.SystemAttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped"/>
+                                  <attributeForAliasMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                                  <defaultImplementationOfMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                  <getConverterFromAttributeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                  <getConverterFromItemTypeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                  <getFieldNameForItemTypeAndNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped/wrapped"/>
+                                  <getImplicitCollectionDefForFieldNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped/wrapped"/>
+                                  <getItemTypeForItemFieldNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped/wrapped"/>
+                                  <getLocalConverterMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                  <isIgnoredElementMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                                  <isImmutableValueTypeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                  <isReferenceableMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                  <realClassMapper class="com.thoughtworks.xstream.mapper.ArrayMapper" reference="../wrapped"/>
+                                  <realMemberMapper class="com.thoughtworks.xstream.mapper.OuterClassMapper" reference="../wrapped/wrapped"/>
+                                  <serializedClassMapper class="com.thoughtworks.xstream.mapper.ArrayMapper" reference="../wrapped"/>
+                                  <serializedMemberMapper class="com.thoughtworks.xstream.mapper.OuterClassMapper" reference="../wrapped/wrapped"/>
+                                  <shouldSerializeMemberMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                                  <typeToImpl>
+                                    <entry>
+                                      <java-class>java.util.List</java-class>
+                                      <java-class>java.util.ArrayList</java-class>
+                                    </entry>
+                                    <entry>
+                                      <java-class>float</java-class>
+                                      <java-class>java.lang.Float</java-class>
+                                    </entry>
+                                    <entry>
+                                      <java-class>byte</java-class>
+                                      <java-class>java.lang.Byte</java-class>
+                                    </entry>
+                                    <entry>
+                                      <java-class>java.util.SortedSet</java-class>
+                                      <java-class>java.util.TreeSet</java-class>
+                                    </entry>
+                                    <entry>
+                                      <java-class>long</java-class>
+                                      <java-class>java.lang.Long</java-class>
+                                    </entry>
+                                    <entry>
+                                      <java-class>int</java-class>
+                                      <java-class>java.lang.Integer</java-class>
+                                    </entry>
+                                    <entry>
+                                      <java-class>java.util.Set</java-class>
+                                      <java-class>java.util.HashSet</java-class>
+                                    </entry>
+                                    <entry>
+                                      <java-class>java.util.Calendar</java-class>
+                                      <java-class>java.util.GregorianCalendar</java-class>
+                                    </entry>
+                                    <entry>
+                                      <java-class>short</java-class>
+                                      <java-class>java.lang.Short</java-class>
+                                    </entry>
+                                    <entry>
+                                      <java-class>com.thoughtworks.xstream.mapper.Mapper$Null</java-class>
+                                      <null/>
+                                    </entry>
+                                    <entry>
+                                      <java-class>java.util.Map</java-class>
+                                      <java-class>java.util.HashMap</java-class>
+                                    </entry>
+                                    <entry>
+                                      <java-class>char</java-class>
+                                      <java-class>java.lang.Character</java-class>
+                                    </entry>
+                                    <entry>
+                                      <java-class>double</java-class>
+                                      <java-class>java.lang.Double</java-class>
+                                    </entry>
+                                    <entry>
+                                      <java-class>boolean</java-class>
+                                      <java-class>java.lang.Boolean</java-class>
+                                    </entry>
+                                  </typeToImpl>
+                                </wrapped>
+                                <aliasForAttributeMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                                <aliasForSystemAttributeMapper class="com.thoughtworks.xstream.mapper.SystemAttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                                <attributeForAliasMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                                <defaultImplementationOfMapper class="com.thoughtworks.xstream.mapper.DefaultImplementationsMapper" reference="../wrapped"/>
+                                <getConverterFromAttributeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                <getConverterFromItemTypeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                <getFieldNameForItemTypeAndNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped/wrapped/wrapped"/>
+                                <getImplicitCollectionDefForFieldNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped/wrapped/wrapped"/>
+                                <getItemTypeForItemFieldNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped/wrapped/wrapped"/>
+                                <getLocalConverterMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                <isIgnoredElementMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                                <isImmutableValueTypeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                <isReferenceableMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                                <realClassMapper class="com.thoughtworks.xstream.mapper.ArrayMapper" reference="../wrapped/wrapped"/>
+                                <realMemberMapper class="com.thoughtworks.xstream.mapper.OuterClassMapper" reference="../wrapped/wrapped/wrapped"/>
+                                <serializedClassMapper class="com.thoughtworks.xstream.mapper.DefaultImplementationsMapper" reference="../wrapped"/>
+                                <serializedMemberMapper class="com.thoughtworks.xstream.mapper.OuterClassMapper" reference="../wrapped/wrapped/wrapped"/>
+                                <shouldSerializeMemberMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                                <fieldNameToTypeMap/>
+                                <typeSet/>
+                                <converterLookup class="com.thoughtworks.xstream.XStream$1" reference="../../../../../../../../../../../../../.."/>
+                                <reflectionProvider class="com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider" reference="../../../../../../../../../../../../../../../reflectionProvider"/>
+                                <fieldToUseAsAttribute/>
+                              </wrapped>
+                              <aliasForAttributeMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                              <aliasForSystemAttributeMapper class="com.thoughtworks.xstream.mapper.SystemAttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                              <attributeForAliasMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                              <defaultImplementationOfMapper class="com.thoughtworks.xstream.mapper.DefaultImplementationsMapper" reference="../wrapped/wrapped"/>
+                              <getConverterFromAttributeMapper class="com.thoughtworks.xstream.mapper.AttributeMapper" reference="../wrapped"/>
+                              <getConverterFromItemTypeMapper class="com.thoughtworks.xstream.mapper.AttributeMapper" reference="../wrapped"/>
+                              <getFieldNameForItemTypeAndNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                              <getImplicitCollectionDefForFieldNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                              <getItemTypeForItemFieldNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                              <getLocalConverterMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                              <isIgnoredElementMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                              <isImmutableValueTypeMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                              <isReferenceableMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                              <realClassMapper class="com.thoughtworks.xstream.mapper.ArrayMapper" reference="../wrapped/wrapped/wrapped"/>
+                              <realMemberMapper class="com.thoughtworks.xstream.mapper.OuterClassMapper" reference="../wrapped/wrapped/wrapped/wrapped"/>
+                              <serializedClassMapper class="com.thoughtworks.xstream.mapper.DefaultImplementationsMapper" reference="../wrapped/wrapped"/>
+                              <serializedMemberMapper class="com.thoughtworks.xstream.mapper.OuterClassMapper" reference="../wrapped/wrapped/wrapped/wrapped"/>
+                              <shouldSerializeMemberMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                            </wrapped>
+                            <aliasForAttributeMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                            <aliasForSystemAttributeMapper class="com.thoughtworks.xstream.mapper.SystemAttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                            <attributeForAliasMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                            <defaultImplementationOfMapper class="com.thoughtworks.xstream.mapper.DefaultImplementationsMapper" reference="../wrapped/wrapped/wrapped"/>
+                            <getConverterFromAttributeMapper class="com.thoughtworks.xstream.mapper.EnumMapper" reference="../wrapped"/>
+                            <getConverterFromItemTypeMapper class="com.thoughtworks.xstream.mapper.EnumMapper" reference="../wrapped"/>
+                            <getFieldNameForItemTypeAndNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                            <getImplicitCollectionDefForFieldNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                            <getItemTypeForItemFieldNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                            <getLocalConverterMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/unserializable-parents/wrapped/wrapped"/>
+                            <isIgnoredElementMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                            <isImmutableValueTypeMapper class="com.thoughtworks.xstream.mapper.EnumMapper" reference="../wrapped"/>
+                            <isReferenceableMapper class="com.thoughtworks.xstream.mapper.EnumMapper" reference="../wrapped"/>
+                            <realClassMapper class="com.thoughtworks.xstream.mapper.ArrayMapper" reference="../wrapped/wrapped/wrapped/wrapped"/>
+                            <realMemberMapper class="com.thoughtworks.xstream.mapper.OuterClassMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                            <serializedClassMapper class="com.thoughtworks.xstream.mapper.EnumMapper" reference="../wrapped"/>
+                            <serializedMemberMapper class="com.thoughtworks.xstream.mapper.OuterClassMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                            <shouldSerializeMemberMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                            <localConverters/>
+                          </wrapped>
+                          <aliasForAttributeMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                          <aliasForSystemAttributeMapper class="com.thoughtworks.xstream.mapper.SystemAttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                          <attributeForAliasMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                          <defaultImplementationOfMapper class="com.thoughtworks.xstream.mapper.DefaultImplementationsMapper" reference="../wrapped/wrapped/wrapped/wrapped"/>
+                          <getConverterFromAttributeMapper class="com.thoughtworks.xstream.mapper.LocalConversionMapper" reference="../wrapped"/>
+                          <getConverterFromItemTypeMapper class="com.thoughtworks.xstream.mapper.LocalConversionMapper" reference="../wrapped"/>
+                          <getFieldNameForItemTypeAndNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                          <getImplicitCollectionDefForFieldNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                          <getItemTypeForItemFieldNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                          <getLocalConverterMapper class="com.thoughtworks.xstream.mapper.LocalConversionMapper" reference="../wrapped"/>
+                          <isIgnoredElementMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                          <isImmutableValueTypeMapper class="com.thoughtworks.xstream.mapper.EnumMapper" reference="../wrapped/wrapped"/>
+                          <isReferenceableMapper class="com.thoughtworks.xstream.mapper.EnumMapper" reference="../wrapped/wrapped"/>
+                          <realClassMapper class="com.thoughtworks.xstream.mapper.ArrayMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                          <realMemberMapper class="com.thoughtworks.xstream.mapper.OuterClassMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                          <serializedClassMapper class="com.thoughtworks.xstream.mapper.EnumMapper" reference="../wrapped/wrapped"/>
+                          <serializedMemberMapper class="com.thoughtworks.xstream.mapper.OuterClassMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                          <shouldSerializeMemberMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                          <unreferenceableTypes>
+                            <java-class>java.math.BigInteger</java-class>
+                            <java-class>java.time.chrono.JapaneseChronology</java-class>
+                            <java-class>java.lang.Short</java-class>
+                            <java-class>java.time.chrono.JapaneseDate</java-class>
+                            <java-class>java.time.chrono.JapaneseEra</java-class>
+                            <java-class>java.time.LocalTime</java-class>
+                            <java-class>java.time.temporal.IsoFields$Unit</java-class>
+                            <java-class>short</java-class>
+                            <java-class>java.time.OffsetTime</java-class>
+                            <java-class>java.lang.Byte</java-class>
+                            <java-class>java.io.File</java-class>
+                            <java-class>java.lang.Float</java-class>
+                            <java-class>java.lang.Boolean</java-class>
+                            <java-class>java.time.chrono.MinguoChronology</java-class>
+                            <java-class>java.time.chrono.HijrahChronology</java-class>
+                            <java-class>java.math.BigDecimal</java-class>
+                            <java-class>java.time.MonthDay</java-class>
+                            <java-class>java.time.ZoneId</java-class>
+                            <java-class>java.time.temporal.IsoFields$Field</java-class>
+                            <java-class>java.time.Period</java-class>
+                            <java-class>java.net.URL</java-class>
+                            <java-class>java.lang.Double</java-class>
+                            <java-class>java.time.LocalDate</java-class>
+                            <java-class>java.time.chrono.ThaiBuddhistDate</java-class>
+                            <java-class>java.time.ZoneOffset</java-class>
+                            <java-class>java.time.chrono.MinguoDate</java-class>
+                            <java-class>float</java-class>
+                            <java-class>java.time.Instant</java-class>
+                            <java-class>java.awt.font.TextAttribute</java-class>
+                            <java-class>java.lang.Integer</java-class>
+                            <java-class>java.time.LocalDateTime</java-class>
+                            <java-class>java.time.chrono.ThaiBuddhistChronology</java-class>
+                            <java-class>java.time.chrono.HijrahDate</java-class>
+                            <java-class>java.time.temporal.JulianFields$Field</java-class>
+                            <java-class>java.lang.Class</java-class>
+                            <java-class>java.time.YearMonth</java-class>
+                            <java-class>java.time.ZonedDateTime</java-class>
+                            <java-class>byte</java-class>
+                            <java-class>java.lang.Character</java-class>
+                            <java-class>long</java-class>
+                            <java-class>java.lang.String</java-class>
+                            <java-class>java.time.Year</java-class>
+                            <java-class>int</java-class>
+                            <java-class>java.time.OffsetDateTime</java-class>
+                            <java-class>java.time.Duration</java-class>
+                            <java-class>java.time.ZoneRegion</java-class>
+                            <java-class>com.thoughtworks.xstream.mapper.Mapper$Null</java-class>
+                            <java-class>java.time.chrono.IsoChronology</java-class>
+                            <java-class>char</java-class>
+                            <java-class>java.lang.Long</java-class>
+                            <java-class>double</java-class>
+                            <java-class>boolean</java-class>
+                          </unreferenceableTypes>
+                          <immutableTypes>
+                            <java-class>java.math.BigInteger</java-class>
+                            <java-class>java.time.chrono.JapaneseChronology</java-class>
+                            <java-class>java.lang.Short</java-class>
+                            <java-class>java.util.Collections$EmptySet</java-class>
+                            <java-class>java.time.chrono.JapaneseDate</java-class>
+                            <java-class>java.time.chrono.JapaneseEra</java-class>
+                            <java-class>java.time.LocalTime</java-class>
+                            <java-class>java.time.temporal.IsoFields$Unit</java-class>
+                            <java-class>short</java-class>
+                            <java-class>java.time.OffsetTime</java-class>
+                            <java-class>java.lang.Byte</java-class>
+                            <java-class>java.nio.charset.Charset</java-class>
+                            <java-class>java.io.File</java-class>
+                            <java-class>java.lang.Float</java-class>
+                            <java-class>java.lang.Boolean</java-class>
+                            <java-class>java.time.chrono.MinguoChronology</java-class>
+                            <java-class>java.time.chrono.HijrahChronology</java-class>
+                            <java-class>java.math.BigDecimal</java-class>
+                            <java-class>java.time.MonthDay</java-class>
+                            <java-class>java.time.ZoneId</java-class>
+                            <java-class>java.time.temporal.IsoFields$Field</java-class>
+                            <java-class>java.time.Period</java-class>
+                            <java-class>java.net.URL</java-class>
+                            <java-class>java.util.Currency</java-class>
+                            <java-class>java.lang.Double</java-class>
+                            <java-class>java.net.URI</java-class>
+                            <java-class>java.util.Collections$EmptyMap</java-class>
+                            <java-class>java.time.LocalDate</java-class>
+                            <java-class>java.time.chrono.ThaiBuddhistDate</java-class>
+                            <java-class>java.util.UUID</java-class>
+                            <java-class>java.time.ZoneOffset</java-class>
+                            <java-class>java.time.chrono.MinguoDate</java-class>
+                            <java-class>float</java-class>
+                            <java-class>java.time.Instant</java-class>
+                            <java-class>java.awt.font.TextAttribute</java-class>
+                            <java-class>java.lang.Integer</java-class>
+                            <java-class>java.time.LocalDateTime</java-class>
+                            <java-class>java.time.chrono.ThaiBuddhistChronology</java-class>
+                            <java-class>java.time.chrono.HijrahDate</java-class>
+                            <java-class>java.time.temporal.JulianFields$Field</java-class>
+                            <java-class>java.lang.Class</java-class>
+                            <java-class>java.util.Collections$EmptyList</java-class>
+                            <java-class>java.time.YearMonth</java-class>
+                            <java-class>java.time.ZonedDateTime</java-class>
+                            <java-class>byte</java-class>
+                            <java-class>java.lang.Character</java-class>
+                            <java-class>long</java-class>
+                            <java-class>java.lang.String</java-class>
+                            <java-class>java.time.Year</java-class>
+                            <java-class>int</java-class>
+                            <java-class>java.time.OffsetDateTime</java-class>
+                            <java-class>java.time.Duration</java-class>
+                            <java-class>java.time.ZoneRegion</java-class>
+                            <java-class>com.thoughtworks.xstream.mapper.Mapper$Null</java-class>
+                            <java-class>java.time.chrono.IsoChronology</java-class>
+                            <java-class>char</java-class>
+                            <java-class>java.lang.Long</java-class>
+                            <java-class>double</java-class>
+                            <java-class>boolean</java-class>
+                          </immutableTypes>
+                        </wrapped>
+                        <aliasForAttributeMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                        <aliasForSystemAttributeMapper class="com.thoughtworks.xstream.mapper.SystemAttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                        <attributeForAliasMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                        <defaultImplementationOfMapper class="com.thoughtworks.xstream.mapper.DefaultImplementationsMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                        <getConverterFromAttributeMapper class="com.thoughtworks.xstream.mapper.LocalConversionMapper" reference="../wrapped/wrapped"/>
+                        <getConverterFromItemTypeMapper class="com.thoughtworks.xstream.mapper.LocalConversionMapper" reference="../wrapped/wrapped"/>
+                        <getFieldNameForItemTypeAndNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                        <getImplicitCollectionDefForFieldNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                        <getItemTypeForItemFieldNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                        <getLocalConverterMapper class="com.thoughtworks.xstream.mapper.LocalConversionMapper" reference="../wrapped/wrapped"/>
+                        <isIgnoredElementMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                        <isImmutableValueTypeMapper class="com.thoughtworks.xstream.mapper.ImmutableTypesMapper" reference="../wrapped"/>
+                        <isReferenceableMapper class="com.thoughtworks.xstream.mapper.ImmutableTypesMapper" reference="../wrapped"/>
+                        <realClassMapper class="com.thoughtworks.xstream.mapper.ArrayMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                        <realMemberMapper class="com.thoughtworks.xstream.mapper.OuterClassMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                        <serializedClassMapper class="com.thoughtworks.xstream.mapper.EnumMapper" reference="../wrapped/wrapped/wrapped"/>
+                        <serializedMemberMapper class="com.thoughtworks.xstream.mapper.OuterClassMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                        <shouldSerializeMemberMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                      </wrapped>
+                      <aliasForAttributeMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                      <aliasForSystemAttributeMapper class="com.thoughtworks.xstream.mapper.SystemAttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                      <attributeForAliasMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                      <defaultImplementationOfMapper class="com.thoughtworks.xstream.mapper.DefaultImplementationsMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                      <getConverterFromAttributeMapper class="com.thoughtworks.xstream.mapper.LocalConversionMapper" reference="../wrapped/wrapped/wrapped"/>
+                      <getConverterFromItemTypeMapper class="com.thoughtworks.xstream.mapper.LocalConversionMapper" reference="../wrapped/wrapped/wrapped"/>
+                      <getFieldNameForItemTypeAndNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                      <getImplicitCollectionDefForFieldNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                      <getItemTypeForItemFieldNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                      <getLocalConverterMapper class="com.thoughtworks.xstream.mapper.LocalConversionMapper" reference="../wrapped/wrapped/wrapped"/>
+                      <isIgnoredElementMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                      <isImmutableValueTypeMapper class="com.thoughtworks.xstream.mapper.ImmutableTypesMapper" reference="../wrapped/wrapped"/>
+                      <isReferenceableMapper class="com.thoughtworks.xstream.mapper.ImmutableTypesMapper" reference="../wrapped/wrapped"/>
+                      <realClassMapper class="com.thoughtworks.xstream.mapper.ArrayMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                      <realMemberMapper class="com.thoughtworks.xstream.mapper.OuterClassMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                      <serializedClassMapper class="com.thoughtworks.xstream.mapper.LambdaMapper" reference="../wrapped"/>
+                      <serializedMemberMapper class="com.thoughtworks.xstream.mapper.OuterClassMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                      <shouldSerializeMemberMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                      <permissions>
+                        <com.thoughtworks.xstream.security.WildcardTypePermission>
+                          <patterns>
+                            <java.util.regex.Pattern>
+                              <pattern>(?u)engine\.[\P{C}]*</pattern>
+                              <flags>64</flags>
+                            </java.util.regex.Pattern>
+                            <java.util.regex.Pattern>
+                              <pattern>(?u)java\.[\P{C}]*</pattern>
+                              <flags>64</flags>
+                            </java.util.regex.Pattern>
+                          </patterns>
+                        </com.thoughtworks.xstream.security.WildcardTypePermission>
+                        <com.thoughtworks.xstream.security.ExplicitTypePermission>
+                          <names>
+                            <string>javafx.geometry.Point2D</string>
+                          </names>
+                        </com.thoughtworks.xstream.security.ExplicitTypePermission>
+                        <com.thoughtworks.xstream.security.PrimitiveTypePermission/>
+                        <com.thoughtworks.xstream.security.NullPermission/>
+                        <com.thoughtworks.xstream.security.AnyTypePermission/>
+                      </permissions>
+                    </wrapped>
+                    <aliasForAttributeMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                    <aliasForSystemAttributeMapper class="com.thoughtworks.xstream.mapper.SystemAttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                    <attributeForAliasMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                    <defaultImplementationOfMapper class="com.thoughtworks.xstream.mapper.DefaultImplementationsMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                    <getConverterFromAttributeMapper class="com.thoughtworks.xstream.mapper.LocalConversionMapper" reference="../wrapped/wrapped/wrapped/wrapped"/>
+                    <getConverterFromItemTypeMapper class="com.thoughtworks.xstream.mapper.LocalConversionMapper" reference="../wrapped/wrapped/wrapped/wrapped"/>
+                    <getFieldNameForItemTypeAndNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                    <getImplicitCollectionDefForFieldNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                    <getItemTypeForItemFieldNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                    <getLocalConverterMapper class="com.thoughtworks.xstream.mapper.LocalConversionMapper" reference="../wrapped/wrapped/wrapped/wrapped"/>
+                    <isIgnoredElementMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                    <isImmutableValueTypeMapper class="com.thoughtworks.xstream.mapper.ImmutableTypesMapper" reference="../wrapped/wrapped/wrapped"/>
+                    <isReferenceableMapper class="com.thoughtworks.xstream.mapper.ImmutableTypesMapper" reference="../wrapped/wrapped/wrapped"/>
+                    <realClassMapper class="com.thoughtworks.xstream.mapper.SecurityMapper" reference="../wrapped"/>
+                    <realMemberMapper class="com.thoughtworks.xstream.mapper.OuterClassMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                    <serializedClassMapper class="com.thoughtworks.xstream.mapper.LambdaMapper" reference="../wrapped/wrapped"/>
+                    <serializedMemberMapper class="com.thoughtworks.xstream.mapper.OuterClassMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                    <shouldSerializeMemberMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                    <locked>true</locked>
+                    <converterRegistry class="com.thoughtworks.xstream.XStream$2">
+                      <val_-defaultConverterLookup reference="../../../../../../../.."/>
+                    </converterRegistry>
+                    <converterCache/>
+                    <annotatedTypes class="java.util.Collections$SynchronizedSet" serialization="custom">
+                      <java.util.Collections_-SynchronizedCollection>
+                        <default>
+                          <c class="set">
+                            <java-class>java.lang.Object</java-class>
+                          </c>
+                          <mutex class="java.util.Collections$SynchronizedSet" reference="../../.."/>
+                        </default>
+                      </java.util.Collections_-SynchronizedCollection>
+                    </annotatedTypes>
+                  </wrapped>
+                  <aliasForAttributeMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                  <aliasForSystemAttributeMapper class="com.thoughtworks.xstream.mapper.SystemAttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                  <attributeForAliasMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                  <defaultImplementationOfMapper class="com.thoughtworks.xstream.mapper.AnnotationMapper" reference="../wrapped"/>
+                  <getConverterFromAttributeMapper class="com.thoughtworks.xstream.mapper.LocalConversionMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                  <getConverterFromItemTypeMapper class="com.thoughtworks.xstream.mapper.LocalConversionMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                  <getFieldNameForItemTypeAndNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                  <getImplicitCollectionDefForFieldNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                  <getItemTypeForItemFieldNameMapper class="com.thoughtworks.xstream.mapper.ImplicitCollectionMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                  <getLocalConverterMapper class="com.thoughtworks.xstream.mapper.AnnotationMapper" reference="../wrapped"/>
+                  <isIgnoredElementMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                  <isImmutableValueTypeMapper class="com.thoughtworks.xstream.mapper.ImmutableTypesMapper" reference="../wrapped/wrapped/wrapped/wrapped"/>
+                  <isReferenceableMapper class="com.thoughtworks.xstream.mapper.ImmutableTypesMapper" reference="../wrapped/wrapped/wrapped/wrapped"/>
+                  <realClassMapper class="com.thoughtworks.xstream.mapper.SecurityMapper" reference="../wrapped/wrapped"/>
+                  <realMemberMapper class="com.thoughtworks.xstream.mapper.AnnotationMapper" reference="../wrapped"/>
+                  <serializedClassMapper class="com.thoughtworks.xstream.mapper.AnnotationMapper" reference="../wrapped"/>
+                  <serializedMemberMapper class="com.thoughtworks.xstream.mapper.OuterClassMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                  <shouldSerializeMemberMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+                </mapper>
+                <classLoaderReference reference="../../../../../../../classLoaderReference"/>
+              </value>
+              <priority>0</priority>
+              <id>82</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.time.ZoneIdConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>81</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.time.ZonedDateTimeConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>80</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.time.YearMonthConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>79</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.time.YearConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>78</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.time.WeekFieldsConverter">
+                <mapper class="com.thoughtworks.xstream.mapper.CachingMapper" reference="../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper"/>
+              </value>
+              <priority>0</priority>
+              <id>77</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.time.ValueRangeConverter">
+                <mapper class="com.thoughtworks.xstream.mapper.CachingMapper" reference="../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper"/>
+              </value>
+              <priority>0</priority>
+              <id>76</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.time.ThaiBuddhistDateConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>75</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.time.SystemClockConverter">
+                <mapper class="com.thoughtworks.xstream.mapper.CachingMapper" reference="../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper"/>
+                <type>java.time.Clock$SystemClock</type>
+              </value>
+              <priority>0</priority>
+              <id>74</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.time.PeriodConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>73</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.time.OffsetTimeConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>72</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.time.OffsetDateTimeConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>71</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.time.MonthDayConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>70</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.time.MinguoDateConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>69</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.time.LocalTimeConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>68</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.time.LocalDateTimeConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>67</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.time.LocalDateConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>66</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.time.InstantConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>65</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.time.JapaneseEraConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>64</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.time.JapaneseDateConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>63</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.time.HijrahDateConverter">
+                  <hijrahChronologies>
+                    <chronology>Hijrah-umalqura</chronology>
+                  </hijrahChronologies>
+                </wrapped>
+              </value>
+              <priority>0</priority>
+              <id>62</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.time.DurationConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>61</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.time.ChronologyConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>60</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.extended.PathConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>59</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.extended.ActivationDataFlavorConverter"/>
+              <priority>0</priority>
+              <id>58</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.basic.UUIDConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>57</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.basic.StringBuilderConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>56</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.enums.EnumMapConverter">
+                <mapper class="com.thoughtworks.xstream.mapper.CachingMapper" reference="../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper"/>
+              </value>
+              <priority>0</priority>
+              <id>55</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.enums.EnumSetConverter">
+                <mapper class="com.thoughtworks.xstream.mapper.CachingMapper" reference="../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper"/>
+              </value>
+              <priority>0</priority>
+              <id>54</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.enums.EnumConverter"/>
+              <priority>0</priority>
+              <id>53</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.extended.DurationConverter">
+                  <factory class="com.sun.org.apache.xerces.internal.jaxp.datatype.DatatypeFactoryImpl"/>
+                </wrapped>
+              </value>
+              <priority>0</priority>
+              <id>52</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.extended.CharsetConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>51</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.extended.RegexPatternConverter"/>
+              <priority>0</priority>
+              <id>50</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.extended.CurrencyConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>49</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.extended.StackTraceElementConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>48</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.extended.ThrowableConverter">
+                <lookup class="com.thoughtworks.xstream.XStream$1" reference="../../../../../.."/>
+              </value>
+              <priority>0</priority>
+              <id>47</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.extended.SubjectConverter">
+                <mapper class="com.thoughtworks.xstream.mapper.CachingMapper" reference="../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper"/>
+              </value>
+              <priority>0</priority>
+              <id>46</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.extended.GregorianCalendarConverter"/>
+              <priority>0</priority>
+              <id>45</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.extended.LocaleConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>44</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.extended.LookAndFeelConverter">
+                <reflectionProvider class="com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider" reference="../../../../../../../reflectionProvider"/>
+                <mapper class="com.thoughtworks.xstream.mapper.CachingMapper" reference="../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper"/>
+              </value>
+              <priority>0</priority>
+              <id>43</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.extended.TextAttributeConverter">
+                  <type>java.awt.font.TextAttribute</type>
+                </wrapped>
+              </value>
+              <priority>0</priority>
+              <id>42</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.extended.ColorConverter"/>
+              <priority>0</priority>
+              <id>41</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.extended.FontConverter">
+                <textAttributeConverter class="com.thoughtworks.xstream.converters.extended.TextAttributeConverter">
+                  <type>java.awt.font.TextAttribute</type>
+                </textAttributeConverter>
+                <mapper class="com.thoughtworks.xstream.mapper.CachingMapper" reference="../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper"/>
+              </value>
+              <priority>0</priority>
+              <id>40</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.extended.JavaFieldConverter">
+                <javaClassConverter class="com.thoughtworks.xstream.converters.extended.JavaClassConverter">
+                  <mapper class="com.thoughtworks.xstream.mapper.DefaultMapper">
+                    <classLoaderReference reference="../../../../../../../../../classLoaderReference"/>
+                  </mapper>
+                </javaClassConverter>
+                <mapper class="com.thoughtworks.xstream.mapper.DefaultMapper">
+                  <classLoaderReference reference="../../../../../../../../classLoaderReference"/>
+                </mapper>
+              </value>
+              <priority>0</priority>
+              <id>39</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.extended.JavaMethodConverter">
+                <javaClassConverter class="com.thoughtworks.xstream.converters.extended.JavaClassConverter">
+                  <mapper class="com.thoughtworks.xstream.mapper.DefaultMapper">
+                    <classLoaderReference reference="../../../../../../../../../classLoaderReference"/>
+                  </mapper>
+                </javaClassConverter>
+              </value>
+              <priority>0</priority>
+              <id>38</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.extended.JavaClassConverter">
+                  <mapper class="com.thoughtworks.xstream.mapper.DefaultMapper">
+                    <classLoaderReference reference="../../../../../../../../../classLoaderReference"/>
+                  </mapper>
+                </wrapped>
+              </value>
+              <priority>0</priority>
+              <id>37</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.extended.DynamicProxyConverter">
+                <classLoaderReference reference="../../../../../../../classLoaderReference"/>
+                <mapper class="com.thoughtworks.xstream.mapper.CachingMapper" reference="../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper"/>
+              </value>
+              <priority>0</priority>
+              <id>36</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.extended.SqlDateConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>35</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.extended.SqlTimeConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>34</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.extended.SqlTimestampConverter">
+                  <format>
+                    <formatString>yyyy-MM-dd HH:mm:ss</formatString>
+                    <pool>
+                      <initialPoolSize>0</initialPoolSize>
+                      <maxPoolSize>5</maxPoolSize>
+                      <factory class="com.thoughtworks.xstream.core.util.ThreadSafeSimpleDateFormat$1">
+                        <val_-locale>en</val_-locale>
+                        <val_-lenient>false</val_-lenient>
+                        <outer-class reference="../../.."/>
+                      </factory>
+                    </pool>
+                    <timeZone class="sun.util.calendar.ZoneInfo" serialization="custom">
+                      <java.util.TimeZone>
+                        <default>
+                          <ID>UTC</ID>
+                        </default>
+                      </java.util.TimeZone>
+                      <sun.util.calendar.ZoneInfo>
+                        <default>
+                          <checksum>0</checksum>
+                          <dstSavings>0</dstSavings>
+                          <rawOffset>0</rawOffset>
+                          <rawOffsetDiff>0</rawOffsetDiff>
+                          <willGMTOffsetChange>false</willGMTOffsetChange>
+                        </default>
+                      </sun.util.calendar.ZoneInfo>
+                    </timeZone>
+                  </format>
+                </wrapped>
+              </value>
+              <priority>0</priority>
+              <id>33</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.extended.FileConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>32</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.extended.EncodedByteArrayConverter"/>
+              <priority>0</priority>
+              <id>31</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.collections.PropertiesConverter">
+                <sort>false</sort>
+              </value>
+              <priority>0</priority>
+              <id>30</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.collections.SingletonMapConverter">
+                <mapper class="com.thoughtworks.xstream.mapper.CachingMapper" reference="../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper"/>
+              </value>
+              <priority>0</priority>
+              <id>29</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.collections.SingletonCollectionConverter">
+                <mapper class="com.thoughtworks.xstream.mapper.CachingMapper" reference="../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper"/>
+              </value>
+              <priority>0</priority>
+              <id>28</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.collections.TreeSetConverter">
+                <mapper class="com.thoughtworks.xstream.mapper.CachingMapper" reference="../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper"/>
+                <type>java.util.TreeSet</type>
+              </value>
+              <priority>0</priority>
+              <id>27</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.collections.TreeMapConverter">
+                <mapper class="com.thoughtworks.xstream.mapper.CachingMapper" reference="../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper"/>
+                <type>java.util.TreeMap</type>
+              </value>
+              <priority>0</priority>
+              <id>26</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.collections.MapConverter">
+                <mapper class="com.thoughtworks.xstream.mapper.CachingMapper" reference="../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper"/>
+              </value>
+              <priority>0</priority>
+              <id>25</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.collections.CollectionConverter">
+                <mapper class="com.thoughtworks.xstream.mapper.CachingMapper" reference="../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper"/>
+              </value>
+              <priority>0</priority>
+              <id>24</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.collections.CharArrayConverter"/>
+              <priority>0</priority>
+              <id>23</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.collections.ArrayConverter">
+                <mapper class="com.thoughtworks.xstream.mapper.CachingMapper" reference="../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper"/>
+              </value>
+              <priority>0</priority>
+              <id>22</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.basic.BigDecimalConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>21</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.basic.BigIntegerConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>20</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.basic.URLConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>19</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.basic.URIConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>18</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.collections.BitSetConverter"/>
+              <priority>0</priority>
+              <id>17</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.basic.DateConverter">
+                  <defaultFormat>
+                    <formatString>yyyy-MM-dd HH:mm:ss.S z</formatString>
+                    <pool>
+                      <initialPoolSize>4</initialPoolSize>
+                      <maxPoolSize>20</maxPoolSize>
+                      <factory class="com.thoughtworks.xstream.core.util.ThreadSafeSimpleDateFormat$1">
+                        <val_-locale reference="../../../../../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[52]/value/wrapped/format/pool/factory/val_-locale"/>
+                        <val_-lenient>false</val_-lenient>
+                        <outer-class reference="../../.."/>
+                      </factory>
+                    </pool>
+                    <timeZone class="sun.util.calendar.ZoneInfo" serialization="custom">
+                      <java.util.TimeZone>
+                        <default>
+                          <ID>UTC</ID>
+                        </default>
+                      </java.util.TimeZone>
+                      <sun.util.calendar.ZoneInfo>
+                        <default>
+                          <checksum>0</checksum>
+                          <dstSavings>0</dstSavings>
+                          <rawOffset>0</rawOffset>
+                          <rawOffsetDiff>0</rawOffsetDiff>
+                          <willGMTOffsetChange>false</willGMTOffsetChange>
+                        </default>
+                      </sun.util.calendar.ZoneInfo>
+                    </timeZone>
+                  </defaultFormat>
+                  <defaultEraFormat>
+                    <formatString>yyyy-MM-dd G HH:mm:ss.S z</formatString>
+                    <pool>
+                      <initialPoolSize>4</initialPoolSize>
+                      <maxPoolSize>20</maxPoolSize>
+                      <factory class="com.thoughtworks.xstream.core.util.ThreadSafeSimpleDateFormat$1">
+                        <val_-locale reference="../../../../../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[52]/value/wrapped/format/pool/factory/val_-locale"/>
+                        <val_-lenient>false</val_-lenient>
+                        <outer-class reference="../../.."/>
+                      </factory>
+                    </pool>
+                    <timeZone class="sun.util.calendar.ZoneInfo" reference="../../defaultFormat/timeZone"/>
+                  </defaultEraFormat>
+                  <acceptableFormats>
+                    <com.thoughtworks.xstream.core.util.ThreadSafeSimpleDateFormat>
+                      <formatString>yyyy-MM-dd HH:mm:ss.S z</formatString>
+                      <pool>
+                        <initialPoolSize>1</initialPoolSize>
+                        <maxPoolSize>20</maxPoolSize>
+                        <factory class="com.thoughtworks.xstream.core.util.ThreadSafeSimpleDateFormat$1">
+                          <val_-locale reference="../../../../../../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[52]/value/wrapped/format/pool/factory/val_-locale"/>
+                          <val_-lenient>false</val_-lenient>
+                          <outer-class reference="../../.."/>
+                        </factory>
+                      </pool>
+                      <timeZone class="sun.util.calendar.ZoneInfo" reference="../../../defaultFormat/timeZone"/>
+                    </com.thoughtworks.xstream.core.util.ThreadSafeSimpleDateFormat>
+                    <com.thoughtworks.xstream.core.util.ThreadSafeSimpleDateFormat>
+                      <formatString>yyyy-MM-dd HH:mm:ss.S a</formatString>
+                      <pool>
+                        <initialPoolSize>1</initialPoolSize>
+                        <maxPoolSize>20</maxPoolSize>
+                        <factory class="com.thoughtworks.xstream.core.util.ThreadSafeSimpleDateFormat$1">
+                          <val_-locale reference="../../../../../../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[52]/value/wrapped/format/pool/factory/val_-locale"/>
+                          <val_-lenient>false</val_-lenient>
+                          <outer-class reference="../../.."/>
+                        </factory>
+                      </pool>
+                      <timeZone class="sun.util.calendar.ZoneInfo" reference="../../../defaultFormat/timeZone"/>
+                    </com.thoughtworks.xstream.core.util.ThreadSafeSimpleDateFormat>
+                    <com.thoughtworks.xstream.core.util.ThreadSafeSimpleDateFormat>
+                      <formatString>yyyy-MM-dd HH:mm:ssz</formatString>
+                      <pool>
+                        <initialPoolSize>1</initialPoolSize>
+                        <maxPoolSize>20</maxPoolSize>
+                        <factory class="com.thoughtworks.xstream.core.util.ThreadSafeSimpleDateFormat$1">
+                          <val_-locale reference="../../../../../../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[52]/value/wrapped/format/pool/factory/val_-locale"/>
+                          <val_-lenient>false</val_-lenient>
+                          <outer-class reference="../../.."/>
+                        </factory>
+                      </pool>
+                      <timeZone class="sun.util.calendar.ZoneInfo" reference="../../../defaultFormat/timeZone"/>
+                    </com.thoughtworks.xstream.core.util.ThreadSafeSimpleDateFormat>
+                    <com.thoughtworks.xstream.core.util.ThreadSafeSimpleDateFormat>
+                      <formatString>yyyy-MM-dd HH:mm:ss z</formatString>
+                      <pool>
+                        <initialPoolSize>1</initialPoolSize>
+                        <maxPoolSize>20</maxPoolSize>
+                        <factory class="com.thoughtworks.xstream.core.util.ThreadSafeSimpleDateFormat$1">
+                          <val_-locale reference="../../../../../../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[52]/value/wrapped/format/pool/factory/val_-locale"/>
+                          <val_-lenient>false</val_-lenient>
+                          <outer-class reference="../../.."/>
+                        </factory>
+                      </pool>
+                      <timeZone class="sun.util.calendar.ZoneInfo" reference="../../../defaultFormat/timeZone"/>
+                    </com.thoughtworks.xstream.core.util.ThreadSafeSimpleDateFormat>
+                    <com.thoughtworks.xstream.core.util.ThreadSafeSimpleDateFormat>
+                      <formatString>yyyy-MM-dd&apos;T&apos;HH:mm:ss.SX</formatString>
+                      <pool>
+                        <initialPoolSize>1</initialPoolSize>
+                        <maxPoolSize>20</maxPoolSize>
+                        <factory class="com.thoughtworks.xstream.core.util.ThreadSafeSimpleDateFormat$1">
+                          <val_-locale reference="../../../../../../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[52]/value/wrapped/format/pool/factory/val_-locale"/>
+                          <val_-lenient>false</val_-lenient>
+                          <outer-class reference="../../.."/>
+                        </factory>
+                      </pool>
+                      <timeZone class="sun.util.calendar.ZoneInfo" reference="../../../defaultFormat/timeZone"/>
+                    </com.thoughtworks.xstream.core.util.ThreadSafeSimpleDateFormat>
+                    <com.thoughtworks.xstream.core.util.ThreadSafeSimpleDateFormat>
+                      <formatString>yyyy-MM-dd&apos;T&apos;HH:mm:ssX</formatString>
+                      <pool>
+                        <initialPoolSize>1</initialPoolSize>
+                        <maxPoolSize>20</maxPoolSize>
+                        <factory class="com.thoughtworks.xstream.core.util.ThreadSafeSimpleDateFormat$1">
+                          <val_-locale reference="../../../../../../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[52]/value/wrapped/format/pool/factory/val_-locale"/>
+                          <val_-lenient>false</val_-lenient>
+                          <outer-class reference="../../.."/>
+                        </factory>
+                      </pool>
+                      <timeZone class="sun.util.calendar.ZoneInfo" reference="../../../defaultFormat/timeZone"/>
+                    </com.thoughtworks.xstream.core.util.ThreadSafeSimpleDateFormat>
+                    <com.thoughtworks.xstream.core.util.ThreadSafeSimpleDateFormat>
+                      <formatString>yyyy-MM-dd&apos;T&apos;HH:mmX</formatString>
+                      <pool>
+                        <initialPoolSize>1</initialPoolSize>
+                        <maxPoolSize>20</maxPoolSize>
+                        <factory class="com.thoughtworks.xstream.core.util.ThreadSafeSimpleDateFormat$1">
+                          <val_-locale reference="../../../../../../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[52]/value/wrapped/format/pool/factory/val_-locale"/>
+                          <val_-lenient>false</val_-lenient>
+                          <outer-class reference="../../.."/>
+                        </factory>
+                      </pool>
+                      <timeZone class="sun.util.calendar.ZoneInfo" reference="../../../defaultFormat/timeZone"/>
+                    </com.thoughtworks.xstream.core.util.ThreadSafeSimpleDateFormat>
+                    <com.thoughtworks.xstream.core.util.ThreadSafeSimpleDateFormat>
+                      <formatString>yyyy-MM-dd HH:mm:ssa</formatString>
+                      <pool>
+                        <initialPoolSize>1</initialPoolSize>
+                        <maxPoolSize>20</maxPoolSize>
+                        <factory class="com.thoughtworks.xstream.core.util.ThreadSafeSimpleDateFormat$1">
+                          <val_-locale reference="../../../../../../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[52]/value/wrapped/format/pool/factory/val_-locale"/>
+                          <val_-lenient>false</val_-lenient>
+                          <outer-class reference="../../.."/>
+                        </factory>
+                      </pool>
+                      <timeZone class="sun.util.calendar.ZoneInfo" reference="../../../defaultFormat/timeZone"/>
+                    </com.thoughtworks.xstream.core.util.ThreadSafeSimpleDateFormat>
+                  </acceptableFormats>
+                </wrapped>
+              </value>
+              <priority>0</priority>
+              <id>16</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.basic.StringBufferConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>15</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.basic.StringConverter">
+                  <cache class="java.util.Collections$SynchronizedMap" serialization="custom">
+                    <java.util.Collections_-SynchronizedMap>
+                      <default>
+                        <m class="com.thoughtworks.xstream.core.util.WeakCache">
+                          <map class="java.util.WeakHashMap">
+                            <table>
+                              <null/>
+                              <null/>
+                              <null/>
+                              <null/>
+                              <null/>
+                              <null/>
+                              <null/>
+                              <null/>
+                              <null/>
+                              <null/>
+                              <null/>
+                              <null/>
+                              <null/>
+                              <null/>
+                              <null/>
+                              <null/>
+                            </table>
+                            <size>0</size>
+                            <threshold>12</threshold>
+                            <loadFactor>0.75</loadFactor>
+                            <queue>
+                              <lock/>
+                              <queueLength>0</queueLength>
+                            </queue>
+                            <modCount>0</modCount>
+                          </map>
+                        </m>
+                        <mutex class="java.util.Collections$SynchronizedMap" reference="../../.."/>
+                      </default>
+                    </java.util.Collections_-SynchronizedMap>
+                  </cache>
+                  <lengthLimit>38</lengthLimit>
+                </wrapped>
+              </value>
+              <priority>0</priority>
+              <id>14</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.basic.ByteConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>13</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.basic.BooleanConverter">
+                  <positive>true</positive>
+                  <negative>false</negative>
+                  <caseSensitive>false</caseSensitive>
+                </wrapped>
+              </value>
+              <priority>0</priority>
+              <id>12</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.basic.CharConverter"/>
+              <priority>0</priority>
+              <id>11</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.basic.ShortConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>10</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.basic.LongConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>9</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.basic.DoubleConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>8</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.basic.FloatConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>7</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.SingleValueConverterWrapper">
+                <wrapped class="com.thoughtworks.xstream.converters.basic.IntConverter"/>
+              </value>
+              <priority>0</priority>
+              <id>6</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.XStream$InternalBlackList">
+                <outer-class reference="../../../../../../.."/>
+              </value>
+              <priority>-10</priority>
+              <id>4</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.reflection.ExternalizableConverter">
+                <mapper class="com.thoughtworks.xstream.mapper.CachingMapper" reference="../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper"/>
+                <classLoaderReference reference="../../../../../../../classLoaderReference"/>
+              </value>
+              <priority>-10</priority>
+              <id>3</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.reflection.SerializableConverter">
+                <reflectionProvider class="com.thoughtworks.xstream.converters.reflection.SerializableConverter$UnserializableParentsReflectionProvider">
+                  <wrapped class="com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider" reference="../../../../../../../../reflectionProvider"/>
+                </reflectionProvider>
+                <mapper class="com.thoughtworks.xstream.mapper.CachingMapper" reference="../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper"/>
+                <classLoaderReference reference="../../../../../../../classLoaderReference"/>
+              </value>
+              <priority>-10</priority>
+              <id>2</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+            <com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+              <value class="com.thoughtworks.xstream.converters.reflection.ReflectionConverter">
+                <reflectionProvider class="com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider" reference="../../../../../../../reflectionProvider"/>
+                <mapper class="com.thoughtworks.xstream.mapper.CachingMapper" reference="../../../com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper"/>
+              </value>
+              <priority>-20</priority>
+              <id>1</id>
+            </com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem>
+          </set>
+          <lowestPriority>-20</lowestPriority>
+          <lastId>83</lastId>
+        </converters>
+      </val_-defaultConverterLookup>
+    </converterLookup>
+    <converterRegistry class="com.thoughtworks.xstream.XStream$2" reference="../converterLookup/val_-defaultConverterLookup/converters/set/com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper/wrapped/converterRegistry"/>
+    <mapper class="com.thoughtworks.xstream.mapper.CachingMapper" reference="../converterLookup/val_-defaultConverterLookup/converters/set/com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper"/>
+    <packageAliasingMapper reference="../converterLookup/val_-defaultConverterLookup/converters/set/com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+    <classAliasingMapper reference="../converterLookup/val_-defaultConverterLookup/converters/set/com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+    <fieldAliasingMapper reference="../converterLookup/val_-defaultConverterLookup/converters/set/com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+    <elementIgnoringMapper reference="../converterLookup/val_-defaultConverterLookup/converters/set/com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+    <attributeAliasingMapper reference="../converterLookup/val_-defaultConverterLookup/converters/set/com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+    <systemAttributeAliasingMapper reference="../converterLookup/val_-defaultConverterLookup/converters/set/com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+    <attributeMapper reference="../converterLookup/val_-defaultConverterLookup/converters/set/com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+    <defaultImplementationsMapper reference="../converterLookup/val_-defaultConverterLookup/converters/set/com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+    <immutableTypesMapper reference="../converterLookup/val_-defaultConverterLookup/converters/set/com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper/wrapped/wrapped/wrapped/wrapped"/>
+    <implicitCollectionMapper reference="../converterLookup/val_-defaultConverterLookup/converters/set/com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+    <localConversionMapper reference="../converterLookup/val_-defaultConverterLookup/converters/set/com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper/wrapped/wrapped/wrapped/wrapped/wrapped"/>
+    <securityMapper reference="../converterLookup/val_-defaultConverterLookup/converters/set/com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper/wrapped/wrapped"/>
+    <annotationConfiguration class="com.thoughtworks.xstream.mapper.AnnotationMapper" reference="../converterLookup/val_-defaultConverterLookup/converters/set/com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper/wrapped"/>
+  </SERIALIZER>
+  <gridManagers>
+    <authoring__UI.LayerDataConverter>
+      <myNumRows>20</myNumRows>
+      <myNumCols>20</myNumCols>
+      <layerNum>0</layerNum>
+      <myName>Background</myName>
+      <mySprites/>
+    </authoring__UI.LayerDataConverter>
+    <authoring__UI.LayerDataConverter>
+      <myNumRows>20</myNumRows>
+      <myNumCols>20</myNumCols>
+      <layerNum>1</layerNum>
+      <myName>Terrain</myName>
+      <mySprites/>
+    </authoring__UI.LayerDataConverter>
+    <authoring__UI.LayerDataConverter>
+      <myNumRows>20</myNumRows>
+      <myNumCols>20</myNumCols>
+      <layerNum>2</layerNum>
+      <myName>Main View</myName>
+      <mySprites/>
+    </authoring__UI.LayerDataConverter>
+    <authoring__UI.LayerDataConverter>
+      <myNumRows>20</myNumRows>
+      <myNumCols>20</myNumCols>
+      <layerNum>3</layerNum>
+      <myName>Panels</myName>
+      <mySprites>
+        <authoring__UI.SpriteDataConverter>
+          <conditionRows/>
+          <actionRows/>
+          <catmap>
+            <entry>
+              <string>General</string>
+              <list>
+                <authoring.Sprite.Parameters.BooleanSpriteParameter>
+                  <string>canFight</string>
+                  <boolean>true</boolean>
+                </authoring.Sprite.Parameters.BooleanSpriteParameter>
+                <authoring.Sprite.Parameters.DoubleSpriteParameter>
+                  <string>health</string>
+                  <double>10.0</double>
+                </authoring.Sprite.Parameters.DoubleSpriteParameter>
+                <authoring.Sprite.Parameters.StringSpriteParameter>
+                  <string>name</string>
+                  <string>hello</string>
+                </authoring.Sprite.Parameters.StringSpriteParameter>
+              </list>
+            </entry>
+          </catmap>
+          <inventory/>
+          <imageURL>/pikachu.png</imageURL>
+          <gridPos>
+            <int>2</int>
+            <int>2</int>
+          </gridPos>
+          <name>pikachu</name>
+          <width>1</width>
+          <height>1</height>
+          <UUID>88bfdfa9-d0d0-4f7e-8577-13c5376871f2</UUID>
+          <myAnimationSequences>
+            <authoring.Sprite.AnimationSequences.AuthoringAnimationSequence resolves-to="authoring.Sprite.AnimationSequences.SerializableAuthoringAnimationSequence">
+              <myName>Default</myName>
+              <myImages>
+                <authoring.Sprite.AnimationSequences.AnimationSequenceImage>
+                  <myImage resolves-to="authoring_data.SerializableAuthoringImageView">
+                    <imagePath>Link.png</imagePath>
+                  </myImage>
+                </authoring.Sprite.AnimationSequences.AnimationSequenceImage>
+              </myImages>
+            </authoring.Sprite.AnimationSequences.AuthoringAnimationSequence>
+            <authoring.Sprite.AnimationSequences.AuthoringAnimationSequence resolves-to="authoring.Sprite.AnimationSequences.SerializableAuthoringAnimationSequence">
+              <myName>Link</myName>
+              <myImages>
+                <authoring.Sprite.AnimationSequences.AnimationSequenceImage>
+                  <myImage resolves-to="authoring_data.SerializableAuthoringImageView">
+                    <imagePath>/Build_Static.png</imagePath>
+                  </myImage>
+                </authoring.Sprite.AnimationSequences.AnimationSequenceImage>
+              </myImages>
+            </authoring.Sprite.AnimationSequences.AuthoringAnimationSequence>
+          </myAnimationSequences>
+          <spriteType>SpriteObject</spriteType>
+          <tags/>
+        </authoring__UI.SpriteDataConverter>
+        <authoring__UI.SpriteDataConverter>
+          <conditionRows/>
+          <actionRows/>
+          <catmap>
+            <entry>
+              <string>General</string>
+              <list>
+                <authoring.Sprite.Parameters.BooleanSpriteParameter>
+                  <string>canFight</string>
+                  <boolean>true</boolean>
+                </authoring.Sprite.Parameters.BooleanSpriteParameter>
+                <authoring.Sprite.Parameters.DoubleSpriteParameter>
+                  <string>health</string>
+                  <double>10.0</double>
+                </authoring.Sprite.Parameters.DoubleSpriteParameter>
+                <authoring.Sprite.Parameters.StringSpriteParameter>
+                  <string>name</string>
+                  <string>hello</string>
+                </authoring.Sprite.Parameters.StringSpriteParameter>
+              </list>
+            </entry>
+          </catmap>
+          <inventory/>
+          <imageURL>pikachu.png</imageURL>
+          <gridPos>
+            <int>3</int>
+            <int>3</int>
+          </gridPos>
+          <name>pikachu</name>
+          <width>1</width>
+          <height>1</height>
+          <UUID>6eb9a582-2140-40d1-b5c0-8fa4ed732361</UUID>
+          <myAnimationSequences reference="../../authoring__UI.SpriteDataConverter/myAnimationSequences"/>
+          <spriteType>SpriteObject</spriteType>
+          <tags/>
+        </authoring__UI.SpriteDataConverter>
+        <authoring__UI.SpriteDataConverter>
+          <conditionRows/>
+          <actionRows/>
+          <catmap>
+            <entry>
+              <string>General</string>
+              <list>
+                <authoring.Sprite.Parameters.BooleanSpriteParameter>
+                  <string>canFight</string>
+                  <boolean>true</boolean>
+                </authoring.Sprite.Parameters.BooleanSpriteParameter>
+                <authoring.Sprite.Parameters.DoubleSpriteParameter>
+                  <string>health</string>
+                  <double>10.0</double>
+                </authoring.Sprite.Parameters.DoubleSpriteParameter>
+                <authoring.Sprite.Parameters.StringSpriteParameter>
+                  <string>name</string>
+                  <string>hello</string>
+                </authoring.Sprite.Parameters.StringSpriteParameter>
+              </list>
+            </entry>
+          </catmap>
+          <inventory/>
+          <imageURL>/pikachu.png</imageURL>
+          <gridPos>
+            <int>4</int>
+            <int>4</int>
+          </gridPos>
+          <name>pikachu</name>
+          <width>1</width>
+          <height>1</height>
+          <UUID>c994ae52-5764-4ac9-a1d9-c2b1fffd8df9</UUID>
+          <myAnimationSequences reference="../../authoring__UI.SpriteDataConverter/myAnimationSequences"/>
+          <spriteType>SpriteObject</spriteType>
+          <tags/>
+        </authoring__UI.SpriteDataConverter>
+        <authoring__UI.SpriteDataConverter>
+          <conditionRows/>
+          <actionRows/>
+          <catmap>
+            <entry>
+              <string>General</string>
+              <list>
+                <authoring.Sprite.Parameters.BooleanSpriteParameter>
+                  <string>canFight</string>
+                  <boolean>true</boolean>
+                </authoring.Sprite.Parameters.BooleanSpriteParameter>
+                <authoring.Sprite.Parameters.DoubleSpriteParameter>
+                  <string>health</string>
+                  <double>10.0</double>
+                </authoring.Sprite.Parameters.DoubleSpriteParameter>
+                <authoring.Sprite.Parameters.StringSpriteParameter>
+                  <string>name</string>
+                  <string>hello</string>
+                </authoring.Sprite.Parameters.StringSpriteParameter>
+              </list>
+            </entry>
+          </catmap>
+          <inventory/>
+          <imageURL>/pikachu.png</imageURL>
+          <gridPos>
+            <int>4</int>
+            <int>6</int>
+          </gridPos>
+          <name>pikachu</name>
+          <width>1</width>
+          <height>1</height>
+          <UUID>797cf4ba-6c48-4a44-bb39-ac5e188be40c</UUID>
+          <myAnimationSequences reference="../../authoring__UI.SpriteDataConverter/myAnimationSequences"/>
+          <spriteType>SpriteObject</spriteType>
+          <tags/>
+        </authoring__UI.SpriteDataConverter>
+        <authoring__UI.SpriteDataConverter>
+          <conditionRows/>
+          <actionRows/>
+          <catmap>
+            <entry>
+              <string>General</string>
+              <list>
+                <authoring.Sprite.Parameters.BooleanSpriteParameter>
+                  <string>canFight</string>
+                  <boolean>true</boolean>
+                </authoring.Sprite.Parameters.BooleanSpriteParameter>
+                <authoring.Sprite.Parameters.DoubleSpriteParameter>
+                  <string>health</string>
+                  <double>10.0</double>
+                </authoring.Sprite.Parameters.DoubleSpriteParameter>
+                <authoring.Sprite.Parameters.StringSpriteParameter>
+                  <string>name</string>
+                  <string>hello</string>
+                </authoring.Sprite.Parameters.StringSpriteParameter>
+              </list>
+            </entry>
+          </catmap>
+          <inventory/>
+          <imageURL>/pikachu.png</imageURL>
+          <gridPos>
+            <int>5</int>
+            <int>5</int>
+          </gridPos>
+          <name>pikachu</name>
+          <width>1</width>
+          <height>1</height>
+          <UUID>d66975d8-c859-4d0b-a006-fae7bf3cfcf1</UUID>
+          <myAnimationSequences reference="../../authoring__UI.SpriteDataConverter/myAnimationSequences"/>
+          <spriteType>SpriteObject</spriteType>
+          <tags/>
+        </authoring__UI.SpriteDataConverter>
+      </mySprites>
+    </authoring__UI.LayerDataConverter>
+  </gridManagers>
+</authoring__UI.MapDataConverter>

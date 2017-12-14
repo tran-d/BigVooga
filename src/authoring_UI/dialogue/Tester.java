@@ -64,7 +64,7 @@ public class Tester extends Application {
 
       rect.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
 
-      		System.out.println("is clicked");
+      		;
 
         	orgSceneX = e.getSceneX();
         	orgSceneY = e.getSceneY();

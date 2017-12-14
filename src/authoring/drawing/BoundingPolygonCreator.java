@@ -135,7 +135,6 @@ public class BoundingPolygonCreator extends Pane {
 		poly = (BoundingPolygon) poly.getScaled(1.0 / getWidth(), 1.0 / getHeight()).getTranslated(-.5, -.5);
 		geometries.add(new RelativeBoundingPolygon(poly));
 		vertices.clear();
-		System.out.println(geometries);
 	}
 
 	private void mouseMoved(MouseEvent event) {

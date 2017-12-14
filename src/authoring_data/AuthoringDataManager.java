@@ -25,11 +25,11 @@ public class AuthoringDataManager {
 	}
 	
 	private void save(){
-		System.out.println("Saving config");
+		;
 	}
 	
 	private void load(){
-		System.out.println("Loading config");
+		;
 	}
 
 

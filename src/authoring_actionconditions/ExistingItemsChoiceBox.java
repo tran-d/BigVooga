@@ -82,8 +82,8 @@ public class ExistingItemsChoiceBox {
 			list.add("if this is here, then it is broken");
 			list.add("pls tell david if you see this");
 		}
-		System.out.println("making an existingItemsList");
-		System.out.println("List: " + list);
+		;
+		;
 		return list;
 	}
 
