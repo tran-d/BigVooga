@@ -96,6 +96,9 @@ public abstract class AbstractSpriteObject extends ImageView {
 	protected List<ActionTreeView> actionTreeViews;
 	protected List<AuthoringAnimationSequence> myAnimationSequences;
 	protected List<String> myTags;
+	
+	protected List<String> selectedConditionOperations;
+	protected List<List<String>> selectedActionOperations;
 
 	public AbstractSpriteObject() {
 		super();
@@ -714,6 +717,9 @@ public abstract class AbstractSpriteObject extends ImageView {
 		if (actionTreeViews==null){
 			actionTreeViews = new ArrayList<ActionTreeView>();
 		}
+		for(int i = 0; i < actionTreeViews.size(); i++) {
+			actionTreeViews
+		}
 		return actionTreeViews;
 	}
 	
@@ -729,6 +735,22 @@ public abstract class AbstractSpriteObject extends ImageView {
 	}
 	public List<Action> getActionRows(){
 		return actionRows;
+	}
+	
+	public List<String> getSelectedConditionOperations() {
+		return selectedConditionOperations;
+	}
+	
+	public List<List<String>> getSelectedActionOperations() {
+		return selectedActionOperations;
+	}
+	
+	public void setSelectedConditionOperations(List<String> selectedConditionOperations) {
+		this.selectedConditionOperations = selectedConditionOperations;
+	}
+	
+	public void setSelectedActionOperations(List<List<String>> selectedActionOperations) {
+		this.selectedActionOperations = selectedActionOperations;
 	}
 
 	/**

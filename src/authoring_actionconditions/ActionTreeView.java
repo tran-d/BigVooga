@@ -15,6 +15,8 @@ public class ActionTreeView extends TreeView<HBox> {
 	
 	private ActionCategoryTreeItem categoryAction;
 	private ActionRow actionRow;
+	private String selectedCategory;
+	private String selectedAction;
 	
 	public ActionTreeView(ActionRow actionRow) {
 		super();

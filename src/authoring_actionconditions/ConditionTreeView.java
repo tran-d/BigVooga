@@ -27,6 +27,7 @@ public class ConditionTreeView extends TreeView<HBox> {
 	private TextField priorityIntegerTF;
 	private VBox booleanOperationTreeView;
 	private ConditionRow conditionRow;
+	private String selectedOperation;
 
 	public ConditionTreeView(ConditionRow conditionRow) {
 		super();

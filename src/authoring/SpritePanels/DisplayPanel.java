@@ -129,7 +129,7 @@ public class DisplayPanel extends VBox {
 		// createSpriteCreator();
 		this.setPrefSize(DISPLAY_PANEL_WIDTH, DISPLAY_PANEL_HEIGHT);
 		setSpriteInfoAndVBox();
-
+		
 		// createStatePane(new VBox());
 	}
 

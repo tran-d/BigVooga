@@ -25,6 +25,8 @@ public class ApplyButtonController {
 		List<ActionTreeView> actions = spriteObject.getActionTreeViews();
 		ObservableList<Integer> allConditions = spriteObject.getAllConditions();
 		ObservableList<Integer> allActions = spriteObject.getAllActions();
+		List<String> selectedConditionOperations = spriteObject.getSelectedConditionOperations();
+		List<List<String>> selectedActionOperations = spriteObject.getSelectedActionOperations();
 		ActionConditionHBox topToolBarConditions = new ActionConditionHBox(
 				ResourceBundleUtil.getTabTitle("ConditionsTabTitle"), allConditions);
 		ActionConditionHBox topToolBarActions = new ActionConditionHBox(
