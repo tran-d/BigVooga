@@ -6,6 +6,7 @@ import engine.operations.booleanops.BooleanOperation;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
@@ -16,7 +17,7 @@ public class ConditionTreeView extends TreeView<HBox> {
 
 	public static final double VBOX_SPACING = 10;
 	public static final double INTEGER_TEXTFIELD_HEIGHT = 35;
-	
+
 	private static final double INTEGER_TEXTFIELD_WIDTH = 100;
 	private static final double TREE_VIEW_WIDTH = ActionConditionRow.TREE_VIEW_WIDTH;
 	private static final double TREE_VIEW_EXPANDED_HEIGHT = ActionConditionRow.EXPANDED_HEIGHT;
@@ -27,6 +28,10 @@ public class ConditionTreeView extends TreeView<HBox> {
 	private TextField priorityIntegerTF;
 	private VBox booleanOperationTreeView;
 	private ConditionRow conditionRow;
+
+	private Condition condition;
+	private String selectedOperation;
+	private int priorityNumber;
 
 	public ConditionTreeView(ConditionRow conditionRow) {
 		super();
@@ -39,11 +44,42 @@ public class ConditionTreeView extends TreeView<HBox> {
 		booleanOperationTreeView = buildBooleanOperationTreeView(this);
 	}
 
+	public ConditionTreeView(ConditionRow conditionRow, String selectedOperation, Condition condition) {
+		this.selectedOperation = selectedOperation;
+		this.condition = condition;
+		this.priorityNumber = condition.getPriority();
+		this.setRoot(new TreeItem<HBox>(new HBox(new Label("Priority Number: "), new Label(Integer.toString(priorityNumber)), new Label(", Selected Operation: "), new Label(selectedOperation))));
+		booleanOperationTreeView = new VBox(VBOX_SPACING);
+		booleanOperationTreeView.getChildren().add(this);
+		setPrefSize(TREE_VIEW_WIDTH, COLLAPSED_HEIGHT);
+		 
+	}
+
+	public void setParameters(String selectedOperation, Condition condition) {
+		this.selectedOperation = selectedOperation;
+		this.condition = condition;
+	}
+
 	protected VBox getTreeViewVBox() {
 		return booleanOperationTreeView;
 	}
 
+	public String getSelectedOperation() {
+		if (selectedOperation != null)
+			return selectedOperation;
+		else {
+			try {
+				return operationNameTreeItem.getSelectedOperation();
+			} catch (Exception e) {
+				throw e;
+			}
+		}
+	}
+
 	public Condition getCondition() {
+
+		if (condition != null)
+			return condition;
 
 		try {
 			if (priorityIntegerTF.getText().equals("")) {
