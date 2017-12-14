@@ -26,6 +26,7 @@ import authoring_UI.ViewSideBar;
 import engine.VoogaException;
 import engine.utilities.data.GameDataHandler;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -46,8 +47,8 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 		private static final int PANE_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH;
 	private static final String PATH = "resources/";
 	private static final String CATEGORY_FIELD = "CategoryField";
-	private static final String CREATE_IMAGE_BUTTON = "CreateImageButton";
-	private static final String CREATE_SPRITE_BUTTON = "CreateSpriteButton";
+	private static final String DRAW_IMAGE = "Draw";
+	private static final String CREATE_SPRITE = "CreateSprite";
 	private static int ROWS = 3;
 	private static int COLUMNS = 3;
 //	private String fileName;
@@ -56,18 +57,20 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 	private TextField categoryField;
 	private AbstractSpriteObject newSprite;
 	private AuthoringEnvironmentManager myAEM;
+	private GameDataHandler GDH;
 	private static ResourceBundle paintResources = ResourceBundle.getBundle(TOOLSANDNAMES_PATH);
 	
 	
-	public SpriteCreatorGridManager(SpriteGridHandler SGH){
-		super(ROWS, COLUMNS, SGH);
+	public SpriteCreatorGridManager(SpriteGridHandler SGH, GameDataHandler GDH){
+		super(ROWS, COLUMNS, SGH, GDH);
+		this.GDH = GDH;
 	}
 	
 	public SpriteCreatorGridManager(){
 		super(ROWS, COLUMNS);
 	}
-	public SpriteCreatorGridManager(SpriteGridHandler SGH, AuthoringEnvironmentManager AEM, BiFunction<Image, String, AbstractSpriteObject> getSpriteType){
-		this(SGH);
+	public SpriteCreatorGridManager(SpriteGridHandler SGH, GameDataHandler GDH, AuthoringEnvironmentManager AEM, BiFunction<Image, String, AbstractSpriteObject> getSpriteType){
+		this(SGH, GDH);
 		
 		myAEM = AEM;
 	}
@@ -78,12 +81,12 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 		myAEM = AEM;
 	}
 
-	protected SpriteCreatorGridManager(int rows, int columns, SpriteGridHandler SGH) {
-		super(rows, columns, SGH);
+	protected SpriteCreatorGridManager(int rows, int columns, SpriteGridHandler SGH, GameDataHandler GDH) {
+		super(rows, columns, SGH, GDH);
 	}
 	
-	protected SpriteCreatorGridManager(int rows, int columns, SpriteGridHandler SGH, SpriteNameManager SNM) {
-		super(rows, columns, SGH);
+	protected SpriteCreatorGridManager(int rows, int columns, SpriteGridHandler SGH, SpriteNameManager SNM, GameDataHandler GDH) {
+		super(rows, columns, SGH, GDH);
 		
 	}
 
@@ -108,7 +111,7 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 	
 	@Override 
 	public void getOnBackgroundChangeFunctionality(File file){
-		Image image = new Image(GameDataHandler.getImageURIAndCopyToResources(file));
+		Image image = new Image(GDH.getImageURIAndCopyToResources(file));
 		String fileName = file.getName();
 		nameField.setText(fileName.substring(0, fileName.indexOf(".")));
 		categoryField.setText("General");
@@ -126,26 +129,32 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 		return newSprite;
 	}
 	
-	public List<Node> getExtraUI(){
-		List<Node> ret = new ArrayList<Node>();
-		ret.add(addButtons());
-		ret.add(addNameCategoryBox());
-		return ret;
-	}
-	
-	private VBox addNameCategoryBox() {
-		Label enterName = new Label();
-		enterName.textProperty().bind(DisplayLanguage.createStringBinding("NameField"));
-		nameField = new TextField();
-		Label enterCategory = new Label();
-		enterName.textProperty().bind(DisplayLanguage.createStringBinding("CategoryField"));
-		categoryField = new TextField();
-		VBox nameCategoryBox = new VBox(10);
-		nameCategoryBox.getChildren().addAll(enterName, nameField, enterCategory, categoryField);
+	public HBox getNameCategoryBox(){
+		HBox nameCategoryBox = new HBox(10);
+		nameCategoryBox.getChildren().addAll(addNameCategoryBox());
 		return nameCategoryBox;
 	}
 	
-	private VBox addButtons() {
+	public HBox getSpriteButtonsBox() {
+		HBox spriteButtonsBox = new HBox (10);
+		spriteButtonsBox.getChildren().addAll(addButtons());
+		return spriteButtonsBox;
+	}
+	
+	private HBox addNameCategoryBox() {
+		Label enterName = new Label();
+		enterName.textProperty().bind(DisplayLanguage.createStringBinding(NAME_FIELD));
+		nameField = new TextField();
+		Label enterCategory = new Label();
+		enterCategory.textProperty().bind(DisplayLanguage.createStringBinding(CATEGORY_FIELD));
+		categoryField = new TextField();
+		HBox nameCategoryBox = new HBox(10);
+		nameCategoryBox.getChildren().addAll(enterName, nameField, enterCategory, categoryField);
+		nameCategoryBox.setAlignment(Pos.CENTER);
+		return nameCategoryBox;
+	}
+	
+	private HBox addButtons() {
 //		Button loadImageButton = new Button(spriteCreatorResources.getString("LoadImageButton"));
 //		loadImageButton.setOnAction(e -> {
 //			try {
@@ -157,7 +166,7 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 //		});
 
 		Button createImageButton = new Button();
-		createImageButton.textProperty().bind(DisplayLanguage.createStringBinding(CREATE_IMAGE_BUTTON));
+		createImageButton.textProperty().bind(DisplayLanguage.createStringBinding(DRAW_IMAGE));
 		createImageButton.setOnAction(e -> {
 			Stage newStage = new Stage();
 			ImageCanvasPane paint = new ImageCanvasPane(500, 500, s -> {
@@ -172,7 +181,7 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 		});
 
 		Button createSpriteButton = new Button();
-		createSpriteButton.textProperty().bind(DisplayLanguage.createStringBinding(CREATE_SPRITE_BUTTON));
+		createSpriteButton.textProperty().bind(DisplayLanguage.createStringBinding(CREATE_SPRITE));
 
 		createSpriteButton.setOnAction(e -> {
 			AbstractSpriteObject dummySprite = getNewSprite();
@@ -229,8 +238,9 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 			}
 
 		});
-		VBox buttonBox = new VBox(10);
-		buttonBox.getChildren().addAll(createSpriteButton, createImageButton);
+		HBox buttonBox = new HBox(10);
+		buttonBox.setAlignment(Pos.CENTER);
+		buttonBox.getChildren().addAll(createImageButton, createSpriteButton);
 		return buttonBox;
 	}
 	

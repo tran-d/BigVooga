@@ -65,10 +65,12 @@ public class AuthoringController {
 	private MapManager mapManager;
 	private SpriteCreatorManagerSlack mySCM;
 	private SpriteCreatorManagerSlack myInventorySCM;
+	private GameDataHandler GDH;
 
-	public AuthoringController(Scene currentScene, Stage currentStage, Pane currentAuthoringPane, GameDataHandler GDH) {
+	public AuthoringController(Scene currentScene, Stage currentStage, Pane currentAuthoringPane, GameDataHandler currentGDH) {
 		scene = currentScene;
 		authoringPane = currentAuthoringPane;
+		GDH = currentGDH;
 		activeManagerProperty = new SimpleObjectProperty<MapManager>();
 		activeManagerProperty.addListener((change, previousManager, newManager) -> {
 			System.out.println("previousManager: " + previousManager + "newManager " + newManager);
@@ -99,7 +101,7 @@ public class AuthoringController {
 		myInventorySCM = new SpriteCreatorManagerSlack(AEM, scene, "InventoryObject");
 		viewMap.put(INVENTORY_CREATOR_KEY, myInventorySCM.getPane());
 
-		DialogueManager dm = new DialogueManager();
+		DialogueManager dm = new DialogueManager(GDH);
 		dm.addDialogueListener(mapManager.getDialoguesTab());
 		viewMap.put(DIALOGUE_KEY, dm.getPane());
 

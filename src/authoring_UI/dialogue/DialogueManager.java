@@ -6,6 +6,7 @@ import java.util.List;
 import authoring.DialogSprite.DialogSequence;
 import authoring_UI.MapManager;
 import authoring_UI.displayable.DisplayableManager;
+import engine.utilities.data.GameDataHandler;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
@@ -42,13 +43,15 @@ public class DialogueManager extends DisplayableManager {
 	private DialogueListView listView;
 
 	private Tab mapDialoguesTab;
+	private GameDataHandler GDH;
 
-	public DialogueManager() {
-
+	public DialogueManager(GameDataHandler currentGDH) {
+		GDH = currentGDH;
 		dView = new DialogueTabPane();
 		editorList = new ArrayList<>();
 		dExtractor = new DialogueExtractor();
 		hb = new HBox(NODE_SPACING);
+		hb.setLayoutX(10);
 		hb.getChildren().addAll(dView, createSeparator(), createButtonPanel());
 
 		// test
@@ -112,7 +115,7 @@ public class DialogueManager extends DisplayableManager {
 	}
 
 	protected void newEditor() {
-		currentEditor = new DialogueEditor(e -> save());
+		currentEditor = new DialogueEditor(e -> save(), GDH);
 		currentEditorIndex = editorList.size();
 
 		loadEditor(currentEditorIndex);

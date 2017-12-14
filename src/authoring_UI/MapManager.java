@@ -82,9 +82,11 @@ public class MapManager extends TabPane {
 	private SpritePanels spritePanels;
 	private SpriteGridHandler mySpriteGridHandler;
 	protected String myType;
+	private GameDataHandler GDH;
 	
 	public MapManager(AuthoringEnvironmentManager AEM, Scene currentScene, String type) {
 		myType = type;
+		GDH = AEM.getGameDataHandler();
 		setTabTag();
 		setManagerName();
 		gridIsShowing = new SimpleObjectProperty<Boolean>();
@@ -145,7 +147,7 @@ public class MapManager extends TabPane {
 	}
 
 	protected DraggableGrid makeDraggableGrid() {
-		return new DraggableGrid();
+		return new DraggableGrid(GDH);
 	}
 
 	public void gridIsShowing() {

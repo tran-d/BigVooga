@@ -312,7 +312,7 @@ public class GameDataHandler {
 		return newFile;
 	}
 
-	public static String getImageURIAndCopyToResources(File file) {
+	public String getImageURIAndCopyToResources(File file) {
 		try {
 			Files.copy(file.toPath(), Paths.get(RES_PATH + file.getName()), StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
@@ -598,7 +598,7 @@ public class GameDataHandler {
 		makeDirectory(worldPath);
 		worldDraggableGrids.forEach(world -> {
 			String savePath = worldPath + world.getName();
-			MapDataConverter MDC = new MapDataConverter(world);
+			MapDataConverter MDC = new MapDataConverter(world, this);
 			try {
 				saveWorld(MDC, savePath);
 			} catch (Exception e) {
@@ -645,7 +645,7 @@ public class GameDataHandler {
 		if (!isValidFile(worldFile)) {
 			throw new Exception("Invalid file to load");
 		}
-		DraggableGrid ret = new DraggableGrid();
+		DraggableGrid ret = new DraggableGrid(this);
 		ret.setName(worldFile.getName());
 		List<SpriteObjectGridManager> addToWorld = this.loadLayersFromDirectoryName(worldFile);
 		System.out.println("SIZE OF SOGMS FOR EACH DG SHOULD BE 4 : " + addToWorld.size());
