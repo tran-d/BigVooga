@@ -75,6 +75,7 @@ public class GameDataHandler {
 	private String projectPath;
 	private String projectName;
 	private String myProjectToImportTo;
+	private String projectToImportToPath;
 
 	private static XStream setupXStream() {
 		XStream xstream = new XStream(new DomDriver());
@@ -680,49 +681,60 @@ public class GameDataHandler {
 	 * @return List<DraggableGrids>, i.e., the Authoring worlds
 	 * @author Archana, Samuel
 	 */
-	public List<DraggableGrid> loadWorldsFromWorldDirectory() {
+	public List<DraggableGrid> loadWorldsFromWorldDirectory() { 
 		List<DraggableGrid> DG_LIST = new ArrayList<DraggableGrid>();
 		String worldDirectory = projectPath + PROJECT_WORLD_PATH;
-		String projectToImportToPath = null;
+		File previousWorldDirFile = null;
+		projectToImportToPath = null;
 		if (myProjectToImportTo != null) {
-			projectToImportToPath = PATH + myProjectToImportTo + "/" + PROJECT_WORLD_PATH + "/";
+			projectToImportToPath = PATH + myProjectToImportTo + "/" + PROJECT_WORLD_PATH;
+			previousWorldDirFile = new File(projectToImportToPath);
 		}
 		System.out.println("my current project is: " + projectPath);
 		System.out.println("project to import to: " + myProjectToImportTo);
-		
+
 		File worldDirFile = new File(worldDirectory);
 		if (projectToImportToPath != null) makeDirectory(projectToImportToPath);
-		
-		if (worldDirFile.exists()) {
-			System.out.println("World directory: " + worldDirFile.toString());
-			for (File f : worldDirFile.listFiles()) {
-				System.out.println("File : " + f.toString());
-				try {
-					Scanner scanner = new Scanner(f);
-					String fileContents = scanner.useDelimiter("\\Z").next();
-					System.out.println("gonna copy to previous project");
-					scanner.close();
-					if (projectToImportToPath != null) {
-						String copyPath = projectToImportToPath + "/" + f.getName();
-						File importedFile = new File(copyPath);
-						System.out.println("copied! to " + importedFile.getName() + " with path " + copyPath);
-						FileWriter writer = new FileWriter(importedFile);
-						writer.write(fileContents);
-						writer.close();
-					}
-					
-					MapDataConverter MDC = (MapDataConverter) SERIALIZER.fromXML(fileContents);
-					DraggableGrid DG = MDC.createDraggableGrid();
-					DG_LIST.add(DG);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
+		if (previousWorldDirFile != null) {
+			DG_LIST = addToDraggableGridLoadingList(previousWorldDirFile, DG_LIST, false);
 		}
+		DG_LIST = addToDraggableGridLoadingList(worldDirFile, DG_LIST, true);
 		System.out.println("all the draggable grids we return " + DG_LIST.size());
 		return DG_LIST;
 	}
-
+	
+	public List<DraggableGrid> addToDraggableGridLoadingList(File directory, List<DraggableGrid> currentDGList, boolean newImport) {
+		if (directory != null) {
+			if (directory.exists()) {
+				System.out.println("World directory: " + directory.toString());
+				for (File f : directory.listFiles()) {
+					try {
+						Scanner scanner = new Scanner(f);
+						String fileContents = scanner.useDelimiter("\\Z").next();
+						scanner.close();
+						if (newImport && projectToImportToPath != null) {
+							String copyPath = projectToImportToPath + "/" + f.getName();
+							File importedFile = new File(copyPath + " imported");
+							System.out.println("copied! to " + importedFile.getName() + " with path " + copyPath);
+							FileWriter writer = new FileWriter(importedFile);
+							writer.write(fileContents);
+							writer.close();
+						}
+						MapDataConverter MDC = (MapDataConverter) SERIALIZER.fromXML(fileContents);
+						DraggableGrid DG = MDC.createDraggableGrid();
+						if (! newImport) {
+							DG.setName(DG.getName() + " (imported)");
+						}
+						currentDGList.add(DG);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		return currentDGList;
+	}
+ 
 	public Map<String, List<AbstractSpriteObject>> loadSpritesFromNestedDirectories(String rootDirectory) {
 		File file = new File(rootDirectory);
 		System.out.println("GET CUSTOM DIRECTORY SPRITE PATH: " + rootDirectory);

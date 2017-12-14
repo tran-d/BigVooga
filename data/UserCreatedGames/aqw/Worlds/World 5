@@ -124,20 +124,20 @@
                                                   <shouldSerializeMemberMapper class="com.thoughtworks.xstream.mapper.DefaultMapper" reference="../wrapped/unserializable-parents/wrapped/wrapped"/>
                                                   <typeToName>
                                                     <entry>
-                                                      <java-class>java.nio.charset.Charset</java-class>
-                                                      <string>charset</string>
-                                                    </entry>
-                                                    <entry>
-                                                      <java-class>java.nio.file.Path</java-class>
-                                                      <string>path</string>
-                                                    </entry>
-                                                    <entry>
                                                       <java-class>java.time.ZoneId</java-class>
                                                       <string>zone-id</string>
                                                     </entry>
                                                     <entry>
                                                       <java-class>java.time.chrono.Chronology</java-class>
                                                       <string>chronology</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <java-class>java.nio.file.Path</java-class>
+                                                      <string>path</string>
+                                                    </entry>
+                                                    <entry>
+                                                      <java-class>java.nio.charset.Charset</java-class>
+                                                      <string>charset</string>
                                                     </entry>
                                                   </typeToName>
                                                   <classToName>
@@ -703,16 +703,12 @@
                                       <java-class>java.lang.Double</java-class>
                                     </entry>
                                     <entry>
-                                      <java-class>short</java-class>
-                                      <java-class>java.lang.Short</java-class>
+                                      <java-class>java.util.SortedSet</java-class>
+                                      <java-class>java.util.TreeSet</java-class>
                                     </entry>
                                     <entry>
-                                      <java-class>java.util.Set</java-class>
-                                      <java-class>java.util.HashSet</java-class>
-                                    </entry>
-                                    <entry>
-                                      <java-class>java.util.Map</java-class>
-                                      <java-class>java.util.HashMap</java-class>
+                                      <java-class>com.thoughtworks.xstream.mapper.Mapper$Null</java-class>
+                                      <null/>
                                     </entry>
                                     <entry>
                                       <java-class>long</java-class>
@@ -723,16 +719,28 @@
                                       <java-class>java.util.ArrayList</java-class>
                                     </entry>
                                     <entry>
+                                      <java-class>java.util.Set</java-class>
+                                      <java-class>java.util.HashSet</java-class>
+                                    </entry>
+                                    <entry>
                                       <java-class>float</java-class>
                                       <java-class>java.lang.Float</java-class>
+                                    </entry>
+                                    <entry>
+                                      <java-class>short</java-class>
+                                      <java-class>java.lang.Short</java-class>
+                                    </entry>
+                                    <entry>
+                                      <java-class>java.util.Calendar</java-class>
+                                      <java-class>java.util.GregorianCalendar</java-class>
                                     </entry>
                                     <entry>
                                       <java-class>byte</java-class>
                                       <java-class>java.lang.Byte</java-class>
                                     </entry>
                                     <entry>
-                                      <java-class>com.thoughtworks.xstream.mapper.Mapper$Null</java-class>
-                                      <null/>
+                                      <java-class>java.util.Map</java-class>
+                                      <java-class>java.util.HashMap</java-class>
                                     </entry>
                                     <entry>
                                       <java-class>char</java-class>
@@ -743,16 +751,8 @@
                                       <java-class>java.lang.Boolean</java-class>
                                     </entry>
                                     <entry>
-                                      <java-class>java.util.SortedSet</java-class>
-                                      <java-class>java.util.TreeSet</java-class>
-                                    </entry>
-                                    <entry>
                                       <java-class>int</java-class>
                                       <java-class>java.lang.Integer</java-class>
-                                    </entry>
-                                    <entry>
-                                      <java-class>java.util.Calendar</java-class>
-                                      <java-class>java.util.GregorianCalendar</java-class>
                                     </entry>
                                   </typeToImpl>
                                 </wrapped>
@@ -839,120 +839,120 @@
                           <shouldSerializeMemberMapper class="com.thoughtworks.xstream.mapper.ElementIgnoringMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
                           <unreferenceableTypes>
                             <java-class>double</java-class>
-                            <java-class>java.time.chrono.JapaneseChronology</java-class>
                             <java-class>java.lang.String</java-class>
-                            <java-class>java.time.Year</java-class>
-                            <java-class>java.awt.font.TextAttribute</java-class>
-                            <java-class>java.time.chrono.HijrahChronology</java-class>
-                            <java-class>java.time.MonthDay</java-class>
+                            <java-class>java.time.ZoneOffset</java-class>
+                            <java-class>java.time.chrono.MinguoDate</java-class>
+                            <java-class>byte</java-class>
                             <java-class>java.net.URL</java-class>
-                            <java-class>java.time.Period</java-class>
-                            <java-class>java.lang.Long</java-class>
-                            <java-class>java.time.ZoneRegion</java-class>
-                            <java-class>com.thoughtworks.xstream.mapper.Mapper$Null</java-class>
-                            <java-class>java.time.chrono.ThaiBuddhistChronology</java-class>
-                            <java-class>boolean</java-class>
-                            <java-class>java.time.ZonedDateTime</java-class>
+                            <java-class>java.time.chrono.JapaneseEra</java-class>
+                            <java-class>java.time.Instant</java-class>
+                            <java-class>java.time.chrono.MinguoChronology</java-class>
                             <java-class>java.time.chrono.JapaneseDate</java-class>
-                            <java-class>java.lang.Double</java-class>
+                            <java-class>java.time.chrono.HijrahChronology</java-class>
+                            <java-class>java.time.LocalDateTime</java-class>
+                            <java-class>java.time.LocalTime</java-class>
+                            <java-class>boolean</java-class>
+                            <java-class>java.time.temporal.IsoFields$Field</java-class>
+                            <java-class>java.time.ZoneId</java-class>
                             <java-class>java.io.File</java-class>
                             <java-class>long</java-class>
-                            <java-class>java.time.temporal.JulianFields$Field</java-class>
+                            <java-class>com.thoughtworks.xstream.mapper.Mapper$Null</java-class>
                             <java-class>float</java-class>
-                            <java-class>java.lang.Short</java-class>
-                            <java-class>byte</java-class>
-                            <java-class>java.time.ZoneOffset</java-class>
-                            <java-class>java.time.Duration</java-class>
-                            <java-class>java.time.temporal.IsoFields$Unit</java-class>
-                            <java-class>java.time.ZoneId</java-class>
-                            <java-class>java.time.chrono.HijrahDate</java-class>
-                            <java-class>java.lang.Float</java-class>
                             <java-class>java.lang.Byte</java-class>
-                            <java-class>int</java-class>
-                            <java-class>java.time.OffsetTime</java-class>
-                            <java-class>java.lang.Integer</java-class>
-                            <java-class>java.time.OffsetDateTime</java-class>
-                            <java-class>java.time.temporal.IsoFields$Field</java-class>
-                            <java-class>sun.nio.fs.UnixPath</java-class>
+                            <java-class>java.lang.Long</java-class>
                             <java-class>java.time.YearMonth</java-class>
-                            <java-class>java.time.LocalDateTime</java-class>
-                            <java-class>java.time.chrono.MinguoDate</java-class>
-                            <java-class>java.lang.Class</java-class>
-                            <java-class>java.math.BigDecimal</java-class>
-                            <java-class>short</java-class>
-                            <java-class>java.lang.Character</java-class>
-                            <java-class>java.lang.Boolean</java-class>
-                            <java-class>java.math.BigInteger</java-class>
-                            <java-class>java.time.chrono.JapaneseEra</java-class>
-                            <java-class>java.time.LocalDate</java-class>
-                            <java-class>java.time.chrono.MinguoChronology</java-class>
-                            <java-class>java.time.Instant</java-class>
-                            <java-class>java.time.chrono.ThaiBuddhistDate</java-class>
-                            <java-class>char</java-class>
-                            <java-class>java.time.LocalTime</java-class>
+                            <java-class>int</java-class>
+                            <java-class>java.time.temporal.JulianFields$Field</java-class>
+                            <java-class>sun.nio.fs.UnixPath</java-class>
+                            <java-class>java.lang.Double</java-class>
+                            <java-class>java.time.Period</java-class>
+                            <java-class>java.lang.Integer</java-class>
+                            <java-class>java.time.chrono.ThaiBuddhistChronology</java-class>
+                            <java-class>java.time.chrono.JapaneseChronology</java-class>
                             <java-class>java.time.chrono.IsoChronology</java-class>
+                            <java-class>java.time.chrono.ThaiBuddhistDate</java-class>
+                            <java-class>java.lang.Character</java-class>
+                            <java-class>java.time.temporal.IsoFields$Unit</java-class>
+                            <java-class>java.time.OffsetTime</java-class>
+                            <java-class>java.lang.Class</java-class>
+                            <java-class>java.awt.font.TextAttribute</java-class>
+                            <java-class>java.time.chrono.HijrahDate</java-class>
+                            <java-class>java.math.BigInteger</java-class>
+                            <java-class>java.lang.Boolean</java-class>
+                            <java-class>java.time.MonthDay</java-class>
+                            <java-class>java.time.OffsetDateTime</java-class>
+                            <java-class>java.time.ZonedDateTime</java-class>
+                            <java-class>short</java-class>
+                            <java-class>java.time.Year</java-class>
+                            <java-class>java.time.Duration</java-class>
+                            <java-class>java.math.BigDecimal</java-class>
+                            <java-class>java.lang.Float</java-class>
+                            <java-class>java.lang.Short</java-class>
+                            <java-class>java.time.ZoneRegion</java-class>
+                            <java-class>char</java-class>
+                            <java-class>java.time.LocalDate</java-class>
                           </unreferenceableTypes>
                           <immutableTypes>
                             <java-class>double</java-class>
-                            <java-class>java.time.chrono.JapaneseChronology</java-class>
                             <java-class>java.lang.String</java-class>
-                            <java-class>java.time.Year</java-class>
-                            <java-class>java.awt.font.TextAttribute</java-class>
-                            <java-class>java.util.Collections$EmptyMap</java-class>
-                            <java-class>java.time.chrono.HijrahChronology</java-class>
-                            <java-class>java.time.MonthDay</java-class>
+                            <java-class>java.time.ZoneOffset</java-class>
+                            <java-class>java.time.chrono.MinguoDate</java-class>
+                            <java-class>java.util.Collections$EmptySet</java-class>
+                            <java-class>byte</java-class>
                             <java-class>java.net.URL</java-class>
-                            <java-class>java.util.Currency</java-class>
-                            <java-class>java.time.Period</java-class>
-                            <java-class>java.util.Collections$EmptyList</java-class>
-                            <java-class>java.lang.Long</java-class>
-                            <java-class>java.util.UUID</java-class>
-                            <java-class>java.time.ZoneRegion</java-class>
-                            <java-class>com.thoughtworks.xstream.mapper.Mapper$Null</java-class>
-                            <java-class>java.time.chrono.ThaiBuddhistChronology</java-class>
-                            <java-class>boolean</java-class>
-                            <java-class>java.time.ZonedDateTime</java-class>
+                            <java-class>java.time.chrono.JapaneseEra</java-class>
+                            <java-class>java.time.Instant</java-class>
+                            <java-class>java.time.chrono.MinguoChronology</java-class>
                             <java-class>java.time.chrono.JapaneseDate</java-class>
-                            <java-class>java.lang.Double</java-class>
+                            <java-class>java.time.chrono.HijrahChronology</java-class>
+                            <java-class>java.time.LocalDateTime</java-class>
+                            <java-class>java.time.LocalTime</java-class>
+                            <java-class>boolean</java-class>
+                            <java-class>java.time.temporal.IsoFields$Field</java-class>
+                            <java-class>java.time.ZoneId</java-class>
                             <java-class>java.io.File</java-class>
                             <java-class>long</java-class>
-                            <java-class>java.time.temporal.JulianFields$Field</java-class>
+                            <java-class>com.thoughtworks.xstream.mapper.Mapper$Null</java-class>
                             <java-class>float</java-class>
-                            <java-class>java.lang.Short</java-class>
-                            <java-class>byte</java-class>
-                            <java-class>java.time.ZoneOffset</java-class>
-                            <java-class>java.time.Duration</java-class>
-                            <java-class>java.time.temporal.IsoFields$Unit</java-class>
-                            <java-class>java.time.ZoneId</java-class>
-                            <java-class>java.time.chrono.HijrahDate</java-class>
-                            <java-class>java.lang.Float</java-class>
-                            <java-class>java.lang.Byte</java-class>
-                            <java-class>int</java-class>
-                            <java-class>java.time.OffsetTime</java-class>
-                            <java-class>java.lang.Integer</java-class>
-                            <java-class>java.time.OffsetDateTime</java-class>
-                            <java-class>java.time.temporal.IsoFields$Field</java-class>
-                            <java-class>java.util.Collections$EmptySet</java-class>
-                            <java-class>sun.nio.fs.UnixPath</java-class>
-                            <java-class>java.time.YearMonth</java-class>
-                            <java-class>java.time.LocalDateTime</java-class>
-                            <java-class>java.time.chrono.MinguoDate</java-class>
-                            <java-class>java.lang.Class</java-class>
-                            <java-class>java.math.BigDecimal</java-class>
                             <java-class>java.nio.charset.Charset</java-class>
-                            <java-class>short</java-class>
-                            <java-class>java.lang.Character</java-class>
-                            <java-class>java.lang.Boolean</java-class>
-                            <java-class>java.net.URI</java-class>
-                            <java-class>java.math.BigInteger</java-class>
-                            <java-class>java.time.chrono.JapaneseEra</java-class>
-                            <java-class>java.time.LocalDate</java-class>
-                            <java-class>java.time.chrono.MinguoChronology</java-class>
-                            <java-class>java.time.Instant</java-class>
-                            <java-class>java.time.chrono.ThaiBuddhistDate</java-class>
-                            <java-class>char</java-class>
-                            <java-class>java.time.LocalTime</java-class>
+                            <java-class>java.lang.Byte</java-class>
+                            <java-class>java.lang.Long</java-class>
+                            <java-class>java.time.YearMonth</java-class>
+                            <java-class>int</java-class>
+                            <java-class>java.time.temporal.JulianFields$Field</java-class>
+                            <java-class>sun.nio.fs.UnixPath</java-class>
+                            <java-class>java.lang.Double</java-class>
+                            <java-class>java.time.Period</java-class>
+                            <java-class>java.lang.Integer</java-class>
+                            <java-class>java.time.chrono.ThaiBuddhistChronology</java-class>
+                            <java-class>java.time.chrono.JapaneseChronology</java-class>
                             <java-class>java.time.chrono.IsoChronology</java-class>
+                            <java-class>java.util.Collections$EmptyMap</java-class>
+                            <java-class>java.time.chrono.ThaiBuddhistDate</java-class>
+                            <java-class>java.lang.Character</java-class>
+                            <java-class>java.time.temporal.IsoFields$Unit</java-class>
+                            <java-class>java.time.OffsetTime</java-class>
+                            <java-class>java.lang.Class</java-class>
+                            <java-class>java.awt.font.TextAttribute</java-class>
+                            <java-class>java.time.chrono.HijrahDate</java-class>
+                            <java-class>java.math.BigInteger</java-class>
+                            <java-class>java.lang.Boolean</java-class>
+                            <java-class>java.util.Collections$EmptyList</java-class>
+                            <java-class>java.time.MonthDay</java-class>
+                            <java-class>java.time.OffsetDateTime</java-class>
+                            <java-class>java.time.ZonedDateTime</java-class>
+                            <java-class>short</java-class>
+                            <java-class>java.util.Currency</java-class>
+                            <java-class>java.time.Year</java-class>
+                            <java-class>java.net.URI</java-class>
+                            <java-class>java.time.Duration</java-class>
+                            <java-class>java.math.BigDecimal</java-class>
+                            <java-class>java.lang.Float</java-class>
+                            <java-class>java.lang.Short</java-class>
+                            <java-class>java.time.ZoneRegion</java-class>
+                            <java-class>java.util.UUID</java-class>
+                            <java-class>char</java-class>
+                            <java-class>java.time.LocalDate</java-class>
                           </immutableTypes>
                         </wrapped>
                         <aliasForAttributeMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
@@ -1922,7 +1922,65 @@
       <myNumCols>20</myNumCols>
       <layerNum>3</layerNum>
       <myName>Panels</myName>
-      <mySprites/>
+      <mySprites>
+        <authoring__UI.SpriteDataConverter>
+          <conditionRows/>
+          <actionRows/>
+          <catmap>
+            <entry>
+              <string>General</string>
+              <list>
+                <authoring.Sprite.Parameters.BooleanSpriteParameter>
+                  <string>canFight</string>
+                  <boolean>true</boolean>
+                </authoring.Sprite.Parameters.BooleanSpriteParameter>
+                <authoring.Sprite.Parameters.DoubleSpriteParameter>
+                  <string>health</string>
+                  <double>10.0</double>
+                </authoring.Sprite.Parameters.DoubleSpriteParameter>
+                <authoring.Sprite.Parameters.StringSpriteParameter>
+                  <string>name</string>
+                  <string>hello</string>
+                </authoring.Sprite.Parameters.StringSpriteParameter>
+              </list>
+            </entry>
+          </catmap>
+          <inventory/>
+          <imageURL>/pikachu.png</imageURL>
+          <gridPos>
+            <int>3</int>
+            <int>5</int>
+          </gridPos>
+          <name>pikachu</name>
+          <width>1</width>
+          <height>1</height>
+          <UUID>1001ffb2-5487-4d4d-be6d-0d90cc500875</UUID>
+          <myAnimationSequences>
+            <authoring.Sprite.AnimationSequences.AuthoringAnimationSequence resolves-to="authoring.Sprite.AnimationSequences.SerializableAuthoringAnimationSequence">
+              <myName>Default</myName>
+              <myImages>
+                <authoring.Sprite.AnimationSequences.AnimationSequenceImage>
+                  <myImage resolves-to="authoring_data.SerializableAuthoringImageView">
+                    <imagePath>/Link.png</imagePath>
+                  </myImage>
+                </authoring.Sprite.AnimationSequences.AnimationSequenceImage>
+              </myImages>
+            </authoring.Sprite.AnimationSequences.AuthoringAnimationSequence>
+            <authoring.Sprite.AnimationSequences.AuthoringAnimationSequence resolves-to="authoring.Sprite.AnimationSequences.SerializableAuthoringAnimationSequence">
+              <myName>Link</myName>
+              <myImages>
+                <authoring.Sprite.AnimationSequences.AnimationSequenceImage>
+                  <myImage resolves-to="authoring_data.SerializableAuthoringImageView">
+                    <imagePath>/Build_Static.png</imagePath>
+                  </myImage>
+                </authoring.Sprite.AnimationSequences.AnimationSequenceImage>
+              </myImages>
+            </authoring.Sprite.AnimationSequences.AuthoringAnimationSequence>
+          </myAnimationSequences>
+          <spriteType>SpriteObject</spriteType>
+          <tags/>
+        </authoring__UI.SpriteDataConverter>
+      </mySprites>
     </authoring__UI.LayerDataConverter>
   </gridManagers>
 </authoring__UI.MapDataConverter>

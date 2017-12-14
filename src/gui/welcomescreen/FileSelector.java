@@ -137,6 +137,7 @@ public class FileSelector extends MenuOptionsTemplate {
 	}
 
 	public void importWorlds(String fileName) {
+		saveWorlds();
 		System.out.println("make new authoring GUI for PROJECT: " + fileName);
 		myAuthoringGUI = new MainAuthoringGUI(stage, sceneController, fileName);
 		myAuthoringGUI.setProjectToImportTo(myProjectName);
