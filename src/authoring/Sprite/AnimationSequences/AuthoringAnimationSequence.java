@@ -215,7 +215,7 @@ public class AuthoringAnimationSequence {
 
 	private void addNewAnimationSequenceToUI(AnimationSequenceImage ASI, Boolean isPrimary) {
 		int vboxSize = myContainerVbox.getChildren().size();
-		System.out.println("Adding to AnSeq");
+		;
 		Thumbnail th = new Thumbnail(ASI.getImage(), "Image "+Integer.toString(vboxSize));
 		VBox animationBox = new VBox();
 		

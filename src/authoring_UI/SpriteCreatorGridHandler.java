@@ -54,7 +54,7 @@ public class SpriteCreatorGridHandler {
 
 	protected void addKeyPress(Scene scene) {
 		scene.setOnKeyPressed(e -> {
-			System.out.println("Key pressed: " + e.getCode());
+			;
 			if (e.getCode().equals(KeyCode.BACK_SPACE)) {
 				deleteSelectedSprites();
 			}
@@ -65,13 +65,13 @@ public class SpriteCreatorGridHandler {
 		List<Integer[]> cellsToDelete = new ArrayList<Integer[]>();
 		myDG.getActiveGrid().getActiveSpriteObjects().forEach(s -> {
 			Integer[] row_col = s.getPositionOnGrid();
-			System.out.println("row_col: " + row_col);
+			;
 			cellsToDelete.add(row_col);
 		});
 		resetActiveSprites();
 		myDP.removeSpriteEditorVBox();
 
-		System.out.println();
+		;
 		myDG.getActiveGrid().clearCells(cellsToDelete);
 	}
 
@@ -107,28 +107,28 @@ public class SpriteCreatorGridHandler {
 		// }
 		// });
 		// pane.setOnMouseDragOver(e->{
-		// System.out.println("Dragged over");
+		// ;
 		// pane.switchActive();
 		// });
 
 		// pane.setOnDragOver(event->{
-		// System.out.println("Dragover");
+		// ;
 		// pane.switchActive();
 		//
 		// });
 
 		// pane.setOnKeyTyped(value->{
-		// System.out.println(value.getCode());
+		// ;
 		// });
 
 		// pane.setOnMouseDragEntered(e->{
-		// System.out.println("Drag entered");
+		// ;
 		// pane.switchActive();
 		// });
 
 		// pane.setOnDragDetected(event->{
 		// Dragboard db = pane.startDragAndDrop(TransferMode.MOVE);
-		// System.out.println("DragDetected");
+		// ;
 		// });
 	}
 
@@ -154,7 +154,7 @@ public class SpriteCreatorGridHandler {
 
 	public void addSpriteMouseClick(AbstractSpriteObject s) {
 		s.setOnMouseClicked(e -> {
-			System.out.println("I clicked sprite : " + s);
+			;
 			
 			myImageGrid.setSprite(s.newCopy());
 			myDP.addSpriteEditorVBox();
@@ -199,7 +199,7 @@ public class SpriteCreatorGridHandler {
 	}
 
 	public void deactivateActiveSprites() {
-		System.out.println("RMEOVING ACTIVE CELLS");
+		;
 		myDG.getActiveGrid().getActiveSpriteObjects().forEach(sprite -> {
 			sprite.setEffect(null);
 		});
@@ -240,7 +240,7 @@ public class SpriteCreatorGridHandler {
 	}
 
 	private boolean populateIndividualCell(AuthoringMapStackPane cell, SpriteObject s) {
-		System.out.println("populating from SGH");
+		;
 		SpriteObject SO = s.newCopy();
 		if (cell.addChild(SO)) {
 			cell.setInactive();
@@ -273,11 +273,11 @@ public class SpriteCreatorGridHandler {
 			if (pane.checkCanAcceptChild(draggingObject)) {
 				Dragboard db = e.getDragboard();
 				MapLayer ML = pane.getMapLayer();
-				System.out.println("MapLayer: " + ML.getName());
+				;
 				int row = ML.getRowIndex(pane);
 				int col = ML.getColumnIndex(pane);
 				Integer[] row_col = new Integer[] { row, col };
-				System.out.println(row_col);
+				;
 
 				if (db.hasContent(objectFormat)) {
 					if (draggingObject instanceof SpriteObject) {

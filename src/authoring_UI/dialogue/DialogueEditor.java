@@ -113,6 +113,7 @@ public class DialogueEditor extends DisplayableEditor {
 		return backgroundColorCP.getValue().toString();
 	}
 	
+
 	protected VBox getView() {
 		System.out.println(view.getHeight());
 		return view;
@@ -205,7 +206,7 @@ public class DialogueEditor extends DisplayableEditor {
 			try {
 				int size = Integer.parseInt(sizeTF.getText());
 				saveConsumer.accept(getName());
-				System.out.println("size changed! saving!");
+				;
 				dsp.setFont(getFontType(), size);
 			} catch (NumberFormatException ex) {
 				sizeTF.clear();
@@ -235,7 +236,7 @@ public class DialogueEditor extends DisplayableEditor {
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 
 				saveConsumer.accept(getName());
-				System.out.println("font changed! saving!");
+				;
 				dsp.setFont(observableList.get(cb.getSelectionModel().getSelectedIndex()), getFontSize());
 			}
 		});

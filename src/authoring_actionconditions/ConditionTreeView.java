@@ -105,9 +105,9 @@ public class ConditionTreeView extends TreeView<HBox> {
 		Label lb = new Label();
 		lb.textProperty().bind(DisplayLanguage.createStringBinding(PRIORITY_NUMBER_PROMPT));
 		if (tf == null)
-			System.out.println("tf is null");
+			;
 		if (lb == null)
-			System.out.println("lb is null");
+			;
 		HBox vb = new HBox(lb, tf);
 		return vb;
 	}

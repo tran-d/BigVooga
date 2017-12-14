@@ -51,6 +51,7 @@ public class GameController {
 	 * @param currentSceneController - The instance of the scene controller
 	 */
 	private void setup(Stage currentStage, String projectName, SceneController currentSceneController) {
+		
 		stage = currentStage;
 		sceneController = currentSceneController;
 		gameDataHandler = new GameDataHandler(stage, projectName);

@@ -84,9 +84,9 @@ public class GameDataHandler {
 	private static final String DIALOG_EXTENSION = "dlg";
 
 	private Map<String, Image> cache = new HashMap<>();
+	private String myImportProjectPath;
 	private String projectPath;
 	private String projectName;
-
 	private String root;
 
 	private static XStream setupXStream() {
@@ -109,6 +109,22 @@ public class GameDataHandler {
 	
 	public GameDataHandler(Supplier<String> pathSupplier) {
 		this(pathSupplier, "Test Project");
+	}
+	
+	public String getImportedInventorySpritesPath() {
+		String path = "";
+		if (myImportProjectPath != null) {
+			path = root + myImportProjectPath + "/" + PROJECT_USER_SPRITE_PATH + INVENTORY_SPRITE_FOLDER;
+		}
+		return path;
+	}
+	
+	public String getImportedSpritesPath() {
+		String path = "";
+		if (myImportProjectPath != null) {
+			path = root + myImportProjectPath + "/" + PROJECT_USER_SPRITE_PATH + CUSTOM_SPRITE_FOLDER;
+		}
+		return path;
 	}
 
 	public GameDataHandler(Supplier<String> pathSupplier, String projectName) {
@@ -388,7 +404,6 @@ public class GameDataHandler {
 	public String makeValidFileName(String path, String ext) {
 		path = path + "/";
 		if (!directoryExists(path)) {
-			System.out.println("MAKE DIRECTORY FIRST TIME");
 			makeDirectory(path);
 		}
 		int counter = 1;
@@ -502,9 +517,11 @@ public class GameDataHandler {
 				// Intentionally Blank
 			}
 		});
+
 	}
 
 	public List<DraggableGrid> loadWorldsFromWorldDirectory(String importProjectName) { // ONLY CALLED when importing
+		myImportProjectPath = importProjectName;
 		List<DraggableGrid> DG_LIST = new ArrayList<DraggableGrid>();
 		String importFilePath = root + importProjectName + "/" + PROJECT_WORLD_PATH;
 		System.out.println(importFilePath + " this is IMPORT FILE PATH");
@@ -534,8 +551,9 @@ public class GameDataHandler {
 		return currentDGList;
 	}
 
+
 	private List<AbstractSpriteObject> loadSpritesFromDirectory(File directory) throws Exception {
-		System.out.println("Directory in loadSpritesFromDirectory: " + directory);
+		;
 		if (!isValidDirectory(directory)) {
 			throw new Exception("Not a directory");
 		}
@@ -545,6 +563,7 @@ public class GameDataHandler {
 			try {
 				AbstractSpriteObject dummy = loadSprite(f);
 				ret.add(dummy);
+
 				System.out.println(dummy);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -571,17 +590,18 @@ public class GameDataHandler {
 				DG_LIST.add(DG_toAdd);
 			}
 		}
+
 		System.out.println("all the draggable grids we return " + DG_LIST.size());
 		return DG_LIST;
 	}
 
 	public Map<String, List<AbstractSpriteObject>> loadSpritesFromNestedDirectories(String rootDirectory) {
 		File file = new File(rootDirectory);
-		System.out.println("GET CUSTOM DIRECTORY SPRITE PATH: " + rootDirectory);
+		;
 		if (!isValidDirectory(file)) {
 			return null;
 		}
-		System.out.println("Still going, root directory: " + rootDirectory);
+		;
 		Map<String, List<AbstractSpriteObject>> ret = new HashMap<String, List<AbstractSpriteObject>>();
 		File[] files = file.listFiles();
 		for (File f : files) {

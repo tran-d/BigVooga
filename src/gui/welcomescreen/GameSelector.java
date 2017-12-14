@@ -99,7 +99,7 @@ public class GameSelector extends MenuOptionsTemplate {
 		try {
 			new GameController(stage, theGame, sceneController, false);
 		} catch (FileNotFoundException e) {
-			System.out.println("Alert");
+			;
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setContentText(e.getMessage());
 			alert.showAndWait();
@@ -110,7 +110,7 @@ public class GameSelector extends MenuOptionsTemplate {
 		try {
 			new GameController(stage, theGame, sceneController, true);
 		} catch (FileNotFoundException e) {
-			System.out.println("Alert");
+			;
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setContentText(e.getMessage());
 			alert.showAndWait();

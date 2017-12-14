@@ -126,7 +126,7 @@ public class GameWorld {
 			}
 		}
 		// Placeholder for error I guess?
-		System.out.println("No such world");
+		;
 	}
 	
 	public List<GameLayer> getLayers() {
@@ -135,6 +135,16 @@ public class GameWorld {
 	
 	public Point2D makeScreenCoordinatesAbsolute(double x, double y) {
 		return camera.makeCoordinatesAbsolute(x, y);
+	}
+	
+	public boolean inBounds(GameObject obj)
+	{
+		return camera.inBounds(obj);
+	}
+	
+	public String getName()
+	{
+		return worldName;
 	}
 
 }

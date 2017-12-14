@@ -174,9 +174,9 @@ public class NumberSpinner extends HBox {
         BigDecimal value = numberField.getNumber();
         value = value.add(stepWidthProperty.get());
         int valueAsInt = value.intValue();
-        System.out.println("New value is: "+ valueAsInt);
+        ;
         if (checkValid(valueAsInt)){
-        	System.out.println("Apparently new value "+ valueAsInt + " is valid");
+        	;
         	numberField.setNumber(value);
         }
     }
@@ -197,9 +197,9 @@ public class NumberSpinner extends HBox {
         value = value.subtract(stepWidthProperty.get());
         int valueAsInt = value.intValue();
         
-        System.out.println("New value is: "+ valueAsInt);
+        ;
         if (checkValid(valueAsInt)){
-        	System.out.println("Apparently new value "+ valueAsInt + " is valid");
+        	;
         	numberField.setNumber(value);
         }
     }
@@ -218,10 +218,10 @@ public class NumberSpinner extends HBox {
 
     // debugging layout bounds
     public void dumpSizes() {
-        System.out.println("numberField (layout)=" + numberField.getLayoutBounds());
-        System.out.println("buttonInc (layout)=" + incrementButton.getLayoutBounds());
-        System.out.println("buttonDec (layout)=" + decrementButton.getLayoutBounds());
-        System.out.println("binding=" + buttonHeight.toString());
-        System.out.println("spacing=" + spacing.toString());
+        ;
+        ;
+        ;
+        ;
+        ;
     }
 }

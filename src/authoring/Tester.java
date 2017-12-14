@@ -77,13 +77,13 @@ public class Tester extends Application {
 			public void handle(ActionEvent event) {
 //				double i = Math.random();
 //				if (i>.95){
-//					System.out.println("i = "+i);
+//					;
 //					for (SpriteObjectI SBI: mySObjects) {
-//						System.out.println("\nNew object");
+//						;
 //						for (String cat: SBI.getParameters().keySet()){
-//							System.out.println("Category: "+cat);
+//							;
 //							for(SpriteParameterI SPI: SBI.getParameters().get(cat)){
-//								System.out.println("ParamName: "+SPI.getName()+" ParamValue: "+SPI.getValue());
+//								;
 //							}
 //						}
 //					}
@@ -92,7 +92,7 @@ public class Tester extends Application {
 				// HBox hb = (HBox) vbox.getChildren().get(1);
 				// TextArea TA = (TextArea) hb.getChildren().get(1);
 				// int newHealth = Integer.parseInt(TA.getText());
-				// System.out.println(newHealth);
+				// ;
 			}
 		});
 
@@ -119,8 +119,8 @@ public class Tester extends Application {
 			myParams.add(SPF.makeParameter("health", i));
 			myParams.add(SPF.makeParameter("name", s.get(0)));
 			for (SpriteParameterI SP : myParams) {
-				System.out.println(SP.getName());
-				System.out.println(SP.getClass());
+				;
+				;
 			}
 			for (SpriteParameterI SP: myParams){
 				SO.addParameter(SP);
