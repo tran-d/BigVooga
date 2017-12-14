@@ -52,21 +52,21 @@ public class GameDataHandler {
 
 	private static final XStream SERIALIZER = setupXStream();
 
-	public static final String RESOURCES = "resources\\";
+	public static final String RESOURCES = "resources/";
 
 	private static final String KNOWN_PROJECTS = RESOURCES + "KnownProjectNames.txt";
-	private static final String ENGINE_PATH = "engine\\";
+	private static final String ENGINE_PATH = "engine/";
 	private static final String CONTROLLER_FILE = "Engine_Controller_Save_File";
 	private static final String CONTINUE_FILE = "Engine_Controller_Load_File";
 
-	private static final String AUTHORING_PATH = "authoring\\";
-	private static final String PROJECT_USER_SPRITE_PATH = AUTHORING_PATH + "Sprites\\";
-	private static final String PROJECT_WORLD_PATH = AUTHORING_PATH + "Worlds\\";
-	private static final String PROJECT_LAYER_SPRITE_PATH = AUTHORING_PATH + "Sprites\\";
-	private static final String DEFAULT_SPRITE_FOLDER = PROJECT_USER_SPRITE_PATH + "DefaultSprites\\";
-	private static final String CUSTOM_SPRITE_FOLDER = PROJECT_USER_SPRITE_PATH + "CustomSprites\\";
-	private static final String INVENTORY_SPRITE_FOLDER = PROJECT_USER_SPRITE_PATH + "InventorySprites\\";
-	private static final String DEFAULT_CATEGORY = "General\\";
+	private static final String AUTHORING_PATH = "authoring/";
+	private static final String PROJECT_USER_SPRITE_PATH = AUTHORING_PATH + "Sprites/";
+	private static final String PROJECT_WORLD_PATH = AUTHORING_PATH + "Worlds/";
+	private static final String PROJECT_LAYER_SPRITE_PATH = AUTHORING_PATH + "Sprites/";
+	private static final String DEFAULT_SPRITE_FOLDER = PROJECT_USER_SPRITE_PATH + "DefaultSprites/";
+	private static final String CUSTOM_SPRITE_FOLDER = PROJECT_USER_SPRITE_PATH + "CustomSprites/";
+	private static final String INVENTORY_SPRITE_FOLDER = PROJECT_USER_SPRITE_PATH + "InventorySprites/";
+	private static final String DEFAULT_CATEGORY = "General/";
 
 	private static final String LOCAL = "local";
 
@@ -80,7 +80,7 @@ public class GameDataHandler {
 
 	private static final String WORLD_EXTENSION = ".wld";
 
-	private static final String DIALOG_EXTENSION = "dlg";
+	private static final String DIALOG_EXTENSION = ".dlg";
 
 	private Map<String, Image> cache = new HashMap<>();
 	private String myImportProjectPath;
@@ -179,7 +179,7 @@ public class GameDataHandler {
 				throw new FileNotFoundException();
 			root = s;
 		} catch (Exception e) {
-			root = pathSupplier.get() + "\\";
+			root = pathSupplier.get() + "/";
 			setDirectoryPath(root);
 			makeDirectory(root + RESOURCES);
 		}
@@ -465,7 +465,7 @@ public class GameDataHandler {
 	}
 
 	public String getInitializingWorldDirectoryPath(String worldName) {
-		return projectPath + PROJECT_WORLD_PATH + worldName + "\\";
+		return projectPath + PROJECT_WORLD_PATH + worldName + "/";
 	}
 
 	public String getWorldDirectoryPath(int worldCount) {
