@@ -9,7 +9,7 @@ import gui.player.GameDisplay;
  */
 public class DisplayableText extends PositionableObject implements RelativeDisplayable {
 
-	public static final DisplayableText DEFAULT = new DisplayableText(Integer.MAX_VALUE, "", "Arial", 12, "#000000");
+	public static final DisplayableText DEFAULT = new DisplayableText(Integer.MAX_VALUE, "", "Comic Sans", 12, "#000000");
 	private String string;
 	private String font;
 	private double fontSize;
