@@ -23,7 +23,7 @@ public class SpritePanels extends VBox {
 	public SpritePanels(SpriteGridHandler mySGH, AuthoringEnvironmentManager myAEM) {
 //		Map<String, List<Pane>> thumbnailSprites = myAEM.getEveryTypeOfSpriteAsThumbnails();
 //		mySpriteSetHelper = new SpriteSetHelper(thumbnailSprites);
-		System.out.println("CHECK");
+		;
 		SPSM = new SpriteParameterSidebarManager(mySGH.getDraggableGrid());
 		makeLayerDisplayPanel(myAEM);
 		makeElementSelector(mySGH, myAEM);
@@ -43,7 +43,7 @@ public class SpritePanels extends VBox {
 	}
 	
 	public void makeElementSelectorDisplayPanel(AuthoringEnvironmentManager myAEM){
-		System.out.println("Making el selector display panel");
+		;
 		elementSelectorDisplayPanel = new DisplayPanelForTemplateSprites(myAEM);  
 		((DisplayPanelForTemplateSprites) elementSelectorDisplayPanel).setOnElementSpriteActive(new Consumer<Boolean>(){
 

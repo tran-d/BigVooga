@@ -14,13 +14,13 @@ public class SerializableAuthoringAnimationSequence {
 	
 	
 	public SerializableAuthoringAnimationSequence(AuthoringAnimationSequence AAS){
-		System.out.println("Serialziing a AAS: "+myImages);
+		;
 		myName = AAS.getName();
 		myImages = AAS.getImages();
 	}
 	
 	private Object readResolve() throws java.io.ObjectStreamException{
-		System.out.println("Serialziing a AAS: "+myImages);
+		;
         return new AuthoringAnimationSequence(myName, myImages); 
 }
 }

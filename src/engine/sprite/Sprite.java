@@ -20,9 +20,10 @@ public class Sprite {
 
 
 	public void addAnimationSequence(AnimationSequence animation) {
-		animations.put(animation.getName(), animation);
+
 		if(animations.size() == 0)
 			currentAnimation = animation;
+		animations.put(animation.getName(), animation);
 	}
 
 	/**

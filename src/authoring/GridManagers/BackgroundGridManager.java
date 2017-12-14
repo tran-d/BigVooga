@@ -24,7 +24,7 @@ public class BackgroundGridManager extends SpriteObjectGridManager{
 	@Override
 	public void createMapLayer() {
 		myMapLayer = new BackgroundLayer(getNumRows(), getNumCols(), mySpriteGridHandler);
-		System.out.println("tempCols: "+defaultColumns);
+		;
 		this.setNumCols(defaultColumns);
 		this.setNumRows(defaultRows);
 	}

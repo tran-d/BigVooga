@@ -38,7 +38,7 @@ public class DoubleSpriteParameter extends SpriteParameter {
 		if (value instanceof String){
 			try {
 				myValue = Double.parseDouble((String) value);
-				System.out.println("myValue in updateValue: "+myValue);
+				;
 			} catch (Exception e){
 				throw e;
 			}
@@ -77,13 +77,13 @@ public class DoubleSpriteParameter extends SpriteParameter {
 //	@Override
 //	protected void setCloneHandlers() {
 //		myTextArea.textProperty().addListener((observable, oldValue, newValue) -> {
-//			System.out.println("Old Value: "+oldValue);
-//			System.out.println("New Value: "+newValue);
+//			;
+//			;
 //			String errorMessage = "Please enter a valid input:\n";
 ////			if (!newValue.equals(errorMessage)|| newValue.startsWith(errorMessage)){
 //			try{
 //				if (newValue.startsWith(errorMessage)&&!newValue.equals(errorMessage)){
-//					System.out.println("In if");
+//					;
 //					String newText = newValue.replace(errorMessage, "").trim();
 //					
 //					
@@ -92,7 +92,7 @@ public class DoubleSpriteParameter extends SpriteParameter {
 //			        }); 
 //				}
 //				else {
-//					System.out.println("In else");
+//					;
 //					dummy.updateValue(newValue);
 //				}
 //
@@ -100,7 +100,7 @@ public class DoubleSpriteParameter extends SpriteParameter {
 //				myTextArea.setText(errorMessage);
 //			}
 ////			}
-//			System.out.println("End of method");
+//			;
 //		});
 //
 //		
@@ -135,7 +135,7 @@ public class DoubleSpriteParameter extends SpriteParameter {
 //			if (!newValue.equals(errorMessage)|| newValue.startsWith(errorMessage)){
 //			try{
 //				if (newValue.startsWith(errorMessage)&&!newValue.equals(errorMessage)){
-//					System.out.println("In if");
+//					;
 //					String newText = newValue.replace(errorMessage, "").trim();
 //					
 //					
@@ -144,7 +144,7 @@ public class DoubleSpriteParameter extends SpriteParameter {
 //			        }); 
 //				}
 //				else {
-//					System.out.println("In else");
+//					;
 //					dummy.updateValue(newValue);
 //				}
 //
@@ -152,7 +152,7 @@ public class DoubleSpriteParameter extends SpriteParameter {
 //				myTextArea.setText(errorMessage);
 //			}
 ////			}
-//			System.out.println("End of method");
+//			;
 		
 		return true;
 	}

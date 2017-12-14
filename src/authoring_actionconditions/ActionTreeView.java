@@ -28,7 +28,7 @@ public class ActionTreeView extends TreeView<HBox> {
 		try {
 			Action action = categoryAction.extract();
 			if (action == null)
-				System.out.println("NULL ACTION");
+				;
 			return action;
 		} catch (NullPointerException e) {
 	//					showError(INVALID_INPUT_MESSAGE, ENTER_VALID_INPUT);

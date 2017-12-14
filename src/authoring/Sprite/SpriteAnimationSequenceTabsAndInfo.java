@@ -61,18 +61,18 @@ public class SpriteAnimationSequenceTabsAndInfo {
 		this.animationsSequences = new ArrayList<AuthoringAnimationSequence>();
 		// clearAnimationSequencesList();
 		// this.clearExistingAnimationSequencesTabPane();
-		System.out.println("SO ANSEQ SIZE:" + SO.getAnimationSequences().size());
+		;
 		mySO = SO;
 		SO.getAnimationSequences().forEach(AS -> {
-			System.out.println("AnimationSequence: " + AS);
+			;
 			this.addAnimationSequence(AS);
 		});
-		System.out.println("Num tabs: " + this.containerTabPane.getTabs().size());
+		;
 
 	}
 
 	private void initialize() {
-		System.out.println("Initializig SpireAnimatTab");
+		;
 		initializeAnimationSequencesList();
 
 		outmostContainerVBox = new VBox();
@@ -174,7 +174,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	// }
 
 	public void clearExistingAnimationSequencesTabPane() {
-		System.out.println("ClearingExistingAnimations");
+		;
 		containerTabPane.getTabs().clear();
 	}
 
@@ -190,7 +190,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	 * @return Pane - the surrounding VBox for the TabPane of AnimationSequences
 	 */
 	public Pane getTabPaneVbox() {
-		System.out.println("getting container vbox");
+		;
 		return tabPaneVbox;
 	}
 
@@ -209,7 +209,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	// }
 
 	// private void createOutmostVBox(){
-	// System.out.println("Container Scroll Pane");
+	// ;
 	// outmostContainerVBox = new VBox();
 	// }
 
@@ -218,7 +218,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	 *         AnimationSequences and buttons to add to them
 	 */
 	public VBox getAnimationBox() {
-		System.out.println("getting scroll pane");
+		;
 		// System.out.println("Content:
 		// "+((VBox)containerScrollPane.getContent()).getChildren());
 
@@ -284,8 +284,8 @@ public class SpriteAnimationSequenceTabsAndInfo {
 			}
 		});
 		// tab.sele
-		System.out.println("contTabPane: " + containerTabPane);
-		System.out.println("contTabPanesizebefore: " + containerTabPane.getTabs().size());
+		;
+		;
 		containerTabPane.getTabs().add(tab);
 
 		return tab;

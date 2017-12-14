@@ -77,8 +77,8 @@ public class FileSelector extends MenuOptionsTemplate {
 	
 	private void checkInput() {
 		File file = new File(PROJECT_FILE_PATH + "/" + textField.getText());
-		System.out.println(file.toString());
-		System.out.println(textField.getText());
+		;
+		;
 		
 		if (!textField.getText().isEmpty() && textField.getText().charAt(0) != '.' && !file.exists()) {
 			switchScene(textField.getText());
@@ -136,7 +136,7 @@ public class FileSelector extends MenuOptionsTemplate {
 	}
 
 	public void importWorlds(String fileName) {
-		System.out.println("make new authoring GUI for PROJECT: " + fileName);
+		;
 		myAuthoringGUI = new MainAuthoringGUI(stage, sceneController, fileName);
 		myAuthoringGUI.createAuthoringGUI();
 		stage.setScene(myAuthoringGUI.getScene());

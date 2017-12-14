@@ -168,7 +168,7 @@ public class SpriteImagePanel extends VBox {
 					e1.printStackTrace();
 				}
 
-				System.out.println("name is valid");
+				;
 
 				mySNM.addTemplateName(spriteName);
 
@@ -226,7 +226,7 @@ public class SpriteImagePanel extends VBox {
 			// add params
 			ArrayList<SpriteParameterI> myParams = new ArrayList<SpriteParameterI>();
 
-			System.out.println("image loaded");
+			;
 		}
 	}
 

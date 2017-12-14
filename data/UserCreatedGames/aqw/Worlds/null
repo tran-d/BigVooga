@@ -879,7 +879,6 @@
                             <java-class>java.lang.Character</java-class>
                             <java-class>long</java-class>
                             <java-class>java.lang.String</java-class>
-                            <java-class>sun.nio.fs.UnixPath</java-class>
                             <java-class>java.time.Year</java-class>
                             <java-class>int</java-class>
                             <java-class>java.time.OffsetDateTime</java-class>
@@ -941,7 +940,6 @@
                             <java-class>java.lang.Character</java-class>
                             <java-class>long</java-class>
                             <java-class>java.lang.String</java-class>
-                            <java-class>sun.nio.fs.UnixPath</java-class>
                             <java-class>java.time.Year</java-class>
                             <java-class>int</java-class>
                             <java-class>java.time.OffsetDateTime</java-class>
@@ -1960,7 +1958,7 @@
               <myImages>
                 <authoring.Sprite.AnimationSequences.AnimationSequenceImage>
                   <myImage resolves-to="authoring_data.SerializableAuthoringImageView">
-                    <imagePath>/Link.png</imagePath>
+                    <imagePath>Link.png</imagePath>
                   </myImage>
                 </authoring.Sprite.AnimationSequences.AnimationSequenceImage>
               </myImages>
@@ -2002,7 +2000,7 @@
             </entry>
           </catmap>
           <inventory/>
-          <imageURL>/pikachu.png</imageURL>
+          <imageURL>pikachu.png</imageURL>
           <gridPos>
             <int>3</int>
             <int>3</int>

@@ -50,13 +50,13 @@ public class AuthoringEnvironmentManager {
 		
 		defaultEmptySprite = new DefaultSpriteObject();
 		
-		System.out.println("init MAPMAN in AEM");
+		;
 		
-		if (myDefaultSprites == null) System.out.println("this was def initialized");
+		if (myDefaultSprites == null) ;
 	}
 	
 	private void initializeInventoryTemplates() {
-		System.out.println("Initializing inventory templates");
+		;
 		myInventoryTemplates = new SpriteSetInventoryTemplate(myGDH);
 	}
 	
@@ -75,7 +75,7 @@ public class AuthoringEnvironmentManager {
 	private void initializeImportedSprites() {
 		
 		myImportedSprites = new SpriteSetImported(myGDH);
-		System.out.println("Made imported sprites");
+		;
 	}
 	
 	private void initializeImportedInventorySprites() {
@@ -112,7 +112,7 @@ public class AuthoringEnvironmentManager {
 	}
 	
 	public SpriteSet getInventoryTemplateController(){
-		System.out.println("Invent template controller: "+myInventoryTemplates);
+		;
 		return myInventoryTemplates;
 	}
 	
@@ -161,7 +161,7 @@ public class AuthoringEnvironmentManager {
 
 	public Map<String, List<Pane>> getEveryTypeOfSpriteAsThumbnails() {
 		Map<String, List<Pane>> ret = new HashMap<String, List<Pane>>();
-		if (myDefaultSprites == null) System.out.println("THIS IS SO WEIRD");
+		if (myDefaultSprites == null) ;
 		ret.put("DefaultSprites", this.getDefaultGameSpritesAsThumbnail());
 		ret.put("CustomSprites", this.getUserDefinedSpritesAsThumbnail());
 		ret.put("InventorySprites", this.getInventorySpritesAsThumbnail());
@@ -171,7 +171,7 @@ public class AuthoringEnvironmentManager {
 	}
 
 	private List<Pane> getDefaultGameSpritesAsThumbnail() {
-		if (myDefaultSprites == null) System.out.println("wtf" );
+		if (myDefaultSprites == null) ;
 		return myDefaultSprites.getAllSpritesAsThumbnails();
 	}
 

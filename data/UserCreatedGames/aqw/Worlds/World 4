@@ -890,7 +890,6 @@
                             <java-class>boolean</java-class>
                             <java-class>java.awt.font.TextAttribute</java-class>
                             <java-class>java.time.LocalDate</java-class>
-                            <java-class>sun.nio.fs.UnixPath</java-class>
                           </unreferenceableTypes>
                           <immutableTypes>
                             <java-class>java.time.OffsetDateTime</java-class>
@@ -952,7 +951,6 @@
                             <java-class>boolean</java-class>
                             <java-class>java.awt.font.TextAttribute</java-class>
                             <java-class>java.time.LocalDate</java-class>
-                            <java-class>sun.nio.fs.UnixPath</java-class>
                           </immutableTypes>
                         </wrapped>
                         <aliasForAttributeMapper class="com.thoughtworks.xstream.mapper.AttributeAliasingMapper" reference="../wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped/wrapped"/>
@@ -1939,7 +1937,7 @@
             </entry>
           </catmap>
           <inventory/>
-          <imageURL>/pikachu.png</imageURL>
+          <imageURL>pikachu.png</imageURL>
           <gridPos>
             <int>2</int>
             <int>6</int>
@@ -1954,7 +1952,7 @@
               <myImages>
                 <authoring.Sprite.AnimationSequences.AnimationSequenceImage>
                   <myImage resolves-to="authoring_data.SerializableAuthoringImageView">
-                    <imagePath>/Link.png</imagePath>
+                    <imagePath>Link.png</imagePath>
                   </myImage>
                 </authoring.Sprite.AnimationSequences.AnimationSequenceImage>
               </myImages>

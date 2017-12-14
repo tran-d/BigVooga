@@ -6,12 +6,12 @@ public class SpriteSetDefault extends SpriteSet{
 	
 	public SpriteSetDefault(GameDataHandler GDH) {
 		super(GDH);
-//		System.out.println(myGDH.getProjectPath());
+//		;
 	}
 
 	@Override
 	protected void setFolderToLoad() {
-//		System.out.println(myGDH.getProjectPath());
+//		;
 		setFolderToLoad(myGDH.getDefaultSpriteDirectoryPath());
 	}
 

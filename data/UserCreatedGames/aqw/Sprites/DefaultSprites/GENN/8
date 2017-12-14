@@ -34,7 +34,7 @@
       <myImages>
         <authoring.Sprite.AnimationSequences.AnimationSequenceImage>
           <myImage resolves-to="authoring_data.SerializableAuthoringImageView">
-            <imagePath>/Link.png</imagePath>
+            <imagePath>Link.png</imagePath>
           </myImage>
         </authoring.Sprite.AnimationSequences.AnimationSequenceImage>
       </myImages>
@@ -44,7 +44,7 @@
       <myImages>
         <authoring.Sprite.AnimationSequences.AnimationSequenceImage>
           <myImage resolves-to="authoring_data.SerializableAuthoringImageView">
-            <imagePath>/Build_Static.png</imagePath>
+            <imagePath>Build_Static.png</imagePath>
           </myImage>
         </authoring.Sprite.AnimationSequences.AnimationSequenceImage>
       </myImages>

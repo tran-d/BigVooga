@@ -67,14 +67,14 @@ public class SpriteObjectGridToEngineController {
 	
 	private GameObject convertToGameObject(SpriteObject SOI){
 		//added null as input to rid error
-		GameObject GE = new GameObject(null);
+		GameObject GE = new GameObject(SOI.getName());
 		setTags(SOI, GE);
 		setSpriteForGameObject(SOI, GE);
+
 		setPositionAndSizeOfGameObject(SOI, GE);
 		setInventory(SOI, GE);
 		addParametersToVariableContainer(SOI, GE);
 		addConditionsAndActionsToGameObject(SOI, GE);
-		
 		
 		return GE;
 	}
@@ -83,6 +83,7 @@ public class SpriteObjectGridToEngineController {
 		ASO.getTags().forEach((tag)->{
 			GO.addTag(tag);
 		});
+		
 	}
 	
 	private void setInventory(SpriteObject SO, GameObject GO){
@@ -100,14 +101,17 @@ public class SpriteObjectGridToEngineController {
 	}
 	
 	private void setSpriteForGameObject(AbstractSpriteObject SOI, GameObject GO){
-		GO.setSprite(getSprite(SOI));
+		Sprite s = getSprite(SOI);
+		GO.setSprite(s);
 	}
 	
 	private Sprite getSprite(AbstractSpriteObject SOI){
 		Sprite sprite = new Sprite();
 		SOI.getAnimationSequences().forEach((animation)->{
-			sprite.addAnimationSequence(createSpriteAnimation(animation));
+			AnimationSequence as = createSpriteAnimation(animation);
+			sprite.addAnimationSequence(as);
 		});
+		
 		return sprite;
 	}
 	
@@ -115,6 +119,7 @@ public class SpriteObjectGridToEngineController {
 		List<BoundedImage> bimages = new ArrayList<BoundedImage>();
 		AAS.getImages().forEach((ASI)->{
 			BoundedImage converted = convertAnimationSequenceImageToBoundedImage(ASI);
+			;
 			bimages.add(converted);
 		});
 		AnimationSequence ret = new AnimationSequence(AAS.getName(), bimages);
@@ -165,11 +170,15 @@ public class SpriteObjectGridToEngineController {
 	private void addAllGameObjectsToLayer(List<GameObject> GO_LIST, GameLayer layer) {
 		for (GameObject GO: GO_LIST) {
 			layer.addElement(GO);
+			layer.addGameObject(GO);
 		}
 	}
 	
 	private void createEngine() {
 		myEC = new GameMaster();
+		myEC.setNextWorld(currentWorld.getName());
+
+		System.out.print(currentWorld.getName());
 	}
 	
 	private void addWorldToEngine(GameWorld newWorld) {

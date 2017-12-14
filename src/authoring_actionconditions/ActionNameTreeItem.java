@@ -41,13 +41,13 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 			for (OperationNameTreeItem opItem : opNameTreeItemList) {
 
 				operationList.add(opItem.makeOperation());
-				System.out.println("Operation: " + opItem.makeOperation().toString());
+				;
 
 			}
-			// System.out.println(operationList);
-			System.out.println("Making action for " + selectedAction + "...");
+			// ;
+			;
 			action = actionFactory.makeAction(selectedAction, operationList.toArray());
-			System.out.println(action);
+			;
 			return action;
 		} catch (NullPointerException e) {
 			throw e;
@@ -70,14 +70,14 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 	private ChoiceBox<String> makeActionNameChoiceBox(String actionCategory, TreeItem<HBox> actionTreeItem) {
 		ObservableList<String> actions = FXCollections.observableList(actionFactory.getActions(actionCategory));
 		ChoiceBox<String> cb = new ChoiceBox<>(actions);
-		System.out.println("Acts: " + actions);
+		;
 
 		cb.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 
-				// System.out.println(actions.get(newValue.intValue()));
+				// ;
 				// getItems().add(makeParameterChoiceBox(actions.get(newValue.intValue())));
 				actionTreeItem.getChildren().clear();
 				selectedAction = actions.get(cb.getSelectionModel().getSelectedIndex());
@@ -103,7 +103,7 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 		ObservableList<VoogaParameter> voogaParameters = FXCollections
 				.observableList(actionFactory.getParametersWithNames(action));
 
-		System.out.println("Params: " + actionParameterTypes);
+		;
 		opNameTreeItemList = new ArrayList<>();
 
 		hb.getChildren().add(new Label("[ "));
@@ -111,7 +111,7 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 		for (int i = 0; i < actionParameterTypes.size(); i++) {
 			hb.getChildren().add(new Label(actionParameterTypes.get(i) + " "));
 			
-//			System.out.println("Making Operation for... ActionParameterType: " + actionParameterTypes.get(i)
+//			
 //					+ " | VoogaParameterName : " + voogaParameters.get(i).getName() + " | VoogaParameterType: "
 //					+ voogaParameters.get(i).getType());
 

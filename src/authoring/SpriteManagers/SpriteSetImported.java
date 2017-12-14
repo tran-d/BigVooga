@@ -11,7 +11,7 @@ public class SpriteSetImported extends SpriteSet {
 	
 	@Override
 	protected void setFolderToLoad() {
-//		System.out.println(myGDH.getProjectPath());
+//		;
 		setFolderToLoad("");
 	}
 

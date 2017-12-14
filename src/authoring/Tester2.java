@@ -17,7 +17,7 @@ public class Tester2 extends Application {
 		S2.addParameter(BSPString);
 		
 		if (S1.equals(S2)) {
-			System.out.println("The same");
+			;
 		}
 		
 		BooleanSpriteParameter BSPBoolean = new BooleanSpriteParameter("hello", true);

@@ -4,7 +4,7 @@
       <worldName>World</worldName>
       <worldLayers>
         <engine.GameLayer>
-          <worldName>Background</worldName>
+          <layerName>Background</layerName>
           <worldElements>
             <engine.GameObject>
               <doubleVars/>
@@ -111,7 +111,7 @@
           <isTracked>true</isTracked>
         </engine.GameLayer>
         <engine.GameLayer>
-          <worldName>Layer</worldName>
+          <layerName>Layer</layerName>
           <worldElements>
             <engine.GameObject>
               <doubleVars/>
@@ -199,6 +199,19 @@
                 </entry>
                 <entry>
                   <engine.Condition>
+                    <priorityNum>3</priorityNum>
+                    <operation class="engine.operations.booleanops.CollisionByTag">
+                      <tag class="engine.operations.stringops.SelfString">
+                        <stored>Player</stored>
+                      </tag>
+                    </operation>
+                  </engine.Condition>
+                  <list>
+                    <engine.Actions.global.ExitToMenu/>
+                  </list>
+                </entry>
+                <entry>
+                  <engine.Condition>
                     <priorityNum>1</priorityNum>
                     <operation class="engine.operations.booleanops.BooleanVariableOf">
                       <varName class="engine.operations.stringops.SelfString">
@@ -229,19 +242,6 @@
                       </newBooleanOperation>
                       <object class="engine.operations.gameobjectops.Self"/>
                     </engine.Actions.variableSetting.ChangeBoolean>
-                  </list>
-                </entry>
-                <entry>
-                  <engine.Condition>
-                    <priorityNum>3</priorityNum>
-                    <operation class="engine.operations.booleanops.CollisionByTag">
-                      <tag class="engine.operations.stringops.SelfString">
-                        <stored>Player</stored>
-                      </tag>
-                    </operation>
-                  </engine.Condition>
-                  <list>
-                    <engine.Actions.global.ExitToMenu/>
                   </list>
                 </entry>
                 <entry>
@@ -404,81 +404,6 @@
                 </entry>
                 <entry>
                   <engine.Condition>
-                    <priorityNum>1</priorityNum>
-                    <operation class="engine.operations.booleanops.BooleanValue">
-                      <value>true</value>
-                    </operation>
-                  </engine.Condition>
-                  <list>
-                    <engine.Actions.movement.Move>
-                      <increment class="engine.operations.vectorops.BasicVector">
-                        <x class="engine.operations.doubleops.Value">
-                          <value>0.0</value>
-                        </x>
-                        <y class="engine.operations.doubleops.DoubleVariableOf">
-                          <varName class="engine.operations.stringops.SelfString">
-                            <stored>Gravity</stored>
-                          </varName>
-                          <object class="engine.operations.gameobjectops.Self"/>
-                        </y>
-                      </increment>
-                      <object class="engine.operations.gameobjectops.Self"/>
-                    </engine.Actions.movement.Move>
-                  </list>
-                </entry>
-                <entry>
-                  <engine.Condition>
-                    <priorityNum>4</priorityNum>
-                    <operation class="engine.operations.booleanops.CollisionByTag">
-                      <tag class="engine.operations.stringops.SelfString">
-                        <stored>Wall</stored>
-                      </tag>
-                    </operation>
-                  </engine.Condition>
-                  <list>
-                    <engine.Actions.movement.RemoveIntersection/>
-                  </list>
-                </entry>
-                <entry>
-                  <engine.Condition>
-                    <priorityNum>2</priorityNum>
-                    <operation class="engine.operations.booleanops.KeyHeld">
-                      <check class="engine.operations.stringops.SelfString">
-                        <stored>A</stored>
-                      </check>
-                    </operation>
-                  </engine.Condition>
-                  <list>
-                    <engine.Actions.movement.Move>
-                      <increment class="engine.operations.vectorops.BasicVector">
-                        <x class="engine.operations.doubleops.Value">
-                          <value>-5.0</value>
-                        </x>
-                        <y class="engine.operations.doubleops.Value">
-                          <value>0.0</value>
-                        </y>
-                      </increment>
-                      <object class="engine.operations.gameobjectops.Self"/>
-                    </engine.Actions.movement.Move>
-                    <engine.Actions.changeObject.SetAnimationSequence>
-                      <object class="engine.operations.gameobjectops.Self"/>
-                      <name class="engine.operations.stringops.SelfString">
-                        <stored>Left</stored>
-                      </name>
-                    </engine.Actions.changeObject.SetAnimationSequence>
-                    <engine.Actions.variableSetting.ChangeDouble>
-                      <varName class="engine.operations.stringops.SelfString">
-                        <stored>Dir</stored>
-                      </varName>
-                      <newDouble class="engine.operations.doubleops.Value">
-                        <value>180.0</value>
-                      </newDouble>
-                      <object class="engine.operations.gameobjectops.Self"/>
-                    </engine.Actions.variableSetting.ChangeDouble>
-                  </list>
-                </entry>
-                <entry>
-                  <engine.Condition>
                     <priorityNum>3</priorityNum>
                     <operation class="engine.operations.booleanops.CollisionByTag">
                       <tag class="engine.operations.stringops.SelfString">
@@ -565,40 +490,15 @@
                 </entry>
                 <entry>
                   <engine.Condition>
-                    <priorityNum>2</priorityNum>
-                    <operation class="engine.operations.booleanops.KeyHeld">
-                      <check class="engine.operations.stringops.SelfString">
-                        <stored>D</stored>
-                      </check>
+                    <priorityNum>4</priorityNum>
+                    <operation class="engine.operations.booleanops.CollisionByTag">
+                      <tag class="engine.operations.stringops.SelfString">
+                        <stored>Wall</stored>
+                      </tag>
                     </operation>
                   </engine.Condition>
                   <list>
-                    <engine.Actions.movement.Move>
-                      <increment class="engine.operations.vectorops.BasicVector">
-                        <x class="engine.operations.doubleops.Value">
-                          <value>5.0</value>
-                        </x>
-                        <y class="engine.operations.doubleops.Value">
-                          <value>0.0</value>
-                        </y>
-                      </increment>
-                      <object class="engine.operations.gameobjectops.Self"/>
-                    </engine.Actions.movement.Move>
-                    <engine.Actions.variableSetting.ChangeDouble>
-                      <varName class="engine.operations.stringops.SelfString">
-                        <stored>Dir</stored>
-                      </varName>
-                      <newDouble class="engine.operations.doubleops.Value">
-                        <value>0.0</value>
-                      </newDouble>
-                      <object class="engine.operations.gameobjectops.Self"/>
-                    </engine.Actions.variableSetting.ChangeDouble>
-                    <engine.Actions.changeObject.SetAnimationSequence>
-                      <object class="engine.operations.gameobjectops.Self"/>
-                      <name class="engine.operations.stringops.SelfString">
-                        <stored>Right</stored>
-                      </name>
-                    </engine.Actions.changeObject.SetAnimationSequence>
+                    <engine.Actions.movement.RemoveIntersection/>
                   </list>
                 </entry>
                 <entry>
@@ -637,6 +537,106 @@
                       </newBooleanOperation>
                       <object class="engine.operations.gameobjectops.Self"/>
                     </engine.Actions.variableSetting.ChangeBoolean>
+                  </list>
+                </entry>
+                <entry>
+                  <engine.Condition>
+                    <priorityNum>1</priorityNum>
+                    <operation class="engine.operations.booleanops.BooleanValue">
+                      <value>true</value>
+                    </operation>
+                  </engine.Condition>
+                  <list>
+                    <engine.Actions.movement.Move>
+                      <increment class="engine.operations.vectorops.BasicVector">
+                        <x class="engine.operations.doubleops.Value">
+                          <value>0.0</value>
+                        </x>
+                        <y class="engine.operations.doubleops.DoubleVariableOf">
+                          <varName class="engine.operations.stringops.SelfString">
+                            <stored>Gravity</stored>
+                          </varName>
+                          <object class="engine.operations.gameobjectops.Self"/>
+                        </y>
+                      </increment>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.movement.Move>
+                  </list>
+                </entry>
+                <entry>
+                  <engine.Condition>
+                    <priorityNum>2</priorityNum>
+                    <operation class="engine.operations.booleanops.KeyHeld">
+                      <check class="engine.operations.stringops.SelfString">
+                        <stored>D</stored>
+                      </check>
+                    </operation>
+                  </engine.Condition>
+                  <list>
+                    <engine.Actions.movement.Move>
+                      <increment class="engine.operations.vectorops.BasicVector">
+                        <x class="engine.operations.doubleops.Value">
+                          <value>5.0</value>
+                        </x>
+                        <y class="engine.operations.doubleops.Value">
+                          <value>0.0</value>
+                        </y>
+                      </increment>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.movement.Move>
+                    <engine.Actions.variableSetting.ChangeDouble>
+                      <varName class="engine.operations.stringops.SelfString">
+                        <stored>Dir</stored>
+                      </varName>
+                      <newDouble class="engine.operations.doubleops.Value">
+                        <value>0.0</value>
+                      </newDouble>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.variableSetting.ChangeDouble>
+                    <engine.Actions.changeObject.SetAnimationSequence>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                      <name class="engine.operations.stringops.SelfString">
+                        <stored>Right</stored>
+                      </name>
+                    </engine.Actions.changeObject.SetAnimationSequence>
+                  </list>
+                </entry>
+                <entry>
+                  <engine.Condition>
+                    <priorityNum>2</priorityNum>
+                    <operation class="engine.operations.booleanops.KeyHeld">
+                      <check class="engine.operations.stringops.SelfString">
+                        <stored>A</stored>
+                      </check>
+                    </operation>
+                  </engine.Condition>
+                  <list>
+                    <engine.Actions.movement.Move>
+                      <increment class="engine.operations.vectorops.BasicVector">
+                        <x class="engine.operations.doubleops.Value">
+                          <value>-5.0</value>
+                        </x>
+                        <y class="engine.operations.doubleops.Value">
+                          <value>0.0</value>
+                        </y>
+                      </increment>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.movement.Move>
+                    <engine.Actions.changeObject.SetAnimationSequence>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                      <name class="engine.operations.stringops.SelfString">
+                        <stored>Left</stored>
+                      </name>
+                    </engine.Actions.changeObject.SetAnimationSequence>
+                    <engine.Actions.variableSetting.ChangeDouble>
+                      <varName class="engine.operations.stringops.SelfString">
+                        <stored>Dir</stored>
+                      </varName>
+                      <newDouble class="engine.operations.doubleops.Value">
+                        <value>180.0</value>
+                      </newDouble>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </engine.Actions.variableSetting.ChangeDouble>
                   </list>
                 </entry>
               </events>
@@ -10862,7 +10862,7 @@
       <worldName>Start</worldName>
       <worldLayers>
         <engine.GameLayer>
-          <worldName>llayer</worldName>
+          <layerName>llayer</layerName>
           <worldElements>
             <engine.GameObject>
               <doubleVars/>
@@ -10927,22 +10927,6 @@
                 <entry>
                   <engine.Condition>
                     <priorityNum>2</priorityNum>
-                    <operation class="engine.operations.booleanops.ObjectMouseHover">
-                      <object class="engine.operations.gameobjectops.Self"/>
-                    </operation>
-                  </engine.Condition>
-                  <list>
-                    <engine.Actions.changeObject.SetAnimationSequence>
-                      <object class="engine.operations.gameobjectops.Self"/>
-                      <name class="engine.operations.stringops.SelfString">
-                        <stored>Pressed</stored>
-                      </name>
-                    </engine.Actions.changeObject.SetAnimationSequence>
-                  </list>
-                </entry>
-                <entry>
-                  <engine.Condition>
-                    <priorityNum>2</priorityNum>
                     <operation class="engine.operations.booleanops.ObjectClicked">
                       <operation class="engine.operations.booleanops.And">
                         <boolOp1 class="engine.operations.booleanops.ScreenClicked"/>
@@ -10974,6 +10958,22 @@
                       <object class="engine.operations.gameobjectops.Self"/>
                       <name class="engine.operations.stringops.SelfString">
                         <stored>Unpressed</stored>
+                      </name>
+                    </engine.Actions.changeObject.SetAnimationSequence>
+                  </list>
+                </entry>
+                <entry>
+                  <engine.Condition>
+                    <priorityNum>2</priorityNum>
+                    <operation class="engine.operations.booleanops.ObjectMouseHover">
+                      <object class="engine.operations.gameobjectops.Self"/>
+                    </operation>
+                  </engine.Condition>
+                  <list>
+                    <engine.Actions.changeObject.SetAnimationSequence>
+                      <object class="engine.operations.gameobjectops.Self"/>
+                      <name class="engine.operations.stringops.SelfString">
+                        <stored>Pressed</stored>
                       </name>
                     </engine.Actions.changeObject.SetAnimationSequence>
                   </list>
@@ -11026,7 +11026,7 @@
           <isTracked>true</isTracked>
         </engine.GameLayer>
         <engine.GameLayer>
-          <worldName>Background</worldName>
+          <layerName>Background</layerName>
           <worldElements>
             <engine.GameObject>
               <doubleVars/>
@@ -11198,27 +11198,27 @@
             <entry>
               <engine.Condition reference="../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[2]/engine.Condition"/>
               <list>
-                <engine.Actions.movement.Move reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[2]/list/engine.Actions.movement.Move"/>
+                <engine.Actions.movement.RemoveIntersection reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[2]/list/engine.Actions.movement.RemoveIntersection"/>
+                <engine.Actions.variableSetting.ChangeDouble reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[2]/list/engine.Actions.variableSetting.ChangeDouble"/>
+                <engine.Actions.variableSetting.ChangeBoolean reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[2]/list/engine.Actions.variableSetting.ChangeBoolean"/>
               </list>
             </entry>
             <entry>
               <engine.Condition reference="../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[3]/engine.Condition"/>
               <list>
-                <engine.Actions.movement.RemoveIntersection reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[3]/list/engine.Actions.movement.RemoveIntersection"/>
+                <engine.Actions.variableSetting.ChangeDouble reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[3]/list/engine.Actions.variableSetting.ChangeDouble"/>
+                <engine.Actions.changeObject.Create reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[3]/list/engine.Actions.changeObject.Create"/>
               </list>
             </entry>
             <entry>
               <engine.Condition reference="../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[4]/engine.Condition"/>
               <list>
-                <engine.Actions.movement.Move reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[4]/list/engine.Actions.movement.Move"/>
-                <engine.Actions.changeObject.SetAnimationSequence reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[4]/list/engine.Actions.changeObject.SetAnimationSequence"/>
-                <engine.Actions.variableSetting.ChangeDouble reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[4]/list/engine.Actions.variableSetting.ChangeDouble"/>
+                <engine.Actions.movement.RemoveIntersection reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[4]/list/engine.Actions.movement.RemoveIntersection"/>
               </list>
             </entry>
             <entry>
               <engine.Condition reference="../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[5]/engine.Condition"/>
               <list>
-                <engine.Actions.movement.RemoveIntersection reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[5]/list/engine.Actions.movement.RemoveIntersection"/>
                 <engine.Actions.variableSetting.ChangeDouble reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[5]/list/engine.Actions.variableSetting.ChangeDouble"/>
                 <engine.Actions.variableSetting.ChangeBoolean reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[5]/list/engine.Actions.variableSetting.ChangeBoolean"/>
               </list>
@@ -11226,8 +11226,7 @@
             <entry>
               <engine.Condition reference="../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[6]/engine.Condition"/>
               <list>
-                <engine.Actions.variableSetting.ChangeDouble reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[6]/list/engine.Actions.variableSetting.ChangeDouble"/>
-                <engine.Actions.changeObject.Create reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[6]/list/engine.Actions.changeObject.Create"/>
+                <engine.Actions.movement.Move reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[6]/list/engine.Actions.movement.Move"/>
               </list>
             </entry>
             <entry>
@@ -11241,8 +11240,9 @@
             <entry>
               <engine.Condition reference="../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[8]/engine.Condition"/>
               <list>
+                <engine.Actions.movement.Move reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[8]/list/engine.Actions.movement.Move"/>
+                <engine.Actions.changeObject.SetAnimationSequence reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[8]/list/engine.Actions.changeObject.SetAnimationSequence"/>
                 <engine.Actions.variableSetting.ChangeDouble reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[8]/list/engine.Actions.variableSetting.ChangeDouble"/>
-                <engine.Actions.variableSetting.ChangeBoolean reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject[2]/events/entry[8]/list/engine.Actions.variableSetting.ChangeBoolean"/>
               </list>
             </entry>
           </events>
@@ -11524,14 +11524,14 @@
             <entry>
               <engine.Condition reference="../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject/events/entry[2]/engine.Condition"/>
               <list>
-                <engine.Actions.variableSetting.ChangeDouble reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject/events/entry[2]/list/engine.Actions.variableSetting.ChangeDouble"/>
-                <engine.Actions.variableSetting.ChangeBoolean reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject/events/entry[2]/list/engine.Actions.variableSetting.ChangeBoolean"/>
+                <engine.Actions.global.ExitToMenu reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject/events/entry[2]/list/engine.Actions.global.ExitToMenu"/>
               </list>
             </entry>
             <entry>
               <engine.Condition reference="../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject/events/entry[3]/engine.Condition"/>
               <list>
-                <engine.Actions.global.ExitToMenu reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject/events/entry[3]/list/engine.Actions.global.ExitToMenu"/>
+                <engine.Actions.variableSetting.ChangeDouble reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject/events/entry[3]/list/engine.Actions.variableSetting.ChangeDouble"/>
+                <engine.Actions.variableSetting.ChangeBoolean reference="../../../../../../../../madeWorlds/engine.GameWorld/worldLayers/engine.GameLayer[2]/worldElements/engine.GameObject/events/entry[3]/list/engine.Actions.variableSetting.ChangeBoolean"/>
               </list>
             </entry>
             <entry>

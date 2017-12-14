@@ -341,7 +341,7 @@ public class ArchanaGameData {
 //		
 //		if (SO instanceof SpriteObject){
 //		SpriteObject sprite = (SpriteObject) SO;
-//		System.out.println("class of sprite: "+sprite.getClass());
+//		;
 //		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path));
 //        oos.writeObject(sprite);
 //        oos.close();
@@ -368,7 +368,7 @@ public class ArchanaGameData {
 
 	private void saveSprite(SpriteDataConverter SO, String path) throws IOException {
 		//TODO: make category folder
-		System.out.println("SAVE SPRITE to: " + path);
+		;
 		String toSave = SERIALIZER.toXML(SO);
 		FileWriter writer = new FileWriter(path);
 		writer.write(toSave);
@@ -392,7 +392,7 @@ public class ArchanaGameData {
 	public String makeValidFileName(String path) { 
 		path = path + "/";
 		if (!directoryExists(path)) {
-			System.out.println("MAKE DIRECTORY FIRST TIME");
+			;
 			makeDirectory(path);
 		}
 		int counter = 1;
@@ -457,17 +457,17 @@ public class ArchanaGameData {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("NAME NAME " + directory.getName());
+		;
 		File[] files = directory.listFiles();
 		for (File f : files) {
 			if (!f.isDirectory()){
-			System.out.println("here is the file that is unable to be loaded: " + f.getPath());
+			;
 			try {
 				temp = loadLayer(f, layerNum, worldNum); //THROWS AN ERROR
-				System.out.println("ADDED A LAYER AFTER DE-SERIALIZAING");
+				;
 			} catch (Exception e) {
 				e.printStackTrace();
-				System.out.println("HMM WEIRD");
+				;
 			}
 			}
 		}
@@ -476,7 +476,7 @@ public class ArchanaGameData {
 
 	public SpriteObjectGridManager loadLayer(File layerFile, int num, int worldNum) throws Exception {
 		if (!isValidFile(layerFile)){
-			System.out.println(layerFile + " BAD BAD BAD ");
+			;
 			throw new Exception("Invalid file to load");
 		}
 		Scanner scanner = new Scanner(layerFile);
@@ -486,7 +486,7 @@ public class ArchanaGameData {
 		SpriteObjectGridManager ret = SDC.createLayer();
 		
 		List<AbstractSpriteObject> spritesToAdd = this.loadSpritesFromDirectoryName(this.getLayerSpritesDirectoryPath(worldNum, num));
-		System.out.println("ADDED " + spritesToAdd.size() + " NUMBER OF SPRITES TO THE GRID.. MAYBE");
+		;
 		ret.storeSpriteObjectsToAdd(spritesToAdd);
 		//ret.setSpriteGridHandler(new SpriteGridHandler(1, new DraggableGrid())); // random draggable grid
 		//ret.createMapLayer(spritesToAdd);
@@ -512,13 +512,13 @@ public class ArchanaGameData {
 
 	public String getDefaultSpriteDirectoryPath() {
 		String ret = projectPath + PROJECT_USER_SPRITE_PATH + DEFAULT_SPRITE_FOLDER;
-		// System.out.println("default path: "+ret);
+		// ;
 		return ret;
 	}
 	
 	public String getInventorySpriteDirectoryPath() {
 		String ret = projectPath + PROJECT_USER_SPRITE_PATH + INVENTORY_SPRITE_FOLDER;
-		// System.out.println("default path: "+ret);
+		// ;
 		return ret;
 	}
 
@@ -577,7 +577,7 @@ public class ArchanaGameData {
 		for (SpriteObjectGridManager SOGM : SOGMList) {
 			layerCount++;
 			List<AbstractSpriteObject> spriteObjects = SOGM.getEntireListOfSpriteObjects().stream().filter(e -> !(e instanceof DefaultSpriteObject)).collect(Collectors.toList());
-			System.out.println("SIZE OF SOGM " + spriteObjects.size());
+			;
 			for (AbstractSpriteObject SO : spriteObjects) {
 				String path = this.getLayerSpritesDirectoryPath(worldCount, layerCount);
 				path = this.makeValidFileName(path);
@@ -585,9 +585,9 @@ public class ArchanaGameData {
 				count++;
 			}
 			saveLayer(SOGM, worldCount, layerCount);
-			System.out.println(SOGM.getName() + " count: " + count);
+			;
 		}
-		System.out.println("ULTIMATE COUNT of sprite objects: " + count);
+		;
 		String worldPath = this.getWorldDirectoryPath(worldCount);
 		saveWorld(DG, worldPath);
 	}
@@ -600,14 +600,14 @@ public class ArchanaGameData {
 	
 	private void saveLayer(LayerDataConverter LDC, String path) throws Exception {
 		 String toSave = SERIALIZER.toXML(LDC);
-		 System.out.println("LAYER PATH: " + path);
+		 ;
 		 FileWriter writer = new FileWriter(path);
 		 writer.write(toSave);
 		 writer.close();
 	}
 	
 	private DraggableGrid loadWorld(int worldNum, File worldFile) throws Exception {
-		System.out.println("just checking worldFile here: " + worldFile.getName());
+		;
 		if (!isValidFile(worldFile)){
 			throw new Exception("Invalid file to load");
 		}
@@ -620,18 +620,18 @@ public class ArchanaGameData {
 		DraggableGrid ret = new DraggableGrid();
 		
 		List<SpriteObjectGridManager> addToWorld = this.loadLayersFromDirectoryName(worldNum);
-		System.out.println("SIZE OF SOGMS FOR EACH DG SHOULD BE 4 : " + addToWorld.size());
+		;
 		
 		ret.loadLayers(addToWorld);
-		System.out.println("FINISHED CREATING WORLD"); 
+		; 
 		return ret;
 	}
 	
 	private List<DraggableGrid> loadWorldsFromDirectory(int worldNum, File directory) throws Exception {
 		List<DraggableGrid> worlds = new ArrayList<>();
-		System.out.println("WORLD DIRECTORY SHOULD BE: " + directory.getName());
+		;
 		if (!isValidDirectory(directory)) {
-			System.out.println("not a directory");
+			;
 			throw new Exception("Not a directory");
 		}
 		File[] files = directory.listFiles(); // goes through all layer files, not world 
@@ -640,18 +640,18 @@ public class ArchanaGameData {
 			try {
 				DraggableGrid temp = loadWorld(worldNum, f);
 				worlds.add(temp);
-				System.out.println("ADDED A WORLD AFTER DE-SERIALIZAING");
+				;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			}
 		}
-		System.out.println("number of draggable grids returned: " + worlds.size());
+		;
 		return worlds;
 	}
 
 	private List<AbstractSpriteObject> loadSpritesFromDirectory(File directory) throws Exception {
-		System.out.println("Directory in loadSpritesFromDirectory: " + directory);
+		;
 		if (!isValidDirectory(directory)) {
 			throw new Exception("Not a directory");
 		}
@@ -661,7 +661,7 @@ public class ArchanaGameData {
 			try {
 				AbstractSpriteObject dummy = loadSprite(f);
 				ret.add(dummy);
-				System.out.println(dummy);
+				;
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -679,15 +679,15 @@ public class ArchanaGameData {
 		} catch (Exception e){
 			// do nothing
 		}
-		System.out.println("all the draggable grids we return " + DG_LIST.size());
+		;
 		return DG_LIST;
 	}
 
 	public List<DraggableGrid> loadWorldsFromDirectoryName(int worldNum, String filePath) throws Exception {
-		System.out.println("LOAD WORLDS FROM DIRECTORY NAME " + filePath);
+		;
 		
 		File directory = new File(filePath);
-		System.out.println("loading from world number " + worldNum);
+		;
 		return loadWorldsFromDirectory(worldNum, directory);
 	}
 
@@ -698,11 +698,11 @@ public class ArchanaGameData {
 
 	public Map<String, List<AbstractSpriteObject>> loadSpritesFromNestedDirectories(String rootDirectory) {
 		File file = new File(rootDirectory);
-		System.out.println("GET CUSTOM DIRECTORY SPRITE PATH: " + rootDirectory);
+		;
 		if (!isValidDirectory(file)) {
 			return null;
 		}
-		System.out.println("Still going, root directory: "+rootDirectory);
+		;
 		Map<String, List<AbstractSpriteObject>> ret = new HashMap<String, List<AbstractSpriteObject>>();
 		File[] files = file.listFiles();
 		for (File f : files) {
@@ -724,7 +724,7 @@ public class ArchanaGameData {
 		File file2 = new File(getInitializingLayerDirectoryPath(worldNum, 1));
 		File file3 = new File(getLayerSpritesDirectoryPath(worldNum, 1));
 		if (! file1.exists()) {
-			System.out.println("WORLDNUM : " + worldNum);
+			;
 			makeDirectory(getInitializingWorldDirectoryPath(worldNum));
 		}
 		if (! file2.exists() && ! file3.exists()) {

@@ -43,15 +43,15 @@ public class DisplayPanelForTemplateSprites extends DisplayPanel{
 	
 	@Override
 	public AbstractSpriteObject setActiveSprite(AbstractSpriteObject ASO) {
-		System.out.println("settingActiveSpriteInTemplate");
+		;
 		AbstractSpriteObject ret = activeSprite;
 		if (ASO!=null){
-			System.out.println("activeSprite: "+activeSprite);
-			System.out.println("ASO isnt null");
+			;
+			;
 			if (activeSprite==null || !activeSprite.equals(ASO)) {
 				activeSprite = ASO;
 				this.setElementSelectorSprite(true);
-				System.out.println("prevActive in DPTemplate: "+ret);
+				;
 			} else {
 				activeSprite = null;
 				this.setElementSelectorSprite(false);
@@ -63,7 +63,7 @@ public class DisplayPanelForTemplateSprites extends DisplayPanel{
 		if (ret!=null){
 			ret.clearPossibleParameters();
 		}
-		System.out.println("Returning: "+ret);
+		;
 		return ret;
 	}
 	

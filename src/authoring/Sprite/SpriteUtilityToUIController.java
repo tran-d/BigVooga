@@ -42,7 +42,7 @@ public class SpriteUtilityToUIController {
 		Object o = null;
 		try {
 			o = (Object) f.get(myASO);
-//			System.out.println("getting field value: "+o);
+//			;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -114,7 +114,7 @@ public class SpriteUtilityToUIController {
 	}
 
 	private Node getRequiredValueComponent(Object o, BiFunction<String, Object, Boolean> BiFunctionToCheck, String setMethod, Boolean isLocked) {
-//		System.out.println("getting required value: "+o);
+//		;
 		if (o instanceof String) {
 			TextField ret = new TextField();
 			ret.setText((String) o);
@@ -131,12 +131,12 @@ public class SpriteUtilityToUIController {
 			ret.setCheckFunction(new Function<Integer, Boolean>(){
 				@Override
 				public Boolean apply(Integer t) {
-//					System.out.println("In function, t = " + t);
+//					;
 					if (isLocked){
 						return false;
 					}
 					boolean ret = BiFunctionToCheck.apply(setMethod, t);
-//					System.out.println("The function returned "+ret);
+//					;
 					return ret;
 				}
 				

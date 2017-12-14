@@ -81,7 +81,7 @@ public class DisplayPanel extends VBox {
 		mySAnimationSequenceTAI = new SpriteAnimationSequenceTabsAndInfo();
 		mySUtilityTAI = new SpriteUtilityTabAndInfo();
 		mySTagTAI = new SpriteTagTabAndInfo();
-		System.out.println("made SPTAI in MENU");
+		;
 		setUpMenu();
 	}
 
@@ -110,7 +110,7 @@ public class DisplayPanel extends VBox {
 
 
 	protected AbstractSpriteObject getActiveCell() throws Exception {
-		// System.out.println("MYAEMACTIVE: " + myAEM.getActiveCell());
+		// ;
 		return mySPSM.getActiveSprite();
 	}
 
@@ -304,7 +304,7 @@ public class DisplayPanel extends VBox {
 
 	private void addSpriteEditorErrorMessage() {
 		if (!this.getChildren().contains(myParameterErrorMessage)) {
-			// System.out.println(myParamTabVBox.getChildren().size());
+			// ;
 			int numChildren = this.getChildren().size();
 			this.getChildren().add(numChildren, myParameterErrorMessage);
 		}
@@ -312,11 +312,11 @@ public class DisplayPanel extends VBox {
 
 	public void updateParameterTab() {
 
-		System.out.println("Updating....");
+		;
 		try {
 			AbstractSpriteObject activeCell = getActiveCell();
 			if (activeCell!=null){
-			System.out.println("Did i get here?");
+			;
 
 			checkMultipleCellsActive();
 			clearAllSpriteEditorTabs();
@@ -328,7 +328,7 @@ public class DisplayPanel extends VBox {
 			mySpriteTabs.getTabs().set(CONDITIONTAB_INDEX, conditions);
 			mySpriteTabs.getTabs().set(ACTIONTAB_INDEX, actions);
 			if (!multipleActive()) {
-				System.out.println("Trying to update not multiple actvie");
+				;
 				mySTagTAI.setSpriteObjectAndUpdate(activeCell);
 				mySInventoryTAI.setSpriteObjectAndUpdate(activeCell);
 				mySUtilityTAI.setSpriteObjectAndUpdate(activeCell);
@@ -366,9 +366,9 @@ public class DisplayPanel extends VBox {
 
 	private void apply() throws Exception {
 		mySParameterTAI.apply();
-		System.out.println("SHOULD BE APPLYING");
+		;
 		if (!multipleActive()) {
-			System.out.println("Trying to set ivent etc.");
+			;
 			mySTagTAI.apply();
 			mySInventoryTAI.apply();
 			mySAnimationSequenceTAI.apply();

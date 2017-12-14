@@ -192,10 +192,10 @@ public class TerrariaMaker extends Application {
 		// }
 
 		try {
-			System.out.println("Trying to load game");
+			;
 			new GameDataHandler(name).loadGame().setNextWorld("World");
 		} catch (FileNotFoundException e) {
-			System.out.println("Error");
+			;
 		}
 	}
 
@@ -345,7 +345,7 @@ public class TerrariaMaker extends Application {
 		Scene scene = new Scene(g);
 		stage.setScene(scene);
 		File f = new GameDataHandler("Terraria-ish").addChosenFileToProject(new Stage());
-		System.out.println(f.getName());
+		;
 		Pane bpd = new BoundingPolygonCreator(new Image(f.toURI().toString()), f.getName(),
 				i -> generateGame("Terraria-ish", stage));
 		g.getChildren().add(bpd);
@@ -374,7 +374,7 @@ public class TerrariaMaker extends Application {
 		vertices2.add(new Point2D(20, 220));
 		BoundingPolygon poly2 = new BoundingPolygon(vertices2);
 		Point2D vec = poly2.checkCollision(poly1);
-		System.out.println(vec);
+		;
 
 		Group g = new Group();
 		Scene scene = new Scene(g);

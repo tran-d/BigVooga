@@ -116,7 +116,7 @@ public class DialogueEditor {
 	}
 	
 	public VBox getView() {
-		System.out.println(view.getHeight());
+		;
 		return view;
 	}
 
@@ -203,7 +203,7 @@ public class DialogueEditor {
 			try {
 				int size = Integer.parseInt(sizeTF.getText());
 				saveConsumer.accept(getName());
-				System.out.println("size changed! saving!");
+				;
 				dsp.setFont(getFontType(), size);
 			} catch (NumberFormatException ex) {
 				sizeTF.clear();
@@ -253,7 +253,7 @@ public class DialogueEditor {
 	private ChoiceBox<String> makeChoiceBox(ObservableList<String> observableList) {
 		ChoiceBox<String> cb = new ChoiceBox<String>(observableList);
 
-		System.out.println("fonts: " + observableList);
+		;
 
 		cb.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 
@@ -261,7 +261,7 @@ public class DialogueEditor {
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 
 				saveConsumer.accept(getName());
-				System.out.println("font changed! saving!");
+				;
 				dsp.setFont(observableList.get(cb.getSelectionModel().getSelectedIndex()), getFontSize());
 			}
 		});

@@ -126,7 +126,7 @@ public class GameWorld {
 			}
 		}
 		// Placeholder for error I guess?
-		System.out.println("No such world");
+		;
 	}
 	
 	public List<GameLayer> getLayers() {
@@ -140,6 +140,11 @@ public class GameWorld {
 	public boolean inBounds(GameObject obj)
 	{
 		return camera.inBounds(obj);
+	}
+	
+	public String getName()
+	{
+		return worldName;
 	}
 
 }

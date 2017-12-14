@@ -98,8 +98,8 @@ public class AuthoringMapStackPane extends StackPane {
 			// });
 			@Override
 			public void accept(Integer oldValue, Integer newValue) {
-//				System.out.println("newValueRowSpan: " + newValue);
-//				System.out.println("oldValueRowSpan: " + newValue);
+//				;
+//				;
 				int diff = newValue - oldValue;
 				int startRow = (diff > 0) ? getRowIndex() + oldValue : getRowIndex() + oldValue - 1;
 				for (int i = 0; i < Math.abs(diff); i++) {
@@ -130,8 +130,8 @@ public class AuthoringMapStackPane extends StackPane {
 
 			@Override
 			public void accept(Integer oldValue, Integer newValue) {
-				// System.out.println("col span change old valeu: " +oldValue);
-				// System.out.println("col span change new valeu: " +newValue);
+				// ;
+				// ;
 				int diff = newValue - oldValue;
 				int startCol = (diff > 0) ? getColIndex() + oldValue : getColIndex() + oldValue - 1;
 				for (int i = 0; i < Math.abs(diff); i++) {
@@ -202,14 +202,14 @@ public class AuthoringMapStackPane extends StackPane {
 		activeProperty = new SimpleObjectProperty<Boolean>();
 		activeProperty.set(false);
 		activeProperty.addListener((observable, oldValue, newValue) -> {
-			// System.out.println("new value: " + newValue);
+			// ;
 			if (newValue) {
 				this.getMapLayer().addActive(this);
-				System.out.println(this.getMapLayer());
-				System.out.println("THIS BACKGROUND IS LITTTTTT");
+				;
+				;
 				this.setBackground(activeBackground);
 			} else {
-				System.out.println("REMMOOOVVVEEE");
+				;
 				this.getMapLayer().removeActive(this);
 				this.setBackground(inactiveBackground);
 			}
@@ -318,10 +318,10 @@ public class AuthoringMapStackPane extends StackPane {
 	}
 
 	public boolean checkCanAcceptChild(AbstractSpriteObject ASO) {
-	System.out.println("RowIndex: "+getRowIndex());
-	System.out.println("ColIndex: "+getColIndex());
-	System.out.println("CellHeight: "+ASO.getNumCellsHeight());
-	System.out.println("CellWidth: "+ASO.getNumCellsWidth());
+	;
+	;
+	;
+	;
 		return checkChangeSizeIsValid(ASO, getRowIndex(), getRowIndex() + ASO.getNumCellsHeight() - 1, getColIndex(),
 				getColIndex() + ASO.getNumCellsWidth() - 1);
 	}
@@ -341,17 +341,17 @@ public class AuthoringMapStackPane extends StackPane {
 			mySO.setFitHeight(this.rowSpanProperty.get() * cellSize);
 			mySO.setFitWidth(this.colSpanProperty.get() * cellSize);
 
-			// System.out.println("Adding ASO to AMStackPane");
+			// ;
 			this.getChildren().add(mySO);
 			mySO.setWidthFunction(widthCheckValidFunction());
 			mySO.setHeightFunction(heightCheckValidFunction());
-			System.out.println("We added a child which is good SLACK "+ mySO.getName());
+			;
 			return true;
 		}
 		return false;
 		// this.widthProperty().addListener((value) -> {
 		// // ASO.setFitWidth(this.getWidth()*.99);
-		// System.out.println("width changed");
+		// ;
 		// });
 		//
 		// this.heightProperty().addListener((value) -> {
@@ -361,7 +361,7 @@ public class AuthoringMapStackPane extends StackPane {
 	}
 
 	public void removeChild() {
-		System.out.println("ARCHANA removing child: "+((AbstractSpriteObject)this.getChildren().get(0)).getName());
+		;
 		createDefaultShapeSpriteWidth();
 		createDefaultShapeSpriteHeight();
 		// int rowStart = this.getRowIndex();
@@ -406,7 +406,7 @@ public class AuthoringMapStackPane extends StackPane {
 	// }
 
 	public void setRowSpan(int span) {
-		// System.out.println("Resizing row span, " + span);
+		// ;
 		if (span<=0){
 			span=1;
 		}
@@ -415,7 +415,7 @@ public class AuthoringMapStackPane extends StackPane {
 	}
 
 	public void setColSpan(int span) {
-		// System.out.println("Resizing column span, " + span);
+		// ;
 		if (span<=0){
 			span = 1;
 		}
@@ -462,39 +462,39 @@ public class AuthoringMapStackPane extends StackPane {
 	}
 
 	private boolean checkChangeSizeIsValid(AbstractSpriteObject ASO, Integer startRow, Integer endRow, Integer startColumn, Integer endColumn) {
-//System.out.println("startRow: "+startRow);
-//System.out.println("endRow: "+endRow);
-//System.out.println("startColumn: "+startColumn);
-//System.out.println("endColumn: "+endColumn);
+//;
+//;
+//;
+//;
 
 		for (int row = startRow; row <= endRow; row++) {
 			for (int column = startColumn; column <= endColumn; column++) {
-//				System.out.println("row: " + row + ", col: " + column);
+//				;
 				AuthoringMapStackPane newCoveredCell = getMapLayer().getChildAtPosition(row, column);
 				if (newCoveredCell.isCoveredByOtherSprite()) {
 					if (ASO!=null&&newCoveredCell.getCoveringSprite().equals(ASO)){
 						// Nothing just keep checking cells
 					} else {
-//					System.out.println("row: " + row + ", col: " + column);
-//					System.out.println("Cannt change size");
+//					;
+//					;
 					return false;
 					}
 
 				}
 			}
 		}
-//		System.out.println("Can change size");
+//		;
 		return true;
 	}
 
 	private boolean checkChangeColumnSpanIsValid(Integer newColumnSpan) {
-//		System.out.println("Column int: " + newColumnSpan);
+//		;
 		if (newColumnSpan <= this.getColSpan()) {
 			return true;
 		} else {
 			int endCol = this.getColIndex() + newColumnSpan - 1;
-//			System.out.println("farRight: " + this.getFarRightColumn());
-//			System.out.println("endCol: " + endCol);
+//			;
+//			;
 			return this.checkChangeSizeIsValid(null, this.getRowIndex(), this.getFarBottomRow(), this.getFarRightColumn() + 1,
 					endCol);
 		}

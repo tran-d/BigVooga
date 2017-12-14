@@ -43,12 +43,12 @@ public class SpriteGridHandler {
 		Random rand = new Random();
 		int parent = rand.nextInt();
 		objectFormat = new DataFormat("MyObject" + parent + Integer.toString(mapCount));
-		System.out.println("SGH made with objForm: " + objectFormat);
+		;
 		myDG = DG;
 	}
 
 	public void setGridIsShown(boolean shown) {
-		System.out.println("Grid is shown (" + shown + ") for " + myDG.getActiveGrid().getClass());
+		;
 		this.gridIsShown = shown;
 
 	}
@@ -69,7 +69,7 @@ public class SpriteGridHandler {
 	
 	public void setElementSelectorDisplayPanel(DisplayPanel dispPanel) {
 		myElementSelectorDP = dispPanel;
-		System.out.println("myElemSelectorDP is "+myElementSelectorDP);
+		;
 	}
 
 	public DraggableGrid getDraggableGrid() {
@@ -77,7 +77,7 @@ public class SpriteGridHandler {
 	}
 
 	public void addKeyPress(Scene scene) {
-		System.out.println("Added key press");
+		;
 		scene.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>(){
 
 			@Override
@@ -101,7 +101,7 @@ public class SpriteGridHandler {
 
 			@Override
 			public void handle(KeyEvent e) {
-				System.out.println("handling a key??: " + e.getCode());
+				;
 
 				switch (e.getCode()) {
 				case BACK_SPACE:
@@ -151,10 +151,10 @@ public class SpriteGridHandler {
 	}
 
 	private void onBackSpace() {
-		System.out.println("In if statement");
+		;
 		if (gridIsShown) {
-			System.out.println("Grid shown for ");
-			System.out.println("Class " + myDG.getActiveGrid().getClass());
+			;
+			;
 			deleteSelectedSprites();
 		}
 	}
@@ -230,18 +230,18 @@ public class SpriteGridHandler {
 	private void deleteSprites(List<AbstractSpriteObject> toDelete){
 		List<Integer[]> cellsToDelete = new ArrayList<Integer[]>();
 		toDelete.forEach(s -> {
-			System.out.println("In the lambda");
+			;
 			Integer[] row_col = s.getPositionOnGrid();
-			System.out.println(row_col);
-			// System.out.println("row_col: " + row_col);
+			;
+			// ;
 			cellsToDelete.add(row_col);
 		});
-		System.out.println(myDG.getActiveGrid().getActiveSpriteObjects().size());
+		;
 		myDG.getActiveGrid().clearCells(cellsToDelete);
 	}
 
 private	void resetActiveSprites() {
-	System.out.println("resetting activeCells");
+	;
 		myDG.getActiveGrid().resetActiveCells();
 	}
 
@@ -287,7 +287,7 @@ private	void resetActiveSprites() {
 
 	public void addSpriteMouseClick(AbstractSpriteObject s) {
 		s.setOnMouseClicked(e -> {
-			System.out.println("I clicked sprite : " + s);
+			;
 			if (s instanceof SpriteObject) {
 				if (myDG.getActiveGrid().getMapLayer().getActive().size() > 0) {
 					populateGridCells((SpriteObject) s);
@@ -297,13 +297,13 @@ private	void resetActiveSprites() {
 					setActiveElementSprite(null);
 					boolean activeStatus;
 					activeStatus = myDG.getActiveGrid().switchCellActiveStatus(s.getPositionOnGrid());
-					System.out.println("Cell is active? "+ activeStatus);
+					;
 					if (activeStatus) {
 						s.setEffect(makeSpriteEffect());
 					} else {
 						s.setEffect(null);
 					}
-					System.out.println("In addSpriteMClick: numActiveCells: "+myDG.getActiveGrid().getActiveSpriteObjects().size());
+					;
 
 						if (myDG.getActiveGrid().getActiveSpriteObjects().size() == 0) {
 							myGridDP.removeSpriteEditorVBox();
@@ -325,11 +325,11 @@ private	void resetActiveSprites() {
 	}
 	
 	private void setActiveElementSprite(AbstractSpriteObject ASO){
-		System.out.println("inSetActiveElemSprite elemSelectorDP value is: "+this.myElementSelectorDP);
-		System.out.println("inSetActiveElemSprite sprite value is: "+ASO);
+		;
+		;
 		AbstractSpriteObject prevActive = this.myElementSelectorDP.setActiveSprite(ASO);
 		if (ASO!=null){
-			System.out.println("prevActive: "+prevActive);
+			;
 			if (ASO.equals(prevActive)){
 				ASO.setEffect(null);
 			}
@@ -352,7 +352,7 @@ private	void resetActiveSprites() {
 	}
 
 	public void deactivateActiveSprites() {
-		System.out.println("RMEOVING ACTIVE CELLS");
+		;
 		myDG.getActiveGrid().getActiveSpriteObjects().forEach(sprite -> {
 			sprite.setEffect(null);
 		});
@@ -389,7 +389,7 @@ private	void resetActiveSprites() {
 	}
 
 	private boolean populateIndividualCell(AuthoringMapStackPane cell, SpriteObject s) {
-		System.out.println("populating from SGH");
+		;
 		SpriteObject SO = s.newCopy();
 		if (cell.addChild(SO)) {
 			cell.setInactive();
@@ -422,11 +422,11 @@ private	void resetActiveSprites() {
 			if (pane.checkCanAcceptChild(draggingObject)) {
 				Dragboard db = e.getDragboard();
 				MapLayer ML = pane.getMapLayer();
-				// System.out.println("MapLayer: " + ML.getName());
+				// ;
 				int row = ML.getRowIndex(pane);
 				int col = ML.getColumnIndex(pane);
 				Integer[] row_col = new Integer[] { row, col };
-				// System.out.println(row_col);
+				// ;
 
 				if (db.hasContent(objectFormat)) {
 					if (draggingObject instanceof SpriteObject) {

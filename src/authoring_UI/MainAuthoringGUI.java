@@ -83,7 +83,7 @@ public class MainAuthoringGUI {
 //		int count = 0; // temp for debugging
 //		for (DraggableGrid toSave : allWorlds) {
 //			count++;
-//			System.out.println("Saving world # : " + count);
+//			;
 //			try {
 //				myGDH.saveWorld(toSave);
 //			} catch (Exception e) {
