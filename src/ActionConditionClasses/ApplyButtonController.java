@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import authoring.SpriteParameterSidebarManager;
 import authoring.Sprite.AbstractSpriteObject;
 import authoring_actionconditions.ActionConditionHBox;
 import authoring_actionconditions.ActionRow;
@@ -24,10 +25,12 @@ import javafx.collections.ObservableList;
 public class ApplyButtonController {
 	
 	public static AbstractSpriteObject selectedSpriteObject;
+	private SpriteParameterSidebarManager mySPSM;
 
 	public void updateActionConditionTabs(ConditionTab<ConditionRow> conditionTab, ActionTab<ActionRow> actionTab,
-			AbstractSpriteObject selectedSpriteObject) {
+			AbstractSpriteObject selectedSpriteObject, SpriteParameterSidebarManager mySPSM) {
 		
+		this.mySPSM = mySPSM;
 		ApplyButtonController.selectedSpriteObject = selectedSpriteObject;
 		
 		HashMap<ConditionTreeView, List<Integer>> conditions = selectedSpriteObject.getConditionTreeviews();
@@ -46,7 +49,7 @@ public class ApplyButtonController {
 				createObservableIntegerList(selectedActionOperations.size()));
 		int rowCond = 1;
 		List<ConditionRow> conditionRows = new LinkedList<ConditionRow>();
-		ConditionVBox<ConditionRow> conditionVBox = new ConditionVBox<ConditionRow>();
+		ConditionVBox<ConditionRow> conditionVBox = new ConditionVBox<ConditionRow>(() -> mySPSM.getAllSpritesFromActiveGrid());
 		if (conditions == null) {
 			Iterator<Condition> it = spriteConditions.keySet().iterator();
 			ObservableList<Integer> actionOperations = createObservableIntegerList(spriteActions.size());
@@ -65,9 +68,9 @@ public class ApplyButtonController {
 				rowCond++;
 			}
 		}
-		conditionVBox = new ConditionVBox<ConditionRow>(conditionRows);
+		conditionVBox = new ConditionVBox<ConditionRow>(conditionRows, () -> mySPSM.getAllSpritesFromActiveGrid());
 		List<ActionRow> actionRows = new LinkedList<ActionRow>();
-		ActionVBox<ActionRow> actionVBox = new ActionVBox<ActionRow>();
+		ActionVBox<ActionRow> actionVBox = new ActionVBox<ActionRow>(() -> mySPSM.getAllSpritesFromActiveGrid());
 		int rowAct = 1;
 		if (actions == null) {
 			ActionRow actionRow = new ActionRow(rowAct, actionVBox, selectedActionOperations.get(rowAct - 1),
