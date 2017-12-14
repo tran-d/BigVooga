@@ -56,7 +56,7 @@ public abstract class DisplayableEditor {
 			parent = parent.getParent();
 			s = parent.getScene();
 		}
-		File file = GameDataHandler.chooseFileForImageSave(s.getWindow());
+		File file = GameDataHandler.chooseFileForImageLoad(s.getWindow());
 		
 		return file;
 	}

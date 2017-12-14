@@ -482,7 +482,8 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return position;
 	}
 
-	public void setImageURL(String fileLocation) {
+	public void setImageURL(String fileLocation){
+		System.out.println("FILE LOCATION: " + fileLocation);
 		setupImageURLAndView(fileLocation);
 	}
 

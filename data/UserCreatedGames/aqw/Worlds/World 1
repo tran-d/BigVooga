@@ -1,4 +1,6 @@
 <authoring__UI.MapDataConverter>
+<<<<<<< HEAD
+=======
   <SERIALIZER>
     <reflectionProvider class="com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider">
       <fieldDictionary>
@@ -2065,6 +2067,7 @@
     <securityMapper reference="../converterLookup/val_-defaultConverterLookup/converters/set/com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper/wrapped/wrapped"/>
     <annotationConfiguration class="com.thoughtworks.xstream.mapper.AnnotationMapper" reference="../converterLookup/val_-defaultConverterLookup/converters/set/com.thoughtworks.xstream.core.util.PrioritizedList_-PrioritizedItem[3]/value/mapper/wrapped"/>
   </SERIALIZER>
+>>>>>>> master
   <myName>World 1</myName>
   <gridManagers>
     <authoring__UI.LayerDataConverter>
@@ -2097,38 +2100,23 @@
         <authoring__UI.SpriteDataConverter>
           <conditionRows/>
           <actionRows/>
-          <catmap>
-            <entry>
-              <string>General</string>
-              <list>
-                <authoring.Sprite.Parameters.BooleanSpriteParameter>
-                  <string>canFight</string>
-                  <boolean>true</boolean>
-                </authoring.Sprite.Parameters.BooleanSpriteParameter>
-                <authoring.Sprite.Parameters.DoubleSpriteParameter>
-                  <string>health</string>
-                  <double>10.0</double>
-                </authoring.Sprite.Parameters.DoubleSpriteParameter>
-                <authoring.Sprite.Parameters.StringSpriteParameter>
-                  <string>name</string>
-                  <string>hello</string>
-                </authoring.Sprite.Parameters.StringSpriteParameter>
-              </list>
-            </entry>
-          </catmap>
+          <catmap/>
           <inventory/>
-          <imageURL>/pikachu.png</imageURL>
+          <imageURL>UniqueSprite0.08304530192919113</imageURL>
           <gridPos>
-            <int>4</int>
-            <int>5</int>
+            <int>2</int>
+            <int>6</int>
           </gridPos>
-          <name>pikachu</name>
-          <width>1</width>
-          <height>1</height>
-          <UUID>efee33ef-7128-4134-a2ee-f431f620d87b</UUID>
+          <name>test spot</name>
+          <width>3</width>
+          <height>3</height>
+          <UUID>ca8d6dec-d98c-47df-8e08-a6d976412290</UUID>
           <myAnimationSequences>
             <authoring.Sprite.AnimationSequences.AuthoringAnimationSequence resolves-to="authoring.Sprite.AnimationSequences.SerializableAuthoringAnimationSequence">
               <myName>Default</myName>
+<<<<<<< HEAD
+              <myImages/>
+=======
               <myImages>
                 <authoring.Sprite.AnimationSequences.AnimationSequenceImage>
                   <myImage resolves-to="authoring_data.SerializableAuthoringImageView">
@@ -2146,296 +2134,35 @@
                   </myImage>
                 </authoring.Sprite.AnimationSequences.AnimationSequenceImage>
               </myImages>
+>>>>>>> master
             </authoring.Sprite.AnimationSequences.AuthoringAnimationSequence>
           </myAnimationSequences>
+          <spriteConditionOperations class="linked-list"/>
+          <spriteActionOperations class="linked-list"/>
           <spriteType>SpriteObject</spriteType>
           <tags/>
         </authoring__UI.SpriteDataConverter>
         <authoring__UI.SpriteDataConverter>
           <conditionRows/>
           <actionRows/>
-          <catmap>
-            <entry>
-              <string>General</string>
-              <list>
-                <authoring.Sprite.Parameters.BooleanSpriteParameter>
-                  <string>canFight</string>
-                  <boolean>true</boolean>
-                </authoring.Sprite.Parameters.BooleanSpriteParameter>
-                <authoring.Sprite.Parameters.DoubleSpriteParameter>
-                  <string>health</string>
-                  <double>10.0</double>
-                </authoring.Sprite.Parameters.DoubleSpriteParameter>
-                <authoring.Sprite.Parameters.StringSpriteParameter>
-                  <string>name</string>
-                  <string>hello</string>
-                </authoring.Sprite.Parameters.StringSpriteParameter>
-              </list>
-            </entry>
-          </catmap>
+          <catmap/>
           <inventory/>
+<<<<<<< HEAD
+          <imageURL>UniqueSprite0.08304530192919113</imageURL>
+=======
           <imageURL>pikachu.png</imageURL>
-          <gridPos>
-            <int>4</int>
-            <int>6</int>
-          </gridPos>
-          <name>pikachu</name>
-          <width>1</width>
-          <height>1</height>
-          <UUID>52b5e224-2cf7-4341-ae62-8e0f0c613370</UUID>
-          <myAnimationSequences reference="../../authoring__UI.SpriteDataConverter/myAnimationSequences"/>
-          <spriteType>SpriteObject</spriteType>
-          <tags/>
-        </authoring__UI.SpriteDataConverter>
-        <authoring__UI.SpriteDataConverter>
-          <conditionRows/>
-          <actionRows/>
-          <catmap>
-            <entry>
-              <string>General</string>
-              <list>
-                <authoring.Sprite.Parameters.BooleanSpriteParameter>
-                  <string>canFight</string>
-                  <boolean>true</boolean>
-                </authoring.Sprite.Parameters.BooleanSpriteParameter>
-                <authoring.Sprite.Parameters.DoubleSpriteParameter>
-                  <string>health</string>
-                  <double>10.0</double>
-                </authoring.Sprite.Parameters.DoubleSpriteParameter>
-                <authoring.Sprite.Parameters.StringSpriteParameter>
-                  <string>name</string>
-                  <string>hello</string>
-                </authoring.Sprite.Parameters.StringSpriteParameter>
-              </list>
-            </entry>
-          </catmap>
-          <inventory/>
-          <imageURL>/pikachu.png</imageURL>
-          <gridPos>
-            <int>4</int>
-            <int>7</int>
-          </gridPos>
-          <name>pikachu</name>
-          <width>1</width>
-          <height>1</height>
-          <UUID>dd93d948-377b-4051-ae29-f97fd87558be</UUID>
-          <myAnimationSequences reference="../../authoring__UI.SpriteDataConverter/myAnimationSequences"/>
-          <spriteType>SpriteObject</spriteType>
-          <tags/>
-        </authoring__UI.SpriteDataConverter>
-        <authoring__UI.SpriteDataConverter>
-          <conditionRows/>
-          <actionRows/>
-          <catmap>
-            <entry>
-              <string>General</string>
-              <list>
-                <authoring.Sprite.Parameters.BooleanSpriteParameter>
-                  <string>canFight</string>
-                  <boolean>true</boolean>
-                </authoring.Sprite.Parameters.BooleanSpriteParameter>
-                <authoring.Sprite.Parameters.DoubleSpriteParameter>
-                  <string>health</string>
-                  <double>10.0</double>
-                </authoring.Sprite.Parameters.DoubleSpriteParameter>
-                <authoring.Sprite.Parameters.StringSpriteParameter>
-                  <string>name</string>
-                  <string>hello</string>
-                </authoring.Sprite.Parameters.StringSpriteParameter>
-              </list>
-            </entry>
-          </catmap>
-          <inventory/>
-          <imageURL>/pikachu.png</imageURL>
-          <gridPos>
-            <int>5</int>
-            <int>5</int>
-          </gridPos>
-          <name>pikachu</name>
-          <width>1</width>
-          <height>1</height>
-          <UUID>c2bd5947-7204-4efb-b987-640af93ed766</UUID>
-          <myAnimationSequences reference="../../authoring__UI.SpriteDataConverter/myAnimationSequences"/>
-          <spriteType>SpriteObject</spriteType>
-          <tags/>
-        </authoring__UI.SpriteDataConverter>
-        <authoring__UI.SpriteDataConverter>
-          <conditionRows/>
-          <actionRows/>
-          <catmap>
-            <entry>
-              <string>General</string>
-              <list>
-                <authoring.Sprite.Parameters.BooleanSpriteParameter>
-                  <string>canFight</string>
-                  <boolean>true</boolean>
-                </authoring.Sprite.Parameters.BooleanSpriteParameter>
-                <authoring.Sprite.Parameters.DoubleSpriteParameter>
-                  <string>health</string>
-                  <double>10.0</double>
-                </authoring.Sprite.Parameters.DoubleSpriteParameter>
-                <authoring.Sprite.Parameters.StringSpriteParameter>
-                  <string>name</string>
-                  <string>hello</string>
-                </authoring.Sprite.Parameters.StringSpriteParameter>
-              </list>
-            </entry>
-          </catmap>
-          <inventory/>
-          <imageURL>/pikachu.png</imageURL>
-          <gridPos>
-            <int>5</int>
-            <int>6</int>
-          </gridPos>
-          <name>pikachu</name>
-          <width>1</width>
-          <height>1</height>
-          <UUID>e553d7b4-eea9-4311-b896-38db11d279da</UUID>
-          <myAnimationSequences reference="../../authoring__UI.SpriteDataConverter/myAnimationSequences"/>
-          <spriteType>SpriteObject</spriteType>
-          <tags/>
-        </authoring__UI.SpriteDataConverter>
-        <authoring__UI.SpriteDataConverter>
-          <conditionRows/>
-          <actionRows/>
-          <catmap>
-            <entry>
-              <string>General</string>
-              <list>
-                <authoring.Sprite.Parameters.BooleanSpriteParameter>
-                  <string>canFight</string>
-                  <boolean>true</boolean>
-                </authoring.Sprite.Parameters.BooleanSpriteParameter>
-                <authoring.Sprite.Parameters.DoubleSpriteParameter>
-                  <string>health</string>
-                  <double>10.0</double>
-                </authoring.Sprite.Parameters.DoubleSpriteParameter>
-                <authoring.Sprite.Parameters.StringSpriteParameter>
-                  <string>name</string>
-                  <string>hello</string>
-                </authoring.Sprite.Parameters.StringSpriteParameter>
-              </list>
-            </entry>
-          </catmap>
-          <inventory/>
-          <imageURL>/pikachu.png</imageURL>
-          <gridPos>
-            <int>5</int>
-            <int>7</int>
-          </gridPos>
-          <name>pikachu</name>
-          <width>1</width>
-          <height>1</height>
-          <UUID>5019771f-d1b3-4a48-80b5-70e8d9af995c</UUID>
-          <myAnimationSequences reference="../../authoring__UI.SpriteDataConverter/myAnimationSequences"/>
-          <spriteType>SpriteObject</spriteType>
-          <tags/>
-        </authoring__UI.SpriteDataConverter>
-        <authoring__UI.SpriteDataConverter>
-          <conditionRows/>
-          <actionRows/>
-          <catmap>
-            <entry>
-              <string>General</string>
-              <list>
-                <authoring.Sprite.Parameters.BooleanSpriteParameter>
-                  <string>canFight</string>
-                  <boolean>true</boolean>
-                </authoring.Sprite.Parameters.BooleanSpriteParameter>
-                <authoring.Sprite.Parameters.DoubleSpriteParameter>
-                  <string>health</string>
-                  <double>10.0</double>
-                </authoring.Sprite.Parameters.DoubleSpriteParameter>
-                <authoring.Sprite.Parameters.StringSpriteParameter>
-                  <string>name</string>
-                  <string>hello</string>
-                </authoring.Sprite.Parameters.StringSpriteParameter>
-              </list>
-            </entry>
-          </catmap>
-          <inventory/>
-          <imageURL>/pikachu.png</imageURL>
-          <gridPos>
-            <int>6</int>
-            <int>5</int>
-          </gridPos>
-          <name>pikachu</name>
-          <width>1</width>
-          <height>1</height>
-          <UUID>0c10de53-c7ef-4a38-b7b3-be7a006217ff</UUID>
-          <myAnimationSequences reference="../../authoring__UI.SpriteDataConverter/myAnimationSequences"/>
-          <spriteType>SpriteObject</spriteType>
-          <tags/>
-        </authoring__UI.SpriteDataConverter>
-        <authoring__UI.SpriteDataConverter>
-          <conditionRows/>
-          <actionRows/>
-          <catmap>
-            <entry>
-              <string>General</string>
-              <list>
-                <authoring.Sprite.Parameters.BooleanSpriteParameter>
-                  <string>canFight</string>
-                  <boolean>true</boolean>
-                </authoring.Sprite.Parameters.BooleanSpriteParameter>
-                <authoring.Sprite.Parameters.DoubleSpriteParameter>
-                  <string>health</string>
-                  <double>10.0</double>
-                </authoring.Sprite.Parameters.DoubleSpriteParameter>
-                <authoring.Sprite.Parameters.StringSpriteParameter>
-                  <string>name</string>
-                  <string>hello</string>
-                </authoring.Sprite.Parameters.StringSpriteParameter>
-              </list>
-            </entry>
-          </catmap>
-          <inventory/>
-          <imageURL>/pikachu.png</imageURL>
+>>>>>>> master
           <gridPos>
             <int>6</int>
             <int>6</int>
           </gridPos>
-          <name>pikachu</name>
-          <width>1</width>
-          <height>1</height>
-          <UUID>528a0a15-22d3-435a-9b2d-c975204cc7d4</UUID>
+          <name>test spot</name>
+          <width>3</width>
+          <height>3</height>
+          <UUID>988a7333-26e5-456e-8074-8e34cdf17742</UUID>
           <myAnimationSequences reference="../../authoring__UI.SpriteDataConverter/myAnimationSequences"/>
-          <spriteType>SpriteObject</spriteType>
-          <tags/>
-        </authoring__UI.SpriteDataConverter>
-        <authoring__UI.SpriteDataConverter>
-          <conditionRows/>
-          <actionRows/>
-          <catmap>
-            <entry>
-              <string>General</string>
-              <list>
-                <authoring.Sprite.Parameters.BooleanSpriteParameter>
-                  <string>canFight</string>
-                  <boolean>true</boolean>
-                </authoring.Sprite.Parameters.BooleanSpriteParameter>
-                <authoring.Sprite.Parameters.DoubleSpriteParameter>
-                  <string>health</string>
-                  <double>10.0</double>
-                </authoring.Sprite.Parameters.DoubleSpriteParameter>
-                <authoring.Sprite.Parameters.StringSpriteParameter>
-                  <string>name</string>
-                  <string>hello</string>
-                </authoring.Sprite.Parameters.StringSpriteParameter>
-              </list>
-            </entry>
-          </catmap>
-          <inventory/>
-          <imageURL>/pikachu.png</imageURL>
-          <gridPos>
-            <int>6</int>
-            <int>7</int>
-          </gridPos>
-          <name>pikachu</name>
-          <width>1</width>
-          <height>1</height>
-          <UUID>c282686f-b993-424b-b9ee-f0c8c9ab4eef</UUID>
-          <myAnimationSequences reference="../../authoring__UI.SpriteDataConverter/myAnimationSequences"/>
+          <spriteConditionOperations class="linked-list"/>
+          <spriteActionOperations class="linked-list"/>
           <spriteType>SpriteObject</spriteType>
           <tags/>
         </authoring__UI.SpriteDataConverter>

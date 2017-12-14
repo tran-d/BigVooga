@@ -33,7 +33,7 @@ public class GameController {
 	 * @throws FileNotFoundException - If the game name does not match with a game in the directory, throw this exception
 	 */
 	public GameController(Stage currentStage, String projectName, SceneController currentSceneController, boolean continuing) throws FileNotFoundException {
-		gameDataHandler = new GameDataHandler(projectName);
+		gameDataHandler = new GameDataHandler(stage, projectName);
 		if(continuing)
 			engineController = gameDataHandler.loadContinueGame();
 		else
@@ -54,7 +54,7 @@ public class GameController {
 		
 		stage = currentStage;
 		sceneController = currentSceneController;
-		gameDataHandler = new GameDataHandler(projectName);
+		gameDataHandler = new GameDataHandler(stage, projectName);
 		playerManager = new PlayerManager(gameDataHandler);
 		gameDisplay = new GameDisplay(stage, sceneController);
 		stage.setScene(gameDisplay.getScene());

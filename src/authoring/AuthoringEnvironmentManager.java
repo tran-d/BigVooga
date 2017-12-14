@@ -86,9 +86,7 @@ public class AuthoringEnvironmentManager {
 	}
 	
 	private void initializeImportedSprites() {
-		
 		myImportedSprites = new SpriteSetImported(myGDH);
-		;
 	}
 	
 	private void initializeImportedInventorySprites() {

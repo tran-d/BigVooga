@@ -264,18 +264,6 @@ public class SpriteCreator_2 extends Observable {
 		mySPTAI.setSpriteObject(mySpriteObject);
 		nameInput.setText(mySpriteObject.getName());
 	}
-	
-	
-	private void copySpriteFileToProject(){
-		if (mySpriteFile!=null) {
-			try {
-				myGDH.addFileToProject(mySpriteFile);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				throw new RuntimeException();
-			}
-		}
-	}
 
 	private void openImage() throws IOException {
 		FileChooser imageChooser = new FileChooser();

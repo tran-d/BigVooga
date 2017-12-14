@@ -13,12 +13,6 @@ public class SpriteSetMenuTemplate extends SpriteSet {
 //		;
 		setFolderToLoad("");
 	}
-
-//	@Override
-//	protected void makeSpritePanel(SpriteGridHandler SGH) {
-//		mySSP = new SpriteSelectPanel("InventoryTemplates", SGH);
-//		mySSP.setupDefaultSprites(getAllSprites());
-//	}
 	
 	public void changeFolderPath(String newFolder){
 		

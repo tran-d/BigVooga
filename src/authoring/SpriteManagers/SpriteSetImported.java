@@ -9,20 +9,15 @@ public class SpriteSetImported extends SpriteSet {
 	}
 
 	@Override
-	protected void setFolderToLoad() {
-//		;
-		setFolderToLoad("");
+	public void setFolderToLoad() {
+		String importedSpritesPath = myGDH.getImportedSpritesPath();
+		System.out.println("HERE'S THE PATH WE ARE IMPORTING SPRITES FROM: " + importedSpritesPath);
+		setFolderToLoad(importedSpritesPath);
 	}
-
-//	@Override
-//	protected void makeSpritePanel(SpriteGridHandler SGH) {
-//		mySSP = new SpriteSelectPanel("IMPORTEDSPRITES", SGH);
-//		mySSP.setupDefaultSprites(getAllSprites());
-//	}
 	
-	public void changeFolderPath(String newFolder){
+	public void changeFolderPath(){
 		this.categoryToSprites.clear();
-		this.setFolderToLoad(newFolder);
+		this.setFolderToLoad();
 		this.loadSprites();
 	}
 }
