@@ -71,6 +71,8 @@ public class DialogueEditor extends DisplayableEditor {
 	private ColorPicker backgroundColorCP;
 	private SVGPath svg;
 	private Image image;
+	private String currentFile;
+	private Color bgColor;
 
 	public DialogueEditor(Consumer<String> saveCons) {
 		this.saveConsumer = saveCons;
@@ -107,8 +109,8 @@ public class DialogueEditor extends DisplayableEditor {
 		return dsp.getDialogueSequence();
 	}
 	
-	protected Color getBackgroundColor() {
-		return backgroundColorCP.getValue();
+	protected String getBackgroundColor() {
+		return backgroundColorCP.getValue().toString();
 	}
 	
 	protected VBox getView() {
@@ -116,8 +118,8 @@ public class DialogueEditor extends DisplayableEditor {
 		return view;
 	}
 	
-	protected Image getBackgroundImage() {
-		return image;
+	protected String getBackgroundImage() {
+		return currentFile;
 	}
 
 	/*************************** PRIVATE METHODS *********************************/
@@ -171,8 +173,10 @@ public class DialogueEditor extends DisplayableEditor {
 	protected void chooseBackgroundImage() {
 		File file = retrieveFileForImageUpload(this.getParent());
 		if (file != null) {
-			image = new Image(GameDataHandler.getImageURIAndCopyToResources(file));
+			currentFile = GameDataHandler.getImageURIAndCopyToResources(file);
+			image = new Image(currentFile);
 			dsp.setBackgroundImage(image);
+			backgroundColorCP.setValue(null);
 		}
 	}
 	
@@ -218,7 +222,8 @@ public class DialogueEditor extends DisplayableEditor {
     
 	@Override
 	protected void changeBackgroundColor() {
-    		dsp.setBackgroundColor(backgroundColorCP.getValue());
+		currentFile = null;
+		dsp.setBackgroundColor(backgroundColorCP.getValue());
     }
 
 	@Override

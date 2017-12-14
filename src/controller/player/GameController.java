@@ -24,9 +24,8 @@ public class GameController {
 	private GameDataHandler gameDataHandler;
 	
 	/**
-	 * Delegates the correct instances to the correct classes for the player to appropriately work with the engine. This involves the intermediary
-	 * PlayerManager which contains methods to communicate between player and engine, and thus has the instance of both player and engine
-	 * passed to it. Likewise, the player and engine both have an instance of the PlayerManager to access its methods.
+	 * Sets up the interactions between the player and engine, while also including the functionality for either a new game or a continued game
+	 * based on in-game saving.
 	 * 
 	 * @param currentStage - The instance of the stage
 	 * @param projectName - Name of game being played
@@ -42,6 +41,15 @@ public class GameController {
 		setup(currentStage, projectName, currentSceneController);
 	}
 	
+	/**
+	 * Delegates the correct instances to the correct classes for the player to appropriately work with the engine. This involves the intermediary
+	 * PlayerManager which contains methods to communicate between player and engine, and thus has the instance of both player and engine
+	 * passed to it. Likewise, the player and engine both have an instance of the PlayerManager to access its methods.
+	 * 
+	 * @param currentStage - The instance of the stage
+	 * @param projectName - Name of game being played
+	 * @param currentSceneController - The instance of the scene controller
+	 */
 	private void setup(Stage currentStage, String projectName, SceneController currentSceneController) {
 		stage = currentStage;
 		sceneController = currentSceneController;
