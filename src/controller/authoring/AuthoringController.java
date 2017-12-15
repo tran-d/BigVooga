@@ -64,12 +64,13 @@ public class AuthoringController {
 	private GameDataHandler GDH;
 
 	public AuthoringController(Scene currentScene, Stage currentStage, Pane currentAuthoringPane, GameDataHandler currentGDH) {
+		
 		scene = currentScene;
 		authoringPane = currentAuthoringPane;
 		GDH = currentGDH;
 		activeManagerProperty = new SimpleObjectProperty<MapManager>();
 		activeManagerProperty.addListener((change, previousManager, newManager) -> {
-			;
+			
 			if (previousManager != null) {
 				previousManager.gridIsNotShowing();
 			}

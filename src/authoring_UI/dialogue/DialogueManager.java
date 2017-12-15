@@ -93,7 +93,6 @@ public class DialogueManager extends DisplayableManager {
 		listView = new DialogueListView(dExtractor.getDialogueList());
 		counter++;
 		System.out.println("Yieks its broken" + counter);
-		//mapDialoguesTab.setContent(listView);
 	}
 
 	@Override

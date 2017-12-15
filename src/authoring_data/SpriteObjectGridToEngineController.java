@@ -127,7 +127,6 @@ public class SpriteObjectGridToEngineController {
 		List<BoundedImage> bimages = new ArrayList<BoundedImage>();
 		AAS.getImages().forEach((ASI)->{
 			BoundedImage converted = convertAnimationSequenceImageToBoundedImage(ASI);
-			;
 			bimages.add(converted);
 		});
 		AnimationSequence ret = new AnimationSequence(AAS.getName(), bimages);
