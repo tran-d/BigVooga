@@ -68,7 +68,8 @@ public class CutsceneEditor extends DisplayableEditor {
 	private SVGPath svg;
 	private Image image;
 	private GameDataHandler GDH;
-
+	private boolean backgroundIsColor;
+	private String currentFile;
 
 	public CutsceneEditor(Consumer<String> saveCons, GameDataHandler GDH) {
 		this.saveConsumer = saveCons;
@@ -103,12 +104,12 @@ public class CutsceneEditor extends DisplayableEditor {
 		return fontColorCP.getValue();
 	}
 	
-	protected List<Pane> getDialogueSequence() {
+	protected List<Pane> getCutsceneSequence() {
 		return cutsceneView.getCutsceneSequence();
 	}
 	
-	protected Color getBackgroundColor() {
-		return backgroundColorCP.getValue();
+	protected String getBackgroundColor() {
+		return backgroundColorCP.getValue().toString();
 	}
 	
 	protected VBox getView() {
@@ -116,8 +117,8 @@ public class CutsceneEditor extends DisplayableEditor {
 		return view;
 	}
 	
-	protected Image getBackgroundImage() {
-		return image;
+	protected String getBackgroundImage() {
+		return currentFile;
 	}
 
 	/*************************** PRIVATE METHODS *********************************/
@@ -145,10 +146,10 @@ public class CutsceneEditor extends DisplayableEditor {
 		backgroundHBox.getChildren().addAll(new HBox(makeEntry(BACKGROUND_COLOR_PROMPT, backgroundColorCP)), 
 											createSeparator(), createSetBackgroundButton());
 		
-		VBox dialogueModifiersBox = new VBox(20);
-		dialogueModifiersBox.getChildren().addAll(new HBox(makeEntry(NAME_PROMPT, nameTF)), textHBox, backgroundHBox);
+		VBox cutsceneModifiersBox = new VBox(20);
+		cutsceneModifiersBox.getChildren().addAll(new HBox(makeEntry(NAME_PROMPT, nameTF)), textHBox, backgroundHBox);
 		
-		view.getChildren().addAll(dialogueModifiersBox, cutsceneView);
+		view.getChildren().addAll(cutsceneModifiersBox, cutsceneView);
 	}
 	
 	protected Button createImageButton() {
@@ -176,17 +177,14 @@ public class CutsceneEditor extends DisplayableEditor {
 	
 	@Override
 	protected void chooseBackgroundImage() {
-		File file = retrieveFileForImageUpload();
+		File file = retrieveFileForImageUpload(this.getParent());
 		if (file != null) {
-			image = GDH.getImage(file);
+			currentFile = file.getName();
+			image =  GDH.getImage(file);
 			cutsceneView.setBackgroundImage(image);
+			backgroundColorCP.setValue(null);
+			backgroundIsColor = false;
 		}
-	}
-	
-	protected File retrieveFileForImageUpload() {
-		File file = super.retrieveFileForImageUpload(this.getParent());
-		
-		return file;
 	}
 
 	private void makeInputFields() {
@@ -230,7 +228,9 @@ public class CutsceneEditor extends DisplayableEditor {
     
 	@Override
 	protected void changeBackgroundColor() {
-    		cutsceneView.setBackgroundColor(backgroundColorCP.getValue());
+		currentFile = null;
+		cutsceneView.setBackgroundColor(backgroundColorCP.getValue());
+		backgroundIsColor = true;
     }
 
 	@Override
@@ -247,6 +247,17 @@ public class CutsceneEditor extends DisplayableEditor {
 			}
 		});
 		return cb;
+
+	}
+	
+	protected File getFileForImageUpload() {
+		File file = super.retrieveFileForImageUpload(this.getParent());
+		
+		return file;
+	}
+	
+	protected boolean getBackgroundIsColor () {
+		return backgroundIsColor;
 	}
 
 }

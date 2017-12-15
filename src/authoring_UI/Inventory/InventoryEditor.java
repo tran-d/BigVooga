@@ -73,10 +73,6 @@ public class InventoryEditor extends DisplayableEditor {
 		return view;
 	}
 	
-	protected List<Pane> getInventorySequence() {
-		return isp.getInventorySequence();
-	}
-	
 	protected String getBackgroundColor() {
 		return backgroundColorCP.getValue().toString();
 	}

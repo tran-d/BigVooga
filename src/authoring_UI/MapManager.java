@@ -249,6 +249,10 @@ public class MapManager extends TabPane {
 	public Tab getDialoguesTab() {
 		return spritePanels.getDialoguesTab();
 	}
+	
+	public Tab getCutscenesTab() {
+		return spritePanels.getCutscenesTab();
+	}
 
 	public List<DraggableGrid> getAllWorlds() {
 		System.out.println("SIZE OF ALL WORLDS: " + allWorlds.size()); // 3 even after I delete.

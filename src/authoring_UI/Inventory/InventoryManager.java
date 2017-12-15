@@ -36,20 +36,17 @@ public class InventoryManager extends DisplayableManager {
 	private static final String SAVE_BUTTON_PROMPT = "Save";
 
 	private HBox hb;
-	private InventoryEditor currentEditor;
-	private List<InventoryEditor> editorList;
-	private int currentEditorIndex = 0;
 	private InventoryExtractor iExtractor;
 	private InventoryListView listView;
 
 	private Tab mapInventoriesTab;
 	private GameDataHandler GDH;
 	private AuthoringEnvironmentManager AEM;
+	private InventoryEditor currentEditor;
 
 	public InventoryManager(AuthoringEnvironmentManager currentAEM) {
 		AEM = currentAEM;
 		GDH = AEM.getGameDataHandler();
-		editorList = new ArrayList<>();
 		iExtractor = new InventoryExtractor();
 		hb = new HBox(NODE_SPACING);
 		hb.setLayoutX(35);
@@ -74,21 +71,8 @@ public class InventoryManager extends DisplayableManager {
 
 	/*************************** PUBLIC METHODS **********************************/
 
-	public void addInventoryListener(Tab inventoriesTab) {
-		mapInventoriesTab = inventoriesTab;
-		System.out.println("YIPPEE");
-		updateListView();
-	}
-
 	public HBox getPane() {
 		return hb;
-	}
-	
-	@Override
-	protected void updateListView() {
-		iExtractor.extract(editorList);
-		listView = new InventoryListView(iExtractor.getInventoryList());
-		mapInventoriesTab.setContent(listView);
 	}
 
 	@Override
@@ -101,11 +85,6 @@ public class InventoryManager extends DisplayableManager {
 				//DialogSequence dialogSequence = new DialogSequence(currentEditor.getName(), currentEditor.getInventorySequence(), currentEditor.getBackgroundColor());
 				//AEM.getDialogSpriteController().addNewDialogSequence(dialogSequence);
 			}
-			
-			if (editorList.contains(currentEditor)) {
-				editorList.remove(currentEditor);
-			}
-			editorList.add(currentEditorIndex, currentEditor);
 
 			// editorList.add(currentEditor);
 			// currentEditor = null;
@@ -115,30 +94,8 @@ public class InventoryManager extends DisplayableManager {
 
 	protected void newEditor() {
 		currentEditor = new InventoryEditor(e -> save(), GDH);
-		currentEditorIndex = editorList.size();
+		hb.getChildren().addAll(createShortSeparator(400), currentEditor.getParent());
 
-		loadEditor(currentEditorIndex);
-	}
-
-	protected void loadEditor(int index) {
-
-		;
-		
-		if (hb.getChildren().size() >= 4) {
-			hb.getChildren().remove(5 - 1);
-			hb.getChildren().remove(4 - 1);
-
-		}
-
-		if (editorList.size() <= index) {
-			hb.getChildren().addAll(createShortSeparator(400), currentEditor.getParent());
-		} else {
-			hb.getChildren().addAll(createShortSeparator(400), editorList.get(index).getParent());
-			currentEditor = editorList.get(index);
-
-		}
-
-		currentEditorIndex = index;
 	}
 
 	protected VBox createButtonPanel() {

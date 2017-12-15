@@ -43,6 +43,7 @@ public class GameElementSelector extends TabPane implements Observer {
 	
 	protected static final String SPRITES = "Sprites";
 	protected static final String DIALOGUES = "Dialogues";
+	protected static final String CUTSCENES = "Cutscenes";
 	protected static final String DEFAULT = "Default";
 	protected static final String USER = "User";
 	protected static final String IMPORTED = "Imported";
@@ -63,6 +64,7 @@ public class GameElementSelector extends TabPane implements Observer {
 	protected SpriteGridHandler mySpriteGridHandler;
 	private Tab dialoguesTab;
 	protected String myType;
+	private Tab cutscenesTab;
 	
 	protected GameElementSelector(SpriteGridHandler spriteGridHandler, AuthoringEnvironmentManager AEM){
 		this(spriteGridHandler, AEM, "");	}
@@ -97,6 +99,7 @@ public class GameElementSelector extends TabPane implements Observer {
 	protected void createSpriteTabs() {
 		TabPane spritesTabPane = new TabPane();
 		TabPane dialoguesTabPane = new TabPane();
+		TabPane cutscenesTabPane = new TabPane();
 		TabPane inventoryTabPane = new TabPane();
 		Tab defaultSpriteTab = createSubTab(DEFAULT, myAEM.getDefaultSpriteController());
 		Tab userSpriteTab = createSubTab(USER, myAEM.getCustomSpriteController());
@@ -119,6 +122,9 @@ public class GameElementSelector extends TabPane implements Observer {
 		
 		dialoguesTab = createElementTab(DIALOGUES, dialoguesTabPane);
 		dialoguesTab.setClosable(false);
+		
+		cutscenesTab = createElementTab(CUTSCENES, cutscenesTabPane);
+		cutscenesTab.setClosable(false);
 		
 		Tab inventoryTab = createElementTab(INVENTORY, inventoryTabPane);
 		inventoryTab.setClosable(false);
@@ -213,5 +219,9 @@ public class GameElementSelector extends TabPane implements Observer {
 	
 	public Tab getDialoguesTab() {
 		return dialoguesTab;
+	}
+	
+	public Tab getCutscenesTab() {
+		return cutscenesTab;
 	}
 }

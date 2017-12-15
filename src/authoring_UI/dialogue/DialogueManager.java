@@ -84,8 +84,6 @@ public class DialogueManager extends DisplayableManager {
 	public HBox getPane() {
 		return hb;
 	}
-
-	static int counter = 0;
 	
 	@Override
 	protected void updateListView() {

@@ -98,16 +98,16 @@ public class AuthoringController {
 		myInventorySCM = new SpriteCreatorManagerSlack(AEM, scene, "InventoryObject");
 		viewMap.put(INVENTORY_CREATOR_KEY, myInventorySCM.getPane());
 
-		CutsceneManager cm = new CutsceneManager(GDH);
-		//cm.addCutsceneListener(mapManager.getDialoguesTab());
+		CutsceneManager cm = new CutsceneManager(AEM);
+		cm.addCutsceneListener(mapManager.getCutscenesTab());
 		viewMap.put(CUTSCENES_KEY, cm.getPane());
 
 		DialogueManager dm = new DialogueManager(AEM);
-		//dm.addDialogueListener(mapManager.getDialoguesTab());
+		dm.addDialogueListener(mapManager.getDialoguesTab());
 		viewMap.put(DIALOGUE_KEY, dm.getPane());
 		
 		InventoryManager inventoryManager = new InventoryManager(AEM);
-		inventoryManager.addInventoryListener(mapManager.getDialoguesTab());
+		//inventoryManager.;
 		viewMap.put(INVENTORY_KEY, inventoryManager.getPane());
 
 		HUDManager hudManager = new HUDManager(AEM, scene);
