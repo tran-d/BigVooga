@@ -5,12 +5,13 @@ import java.util.List;
 import authoring.Sprite.AbstractSpriteObject;
 import authoring_UI.SpriteGridHandler;
 import authoring_UI.Map.TerrainLayer;
+import engine.utilities.data.GameDataHandler;
 import javafx.scene.paint.Color;
 
 public class TerrainObjectGridManager extends SpriteObjectGridManager{
 
-	public TerrainObjectGridManager(int rows, int cols, SpriteGridHandler SGH){
-		super(rows, cols, SGH);
+	public TerrainObjectGridManager(int rows, int cols, SpriteGridHandler SGH, GameDataHandler GDH){
+		super(rows, cols, SGH, GDH);
 		myLayerNum = 1;
 	}
 	

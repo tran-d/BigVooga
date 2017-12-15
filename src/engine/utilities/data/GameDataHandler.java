@@ -48,12 +48,12 @@ import javafx.stage.Window;
  *
  */
 public class GameDataHandler {
+	// An unfortunate concession to the slowness of the file system
+	private static String root;
+
 	private static final String DIRECTORY_PATH = "Directory Path";
-
 	private static final XStream SERIALIZER = setupXStream();
-
 	public static final String RESOURCES = "resources/";
-
 	private static final String KNOWN_PROJECTS = RESOURCES + "KnownProjectNames.txt";
 	private static final String ENGINE_PATH = "engine/";
 	private static final String CONTROLLER_FILE = "Engine_Controller_Save_File";
@@ -86,7 +86,6 @@ public class GameDataHandler {
 	private String myImportProjectPath;
 	private String projectPath;
 	private String projectName;
-	private String root;
 
 	private static XStream setupXStream() {
 		XStream xstream = new XStream(new DomDriver());
@@ -97,33 +96,17 @@ public class GameDataHandler {
 		xstream.allowTypesByWildcard(new String[] { "engine.**", "java.**" });
 		return xstream;
 	}
-
+	
 	public GameDataHandler(Stage s) {
-		this(()->selectDirectory(s).getAbsolutePath());
+		this(() -> selectDirectory(s).getAbsolutePath());
 	}
-	
+
 	public GameDataHandler(Stage s, String projectName) {
-		this(()->selectDirectory(s).getAbsolutePath(), projectName);
+		this(() -> selectDirectory(s).getAbsolutePath(), projectName);
 	}
-	
+
 	public GameDataHandler(Supplier<String> pathSupplier) {
 		this(pathSupplier, "Test Project");
-	}
-	
-	public String getImportedInventorySpritesPath() {
-		String path = "";
-		if (myImportProjectPath != null) {
-			path = root + myImportProjectPath + "/" + PROJECT_USER_SPRITE_PATH + INVENTORY_SPRITE_FOLDER;
-		}
-		return path;
-	}
-	
-	public String getImportedSpritesPath() {
-		String path = "";
-		if (myImportProjectPath != null) {
-			path = root + myImportProjectPath + "/" + PROJECT_USER_SPRITE_PATH + CUSTOM_SPRITE_FOLDER;
-		}
-		return path;
 	}
 
 	public GameDataHandler(Supplier<String> pathSupplier, String projectName) {
@@ -162,8 +145,7 @@ public class GameDataHandler {
 
 	private void makeDirectories() {
 		String[] pathsToMake = new String[] { ENGINE_PATH, RESOURCES, PROJECT_WORLD_PATH, PROJECT_WORLD_PATH,
-				PROJECT_LAYER_SPRITE_PATH, DEFAULT_SPRITE_FOLDER, CUSTOM_SPRITE_FOLDER,
-				INVENTORY_SPRITE_FOLDER };
+				PROJECT_LAYER_SPRITE_PATH, DEFAULT_SPRITE_FOLDER, CUSTOM_SPRITE_FOLDER, INVENTORY_SPRITE_FOLDER };
 		for (String s : pathsToMake) {
 			makeDirectory(projectPath + s);
 		}
@@ -171,6 +153,8 @@ public class GameDataHandler {
 	}
 
 	private String getPath(Supplier<String> pathSupplier) {
+		if (root != null)
+			return root;
 		try {
 			ResourceBundle local = ResourceBundle.getBundle(LOCAL);
 			String s = local.getString(DIRECTORY_PATH);
@@ -294,6 +278,11 @@ public class GameDataHandler {
 		cache.put(fileName, i);
 		return i;
 	}
+	
+	public Image getImage(File file) {
+		addFileToProject(file);
+		return getImage(file.getName());
+	}
 
 	/**
 	 * @param file
@@ -322,12 +311,12 @@ public class GameDataHandler {
 	}
 
 	public static File selectDirectory(Stage stage) {
-			DirectoryChooser chooser = new DirectoryChooser();
-			chooser.setTitle("Select Workspace");
-			File ret = null;
-			while(ret == null)
-				ret = chooser.showDialog(stage);
-			return ret;
+		DirectoryChooser chooser = new DirectoryChooser();
+		chooser.setTitle("Select Workspace");
+		File ret = null;
+		while (ret == null)
+			ret = chooser.showDialog(stage);
+		return ret;
 	}
 
 	/**
@@ -342,17 +331,17 @@ public class GameDataHandler {
 		return fileChooser.showOpenDialog(window);
 	}
 
-	public String getImageURIAndCopyToResources(File file) {
-		try {
-			Files.copy(file.toPath(), Paths.get(root + RESOURCES + file.getName()),
-					StandardCopyOption.REPLACE_EXISTING);
-			addFileToProject(file);
-		} catch (IOException e) {
-			throw new VoogaException(e);
-		}
-		String URI = file.toURI().toString();
-		return URI;
-	}
+//	public String getImageURIAndCopyToResources(File file) {
+//		try {
+//			Files.copy(file.toPath(), Paths.get(root + RESOURCES + file.getName()),
+//					StandardCopyOption.REPLACE_EXISTING);
+//			addFileToProject(file);
+//		} catch (IOException e) {
+//			throw new VoogaException(e);
+//		}
+//		String URI = file.toURI().toString();
+//		return URI;
+//	}
 
 	private static void makeDirectory(String path) {
 		File file = new File(path);
@@ -414,7 +403,8 @@ public class GameDataHandler {
 	}
 
 	public void saveUserCreatedSprite(SpriteObject SO) throws Exception {
-		String newSpritePath = makeValidFileName(getCustomSpriteDirectoryPath() + DEFAULT_CATEGORY + SO.getName(), SPRITE_EXTENSION);
+		String newSpritePath = makeValidFileName(getCustomSpriteDirectoryPath() + DEFAULT_CATEGORY + SO.getName(),
+				SPRITE_EXTENSION);
 		saveSprite(SO, newSpritePath);
 	}
 
@@ -496,7 +486,7 @@ public class GameDataHandler {
 		makeDirectory(worldPath);
 		worldDraggableGrids.forEach(world -> {
 			String savePath = worldPath + world.getName();
-			MapDataConverter MDC = new MapDataConverter(world);
+			MapDataConverter MDC = new MapDataConverter(world, this);
 			try {
 				saveWorld(MDC, savePath);
 			} catch (Exception e) {
@@ -536,7 +526,6 @@ public class GameDataHandler {
 		}
 		return currentDGList;
 	}
-
 
 	private List<AbstractSpriteObject> loadSpritesFromDirectory(File directory) throws Exception {
 		;
@@ -616,9 +605,25 @@ public class GameDataHandler {
 		}
 		return ret;
 	}
+	
+	public String getImportedInventorySpritesPath() {
+		String path = "";
+		if (myImportProjectPath != null) {
+			path = root + myImportProjectPath + "/" + PROJECT_USER_SPRITE_PATH + INVENTORY_SPRITE_FOLDER;
+		}
+		return path;
+	}
+
+	public String getImportedSpritesPath() {
+		String path = "";
+		if (myImportProjectPath != null) {
+			path = root + myImportProjectPath + "/" + PROJECT_USER_SPRITE_PATH + CUSTOM_SPRITE_FOLDER;
+		}
+		return path;
+	}
 
 	public void saveDialogSequence(DialogSequence dS, String folderToSaveTo) {
-		saveToFile(dS, folderToSaveTo+DIALOG_EXTENSION);
+		saveToFile(dS, folderToSaveTo + DIALOG_EXTENSION);
 	}
 
 	public String getRoot() {

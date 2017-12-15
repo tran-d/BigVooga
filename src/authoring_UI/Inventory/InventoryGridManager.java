@@ -5,6 +5,7 @@ import java.util.List;
 import authoring.GridManagers.SpriteObjectGridManager;
 import authoring.Sprite.AbstractSpriteObject;
 import authoring_UI.SpriteGridHandler;
+import engine.utilities.data.GameDataHandler;
 
 public class InventoryGridManager extends SpriteObjectGridManager {
 	
@@ -12,16 +13,16 @@ public class InventoryGridManager extends SpriteObjectGridManager {
 	private static int COLUMNS = 5;
 	
 	
-	public InventoryGridManager(SpriteGridHandler SGH){
-		super(ROWS, COLUMNS, SGH);
+	public InventoryGridManager(SpriteGridHandler SGH, GameDataHandler GDH){
+		super(ROWS, COLUMNS, SGH, GDH);
 	}
 	
 	public InventoryGridManager(){
 		super(ROWS, COLUMNS);
 	}
 
-	protected InventoryGridManager(int rows, int columns, SpriteGridHandler SGH) {
-		super(rows, columns, SGH);
+	protected InventoryGridManager(int rows, int columns, SpriteGridHandler SGH, GameDataHandler GDH) {
+		super(rows, columns, SGH, GDH);
 	}
 	
 	@Override

@@ -6,12 +6,13 @@ import authoring.Sprite.AbstractSpriteObject;
 import authoring_UI.SpriteGridHandler;
 import authoring_UI.Map.PanelLayer;
 import authoring_UI.Map.TerrainLayer;
+import engine.utilities.data.GameDataHandler;
 import javafx.scene.paint.Color;
 
 public class PanelObjectGridManager extends SpriteObjectGridManager{
 
-	public PanelObjectGridManager(int rows, int columns, SpriteGridHandler SGH) {
-		super(rows, columns, SGH);
+	public PanelObjectGridManager(int rows, int columns, SpriteGridHandler SGH, GameDataHandler GDH) {
+		super(rows, columns, SGH, GDH);
 		myLayerNum = 3;
 	}
 	
