@@ -123,6 +123,7 @@ public class SpriteDataConverter {
 		System.out.println("Sprite Converter ImageURL: "+imageURL);
 		ret.setImageURL(imageURL);
 		ret.setGameDataHandler(myGDH);
+		ret.setIsLoadingFromXML(true);
 		return ret;
 	}
 	

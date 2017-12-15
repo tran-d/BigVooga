@@ -27,6 +27,7 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 	private VBox treeViewVBox;
 	private Supplier<List<AbstractSpriteObject>> supplier;
 
+	// for creating a new row
 	public ConditionRow(int ID, ObservableList<Integer> newActionOptions, ConditionVBox<ConditionRow> ACVBox,Supplier<List<AbstractSpriteObject>> supplier) {
 		super(ID, ACVBox,supplier);
 		addActionCheckBox(newActionOptions);
@@ -39,6 +40,7 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 
 	}
 
+	// for loading from selected sprite on scene
 	public ConditionRow(int ID, ObservableList<Integer> newActionOptions, List<Integer> selectedActionOptions,
 			ConditionVBox<ConditionRow> ACVBox, ConditionTreeView tv,Supplier<List<AbstractSpriteObject>> supplier) {
 //		this(ID, newActionOptions, ACVBox,supplier);
@@ -55,6 +57,7 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 
 	}
 
+	// for loading from XML
 	public ConditionRow(int ID, ObservableList<Integer> newActionOptions, List<Integer> selectedActionOptions,
 			ConditionVBox<ConditionRow> ACVBox, String selectedOperation, Condition condition,Supplier<List<AbstractSpriteObject>> supplier) {
 //		this(ID, newActionOptions, ACVBox,supplier);

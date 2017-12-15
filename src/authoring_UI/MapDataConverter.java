@@ -8,6 +8,7 @@ import authoring.GridManagers.SpriteObjectGridManager;
 import engine.utilities.data.GameDataHandler;
 
 public class MapDataConverter {
+
 //	private final XStream SERIALIZER = setupXStream();
 	private String myName;
 //	private String layerPath;

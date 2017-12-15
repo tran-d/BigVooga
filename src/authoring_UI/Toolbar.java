@@ -71,7 +71,6 @@ public class Toolbar extends ToolBar {
 	 * Creates the File dropdown button and its 5 options: Load, Save, Import, Export, and Exit. 
 	 */
 	private void createFileOptions() {
-		
 		MenuItem load = new MenuItem();
 		load.textProperty().bind(DisplayLanguage.createStringBinding(LOAD_STRING));
 		load.setOnAction(e -> this.loadNewGame());
