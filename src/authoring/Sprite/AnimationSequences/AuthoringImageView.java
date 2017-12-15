@@ -3,6 +3,7 @@ package authoring.Sprite.AnimationSequences;
 import java.io.File;
 
 import engine.sprite.BoundedImage;
+import engine.utilities.data.GameDataHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -11,18 +12,20 @@ public class AuthoringImageView extends ImageView{
 	private String imagePath;
 	private BoundedImage boundedImage;
 	
-	public AuthoringImageView(String path, Image im){
-		super(im);
+	public AuthoringImageView(String path){
+		super();
 //		File f = new File(path);
 		imagePath = path;
 	}
 	
-	public AuthoringImageView(String path, Image im, BoundedImage bImage){
-		this(path, im);
+	public AuthoringImageView(String path, BoundedImage bImage){
+		super();
+//		File f = new File(path);
 		boundedImage = bImage;
+		imagePath = path;
 	}
 	
-	public AuthoringImageView(String path){
+	public AuthoringImageView(String path, GameDataHandler GDH){
 //		System.out.println("AIV path: "+path);
 //		File f = new File(path);
 		Image im = GDH.getImage(path);
@@ -30,18 +33,14 @@ public class AuthoringImageView extends ImageView{
 		setImage(im);
 	}
 	
-	public AuthoringImageView(String path, BoundedImage bImage){
-		this(path);
+	public AuthoringImageView(String path, BoundedImage bImage, GameDataHandler GDH){
+		this(path, GDH);
 		boundedImage = bImage;
 	}
 	
 	public AuthoringImageView(AuthoringImageView image) {
 		imagePath = new String(image.getImagePath());
 		setImage(image.getImage());
-	}
-
-	public AuthoringImageView(Image image) {
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getImagePath(){

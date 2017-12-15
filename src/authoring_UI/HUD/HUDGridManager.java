@@ -21,8 +21,10 @@ public class HUDGridManager extends SpriteObjectGridManager {
 		super(ROWS, COLUMNS);
 	}
 
+
 	protected HUDGridManager(int rows, int columns, SpriteGridHandler SGH, GameDataHandler GDH) {
 		super(rows, columns, SGH, GDH);
+
 	}
 	
 	@Override

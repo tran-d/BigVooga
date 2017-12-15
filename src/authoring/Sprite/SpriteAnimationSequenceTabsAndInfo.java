@@ -49,9 +49,11 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	private VBox animationVBox;
 	private VBox buttonsVbox;
 	private AuthoringAnimationSequence activeAnimationSeqeunce;
+	private GameDataHandler GDH;
 
-	public SpriteAnimationSequenceTabsAndInfo() {
+	public SpriteAnimationSequenceTabsAndInfo(GameDataHandler currentGDH) {
 		initialize();
+		GDH = currentGDH;
 	}
 
 	public void setSpriteObject(AbstractSpriteObject SO) {
@@ -122,7 +124,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 
 			File file = GameDataHandler.chooseFileForImageLoad(s.getWindow());
 			Image im = GDH.getImage(file);
-			AuthoringImageView AIV = new AuthoringImageView(file.getName());
+			AuthoringImageView AIV = new AuthoringImageView(file.getName(), GDH);
 			makeBoundedImagePopup(AIV, im, file.getName());
 			addNewAuthoringImageViewToSequence(this.activeAnimationSeqeunce, AIV);
 		});

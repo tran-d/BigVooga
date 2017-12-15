@@ -69,9 +69,11 @@ public class CutsceneEditor extends DisplayableEditor {
 	private Image image;
 	private GameDataHandler GDH;
 
+
 	public CutsceneEditor(Consumer<String> saveCons, GameDataHandler GDH) {
 		this.saveConsumer = saveCons;
 		this.GDH = GDH;
+
 		view = new VBox(10);
 		view.getStylesheets().add(DialogueManager.class.getResource("dialogue.css").toExternalForm());
 

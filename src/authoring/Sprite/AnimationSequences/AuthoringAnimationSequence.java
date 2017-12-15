@@ -82,7 +82,7 @@ public class AuthoringAnimationSequence {
 		myContainerVbox.getChildren().remove(0);
 		addNewAuthoringImageViewToSequence(AIV, true);
 		} else {
-			this.myImages.add(new AnimationSequenceImage(AIV));
+			this.myImages.add(0,new AnimationSequenceImage(AIV));
 		}
 		
 	}
