@@ -30,7 +30,7 @@ public class SpriteCreatorManagerSlack extends MapManager{
 	protected DraggableGrid makeDraggableGrid(){
 		DraggableGrid ret = new DraggableGrid(GDH);
 		if (myType.equals("SpriteObject")){
-		SpriteCreatorGridBE = new SpriteCreatorGridManager(myAEM, (Image im, String filePath)->new SpriteObject(filePath, GDH));
+			SpriteCreatorGridBE = new SpriteCreatorGridManager(myAEM, (Image im, String filePath)->new SpriteObject(filePath, GDH));
 		} else if (myType.equals("InventoryObject")){
 			SpriteCreatorGridBE = new SpriteCreatorGridManager(myAEM, (Image im, String filePath) -> new InventoryObject(filePath, GDH));
 		} else {

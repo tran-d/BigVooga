@@ -65,7 +65,7 @@ public class ApplyButtonController {
 				rowCond++;
 			}
 		}
-		conditionVBox = new ConditionVBox<ConditionRow>(conditionRows);
+		conditionVBox = new ConditionVBox<ConditionRow>(conditionRows,conditionTab.getSupplier());
 		List<ActionRow> actionRows = new LinkedList<ActionRow>();
 		ActionVBox<ActionRow> actionVBox = new ActionVBox<ActionRow>(actionTab.getSupplier());
 		int rowAct = 1;
