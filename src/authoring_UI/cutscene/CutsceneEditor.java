@@ -66,9 +66,11 @@ public class CutsceneEditor extends DisplayableEditor {
 	private ColorPicker backgroundColorCP;
 	private SVGPath svg;
 	private Image image;
+	private GameDataHandler GDH;
 
-	public CutsceneEditor(Consumer<String> saveCons) {
+	public CutsceneEditor(Consumer<String> saveCons, GameDataHandler currentGDH) {
 		this.saveConsumer = saveCons;
+		GDH = currentGDH;
 		view = new VBox(10);
 		view.getStylesheets().add(CutsceneManager.class.getResource("cutscene.css").toExternalForm());
 
