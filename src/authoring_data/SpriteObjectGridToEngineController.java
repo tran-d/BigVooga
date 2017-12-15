@@ -145,6 +145,9 @@ public class SpriteObjectGridToEngineController {
 	}
 	
 	private BoundedImage convertAnimationSequenceImageToBoundedImage(AnimationSequenceImage ASI){
+
+		if(ASI.getImage().getBoundedImage() != null)
+			return ASI.getImage().getBoundedImage();
 		return new BoundedImage(ASI.getImage().getImagePath());
 	}
 	
