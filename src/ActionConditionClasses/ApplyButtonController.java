@@ -75,15 +75,16 @@ public class ApplyButtonController {
 		conditionVBox = new ConditionVBox<ConditionRow>(conditionRows,conditionTab.getSupplier());
 		List<ActionRow> actionRows = new LinkedList<ActionRow>();
 		ActionVBox<ActionRow> actionVBox = new ActionVBox<ActionRow>(actionTab.getSupplier());
-		int rowAct = 1;
 		// if loading from xml
 		if (selectedSpriteObject.getIsLoadingFromXML()) {
 			System.out.println("action treeview list is null");
-			ActionRow actionRow = new ActionRow(rowAct, actionVBox, selectedActionOperations.get(rowAct - 1),
-					spriteActions.get(rowAct - 1),actionTab.getSupplier());
-			actionRows.add(actionRow);
-			rowAct++;
+			for(int rowAct = 1; rowAct <= spriteActions.size(); rowAct++) {
+				ActionRow actionRow = new ActionRow(rowAct, actionVBox, selectedActionOperations.get(rowAct - 1),
+						spriteActions.get(rowAct - 1),actionTab.getSupplier());
+				actionRows.add(actionRow);
+			};
 		} else {
+			int rowAct = 1;
 			System.out.println("action treeview list is not null");
 			for (ActionTreeView actionTreeView : actions) {
 				ActionRow actionRow = new ActionRow(rowAct, actionVBox, actionTreeView,actionTab.getSupplier());
