@@ -281,7 +281,9 @@ public class GameDataHandler {
 	
 	public Image getImage(File file) {
 		addFileToProject(file);
-		return getImage(file.getName());
+		Image im = getImage(file.getName());
+		cache.put(file.getName(), im);
+		return im;
 	}
 
 	/**
