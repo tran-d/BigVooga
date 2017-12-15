@@ -30,28 +30,29 @@ public class BuildConditionView {
 		stage.setOnCloseRequest(event -> transportActionRow(event));
 
 		root.getChildren().add(this.conditionRow);
-		
-//		scene.getStylesheets().add(MainAuthoringGUI.class.getResource(AUTHORING_CSS).toExternalForm());
+
+		// scene.getStylesheets().add(MainAuthoringGUI.class.getResource(AUTHORING_CSS).toExternalForm());
 	}
 
 	private void transportActionRow(WindowEvent event) {
 
 		try {
 			conditionRow.getCondition();
-			conditionRow.reduceTreeView();
-
-			if (ACVBox.getChildren().size() >= conditionRow.getRowID())
-				ACVBox.getChildren().remove(conditionRow.getRowID() - 1);
-			ACVBox.getChildren().add(conditionRow.getRowID() - 1, conditionRow);
-
-			stage.close();
 
 		} catch (Exception e) {
-			e.printStackTrace();
 			ConditionTreeView.showError(e.getMessage());
-			event.consume();
+	
+			// event.consume();
 
 		}
+
+		conditionRow.reduceTreeView();
+
+		if (ACVBox.getChildren().size() >= conditionRow.getRowID())
+			ACVBox.getChildren().remove(conditionRow.getRowID() - 1);
+		ACVBox.getChildren().add(conditionRow.getRowID() - 1, conditionRow);
+
+		stage.close();
 
 		// KEEP THIS CODE
 		// if (conditionRow.getCondition() != null) {
