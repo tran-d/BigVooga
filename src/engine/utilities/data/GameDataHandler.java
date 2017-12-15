@@ -96,7 +96,7 @@ public class GameDataHandler {
 		xstream.allowTypesByWildcard(new String[] { "engine.**", "java.**" });
 		return xstream;
 	}
-
+	
 	public GameDataHandler(Stage s) {
 		this(() -> selectDirectory(s).getAbsolutePath());
 	}
@@ -278,6 +278,11 @@ public class GameDataHandler {
 		cache.put(fileName, i);
 		return i;
 	}
+	
+	public Image getImage(File file) {
+		addFileToProject(file);
+		return getImage(file.getName());
+	}
 
 	/**
 	 * @param file
@@ -326,17 +331,17 @@ public class GameDataHandler {
 		return fileChooser.showOpenDialog(window);
 	}
 
-	public String getImageURIAndCopyToResources(File file) {
-		try {
-			Files.copy(file.toPath(), Paths.get(root + RESOURCES + file.getName()),
-					StandardCopyOption.REPLACE_EXISTING);
-			addFileToProject(file);
-		} catch (IOException e) {
-			throw new VoogaException(e);
-		}
-		String URI = file.toURI().toString();
-		return URI;
-	}
+//	public String getImageURIAndCopyToResources(File file) {
+//		try {
+//			Files.copy(file.toPath(), Paths.get(root + RESOURCES + file.getName()),
+//					StandardCopyOption.REPLACE_EXISTING);
+//			addFileToProject(file);
+//		} catch (IOException e) {
+//			throw new VoogaException(e);
+//		}
+//		String URI = file.toURI().toString();
+//		return URI;
+//	}
 
 	private static void makeDirectory(String path) {
 		File file = new File(path);
