@@ -1,5 +1,6 @@
 package authoring.SpriteManagers;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,11 +25,11 @@ public class DialogSpriteManager {
 	protected boolean loaded = false;
 	protected List<SpriteObject> toSave;
 
-	private final String FOLDER = "Dialogue/";
+//	private final String FOLDER = "Dialogue";
 
 	public DialogSpriteManager(GameDataHandler GDH) {
 		myGDH = GDH;
-		folderToLoad = FOLDER;
+		setFolderToLoad();
 		loadSprites();
 		toSave = new ArrayList<SpriteObject>();
 	}
@@ -61,16 +62,18 @@ public class DialogSpriteManager {
 	protected void setFolderToLoad(String path) {
 		folderToLoad = path;
 	}
+	
+	private void setFolderToLoad() {
+		setFolderToLoad(myGDH.getDialogSpriteDirectoryPath());
+	}
 
 	protected void loadSprites() {
 		if (dialogSequences == null) {
 			dialogSequences = new ArrayList<DialogSequence>();
 		}
-
 		loaded = true;
 		if (!getFolderToLoad().equals("")) {
 			dialogSequences = myGDH.loadDialogsFromDirectory(getFolderToLoad());
-			;
 		}
 	}
 
@@ -78,20 +81,13 @@ public class DialogSpriteManager {
 		loaded = b;
 	}
 
-	public void addNewDialogSequence(DialogSequence DS) throws Exception {
+	public void addNewDialogSequence(DialogSequence DS) {
 
 		dialogSequences.add(DS);
-		// }
-		// if (mySSP != null) {
-		// mySSP.addNewDefaultSprite(SO);
-		// }
-		// if (mySSV != null) {
-		// mySSV.addToVBox(new SpriteThumbnail(SO));
-		// }
 		saveDialogSequence(DS);
 	}
 
-	protected void saveDialogSequence(DialogSequence DS) throws Exception {
+	protected void saveDialogSequence(DialogSequence DS) {
 		String folderToSaveTo = getFolderToLoad() + "/" + DS.getName();
 		myGDH.saveDialogSequence(DS, folderToSaveTo);
 	}

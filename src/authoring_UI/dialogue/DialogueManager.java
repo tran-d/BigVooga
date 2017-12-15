@@ -3,6 +3,7 @@ package authoring_UI.dialogue;
 import java.util.ArrayList;
 import java.util.List;
 
+import authoring.AuthoringEnvironmentManager;
 import authoring.DialogSprite.DialogSequence;
 import authoring_UI.MapManager;
 import authoring_UI.displayable.DisplayableManager;
@@ -44,9 +45,11 @@ public class DialogueManager extends DisplayableManager {
 
 	private Tab mapDialoguesTab;
 	private GameDataHandler GDH;
+	private AuthoringEnvironmentManager AEM;
 
-	public DialogueManager(GameDataHandler currentGDH) {
-		GDH = currentGDH;
+	public DialogueManager(AuthoringEnvironmentManager currentAEM) {
+		AEM = currentAEM;
+		GDH = AEM.getGameDataHandler();
 		dView = new DialogueTabPane();
 		editorList = new ArrayList<>();
 		dExtractor = new DialogueExtractor();
@@ -74,6 +77,7 @@ public class DialogueManager extends DisplayableManager {
 
 	public void addDialogueListener(Tab dialoguesTab) {
 		mapDialoguesTab = dialoguesTab;
+		System.out.println("YIPPEE");
 		updateListView();
 	}
 
@@ -95,11 +99,13 @@ public class DialogueManager extends DisplayableManager {
 	@Override
 	protected void save() {
 		if (currentEditor != null && !currentEditor.getName().trim().equals("")) {
-			if (currentEditor.getBackgroundColor() == null && currentEditor.getBackgroundImage() != null) {
+			if (!currentEditor.getBackgroundIsColor()) {
 				DialogSequence dialogSequence = new DialogSequence(currentEditor.getName(), currentEditor.getDialogueSequence(), currentEditor.getBackgroundImage());
+				AEM.getDialogSpriteController().addNewDialogSequence(dialogSequence);
 			}
-			else if (currentEditor.getBackgroundImage() == null && currentEditor.getBackgroundColor() != null) {
+			else if (currentEditor.getBackgroundIsColor()) {
 				DialogSequence dialogSequence = new DialogSequence(currentEditor.getName(), currentEditor.getDialogueSequence(), currentEditor.getBackgroundColor());
+				AEM.getDialogSpriteController().addNewDialogSequence(dialogSequence);
 			}
 			
 			if (editorList.contains(currentEditor)) {
@@ -111,7 +117,6 @@ public class DialogueManager extends DisplayableManager {
 			addUserDialogueButton(currentEditor.getName());
 			// currentEditor = null;
 		}
-		;
 
 		updateListView();
 	}
@@ -179,17 +184,18 @@ public class DialogueManager extends DisplayableManager {
 	}
 
 	private void addUserDialogueButton(String name) {
-		;
+		
 		Button btn = new Button(name);
 		btn.setPrefSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 		dView.addUserDialogueButton(currentEditorIndex, btn);
+		System.out.println(dView);
 		btn.setOnAction(e -> loadEditor(dView.getButtonIndex(btn)));
 	}
 
 	protected void delete() {
 
 		for(int i = 0; i < editorList.size(); i++) {
-			;
+			
 		}
 
 
