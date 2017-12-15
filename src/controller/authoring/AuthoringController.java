@@ -104,6 +104,10 @@ public class AuthoringController {
 		DialogueManager dm = new DialogueManager(AEM);
 		dm.addDialogueListener(mapManager.getDialoguesTab());
 		viewMap.put(DIALOGUE_KEY, dm.getPane());
+		
+		InventoryManager inventoryManager = new InventoryManager(AEM);
+		inventoryManager.addInventoryListener(mapManager.getDialoguesTab());
+		viewMap.put(INVENTORY_KEY, inventoryManager.getPane());
 
 		HUDManager hudManager = new HUDManager(AEM, scene);
 		viewMap.put(HUD_KEY, hudManager.getPane());
@@ -112,10 +116,6 @@ public class AuthoringController {
 		MenuManager menuManager = new MenuManager(AEM, scene);
 		viewMap.put(MENU_CREATOR_KEY, menuManager.getPane());
 		viewMapKeysToManager.put(MENU_CREATOR_KEY, menuManager);
-
-		InventoryManager inventoryManager = new InventoryManager(AEM, scene);
-		viewMap.put(INVENTORY_KEY, inventoryManager.getPane());
-		viewMapKeysToManager.put(INVENTORY_KEY, inventoryManager);
 	}
 
 	/**

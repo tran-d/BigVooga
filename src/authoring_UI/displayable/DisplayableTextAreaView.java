@@ -1,6 +1,8 @@
 package authoring_UI.displayable;
 
 import java.util.ArrayList;
+
+import authoring_UI.dialogue.DialogueManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -75,7 +77,7 @@ public abstract class DisplayableTextAreaView extends VBox {
 
 		ta.setBackground(bg);
 		ta.setWrapText(true);
-		String css = this.getClass().getResource("dialogue.css").toExternalForm();
+		String css = DialogueManager.class.getResource("dialogue.css").toExternalForm();
 		ta.getStylesheets().add(css);
 		
 		return ta;

@@ -1,8 +1,10 @@
-package authoring_UI.dialogue;
+package authoring_UI.Inventory;
 
 import java.io.File;
 import java.util.List;
 import java.util.function.Consumer;
+
+import authoring_UI.dialogue.DialogueManager;
 import authoring_UI.displayable.DisplayableEditor;
 import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.WelcomeScreen;
@@ -38,11 +40,11 @@ import javafx.scene.text.Font;
 import tools.DisplayLanguage;
 
 /**
- * Class that allows users to edit/save dialogues
+ * Class that allows users to edit/save inventories
  * 
  * @author DavidTran
  */
-public class DialogueEditor extends DisplayableEditor {
+public class InventoryEditor extends DisplayableEditor {
 
 	private static final String NAME_PROMPT = "Name";
 	private static final String FONT_TYPE_PROMPT = "FontType";
@@ -66,7 +68,7 @@ public class DialogueEditor extends DisplayableEditor {
 	private ChoiceBox<String> fontTypeCB;
 	private ColorPicker fontColorCP;
 	private TextField numPanelsTF;
-	private DialogueTextAreaView dsp;
+	private InventoryTextAreaView dsp;
 	private Consumer<String> saveConsumer;
 	private ColorPicker backgroundColorCP;
 	private SVGPath svg;
@@ -76,7 +78,7 @@ public class DialogueEditor extends DisplayableEditor {
 	private GameDataHandler GDH;
 	private boolean backgroundIsColor;
 
-	public DialogueEditor(Consumer<String> saveCons, GameDataHandler currentGDH) {
+	public InventoryEditor(Consumer<String> saveCons, GameDataHandler currentGDH) {
 		this.saveConsumer = saveCons;
 		GDH = currentGDH;
 		view = new VBox(10);
@@ -108,8 +110,8 @@ public class DialogueEditor extends DisplayableEditor {
 		return fontColorCP.getValue();
 	}
 	
-	protected List<Pane> getDialogueSequence() {
-		return dsp.getDialogueSequence();
+	protected List<Pane> getInventorySequence() {
+		return dsp.getInventorySequence();
 	}
 	
 	protected String getBackgroundColor() {
@@ -153,10 +155,10 @@ public class DialogueEditor extends DisplayableEditor {
 		backgroundHBox.getChildren().addAll(new HBox(makeEntry(BACKGROUND_COLOR_PROMPT, backgroundColorCP)), 
 											createSeparator(), createSetBackgroundButton());
 		
-		VBox dialogueModifiersBox = new VBox(20);
-		dialogueModifiersBox.getChildren().addAll(new HBox(makeEntry(NAME_PROMPT, nameTF)), textHBox, backgroundHBox);
+		VBox inventoryModifiersBox = new VBox(20);
+		inventoryModifiersBox.getChildren().addAll(new HBox(makeEntry(NAME_PROMPT, nameTF)), textHBox, backgroundHBox);
 		
-		view.getChildren().addAll(dialogueModifiersBox, dsp);
+		view.getChildren().addAll(inventoryModifiersBox, dsp);
 	}
 
 	@Override
@@ -202,7 +204,7 @@ public class DialogueEditor extends DisplayableEditor {
 
 		numPanelsTF = makeTextField(NUM_PANELS_PROMPT_WIDTH, PROMPT_HEIGHT);
 
-		dsp = new DialogueTextAreaView(() -> saveConsumer.accept(getName()), () -> backgroundColorCP.getValue());
+		dsp = new InventoryTextAreaView(() -> saveConsumer.accept(getName()), () -> backgroundColorCP.getValue());
 		// numPanelsTF.setOnInputMethodTextChanged(e -> checkInput());
 	}
 	
