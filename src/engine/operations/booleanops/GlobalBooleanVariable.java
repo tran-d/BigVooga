@@ -10,7 +10,7 @@ public class GlobalBooleanVariable implements BooleanOperation {
 
 	private StringOperation varName;
 
-	public GlobalBooleanVariable(@VoogaAnnotation(name = "Variable Name", type = VoogaType.BOOLEANNAME) StringOperation varName) {
+	public GlobalBooleanVariable(@VoogaAnnotation(name = "Variable Name", type = VoogaType.STRING) StringOperation varName) {
 		this.varName = varName;
 	}
 
