@@ -60,12 +60,14 @@ public class MainAuthoringGUI {
 	}
 
 	public void createAuthoringGUI() {
-		toolBar = new Toolbar(stage, sceneController);
+		myGDH = new GameDataHandler(stage, myProjectName);
+		
+		toolBar = new Toolbar(stage, sceneController, myGDH);
 		rootPane.setTop(toolBar);
 
 		authoringPane = new Pane();
 		
-		myGDH = new GameDataHandler(stage, myProjectName);
+
 		myEngineExporter = new SpriteObjectGridToEngineController(myGDH);
 		authoringController = new AuthoringController(scene, stage, authoringPane, myGDH);
 

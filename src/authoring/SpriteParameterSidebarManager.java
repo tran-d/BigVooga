@@ -73,7 +73,7 @@ public class SpriteParameterSidebarManager {
 		newNameOldName = null;
 	}
 	
-	private List<AbstractSpriteObject> getAllSpritesFromActiveGrid(){
+	public List<AbstractSpriteObject> getAllSpritesFromActiveGrid(){
 		return this.myDG.getActiveGrid().getEntireListOfSpriteObjects();
 	}
 
