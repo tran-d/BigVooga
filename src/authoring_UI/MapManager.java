@@ -219,7 +219,6 @@ public class MapManager extends TabPane {
 		this.getTabs().add(this.getTabs().size() - 1, newtab);
 		myTabCount++;
 		this.mySelectModel.select(newtab);
-		;
 	}
 
 	protected void setTabTag() {

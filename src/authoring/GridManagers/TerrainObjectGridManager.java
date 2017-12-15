@@ -15,6 +15,11 @@ public class TerrainObjectGridManager extends SpriteObjectGridManager{
 		myLayerNum = 1;
 	}
 	
+	public TerrainObjectGridManager(int rows, int cols, GameDataHandler GDH) {
+		super(rows, cols, GDH);
+		myLayerNum = 1;
+	}
+	
 	public TerrainObjectGridManager(int rows, int cols) {
 		super(rows, cols);
 		myLayerNum = 1;

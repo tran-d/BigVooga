@@ -1,9 +1,13 @@
 package authoring_actionconditions;
 
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Supplier;
+
 import ActionConditionClasses.ResourceBundleUtil;
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteParameterSidebarManager;
+import authoring.Sprite.AbstractSpriteObject;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,12 +25,11 @@ public class ActionTab<T> extends Tab implements ActionTabI<T> {
 	private ActionConditionVBox<T> actionConditionVBox;
 	private ResourceBundle actionTabResources;
 	private VBox mainVBox;
-	private SpriteParameterSidebarManager mySPSM;
+	private Supplier<List<AbstractSpriteObject>> supplier;
 
-	public ActionTab(String title, SpriteParameterSidebarManager SPSM) {
+	public ActionTab(String title, Supplier<List<AbstractSpriteObject>> supplier) {
 		this(title);
-		mySPSM = SPSM;
-		
+		this.supplier = supplier;
 	}
 	public ActionTab(String title) {
 		super(title);
@@ -44,6 +47,10 @@ public class ActionTab<T> extends Tab implements ActionTabI<T> {
 //		mainVBox.getChildren().addAll(this.buttons, this.actionConditionVBox);
 //		//myAEM = AEM;	TODO maybe incorporate the AEM?
 //	}
+	
+	public Supplier<List<AbstractSpriteObject>> getSupplier() {
+		return supplier;
+	}
 
 	private void setUpActionConditionManager(String title) {
 		buttons = new ActionConditionHBox(title);
@@ -115,7 +122,7 @@ public class ActionTab<T> extends Tab implements ActionTabI<T> {
 
 	@Override
 	public ActionConditionVBox<T> setActionConditionVBox() {
-		return new ActionVBox<T>();
+		return new ActionVBox<T>(supplier);
 	}
 
 	@Override

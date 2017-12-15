@@ -20,6 +20,11 @@ public class SpriteObjectGridManagerForSprites extends SpriteObjectGridManager{
 		super(rows, columns);
 		myLayerNum = 2;
 	}
+	
+	public SpriteObjectGridManagerForSprites(int rows, int columns, GameDataHandler GDH) {
+		super(rows, columns, GDH);
+		myLayerNum = 2;
+	}
 
 	public SpriteObjectGridManagerForSprites(int myNumRows, int myNumCols, Color myColor) {
 		super(myNumRows, myNumCols, myColor);
