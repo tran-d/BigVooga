@@ -29,6 +29,7 @@ public class ActionRow extends ActionConditionRow {
 	// for loading a selected sprite
 	public ActionRow(int ID, ActionVBox<?> ACVBox, ActionTreeView tv,Supplier<List<AbstractSpriteObject>> supplier) {
 		super(ID, ACVBox,supplier);
+		setPrefSize(ROW_WIDTH, COLLAPSED_HEIGHT);
 		getItems().remove(actionTreeView);
 		actionTreeView = tv;
 		this.getItems().add(actionTreeView);

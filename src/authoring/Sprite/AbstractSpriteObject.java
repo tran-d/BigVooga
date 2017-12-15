@@ -109,7 +109,9 @@ public abstract class AbstractSpriteObject extends ImageView {
 	protected AuthoringAnimationSequence myAASDefault;
 	protected List<DialogSequence> myDialogSequences;
 	protected GameDataHandler GDH;
-	protected boolean isLoadingFromXML;
+	//protected boolean isLoadingFromXML;
+	protected int conditionDummyTreeViewSize;
+	protected int actionDummyTreeViewSize;
 
 
 	public AbstractSpriteObject() {
@@ -117,6 +119,22 @@ public abstract class AbstractSpriteObject extends ImageView {
 		initializeVariables();
 		setUniqueID();
 		initializeActionConditions();
+	}
+	
+	public int getConditionDummyTreeViewSize() {
+		return conditionDummyTreeViewSize;
+	}
+	
+	public void setConditionDummyTreeViewSize(int newSize) {
+		conditionDummyTreeViewSize = newSize;
+	}
+	
+	public int getActionDummyTreeViewSize() {
+		return actionDummyTreeViewSize;
+	}
+	
+	public void setActionDummyTreeViewSize(int newSize) {
+		actionDummyTreeViewSize = newSize;
 	}
 
 	private void initializeActionConditions() {
@@ -799,13 +817,13 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return conditionTreeViews;
 	}
 	
-	public boolean getIsLoadingFromXML() {
-		return isLoadingFromXML;
-	}
-	
-	public void setIsLoadingFromXML(boolean set) {
-		isLoadingFromXML = set;
-	}
+//	public boolean getIsLoadingFromXML() {
+//		return isLoadingFromXML;
+//	}
+//	
+//	public void setIsLoadingFromXML(boolean set) {
+//		isLoadingFromXML = set;
+//	}
 
 	public List<ActionTreeView> getActionTreeViews() {
 		if (actionTreeViews == null) {

@@ -123,7 +123,9 @@ public class SpriteDataConverter {
 		System.out.println("Sprite Converter ImageURL: "+imageURL);
 		ret.setImageURL(imageURL);
 		ret.setGameDataHandler(myGDH);
-		ret.setIsLoadingFromXML(true);
+		//ret.setIsLoadingFromXML(true);
+		ret.setConditionDummyTreeViewSize(conditionRows.size());
+		ret.setActionDummyTreeViewSize(actionRows.size());
 		return ret;
 	}
 	

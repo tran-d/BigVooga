@@ -50,47 +50,38 @@ public class ApplyButtonController {
 		List<ConditionRow> conditionRows = new LinkedList<ConditionRow>();
 		ConditionVBox<ConditionRow> conditionVBox = new ConditionVBox<ConditionRow>(conditionTab.getSupplier());
 		// if loading from xml
-		if (selectedSpriteObject.getIsLoadingFromXML()) {
-			System.out.println("condition treeview list is null");
-			Iterator<Condition> it = spriteConditions.keySet().iterator();
-			ObservableList<Integer> actionOperations = createObservableIntegerList(spriteActions.size());
-			while (it.hasNext()) {
-				Condition selectedCondition = it.next();
-				ConditionRow conditionRow = new ConditionRow(rowCond, actionOperations, spriteConditions.get(selectedCondition),
-						conditionVBox, selectedConditionOperations.get(rowCond - 1), selectedCondition,conditionTab.getSupplier());
-				conditionRows.add(conditionRow);
-				rowCond++;
-			}
-		} else {
-			System.out.println("condition treeview list is not null");
-			for (ConditionTreeView conditionTreeView : conditions.keySet()) {
-				ConditionRow conditionRow = new ConditionRow(rowCond,
-						createObservableIntegerList(selectedActionOperations.size()), conditions.get(conditionTreeView),
-						conditionVBox, conditionTreeView,conditionTab.getSupplier());
-				conditionRows.add(conditionRow);
-				rowCond++;
-			}
+		System.out.println("condition treeview list is null");
+		Iterator<Condition> it = spriteConditions.keySet().iterator();
+		ObservableList<Integer> actionOperations = createObservableIntegerList(spriteActions.size());
+		while ((it.hasNext() && (rowCond <= selectedSpriteObject.getConditionDummyTreeViewSize()))) {
+			Condition selectedCondition = it.next();
+			ConditionRow conditionRow = new ConditionRow(rowCond, actionOperations, spriteConditions.get(selectedCondition),
+					conditionVBox, selectedConditionOperations.get(rowCond - 1), selectedCondition,conditionTab.getSupplier());
+			conditionRows.add(conditionRow);
+			rowCond++;
+		} 
+		for (ConditionTreeView conditionTreeView : conditions.keySet()) {
+			ConditionRow conditionRow = new ConditionRow(rowCond,
+					createObservableIntegerList(selectedActionOperations.size()), conditions.get(conditionTreeView),
+					conditionVBox, conditionTreeView,conditionTab.getSupplier());
+			conditionRows.add(conditionRow);
+			rowCond++;
 		}
 		//creating conditionvbox
 		conditionVBox = new ConditionVBox<ConditionRow>(conditionRows,conditionTab.getSupplier());
 		List<ActionRow> actionRows = new LinkedList<ActionRow>();
 		ActionVBox<ActionRow> actionVBox = new ActionVBox<ActionRow>(actionTab.getSupplier());
 		// if loading from xml
-		if (selectedSpriteObject.getIsLoadingFromXML()) {
-			System.out.println("action treeview list is null");
-			for(int rowAct = 1; rowAct <= spriteActions.size(); rowAct++) {
-				ActionRow actionRow = new ActionRow(rowAct, actionVBox, selectedActionOperations.get(rowAct - 1),
-						spriteActions.get(rowAct - 1),actionTab.getSupplier());
-				actionRows.add(actionRow);
-			};
-		} else {
-			int rowAct = 1;
-			System.out.println("action treeview list is not null");
-			for (ActionTreeView actionTreeView : actions) {
-				ActionRow actionRow = new ActionRow(rowAct, actionVBox, actionTreeView,actionTab.getSupplier());
-				actionRows.add(actionRow);
-				rowAct++;
-			}
+		for(int rowAct = 1; rowAct <= selectedSpriteObject.getActionDummyTreeViewSize(); rowAct++) {
+			ActionRow actionRow = new ActionRow(rowAct, actionVBox, selectedActionOperations.get(rowAct - 1),
+					spriteActions.get(rowAct - 1),actionTab.getSupplier());
+			actionRows.add(actionRow);
+		};
+		int rowAction = selectedSpriteObject.getActionDummyTreeViewSize() + 1;
+		for (ActionTreeView actionTreeView : actions) {
+			ActionRow actionRow = new ActionRow(rowAction, actionVBox, actionTreeView,actionTab.getSupplier());
+			actionRows.add(actionRow);
+			rowAction++;
 		}
 		actionVBox = new ActionVBox<ActionRow>(actionRows,actionTab.getSupplier());
 		conditionTab.setTopToolBar(topToolBarConditions);
@@ -102,29 +93,29 @@ public class ApplyButtonController {
 	public void updateSpriteObject(ConditionTab<ConditionRow> conditionTab, ActionTab<ActionRow> actionTab,
 			AbstractSpriteObject spriteObject) {
 		try {
-			HashMap<ConditionTreeView, List<Integer>> conditions = new HashMap<ConditionTreeView, List<Integer>>();
+			HashMap<ConditionTreeView, List<Integer>> userCreatedConditions = new HashMap<ConditionTreeView, List<Integer>>();
 			List<String> selectedConditionOperations = new LinkedList<String>();
-			conditionTab.getActionConditionVBox().getRows().forEach(row -> {
-
-				conditions.put(row.getTreeView(), row.getSelectedActions());
+			for(int i = spriteObject.getConditionDummyTreeViewSize(); i < conditionTab.getActionConditionVBox().getRows().size(); i++) {
+				ConditionRow row = conditionTab.getActionConditionVBox().getRows().get(i - 1);
+				userCreatedConditions.put(row.getTreeView(), row.getSelectedActions());
 				selectedConditionOperations.add(row.getTreeView().getSelectedOperation());
-
-			});
+			}
 			List<ActionTreeView> actions = new LinkedList<ActionTreeView>();
 			List<List<String>> selectedActionOperations = new LinkedList<List<String>>();
-			actionTab.getActionConditionVBox().getRows().forEach(row -> {
+			for(int i = spriteObject.getActionDummyTreeViewSize(); i < actionTab.getActionConditionVBox().getRows().size(); i++) {
+				ActionRow row = actionTab.getActionConditionVBox().getRows().get(i - 1);
 				actions.add(row.getTreeView());
 				List<String> treeViewParams = new LinkedList<String>();
 				treeViewParams.add(row.getTreeView().getCategoryName());
 				treeViewParams.add(row.getTreeView().getActionName());
 				selectedActionOperations.add(treeViewParams);
-			});
+			}
 			spriteObject.setAllConditions(conditionTab.getTopToolBar().getRemoveRowVBoxOptions());
 			spriteObject.setAllActions(actionTab.getTopToolBar().getRemoveRowVBoxOptions());
 			spriteObject.setSelectedConditionOperations(selectedConditionOperations);
 			spriteObject.setSelectedConditionOperations(selectedConditionOperations);
 			spriteObject.setSelectedActionOperations(selectedActionOperations);
-			spriteObject.setConditions(conditions);
+			spriteObject.setConditions(userCreatedConditions);
 			spriteObject.setActions(actions);
 		} catch (NullPointerException | NumberFormatException e) {
 			conditionTab.displayRowExceptionMessage(e.getMessage());
