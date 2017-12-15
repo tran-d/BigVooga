@@ -2,13 +2,15 @@ package engine.operations.booleanops;
 
 import engine.GameObject;
 import engine.GameObjectEnvironment;
+import engine.operations.VoogaAnnotation;
+import engine.operations.VoogaType;
 import engine.operations.gameobjectops.GameObjectOperation;
 import engine.utilities.collisions.BoundingPoint;
 
 public class ObjectMouseHover implements BooleanOperation {
 
 	GameObjectOperation object;
-	public ObjectMouseHover(GameObjectOperation obj) {
+	public ObjectMouseHover(@VoogaAnnotation(name = "Sprite", type = VoogaType.GAMEOBJECT) GameObjectOperation obj) {
 		// TODO Auto-generated constructor stub
 		object = obj;
 	}

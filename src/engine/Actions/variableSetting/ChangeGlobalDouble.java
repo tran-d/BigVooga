@@ -18,7 +18,7 @@ public class ChangeGlobalDouble implements Action {
 	private StringOperation varName;
 	private DoubleOperation newDouble;
 
-	public ChangeGlobalDouble(@VoogaAnnotation(name = "Variable Name", type = VoogaType.DOUBLENAME) StringOperation varName,
+	public ChangeGlobalDouble(@VoogaAnnotation(name = "Variable Name", type = VoogaType.STRING) StringOperation varName,
 			@VoogaAnnotation(name = "New Value", type = VoogaType.DOUBLE) DoubleOperation newDouble) {
 		this.varName = varName;
 		this.newDouble = newDouble;

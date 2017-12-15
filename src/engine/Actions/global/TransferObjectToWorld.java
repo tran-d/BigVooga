@@ -18,8 +18,8 @@ public class TransferObjectToWorld implements Action {
 	private BooleanOperation changeWorld;
 	public TransferObjectToWorld(
 			@VoogaAnnotation(name = "Object being transferred", type = VoogaType.GAMEOBJECT) GameObjectOperation gameObject,
-			@VoogaAnnotation(name = "Name of New World", type = VoogaType.WORLDNAME) StringOperation worldName,
-			@VoogaAnnotation(name = "Name of New World's Layer", type = VoogaType.WORLDNAME) StringOperation layerName,
+			@VoogaAnnotation(name = "Name of New World", type = VoogaType.STRING) StringOperation worldName,
+			@VoogaAnnotation(name = "Name of New World's Layer", type = VoogaType.STRING) StringOperation layerName,
 			@VoogaAnnotation(name = "Move to new World?", type = VoogaType.BOOLEAN) BooleanOperation changeWorld) {
 		this.gameObject = gameObject;
 		this.worldName = worldName;

@@ -19,7 +19,7 @@ public class ChangeGlobalBoolean implements Action {
 	private StringOperation varName;
 	private BooleanOperation newBooleanOperation;
 
-	public ChangeGlobalBoolean(@VoogaAnnotation(name = "Variable Name", type = VoogaType.BOOLEANNAME) StringOperation varName,
+	public ChangeGlobalBoolean(@VoogaAnnotation(name = "Variable Name", type = VoogaType.STRING) StringOperation varName,
 			@VoogaAnnotation(name = "New Value", type = VoogaType.BOOLEAN) BooleanOperation newBooleanOperation) {
 		this.varName = varName;
 		this.newBooleanOperation = newBooleanOperation;

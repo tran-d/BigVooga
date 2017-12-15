@@ -15,7 +15,7 @@ public class Nearest implements GameObjectOperation{
 
 	private StringOperation tag;
 	
-	public Nearest(@VoogaAnnotation(name = "Tag", type = VoogaType.TAG) StringOperation tag) {
+	public Nearest(@VoogaAnnotation(name = "Tag", type = VoogaType.STRING) StringOperation tag) {
 		this.tag = tag;
 	}
 	
