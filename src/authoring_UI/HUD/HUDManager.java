@@ -10,21 +10,25 @@ import authoring.SpritePanels.SpritePanels;
 import authoring_UI.DraggableGrid;
 import authoring_UI.MapManager;
 import authoring_UI.SpriteGridHandler;
+import engine.utilities.data.GameDataHandler;
 import javafx.scene.Scene;
 
 public class HUDManager extends MapManager{
 
 	
 	private SpriteObjectGridManager HUDGridBE;
+	private GameDataHandler GDH;
 
 	public HUDManager(AuthoringEnvironmentManager AEM, Scene currentScene) {
 		super(AEM, currentScene);
+		GDH = AEM.getGameDataHandler();
 	}
 	
 	@Override 
 	protected DraggableGrid makeDraggableGrid(){
-		;
-		DraggableGrid ret = new DraggableGrid();
+
+		System.out.println("DG in HUDMANAGER");
+		DraggableGrid ret = new DraggableGrid(GDH);
 		HUDGridBE = new HUDGridManager();
 		BackgroundGridManager BackgroundGrid = new BackgroundGridManager(HUDGridBE.getDefaultRows(), HUDGridBE.getDefaultCols());
 		List<SpriteObjectGridManager> grids = new ArrayList<SpriteObjectGridManager>();

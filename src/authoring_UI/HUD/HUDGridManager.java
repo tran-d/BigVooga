@@ -5,6 +5,7 @@ import java.util.List;
 import authoring.GridManagers.SpriteObjectGridManager;
 import authoring.Sprite.AbstractSpriteObject;
 import authoring_UI.SpriteGridHandler;
+import engine.utilities.data.GameDataHandler;
 
 public class HUDGridManager extends SpriteObjectGridManager {
 	
@@ -12,14 +13,13 @@ public class HUDGridManager extends SpriteObjectGridManager {
 	private static int COLUMNS = 20;
 	
 	
-	public HUDGridManager(SpriteGridHandler SGH){
-		super(ROWS, COLUMNS, SGH);
+	public HUDGridManager(SpriteGridHandler SGH, GameDataHandler GDH){
+		super(ROWS, COLUMNS, SGH, GDH);
 	}
 	
 	public HUDGridManager(){
 		super(ROWS, COLUMNS);
 	}
-
 	public HUDGridManager(int rows, int columns, SpriteGridHandler SGH) {
 		super(rows, columns, SGH);
 	}

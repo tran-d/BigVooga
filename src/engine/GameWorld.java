@@ -53,7 +53,7 @@ public class GameWorld {
 	private Map<Element, Boolean> getAllElements() {
 		Map<Element, Boolean> els = new HashMap<>();
 		for (Layer l : worldLayers) {
-			if(l.isNamed("Background"))
+			if(l.isNamed("Background") && ! l.getAllGameObjects().isEmpty())
 			{
 				background = l.getAllGameObjects().get(0);
 				continue;

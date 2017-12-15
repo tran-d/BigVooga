@@ -19,7 +19,7 @@ public class SpriteCreatorLayer extends MapLayer {
 		public SpriteCreatorLayer(int rows, int columns, SpriteGridHandler SGH, Color c) {
 		super(rows, columns, SGH, c);
 		setDefaultColor(Color.TRANSPARENT);
-		setName("SpriteCreator View");
+		setName("Sprite Creator View");
 	}
 		
 		@Override 

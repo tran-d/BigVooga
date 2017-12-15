@@ -12,14 +12,17 @@ import engine.utilities.data.GameDataHandler;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
-public class BackgroundGridManager extends SpriteObjectGridManager {
+public class BackgroundGridManager extends SpriteObjectGridManager{
+	
+	private GameDataHandler GDH;
 
-	public BackgroundGridManager() {
+	public BackgroundGridManager(){
 		super();
 	}
 
-	public BackgroundGridManager(int rows, int columns, SpriteGridHandler SGH) {
-		super(rows, columns, SGH);
+	public BackgroundGridManager(int rows, int columns, SpriteGridHandler SGH, GameDataHandler currentGDH) {
+		super(rows, columns, SGH, currentGDH);
+		GDH = currentGDH;
 	}
 
 	public BackgroundGridManager(int rows, int columns) {
@@ -43,10 +46,12 @@ public class BackgroundGridManager extends SpriteObjectGridManager {
 	}
 
 	@Override
-	public void getOnBackgroundChangeFunctionality(File f) {
-		Image image = new Image(GameDataHandler.getImageURIAndCopyToResources(f));
-		AbstractSpriteObject ASO = getMapLayer().setBackgroundImage(() -> new SpriteObject(image, f.getName()));
-		this.populateCell(ASO, new Integer[] { 0, 0 });
+
+	public void getOnBackgroundChangeFunctionality(File f){
+		Image image = new Image(GDH.getImageURIAndCopyToResources(f));
+		AbstractSpriteObject ASO = getMapLayer().setBackgroundImage(()->new SpriteObject(image, f.getName()));
+		this.populateCell(ASO, new Integer[]{0,0});
+
 	}
 
 }

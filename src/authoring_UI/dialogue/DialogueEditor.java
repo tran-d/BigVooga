@@ -73,9 +73,11 @@ public class DialogueEditor extends DisplayableEditor {
 	private Image image;
 	private String currentFile;
 	private Color bgColor;
+	private GameDataHandler GDH;
 
-	public DialogueEditor(Consumer<String> saveCons) {
+	public DialogueEditor(Consumer<String> saveCons, GameDataHandler currentGDH) {
 		this.saveConsumer = saveCons;
+		GDH = currentGDH;
 		view = new VBox(10);
 		view.getStylesheets().add(DialogueManager.class.getResource("dialogue.css").toExternalForm());
 
@@ -174,7 +176,7 @@ public class DialogueEditor extends DisplayableEditor {
 	protected void chooseBackgroundImage() {
 		File file = retrieveFileForImageUpload(this.getParent());
 		if (file != null) {
-			currentFile = GameDataHandler.getImageURIAndCopyToResources(file);
+			currentFile = GDH.getImageURIAndCopyToResources(file);
 			image = new Image(currentFile);
 			dsp.setBackgroundImage(image);
 			backgroundColorCP.setValue(null);
