@@ -36,6 +36,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Font;
 import tools.DisplayLanguage;
+import authoring_UI.dialogue.*;
 
 public class CutsceneEditor extends DisplayableEditor {
 
@@ -66,11 +67,13 @@ public class CutsceneEditor extends DisplayableEditor {
 	private ColorPicker backgroundColorCP;
 	private SVGPath svg;
 	private Image image;
+	private GameDataHandler GDH;
 
-	public CutsceneEditor(Consumer<String> saveCons) {
+	public CutsceneEditor(Consumer<String> saveCons, GameDataHandler GDH) {
 		this.saveConsumer = saveCons;
+		this.GDH = GDH;
 		view = new VBox(10);
-		view.getStylesheets().add(CutsceneManager.class.getResource("cutscene.css").toExternalForm());
+		view.getStylesheets().add(DialogueManager.class.getResource("dialogue.css").toExternalForm());
 
 		this.makeTemplate();
 	}
@@ -128,8 +131,8 @@ public class CutsceneEditor extends DisplayableEditor {
 
 		HBox textHBox = new HBox(5);
 		textHBox.setAlignment(Pos.CENTER);
-		textHBox.getChildren().addAll(createAddTextAreaButton(),
-				  createSeparator(),
+		textHBox.getChildren().addAll(createImageButton(), createSeparator(), 
+					createAddTextAreaButton(), createSeparator(),
 				  new HBox(makeEntry(FONT_COLOR_PROMPT, fontColorCP)),
 				  createSeparator(),
 				  new HBox(makeEntry(FONT_TYPE_PROMPT, fontTypeCB)),
@@ -144,6 +147,13 @@ public class CutsceneEditor extends DisplayableEditor {
 		dialogueModifiersBox.getChildren().addAll(new HBox(makeEntry(NAME_PROMPT, nameTF)), textHBox, backgroundHBox);
 		
 		view.getChildren().addAll(dialogueModifiersBox, cutsceneView);
+	}
+	
+	protected Button createImageButton() {
+		Button addImage = new Button("Add Image");
+		addImage.setOnAction(e -> cutsceneView.addImage());
+		
+		return addImage;
 	}
 
 	@Override
@@ -164,13 +174,18 @@ public class CutsceneEditor extends DisplayableEditor {
 	
 	@Override
 	protected void chooseBackgroundImage() {
-		File file = retrieveFileForImageUpload(this.getParent());
+		File file = retrieveFileForImageUpload();
 		if (file != null) {
 			image = new Image(GDH.getImageURIAndCopyToResources(file));
 			cutsceneView.setBackgroundImage(image);
 		}
 	}
 	
+	protected File retrieveFileForImageUpload() {
+		File file = super.retrieveFileForImageUpload(this.getParent());
+		
+		return file;
+	}
 
 	private void makeInputFields() {
 		nameTF = makeTextField(NAME_PROMPT_WIDTH, PROMPT_HEIGHT);
@@ -185,7 +200,7 @@ public class CutsceneEditor extends DisplayableEditor {
 
 		numPanelsTF = makeTextField(NUM_PANELS_PROMPT_WIDTH, PROMPT_HEIGHT);
 
-		cutsceneView = new CutsceneTextAreaView(() -> saveConsumer.accept(getName()), () -> backgroundColorCP.getValue());
+		cutsceneView = new CutsceneTextAreaView(() -> saveConsumer.accept(getName()), () -> backgroundColorCP.getValue(), GDH, this);
 		// numPanelsTF.setOnInputMethodTextChanged(e -> checkInput());
 	}
 	
