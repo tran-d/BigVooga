@@ -281,7 +281,9 @@ public class GameDataHandler {
 	
 	public Image getImage(File file) {
 		addFileToProject(file);
-		return getImage(file.getName());
+		Image im = getImage(file.getName());
+		cache.put(file.getName(), im);
+		return im;
 	}
 
 	/**
@@ -528,7 +530,7 @@ public class GameDataHandler {
 	}
 
 	private List<AbstractSpriteObject> loadSpritesFromDirectory(File directory) throws Exception {
-		;
+		
 		if (!isValidDirectory(directory)) {
 			throw new Exception("Not a directory");
 		}

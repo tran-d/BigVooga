@@ -76,17 +76,15 @@ public class MapManager extends TabPane {
 	private Tab startTab;
 	private boolean oldProject;
 	private String projectName = "TestProject";
-	private GameDataHandler myGDH;
 	private List<DraggableGrid> allWorlds = new ArrayList<DraggableGrid>();
 	private Pane mapEditor = new Pane();
 	private SpritePanels spritePanels;
 	private SpriteGridHandler mySpriteGridHandler;
 	protected String myType;
-	private GameDataHandler GDH;
+	protected GameDataHandler GDH;
 	
 	public MapManager(AuthoringEnvironmentManager AEM, Scene currentScene, String type) {
 		myType = type;
-		GDH = AEM.getGameDataHandler();
 		setTabTag();
 		setManagerName();
 		gridIsShowing = new SimpleObjectProperty<Boolean>();
@@ -95,7 +93,7 @@ public class MapManager extends TabPane {
 			this.mySpriteGridHandler.setGridIsShown(newValue);
 		});
 		myAEM = AEM;
-		myGDH = myAEM.getGameDataHandler();
+		GDH = myAEM.getGameDataHandler();
 		scene = currentScene;
 		mapEditor.getChildren().add(this);
 		mySelectModel = this.getSelectionModel();
@@ -126,7 +124,7 @@ public class MapManager extends TabPane {
 	}
 
 	protected List<DraggableGrid> getListOfDraggableGrids() {
-		List<DraggableGrid> DGs = myGDH.loadWorldsFromWorldDirectory();
+		List<DraggableGrid> DGs = GDH.loadWorldsFromWorldDirectory();
 		;
 		
 		return DGs;

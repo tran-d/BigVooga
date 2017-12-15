@@ -82,7 +82,7 @@ public class AuthoringAnimationSequence {
 		myContainerVbox.getChildren().remove(0);
 		addNewAuthoringImageViewToSequence(AIV, true);
 		} else {
-			this.myImages.add(new AnimationSequenceImage(AIV));
+			this.myImages.add(0,new AnimationSequenceImage(AIV));
 		}
 		
 	}
@@ -115,7 +115,7 @@ public class AuthoringAnimationSequence {
 				if (showUI) {
 					this.addNewAnimationSequenceToUI(newASI, isPrimary);
 				}
-				int position = isPrimary ? 0 : 1;
+				int position = isPrimary ? 0 : myImages.size();
 				this.myImages.add(position, newASI);
 			});
 		

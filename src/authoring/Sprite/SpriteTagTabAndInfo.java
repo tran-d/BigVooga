@@ -45,7 +45,7 @@ public class SpriteTagTabAndInfo {
 	private ScrollPane myScrollPane;
 	
 	public SpriteTagTabAndInfo() {
-		this(new SpriteObject());
+		this(new SpriteObject(false));
 	}
 
 	SpriteTagTabAndInfo(AbstractSpriteObject SO) {

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import controller.welcomeScreen.SceneController;
+import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.FileSelector;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.scene.control.Button;
@@ -112,9 +113,13 @@ public class Toolbar extends ToolBar {
 	 */
 	private List<MenuItem> createImportOptions() {
 		List<MenuItem> importItems = new ArrayList<MenuItem>();
-		File f = new File(GAMES_PATH);
+
+		File f = new File(new GameDataHandler(myStage).getRoot());
+
 		File[] listOfFiles = f.listFiles();
 		for (File file: listOfFiles) {
+			if(file.getName().equals("resources"))
+				continue;
 			MenuItem tempItem = new MenuItem(file.getName());
 			tempItem.setOnAction(e -> sceneController.importWorlds(file.getName()));
 			importItems.add(tempItem);

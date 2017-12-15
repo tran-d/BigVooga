@@ -1,5 +1,6 @@
 package authoring.Sprite;
 
+import engine.utilities.data.GameDataHandler;
 import javafx.scene.image.Image;
 
 public class InventoryObject extends AbstractSpriteObject {
@@ -8,12 +9,12 @@ public class InventoryObject extends AbstractSpriteObject {
 		
 	}
 	
-	public InventoryObject(Image im, String file){
-		super(im, file);
+	public InventoryObject(Image im, String file, GameDataHandler GDH){
+		super(im, file, GDH);
 	}
 	
-	public InventoryObject(String fileURL){
-		super(fileURL);
+	public InventoryObject(String fileURL, GameDataHandler GDH){
+		super(fileURL, GDH);
 	}
 
 	public InventoryObject(boolean b) {

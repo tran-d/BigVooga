@@ -5,8 +5,8 @@ import javafx.scene.control.TabPane;
 
 public class CutsceneTabPane extends TabPane {
 
-	private static final String DEFAULT = "DefaultDialogues";
-	private static final String USER = "UserCreatedDialogues";
+	private static final String DEFAULT = "DefaultCutscenes";
+	private static final String USER = "UserCreatedCutscenes";
 	private DefaultCutsceneTab defaultTab;
 	private UserCutsceneTab userTab;
 

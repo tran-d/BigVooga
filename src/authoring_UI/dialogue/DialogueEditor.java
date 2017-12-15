@@ -176,8 +176,8 @@ public class DialogueEditor extends DisplayableEditor {
 	protected void chooseBackgroundImage() {
 		File file = retrieveFileForImageUpload(this.getParent());
 		if (file != null) {
-			currentFile = GDH.getImageURIAndCopyToResources(file);
-			image = new Image(currentFile);
+//			currentFile = GDH.getImage(file);
+			image =  GDH.getImage(currentFile);
 			dsp.setBackgroundImage(image);
 			backgroundColorCP.setValue(null);
 		}

@@ -4,26 +4,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import authoring.Sprite.Parameters.SpriteParameterI;
+import engine.utilities.data.GameDataHandler;
 import javafx.scene.image.Image;
 
 public class SpriteObject extends AbstractSpriteObject{
 	
 //	private static final long serialVersionUID = 2616423033716253195L;
 	
-	public SpriteObject(){
-
-	}
-	
 	public SpriteObject(boolean in){
 		super(in);
 	}
 	
-	public SpriteObject(String fileURL){
-		super(fileURL);
+	public SpriteObject(String fileURL, GameDataHandler GDH){
+		super(fileURL, GDH);
 	}
 	
-	public SpriteObject(Image image, String fileURL){
-		super(image, fileURL);
+	public SpriteObject(Image image, String fileURL, GameDataHandler GDH){
+		super(image, fileURL, GDH);
 	}
 
 	
@@ -31,7 +28,7 @@ public class SpriteObject extends AbstractSpriteObject{
 	@Override
 	public SpriteObject newCopy() {
 		// ;
-		SpriteObject ret = new SpriteObject();
+		SpriteObject ret = new SpriteObject(false);
 		if (this.myImageURL != null) {
 			ret.setupImageURLAndView(this.myImageURL);
 		}

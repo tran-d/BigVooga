@@ -55,7 +55,9 @@ public class GameWorld {
 		for (Layer l : worldLayers) {
 			if(l.isNamed("Background"))
 			{
+				if (l.getAllGameObjects().size()>0){
 				background = l.getAllGameObjects().get(0);
+				}
 				continue;
 			}
 			for(Element e : l.getAllElements()) {
