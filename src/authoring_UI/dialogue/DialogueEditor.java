@@ -74,6 +74,7 @@ public class DialogueEditor extends DisplayableEditor {
 	private String currentFile;
 	private Color bgColor;
 	private GameDataHandler GDH;
+	private boolean backgroundIsColor;
 
 	public DialogueEditor(Consumer<String> saveCons, GameDataHandler currentGDH) {
 		this.saveConsumer = saveCons;
@@ -114,6 +115,8 @@ public class DialogueEditor extends DisplayableEditor {
 	protected String getBackgroundColor() {
 		return backgroundColorCP.getValue().toString();
 	}
+	
+
 	
 
 	protected VBox getView() {
@@ -176,10 +179,11 @@ public class DialogueEditor extends DisplayableEditor {
 	protected void chooseBackgroundImage() {
 		File file = retrieveFileForImageUpload(this.getParent());
 		if (file != null) {
-//			currentFile = GDH.getImage(file);
-			image =  GDH.getImage(currentFile);
+			currentFile = file.getName();
+			image =  GDH.getImage(file);
 			dsp.setBackgroundImage(image);
 			backgroundColorCP.setValue(null);
+			backgroundIsColor = false;
 		}
 	}
 	
@@ -227,6 +231,7 @@ public class DialogueEditor extends DisplayableEditor {
 	protected void changeBackgroundColor() {
 		currentFile = null;
 		dsp.setBackgroundColor(backgroundColorCP.getValue());
+		backgroundIsColor = true;
     }
 
 	@Override
@@ -243,6 +248,10 @@ public class DialogueEditor extends DisplayableEditor {
 			}
 		});
 		return cb;
+	}
+	
+	protected boolean getBackgroundIsColor () {
+		return backgroundIsColor;
 	}
 
 }
