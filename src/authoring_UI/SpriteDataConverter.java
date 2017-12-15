@@ -1,6 +1,7 @@
 package authoring_UI;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -92,18 +93,20 @@ public class SpriteDataConverter {
 	}
 
 	public AbstractSpriteObject createSprite() {
-		AbstractSpriteObject ret = null;
-		if (spriteType.equals("SpriteObject")) {
-			ret = new SpriteObject(true);
-		} else if (spriteType.equals("InventoryObject")) {
-			ret = new InventoryObject(true);
-		} else {
-			ret = new SpriteObject(true);
-		}
 		
+		AbstractSpriteObject ret = null;
+		
+		if (spriteType.equals("SpriteObject")) {
+			ret = new SpriteObject(true, myGDH);
+		} else if (spriteType.equals("InventoryObject")) {
+			ret = new InventoryObject(true, myGDH);
+		} else {
+			ret = new SpriteObject(true, myGDH);
+		}
 		ret.setParameterMap(catmap);
 		ret.setPositionOnGrid(gridPos);
-		ret.setAnimationSequences(this.myAnimationSequences);
+		myAnimationSequences.forEach(seq->seq.setGameDataHandler(myGDH));
+		ret.setAnimationSequences(myAnimationSequences);
 		ret.setNumCellsHeightNoException(height);
 		ret.setNumCellsWidthNoException(width);
 		ret.setUniqueID(UUID);
@@ -127,7 +130,7 @@ public class SpriteDataConverter {
 		ret.setInventory(newInventory);
 		System.out.println("spriteInventoryinSDC: "+ret.getInventory());
 		ret.setImageURL(imageURL);
-		ret.setGameDataHandler(myGDH);
+
 		return ret;
 	}
 	

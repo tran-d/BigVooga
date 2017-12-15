@@ -2,6 +2,7 @@ package authoring_UI;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpritePanels.GameElementSelector;
@@ -88,9 +89,7 @@ public class MapManager extends TabPane {
 		setTabTag();
 		setManagerName();
 		gridIsShowing = new SimpleObjectProperty<Boolean>();
-		gridIsShowing.addListener((change, oldValue, newValue) -> {
-			this.mySpriteGridHandler.setGridIsShown(newValue);
-		});
+
 		myAEM = AEM;
 		GDH = myAEM.getGameDataHandler();
 		scene = currentScene;
@@ -179,18 +178,23 @@ public class MapManager extends TabPane {
 	}
 
 
-	private HBox setupScene(DraggableGrid w) {
-		return setupFEAuthClasses(w);
+	private HBox setupScene(DraggableGrid w, Consumer<SpriteGridHandler> mySGHConsumer) {
+		return setupFEAuthClasses(w, mySGHConsumer);
 	}
 
-	private HBox setupFEAuthClasses(DraggableGrid w) {
+	private HBox setupFEAuthClasses(DraggableGrid w, Consumer<SpriteGridHandler> mySGHConsumer) {
 		allWorlds.add(w);
-		mySpriteGridHandler = new SpriteGridHandler(myTabCount, w);
+		 SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, w);
+//		mySpriteGridHandler.setGridIsShown(gridIsShowing.get());
+//		gridIsShowing.addListener((change, oldValue, newValue) -> {
+//			mySpriteGridHandler.setGridIsShown(newValue);
+//		});
 		w.construct(mySpriteGridHandler);
 		mySpriteGridHandler.addKeyPress(scene);
 		spritePanels = makeSpritePanels(mySpriteGridHandler);
 		mySpriteGridHandler.setGridDisplayPanel(spritePanels.getDisplayPanel());
 		mySpriteGridHandler.setElementSelectorDisplayPanel(spritePanels.getElementSelectorDisplayPanel());
+		mySGHConsumer.accept(mySpriteGridHandler);
 		AuthoringMapEnvironment authMap = makeAuthoringMapEnvironment(spritePanels, w);
 		return authMap;
 	}
@@ -209,7 +213,16 @@ public class MapManager extends TabPane {
 			((Label)newtab.getGraphic()).setText(w.getName());
 		}
 		newtab.setOnClosed(e -> this.removeWorld(w));
-		newtab.setContent(setupScene(w));
+		newtab.setContent(setupScene(w, (SpriteGridHandler SGH)->{
+		newtab.setOnSelectionChanged(change->{
+				if (newtab.isSelected()){
+					SGH.setGridIsShown(true);
+				} else {
+					SGH.setGridIsShown(false);
+				}
+			});
+		}));
+		
 		((Label)newtab.getGraphic()).textProperty().addListener((change, oldValue, newValue)->{
 			w.setName(newValue);
 		});
@@ -218,6 +231,7 @@ public class MapManager extends TabPane {
 		}
 		this.getTabs().add(this.getTabs().size() - 1, newtab);
 		myTabCount++;
+		
 		this.mySelectModel.select(newtab);
 	}
 

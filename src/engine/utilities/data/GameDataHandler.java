@@ -73,8 +73,8 @@ public class GameDataHandler {
 	private static final String SELECTOR_TITLE = "Open Resource File";
 
 	private static final ExtensionFilter[] imageFilters = new ExtensionFilter[] {
-			new ExtensionFilter("Image Files", "*.png"), new ExtensionFilter("Image Files", "*.jpg"),
-			new ExtensionFilter("Image Files", "*.jpeg"), new ExtensionFilter("Image Files", "*.gif") };
+			new ExtensionFilter("Image Files (*.png)", "*.png"), new ExtensionFilter("Image Files (*.jpg)", "*.jpg"),
+			new ExtensionFilter("Image Files (*.jpeg)", "*.jpeg"), new ExtensionFilter("Image Files (*.gif)", "*.gif") };
 
 	private static final String SPRITE_EXTENSION = ".spr";
 
@@ -416,8 +416,9 @@ public class GameDataHandler {
 			throw new VoogaException("Invalid file to load");
 		}
 		SpriteDataConverter SDC = (SpriteDataConverter) getObjectFromFile(spriteFile);
+		// 12/15/17 DEPENDENCY: setGameHandler Before creating Sprite.
+		SDC.setGameDataHandler(this);
 		AbstractSpriteObject ret = SDC.createSprite();
-		ret.setGameDataHandler(this);
 		return ret;
 	}
 

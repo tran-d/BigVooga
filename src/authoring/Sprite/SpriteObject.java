@@ -15,6 +15,10 @@ public class SpriteObject extends AbstractSpriteObject{
 		super(in);
 	}
 	
+	public SpriteObject(boolean in, GameDataHandler GDH){
+		super(in, GDH);
+	}
+	
 	public SpriteObject(String fileURL, GameDataHandler GDH){
 		super(fileURL, GDH);
 	}

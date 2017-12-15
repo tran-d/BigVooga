@@ -1,6 +1,7 @@
 package authoring.Sprite.AnimationSequences;
 
 import engine.sprite.BoundedImage;
+import engine.utilities.data.GameDataHandler;
 import javafx.scene.layout.StackPane;
 
 public class AnimationSequenceImage {
@@ -17,6 +18,10 @@ public class AnimationSequenceImage {
 	
 	public AuthoringImageView getImage(){
 		return myImage;
+	}
+	
+	public void setGameDataHandler(GameDataHandler GDH){
+		myImage.setGameDataHandler(GDH);
 	}
 	
 //	public StackPane getThumbnail(){

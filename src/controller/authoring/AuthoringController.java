@@ -69,12 +69,10 @@ public class AuthoringController {
 		GDH = currentGDH;
 		activeManagerProperty = new SimpleObjectProperty<MapManager>();
 		activeManagerProperty.addListener((change, previousManager, newManager) -> {
-			;
 			if (previousManager != null) {
 				previousManager.gridIsNotShowing();
 			}
 			if (newManager != null) {
-
 				newManager.gridIsShowing();
 			}
 		});
@@ -127,7 +125,6 @@ public class AuthoringController {
 		authoringPane.getChildren().removeAll(view, currentSideBar);
 		view = viewMap.get(key);
 		if (this.viewMapKeysToManager.containsKey(key)) {
-			;
 			this.activeManagerProperty.set(viewMapKeysToManager.get(key));
 		} else {
 			this.activeManagerProperty.set(null);

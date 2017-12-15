@@ -118,7 +118,7 @@ public class SpriteTagTabAndInfo {
 	
 	private void removeFromInventory(HBox container){
 		this.interiorVBox.getChildren().remove(container);
-		temporaryTags.remove(((Label)container.getChildren().get(0)).getText());
+		temporaryTags.remove(((TextArea)container.getChildren().get(0)).getText());
 	}
 
 	public VBox getContainingVBox() {

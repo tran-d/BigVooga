@@ -144,6 +144,11 @@ public abstract class AbstractSpriteObject extends ImageView {
 	}
 
 	public AbstractSpriteObject(boolean isRecreation) {
+		this(isRecreation, null);
+	}
+	
+	public AbstractSpriteObject(boolean isRecreation, GameDataHandler GDH) {
+		this.setGameDataHandler(GDH);
 		if (isRecreation) {
 			// Nothing
 		} else {
@@ -316,7 +321,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 	private void setUpImageURLProperty(){
 		myImageURLProperty = new SimpleObjectProperty<String>();
 		myImageURLProperty.addListener((change, oldImagePath, newImagePath)->{System.out.println("HHHEEERRREEE" + myAASDefault);
-			myAASDefault.replacePrimaryAnimationSequenceImage(new AuthoringImageView(newImagePath));
+			myAASDefault.replacePrimaryAnimationSequenceImage(new AuthoringImageView(newImagePath, GDH));
 			myImageURL = newImagePath;
 		});
 	}
