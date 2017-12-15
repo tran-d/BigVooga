@@ -21,7 +21,7 @@ public class ChangeDouble implements Action {
 	private GameObjectOperation object;
 
 	public ChangeDouble(@VoogaAnnotation(name = "Sprite", type = VoogaType.GAMEOBJECT) GameObjectOperation object,
-			@VoogaAnnotation(name = "Variable Name", type = VoogaType.DOUBLENAME) StringOperation varName,
+			@VoogaAnnotation(name = "Variable Name", type = VoogaType.STRING) StringOperation varName,
 			@VoogaAnnotation(name = "New Value", type = VoogaType.DOUBLE) DoubleOperation newDouble) {
 		this.object = object;
 		this.varName = varName;

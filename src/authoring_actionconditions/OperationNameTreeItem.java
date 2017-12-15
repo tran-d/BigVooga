@@ -2,7 +2,9 @@ package authoring_actionconditions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
+import authoring.Sprite.AbstractSpriteObject;
 import engine.operations.OperationFactory;
 import engine.operations.VoogaType;
 import javafx.beans.value.ChangeListener;
@@ -30,8 +32,11 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 	private String voogaParameterGetName;
 	private String actionParameterType;
 	private static List<VoogaType> voogaTypesForExistingItems;
+	
+	private Supplier<List<AbstractSpriteObject>> supplier;
 
-	public OperationNameTreeItem(String actionParameterType, String voogaParameterGetName, VoogaType voogaType) {
+	public OperationNameTreeItem(String actionParameterType, String voogaParameterGetName, VoogaType voogaType, Supplier<List<AbstractSpriteObject>> supplier) {
+		this.supplier = supplier;
 		this.voogaType = voogaType;
 		this.voogaParameterGetName = voogaParameterGetName;
 		this.actionParameterType = actionParameterType;
@@ -59,8 +64,11 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 	}
 
 	public OperationNameTreeItem(String actionParameterType, String actionParameterDescription, VoogaType voogaType,
-			Runnable changeSize) {
-		this(actionParameterType, actionParameterDescription, voogaType);
+			Runnable changeSize, Supplier<List<AbstractSpriteObject>> supplier) {
+		
+		this(actionParameterType, actionParameterDescription, voogaType, supplier);
+		System.out.print("IS SUPPLIER NULL??????????? ");
+		System.out.println(supplier == null);
 		this.changeTreeViewSize = changeSize;
 		this.expandedProperty().addListener(e -> changeTreeViewSize.run());
 
@@ -112,7 +120,7 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 		// .observableList(operationFactory.getOperations(voogaTypeString));
 
 		if (checkVoogaType(voogaType)) {
-			operationCB = new ExistingItemsChoiceBox(voogaType).getChoiceBox();
+			operationCB = new ExistingItemsChoiceBox(voogaType, supplier).getChoiceBox();
 		} else {
 
 			ObservableList<String> voogaParameters = FXCollections
@@ -148,7 +156,7 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 					operationName.getChildren().clear();
 					String selectedOperation = newOperations.get(operationCB.getSelectionModel().getSelectedIndex());
 
-					operationParameterTreeItem = new OperationParameterTreeItem(selectedOperation);
+					operationParameterTreeItem = new OperationParameterTreeItem(selectedOperation, supplier);
 
 					opParameterList.add(operationParameterTreeItem);
 					operationName.getChildren().add(operationParameterTreeItem);

@@ -22,6 +22,8 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.function.Supplier;
 
+import javax.imageio.ImageIO;
+
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.security.NullPermission;
@@ -36,11 +38,15 @@ import authoring_UI.MapDataConverter;
 import authoring_UI.SpriteDataConverter;
 import engine.EngineController;
 import engine.VoogaException;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
+import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -101,7 +107,7 @@ public class GameDataHandler {
 		xstream.allowTypesByWildcard(new String[] { "engine.**", "java.**" });
 		return xstream;
 	}
-	
+
 	public GameDataHandler(Stage s) {
 		this(() -> selectDirectory(s).getAbsolutePath());
 	}
@@ -286,7 +292,7 @@ public class GameDataHandler {
 		cache.put(fileName, i);
 		return i;
 	}
-	
+
 	public Image getImage(File file) {
 		addFileToProject(file);
 		Image im = getImage(file.getName());
@@ -321,8 +327,11 @@ public class GameDataHandler {
 	}
 
 	public static File selectDirectory(Stage stage) {
+		Alert alert = new Alert(Alert.AlertType.INFORMATION,
+				"Select an Empty Working Directory for use by the Program");
+		alert.showAndWait();
 		DirectoryChooser chooser = new DirectoryChooser();
-		chooser.setTitle("Select Workspace");
+		chooser.setTitle("Select Empty Working Directory for Workspace");
 		File ret = null;
 		while (ret == null)
 			ret = chooser.showDialog(stage);
@@ -341,17 +350,17 @@ public class GameDataHandler {
 		return fileChooser.showOpenDialog(window);
 	}
 
-//	public String getImageURIAndCopyToResources(File file) {
-//		try {
-//			Files.copy(file.toPath(), Paths.get(root + RESOURCES + file.getName()),
-//					StandardCopyOption.REPLACE_EXISTING);
-//			addFileToProject(file);
-//		} catch (IOException e) {
-//			throw new VoogaException(e);
-//		}
-//		String URI = file.toURI().toString();
-//		return URI;
-//	}
+	// public String getImageURIAndCopyToResources(File file) {
+	// try {
+	// Files.copy(file.toPath(), Paths.get(root + RESOURCES + file.getName()),
+	// StandardCopyOption.REPLACE_EXISTING);
+	// addFileToProject(file);
+	// } catch (IOException e) {
+	// throw new VoogaException(e);
+	// }
+	// String URI = file.toURI().toString();
+	// return URI;
+	// }
 
 	private static void makeDirectory(String path) {
 		File file = new File(path);
@@ -477,7 +486,7 @@ public class GameDataHandler {
 	public String getCustomSpriteDirectoryPath() {
 		return projectPath + CUSTOM_SPRITE_FOLDER;
 	}
-
+	
 	public String getInitializingWorldDirectoryPath(String worldName) {
 		return projectPath + PROJECT_WORLD_PATH + worldName + "/";
 	}
@@ -520,6 +529,7 @@ public class GameDataHandler {
 
 	}
 
+
 	public List<DraggableGrid> loadWorldsFromWorldDirectory(String importProjectName) { // ONLY CALLED when importing
 		myImportProjectPath = importProjectName;
 		List<DraggableGrid> DG_LIST = new ArrayList<DraggableGrid>();
@@ -552,7 +562,7 @@ public class GameDataHandler {
 	}
 
 	private List<AbstractSpriteObject> loadSpritesFromDirectory(File directory) throws Exception {
-		
+
 		if (!isValidDirectory(directory)) {
 			throw new Exception("Not a directory");
 		}
@@ -631,7 +641,7 @@ public class GameDataHandler {
 		}
 		return ret;
 	}
-	
+
 	public String getImportedInventorySpritesPath() {
 		String path = "";
 		if (myImportProjectPath != null) {
@@ -652,6 +662,17 @@ public class GameDataHandler {
 		saveToFile(dS, folderToSaveTo + DIALOG_EXTENSION);
 	}
 
+	public void saveTo(Image image, String fileName) {
+		if (image == null)
+			return;
+		File loc = new File(projectPath+RESOURCES+fileName);
+		try {
+			ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", loc);
+		} catch (IOException e) {
+			throw new VoogaException("IllegalFile", loc.getAbsolutePath());
+		}
+	}
+	
 	public String getRoot() {
 		return root;
 	}

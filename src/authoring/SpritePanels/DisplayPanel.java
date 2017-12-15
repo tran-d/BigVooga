@@ -132,13 +132,14 @@ public class DisplayPanel extends VBox {
 		// createSpriteCreator();
 		this.setPrefSize(DISPLAY_PANEL_WIDTH, DISPLAY_PANEL_HEIGHT);
 		setSpriteInfoAndVBox();
+		
 
 		// createStatePane(new VBox());
 	}
 
 	private void createActionConditionTabs() {
-		conditions = new ConditionTab<ConditionRow>(ResourceBundleUtil.getTabTitle("ConditionsTabTitle"));
-		actions = new ActionTab<ActionRow>(ResourceBundleUtil.getTabTitle("ActionsTabTitle"), mySPSM);
+		conditions = new ConditionTab<ConditionRow>(ResourceBundleUtil.getTabTitle("ConditionsTabTitle"), () -> mySPSM.getAllSpritesFromActiveGrid());
+		actions = new ActionTab<ActionRow>(ResourceBundleUtil.getTabTitle("ActionsTabTitle"), () -> mySPSM.getAllSpritesFromActiveGrid());
 		controllerConditionActionTabs = new ControllerConditionActionTabs(conditions, actions);
 		applyButtonController = new ApplyButtonController();
 		mySpriteTabs.getTabs().addAll(conditions, actions);
@@ -192,9 +193,9 @@ public class DisplayPanel extends VBox {
 		Tab tags = new Tab("Tags");
 		tags.setContent(mySTagTAI.getContainingVBox());
 		mySpriteTabs.getTabs().add(tags);
-		multipleCellsActiveProperty.addListener((observable, oldStatus, newStatus) -> {
-			tags.setDisable(newStatus);
-		});
+//		multipleCellsActiveProperty.addListener((observable, oldStatus, newStatus) -> {
+//			tags.setDisable(newStatus);
+//		});
 	}
 
 	private void createSpriteTabs() {
@@ -321,21 +322,19 @@ public class DisplayPanel extends VBox {
 		try {
 			AbstractSpriteObject activeCell = getActiveCell();
 			if (activeCell!=null){
-			;
-
 			checkMultipleCellsActive();
 			clearAllSpriteEditorTabs();
 			removeSpriteEditorErrorMessage();
 			// mySParameterTAI.create(getActiveCell());
 			mySParameterTAI.create(activeCell);
-			applyButtonController.updateActionConditionTabs(conditions,actions, activeCell);
-			controllerConditionActionTabs = new ControllerConditionActionTabs(conditions, actions);
-			mySpriteTabs.getTabs().set(CONDITIONTAB_INDEX, conditions);
-			mySpriteTabs.getTabs().set(ACTIONTAB_INDEX, actions);
+			mySTagTAI.setSpriteObjectAndUpdate(activeCell);
 			if (!multipleActive()) {
+				applyButtonController.updateActionConditionTabs(conditions,actions, activeCell);
+				controllerConditionActionTabs = new ControllerConditionActionTabs(conditions, actions);
+				mySpriteTabs.getTabs().set(CONDITIONTAB_INDEX, conditions);
+				mySpriteTabs.getTabs().set(ACTIONTAB_INDEX, actions);
 				mySDialogTAI.setSpriteObject(activeCell);
 				System.out.println("Trying to update not multiple actvie");
-				mySTagTAI.setSpriteObjectAndUpdate(activeCell);
 				mySInventoryTAI.setSpriteObjectAndUpdate(activeCell);
 				mySUtilityTAI.setSpriteObjectAndUpdate(activeCell);
 				mySAnimationSequenceTAI.setSpriteObject(activeCell);
@@ -372,11 +371,10 @@ public class DisplayPanel extends VBox {
 
 	private void apply() throws Exception {
 		mySParameterTAI.apply();
-		;
+		mySTagTAI.apply();
 		if (!multipleActive()) {
 			System.out.println("Trying to set ivent etc.");
 			mySDialogTAI.apply();
-			mySTagTAI.apply();
 			mySInventoryTAI.apply();
 			mySAnimationSequenceTAI.apply();
 			applyButtonController.updateSpriteObject(conditions, actions,getActiveCell());

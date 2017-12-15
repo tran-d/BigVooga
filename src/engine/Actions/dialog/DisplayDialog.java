@@ -18,7 +18,7 @@ public class DisplayDialog implements Action {
 	private VectorOperation location;
 
 	public DisplayDialog(
-			@VoogaAnnotation(name = "Dialog Box Name", type = VoogaType.DIALOGNAME) StringOperation boxName,
+			@VoogaAnnotation(name = "Dialog Box Name", type = VoogaType.STRING) StringOperation boxName,
 			@VoogaAnnotation(name = "Location", type = VoogaType.VECTOR) VectorOperation location) {
 		this.boxName = boxName;
 		this.location = location;

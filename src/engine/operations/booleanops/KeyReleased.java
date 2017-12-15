@@ -15,7 +15,7 @@ public class KeyReleased implements BooleanOperation {
 	
 	private StringOperation check;
 	
-	public KeyReleased(@VoogaAnnotation(name = "Key", type = VoogaType.KEY) StringOperation check) {
+	public KeyReleased(@VoogaAnnotation(name = "Key", type = VoogaType.STRING) StringOperation check) {
 		this.check = check;
 	}
 

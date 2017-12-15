@@ -210,7 +210,6 @@ public class SpriteTagTabAndInfo {
 	
 	
 	public void apply(){
-		;
 		myASO.setTags(this.temporaryTags);
 	}
 

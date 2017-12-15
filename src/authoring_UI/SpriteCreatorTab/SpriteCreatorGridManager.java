@@ -169,12 +169,7 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 		createImageButton.textProperty().bind(DisplayLanguage.createStringBinding(DRAW_IMAGE));
 		createImageButton.setOnAction(e -> {
 			Stage newStage = new Stage();
-			ImageCanvasPane paint = new ImageCanvasPane(500, 500, s -> {
-				final String fileName = ("UniqueSprite"+Math.random()).replaceAll("\\.", "");
-				System.out.println("fileName: "+fileName);
-				newSprite = getMapLayer().setBackgroundImage(()-> getSpriteTypeFunction.apply(s, fileName));
-				saveTo(s, fileName);
-			});
+			ImageCanvasPane paint = new ImageCanvasPane(500, 500, this::save);
 			
 			Scene paintScene = new Scene(paint);
 			newStage.setScene(paintScene);
@@ -244,6 +239,13 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 		buttonBox.getChildren().addAll(createImageButton, createSpriteButton);
 		return buttonBox;
 	}
+
+	private void save(Image s) {
+		final String fileName = ("UniqueSprite"+Math.random()).replaceAll("\\.", "")+".png";
+		System.out.println("fileName: "+fileName);
+		myAEM.getGameDataHandler().saveTo(s, fileName);
+		newSprite = getMapLayer().setBackgroundImage(()-> getSpriteTypeFunction.apply(s, fileName));
+	}
 	
 //	public String getSpriteName() {
 //		return nameField.getText();
@@ -260,19 +262,6 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 //	public void setSpriteCategory(String s) {
 //		categoryField.setText(s);
 //	}
-	
-	
-	private void saveTo(Image image, String location) {
-//		System.out.println("Location abs path; "+location.getAbsolutePath());
-		File loc = new File(location);
-		if (location == null || image == null)
-			return;
-		try {
-			ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", loc);
-		} catch (IOException e) {
-			throw new VoogaException("IllegalFile", loc.getAbsolutePath());
-		}
-	}
 
 
 }

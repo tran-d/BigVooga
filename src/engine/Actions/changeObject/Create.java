@@ -20,7 +20,7 @@ public class Create implements Action {
 	private DoubleOperation heading;
 	private VectorOperation location;
 
-	public Create(@VoogaAnnotation(name = "Sprite Name", type = VoogaType.OBJECTNAME) StringOperation name,
+	public Create(@VoogaAnnotation(name = "Sprite Name", type = VoogaType.STRING) StringOperation name,
 			@VoogaAnnotation(name = "Starting Location", type = VoogaType.VECTOR) VectorOperation location,
 			@VoogaAnnotation(name = "Starting Heading", type = VoogaType.DOUBLE) DoubleOperation heading) {
 		this.name = name;

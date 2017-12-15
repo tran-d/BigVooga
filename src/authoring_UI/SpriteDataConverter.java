@@ -74,9 +74,7 @@ public class SpriteDataConverter {
 		actionRows = ASO.getActionRows();
 		myAnimationSequences = ASO.getAnimationSequences();
 		spriteConditionOperations = ASO.getSelectedConditionOperations();
-		System.out.println("Selected Condition Operations: " + spriteConditionOperations);
 		spriteActionOperations = ASO.getSelectedActionOperations();
-		System.out.println("Selected Action and Category: " + spriteActionOperations);
 		ASO.getInventory().forEach(sprite -> {
 			inventory.add(new SpriteDataConverter(sprite));
 		});
@@ -114,21 +112,18 @@ public class SpriteDataConverter {
 		ret.setSavePath(mySavePath);
 		ret.setTags(tags);
 		ret.setSelectedConditionOperations(spriteConditionOperations);
-		System.out.println("selectedConditionOperations yeah " + spriteConditionOperations);
 		ret.setSelectedActionOperations(spriteActionOperations);
-		System.out.println("selectedActionOperations yeahhhh " + spriteActionOperations);
 //		ret.setAllConditions(allConditions);
 //		ret.setAllActions(allActions);
 		ret.setConditionRows(conditionRows);
 		ret.setActionRows(actionRows);
-		System.out.println("ActionRows Size: "+actionRows.size());
-		System.out.println("SDC AnimationSeq: "+this.myAnimationSequences);
 		List<AbstractSpriteObject> newInventory = new ArrayList<AbstractSpriteObject>();
 		inventory.forEach(SDC ->{
 			newInventory.add(SDC.createSprite());
 		});
 		ret.setInventory(newInventory);
 		System.out.println("spriteInventoryinSDC: "+ret.getInventory());
+		System.out.println("Sprite Converter ImageURL: "+imageURL);
 		ret.setImageURL(imageURL);
 
 		return ret;

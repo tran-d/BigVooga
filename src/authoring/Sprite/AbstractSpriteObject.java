@@ -232,14 +232,14 @@ public abstract class AbstractSpriteObject extends ImageView {
 	
 
 	public List<String> getTags() {
-		return this.myTags;
+		return new ArrayList<String>(this.myTags);
 	}
 
 	public void setTags(Collection<String> newTags) {
 		if (myTags == null) {
 			myTags = new ArrayList<String>();
 		}
-		this.myTags.clear();
+		this.myTags = new ArrayList<String>();
 		this.myTags.addAll(newTags);
 	}
 
@@ -641,6 +641,21 @@ public abstract class AbstractSpriteObject extends ImageView {
 				return false;
 			}
 		}
+		
+		List<String> thisTags = new ArrayList<String>(this.getTags());
+		List<String> otherTags = new ArrayList<String>(other.getTags());
+		Iterator<String> it = thisTags.iterator();
+		while (it.hasNext()){
+			String nextString = it.next();
+			if (otherTags.contains(nextString)){
+				otherTags.remove(nextString);
+				it.remove();
+			}
+		}
+		if (thisTags.size()>0 || otherTags.size()>0){
+			return false;
+		}
+		
 		return true;
 	}
 

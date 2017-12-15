@@ -15,7 +15,7 @@ public class StringVariableOfHoldable implements StringOperation {
 	private StringOperation varName;
 
 	public StringVariableOfHoldable(@VoogaAnnotation(name = "Holdable", type = VoogaType.HOLDABLE) HoldableOperation holdable,
-			@VoogaAnnotation(name = "Variable Name", type = VoogaType.STRINGNAME) StringOperation varName) {
+			@VoogaAnnotation(name = "Variable Name", type = VoogaType.STRING) StringOperation varName) {
 		this.holdable = holdable;
 		this.varName = varName;
 	}
