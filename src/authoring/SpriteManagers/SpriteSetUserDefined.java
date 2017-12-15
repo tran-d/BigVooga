@@ -11,6 +11,6 @@ public class SpriteSetUserDefined extends SpriteSet{
 	@Override
 	protected void setFolderToLoad() {
 		setFolderToLoad(myGDH.getCustomSpriteDirectoryPath());
-		;
+		
 	}
 }
