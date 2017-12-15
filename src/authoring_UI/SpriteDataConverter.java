@@ -108,12 +108,12 @@ public class SpriteDataConverter {
 		ret.setName(name);
 		ret.setSavePath(mySavePath);
 		ret.setTags(tags);
-		ret.setSelectedConditionOperations(spriteConditionOperations);
-		ret.setSelectedActionOperations(spriteActionOperations);
 //		ret.setAllConditions(allConditions);
 //		ret.setAllActions(allActions);
 		ret.setConditionRows(conditionRows);
 		ret.setActionRows(actionRows);
+		ret.setSelectedConditionOperations(spriteConditionOperations);
+		ret.setSelectedActionOperations(spriteActionOperations);
 		List<AbstractSpriteObject> newInventory = new ArrayList<AbstractSpriteObject>();
 		inventory.forEach(SDC ->{
 			newInventory.add(SDC.createSprite());
@@ -124,8 +124,8 @@ public class SpriteDataConverter {
 		ret.setImageURL(imageURL);
 		ret.setGameDataHandler(myGDH);
 		//ret.setIsLoadingFromXML(true);
-		ret.setConditionDummyTreeViewSize(conditionRows.size());
-		ret.setActionDummyTreeViewSize(actionRows.size());
+//		ret.setConditionDummyTreeViewSize(conditionRows.size());
+//		ret.setActionDummyTreeViewSize(actionRows.size());
 		return ret;
 	}
 	
