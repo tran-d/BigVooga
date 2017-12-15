@@ -23,6 +23,7 @@ public class Collision implements BooleanOperation {
 	public Boolean evaluate(GameObject asking, GameObjectEnvironment world) {
 		GameObject obj1 = first.evaluate(asking, world);
 		GameObject obj2 = second.evaluate(asking, world);
+		if(obj1 == null || obj2 == null) return false;
 		Point2D intersectionVector = obj1.getBounds().checkCollision(obj2.getBounds());
 		if (intersectionVector != null) {
 			obj1.setLastCollisionChecked(new CollisionEvent(obj2, intersectionVector.multiply(-1)));
