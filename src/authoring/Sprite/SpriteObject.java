@@ -27,8 +27,8 @@ public class SpriteObject extends AbstractSpriteObject{
 	
 	@Override
 	public SpriteObject newCopy() {
-		// ;
 		SpriteObject ret = new SpriteObject(false);
+		ret.setGameDataHandler(GDH);
 		if (this.myImageURL != null) {
 			ret.setupImageURLAndView(this.myImageURL);
 		}
