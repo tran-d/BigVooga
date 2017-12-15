@@ -6,7 +6,9 @@ import controller.welcomeScreen.SceneController;
 import engine.EngineController;
 import engine.utilities.data.GameDataHandler;
 import gui.player.GameDisplay;
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  * Acts as the main overarching controller that allows communication between the player and game engine.
@@ -65,6 +67,10 @@ public class GameController {
 		engineController.setPlayerManager(playerManager);
 		playerManager.setEngineController(engineController);
 		engineController.start();
+	}
+
+	public void stop() {
+		engineController.stop();
 	}
 	
 }
