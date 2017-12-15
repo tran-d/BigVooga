@@ -1,5 +1,7 @@
 package authoring.Sprite.AnimationSequences;
 
+import java.io.File;
+
 import engine.sprite.BoundedImage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,17 +13,19 @@ public class AuthoringImageView extends ImageView{
 	
 	public AuthoringImageView(String path, Image im){
 		super(im);
+//		File f = new File(path);
 		imagePath = path;
 	}
 	
 	public AuthoringImageView(String path, Image im, BoundedImage bImage){
-		super(im);
-		imagePath = path;
+		this(path, im);
 		boundedImage = bImage;
 	}
 	
 	public AuthoringImageView(String path){
-		Image im = new Image(path);
+//		System.out.println("AIV path: "+path);
+//		File f = new File(path);
+		Image im = GDH.getImage(path);
 		imagePath = path;
 		setImage(im);
 	}

@@ -17,7 +17,7 @@ public class SerializableAuthoringImageView {
 	}
 	
 	private Object readResolve() throws java.io.ObjectStreamException{
-        return new AuthoringImageView(imagePath, new Image(imagePath), bImage);  
+        return new AuthoringImageView(imagePath, bImage);  
 }
 
 }

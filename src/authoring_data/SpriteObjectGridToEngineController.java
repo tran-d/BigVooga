@@ -82,6 +82,7 @@ public class SpriteObjectGridToEngineController {
 		setInventory(SOI, GE);
 		addParametersToVariableContainer(SOI, GE);
 		addConditionsAndActionsToGameObject(SOI, GE);
+		System.out.println("Converted a SO to GO");
 		
 		return GE;
 	}
@@ -134,7 +135,7 @@ public class SpriteObjectGridToEngineController {
 	}
 	
 	private BoundedImage convertAnimationSequenceImageToBoundedImage(AnimationSequenceImage ASI){
-		return new BoundedImage(ASI.getImage().getImagePath().replaceAll(".*\\", ""));
+		return new BoundedImage(ASI.getImage().getImagePath());/*.replaceAll(".*\\", ""));*/
 	}
 	
 	private void setPositionAndSizeOfGameObject(SpriteObject SOI, GameObject GO){
@@ -176,7 +177,7 @@ public class SpriteObjectGridToEngineController {
 	
 	private void addAllGameObjectsToLayer(List<GameObject> GO_LIST, GameLayer layer) {
 		for (GameObject GO: GO_LIST) {
-			layer.addElement(GO);
+//			layer.addElement(GO);
 			layer.addGameObject(GO);
 		}
 	}

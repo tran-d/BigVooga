@@ -17,6 +17,7 @@ import authoring.Sprite.SpriteObject;
 import authoring.Sprite.SpriteParameterTabsAndInfo;
 import authoring.Sprite.SpriteTagTabAndInfo;
 import authoring.Sprite.SpriteUtilityTabAndInfo;
+import authoring.Sprite.DialogTab.SpriteDialogTabAndInfo;
 import authoring.Sprite.Parameters.SpriteParameter;
 import authoring.Sprite.Parameters.SpriteParameterI;
 import authoring_UI.MainAuthoringGUI;
@@ -49,6 +50,7 @@ public class DisplayPanel extends VBox {
 	private SpriteParameterTabsAndInfo mySParameterTAI;
 	private SpriteInventoryTabAndInfo mySInventoryTAI;
 	private SpriteUtilityTabAndInfo mySUtilityTAI;
+	private SpriteDialogTabAndInfo mySDialogTAI;
 	private SpriteAnimationSequenceTabsAndInfo mySAnimationSequenceTAI;
 	private SpriteTagTabAndInfo mySTagTAI;
 	private ObjectProperty<Boolean> multipleCellsActiveProperty;
@@ -81,7 +83,8 @@ public class DisplayPanel extends VBox {
 		mySAnimationSequenceTAI = new SpriteAnimationSequenceTabsAndInfo();
 		mySUtilityTAI = new SpriteUtilityTabAndInfo();
 		mySTagTAI = new SpriteTagTabAndInfo();
-		;
+		mySDialogTAI = new SpriteDialogTabAndInfo(myAEM);
+		System.out.println("made SPTAI in MENU");
 		setUpMenu();
 	}
 
@@ -149,7 +152,9 @@ public class DisplayPanel extends VBox {
 
 	private void createDialogueTab() {
 		Tab dialogue = new Tab("Dialogue");
-		dialogue.setContent(new TextArea("dialogue goes here"));
+		dialogue.setContent(mySDialogTAI.getContainingVBox());
+		
+//		dialogue.setContent(new TextArea("dialogue goes here"));
 		mySpriteTabs.getTabs().addAll(dialogue);
 		multipleCellsActiveProperty.addListener((observable, oldStatus, newStatus) -> {
 			dialogue.setDisable(newStatus);
@@ -328,7 +333,8 @@ public class DisplayPanel extends VBox {
 			mySpriteTabs.getTabs().set(CONDITIONTAB_INDEX, conditions);
 			mySpriteTabs.getTabs().set(ACTIONTAB_INDEX, actions);
 			if (!multipleActive()) {
-				;
+				mySDialogTAI.setSpriteObject(activeCell);
+				System.out.println("Trying to update not multiple actvie");
 				mySTagTAI.setSpriteObjectAndUpdate(activeCell);
 				mySInventoryTAI.setSpriteObjectAndUpdate(activeCell);
 				mySUtilityTAI.setSpriteObjectAndUpdate(activeCell);
@@ -368,7 +374,8 @@ public class DisplayPanel extends VBox {
 		mySParameterTAI.apply();
 		;
 		if (!multipleActive()) {
-			;
+			System.out.println("Trying to set ivent etc.");
+			mySDialogTAI.apply();
 			mySTagTAI.apply();
 			mySInventoryTAI.apply();
 			mySAnimationSequenceTAI.apply();

@@ -530,7 +530,7 @@ public class GameDataHandler {
 	}
 
 	private List<AbstractSpriteObject> loadSpritesFromDirectory(File directory) throws Exception {
-		;
+		
 		if (!isValidDirectory(directory)) {
 			throw new Exception("Not a directory");
 		}
