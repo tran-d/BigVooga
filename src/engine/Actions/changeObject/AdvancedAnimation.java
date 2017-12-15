@@ -1,6 +1,5 @@
-package engine.Actions.advanced;
+package engine.Actions.changeObject;
 
-import engine.Actions.changeObject.SetAnimationSequence;
 import engine.operations.VoogaAnnotation;
 import engine.operations.VoogaType;
 import engine.operations.gameobjectops.GameObjectOperation;

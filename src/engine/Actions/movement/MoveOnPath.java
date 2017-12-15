@@ -1,4 +1,4 @@
-package engine.Actions.advanced;
+package engine.Actions.movement;
 
 import engine.Action;
 import engine.GameObject;
