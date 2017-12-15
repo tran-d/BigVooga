@@ -1,19 +1,17 @@
 package authoring_UI;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import controller.player.GameController;
 import controller.welcomeScreen.SceneController;
 import engine.utilities.data.GameDataHandler;
-import gui.welcomescreen.FileSelector;
-import gui.welcomescreen.WelcomeScreen;
-import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ToolBar;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tools.DisplayLanguage;
 
@@ -33,6 +31,7 @@ public class Toolbar extends ToolBar {
 	private static final String SAVE_STRING = "Save";
 	private static final String IMPORT_STRING = "Import";
 	private static final String EXPORT_STRING = "Export";
+	private static final String TEST_STRING = "Test";
 	private static final String EXIT_STRING = "Exit";
 	private static final String VIEWS_STRING = "Viewers";
 	private static final String ELEMENT_VIEWER_STRING = "ElementViewer";
@@ -45,6 +44,7 @@ public class Toolbar extends ToolBar {
 	private SceneController sceneController;
 	private MenuButton views;
 	private Stage myStage;
+	private GameDataHandler myGDH;
 
 	/**
 	 * Creates the ToolBar and adds the file, viewers, and settings options.
@@ -52,9 +52,11 @@ public class Toolbar extends ToolBar {
 	 * @param stage
 	 * @param currentSceneController
 	 */
-	public Toolbar(Stage stage, SceneController currentSceneController) {
+	public Toolbar(Stage stage, SceneController currentSceneController, GameDataHandler GDH) {
 		myStage = stage;
 		sceneController = currentSceneController;
+		myGDH = GDH;
+		
 		createFileOptions();
 		createViewers();
 		createSettings();
@@ -90,11 +92,30 @@ public class Toolbar extends ToolBar {
 		export.textProperty().bind(DisplayLanguage.createStringBinding(EXPORT_STRING));
 		export.setOnAction(e -> sceneController.exportToEngine());
 		
+		MenuItem test = new MenuItem();
+		test.textProperty().bind(DisplayLanguage.createStringBinding(TEST_STRING));
+		test.setOnAction(e -> {
+			sceneController.exportToEngine();
+			Stage gamePlayingStage = new Stage();
+			try {
+				GameController gameController = new GameController(gamePlayingStage, myGDH.getProjectName(), sceneController, false);
+				gamePlayingStage.show();
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+//			sceneController.exportToEngine();
+//			File f = new File(new GameDataHandler(myStage).getRoot());
+			
+			
+		});
+		
 		MenuItem exit = new MenuItem();
 		exit.textProperty().bind(DisplayLanguage.createStringBinding(EXIT_STRING));
 		exit.setOnAction(e -> sceneController.switchScene(SceneController.WELCOME_SCREEN_KEY));
 		
-		fileOptions = new MenuButton(FILE_STRING, null, load, save, importOption, export, exit);
+		fileOptions = new MenuButton(FILE_STRING, null, load, save, importOption, export, test, exit);
 		fileOptions.textProperty().bind(DisplayLanguage.createStringBinding(FILE_STRING));
 	}
 	
