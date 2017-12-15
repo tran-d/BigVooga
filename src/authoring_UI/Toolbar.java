@@ -8,6 +8,8 @@ import java.util.List;
 import controller.player.GameController;
 import controller.welcomeScreen.SceneController;
 import engine.utilities.data.GameDataHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -33,16 +35,12 @@ public class Toolbar extends ToolBar {
 	private static final String EXPORT_STRING = "Export";
 	private static final String TEST_STRING = "Test";
 	private static final String EXIT_STRING = "Exit";
-	private static final String VIEWS_STRING = "Viewers";
-	private static final String ELEMENT_VIEWER_STRING = "ElementViewer";
-	private static final String MAP_VIEWER_STRING = "MapViewer";
 	private static final String SETTINGS_STRING = "Settings";
 	private static final String GAMES_PATH = "data/UserCreatedGames";
 	
 	private MenuButton fileOptions;
 	private MenuButton settings;
 	private SceneController sceneController;
-	private MenuButton views;
 	private Stage myStage;
 	private GameDataHandler myGDH;
 
@@ -58,11 +56,9 @@ public class Toolbar extends ToolBar {
 		myGDH = GDH;
 		
 		createFileOptions();
-		createViewers();
 		createSettings();
 		this.getItems().addAll(
 				fileOptions,
-				views,
 				settings
 				);
 	}
@@ -99,9 +95,10 @@ public class Toolbar extends ToolBar {
 			try {
 				GameController gameController = new GameController(gamePlayingStage, myGDH.getProjectName(), sceneController, false);
 				gamePlayingStage.show();
+				gamePlayingStage.setOnCloseRequest(l -> gameController.stop());
 			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("The file was not found.");
 			}
 			
 //			sceneController.exportToEngine();
@@ -144,23 +141,6 @@ public class Toolbar extends ToolBar {
 			importItems.add(tempItem);
 		}
 		return importItems;
-	}
-	
-	/**
-	 * Creates the different viewers that the user can access. These currently consist of the element viewer and the map viewer, which allow
-	 * the user to see all their sprites and maps for the current project in a bigger display than what is offered in the Map Editor.
-	 */
-	private void createViewers() {
-		MenuItem elementViewer = new MenuItem();
-		elementViewer.textProperty().bind(DisplayLanguage.createStringBinding(ELEMENT_VIEWER_STRING));
-		elementViewer.setOnAction(e -> new ElementViewer());
-		
-		MenuItem mapViewer = new MenuItem();
-		mapViewer.textProperty().bind(DisplayLanguage.createStringBinding(MAP_VIEWER_STRING));
-		//TODO language.setOnAction(e -> ());
-
-		views = new MenuButton (VIEWS_STRING, null, elementViewer, mapViewer);
-		views.textProperty().bind(DisplayLanguage.createStringBinding(VIEWS_STRING));
 	}
 	
 	/**

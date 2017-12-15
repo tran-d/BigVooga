@@ -327,6 +327,7 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 				}
 				File file = GameDataHandler.chooseFileForImageLoad(s.getWindow());
 				if (file != null) {
+					System.out.println("ARE YOU LOADING THE IMAGE??!!");
 					ML.getOnBackgroundChangeFunctionality(file);
 				}
 			});

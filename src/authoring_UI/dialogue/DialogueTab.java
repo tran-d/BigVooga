@@ -27,7 +27,6 @@ public class DialogueTab extends DisplayableTab {
 
 	public DialogueTab(String name) {
 		super(name);
-		this.setContent(sp);
 		dialogueLister = new VBox();
 
 		this.textProperty().bind(DisplayLanguage.createStringBinding(name));
