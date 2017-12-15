@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.function.Supplier;
 
 import ActionConditionClasses.ApplyButtonController;
 import authoring.AuthoringEnvironmentManager;
@@ -26,11 +27,14 @@ public class ExistingItemsChoiceBox {
 
 	private AbstractSpriteObject selectedSprite = ApplyButtonController.selectedSpriteObject;
 	private List<AbstractSpriteObject> sprites;
+	private Supplier<List<AbstractSpriteObject>> supplier;
 
 	// need current sprites
 
-	public ExistingItemsChoiceBox(VoogaType type) {
+	public ExistingItemsChoiceBox(VoogaType type, Supplier<List<AbstractSpriteObject>> supplier) {
+		this.supplier = supplier;
 		keys = Resources.getBundle(KEY_BUNDLE_LOCATION);
+		
 		this.createSpriteList();
 
 		List<String> list = this.makeObservableList(type);
@@ -43,6 +47,8 @@ public class ExistingItemsChoiceBox {
 		Map<String, List<AbstractSpriteObject>> map = AuthoringEnvironmentManager.getEveryTypeOfSprite();
 		sprites = map.get("DefaultSprites");
 		sprites.addAll(map.get("CustomSprites"));
+		sprites.addAll(supplier.get());
+		System.out.println("GOT SPRITES IN GRID");
 		// sprites.addAll(SpriteParameterSidebarManager.getAllSpritesFromActiveGrid());
 	}
 

@@ -50,9 +50,9 @@ public class BuildActionView {
 			stage.close();
 
 		} catch (Exception e) {
-			e.printStackTrace();
 			ConditionTreeView.showError(e.getMessage());
-			event.consume();
+			stage.close();
+//			event.consume();
 		}
 	}
 }

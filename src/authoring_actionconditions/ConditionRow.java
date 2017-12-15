@@ -1,9 +1,11 @@
 package authoring_actionconditions;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 import ActionConditionClasses.ActionCheckBoxVBox;
 import ActionConditionClasses.ActionCheckBoxVBoxI;
+import authoring.Sprite.AbstractSpriteObject;
 import engine.Condition;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.VBox;
@@ -23,22 +25,23 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 	private ConditionTreeView operationTreeView;
 	private ActionCheckBoxVBox actionCheckBoxVBox;
 	private VBox treeViewVBox;
+	private Supplier<List<AbstractSpriteObject>> supplier;
 
-	public ConditionRow(int ID, ObservableList<Integer> newActionOptions, ConditionVBox<ConditionRow> ACVBox) {
-		super(ID, ACVBox);
+	public ConditionRow(int ID, ObservableList<Integer> newActionOptions, ConditionVBox<ConditionRow> ACVBox,Supplier<List<AbstractSpriteObject>> supplier) {
+		super(ID, ACVBox,supplier);
 		addActionCheckBox(newActionOptions);
 
 		this.setPrefSize(ROW_WIDTH, ROW_EXPANDED_HEIGHT);
 
-		operationTreeView = new ConditionTreeView(this);
+		operationTreeView = new ConditionTreeView(this,supplier);
 		treeViewVBox = operationTreeView.getTreeViewVBox();
 		this.getItems().addAll(treeViewVBox);
 
 	}
 
 	public ConditionRow(int ID, ObservableList<Integer> newActionOptions, List<Integer> selectedActionOptions,
-			ConditionVBox<ConditionRow> ACVBox, ConditionTreeView tv) {
-		this(ID, newActionOptions, ACVBox);
+			ConditionVBox<ConditionRow> ACVBox, ConditionTreeView tv,Supplier<List<AbstractSpriteObject>> supplier) {
+		this(ID, newActionOptions, ACVBox,supplier);
 		getItems().removeAll(actionCheckBoxVBox, treeViewVBox);
 		actionCheckBoxVBox = new ActionCheckBoxVBox(newActionOptions, selectedActionOptions);
 		treeViewVBox = tv.getTreeViewVBox();
@@ -48,11 +51,11 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 	}
 
 	public ConditionRow(int ID, ObservableList<Integer> newActionOptions, List<Integer> selectedActionOptions,
-			ConditionVBox<ConditionRow> ACVBox, String selectedOperation, Condition condition) {
-		this(ID, newActionOptions, ACVBox);
+			ConditionVBox<ConditionRow> ACVBox, String selectedOperation, Condition condition,Supplier<List<AbstractSpriteObject>> supplier) {
+		this(ID, newActionOptions, ACVBox,supplier);
 		getItems().removeAll(actionCheckBoxVBox, treeViewVBox);
 		actionCheckBoxVBox = new ActionCheckBoxVBox(newActionOptions, selectedActionOptions);
-		operationTreeView = new ConditionTreeView(this, selectedOperation, condition);
+		operationTreeView = new ConditionTreeView(this, selectedOperation, condition,supplier);
 		treeViewVBox = operationTreeView.getTreeViewVBox();
 		getItems().addAll(actionCheckBoxVBox, treeViewVBox);
 	}

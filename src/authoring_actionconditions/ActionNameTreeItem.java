@@ -2,7 +2,9 @@ package authoring_actionconditions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
+import authoring.Sprite.AbstractSpriteObject;
 import engine.Action;
 import engine.Actions.ActionFactory;
 import engine.operations.Operation;
@@ -28,10 +30,12 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 	private String selectedAction;
 	private Action action;
 
+	private Supplier<List<AbstractSpriteObject>> supplier;
 	// private OperationNameTreeItem operationNameTreeItem1;
 	// private OperationNameTreeItem operationNameTreeItem2;
 
-	public ActionNameTreeItem(String actionCategory) {
+	public ActionNameTreeItem(String actionCategory, Supplier<List<AbstractSpriteObject>> supplier) {
+		this.supplier = supplier;
 		this.makeActionTreeItem(actionCategory);
 	}
 
@@ -119,7 +123,7 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 //					+ voogaParameters.get(i).getType());
 
 			OperationNameTreeItem opNameTreeItem = new OperationNameTreeItem(actionParameterTypes.get(i),
-					voogaParameters.get(i).getName(), voogaParameters.get(i).getType());
+					voogaParameters.get(i).getName(), voogaParameters.get(i).getType(), supplier);
 
 			opNameTreeItemList.add(opNameTreeItem);
 			parameterAction.getChildren().add(opNameTreeItem);
