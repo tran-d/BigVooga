@@ -47,16 +47,21 @@ public class ApplyButtonController {
 		int rowCond = 1;
 		List<ConditionRow> conditionRows = new LinkedList<ConditionRow>();
 		ConditionVBox<ConditionRow> conditionVBox = new ConditionVBox<ConditionRow>(conditionTab.getSupplier());
-		if (conditions == null) {
+		// if loading from xml
+		if (selectedSpriteObject.getIsLoadingFromXML()) {
+			selectedSpriteObject.setIsLoadingFromXML(false);
+			System.out.println("condition treeview list is null");
 			Iterator<Condition> it = spriteConditions.keySet().iterator();
 			ObservableList<Integer> actionOperations = createObservableIntegerList(spriteActions.size());
 			while (it.hasNext()) {
-				ConditionRow conditionRow = new ConditionRow(rowCond, actionOperations, spriteConditions.get(it.next()),
-						conditionVBox, selectedConditionOperations.get(rowCond - 1), it.next(),conditionTab.getSupplier());
+				Condition selectedCondition = it.next();
+				ConditionRow conditionRow = new ConditionRow(rowCond, actionOperations, spriteConditions.get(selectedCondition),
+						conditionVBox, selectedConditionOperations.get(rowCond - 1), selectedCondition,conditionTab.getSupplier());
 				conditionRows.add(conditionRow);
 				rowCond++;
 			}
 		} else {
+			System.out.println("condition treeview list is not null");
 			for (ConditionTreeView conditionTreeView : conditions.keySet()) {
 				ConditionRow conditionRow = new ConditionRow(rowCond,
 						createObservableIntegerList(selectedActionOperations.size()), conditions.get(conditionTreeView),
@@ -69,12 +74,16 @@ public class ApplyButtonController {
 		List<ActionRow> actionRows = new LinkedList<ActionRow>();
 		ActionVBox<ActionRow> actionVBox = new ActionVBox<ActionRow>(actionTab.getSupplier());
 		int rowAct = 1;
-		if (actions == null) {
+		// if loading from xml
+		if (selectedSpriteObject.getIsLoadingFromXML()) {
+			selectedSpriteObject.setIsLoadingFromXML(false);
+			System.out.println("action treeview list is null");
 			ActionRow actionRow = new ActionRow(rowAct, actionVBox, selectedActionOperations.get(rowAct - 1),
 					spriteActions.get(rowAct - 1),actionTab.getSupplier());
 			actionRows.add(actionRow);
 			rowAct++;
 		} else {
+			System.out.println("action treeview list is not null");
 			for (ActionTreeView actionTreeView : actions) {
 				ActionRow actionRow = new ActionRow(rowAct, actionVBox, actionTreeView,actionTab.getSupplier());
 				actionRows.add(actionRow);

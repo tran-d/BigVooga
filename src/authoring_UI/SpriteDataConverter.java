@@ -128,6 +128,7 @@ public class SpriteDataConverter {
 		System.out.println("spriteInventoryinSDC: "+ret.getInventory());
 		ret.setImageURL(imageURL);
 		ret.setGameDataHandler(myGDH);
+		ret.setIsLoadingFromXML(true);
 		return ret;
 	}
 	
