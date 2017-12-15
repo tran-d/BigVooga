@@ -1,0 +1,34 @@
+<authoring__UI.SpriteDataConverter>
+  <conditionRows/>
+  <actionRows class="linked-list"/>
+  <catmap/>
+  <inventory/>
+  <imageURL>PerfectCookie.png</imageURL>
+  <gridPos>
+    <int>0</int>
+    <int>0</int>
+  </gridPos>
+  <name>Cookie</name>
+  <width>10</width>
+  <height>10</height>
+  <UUID>9b25d781-df9d-4ba1-a7df-2de959288005</UUID>
+  <myAnimationSequences>
+    <authoring.Sprite.AnimationSequences.AuthoringAnimationSequence resolves-to="authoring.Sprite.AnimationSequences.SerializableAuthoringAnimationSequence">
+      <myName>Default</myName>
+      <myImages>
+        <authoring.Sprite.AnimationSequences.AnimationSequenceImage>
+          <myImage resolves-to="authoring.Sprite.AnimationSequences.SerializableAuthoringImageView">
+            <imagePath>PerfectCookie.png</imagePath>
+          </myImage>
+        </authoring.Sprite.AnimationSequences.AnimationSequenceImage>
+      </myImages>
+    </authoring.Sprite.AnimationSequences.AuthoringAnimationSequence>
+  </myAnimationSequences>
+  <spriteConditionOperations class="linked-list"/>
+  <spriteActionOperations class="linked-list"/>
+  <renderingPreference>0</renderingPreference>
+  <myDialogs/>
+  <mySavePath>C:\Users\ianel\Desktop\Good Vooga/CookieClicker/authoring/Sprites/CustomSprites/General/Cookie</mySavePath>
+  <spriteType>SpriteObject</spriteType>
+  <tags/>
+</authoring__UI.SpriteDataConverter>
