@@ -100,7 +100,7 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 	
 	@Override
 	public void setCanFillBackground(){
-		canFillBackground = true;
+		canFillBackground = false;
 	}
 	
 	public void setSpriteToCoverEntireGrid(AbstractSpriteObject ASO){

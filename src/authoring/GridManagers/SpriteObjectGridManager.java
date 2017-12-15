@@ -137,9 +137,6 @@ public abstract class SpriteObjectGridManager {
 	}
 
 	public void updateSpriteGrid() {
-		;
-		;
-		;
 		if (getStoredSpriteList().size() != 0) {
 			getStoredSpriteList().forEach(sprite -> {
 				setCell(sprite, sprite.getPositionOnGrid());
@@ -330,12 +327,13 @@ public abstract class SpriteObjectGridManager {
 
 	public void matchActiveCellsToSprite(AbstractSpriteObject firstSprite) {
 		for (AbstractSpriteObject SOI : getActiveSpriteObjects()) {
-			;
 			SOI.applyParameterUpdate(firstSprite.getParameters());
+			SOI.setTags(firstSprite.getTags());
 //			SOI.setAllActions(firstSprite.getAllActions());
 //			SOI.setCondidtionRows(firstSprite.getConditionRows());
 //			SOI.setActionRows(firstSprite.getActionRows());
 		}
+		
 	}
 
 	public void addRow() {

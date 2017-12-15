@@ -1,4 +1,4 @@
-package authoring.SpriteManagers;
+package authoring.ObjectManagers.SpriteManagers;
 
 import java.util.ArrayList;
 import java.util.HashMap;

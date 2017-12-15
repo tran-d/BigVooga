@@ -71,7 +71,6 @@ public class Toolbar extends ToolBar {
 	 * Creates the File dropdown button and its 5 options: Load, Save, Import, Export, and Exit. 
 	 */
 	private void createFileOptions() {
-		
 		MenuItem load = new MenuItem();
 		load.textProperty().bind(DisplayLanguage.createStringBinding(LOAD_STRING));
 		load.setOnAction(e -> this.loadNewGame());
@@ -100,6 +99,7 @@ public class Toolbar extends ToolBar {
 			try {
 				GameController gameController = new GameController(gamePlayingStage, myGDH.getProjectName(), sceneController, false);
 				gamePlayingStage.show();
+				gamePlayingStage.setOnCloseRequest(l -> gameController.stop());
 			} catch (FileNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

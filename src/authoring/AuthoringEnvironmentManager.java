@@ -6,21 +6,21 @@ import java.util.List;
 import java.util.Map;
 
 import authoring.GridManagers.SpriteObjectGridManagerI;
+import authoring.ObjectManagers.SpriteManagers.SpriteSet;
+import authoring.ObjectManagers.SpriteManagers.SpriteSetDefault;
+import authoring.ObjectManagers.SpriteManagers.SpriteSetImported;
+import authoring.ObjectManagers.SpriteManagers.SpriteSetImportedInventory;
+import authoring.ObjectManagers.SpriteManagers.SpriteSetInventory;
+import authoring.ObjectManagers.SpriteManagers.SpriteSetUserDefined;
+import authoring.ObjectManagers.SuperlayerManagers.CutSceneSpriteManager;
+import authoring.ObjectManagers.SuperlayerManagers.DialogSpriteManager;
+import authoring.ObjectManagers.SuperlayerManagers.SpriteSetInventoryTemplate;
+import authoring.ObjectManagers.SuperlayerManagers.SuperlayerManager;
 import authoring.Sprite.AbstractSpriteObject;
 import authoring.Sprite.DefaultSpriteObject;
 import authoring.Sprite.SpriteObject;
-import authoring.SpriteManagers.SpriteSet;
-import authoring.SpriteManagers.SpriteSetDefault;
-import authoring.SpriteManagers.SpriteSetImported;
-import authoring.SpriteManagers.SpriteSetImportedInventory;
-import authoring.SpriteManagers.SpriteSetInventory;
-import authoring.SpriteManagers.SpriteSetInventoryTemplate;
-import authoring.SpriteManagers.DialogSpriteManager;
-import authoring.SpriteManagers.SpriteSetMenuTemplate;
-import authoring.SpriteManagers.SpriteSetUserDefined;
 import engine.utilities.data.GameDataHandler;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 public class AuthoringEnvironmentManager {
 
@@ -33,9 +33,9 @@ public class AuthoringEnvironmentManager {
 	private SpriteSet myInventorySprites;
 	private static SpriteSet myImportedSprites;
 	private SpriteSet myImportedInventorySprites;
-	private SpriteSet myInventoryTemplates;
-	private SpriteSet myMenuTemplates;
-	private DialogSpriteManager myDialogs;
+	private SuperlayerManager myInventoryTemplates;
+	private SuperlayerManager myDialogs;
+	private SuperlayerManager myCutScenes;
 	private SpriteNameManager mySNM;
 
 	public AuthoringEnvironmentManager(GameDataHandler GDH) {
@@ -44,10 +44,10 @@ public class AuthoringEnvironmentManager {
 		initializeCustomSprites();
 		initializeInventorySprites();
 		initializeImportedSprites();
-		initializeInventoryTemplates();
-		initializeMenuTemplates();
 		initializeImportedInventorySprites();
+		initializeInventoryTemplates();
 		initializeDialogs();
+		initializeCutScenes();
 		initializeSpriteNameManager();
 		
 		defaultEmptySprite = new DefaultSpriteObject();
@@ -69,16 +69,17 @@ public class AuthoringEnvironmentManager {
 	}
 	
 	private void initializeInventoryTemplates() {
-		;
+		
 		myInventoryTemplates = new SpriteSetInventoryTemplate(myGDH);
+	}
+	
+private void initializeCutScenes() {
+		
+		myCutScenes = new CutSceneSpriteManager(myGDH);
 	}
 	
 	private void initializeDialogs(){
 		myDialogs = new DialogSpriteManager(myGDH);
-	}
-	
-	private void initializeMenuTemplates() {
-		myMenuTemplates = new SpriteSetMenuTemplate(myGDH);
 	}
 
 	private void initializeDefaultSprites() {
@@ -122,17 +123,17 @@ public class AuthoringEnvironmentManager {
 		return myInventorySprites;
 	}
 	
-	public SpriteSet getInventoryTemplateController(){
-		;
+	public SuperlayerManager getInventoryTemplateController(){
 		return myInventoryTemplates;
 	}
 	
-	public SpriteSet getMenuTemplateController(){
-		return myMenuTemplates;
+	
+	public SuperlayerManager getDialogSpriteController(){
+		return myDialogs;
 	}
 	
-	public DialogSpriteManager getDialogSpriteController(){
-		return myDialogs;
+	public SuperlayerManager getCutSceneSpriteController(){
+		return myCutScenes;
 	}
 	
 	public static List<String> getNameOfEverySprite(){
@@ -140,6 +141,17 @@ public class AuthoringEnvironmentManager {
 		getEveryTypeOfSprite().forEach((type_sprite, list_sprites)->{
 			list_sprites.forEach(sprite->{
 				ret.add(sprite.getName());
+			});
+		});
+		return ret;
+	}
+	
+	public List<SpriteObject> getEveryTypeOfSpriteObjectAsList() {
+		Map<String, List<AbstractSpriteObject>> typeToAbstractSpriteObjects = getEveryTypeOfSprite();
+		List<SpriteObject> ret = new ArrayList<SpriteObject>();
+		typeToAbstractSpriteObjects.forEach((key, value)->{
+			value.forEach(sprite->{
+				ret.add((SpriteObject)sprite);
 			});
 		});
 		return ret;

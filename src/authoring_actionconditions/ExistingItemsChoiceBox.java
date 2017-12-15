@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 import ActionConditionClasses.ApplyButtonController;
 import authoring.AuthoringEnvironmentManager;
 import authoring.SpriteParameterSidebarManager;
-import authoring.DialogSprite.DialogSequence;
+import authoring.DialogSprite.AuthoringDialogSequence;
 import authoring.Sprite.AbstractSpriteObject;
 import controller.authoring.AuthoringController;
 import engine.operations.VoogaType;
@@ -77,7 +77,7 @@ public class ExistingItemsChoiceBox {
 			if (selectedSprite.getDialogSequences() == null)
 				System.out.println("dialog list is nulllll for selected sprite");
 			else {
-				for (DialogSequence d : selectedSprite.getDialogSequences()) {
+				for (AuthoringDialogSequence d : selectedSprite.getDialogSequences()) {
 					list.add(d.getName());
 				}
 			}

@@ -1,30 +1,21 @@
 package authoring.SpritePanels;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
 
-import authoring.GridManagers.*;
-import authoring.Sprite.*;
-import authoring.SpriteManagers.*;
-import authoring.SpritePanels.*;
-import authoring.util.*;
-import authoring_UI.Map.*;
-import authoring_UI.*;
-import authoring.*;
-import authoring_UI.Inventory.*;
-import engine.utilities.data.GameDataHandler;
-import gui.welcomescreen.MenuOptionsTemplate;
+import authoring.AuthoringEnvironmentManager;
+import authoring.ObjectManagers.SpriteManagers.SpriteSet;
+import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.SpriteObject;
+import authoring_UI.DraggableGrid;
+import authoring_UI.SpriteGridHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Side;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -35,9 +26,6 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.stage.Popup;
-import tools.DisplayLanguage;
 
 public class GameElementSelector extends TabPane implements Observer {
 	

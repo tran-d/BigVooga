@@ -1,4 +1,4 @@
-package authoring.SpriteManagers;
+package authoring.ObjectManagers.SpriteManagers;
 
 import engine.utilities.data.GameDataHandler;
 
