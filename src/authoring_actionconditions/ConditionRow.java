@@ -30,7 +30,7 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 	public ConditionRow(int ID, ObservableList<Integer> newActionOptions, ConditionVBox<ConditionRow> ACVBox,Supplier<List<AbstractSpriteObject>> supplier) {
 		super(ID, ACVBox,supplier);
 		addActionCheckBox(newActionOptions);
-
+		System.out.println("supplier null in 1st conditionRow constructor " + supplier == null);
 		this.setPrefSize(ROW_WIDTH, ROW_EXPANDED_HEIGHT);
 
 		operationTreeView = new ConditionTreeView(this,supplier);
@@ -41,8 +41,13 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 
 	public ConditionRow(int ID, ObservableList<Integer> newActionOptions, List<Integer> selectedActionOptions,
 			ConditionVBox<ConditionRow> ACVBox, ConditionTreeView tv,Supplier<List<AbstractSpriteObject>> supplier) {
-		this(ID, newActionOptions, ACVBox,supplier);
-		getItems().removeAll(actionCheckBoxVBox, treeViewVBox);
+//		this(ID, newActionOptions, ACVBox,supplier);
+//		getItems().removeAll(actionCheckBoxVBox, treeViewVBox);
+		super(ID, ACVBox,supplier);
+		System.out.println("supplier null in 2nd conditionRow constructor " + supplier == null);
+
+		this.setPrefSize(ROW_WIDTH, ROW_EXPANDED_HEIGHT);
+		
 		actionCheckBoxVBox = new ActionCheckBoxVBox(newActionOptions, selectedActionOptions);
 		treeViewVBox = tv.getTreeViewVBox();
 		operationTreeView = tv;
@@ -52,8 +57,13 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 
 	public ConditionRow(int ID, ObservableList<Integer> newActionOptions, List<Integer> selectedActionOptions,
 			ConditionVBox<ConditionRow> ACVBox, String selectedOperation, Condition condition,Supplier<List<AbstractSpriteObject>> supplier) {
-		this(ID, newActionOptions, ACVBox,supplier);
-		getItems().removeAll(actionCheckBoxVBox, treeViewVBox);
+//		this(ID, newActionOptions, ACVBox,supplier);
+//		getItems().removeAll(actionCheckBoxVBox, treeViewVBox);
+		super(ID, ACVBox,supplier);
+		System.out.println("supplier null in 3rd conditionRow constructor " + supplier == null);
+		this.setPrefSize(ROW_WIDTH, ROW_EXPANDED_HEIGHT);
+		
+		
 		actionCheckBoxVBox = new ActionCheckBoxVBox(newActionOptions, selectedActionOptions);
 		operationTreeView = new ConditionTreeView(this, selectedOperation, condition,supplier);
 		treeViewVBox = operationTreeView.getTreeViewVBox();
