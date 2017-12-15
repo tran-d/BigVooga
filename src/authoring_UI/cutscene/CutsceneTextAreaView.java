@@ -155,8 +155,11 @@ public class CutsceneTextAreaView extends DisplayableTextAreaView {
 		if (file != null) {
 			Image image = GDH.getImage(file);
 			ImageView newImage = new ImageView(image);
+			newImage.resize(image.getWidth(), image.getHeight());
 			Pane k = (Pane) cutscenePreview.getContent();
 			k.getChildren().add(newImage);
+			
+			super.makeDraggableAndResizable(newImage);
 			
 		}
 	}

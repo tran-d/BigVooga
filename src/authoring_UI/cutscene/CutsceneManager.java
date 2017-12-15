@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
@@ -41,7 +42,7 @@ public class CutsceneManager extends DisplayableManager {
 	private CutsceneExtractor dExtractor;
 	private CutsceneListView listView;
 
-	private Tab mapDialoguesTab;
+	private Tab mapCutscenesTab;
 	private GameDataHandler GDH;
 
 	public CutsceneManager(GameDataHandler GDH) {
@@ -72,7 +73,7 @@ public class CutsceneManager extends DisplayableManager {
 	/*************************** PUBLIC METHODS **********************************/
 
 	public void addCutsceneListener(Tab cutsceneTab) {
-		mapDialoguesTab = cutsceneTab;
+		mapCutscenesTab = cutsceneTab;
 		updateListView();
 	}
 
@@ -86,7 +87,7 @@ public class CutsceneManager extends DisplayableManager {
 		listView = new CutsceneListView(dExtractor.getDialogueList());
 		System.out.println(listView);
 
-		mapDialoguesTab.setContent(listView);
+		mapCutscenesTab.setContent(listView);
 	}
 
 	@Override

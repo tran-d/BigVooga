@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BackgroundImage;
@@ -75,18 +76,26 @@ public abstract class DisplayableTextAreaView extends VBox {
 
 		ta.setBackground(bg);
 		ta.setWrapText(true);
-		String css = this.getClass().getResource("dialogue.css").toExternalForm();
-		ta.getStylesheets().add(css);
-		
+//		
+//		String css = this.getClass().getResource("dialogue.css").toExternalForm();
+//		ta.getStylesheets().add(css);
+//		
 		return ta;
 	}
 	
-	protected void makeDraggableAndResizable(Region region) {
-		DragResizer draggableTA = new DragResizer(region);
-		draggableTA.makeResizable();
-		draggableTA.makeDraggable();
+	protected void makeDraggableAndResizable(Object ok) {
+		if (ok instanceof TextArea) {
+			DragResizer draggable = new DragResizer((Region) ok);
+			draggable.makeTextAreaResizable();
+			draggable.makeTextAreaDraggable();
+			draggable.makeTextAreaDeletable();
+		} else {
+			DragImage draggable = new DragImage((ImageView) ok);
+			draggable.makeImageDraggable();
+			draggable.makeImageDeletable();
+		}
 	}
-	
+
 	protected Pane createPane(double width, double height) {
 		Pane pane = new Pane();
 		pane.setPrefSize(width, height);

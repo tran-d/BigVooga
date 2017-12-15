@@ -85,7 +85,6 @@ public class DialogueManager extends DisplayableManager {
 	protected void updateListView() {
 		dExtractor.extract(editorList);
 		listView = new DialogueListView(dExtractor.getDialogueList());
-		;
 
 		mapDialoguesTab.setContent(listView);
 	}
@@ -109,7 +108,6 @@ public class DialogueManager extends DisplayableManager {
 			addUserDialogueButton(currentEditor.getName());
 			// currentEditor = null;
 		}
-		;
 
 		updateListView();
 	}
@@ -122,8 +120,6 @@ public class DialogueManager extends DisplayableManager {
 	}
 
 	protected void loadEditor(int index) {
-
-		;
 		
 		if (hb.getChildren().size() >= 4) {
 			hb.getChildren().remove(5 - 1);
@@ -159,8 +155,6 @@ public class DialogueManager extends DisplayableManager {
 
 	protected void next() {
 		if (currentEditorIndex < editorList.size() - 1) {
-			;
-			;
 			currentEditorIndex += 1;
 			hb.getChildren().remove(4);
 			hb.getChildren().add(editorList.get(currentEditorIndex).getParent());
@@ -177,7 +171,6 @@ public class DialogueManager extends DisplayableManager {
 	}
 
 	private void addUserDialogueButton(String name) {
-		;
 		Button btn = new Button(name);
 		btn.setPrefSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 		dView.addUserDialogueButton(currentEditorIndex, btn);
@@ -187,7 +180,7 @@ public class DialogueManager extends DisplayableManager {
 	protected void delete() {
 
 		for(int i = 0; i < editorList.size(); i++) {
-			;
+		
 		}
 
 
@@ -196,8 +189,6 @@ public class DialogueManager extends DisplayableManager {
 			removeUserDialogueButton();
 			
 			if (editorList.size() > 1) {
-				;
-				;
 
 				if (currentEditorIndex == editorList.size() - 1) {
 					prev();
@@ -220,11 +211,8 @@ public class DialogueManager extends DisplayableManager {
 			}
 		}
 
-		;
-		;
-
 		for(int i = 0; i < editorList.size(); i++) {
-			;
+	
 		}
 
 	}
