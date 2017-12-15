@@ -27,7 +27,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.security.NullPermission;
 import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
-import authoring.DialogSprite.DialogSequence;
+import authoring.DialogSprite.AuthoringDialogSequence;
 import authoring.GridManagers.SpriteObjectGridManager;
 import authoring.Sprite.AbstractSpriteObject;
 import authoring.Sprite.DefaultSpriteObject;
@@ -749,12 +749,12 @@ public class ArchanaGameData {
 		}
 	}
 
-	public Map<String, List<DialogSequence>> loadDialogsFromNestedDirectories(String folderToLoad) {
+	public Map<String, List<AuthoringDialogSequence>> loadDialogsFromNestedDirectories(String folderToLoad) {
 		// TODO FILL THIS IN!
 		return null;
 	}
 
-	public void saveDialogSequence(DialogSequence dS, String folderToSaveTo) {
+	public void saveDialogSequence(AuthoringDialogSequence dS, String folderToSaveTo) {
 		// TODO FILL THIS IN!
 		
 	}

@@ -3,6 +3,7 @@ package authoring_UI.cutscene;
 import java.util.ArrayList;
 import java.util.List;
 
+import authoring.AuthoringEnvironmentManager;
 import authoring_UI.MapManager;
 import authoring_UI.displayable.DisplayableManager;
 import engine.utilities.data.GameDataHandler;
@@ -10,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
@@ -35,23 +37,25 @@ public class CutsceneManager extends DisplayableManager {
 
 	private HBox hb;
 	private CutsceneEditor currentEditor;
-	private CutsceneTabPane dView;
+	private CutsceneTabPane cView;
 	private List<CutsceneEditor> editorList;
 	private int currentEditorIndex = 0;
-	private CutsceneExtractor dExtractor;
+	private CutsceneExtractor cExtractor;
 	private CutsceneListView listView;
 
-	private Tab mapDialoguesTab;
+	private Tab mapCutscenesTab;
 	private GameDataHandler GDH;
+	private AuthoringEnvironmentManager AEM;
 
-	public CutsceneManager(GameDataHandler GDH) {
-		this.GDH = GDH;
-		dView = new CutsceneTabPane();
+	public CutsceneManager(AuthoringEnvironmentManager currentAEM) {
+		AEM = currentAEM;
+		GDH = AEM.getGameDataHandler();
+		cView = new CutsceneTabPane();
 		editorList = new ArrayList<>();
-		dExtractor = new CutsceneExtractor();
+		cExtractor = new CutsceneExtractor();
 		hb = new HBox(NODE_SPACING);
 		hb.setLayoutX(10);
-		hb.getChildren().addAll(dView, createSeparator(), createButtonPanel());
+		hb.getChildren().addAll(cView, createSeparator(), createButtonPanel());
 
 		// test
 		// addDefaultDialogueButton();
@@ -72,7 +76,7 @@ public class CutsceneManager extends DisplayableManager {
 	/*************************** PUBLIC METHODS **********************************/
 
 	public void addCutsceneListener(Tab cutsceneTab) {
-		mapDialoguesTab = cutsceneTab;
+		mapCutscenesTab = cutsceneTab;
 		updateListView();
 	}
 
@@ -82,16 +86,24 @@ public class CutsceneManager extends DisplayableManager {
 
 	@Override
 	protected void updateListView() {
-		dExtractor.extract(editorList);
-		listView = new CutsceneListView(dExtractor.getDialogueList());
+		cExtractor.extract(editorList);
+		listView = new CutsceneListView(cExtractor.getCutsceneList());
 		System.out.println(listView);
 
-		mapDialoguesTab.setContent(listView);
+		mapCutscenesTab.setContent(listView);
 	}
 
 	@Override
 	protected void save() {
 		if (currentEditor != null && !currentEditor.getName().trim().equals("")) {
+			if (!currentEditor.getBackgroundIsColor()) {
+				//DialogSequence cutsceneSequence = new DialogSequence(currentEditor.getName(), currentEditor.getCutsceneSequence(), currentEditor.getBackgroundImage());
+				//AEM.getDialogSpriteController().addNewDialogSequence(cutsceneSequence);
+			}
+			else if (currentEditor.getBackgroundIsColor()) {
+				//DialogSequence cutsceneSequence = new DialogSequence(currentEditor.getName(), currentEditor.getCutsceneSequence(), currentEditor.getBackgroundColor());
+				//AEM.getDialogSpriteController().addNewDialogSequence(cutsceneSequence);
+			}
 			
 			if (editorList.contains(currentEditor)) {
 				editorList.remove(currentEditor);
@@ -102,7 +114,6 @@ public class CutsceneManager extends DisplayableManager {
 			addUserDialogueButton(currentEditor.getName());
 			// currentEditor = null;
 		}
-		System.out.println("# editors: " + editorList.size());
 
 		updateListView();
 	}
@@ -125,9 +136,9 @@ public class CutsceneManager extends DisplayableManager {
 		}
 
 		if (editorList.size() <= index) {
-			hb.getChildren().addAll(createShortSeparator(550), currentEditor.getParent());
+			hb.getChildren().addAll(createShortSeparator(660), currentEditor.getParent());
 		} else {
-			hb.getChildren().addAll(createShortSeparator(550), editorList.get(index).getParent());
+			hb.getChildren().addAll(createShortSeparator(660), editorList.get(index).getParent());
 			currentEditor = editorList.get(index);
 
 		}
@@ -165,7 +176,7 @@ public class CutsceneManager extends DisplayableManager {
 		btn.setPrefSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 		// btn.setOnAction(e -> loadEditor(currentEditor));
 		// change number
-		dView.addDefaultCutsceneButton(0, btn);
+		cView.addDefaultCutsceneButton(0, btn);
 
 	}
 
@@ -173,8 +184,8 @@ public class CutsceneManager extends DisplayableManager {
 		System.out.println("Click Editor Index: " + currentEditorIndex);
 		Button btn = new Button(name);
 		btn.setPrefSize(BUTTON_WIDTH, BUTTON_HEIGHT);
-		dView.addUserCutsceneButton(currentEditorIndex, btn);
-		btn.setOnAction(e -> loadEditor(dView.getButtonIndex(btn)));
+		cView.addUserCutsceneButton(currentEditorIndex, btn);
+		btn.setOnAction(e -> loadEditor(cView.getButtonIndex(btn)));
 	}
 
 	protected void delete() {
@@ -224,7 +235,7 @@ public class CutsceneManager extends DisplayableManager {
 
 	private void removeUserDialogueButton() {
 		int id = currentEditorIndex;
-		dView.removeUserCutsceneButton(id);
+		cView.removeUserCutsceneButton(id);
 	}
 
 	

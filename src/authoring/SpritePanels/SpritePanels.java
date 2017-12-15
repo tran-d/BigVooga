@@ -79,9 +79,11 @@ public class SpritePanels extends VBox {
 		return displayPanel;
 	}
 	
-
-	
 	public Tab getDialoguesTab() {
 		return gameElementSelector.getDialoguesTab();
+	}
+	
+	public Tab getCutscenesTab() {
+		return gameElementSelector.getCutscenesTab();
 	}
 }

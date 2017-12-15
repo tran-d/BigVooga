@@ -43,7 +43,6 @@ public abstract class MapLayer extends GridPane {
 
 	protected MapLayer(int rows, int columns, SpriteGridHandler SGH, Color c) {
 		super();
-//		visibilityProperty = new SimpleObjectProperty<Boolean>();
 		this.visibleProperty().addListener((change, previous, next)->{
 			if (!next){
 				this.removeAllActive();
@@ -69,10 +68,8 @@ public abstract class MapLayer extends GridPane {
 						if (AMSP.isCoveredByOtherSprite()){
 							AbstractSpriteObject ASO = AMSP.getCoveringSprite();
 							AuthoringMapStackPane parentSP = (AuthoringMapStackPane)ASO.getParent();
-//							parentSP.removeChild();
 							parentSP.setRowSpan(parentSP.getRowSpan()-1);
 							
-//							AMSP.getCoveringSprite().setFitHeight(currFitHeight-this.CELL_SIZE);
 						}
 					this.getChildren().remove(AMSP);
 					}
@@ -100,7 +97,6 @@ public abstract class MapLayer extends GridPane {
 						if (AMSP.isCoveredByOtherSprite()){
 							AbstractSpriteObject ASO = AMSP.getCoveringSprite();
 							AuthoringMapStackPane parentSP = (AuthoringMapStackPane)ASO.getParent();
-//							parentSP.removeChild();
 							parentSP.setColSpan(parentSP.getColSpan()-1);
 							
 						}
@@ -129,12 +125,9 @@ public abstract class MapLayer extends GridPane {
 			int x = ASO.getPositionOnGrid()[0];
 			int y = ASO.getPositionOnGrid()[1];
 			AuthoringMapStackPane child = this.getChildAtPosition(x, y);
-			//child.removeChild();
-			child.setInactiveBackground(Color.AQUA);
 			mySGH.addSpriteDrag(ASO);
 			mySGH.addSpriteMouseClick(ASO);
 			child.addChild(ASO);
-			//this.getChildAtPosition(x, y).addChild(ASO);
 		}
 	}
 	

@@ -132,6 +132,7 @@ public class SpriteAnimationSequenceTabsAndInfo {
 	
 	private void makeBoundedImagePopup(AuthoringImageView view, Image im, String name) {
 		Stage popup = new Stage();
+		view.setBoundedImage(new BoundedImage(name));
 		BoundingPolygonCreator bpc = new BoundingPolygonCreator(im, name, bi -> view.setBoundedImage(bi));
 		popup.setScene(new Scene(bpc));
 		popup.setOnCloseRequest(e -> bpc.save());

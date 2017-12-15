@@ -26,11 +26,10 @@ public class ViewSideBar extends VBox {
 	private static final String MAP_EDITOR = "MapEditor";
 	private static final String SPRITE_CREATOR = "SpriteCreator";
 	private static final String INVENTORY_CREATOR = "InventoryCreator";
-	private static final String CUSTOM_PANEL = "CustomPanel";
 	private static final String CUTSCENES = "Cutscenes";
 	private static final String DIALOGUE = "Dialogue";
-	private static final String HUD = "HUD";
 	private static final String INVENTORY = "Inventory";
+	private static final String HUD = "HUD";
 	private static final String MENU_CREATOR = "MenuCreator";
 	
 	private AuthoringController authoringController;
@@ -51,11 +50,10 @@ public class ViewSideBar extends VBox {
 	    		mapButton,
 	    		createViewButton(SPRITE_CREATOR, AuthoringController.SPRITE_CREATOR_KEY),
 	    		createViewButton(INVENTORY_CREATOR, AuthoringController.INVENTORY_CREATOR_KEY),
-	    		createViewButton(CUSTOM_PANEL, AuthoringController.CUSTOM_PANEL_KEY),
 	    		createViewButton(CUTSCENES, AuthoringController.CUTSCENES_KEY),
 	    		createViewButton(DIALOGUE, AuthoringController.DIALOGUE_KEY),
-	    		createViewButton(HUD, AuthoringController.HUD_KEY),
 	    		createViewButton(INVENTORY, AuthoringController.INVENTORY_KEY),
+	    		createViewButton(HUD, AuthoringController.HUD_KEY),
 	    		createViewButton(MENU_CREATOR, AuthoringController.MENU_CREATOR_KEY)
 	    		);
 
