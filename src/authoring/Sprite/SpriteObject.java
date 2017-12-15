@@ -39,7 +39,7 @@ public class SpriteObject extends AbstractSpriteObject{
 		ret.setNumCellsWidthNoException(newWidth);
 		HashMap<String, ArrayList<SpriteParameterI>> newCategoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();
 		ret.replaceCategoryMap(this.categoryMap);
-		
+		ret.setTags(this.getTags());
 		ret.setInventory(new ArrayList<AbstractSpriteObject>(this.getInventory()));
 		ret.setAnimationSequences(this.getAnimationSequences());
 		ret.setAllActions(this.getAllActions());
