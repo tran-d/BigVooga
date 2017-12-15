@@ -85,7 +85,6 @@ public class DialogueManager extends DisplayableManager {
 	protected void updateListView() {
 		dExtractor.extract(editorList);
 		listView = new DialogueListView(dExtractor.getDialogueList());
-		;
 
 		mapDialoguesTab.setContent(listView);
 	}
