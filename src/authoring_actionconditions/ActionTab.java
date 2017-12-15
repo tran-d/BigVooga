@@ -27,12 +27,9 @@ public class ActionTab<T> extends Tab implements ActionTabI<T> {
 	private VBox mainVBox;
 	private Supplier<List<AbstractSpriteObject>> supplier;
 
-	public ActionTab(String title, Supplier<List<AbstractSpriteObject>> supplier) {
-		this(title);
-		this.supplier = supplier;
-	}
-	public ActionTab(String title) {
+	public ActionTab(String title,Supplier<List<AbstractSpriteObject>> supplier) {
 		super(title);
+		this.supplier = supplier;
 		actionTabResources = ResourceBundleUtil.getResourceBundle(title);
 		actionConditionManager = new ScrollPane();
 		setContent(actionConditionManager);
@@ -49,6 +46,8 @@ public class ActionTab<T> extends Tab implements ActionTabI<T> {
 //	}
 	
 	public Supplier<List<AbstractSpriteObject>> getSupplier() {
+		System.out.println("IS SUPPLIER NULL WHEN CALLING GETTING??? ");
+		System.out.println(supplier == null);
 		return supplier;
 	}
 
