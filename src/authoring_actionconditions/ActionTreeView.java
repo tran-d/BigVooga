@@ -18,10 +18,8 @@ public class ActionTreeView extends TreeView<HBox> {
 	private static final double TREE_VIEW_WIDTH = ActionConditionRow.TREE_VIEW_WIDTH;
 	private static final double COLLAPSED_HEIGHT = ActionConditionRow.COLLAPSED_HEIGHT;
 	private static final double EXPANDED_HEIGHT = ActionConditionRow.EXPANDED_HEIGHT;
-
 	private ActionCategoryTreeItem categoryAction;
 	private ActionRow actionRow;
-
 	private String categoryName;
 	private String actionName;
 	private Action action;

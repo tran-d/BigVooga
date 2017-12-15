@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
 import ActionConditionClasses.ApplyButtonController;
 import ActionConditionClasses.ResourceBundleUtil;
 import authoring.AuthoringEnvironmentManager;
@@ -133,7 +132,6 @@ public class DisplayPanel extends VBox {
 		this.setPrefSize(DISPLAY_PANEL_WIDTH, DISPLAY_PANEL_HEIGHT);
 		setSpriteInfoAndVBox();
 		
-
 		// createStatePane(new VBox());
 	}
 
