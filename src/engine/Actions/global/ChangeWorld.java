@@ -18,7 +18,7 @@ public class ChangeWorld implements Action {
 
 	private StringOperation nameOfWorld;
 
-	public ChangeWorld(@VoogaAnnotation(name = "World Name", type = VoogaType.WORLDNAME) StringOperation nameOfNewWorld) {
+	public ChangeWorld(@VoogaAnnotation(name = "World Name", type = VoogaType.STRING) StringOperation nameOfNewWorld) {
 		this.nameOfWorld = nameOfNewWorld;
 	}
 	
