@@ -3,7 +3,7 @@ package authoring.CutScene;
 import java.util.ArrayList;
 import java.util.List;
 
-import authoring.DialogSprite.DialogAuthoringImage;
+import authoring.DialogSprite.SuperlayerAuthoringImage;
 import authoring.DialogSprite.SuperlayerSprite;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -32,7 +32,7 @@ public abstract class SuperlayerSequence {
 	
 	
 	public ImageView getImage(){
-		return new DialogAuthoringImage(mySuperlayerSprites.get(0), ()->this);
+		return new SuperlayerAuthoringImage(mySuperlayerSprites.get(0), ()->this);
 	}
 	
 	public void setName(String name){

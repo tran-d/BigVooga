@@ -3,6 +3,8 @@ package authoring_UI;
 import java.util.List;
 
 import authoring.AuthoringEnvironmentManager;
+import authoring.CutScene.SuperlayerSequence;
+import authoring.DialogSprite.AuthoringDialogSequence;
 import authoring_data.SpriteObjectGridToEngineController;
 import controller.authoring.AuthoringController;
 import controller.welcomeScreen.SceneController;
@@ -87,6 +89,9 @@ public class MainAuthoringGUI {
 	
 	public void exportToEngine(){
 //		myEngineExporter.setGameObjectBlueprints(myAEM.getEveryTypeOfSpriteObjectAsList());
+		for (SuperlayerSequence SS: myAEM.getDialogSpriteController().getAllSuperlayerSequences()){
+			myEngineExporter.addAuthoringDialogSequenceToGameObjectFactory((AuthoringDialogSequence)SS);
+		}
 		List<DraggableGrid> allWorlds = authoringController.getExistingWorlds();
 		allWorlds.forEach(DG->{
 		myEngineExporter.createLayerAndAddToEngine(DG);

@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import authoring.DialogSprite.AuthoringDialogSequence;
 import authoring.Sprite.AbstractSpriteObject;
 import authoring.Sprite.InventoryObject;
 import authoring.Sprite.SpriteObject;
@@ -30,8 +31,10 @@ public class SpriteDataConverter {
 	List<AuthoringAnimationSequence> myAnimationSequences;
 	List<String> spriteConditionOperations;
 	List<List<String>> spriteActionOperations;
+	Integer renderingPreference;
 	
 	
+	List<AuthoringDialogSequence> myDialogs;
 	String mySavePath;
 	String spriteType;
 	List<String> tags;
@@ -58,6 +61,7 @@ public class SpriteDataConverter {
 	}
 
 	public void convertSprite(AbstractSpriteObject ASO) {
+		myDialogs = ASO.getDialogSequences();
 		catmap = ASO.getParameters();
 		gridPos = ASO.getPositionOnGrid();
 		name = ASO.getName();
@@ -68,6 +72,7 @@ public class SpriteDataConverter {
 		mySavePath = ASO.getSavePath();
 		tags = ASO.getTags();
 		inventory = new ArrayList<SpriteDataConverter>();
+		renderingPreference = ASO.getRenderingPreference();
 //		allConditions = ASO.getAllConditions();
 //		allActions = ASO.getAllActions();
 		conditionRows = ASO.getConditionRows();
@@ -105,6 +110,8 @@ public class SpriteDataConverter {
 		ret.setPositionOnGrid(gridPos);
 		myAnimationSequences.forEach(seq->seq.setGameDataHandler(myGDH));
 		ret.setAnimationSequences(myAnimationSequences);
+		ret.setRenderingPreference(renderingPreference);
+		ret.setDialogSequences(myDialogs);
 		ret.setNumCellsHeightNoException(height);
 		ret.setNumCellsWidthNoException(width);
 		ret.setUniqueID(UUID);

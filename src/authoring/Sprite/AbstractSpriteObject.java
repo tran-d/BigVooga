@@ -19,7 +19,7 @@ import java.util.function.Function;
 
 import authoring.Holdable;
 import authoring.CutScene.SuperlayerSequence;
-import authoring.DialogSprite.DialogSequence;
+import authoring.DialogSprite.AuthoringDialogSequence;
 import authoring.Sprite.AnimationSequences.AuthoringAnimationSequence;
 import authoring.Sprite.AnimationSequences.AuthoringImageView;
 import authoring.Sprite.Parameters.BooleanSpriteParameter;
@@ -83,6 +83,9 @@ public abstract class AbstractSpriteObject extends ImageView {
 
 	protected ObjectProperty<Integer> width;
 	protected Function<Integer, Boolean> widthFunction;
+	
+	@IsUnlockedUtility(readableName = "Rendering Preference: ", getMethod = "getRenderingPreference", setMethod = "setRenderingPreference")
+	protected Integer renderingPreference;
 
 	@IsUnlockedUtility(readableName = "Cell Height: ", getMethod = "getNumCellsHeight", setMethod = "setNumCellsHeight")
 	protected Integer myNumCellsHeight;
@@ -108,7 +111,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 	protected List<AuthoringAnimationSequence> myAnimationSequences;
 	protected List<String> myTags;
 	protected AuthoringAnimationSequence myAASDefault;
-	protected List<DialogSequence> myDialogSequences;
+	protected List<AuthoringDialogSequence> myDialogSequences;
 	protected GameDataHandler GDH;
 
 
@@ -131,13 +134,13 @@ public abstract class AbstractSpriteObject extends ImageView {
 
 	private void initializeVariables() {
 		
-		
+		renderingPreference  = 0;
 		myTags = new ArrayList<String>();
 		myInventory = new ArrayList<AbstractSpriteObject>();
 		myAnimationSequences = new ArrayList<AuthoringAnimationSequence>();
 		myAASDefault = new AuthoringAnimationSequence("Default");
 		myAnimationSequences.add(myAASDefault);
-		myDialogSequences = new ArrayList<DialogSequence>();
+		myDialogSequences = new ArrayList<AuthoringDialogSequence>();
 		setUpImageURLProperty();
 		
 		initializePositionOnGridProperty();
@@ -210,20 +213,21 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return myUniqueID;
 	}
 	
-	public List<DialogSequence> getDialogSequences() {
+	public List<AuthoringDialogSequence> getDialogSequences() {
 		return myDialogSequences;
 	}
 
-	public void setDialogSequences(Collection<DialogSequence> dialogSequences) {
-		myDialogSequences = new ArrayList<DialogSequence>();
+	public void setDialogSequences(Collection<AuthoringDialogSequence> dialogSequences) {
+		System.out.println("Setting dialogue, size: "+dialogSequences.size());
+		myDialogSequences = new ArrayList<AuthoringDialogSequence>();
 		myDialogSequences.addAll(dialogSequences);
 	}
 	
-	public void addDialogSequence(DialogSequence dialogSequence){
-		myDialogSequences.add((DialogSequence)dialogSequence.clone());
+	public void addDialogSequence(AuthoringDialogSequence dialogSequence){
+		myDialogSequences.add((AuthoringDialogSequence)dialogSequence.clone());
 	}
 	
-	public void addDialogSequence(List<DialogSequence> dialogSequences){
+	public void addDialogSequence(List<AuthoringDialogSequence> dialogSequences){
 		dialogSequences.forEach(dialogSeq->{
 			addDialogSequence(dialogSeq);
 		});
@@ -534,6 +538,15 @@ public abstract class AbstractSpriteObject extends ImageView {
 	public void addParameter(SpriteParameter SP) {
 		addParameter("General", SP);
 
+	}
+	
+	
+	public Integer getRenderingPreference(){
+		return renderingPreference;
+	}
+	
+	public void setRenderingPreference(Integer newRenderingPref){
+		renderingPreference = newRenderingPref;
 	}
 
 	public boolean addCategory(String category) {

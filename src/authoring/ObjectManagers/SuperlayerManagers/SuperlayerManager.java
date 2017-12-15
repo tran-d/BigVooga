@@ -8,7 +8,7 @@ import java.util.Map;
 import authoring.Thumbnail;
 import authoring.CutScene.SuperlayerSequence;
 import authoring.CutScene.SuperlayerThumbnail;
-import authoring.DialogSprite.DialogSequence;
+import authoring.DialogSprite.AuthoringDialogSequence;
 import authoring.DialogSprite.DialogThumbnail;
 import authoring.Sprite.AbstractSpriteObject;
 import authoring.Sprite.SpriteObject;
@@ -35,7 +35,7 @@ public abstract class SuperlayerManager {
 		List<SuperlayerSequence> ASOs = getAllSuperlayerSequences();
 		List<Pane> ret = new ArrayList<Pane>();
 		ASOs.forEach(sprite -> {
-			ret.add(new SuperlayerThumbnail(sprite.getImage(), sprite.getName()));
+			ret.add(new SuperlayerThumbnail(sprite));
 		});
 		return ret;
 	}

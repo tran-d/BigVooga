@@ -23,11 +23,13 @@ public class DialogText extends SuperlayerComponent{
 		
 	}
 	public void setFont(String newFont){
+		
     	myFont = newFont;
     }
 
     
     public String getFont(){
+    	System.out.println("Returning from getFont: "+ this.myFont);
     	return this.myFont;
     }
     
@@ -36,10 +38,12 @@ public class DialogText extends SuperlayerComponent{
     }
     
     public double getTextSize(){
+    	System.out.println("Returning from getTextSize: "+ this.myTextSize);
     	return this.myTextSize;
     }
 	
 	public String getText() {
+		System.out.println("Returning from getText: "+ this.myText);
 		return myText;
 	}
 

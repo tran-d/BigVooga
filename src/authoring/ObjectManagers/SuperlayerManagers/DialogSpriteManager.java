@@ -7,7 +7,7 @@ import java.util.Map;
 
 import authoring.Thumbnail;
 import authoring.CutScene.SuperlayerSequence;
-import authoring.DialogSprite.DialogSequence;
+import authoring.DialogSprite.AuthoringDialogSequence;
 import authoring.DialogSprite.DialogThumbnail;
 import authoring.Sprite.AbstractSpriteObject;
 import authoring.Sprite.SpriteObject;

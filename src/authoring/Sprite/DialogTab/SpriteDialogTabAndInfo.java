@@ -9,8 +9,8 @@ import java.util.function.Consumer;
 import authoring.AuthoringEnvironmentManager;
 import authoring.CutScene.SuperlayerSequence;
 import authoring.CutScene.SuperlayerThumbnail;
-import authoring.DialogSprite.DialogAuthoringImage;
-import authoring.DialogSprite.DialogSequence;
+import authoring.DialogSprite.SuperlayerAuthoringImage;
+import authoring.DialogSprite.AuthoringDialogSequence;
 import authoring.DialogSprite.DialogThumbnail;
 import authoring.Sprite.AbstractSpriteObject;
 import authoring_UI.SpriteScrollView;
@@ -116,7 +116,7 @@ public class SpriteDialogTabAndInfo {
 		});
 	}
 
-	private void setDialogSequences(List<DialogSequence> newInventory) {
+	private void setDialogSequences(List<AuthoringDialogSequence> newInventory) {
 		temporaryDialogSequences = new HashSet<SuperlayerSequence>();
 		if (newInventory != null) {
 			temporaryDialogSequences.addAll(newInventory);
@@ -125,7 +125,7 @@ public class SpriteDialogTabAndInfo {
 
 	private void removeFromInventory(SuperlayerThumbnail ST, VBox paneBox) {
 		myTabPane.removeFromVBox(paneBox);
-		temporaryDialogSequences.remove(ST.getSprite());
+		temporaryDialogSequences.remove(ST.getSuperlayerSequence());
 	}
 
 	private void createBoundingScrollPane() {
@@ -164,13 +164,13 @@ public class SpriteDialogTabAndInfo {
 		SpriteScrollView SSV = new SpriteScrollView("Dialog Sequences");
 		SSV.addToVBox(dSeqs);
 		SSV.setChildOnClickAction(pane -> {
-			if (pane instanceof DialogThumbnail) {
-				DialogThumbnail ST = (DialogThumbnail) pane;
+			if (pane instanceof SuperlayerThumbnail) {
+				SuperlayerThumbnail ST = (SuperlayerThumbnail) pane;
 				ST.isClicked(!ST.isClicked());
 				if (ST.isClicked()) {
-					SSV.addToSpriteList(ST.getSprite().getImage());
+					SSV.addToSpriteList(ST.getSuperlayerSequence().getImage());
 				} else {
-					SSV.removeFromSpriteList(ST.getSprite().getImage());
+					SSV.removeFromSpriteList(ST.getSuperlayerSequence().getImage());
 				}
 
 			}
@@ -197,7 +197,7 @@ public class SpriteDialogTabAndInfo {
 		tp.getTabs().forEach((tab1) -> {
 			SpriteScrollView SSV1 = (SpriteScrollView) tab1.getContent();
 			SSV1.getSpriteList().forEach(dialogIm -> {
-				ret.add(((DialogAuthoringImage) dialogIm).getDialogSequence());
+				ret.add(((SuperlayerAuthoringImage) dialogIm).getSuperlayerSequence());
 			});
 		});
 		return ret;
@@ -215,9 +215,9 @@ public class SpriteDialogTabAndInfo {
 
 	public void apply() {
 		// myInventory.addAll(temporaryInventory);
-		Set<DialogSequence> DS = new HashSet<DialogSequence>();
+		Set<AuthoringDialogSequence> DS = new HashSet<AuthoringDialogSequence>();
 		temporaryDialogSequences.forEach(dialog->{
-			DS.add((DialogSequence)dialog);
+			DS.add((AuthoringDialogSequence)dialog.clone());
 		});
 		myASO.setDialogSequences(DS);
 	}

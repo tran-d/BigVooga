@@ -21,7 +21,7 @@ public class SuperlayerThumbnail extends Thumbnail{
 		this(ASO, false);
 	}
 	
-	public SuperlayerSequence getSprite(){
+	public SuperlayerSequence getSuperlayerSequence(){
 		return myASO;
 	}
 

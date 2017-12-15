@@ -36,6 +36,7 @@ public class SpriteObject extends AbstractSpriteObject{
 		if (this.myImageURL != null) {
 			ret.setupImageURLAndView(this.myImageURL);
 		}
+		ret.setRenderingPreference(this.getRenderingPreference());
 		ret.setName(this.getName());
 		Integer newHeight = this.getNumCellsHeight()!=null ? new Integer(this.getNumCellsHeight()) : null;
 		ret.setNumCellsHeightNoException(newHeight);
@@ -46,6 +47,7 @@ public class SpriteObject extends AbstractSpriteObject{
 		ret.setTags(this.getTags());
 		ret.setInventory(new ArrayList<AbstractSpriteObject>(this.getInventory()));
 		ret.setAnimationSequences(this.getAnimationSequences());
+		ret.setDialogSequences(this.getDialogSequences());
 		ret.setAllActions(this.getAllActions());
 		ret.setAllConditions(this.getAllConditions());
 		ret.setConditions(this.getConditionTreeviews());
