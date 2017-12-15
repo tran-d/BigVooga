@@ -44,6 +44,7 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 	private Supplier<List<AbstractSpriteObject>> supplier;
 
 	public OperationParameterTreeItem(String selectedOperation, Supplier<List<AbstractSpriteObject>> supplier) {
+		this.supplier = supplier;
 		this.selectedOperation = selectedOperation;
 
 		voogaTypesForExistingItems = new ArrayList<>();
