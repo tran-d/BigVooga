@@ -151,10 +151,8 @@ public class SpriteGridHandler {
 	}
 
 	private void onBackSpace() {
-		;
+		
 		if (gridIsShown) {
-			;
-			;
 			deleteSelectedSprites();
 		}
 	}
@@ -230,18 +228,14 @@ public class SpriteGridHandler {
 	private void deleteSprites(List<AbstractSpriteObject> toDelete){
 		List<Integer[]> cellsToDelete = new ArrayList<Integer[]>();
 		toDelete.forEach(s -> {
-			;
 			Integer[] row_col = s.getPositionOnGrid();
-			;
 			// ;
 			cellsToDelete.add(row_col);
 		});
-		;
 		myDG.getActiveGrid().clearCells(cellsToDelete);
 	}
 
 private	void resetActiveSprites() {
-	;
 		myDG.getActiveGrid().resetActiveCells();
 	}
 
@@ -297,13 +291,12 @@ private	void resetActiveSprites() {
 					setActiveElementSprite(null);
 					boolean activeStatus;
 					activeStatus = myDG.getActiveGrid().switchCellActiveStatus(s.getPositionOnGrid());
-					;
+					
 					if (activeStatus) {
 						s.setEffect(makeSpriteEffect());
 					} else {
 						s.setEffect(null);
 					}
-					;
 
 						if (myDG.getActiveGrid().getActiveSpriteObjects().size() == 0) {
 							myGridDP.removeSpriteEditorVBox();
@@ -332,8 +325,7 @@ private	void resetActiveSprites() {
 	}
 	
 	private void setActiveElementSprite(AbstractSpriteObject ASO){
-		;
-		;
+		
 		AbstractSpriteObject prevActive = this.myElementSelectorDP.setActiveSprite(ASO);
 		if (ASO!=null){
 			;

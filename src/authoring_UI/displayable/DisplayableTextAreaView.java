@@ -1,6 +1,8 @@
 package authoring_UI.displayable;
 
 import java.util.ArrayList;
+
+import authoring_UI.dialogue.DialogueManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -44,6 +46,10 @@ public abstract class DisplayableTextAreaView extends VBox {
 		}
 	}
 	
+	protected void setBackgroundColor(Color color, Pane pane) {
+		pane.setBackground(new Background(new BackgroundFill(color, null, null)));
+	}	
+	
 	protected void setTextAreaBackgroundColor(Color color, ArrayList<TextArea> taList) {
 		for (TextArea ta : taList) {
 			ta.setBackground(new Background(new BackgroundFill(
@@ -62,6 +68,14 @@ public abstract class DisplayableTextAreaView extends VBox {
 		}
 	}
 	
+	protected void setBackgroundImage(Image image, Pane pane) {
+		BackgroundImage bgImage = new BackgroundImage(image, 
+			    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+			    BackgroundPosition.CENTER, 
+			    new BackgroundSize(1, 1, true, true, false, false));
+		pane.setBackground(new Background(bgImage));
+	}
+	
 	protected void removePanel() {
 		// do nothing
 	}
@@ -76,10 +90,10 @@ public abstract class DisplayableTextAreaView extends VBox {
 
 		ta.setBackground(bg);
 		ta.setWrapText(true);
-//		
-//		String css = this.getClass().getResource("dialogue.css").toExternalForm();
-//		ta.getStylesheets().add(css);
-//		
+
+		String css = DialogueManager.class.getResource("dialogue.css").toExternalForm();
+		ta.getStylesheets().add(css);
+		
 		return ta;
 	}
 	

@@ -126,9 +126,9 @@ public class CutsceneManager extends DisplayableManager {
 		}
 
 		if (editorList.size() <= index) {
-			hb.getChildren().addAll(createShortSeparator(550), currentEditor.getParent());
+			hb.getChildren().addAll(createShortSeparator(660), currentEditor.getParent());
 		} else {
-			hb.getChildren().addAll(createShortSeparator(550), editorList.get(index).getParent());
+			hb.getChildren().addAll(createShortSeparator(660), editorList.get(index).getParent());
 			currentEditor = editorList.get(index);
 
 		}

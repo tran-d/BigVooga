@@ -178,6 +178,7 @@ public class DialogueEditor extends DisplayableEditor {
 	@Override
 	protected void chooseBackgroundImage() {
 		File file = retrieveFileForImageUpload(this.getParent());
+		System.out.println("FILES SUCK" + file);
 		if (file != null) {
 			currentFile = file.getName();
 			image =  GDH.getImage(file);
