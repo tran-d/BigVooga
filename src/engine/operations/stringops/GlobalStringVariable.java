@@ -12,7 +12,7 @@ import engine.operations.VoogaType;
 public class GlobalStringVariable implements StringOperation {
 	private StringOperation varName;
 
-	public GlobalStringVariable(@VoogaAnnotation(name = "Variable Name", type = VoogaType.STRINGNAME) StringOperation varName) {
+	public GlobalStringVariable(@VoogaAnnotation(name = "Variable Name", type = VoogaType.STRING) StringOperation varName) {
 		this.varName = varName;
 	}
 

@@ -15,7 +15,7 @@ public class SetAnimationSequence implements Action {
 
 	public SetAnimationSequence(
 			@VoogaAnnotation(name = "Sprite", type = VoogaType.GAMEOBJECT) GameObjectOperation object,
-			@VoogaAnnotation(name = "Animation Sequence", type = VoogaType.ANIMATIONNAME) StringOperation name) {
+			@VoogaAnnotation(name = "Animation Sequence", type = VoogaType.STRING) StringOperation name) {
 		this.object = object;
 		this.name = name;
 	}

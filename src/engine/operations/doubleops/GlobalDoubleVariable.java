@@ -16,7 +16,7 @@ public class GlobalDoubleVariable implements DoubleOperation {
 	private StringOperation varName;
 	private GameObjectOperation object;
 
-	public GlobalDoubleVariable(@VoogaAnnotation(name = "Variable", type = VoogaType.STRINGNAME) StringOperation varName) {
+	public GlobalDoubleVariable(@VoogaAnnotation(name = "Variable", type = VoogaType.STRING) StringOperation varName) {
 		this.varName = varName;
 	}
 

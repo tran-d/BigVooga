@@ -15,7 +15,7 @@ public class Farthest implements GameObjectOperation{
 
 	private StringOperation tag;
 	
-	public Farthest(@VoogaAnnotation(name = "Tag", type = VoogaType.TAG) StringOperation tag) {
+	public Farthest(@VoogaAnnotation(name = "Tag", type = VoogaType.STRING) StringOperation tag) {
 		this.tag = tag;
 	}
 	

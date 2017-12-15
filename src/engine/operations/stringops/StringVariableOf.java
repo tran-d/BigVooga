@@ -15,7 +15,7 @@ public class StringVariableOf implements StringOperation {
 	private StringOperation varName;
 
 	public StringVariableOf(@VoogaAnnotation(name = "Sprite", type = VoogaType.GAMEOBJECT) GameObjectOperation object,
-			@VoogaAnnotation(name = "Variable Name", type = VoogaType.STRINGNAME) StringOperation varName) {
+			@VoogaAnnotation(name = "Variable Name", type = VoogaType.STRING) StringOperation varName) {
 		this.object = object;
 		this.varName = varName;
 	}
