@@ -14,7 +14,7 @@ public class SpriteCreatorSpritePanel extends VBox {
 		// Map<String, List<Pane>> thumbnailSprites =
 		// myAEM.getEveryTypeOfSpriteAsThumbnails();
 		// mySpriteSetHelper = new SpriteSetHelper(thumbnailSprites);
-		System.out.println("CHECK");
+		;
 		// SPSM = new SpriteParameterSidebarManager(mySGH.getDraggableGrid());
 //		
 //		ADD DISPLAYPANEL FOR SPRITECREATOR

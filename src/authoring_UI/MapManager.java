@@ -32,12 +32,35 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import tools.DisplayLanguage;
 
+/**
+ * The primary class for the map editor; shows the list of sprites, dialogues, cutscenes, inventory, etc. that can be applied to sprites.
+ * This class also contains the maps for the user to edit and build their games with. Each map is stored as a "world," which has 4 possible
+ * layers: the Background, which can be any Image, GIF, or color, the Terrain, which contains sprite objects that act as another level of backdrop,
+ * and the Main View, which is where all the modifiable and active sprite objects will be, and finally the Panels, which contain the HUD and game menu.
+ * The map system is dynamic, and allows the user to also modify the map dimensions. When a user starts creating the game and begins dragging sprites
+ * onto the map, they can alter the sprite to make it interact in its environment in numerous ways. When any sprite is selected, a display panel
+ * with Tags, Parameters, Dialogues, Actions, Conditions, Inventory, Utility, and Animations will appear. These ultimately contain all the dynamic features of the sprite.
+ * Firstly, the tags are the user-specified way of categorizing sprites to be referenced by conditions and actions and operations (i.e. there can be
+ * various spike sprites with different names in a game, but to classify all of them as harmful in the same manner, the "spike" tag could be applied to the appropriate sprites,
+ * and this tag can be used in conditions to state if a character collides with an object with the tag "spike," they lose 10 health).
+ * The parameters are the defining states of the sprite, which involve completely flexible characteristics based on data types such as doubles,
+ * booleans, etc. The Dialogues list the different sequences of dialogue that a sprite contains, which can be triggered based on Conditions and Actions.
+ * The Conditions and Actions tab work in conjunction to allow users to define when different events will occur (i.e. a condition could be when a character,
+ * has low health, and the corresponding action can be to reduce the speed of the character in the game). Inventory stores the objects that any
+ * given sprite can contain. Utility has the map-specific properties of the sprite object, such as the cell width and height of the object,
+ * the cell position of the sprite on the map, the file path of the sprite, and the UniqueID of the sprite that was generated as its reference.
+ * Together, all these features create a very flexible and open environment for users to build games of a variety of styles, such as RPG,
+ * puzzle, platformer, etc.
+ * 
+ * @author Samarth Desai, Sam Slack (Primary), and Archana Ahlawat
+ *
+ */
 public class MapManager extends TabPane {
 	public static final int VIEW_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH;
 	public static final int VIEW_HEIGHT = WelcomeScreen.HEIGHT - 35;
 	protected String TAB_TAG;
 	protected static final String ADD_TAB = "+";
-	protected String MANAGERNAME;
+	protected String MANAGER_NAME;
 
 	protected Stage stage;
 	protected Scene scene;
@@ -66,7 +89,7 @@ public class MapManager extends TabPane {
 		setManagerName();
 		gridIsShowing = new SimpleObjectProperty<Boolean>();
 		gridIsShowing.addListener((change, oldValue, newValue) -> {
-			System.out.println(getClass() + "is updating showing from " + oldValue + "to " + newValue);
+			;
 			this.mySpriteGridHandler.setGridIsShown(newValue);
 		});
 		myAEM = AEM;
@@ -85,7 +108,7 @@ public class MapManager extends TabPane {
 				createTab(w);
 			}
 		} else {
-			System.out.println("displaying a new grid");
+			;
 			createTab(makeDraggableGrid());
 		}
 		this.mySelectModel.select(startTab);
@@ -97,24 +120,27 @@ public class MapManager extends TabPane {
 	}
 
 	protected void setManagerName() {
-		MANAGERNAME = "MapManager";
+		MANAGER_NAME = "MapManager";
 	}
 
 	protected List<DraggableGrid> getListOfDraggableGrids() {
 		List<DraggableGrid> DGs = myGDH.loadWorldsFromWorldDirectory();
-		System.out.println("DGsize: "+DGs.size());
+		;
 		
 		return DGs;
 	}
 
 	protected String getManagerName() {
-		return MANAGERNAME;
+		return MANAGER_NAME;
 	}
 	
 	public void addImportedWorlds(List<DraggableGrid> importedWorlds) {
 		for (DraggableGrid w : importedWorlds) {
 			createTab(w);
 		}
+		myAEM.getImportedSpriteController().changeFolderPath();
+		myAEM.getImportedInventorySpriteController().changeFolderPath();
+		System.out.println("ADD IMPORTED WORLDS");
 	}
 
 	protected SpritePanels makeSpritePanels(SpriteGridHandler mySpriteGridHandler) {
@@ -144,6 +170,7 @@ public class MapManager extends TabPane {
 	private void createAddTab(){
 		this.setSide(Side.TOP);
 		addTab = new Tab();
+		addTab.setClosable(false);
 		
 		Button button = new Button();
 		button.setText(ADD_TAB);
@@ -151,6 +178,7 @@ public class MapManager extends TabPane {
 			createTab(makeDraggableGrid());
 		});
 		addTab.setGraphic(button);
+
 		this.getTabs().add(addTab);
 	}
 
@@ -195,7 +223,7 @@ public class MapManager extends TabPane {
 		this.getTabs().add(this.getTabs().size() - 1, newtab);
 		myTabCount++;
 		this.mySelectModel.select(newtab);
-		System.out.println("tab incremented");
+		;
 	}
 
 	protected void setTabTag() {

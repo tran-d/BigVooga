@@ -36,7 +36,7 @@ public class MenuManager extends MapManager{
 	
 	@Override
 	protected void setManagerName(){
-		MANAGERNAME = "MenuManager";
+		MANAGER_NAME = "MenuManager";
 	}
 	
 	@Override 

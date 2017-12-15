@@ -36,9 +36,9 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 		this.voogaParameterGetName = voogaParameterGetName;
 		this.actionParameterType = actionParameterType;
 
-		System.out.println("voogaParameterGetName " + voogaParameterGetName);
-		System.out.println("actionParameterType: " + actionParameterType);
-		System.out.println("MY VOOGA TYPE => " + voogaType.toString());
+		;
+		;
+		;
 
 		voogaTypesForExistingItems = new ArrayList<>();
 		voogaTypesForExistingItems.add(VoogaType.ANIMATIONNAME);
@@ -78,7 +78,7 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 							+ actionParameterType);
 					return operationParameterTreeItem.getParameter();
 				} else {
-					System.out.println("there's atleast operation parameter choicebox");
+					;
 					return operationParameterTreeItem.makeOperation();
 				}
 			}
@@ -120,7 +120,7 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 
 			List<String> newOps = new ArrayList<>();
 			for (String s : voogaParameters) {
-				System.out.println("Vooga Parameters for voogaTypeToString: " + s.toString());
+				;
 				newOps.add(s.toString());
 
 			}
@@ -136,7 +136,7 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 			else if (actionParameterType.equals("Boolean"))
 				newOperations.add(0, (INPUT_A_BOOLEAN));
 
-			System.out.println("ops: " + newOperations);
+			;
 
 			operationCB.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 

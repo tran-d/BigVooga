@@ -30,7 +30,7 @@ public class SpriteObject extends AbstractSpriteObject{
 	
 	@Override
 	public SpriteObject newCopy() {
-		// System.out.println("Making copy");
+		// ;
 		SpriteObject ret = new SpriteObject();
 		if (this.myImageURL != null) {
 			ret.setupImageURLAndView(this.myImageURL);
@@ -54,7 +54,7 @@ public class SpriteObject extends AbstractSpriteObject{
 	}
 	
 //	protected Object writeReplace() throws java.io.ObjectStreamException {
-//		System.out.println("Making using writeRepalce");
+//		;
 //		return new SpriteDataConverter(this);
 //	}
 

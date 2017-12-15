@@ -264,14 +264,15 @@ public abstract class AbstractSpriteObject extends ImageView {
 	}
 
 	protected void setupImageURLAndView(String fileURL) {
-		FileInputStream fis;
-		Image im;
-		try {
-			fis = new FileInputStream(new File(fileURL));
-			im = new Image(fis);
-		} catch (FileNotFoundException e) {
-			im = new Image(fileURL);
-		}
+//		FileInputStream fis;
+//		Image im;
+//		try {
+//			fis = new FileInputStream(new File(fileURL));
+//			im = new Image(fis);
+//		} catch (FileNotFoundException e) {
+//			im = new Image(fileURL);
+//		}
+		Image im = GDH.getImage(fileURL);
 		setupImageURLAndView(im, fileURL);
 	}
 
@@ -279,6 +280,10 @@ public abstract class AbstractSpriteObject extends ImageView {
 		if (this.myImageURLProperty==null){
 			setUpImageURLProperty();
 		}
+		System.out.println("path: "+path);
+		String [] intermediate = path.split(File.separator);
+		this.myImageURL = intermediate[intermediate.length-1];
+		System.out.println(" myImageUrl"+ myImageURL);
 		this.myImageURLProperty.set(path);
 		
 		this.setImage(image);
@@ -481,7 +486,8 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return position;
 	}
 
-	public void setImageURL(String fileLocation) {
+	public void setImageURL(String fileLocation){
+		System.out.println("FILE LOCATION: " + fileLocation);
 		setupImageURLAndView(fileLocation);
 	}
 
@@ -553,13 +559,12 @@ public abstract class AbstractSpriteObject extends ImageView {
 	public void setParameterMap(Map<String, List<SpriteParameter>> newParams) {
 		replaceCategoryMap(newParams);
 	}
-
 	protected void replaceCategoryMap(Map<String, List<SpriteParameter>> newParams) {
 		// System.out.println("Replacing cat map");
 
 		this.categoryMap = getNewCopyOfCategoryMap(newParams);
 		// categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(newParams);
-		// System.out.println("new hashmap: "+categoryMap.toString());
+		// ;
 	}
 
 	protected Map<String, List<SpriteParameter>> getNewCopyOfCategoryMap(Map<String, List<SpriteParameter>> newParams) {
@@ -699,10 +704,6 @@ public abstract class AbstractSpriteObject extends ImageView {
 
 	public void setAnimationSequences(List<AuthoringAnimationSequence> animations) {
 		myAnimationSequences = animations;
-		// = new ArrayList<AuthoringAnimationSequence>();
-		// animations.forEach(aniseq->{
-		// myAnimationSequences.add(new AuthoringAnimationSequence(aniseq));
-		// });
 		if (animations.size()>0){
 		this.myAASDefault = animations.get(0);
 		}
@@ -835,7 +836,6 @@ public abstract class AbstractSpriteObject extends ImageView {
 				actions.add(actionRows.get(j-1));
 			}
 			temp.put(c, actions);
-
 		}
 
 		return temp;

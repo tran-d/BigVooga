@@ -87,7 +87,6 @@ public class ActionFactory {
 	 * @return The Action
 	 */
 	public Action makeAction(String actionName, Object... parameters) {
-		System.out.println("actionName" + actionName);
 		try {
 			return (Action) getConstructor(actionName).newInstance(parameters);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException

@@ -54,7 +54,7 @@ public class DialogSpriteManager {
 	}
 
 	protected String getFolderToLoad() {
-		// System.out.println("folderToLoad: " + folderToLoad);
+		// ;
 		return folderToLoad;
 	}
 
@@ -70,7 +70,7 @@ public class DialogSpriteManager {
 		loaded = true;
 		if (!getFolderToLoad().equals("")) {
 			dialogSequences = myGDH.loadDialogsFromDirectory(getFolderToLoad());
-			System.out.println(dialogSequences);
+			;
 		}
 	}
 

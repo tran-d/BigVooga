@@ -113,7 +113,7 @@ public class DisplayPanel extends VBox {
 
 
 	protected AbstractSpriteObject getActiveCell() throws Exception {
-		// System.out.println("MYAEMACTIVE: " + myAEM.getActiveCell());
+		// ;
 		return mySPSM.getActiveSprite();
 	}
 
@@ -309,7 +309,7 @@ public class DisplayPanel extends VBox {
 
 	private void addSpriteEditorErrorMessage() {
 		if (!this.getChildren().contains(myParameterErrorMessage)) {
-			// System.out.println(myParamTabVBox.getChildren().size());
+			// ;
 			int numChildren = this.getChildren().size();
 			this.getChildren().add(numChildren, myParameterErrorMessage);
 		}
@@ -317,11 +317,11 @@ public class DisplayPanel extends VBox {
 
 	public void updateParameterTab() {
 
-		System.out.println("Updating....");
+		;
 		try {
 			AbstractSpriteObject activeCell = getActiveCell();
 			if (activeCell!=null){
-			System.out.println("Did i get here?");
+			;
 
 			checkMultipleCellsActive();
 			clearAllSpriteEditorTabs();
@@ -372,7 +372,7 @@ public class DisplayPanel extends VBox {
 
 	private void apply() throws Exception {
 		mySParameterTAI.apply();
-		System.out.println("SHOULD BE APPLYING");
+		;
 		if (!multipleActive()) {
 			System.out.println("Trying to set ivent etc.");
 			mySDialogTAI.apply();

@@ -42,8 +42,8 @@ public class BooleanSpriteParameter extends SpriteParameter {
 //		myCheckBox.setOnAction((event) -> {
 //			boolean isSelected = myCheckBox.isSelected();
 //			dummy.updateValue(isSelected);
-//			System.out.println("I am dummy: "+this.isDummy);
-//			System.out.println("New value: "+ myValue);
+//			;
+//			;
 //			}
 //					);
 //	}
@@ -63,8 +63,8 @@ public class BooleanSpriteParameter extends SpriteParameter {
 	@Override
 	public void updateValue(Object value) {
 		myValue = (Boolean) value;
-//		System.out.println("I am dummy: "+this.isDummy);
-//		System.out.println("New value: "+ myValue);
+//		;
+//		;
 		
 	}
 

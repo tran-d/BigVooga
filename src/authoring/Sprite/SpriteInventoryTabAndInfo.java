@@ -77,7 +77,7 @@ public class SpriteInventoryTabAndInfo {
 	
 
 	public void setSpriteObjectAndUpdate(AbstractSpriteObject ASO) {
-		System.out.println("Setting sprite"+ASO);
+		;
 		setSpriteObject(ASO);
 		remakeContainingVBoxFromNewInventory();
 	}

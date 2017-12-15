@@ -8,6 +8,8 @@ import controller.welcomeScreen.SceneController;
 import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ToolBar;
@@ -15,6 +17,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+/**
+ * Creates the authoring environment for VOOGA users. This class initializes the controller for the authoring views and creates a new stage
+ * with the default scene being the map editor.
+ * 
+ * 
+ * @author Samarth Desai and Sam Slack
+ *
+ */
 public class MainAuthoringGUI {
 	public static final int AUTHORING_WIDTH = 1400;
 	public static final String AUTHORING_CSS = "Authoring.css";
@@ -55,7 +65,7 @@ public class MainAuthoringGUI {
 
 		authoringPane = new Pane();
 		
-		myGDH = new GameDataHandler(myProjectName);
+		myGDH = new GameDataHandler(stage, myProjectName);
 		myEngineExporter = new SpriteObjectGridToEngineController(myGDH);
 		authoringController = new AuthoringController(scene, stage, authoringPane, myGDH);
 
@@ -65,11 +75,6 @@ public class MainAuthoringGUI {
 		rootPane.setCenter(authoringPane);
 	}
 
-	/**
-	 * Gets the scene for initialization in SceneController.
-	 * 
-	 * @return the authoring gui scene
-	 */
 	public Scene getScene() {
 		return scene;
 	}
