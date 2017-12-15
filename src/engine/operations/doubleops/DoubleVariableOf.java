@@ -17,7 +17,7 @@ public class DoubleVariableOf implements DoubleOperation {
 	private GameObjectOperation object;
 
 	public DoubleVariableOf(@VoogaAnnotation(name = "Object", type = VoogaType.GAMEOBJECT) GameObjectOperation object,
-			@VoogaAnnotation(name = "Variable", type = VoogaType.STRINGNAME) StringOperation varName) {
+			@VoogaAnnotation(name = "Variable", type = VoogaType.STRING) StringOperation varName) {
 		this.object = object;
 		this.varName = varName;
 	}

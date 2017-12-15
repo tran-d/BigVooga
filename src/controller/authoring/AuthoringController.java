@@ -62,24 +62,24 @@ public class AuthoringController {
 	private SpriteCreatorManagerSlack mySCM;
 	private SpriteCreatorManagerSlack myInventorySCM;
 	private GameDataHandler GDH;
+	private AuthoringEnvironmentManager myAEM;
 
-	public AuthoringController(Scene currentScene, Stage currentStage, Pane currentAuthoringPane, GameDataHandler currentGDH) {
+	public AuthoringController(Scene currentScene, Stage currentStage, Pane currentAuthoringPane, AuthoringEnvironmentManager AEM) {
 		scene = currentScene;
 		authoringPane = currentAuthoringPane;
-		GDH = currentGDH;
+		myAEM = AEM;
+		GDH = myAEM.getGameDataHandler();
 		activeManagerProperty = new SimpleObjectProperty<MapManager>();
 		activeManagerProperty.addListener((change, previousManager, newManager) -> {
-			;
 			if (previousManager != null) {
 				previousManager.gridIsNotShowing();
 			}
 			if (newManager != null) {
-
 				newManager.gridIsShowing();
 			}
 		});
 
-		AuthoringEnvironmentManager AEM = new AuthoringEnvironmentManager(GDH);
+		
 		mapManager = new MapManager(AEM, scene);
 		viewMap.put(MAP_EDITOR_KEY, mapManager.getPane());
 		viewMapKeysToManager.put(MAP_EDITOR_KEY, mapManager);
@@ -97,13 +97,17 @@ public class AuthoringController {
 		myInventorySCM = new SpriteCreatorManagerSlack(AEM, scene, "InventoryObject");
 		viewMap.put(INVENTORY_CREATOR_KEY, myInventorySCM.getPane());
 
-		CutsceneManager cm = new CutsceneManager(GDH);
-		//cm.addCutsceneListener(mapManager.getDialoguesTab());
+		CutsceneManager cm = new CutsceneManager(AEM);
+		cm.addCutsceneListener(mapManager.getCutscenesTab());
 		viewMap.put(CUTSCENES_KEY, cm.getPane());
 
 		DialogueManager dm = new DialogueManager(AEM);
 		dm.addDialogueListener(mapManager.getDialoguesTab());
 		viewMap.put(DIALOGUE_KEY, dm.getPane());
+		
+		InventoryManager inventoryManager = new InventoryManager(AEM);
+		//inventoryManager.;
+		viewMap.put(INVENTORY_KEY, inventoryManager.getPane());
 
 		HUDManager hudManager = new HUDManager(AEM, scene);
 		viewMap.put(HUD_KEY, hudManager.getPane());
@@ -112,10 +116,6 @@ public class AuthoringController {
 		MenuManager menuManager = new MenuManager(AEM, scene);
 		viewMap.put(MENU_CREATOR_KEY, menuManager.getPane());
 		viewMapKeysToManager.put(MENU_CREATOR_KEY, menuManager);
-
-		InventoryManager inventoryManager = new InventoryManager(AEM, scene);
-		viewMap.put(INVENTORY_KEY, inventoryManager.getPane());
-		viewMapKeysToManager.put(INVENTORY_KEY, inventoryManager);
 	}
 
 	/**
@@ -128,7 +128,6 @@ public class AuthoringController {
 		authoringPane.getChildren().removeAll(view, currentSideBar);
 		view = viewMap.get(key);
 		if (this.viewMapKeysToManager.containsKey(key)) {
-			;
 			this.activeManagerProperty.set(viewMapKeysToManager.get(key));
 		} else {
 			this.activeManagerProperty.set(null);

@@ -1,9 +1,11 @@
 package authoring_UI;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import authoring.DialogSprite.AuthoringDialogSequence;
 import authoring.Sprite.AbstractSpriteObject;
 import authoring.Sprite.InventoryObject;
 import authoring.Sprite.SpriteObject;
@@ -29,8 +31,10 @@ public class SpriteDataConverter {
 	List<AuthoringAnimationSequence> myAnimationSequences;
 	List<String> spriteConditionOperations;
 	List<List<String>> spriteActionOperations;
+	Integer renderingPreference;
 	
 	
+	List<AuthoringDialogSequence> myDialogs;
 	String mySavePath;
 	String spriteType;
 	List<String> tags;
@@ -57,6 +61,7 @@ public class SpriteDataConverter {
 	}
 
 	public void convertSprite(AbstractSpriteObject ASO) {
+		myDialogs = ASO.getDialogSequences();
 		catmap = ASO.getParameters();
 		gridPos = ASO.getPositionOnGrid();
 		name = ASO.getName();
@@ -67,15 +72,14 @@ public class SpriteDataConverter {
 		mySavePath = ASO.getSavePath();
 		tags = ASO.getTags();
 		inventory = new ArrayList<SpriteDataConverter>();
+		renderingPreference = ASO.getRenderingPreference();
 //		allConditions = ASO.getAllConditions();
 //		allActions = ASO.getAllActions();
 		conditionRows = ASO.getConditionRows();
 		actionRows = ASO.getActionRows();
 		myAnimationSequences = ASO.getAnimationSequences();
 		spriteConditionOperations = ASO.getSelectedConditionOperations();
-		System.out.println("Selected Condition Operations: " + spriteConditionOperations);
 		spriteActionOperations = ASO.getSelectedActionOperations();
-		System.out.println("Selected Action and Category: " + spriteActionOperations);
 		ASO.getInventory().forEach(sprite -> {
 			inventory.add(new SpriteDataConverter(sprite));
 		});
@@ -92,18 +96,22 @@ public class SpriteDataConverter {
 	}
 
 	public AbstractSpriteObject createSprite() {
-		AbstractSpriteObject ret = null;
-		if (spriteType.equals("SpriteObject")) {
-			ret = new SpriteObject(true);
-		} else if (spriteType.equals("InventoryObject")) {
-			ret = new InventoryObject(true);
-		} else {
-			ret = new SpriteObject(true);
-		}
 		
+		AbstractSpriteObject ret = null;
+		
+		if (spriteType.equals("SpriteObject")) {
+			ret = new SpriteObject(true, myGDH);
+		} else if (spriteType.equals("InventoryObject")) {
+			ret = new InventoryObject(true, myGDH);
+		} else {
+			ret = new SpriteObject(true, myGDH);
+		}
 		ret.setParameterMap(catmap);
 		ret.setPositionOnGrid(gridPos);
-		ret.setAnimationSequences(this.myAnimationSequences);
+		myAnimationSequences.forEach(seq->seq.setGameDataHandler(myGDH));
+		ret.setAnimationSequences(myAnimationSequences);
+		ret.setRenderingPreference(renderingPreference);
+		ret.setDialogSequences(myDialogs);
 		ret.setNumCellsHeightNoException(height);
 		ret.setNumCellsWidthNoException(width);
 		ret.setUniqueID(UUID);
@@ -111,23 +119,20 @@ public class SpriteDataConverter {
 		ret.setSavePath(mySavePath);
 		ret.setTags(tags);
 		ret.setSelectedConditionOperations(spriteConditionOperations);
-		System.out.println("selectedConditionOperations yeah " + spriteConditionOperations);
 		ret.setSelectedActionOperations(spriteActionOperations);
-		System.out.println("selectedActionOperations yeahhhh " + spriteActionOperations);
 //		ret.setAllConditions(allConditions);
 //		ret.setAllActions(allActions);
 		ret.setConditionRows(conditionRows);
 		ret.setActionRows(actionRows);
-		System.out.println("ActionRows Size: "+actionRows.size());
-		System.out.println("SDC AnimationSeq: "+this.myAnimationSequences);
 		List<AbstractSpriteObject> newInventory = new ArrayList<AbstractSpriteObject>();
 		inventory.forEach(SDC ->{
 			newInventory.add(SDC.createSprite());
 		});
 		ret.setInventory(newInventory);
 		System.out.println("spriteInventoryinSDC: "+ret.getInventory());
+		System.out.println("Sprite Converter ImageURL: "+imageURL);
 		ret.setImageURL(imageURL);
-		ret.setGameDataHandler(myGDH);
+		ret.setIsLoadingFromXML(true);
 		return ret;
 	}
 	

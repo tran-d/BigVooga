@@ -27,7 +27,7 @@ public class MenuManager extends MapManager{
 	protected DraggableGrid makeDraggableGrid(){
 		DraggableGrid ret = new DraggableGrid(GDH);
 		MenuGridBE = new MenuGridManager();
-		BackgroundGridManager BackgroundGrid = new BackgroundGridManager(MenuGridBE.getDefaultRows(), MenuGridBE.getDefaultCols());
+		BackgroundGridManager BackgroundGrid = new BackgroundGridManager(MenuGridBE.getDefaultRows(), MenuGridBE.getDefaultCols(), GDH);
 		List<SpriteObjectGridManager> grids = new ArrayList<SpriteObjectGridManager>();
 		grids.add(BackgroundGrid);
 		grids.add(MenuGridBE);

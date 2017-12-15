@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import authoring.AuthoringEnvironmentManager;
-import authoring.DialogSprite.DialogSequence;
+import authoring.DialogSprite.AuthoringDialogSequence;
 import authoring_UI.MapManager;
 import authoring_UI.displayable.DisplayableManager;
 import engine.utilities.data.GameDataHandler;
@@ -12,10 +12,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import tools.DisplayLanguage;
@@ -84,28 +86,44 @@ public class DialogueManager extends DisplayableManager {
 	public HBox getPane() {
 		return hb;
 	}
-
-	static int counter = 0;
 	
 	@Override
 	protected void updateListView() {
 		dExtractor.extract(editorList);
 		listView = new DialogueListView(dExtractor.getDialogueList());
-		counter++;
-		System.out.println("Yieks its broken" + counter);
+
 		mapDialoguesTab.setContent(listView);
 	}
+
 
 	@Override
 	protected void save() {
 		if (currentEditor != null && !currentEditor.getName().trim().equals("")) {
 			if (!currentEditor.getBackgroundIsColor()) {
-				DialogSequence dialogSequence = new DialogSequence(currentEditor.getName(), currentEditor.getDialogueSequence(), currentEditor.getBackgroundImage());
-				AEM.getDialogSpriteController().addNewDialogSequence(dialogSequence);
-			}
+				AuthoringDialogSequence dialogSequence = new AuthoringDialogSequence(currentEditor.getName(), currentEditor.getDialogueSequence(), currentEditor.getBackgroundImage());
+				try{
+				AEM.getDialogSpriteController().addNewSuperlayerSequence(dialogSequence);
+				} catch (Exception e){
+					e.printStackTrace();
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Error");
+					alert.setHeaderText("Couldn't save dialogue");
+					alert.setContentText("try again");
+					alert.showAndWait();
+					}
+				}
 			else if (currentEditor.getBackgroundIsColor()) {
-				DialogSequence dialogSequence = new DialogSequence(currentEditor.getName(), currentEditor.getDialogueSequence(), currentEditor.getBackgroundColor());
-				AEM.getDialogSpriteController().addNewDialogSequence(dialogSequence);
+				AuthoringDialogSequence dialogSequence = new AuthoringDialogSequence(currentEditor.getName(), currentEditor.getDialogueSequence(), currentEditor.getBackgroundColor());
+				try {
+				AEM.getDialogSpriteController().addNewSuperlayerSequence(dialogSequence);
+				} catch (Exception e) {
+					e.printStackTrace();
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Error");
+					alert.setHeaderText("Couldn't save dialogue");
+					alert.setContentText("try again");
+					alert.showAndWait();
+				}
 			}
 			
 			if (editorList.contains(currentEditor)) {
@@ -129,8 +147,6 @@ public class DialogueManager extends DisplayableManager {
 	}
 
 	protected void loadEditor(int index) {
-
-		;
 		
 		if (hb.getChildren().size() >= 4) {
 			hb.getChildren().remove(5 - 1);
@@ -166,8 +182,6 @@ public class DialogueManager extends DisplayableManager {
 
 	protected void next() {
 		if (currentEditorIndex < editorList.size() - 1) {
-			;
-			;
 			currentEditorIndex += 1;
 			hb.getChildren().remove(4);
 			hb.getChildren().add(editorList.get(currentEditorIndex).getParent());
@@ -184,7 +198,6 @@ public class DialogueManager extends DisplayableManager {
 	}
 
 	private void addUserDialogueButton(String name) {
-		
 		Button btn = new Button(name);
 		btn.setPrefSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 		dView.addUserDialogueButton(currentEditorIndex, btn);
@@ -204,8 +217,6 @@ public class DialogueManager extends DisplayableManager {
 			removeUserDialogueButton();
 			
 			if (editorList.size() > 1) {
-				;
-				;
 
 				if (currentEditorIndex == editorList.size() - 1) {
 					prev();
@@ -228,11 +239,8 @@ public class DialogueManager extends DisplayableManager {
 			}
 		}
 
-		;
-		;
-
 		for(int i = 0; i < editorList.size(); i++) {
-			;
+	
 		}
 
 	}

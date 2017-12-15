@@ -20,6 +20,10 @@ public class InventoryObject extends AbstractSpriteObject {
 	public InventoryObject(boolean b) {
 		super(b);
 	}
+	
+	public InventoryObject(boolean b, GameDataHandler GDH) {
+		super(b, GDH);
+	}
 
 	@Override
 	public AbstractSpriteObject newCopy() {
