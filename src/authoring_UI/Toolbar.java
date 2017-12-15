@@ -33,6 +33,7 @@ public class Toolbar extends ToolBar {
 	private static final String SAVE_STRING = "Save";
 	private static final String IMPORT_STRING = "Import";
 	private static final String EXPORT_STRING = "Export";
+	private static final String TEST_STRING = "Test";
 	private static final String EXIT_STRING = "Exit";
 	private static final String VIEWS_STRING = "Viewers";
 	private static final String ELEMENT_VIEWER_STRING = "ElementViewer";
@@ -89,6 +90,13 @@ public class Toolbar extends ToolBar {
 		MenuItem export = new MenuItem();
 		export.textProperty().bind(DisplayLanguage.createStringBinding(EXPORT_STRING));
 		export.setOnAction(e -> sceneController.exportToEngine());
+		
+		MenuItem test = new MenuItem();
+		test.textProperty().bind(DisplayLanguage.createStringBinding(TEST_STRING));
+		test.setOnAction(e -> {
+			sceneController.exportToEngine();
+			
+		});
 		
 		MenuItem exit = new MenuItem();
 		exit.textProperty().bind(DisplayLanguage.createStringBinding(EXIT_STRING));
