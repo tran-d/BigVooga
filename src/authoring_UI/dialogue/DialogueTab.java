@@ -1,9 +1,15 @@
 package authoring_UI.dialogue;
 
+import authoring_UI.ViewSideBar;
 import authoring_UI.displayable.DisplayableTab;
+import gui.welcomescreen.WelcomeScreen;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.VBox;
+import tools.DisplayLanguage;
 
 /**
  * Class that represents a tab listing dialogues to edit
@@ -22,11 +28,27 @@ public class DialogueTab extends DisplayableTab {
 	public DialogueTab(String name) {
 		super(name);
 		this.setContent(sp);
+		dialogueLister = new VBox();
+
+		this.textProperty().bind(DisplayLanguage.createStringBinding(name));
+
+		dialogueLister = makeVBox((WelcomeScreen.WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH) / 2, WelcomeScreen.HEIGHT,
+				DIALOGUE_SPACING);
+		dialogueLister.setAlignment(Pos.TOP_CENTER);
+		dialogueLister.setPadding(new Insets(PADDING));
+
+		sp = new ScrollPane();
+		sp.setContent(dialogueLister);
+		sp.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
+		sp.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+
+		this.setContent(sp);
 	}
+
 
 	@Override
 	protected VBox makeVBox(double width, double height, double spacing) {
-		return makeVBox(width, height, spacing);
+		return super.makeVBox(width, height, spacing);
 	}
 
 	@Override
@@ -45,7 +67,7 @@ public class DialogueTab extends DisplayableTab {
 		dialogueLister.getChildren().remove(index);
 
 	}
-	
+
 	@Override
 	protected int getButtonIndex(Button btn) {
 		return dialogueLister.getChildren().indexOf(btn);

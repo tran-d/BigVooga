@@ -70,6 +70,7 @@ public class GameDataHandler {
 	private static final String CUSTOM_SPRITE_FOLDER = PROJECT_USER_SPRITE_PATH + "CustomSprites/";
 	private static final String INVENTORY_SPRITE_FOLDER = PROJECT_USER_SPRITE_PATH + "InventorySprites/";
 	private static final String DEFAULT_CATEGORY = "General/";
+	private static final String DIALOG_SPRITE_FOLDER = PROJECT_USER_SPRITE_PATH+"Dialogue/";
 
 	private static final String LOCAL = "local";
 
@@ -148,7 +149,7 @@ public class GameDataHandler {
 
 	private void makeDirectories() {
 		String[] pathsToMake = new String[] { ENGINE_PATH, RESOURCES, PROJECT_WORLD_PATH, PROJECT_WORLD_PATH,
-				PROJECT_LAYER_SPRITE_PATH, DEFAULT_SPRITE_FOLDER, CUSTOM_SPRITE_FOLDER, INVENTORY_SPRITE_FOLDER };
+				PROJECT_LAYER_SPRITE_PATH, DEFAULT_SPRITE_FOLDER, CUSTOM_SPRITE_FOLDER, INVENTORY_SPRITE_FOLDER, DIALOG_SPRITE_FOLDER };
 		for (String s : pathsToMake) {
 			makeDirectory(projectPath + s);
 		}
@@ -463,6 +464,10 @@ public class GameDataHandler {
 	public String getCustomSpriteDirectoryPath() {
 		return projectPath + CUSTOM_SPRITE_FOLDER;
 	}
+	
+	public String getDialogSpriteDirectoryPath() {
+		return projectPath + DIALOG_SPRITE_FOLDER;
+	}
 
 	public String getInitializingWorldDirectoryPath(String worldName) {
 		return projectPath + PROJECT_WORLD_PATH + worldName + "/";
@@ -635,6 +640,7 @@ public class GameDataHandler {
 	}
 
 	public void saveDialogSequence(DialogSequence dS, String folderToSaveTo) {
+		System.out.println("DiaSpriteFolder: "+folderToSaveTo);
 		saveToFile(dS, folderToSaveTo + DIALOG_EXTENSION);
 	}
 
