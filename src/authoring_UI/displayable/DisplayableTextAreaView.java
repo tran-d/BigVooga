@@ -56,7 +56,7 @@ public abstract class DisplayableTextAreaView extends VBox {
 			BackgroundImage bgImage = new BackgroundImage(image, 
 				    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
 				    BackgroundPosition.CENTER, 
-				    new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false));
+				    new BackgroundSize(1, 1, true, true, false, false));
 			pane.setBackground(new Background(bgImage));
 		}
 	}
