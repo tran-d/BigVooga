@@ -1,6 +1,5 @@
 package authoring_UI;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -12,10 +11,11 @@ import authoring.Sprite.AnimationSequences.AuthoringAnimationSequence;
 import authoring.Sprite.Parameters.SpriteParameter;
 import engine.Action;
 import engine.Condition;
+import engine.utilities.data.GameDataHandler;
 
 public class SpriteDataConverter {
 
-
+	GameDataHandler myGDH;
 	Map<Condition, List<Integer>> conditionRows;
 	List<Action> actionRows;
 	Map<String, List<SpriteParameter>> catmap;
@@ -84,10 +84,14 @@ public class SpriteDataConverter {
 		} else if (ASO instanceof InventoryObject) {
 			spriteType = "InventoryObject";
 		}
+		myGDH = null;
+	}
+	
+	public void setGameDataHandler(GameDataHandler GDH){
+		myGDH = GDH;
 	}
 
 	public AbstractSpriteObject createSprite() {
-		;
 		AbstractSpriteObject ret = null;
 		if (spriteType.equals("SpriteObject")) {
 			ret = new SpriteObject(true);
@@ -123,6 +127,7 @@ public class SpriteDataConverter {
 		ret.setInventory(newInventory);
 		System.out.println("spriteInventoryinSDC: "+ret.getInventory());
 		ret.setImageURL(imageURL);
+		ret.setGameDataHandler(myGDH);
 		return ret;
 	}
 	

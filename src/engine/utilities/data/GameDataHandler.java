@@ -573,6 +573,7 @@ public class GameDataHandler {
 				MapDataConverter MDC = (MapDataConverter) getObjectFromFile(f);
 				MDC.setGameDataHandler(this);
 				DraggableGrid DG_toAdd = MDC.createDraggableGrid();
+			
 				DG_LIST.add(DG_toAdd);
 			}
 		}
