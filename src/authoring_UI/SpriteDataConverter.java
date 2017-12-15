@@ -132,7 +132,7 @@ public class SpriteDataConverter {
 		System.out.println("spriteInventoryinSDC: "+ret.getInventory());
 		System.out.println("Sprite Converter ImageURL: "+imageURL);
 		ret.setImageURL(imageURL);
-
+		ret.setIsLoadingFromXML(true);
 		return ret;
 	}
 	

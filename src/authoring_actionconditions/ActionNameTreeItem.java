@@ -105,12 +105,19 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 	}
 
 	private void makeActionParameterChildren(String action, TreeItem<HBox> parameterAction, HBox hb) {
+		
+		System.out.println("ACTION: " + action);
+		
 		ObservableList<String> actionParameterTypes = FXCollections.observableList(actionFactory.getParameters(action));
 
 		ObservableList<VoogaParameter> voogaParameters = FXCollections
 				.observableList(actionFactory.getParametersWithNames(action));
-
 		;
+		
+		for (VoogaParameter vp : voogaParameters) {
+			System.out.println("ACTION PARAMETER TYPE: " + vp.getType().getEngineType());
+		}
+		
 		opNameTreeItemList = new ArrayList<>();
 
 		hb.getChildren().add(new Label("[ "));

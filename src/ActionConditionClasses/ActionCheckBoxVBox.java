@@ -2,7 +2,6 @@ package ActionConditionClasses;
 
 import java.util.LinkedList;
 import java.util.List;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ListChangeListener.Change;
@@ -62,10 +61,10 @@ public class ActionCheckBoxVBox extends VBoxList implements ActionCheckBoxVBoxI 
 		checkBoxes.add(new CheckBox(Integer.toString(checkBoxes.size() + 1)));
 	}
 
-	@Override
+	
 	public void removeAction(Integer action) {
 		checkBoxes.remove((int) action);
-		for(int i = action; i < checkBoxes.size(); i++) {
+		for(int i = (int) action; i < checkBoxes.size(); i++) {
 			CheckBox iCheckBox = checkBoxes.get(i);
 			int currentLabel = Integer.parseInt(iCheckBox.getText());
 			iCheckBox.setText(Integer.toString(currentLabel - 1));

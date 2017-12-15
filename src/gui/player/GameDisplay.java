@@ -2,6 +2,8 @@ package gui.player;
 
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import controller.player.Debugging;
 import controller.player.PlayerManager;
@@ -152,7 +154,10 @@ public class GameDisplay {
 		text.setWrappingWidth(displayableText.getWidth());
 		text.setRotate(displayableText.getHeading());
 		text.setFont(new Font(displayableText.getFont(), displayableText.getFontSize()));
-		text.setStroke(Color.web(displayableText.getColor()));
+		String c = displayableText.getColor();
+		Pattern p = Pattern.compile("rgb\\((\\d{1,3}), (\\d{1,3}), (\\d{1,3})\\)");
+		Matcher m = p.matcher(c);
+		text.setStroke(Color.rgb(Integer.parseInt(m.group(0)), Integer.parseInt(m.group(1)), Integer.parseInt(m.group(2))));
 		HBox box = new HBox(text);
 		Group g = new Group(box);
 		g.applyCss();
