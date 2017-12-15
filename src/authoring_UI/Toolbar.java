@@ -99,6 +99,7 @@ public class Toolbar extends ToolBar {
 			try {
 				GameController gameController = new GameController(gamePlayingStage, myGDH.getProjectName(), sceneController, false);
 				gamePlayingStage.show();
+				gamePlayingStage.setOnCloseRequest(l -> gameController.stop());
 			} catch (FileNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
