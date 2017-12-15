@@ -17,6 +17,7 @@ public class ActionRow extends ActionConditionRow {
 	private ActionTreeView actionTreeView;
 	public static final double ROW_EXPANDED_HEIGHT = ActionConditionRow.EXPANDED_HEIGHT + 50;
 
+	// for creating a new row
 	public ActionRow(int ID, ActionVBox<ActionRow> ACVBox,Supplier<List<AbstractSpriteObject>> supplier) {
 		super(ID, ACVBox,supplier);
 		setPrefSize(ROW_WIDTH, ROW_EXPANDED_HEIGHT);
@@ -25,6 +26,7 @@ public class ActionRow extends ActionConditionRow {
 		getItems().add(actionTreeView);
 	}
 
+	// for loading a selected sprite
 	public ActionRow(int ID, ActionVBox<?> ACVBox, ActionTreeView tv,Supplier<List<AbstractSpriteObject>> supplier) {
 		super(ID, ACVBox,supplier);
 		getItems().remove(actionTreeView);
