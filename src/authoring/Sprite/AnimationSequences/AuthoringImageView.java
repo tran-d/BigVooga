@@ -40,6 +40,7 @@ public class AuthoringImageView extends ImageView{
 	
 	public AuthoringImageView(AuthoringImageView image) {
 		imagePath = new String(image.getImagePath());
+		boundedImage = image.getBoundedImage().clone();
 		setImage(image.getImage());
 	}
 
