@@ -1,0 +1,32 @@
+<authoring__UI.SpriteDataConverter>
+  <conditionRows/>
+  <actionRows class="linked-list"/>
+  <catmap/>
+  <inventory/>
+  <imageURL>Green Square.png</imageURL>
+  <gridPos>
+    <int>0</int>
+    <int>0</int>
+  </gridPos>
+  <name>Green Square</name>
+  <width>3</width>
+  <height>3</height>
+  <UUID>69078abf-c1be-416b-858c-5809c768d325</UUID>
+  <myAnimationSequences>
+    <authoring.Sprite.AnimationSequences.AuthoringAnimationSequence resolves-to="authoring.Sprite.AnimationSequences.SerializableAuthoringAnimationSequence">
+      <myName>Default</myName>
+      <myImages>
+        <authoring.Sprite.AnimationSequences.AnimationSequenceImage>
+          <myImage resolves-to="authoring.Sprite.AnimationSequences.SerializableAuthoringImageView">
+            <imagePath>Green Square.png</imagePath>
+          </myImage>
+        </authoring.Sprite.AnimationSequences.AnimationSequenceImage>
+      </myImages>
+    </authoring.Sprite.AnimationSequences.AuthoringAnimationSequence>
+  </myAnimationSequences>
+  <spriteConditionOperations class="linked-list"/>
+  <spriteActionOperations class="linked-list"/>
+  <mySavePath>/Users/aaronpaskin/Desktop/Good Vooga/The World&apos;s Hardest Game/authoring/Sprites/CustomSprites/General/Green Square</mySavePath>
+  <spriteType>SpriteObject</spriteType>
+  <tags/>
+</authoring__UI.SpriteDataConverter>

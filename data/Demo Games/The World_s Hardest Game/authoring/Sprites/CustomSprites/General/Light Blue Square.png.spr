@@ -1,0 +1,32 @@
+<authoring__UI.SpriteDataConverter>
+  <conditionRows/>
+  <actionRows class="linked-list"/>
+  <catmap/>
+  <inventory/>
+  <imageURL>Light Blue Square.png</imageURL>
+  <gridPos>
+    <int>0</int>
+    <int>0</int>
+  </gridPos>
+  <name>Light Blue Square.png</name>
+  <width>3</width>
+  <height>3</height>
+  <UUID>1de23056-682f-4fb4-b570-39cb270926b9</UUID>
+  <myAnimationSequences>
+    <authoring.Sprite.AnimationSequences.AuthoringAnimationSequence resolves-to="authoring.Sprite.AnimationSequences.SerializableAuthoringAnimationSequence">
+      <myName>Default</myName>
+      <myImages>
+        <authoring.Sprite.AnimationSequences.AnimationSequenceImage>
+          <myImage resolves-to="authoring.Sprite.AnimationSequences.SerializableAuthoringImageView">
+            <imagePath>Light Blue Square.png</imagePath>
+          </myImage>
+        </authoring.Sprite.AnimationSequences.AnimationSequenceImage>
+      </myImages>
+    </authoring.Sprite.AnimationSequences.AuthoringAnimationSequence>
+  </myAnimationSequences>
+  <spriteConditionOperations class="linked-list"/>
+  <spriteActionOperations class="linked-list"/>
+  <mySavePath>/Users/aaronpaskin/Desktop/Good Vooga/The World&apos;s Hardest Game/authoring/Sprites/CustomSprites/General/Light Blue Square.png</mySavePath>
+  <spriteType>SpriteObject</spriteType>
+  <tags/>
+</authoring__UI.SpriteDataConverter>
