@@ -22,6 +22,8 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.function.Supplier;
 
+import javax.imageio.ImageIO;
+
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.security.NullPermission;
@@ -35,6 +37,7 @@ import authoring_UI.MapDataConverter;
 import authoring_UI.SpriteDataConverter;
 import engine.EngineController;
 import engine.VoogaException;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
@@ -638,6 +641,17 @@ public class GameDataHandler {
 		saveToFile(dS, folderToSaveTo + DIALOG_EXTENSION);
 	}
 
+	public void saveTo(Image image, String fileName) {
+		if (image == null)
+			return;
+		File loc = new File(projectPath+RESOURCES+fileName);
+		try {
+			ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", loc);
+		} catch (IOException e) {
+			throw new VoogaException("IllegalFile", loc.getAbsolutePath());
+		}
+	}
+	
 	public String getRoot() {
 		return root;
 	}
