@@ -125,20 +125,12 @@ public abstract class MapLayer extends GridPane {
 
 	public MapLayer(int rows, int columns, SpriteGridHandler SGH, Color c, List<AbstractSpriteObject> activeSpriteObjects) {
 		this(rows, columns, SGH, c);
-		;
 		for (AbstractSpriteObject ASO : activeSpriteObjects) {
 			int x = ASO.getPositionOnGrid()[0];
 			int y = ASO.getPositionOnGrid()[1];
-			;
-			;
 			AuthoringMapStackPane child = this.getChildAtPosition(x, y);
-			;
-			;
-			; 
-			;
 			//child.removeChild();
-			;
-//			child.setInactiveBackground(Color.AQUA);
+			child.setInactiveBackground(Color.AQUA);
 			mySGH.addSpriteDrag(ASO);
 			mySGH.addSpriteMouseClick(ASO);
 			child.addChild(ASO);

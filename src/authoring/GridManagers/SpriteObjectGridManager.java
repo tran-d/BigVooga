@@ -23,6 +23,7 @@ public abstract class SpriteObjectGridManager {
 	private Set<Integer[]> activeCells;
 	protected MapLayer myMapLayer;
 	protected SpriteGridHandler mySpriteGridHandler;
+	protected GameDataHandler myGDH;
 	protected int myLayerNum;
 	protected Color myColor;
 	protected int defaultRows;
@@ -57,6 +58,11 @@ public abstract class SpriteObjectGridManager {
 		return (getStoredSpriteList() != null && getStoredSpriteList().size() > 0);
 
 	}
+	
+	public SpriteObjectGridManager(int rows, int cols, GameDataHandler GDH) {
+		this(rows, cols);
+		this.myGDH = GDH;
+	}
 
 	public SpriteObjectGridManager(int rows, int cols) {
 		setCanFillBackground();
@@ -72,8 +78,6 @@ public abstract class SpriteObjectGridManager {
 		activeCells = new HashSet<Integer[]>();
 
 		numRowsProperty.addListener((observable, oldNumRows, newNumRows) -> {
-			;
-			;
 			if (this.getMapLayer() != null) {
 				this.getMapLayer().setNumRows(newNumRows);
 			}
@@ -91,13 +95,9 @@ public abstract class SpriteObjectGridManager {
 					spriteGrid.remove(oldNumRows - i - 1);
 				}
 			}
-			;
-			;
 		});
 
 		numColumnsProperty.addListener((observable, oldNumColumns, newNumColumns) -> {
-			;
-			;
 			if (this.getMapLayer() != null) {
 				this.getMapLayer().setNumCols(newNumColumns);
 			}
@@ -122,8 +122,7 @@ public abstract class SpriteObjectGridManager {
 
 	public SpriteObjectGridManager(int rows, int columns, SpriteGridHandler SGH, GameDataHandler GDH) {
 		this(rows, columns);
-
-		
+		myGDH = GDH;
 		setSpriteGridHandler(SGH);
 		createMapLayer();
 		setSizeToMatchDefaults();

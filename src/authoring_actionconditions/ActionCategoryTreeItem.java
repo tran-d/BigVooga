@@ -1,5 +1,9 @@
 package authoring_actionconditions;
 
+import java.util.List;
+import java.util.function.Supplier;
+
+import authoring.Sprite.AbstractSpriteObject;
 import engine.Action;
 import engine.Actions.ActionFactory;
 import javafx.beans.value.ChangeListener;
@@ -24,9 +28,11 @@ public class ActionCategoryTreeItem extends TreeItem<HBox> {
 	private ActionNameTreeItem actionName;
 	private Runnable changeTreeViewSize;
 	private String selectedCategory;
+	private Supplier<List<AbstractSpriteObject>> supplier;
 
-	public ActionCategoryTreeItem(Runnable r) {
+	public ActionCategoryTreeItem(Runnable r, Supplier<List<AbstractSpriteObject>> supplier) {
 		changeTreeViewSize = r;
+		this.supplier = supplier;
 		this.makeActionCategoryTreeItem();
 	}
 
@@ -78,7 +84,7 @@ public class ActionCategoryTreeItem extends TreeItem<HBox> {
 				// getItems().add(makeParameterChoiceBox(actions.get(newValue.intValue())));
 				categoryAction.getChildren().clear();
 				selectedCategory = categories.get(cb.getSelectionModel().getSelectedIndex());
-				actionName = new ActionNameTreeItem(selectedCategory);
+				actionName = new ActionNameTreeItem(selectedCategory, supplier);
 				categoryAction.getChildren().add(actionName);
 			}
 		});

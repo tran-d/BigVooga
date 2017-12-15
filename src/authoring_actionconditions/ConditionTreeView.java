@@ -1,5 +1,9 @@
 package authoring_actionconditions;
 
+import java.util.List;
+import java.util.function.Supplier;
+
+import authoring.Sprite.AbstractSpriteObject;
 import engine.Condition;
 import engine.operations.VoogaType;
 import engine.operations.booleanops.BooleanOperation;
@@ -32,19 +36,22 @@ public class ConditionTreeView extends TreeView<HBox> {
 	private Condition condition;
 	private String selectedOperation;
 	private int priorityNumber;
+	private Supplier<List<AbstractSpriteObject>> supplier;
 
-	public ConditionTreeView(ConditionRow conditionRow) {
+	public ConditionTreeView(ConditionRow conditionRow,Supplier<List<AbstractSpriteObject>> supplier) {
 		super();
 		this.conditionRow = conditionRow;
 		operationNameTreeItem = new OperationNameTreeItem("Boolean", "Choose Boolean Operation: ", VoogaType.BOOLEAN,
-				() -> changeRowTVSize());
+				() -> changeRowTVSize(), supplier);
 		setRoot(operationNameTreeItem);
 		setPrefSize(TREE_VIEW_WIDTH, TREE_VIEW_EXPANDED_HEIGHT);
 		priorityIntegerTF = createIntegerTextField();
 		booleanOperationTreeView = buildBooleanOperationTreeView(this);
+		this.supplier = supplier;
 	}
 
-	public ConditionTreeView(ConditionRow conditionRow, String selectedOperation, Condition condition) {
+	public ConditionTreeView(ConditionRow conditionRow, String selectedOperation, Condition condition,Supplier<List<AbstractSpriteObject>> supplier) {
+		this(conditionRow,supplier);
 		this.selectedOperation = selectedOperation;
 		this.condition = condition;
 		this.priorityNumber = condition.getPriority();

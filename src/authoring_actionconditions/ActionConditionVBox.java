@@ -1,6 +1,9 @@
 package authoring_actionconditions;
 
 import java.util.List;
+import java.util.function.Supplier;
+
+import authoring.Sprite.AbstractSpriteObject;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
