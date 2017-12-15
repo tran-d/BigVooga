@@ -136,7 +136,6 @@ public class Toolbar extends ToolBar {
 		List<MenuItem> importItems = new ArrayList<MenuItem>();
 
 		File f = new File(new GameDataHandler(myStage).getRoot());
-
 		File[] listOfFiles = f.listFiles();
 		for (File file: listOfFiles) {
 			if(file.getName().equals("resources"))
