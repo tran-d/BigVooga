@@ -64,7 +64,7 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 //		getItems().removeAll(actionCheckBoxVBox, treeViewVBox);
 		super(ID, ACVBox,supplier);
 		System.out.println("supplier null in 3rd conditionRow constructor " + supplier == null);
-		this.setPrefSize(ROW_WIDTH, ROW_EXPANDED_HEIGHT);
+		this.setPrefSize(ROW_WIDTH, COLLAPSED_HEIGHT);
 		
 		
 		actionCheckBoxVBox = new ActionCheckBoxVBox(newActionOptions, selectedActionOptions);

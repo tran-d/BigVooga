@@ -40,6 +40,7 @@ public class ActionRow extends ActionConditionRow {
 		setPrefSize(ROW_WIDTH, COLLAPSED_HEIGHT);
 		actionTreeView = new ActionTreeView(this, params, action,supplier);
 		this.getItems().add(actionTreeView);
+		this.setPrefSize(ROW_WIDTH, COLLAPSED_HEIGHT);
 	}
 
 	/********************** PUBLIC METHODS ***********************/
