@@ -85,8 +85,6 @@ public class FileSelector extends MenuOptionsTemplate {
 	
 	private void checkInput() {
 		File file = new File(PROJECT_FILE_PATH + "/" + textField.getText());
-		;
-		;
 		
 		if (!textField.getText().isEmpty() && textField.getText().charAt(0) != '.' && !file.exists()) {
 			switchScene(textField.getText());

@@ -36,10 +36,13 @@ import authoring_UI.SpriteDataConverter;
 import engine.EngineController;
 import engine.VoogaException;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
+import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -96,7 +99,7 @@ public class GameDataHandler {
 		xstream.allowTypesByWildcard(new String[] { "engine.**", "java.**" });
 		return xstream;
 	}
-	
+
 	public GameDataHandler(Stage s) {
 		this(() -> selectDirectory(s).getAbsolutePath());
 	}
@@ -279,7 +282,7 @@ public class GameDataHandler {
 		cache.put(fileName, i);
 		return i;
 	}
-	
+
 	public Image getImage(File file) {
 		addFileToProject(file);
 		Image im = getImage(file.getName());
@@ -314,8 +317,11 @@ public class GameDataHandler {
 	}
 
 	public static File selectDirectory(Stage stage) {
+		Alert alert = new Alert(Alert.AlertType.INFORMATION,
+				"Select an Empty Working Directory for use by the Program");
+		alert.showAndWait();
 		DirectoryChooser chooser = new DirectoryChooser();
-		chooser.setTitle("Select Workspace");
+		chooser.setTitle("Select Empty Working Directory for Workspace");
 		File ret = null;
 		while (ret == null)
 			ret = chooser.showDialog(stage);
@@ -334,17 +340,17 @@ public class GameDataHandler {
 		return fileChooser.showOpenDialog(window);
 	}
 
-//	public String getImageURIAndCopyToResources(File file) {
-//		try {
-//			Files.copy(file.toPath(), Paths.get(root + RESOURCES + file.getName()),
-//					StandardCopyOption.REPLACE_EXISTING);
-//			addFileToProject(file);
-//		} catch (IOException e) {
-//			throw new VoogaException(e);
-//		}
-//		String URI = file.toURI().toString();
-//		return URI;
-//	}
+	// public String getImageURIAndCopyToResources(File file) {
+	// try {
+	// Files.copy(file.toPath(), Paths.get(root + RESOURCES + file.getName()),
+	// StandardCopyOption.REPLACE_EXISTING);
+	// addFileToProject(file);
+	// } catch (IOException e) {
+	// throw new VoogaException(e);
+	// }
+	// String URI = file.toURI().toString();
+	// return URI;
+	// }
 
 	private static void makeDirectory(String path) {
 		File file = new File(path);
@@ -611,7 +617,7 @@ public class GameDataHandler {
 		}
 		return ret;
 	}
-	
+
 	public String getImportedInventorySpritesPath() {
 		String path = "";
 		if (myImportProjectPath != null) {
