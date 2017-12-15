@@ -27,6 +27,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.security.NullPermission;
 import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
+import authoring.CutScene.SuperlayerSequence;
 import authoring.DialogSprite.DialogSequence;
 import authoring.Sprite.AbstractSpriteObject;
 import authoring.Sprite.SpriteObject;
@@ -63,11 +64,15 @@ public class GameDataHandler {
 	private static final String PROJECT_USER_SPRITE_PATH = AUTHORING_PATH + "Sprites/";
 	private static final String PROJECT_WORLD_PATH = AUTHORING_PATH + "Worlds/";
 	private static final String PROJECT_LAYER_SPRITE_PATH = AUTHORING_PATH + "Sprites/";
+	private static final String PROJECT_UICOMPONENT_SPRITE_PATH = AUTHORING_PATH+"UIComponents/";
 	private static final String DEFAULT_SPRITE_FOLDER = PROJECT_USER_SPRITE_PATH + "DefaultSprites/";
 	private static final String CUSTOM_SPRITE_FOLDER = PROJECT_USER_SPRITE_PATH + "CustomSprites/";
 	private static final String INVENTORY_SPRITE_FOLDER = PROJECT_USER_SPRITE_PATH + "InventorySprites/";
 	private static final String DEFAULT_CATEGORY = "General/";
-
+	private static final String CUT_SCENE_SPRITE_FOLDER = PROJECT_UICOMPONENT_SPRITE_PATH+"CutSceneSprites/";
+	private static final String DIALOG_SPRITE_FOLDER = PROJECT_UICOMPONENT_SPRITE_PATH+"DialogSprites/";
+	private static final String INVENTORY_TEMPLATE_SPRITE_FOLDER = PROJECT_UICOMPONENT_SPRITE_PATH+"InventoryTemplates/";
+	
 	private static final String LOCAL = "local";
 
 	private static final String SELECTOR_TITLE = "Open Resource File";
@@ -145,7 +150,9 @@ public class GameDataHandler {
 
 	private void makeDirectories() {
 		String[] pathsToMake = new String[] { ENGINE_PATH, RESOURCES, PROJECT_WORLD_PATH, PROJECT_WORLD_PATH,
-				PROJECT_LAYER_SPRITE_PATH, DEFAULT_SPRITE_FOLDER, CUSTOM_SPRITE_FOLDER, INVENTORY_SPRITE_FOLDER };
+				PROJECT_LAYER_SPRITE_PATH, DEFAULT_SPRITE_FOLDER, CUSTOM_SPRITE_FOLDER, INVENTORY_SPRITE_FOLDER,
+				PROJECT_UICOMPONENT_SPRITE_PATH, CUT_SCENE_SPRITE_FOLDER, DIALOG_SPRITE_FOLDER, 
+				INVENTORY_TEMPLATE_SPRITE_FOLDER};
 		for (String s : pathsToMake) {
 			makeDirectory(projectPath + s);
 		}
@@ -422,11 +429,11 @@ public class GameDataHandler {
 		return ret;
 	}
 
-	public DialogSequence loadDialogue(File dFile) throws VoogaException {
+	public SuperlayerSequence loadSuperlayerSequence(File dFile) throws VoogaException {
 		if (!isValidFile(dFile)) {
 			throw new VoogaException("Invalid file to load");
 		}
-		return (DialogSequence) getObjectFromFile(dFile);
+		return (SuperlayerSequence) getObjectFromFile(dFile);
 	}
 
 	public File chooseSpriteFile(Stage stage) throws FileNotFoundException {
@@ -445,6 +452,18 @@ public class GameDataHandler {
 
 	private boolean isValidFile(File in) {
 		return in.exists() && !in.getName().startsWith(".");
+	}
+	
+	public String getDialogSpriteDirectoryPath(){
+		return projectPath+DIALOG_SPRITE_FOLDER;
+	}
+	
+	public String getCutSceneSpriteDirectoryPath(){
+		return projectPath+CUT_SCENE_SPRITE_FOLDER;
+	}
+	
+	public String getInventoryTemplateSpriteDirectoryPath(){
+		return projectPath+INVENTORY_TEMPLATE_SPRITE_FOLDER;
 	}
 
 	public String getDefaultSpriteDirectoryPath() {
@@ -600,14 +619,14 @@ public class GameDataHandler {
 		return ret;
 	}
 
-	public List<DialogSequence> loadDialogsFromDirectory(String folderToLoad) {
-		List<DialogSequence> ret = new ArrayList<DialogSequence>();
+	public List<SuperlayerSequence> loadSuperlayerSequencesFromDirectory(String folderToLoad) {
+		List<SuperlayerSequence> ret = new ArrayList<SuperlayerSequence>();
 		File file = new File(folderToLoad);
 		if (file.listFiles() != null) {
 			File[] files = file.listFiles();
-			ret = new ArrayList<DialogSequence>();
+			ret = new ArrayList<SuperlayerSequence>();
 			for (File f : files) {
-				ret.add(loadDialogue(f));
+				ret.add(loadSuperlayerSequence(f));
 			}
 		}
 		return ret;
@@ -629,7 +648,7 @@ public class GameDataHandler {
 		return path;
 	}
 
-	public void saveDialogSequence(DialogSequence dS, String folderToSaveTo) {
+	public void saveSuperlayerSequence(SuperlayerSequence dS, String folderToSaveTo) {
 		saveToFile(dS, folderToSaveTo + DIALOG_EXTENSION);
 	}
 

@@ -137,9 +137,6 @@ public abstract class SpriteObjectGridManager {
 	}
 
 	public void updateSpriteGrid() {
-		;
-		;
-		;
 		if (getStoredSpriteList().size() != 0) {
 			getStoredSpriteList().forEach(sprite -> {
 				setCell(sprite, sprite.getPositionOnGrid());

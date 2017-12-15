@@ -18,6 +18,7 @@ import java.util.Map.Entry;
 import java.util.function.Function;
 
 import authoring.Holdable;
+import authoring.CutScene.SuperlayerSequence;
 import authoring.DialogSprite.DialogSequence;
 import authoring.Sprite.AnimationSequences.AuthoringAnimationSequence;
 import authoring.Sprite.AnimationSequences.AuthoringImageView;
@@ -219,7 +220,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 	}
 	
 	public void addDialogSequence(DialogSequence dialogSequence){
-		myDialogSequences.add(dialogSequence.clone());
+		myDialogSequences.add((DialogSequence)dialogSequence.clone());
 	}
 	
 	public void addDialogSequence(List<DialogSequence> dialogSequences){

@@ -3,16 +3,16 @@ package authoring.Sprite.DialogTab;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
 import authoring.AuthoringEnvironmentManager;
-import authoring.Holdable;
-import authoring.DialogSprite.DialogImage;
+import authoring.CutScene.SuperlayerSequence;
+import authoring.CutScene.SuperlayerThumbnail;
+import authoring.DialogSprite.DialogAuthoringImage;
 import authoring.DialogSprite.DialogSequence;
-import authoring.Sprite.AbstractSpriteObject;
 import authoring.DialogSprite.DialogThumbnail;
+import authoring.Sprite.AbstractSpriteObject;
 import authoring_UI.SpriteScrollView;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
@@ -22,7 +22,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -41,7 +40,7 @@ public class SpriteDialogTabAndInfo {
 	private String buttonText;
 	private AuthoringEnvironmentManager myAEM;
 
-	private Set<DialogSequence> temporaryDialogSequences;
+	private Set<SuperlayerSequence> temporaryDialogSequences;
 
 	public SpriteDialogTabAndInfo(AuthoringEnvironmentManager AEM) {
 		myAEM = AEM;
@@ -67,7 +66,7 @@ public class SpriteDialogTabAndInfo {
 			// Nothing by default
 		});
 		this.setButton("Add to dialogue", action -> {
-			List<DialogSequence> newInventory = triggerPopUpOfInventoryToChoose();
+			List<SuperlayerSequence> newInventory = triggerPopUpOfInventoryToChoose();
 			temporaryDialogSequences.addAll(newInventory);
 			newInventory.forEach(sprite -> {
 				addInventory(sprite);
@@ -77,7 +76,7 @@ public class SpriteDialogTabAndInfo {
 	}
 
 	protected void setTemporaryInfo() {
-		temporaryDialogSequences = new HashSet<DialogSequence>();
+		temporaryDialogSequences = new HashSet<SuperlayerSequence>();
 	}
 
 	public void setSpriteObjectAndUpdate(AbstractSpriteObject ASO) {
@@ -96,8 +95,8 @@ public class SpriteDialogTabAndInfo {
 		resetScrollPane();
 	}
 
-	public void addInventory(DialogSequence ASO) {
-		DialogThumbnail ST = new DialogThumbnail(ASO, true);
+	public void addInventory(SuperlayerSequence ASO) {
+		SuperlayerThumbnail ST = new SuperlayerThumbnail(ASO, true);
 		VBox paneBox = new VBox();
 		paneBox.getChildren().addAll(ST, new Separator());
 		ST.addSideButton("Remove");
@@ -118,13 +117,13 @@ public class SpriteDialogTabAndInfo {
 	}
 
 	private void setDialogSequences(List<DialogSequence> newInventory) {
-		temporaryDialogSequences = new HashSet<DialogSequence>();
+		temporaryDialogSequences = new HashSet<SuperlayerSequence>();
 		if (newInventory != null) {
 			temporaryDialogSequences.addAll(newInventory);
 		}
 	}
 
-	private void removeFromInventory(DialogThumbnail ST, VBox paneBox) {
+	private void removeFromInventory(SuperlayerThumbnail ST, VBox paneBox) {
 		myTabPane.removeFromVBox(paneBox);
 		temporaryDialogSequences.remove(ST.getSprite());
 	}
@@ -149,7 +148,7 @@ public class SpriteDialogTabAndInfo {
 		return button;
 	}
 
-	private List<DialogSequence> triggerPopUpOfInventoryToChoose() {
+	private List<SuperlayerSequence> triggerPopUpOfInventoryToChoose() {
 
 		TabPane tp = new TabPane();
 		tp.setSide(Side.TOP);
@@ -194,11 +193,11 @@ public class SpriteDialogTabAndInfo {
 		dialog.setScene(dialogScene);
 
 		dialog.showAndWait();
-		List<DialogSequence> ret = new ArrayList<DialogSequence>();
+		List<SuperlayerSequence> ret = new ArrayList<SuperlayerSequence>();
 		tp.getTabs().forEach((tab1) -> {
 			SpriteScrollView SSV1 = (SpriteScrollView) tab1.getContent();
 			SSV1.getSpriteList().forEach(dialogIm -> {
-				ret.add(((DialogImage) dialogIm).getDialogSequence());
+				ret.add(((DialogAuthoringImage) dialogIm).getDialogSequence());
 			});
 		});
 		return ret;
@@ -216,6 +215,10 @@ public class SpriteDialogTabAndInfo {
 
 	public void apply() {
 		// myInventory.addAll(temporaryInventory);
-		myASO.setDialogSequences(temporaryDialogSequences);
+		Set<DialogSequence> DS = new HashSet<DialogSequence>();
+		temporaryDialogSequences.forEach(dialog->{
+			DS.add((DialogSequence)dialog);
+		});
+		myASO.setDialogSequences(DS);
 	}
 }

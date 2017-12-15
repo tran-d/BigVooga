@@ -1,22 +1,30 @@
 package authoring.CutScene;
 
-import java.util.function.Supplier;
-
-import javafx.scene.image.Image;
+import javafx.geometry.Bounds;
+import javafx.scene.Node;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
-public class CutSceneImage extends ImageView{
+public class CutSceneImage extends SuperlayerComponent{
 
-	private DialogSequence myDS;
-	
-	CutSceneImage(DialogSprite DS, Supplier<DialogSequence> myDialogSeq){
-		super(DS.getImageFileURL());
-		myDS = myDialogSeq.get();
+	public CutSceneImage(Pane parent, ImageView child){
+		super(parent, child);
 	}
 	
-	public DialogSequence getDialogSequence(){
-		return myDS;
+	public CutSceneImage(){
+		super();
 	}
-	
-	
+
+	public CutSceneImage clone(){
+		CutSceneImage ret = new CutSceneImage();
+		ret.setColor(this.getColor());
+		ret.setRelativeHeight(this.getRelativeHeight());
+		ret.setRelativeWidth(this.getRelativeWidth());
+		ret.setRelativeXCoor(this.getRelativeXCoor());
+		ret.setRelativeYCoor(this.getRelativeYCoor());
+		return ret;
+	}
 }

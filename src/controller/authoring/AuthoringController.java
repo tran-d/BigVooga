@@ -62,11 +62,13 @@ public class AuthoringController {
 	private SpriteCreatorManagerSlack mySCM;
 	private SpriteCreatorManagerSlack myInventorySCM;
 	private GameDataHandler GDH;
+	private AuthoringEnvironmentManager myAEM;
 
-	public AuthoringController(Scene currentScene, Stage currentStage, Pane currentAuthoringPane, GameDataHandler currentGDH) {
+	public AuthoringController(Scene currentScene, Stage currentStage, Pane currentAuthoringPane, AuthoringEnvironmentManager AEM) {
 		scene = currentScene;
 		authoringPane = currentAuthoringPane;
-		GDH = currentGDH;
+		myAEM = AEM;
+		GDH = myAEM.getGameDataHandler();
 		activeManagerProperty = new SimpleObjectProperty<MapManager>();
 		activeManagerProperty.addListener((change, previousManager, newManager) -> {
 			if (previousManager != null) {
@@ -77,7 +79,7 @@ public class AuthoringController {
 			}
 		});
 
-		AuthoringEnvironmentManager AEM = new AuthoringEnvironmentManager(GDH);
+		
 		mapManager = new MapManager(AEM, scene);
 		viewMap.put(MAP_EDITOR_KEY, mapManager.getPane());
 		viewMapKeysToManager.put(MAP_EDITOR_KEY, mapManager);

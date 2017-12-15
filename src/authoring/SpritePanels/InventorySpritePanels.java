@@ -2,7 +2,6 @@ package authoring.SpritePanels;
 
 import authoring.GridManagers.*;
 import authoring.Sprite.*;
-import authoring.SpriteManagers.*;
 import authoring.SpritePanels.*;
 import authoring.util.*;
 import authoring_UI.Map.*;
@@ -25,8 +24,8 @@ public class InventorySpritePanels extends SpritePanels{
 		displayPanel = new DisplayPanel(SPSM, myAEM);  
 	}
 	
-	@Override
-	public void makeElementSelector(SpriteGridHandler mySGH, AuthoringEnvironmentManager myAEM){
-		gameElementSelector = new InventoryElementSelector(mySGH, myAEM);
-	}
+//	@Override
+//	public void makeElementSelector(SpriteGridHandler mySGH, AuthoringEnvironmentManager myAEM){
+//		gameElementSelector = new InventoryElementSelector(mySGH, myAEM);
+//	}
 }
