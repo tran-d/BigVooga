@@ -57,6 +57,10 @@ public class AuthoringImageView extends ImageView{
 		return boundedImage;
 	}
 	
+	public void setGameDataHandler(GameDataHandler GDH){
+		this.setImage(GDH.getImage(this.imagePath));
+	}
+	
 	private Object writeReplace() throws java.io.ObjectStreamException {
 		return new SerializableAuthoringImageView(this);
 	}

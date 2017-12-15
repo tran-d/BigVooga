@@ -14,15 +14,15 @@ public class InventoryElementSelector extends GameElementSelector {
 	}
 	
 	
-	@Override 
-	protected void createSpriteTabs(){
+/*	@Override 
+//	protected void createSpriteTabs(){
 //		TabPane inventoryTemplateTabPane = new TabPane();
-		Tab inventoryTemplateTab = createSubTab(INVENTORYTABNAME, myAEM.getInventoryTemplateController());
+//		Tab inventoryTemplateTab = createSubTab(INVENTORYTABNAME, myAEM.getInventoryTemplateController());
 //		inventoryTemplateTabPane.setSide(Side.RIGHT);
 //		inventoryTemplateTabPane.getTabs().addAll(inventoryTemplateTab);
-		
-		this.getTabs().add(inventoryTemplateTab);
-		this.setSide(Side.TOP);
-	}
+//		
+//		this.getTabs().add(inventoryTemplateTab);
+//		this.setSide(Side.TOP);
+	}*/
 
 }

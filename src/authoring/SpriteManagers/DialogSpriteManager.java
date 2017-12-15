@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import authoring.Thumbnail;
-import authoring.DialogSprite.DialogSequence;
+import authoring.CutScene.SuperlayerSequence;
+import authoring.DialogSprite.AuthoringDialogSequence;
 import authoring.DialogSprite.DialogThumbnail;
 import authoring.Sprite.AbstractSpriteObject;
 import authoring.Sprite.SpriteObject;
@@ -19,7 +20,7 @@ import javafx.scene.layout.Pane;
 
 public class DialogSpriteManager {
 
-	protected List<DialogSequence> dialogSequences;
+	protected List<SuperlayerSequence> dialogSequences;
 	protected GameDataHandler myGDH;
 	protected String folderToLoad;
 	protected boolean loaded = false;
@@ -35,7 +36,7 @@ public class DialogSpriteManager {
 	}
 
 	public List<Pane> getAllSpritesAsThumbnails() {
-		List<DialogSequence> ASOs = getAllDialogSequences();
+		List<SuperlayerSequence> ASOs = getAllDialogSequences();
 		List<Pane> ret = new ArrayList<Pane>();
 		ASOs.forEach(sprite -> {
 //			Image im = new Image(sprite.getDialogSprites().get(0).getImageFileURL());
@@ -44,11 +45,11 @@ public class DialogSpriteManager {
 		return ret;
 	}
 
-	public List<DialogSequence> getAllDialogSequences() {
+	public List<SuperlayerSequence> getAllDialogSequences() {
 		if (!loaded) {
 			this.loadSprites();
 		}
-		List<DialogSequence> ret = new ArrayList<DialogSequence>();
+		List<SuperlayerSequence> ret = new ArrayList<SuperlayerSequence>();
 		ret.addAll(dialogSequences);
 		return ret;
 
@@ -69,11 +70,11 @@ public class DialogSpriteManager {
 
 	protected void loadSprites() {
 		if (dialogSequences == null) {
-			dialogSequences = new ArrayList<DialogSequence>();
+			dialogSequences = new ArrayList<SuperlayerSequence>();
 		}
 		loaded = true;
 		if (!getFolderToLoad().equals("")) {
-			dialogSequences = myGDH.loadDialogsFromDirectory(getFolderToLoad());
+			dialogSequences = myGDH.loadSuperlayerSequencesFromDirectory(getFolderToLoad());
 		}
 	}
 
@@ -81,15 +82,15 @@ public class DialogSpriteManager {
 		loaded = b;
 	}
 
-	public void addNewDialogSequence(DialogSequence DS) {
+	public void addNewDialogSequence(AuthoringDialogSequence DS) {
 
 		dialogSequences.add(DS);
 		saveDialogSequence(DS);
 	}
 
-	protected void saveDialogSequence(DialogSequence DS) {
+	protected void saveDialogSequence(AuthoringDialogSequence DS) {
 		String folderToSaveTo = getFolderToLoad() + "/" + DS.getName();
-		myGDH.saveDialogSequence(DS, folderToSaveTo);
+		myGDH.saveSuperlayerSequence(DS, folderToSaveTo);
 	}
 
 }

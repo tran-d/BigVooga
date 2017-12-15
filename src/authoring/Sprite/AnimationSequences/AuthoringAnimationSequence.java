@@ -82,22 +82,17 @@ public class AuthoringAnimationSequence {
 		myContainerVbox.getChildren().remove(0);
 		addNewAuthoringImageViewToSequence(AIV, true);
 		} else {
+			if (this.myImages.size()>0){
+				myImages.remove(0);
+			}
 			this.myImages.add(0,new AnimationSequenceImage(AIV));
 		}
 		
 	}
-
-	// private void createAnimationImagesProperty(){
-	// myImagesProperty = new
-	// SimpleObjectProperty<ArrayList<AnimationSequenceImage>>();
-	// myImagesProperty.addListener((observable, oldList, newList)->{
-	//
-	// if (showUI){
-	//
-	// }
-	//
-	// });
-	// }
+	
+	public void setGameDataHandler(GameDataHandler GDH){
+		myImages.forEach(image->image.setGameDataHandler(GDH));
+	}
 	
 	public void setRunnableOnEmpty(Runnable r){
 		myRunnableOnEmpty = r;

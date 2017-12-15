@@ -15,7 +15,7 @@ public class KeyPressed implements BooleanOperation {
 
 	private StringOperation check;
 	
-	public KeyPressed(@VoogaAnnotation(name = "Key", type = VoogaType.KEY) StringOperation check) {
+	public KeyPressed(@VoogaAnnotation(name = "Key", type = VoogaType.STRING) StringOperation check) {
 		this.check = check;
 	}
 

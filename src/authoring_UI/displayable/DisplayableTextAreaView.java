@@ -1,12 +1,15 @@
 package authoring_UI.displayable;
 
 import java.util.ArrayList;
+
+import authoring_UI.dialogue.DialogueManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BackgroundImage;
@@ -43,6 +46,10 @@ public abstract class DisplayableTextAreaView extends VBox {
 		}
 	}
 	
+	protected void setBackgroundColor(Color color, Pane pane) {
+		pane.setBackground(new Background(new BackgroundFill(color, null, null)));
+	}	
+	
 	protected void setTextAreaBackgroundColor(Color color, ArrayList<TextArea> taList) {
 		for (TextArea ta : taList) {
 			ta.setBackground(new Background(new BackgroundFill(
@@ -61,6 +68,14 @@ public abstract class DisplayableTextAreaView extends VBox {
 		}
 	}
 	
+	protected void setBackgroundImage(Image image, Pane pane) {
+		BackgroundImage bgImage = new BackgroundImage(image, 
+			    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+			    BackgroundPosition.CENTER, 
+			    new BackgroundSize(1, 1, true, true, false, false));
+		pane.setBackground(new Background(bgImage));
+	}
+	
 	protected void removePanel() {
 		// do nothing
 	}
@@ -75,18 +90,26 @@ public abstract class DisplayableTextAreaView extends VBox {
 
 		ta.setBackground(bg);
 		ta.setWrapText(true);
-		String css = this.getClass().getResource("dialogue.css").toExternalForm();
+
+		String css = DialogueManager.class.getResource("dialogue.css").toExternalForm();
 		ta.getStylesheets().add(css);
 		
 		return ta;
 	}
 	
-	protected void makeDraggableAndResizable(Region region) {
-		DragResizer draggableTA = new DragResizer(region);
-		draggableTA.makeResizable();
-		draggableTA.makeDraggable();
+	protected void makeDraggableAndResizable(Object ok) {
+		if (ok instanceof TextArea) {
+			DragResizer draggable = new DragResizer((Region) ok);
+			draggable.makeTextAreaResizable();
+			draggable.makeTextAreaDraggable();
+			draggable.makeTextAreaDeletable();
+		} else {
+			DragImage draggable = new DragImage((ImageView) ok);
+			draggable.makeImageDraggable();
+			draggable.makeImageDeletable();
+		}
 	}
-	
+
 	protected Pane createPane(double width, double height) {
 		Pane pane = new Pane();
 		pane.setPrefSize(width, height);

@@ -15,6 +15,10 @@ public class SpriteObject extends AbstractSpriteObject{
 		super(in);
 	}
 	
+	public SpriteObject(boolean in, GameDataHandler GDH){
+		super(in, GDH);
+	}
+	
 	public SpriteObject(String fileURL, GameDataHandler GDH){
 		super(fileURL, GDH);
 	}
@@ -32,6 +36,7 @@ public class SpriteObject extends AbstractSpriteObject{
 		if (this.myImageURL != null) {
 			ret.setupImageURLAndView(this.myImageURL);
 		}
+		ret.setRenderingPreference(this.getRenderingPreference());
 		ret.setName(this.getName());
 		Integer newHeight = this.getNumCellsHeight()!=null ? new Integer(this.getNumCellsHeight()) : null;
 		ret.setNumCellsHeightNoException(newHeight);
@@ -39,9 +44,10 @@ public class SpriteObject extends AbstractSpriteObject{
 		ret.setNumCellsWidthNoException(newWidth);
 		HashMap<String, ArrayList<SpriteParameterI>> newCategoryMap = new HashMap<String, ArrayList<SpriteParameterI>>();
 		ret.replaceCategoryMap(this.categoryMap);
-		
+		ret.setTags(this.getTags());
 		ret.setInventory(new ArrayList<AbstractSpriteObject>(this.getInventory()));
 		ret.setAnimationSequences(this.getAnimationSequences());
+		ret.setDialogSequences(this.getDialogSequences());
 		ret.setAllActions(this.getAllActions());
 		ret.setAllConditions(this.getAllConditions());
 		ret.setConditions(this.getConditionTreeviews());
