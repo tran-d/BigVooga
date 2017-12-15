@@ -65,7 +65,10 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 
 	public OperationNameTreeItem(String actionParameterType, String actionParameterDescription, VoogaType voogaType,
 			Runnable changeSize, Supplier<List<AbstractSpriteObject>> supplier) {
+		
 		this(actionParameterType, actionParameterDescription, voogaType, supplier);
+		System.out.print("IS SUPPLIER NULL??????????? ");
+		System.out.println(supplier == null);
 		this.changeTreeViewSize = changeSize;
 		this.expandedProperty().addListener(e -> changeTreeViewSize.run());
 
