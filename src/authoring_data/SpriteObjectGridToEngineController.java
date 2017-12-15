@@ -14,6 +14,7 @@ import engine.Action;
 import engine.GameLayer;
 import engine.GameMaster;
 import engine.GameObject;
+import engine.GameObjectFactory;
 import engine.GameWorld;
 import engine.Holdable;
 import engine.VariableContainer;
@@ -26,11 +27,13 @@ public class SpriteObjectGridToEngineController {
 	private GameMaster myEC;
 	private GameDataHandler myGDH;
 	private GameWorld currentWorld;
+	private GameObjectFactory blueprints;
 	private static Integer CELL_WIDTH = 50;
 	private static Integer CELL_HEIGHT = 50;
 
 	public SpriteObjectGridToEngineController(GameDataHandler GDH){
 		myGDH = GDH;
+		blueprints = new GameObjectFactory();
 	}
 	
 	// called every time a grid is processed (new world is added to engine)
@@ -69,6 +72,14 @@ public class SpriteObjectGridToEngineController {
 		myGDH.saveGame(myEC);
 		} catch (Exception e){
 			throw new RuntimeException("Cant save game....");
+		}
+	}
+	
+	public void setGameObjectBlueprints(List<SpriteObject> objs)
+	{
+		for(SpriteObject aso: objs)
+		{
+			blueprints.addBlueprint(convertToGameObject(aso));
 		}
 	}
 	
@@ -127,7 +138,6 @@ public class SpriteObjectGridToEngineController {
 		List<BoundedImage> bimages = new ArrayList<BoundedImage>();
 		AAS.getImages().forEach((ASI)->{
 			BoundedImage converted = convertAnimationSequenceImageToBoundedImage(ASI);
-			;
 			bimages.add(converted);
 		});
 		AnimationSequence ret = new AnimationSequence(AAS.getName(), bimages);
@@ -184,6 +194,7 @@ public class SpriteObjectGridToEngineController {
 	
 	private void createEngine() {
 		myEC = new GameMaster();
+		myEC.addBlueprints(blueprints);
 		myEC.setNextWorld(currentWorld.getName());
 
 		System.out.print(currentWorld.getName());

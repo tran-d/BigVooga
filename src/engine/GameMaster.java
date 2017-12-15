@@ -102,10 +102,7 @@ public class GameMaster implements EngineController{
 	 */
 	private void imageUpdate() {
 		List<Displayable> imageData = new ArrayList<>();
-		for(Displayable e: currentWorld.getAllDisplayables()){
-			imageData.add(e);
-		}
-		Collections.sort(imageData, (i1, i2)->i1.getDrawingPriority()-i2.getDrawingPriority());
+		imageData.addAll(currentWorld.getAllDisplayables());
 		playerManager.setImageData(imageData);
 	}
 
