@@ -2,7 +2,9 @@ package authoring_actionconditions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
+import authoring.Sprite.AbstractSpriteObject;
 import engine.operations.Operation;
 import engine.operations.OperationFactory;
 import engine.operations.VoogaParameter;
@@ -38,8 +40,10 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 	private ObservableList<VoogaParameter> voogaParameters;
 	public static List<VoogaType> voogaTypesForExistingItems;
 	private ChoiceBox<String> existingItemsChoiceBox;
+	
+	private Supplier<List<AbstractSpriteObject>> supplier;
 
-	public OperationParameterTreeItem(String selectedOperation) {
+	public OperationParameterTreeItem(String selectedOperation, Supplier<List<AbstractSpriteObject>> supplier) {
 		this.selectedOperation = selectedOperation;
 
 		voogaTypesForExistingItems = new ArrayList<>();
@@ -163,7 +167,7 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 					if (this.checkVoogaType(voogaParameters.get(i).getType())) {
 
 						;
-						existingItemsChoiceBox = new ExistingItemsChoiceBox(voogaParameters.get(i).getType())
+						existingItemsChoiceBox = new ExistingItemsChoiceBox(voogaParameters.get(i).getType(), supplier)
 								.getChoiceBox();
 
 						listOfOperations.add(existingItemsChoiceBox);
@@ -174,7 +178,7 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 					} else {
 
 						operationNameTreeItem = new OperationNameTreeItem(operationParameters.get(i),
-								voogaParameters.get(i).getName(), voogaParameters.get(i).getType());
+								voogaParameters.get(i).getName(), voogaParameters.get(i).getType(), supplier);
 						listOfOperations.add(operationNameTreeItem);
 						operationParameter.getChildren().add(operationNameTreeItem);
 					}

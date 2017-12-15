@@ -5,8 +5,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import authoring.SpriteParameterSidebarManager;
 import authoring.Sprite.AbstractSpriteObject;
 import authoring_actionconditions.ActionConditionHBox;
 import authoring_actionconditions.ActionRow;
@@ -25,12 +23,11 @@ import javafx.collections.ObservableList;
 public class ApplyButtonController {
 	
 	public static AbstractSpriteObject selectedSpriteObject;
-	private SpriteParameterSidebarManager mySPSM;
 
 	public void updateActionConditionTabs(ConditionTab<ConditionRow> conditionTab, ActionTab<ActionRow> actionTab,
-			AbstractSpriteObject selectedSpriteObject, SpriteParameterSidebarManager mySPSM) {
+			AbstractSpriteObject selectedSpriteObject) {
 		
-		this.mySPSM = mySPSM;
+
 		ApplyButtonController.selectedSpriteObject = selectedSpriteObject;
 		
 		HashMap<ConditionTreeView, List<Integer>> conditions = selectedSpriteObject.getConditionTreeviews();
@@ -49,13 +46,13 @@ public class ApplyButtonController {
 				createObservableIntegerList(selectedActionOperations.size()));
 		int rowCond = 1;
 		List<ConditionRow> conditionRows = new LinkedList<ConditionRow>();
-		ConditionVBox<ConditionRow> conditionVBox = new ConditionVBox<ConditionRow>(() -> mySPSM.getAllSpritesFromActiveGrid());
+		ConditionVBox<ConditionRow> conditionVBox = new ConditionVBox<ConditionRow>(conditionTab.getSupplier());
 		if (conditions == null) {
 			Iterator<Condition> it = spriteConditions.keySet().iterator();
 			ObservableList<Integer> actionOperations = createObservableIntegerList(spriteActions.size());
 			while (it.hasNext()) {
 				ConditionRow conditionRow = new ConditionRow(rowCond, actionOperations, spriteConditions.get(it.next()),
-						conditionVBox, selectedConditionOperations.get(rowCond - 1), it.next());
+						conditionVBox, selectedConditionOperations.get(rowCond - 1), it.next(),conditionTab.getSupplier());
 				conditionRows.add(conditionRow);
 				rowCond++;
 			}
@@ -63,28 +60,28 @@ public class ApplyButtonController {
 			for (ConditionTreeView conditionTreeView : conditions.keySet()) {
 				ConditionRow conditionRow = new ConditionRow(rowCond,
 						createObservableIntegerList(selectedActionOperations.size()), conditions.get(conditionTreeView),
-						conditionVBox, conditionTreeView);
+						conditionVBox, conditionTreeView,conditionTab.getSupplier());
 				conditionRows.add(conditionRow);
 				rowCond++;
 			}
 		}
-		conditionVBox = new ConditionVBox<ConditionRow>(conditionRows, () -> mySPSM.getAllSpritesFromActiveGrid());
+		conditionVBox = new ConditionVBox<ConditionRow>(conditionRows);
 		List<ActionRow> actionRows = new LinkedList<ActionRow>();
-		ActionVBox<ActionRow> actionVBox = new ActionVBox<ActionRow>(() -> mySPSM.getAllSpritesFromActiveGrid());
+		ActionVBox<ActionRow> actionVBox = new ActionVBox<ActionRow>(actionTab.getSupplier());
 		int rowAct = 1;
 		if (actions == null) {
 			ActionRow actionRow = new ActionRow(rowAct, actionVBox, selectedActionOperations.get(rowAct - 1),
-					spriteActions.get(rowAct - 1));
+					spriteActions.get(rowAct - 1),actionTab.getSupplier());
 			actionRows.add(actionRow);
 			rowAct++;
 		} else {
 			for (ActionTreeView actionTreeView : actions) {
-				ActionRow actionRow = new ActionRow(rowAct, actionVBox, actionTreeView);
+				ActionRow actionRow = new ActionRow(rowAct, actionVBox, actionTreeView,actionTab.getSupplier());
 				actionRows.add(actionRow);
 				rowAct++;
 			}
 		}
-		actionVBox = new ActionVBox<ActionRow>(actionRows);
+		actionVBox = new ActionVBox<ActionRow>(actionRows,actionTab.getSupplier());
 		conditionTab.setTopToolBar(topToolBarConditions);
 		conditionTab.setNoReturnActionConditionVBox(conditionVBox);
 		actionTab.setTopToolBar(topToolBarActions);
