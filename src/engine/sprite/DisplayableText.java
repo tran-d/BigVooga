@@ -9,7 +9,7 @@ import gui.player.GameDisplay;
  */
 public class DisplayableText extends PositionableObject implements RelativeDisplayable {
 
-	public static final DisplayableText DEFAULT = new DisplayableText(Integer.MAX_VALUE, "", "Comic Sans", 12, "#000000");
+	public static final DisplayableText DEFAULT = new DisplayableText(Integer.MAX_VALUE, "", "Comic Sans", 36, "rgb(255,255,255);");
 	private String string;
 	private String font;
 	private double fontSize;
@@ -22,6 +22,7 @@ public class DisplayableText extends PositionableObject implements RelativeDispl
 	
 	public DisplayableText(int drawingPriority, String string, String font, double fontSize, String webColor) {
 		super(drawingPriority);
+		setRelativePosition(new PositionableObject());
 		this.string = string;
 		this.font = font;
 		this.fontSize = fontSize;
