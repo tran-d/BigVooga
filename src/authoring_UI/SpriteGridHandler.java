@@ -43,12 +43,10 @@ public class SpriteGridHandler {
 		Random rand = new Random();
 		int parent = rand.nextInt();
 		objectFormat = new DataFormat("MyObject" + parent + Integer.toString(mapCount));
-		;
 		myDG = DG;
 	}
 
 	public void setGridIsShown(boolean shown) {
-		;
 		this.gridIsShown = shown;
 
 	}
@@ -69,7 +67,6 @@ public class SpriteGridHandler {
 	
 	public void setElementSelectorDisplayPanel(DisplayPanel dispPanel) {
 		myElementSelectorDP = dispPanel;
-		;
 	}
 
 	public DraggableGrid getDraggableGrid() {
@@ -77,7 +74,6 @@ public class SpriteGridHandler {
 	}
 
 	public void addKeyPress(Scene scene) {
-		;
 		scene.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>(){
 
 			@Override
@@ -113,10 +109,14 @@ public class SpriteGridHandler {
 					}
 					break;
 				case C:
+					if (gridIsShown){
 					deactivateActiveAuthoringMapStackPaneCells();
+					}
 					break;
 				case L:
+					if (gridIsShown){
 					clearLayerOfSprites();
+					}
 					break;
 				case W:
 					onTop();
@@ -151,7 +151,6 @@ public class SpriteGridHandler {
 	}
 
 	private void onBackSpace() {
-		
 		if (gridIsShown) {
 			deleteSelectedSprites();
 		}

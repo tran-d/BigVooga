@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import authoring.AuthoringEnvironmentManager;
-import authoring.DialogSprite.DialogSequence;
+import authoring.DialogSprite.AuthoringDialogSequence;
 import authoring_UI.MapManager;
 import authoring_UI.displayable.DisplayableManager;
 import engine.utilities.data.GameDataHandler;
@@ -12,10 +12,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import tools.DisplayLanguage;
@@ -98,12 +100,30 @@ public class DialogueManager extends DisplayableManager {
 	protected void save() {
 		if (currentEditor != null && !currentEditor.getName().trim().equals("")) {
 			if (!currentEditor.getBackgroundIsColor()) {
-				DialogSequence dialogSequence = new DialogSequence(currentEditor.getName(), currentEditor.getDialogueSequence(), currentEditor.getBackgroundImage());
-				AEM.getDialogSpriteController().addNewDialogSequence(dialogSequence);
-			}
+				AuthoringDialogSequence dialogSequence = new AuthoringDialogSequence(currentEditor.getName(), currentEditor.getDialogueSequence(), currentEditor.getBackgroundImage());
+				try{
+				AEM.getDialogSpriteController().addNewSuperlayerSequence(dialogSequence);
+				} catch (Exception e){
+					e.printStackTrace();
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Error");
+					alert.setHeaderText("Couldn't save dialogue");
+					alert.setContentText("try again");
+					alert.showAndWait();
+					}
+				}
 			else if (currentEditor.getBackgroundIsColor()) {
-				DialogSequence dialogSequence = new DialogSequence(currentEditor.getName(), currentEditor.getDialogueSequence(), currentEditor.getBackgroundColor());
-				AEM.getDialogSpriteController().addNewDialogSequence(dialogSequence);
+				AuthoringDialogSequence dialogSequence = new AuthoringDialogSequence(currentEditor.getName(), currentEditor.getDialogueSequence(), currentEditor.getBackgroundColor());
+				try {
+				AEM.getDialogSpriteController().addNewSuperlayerSequence(dialogSequence);
+				} catch (Exception e) {
+					e.printStackTrace();
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Error");
+					alert.setHeaderText("Couldn't save dialogue");
+					alert.setContentText("try again");
+					alert.showAndWait();
+				}
 			}
 			
 			if (editorList.contains(currentEditor)) {

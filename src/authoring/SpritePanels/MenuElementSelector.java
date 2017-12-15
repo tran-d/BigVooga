@@ -14,7 +14,7 @@ public class MenuElementSelector extends GameElementSelector {
 	}
 	
 	
-	@Override 
+/*	@Override 
 	protected void createSpriteTabs(){
 //		TabPane inventoryTemplateTabPane = new TabPane();
 		Tab inventoryTemplateTab = createSubTab(MenuTabName, myAEM.getMenuTemplateController());
@@ -23,6 +23,6 @@ public class MenuElementSelector extends GameElementSelector {
 		
 		this.getTabs().add(inventoryTemplateTab);
 		this.setSide(Side.TOP);
-	}
+	}*/
 
 }

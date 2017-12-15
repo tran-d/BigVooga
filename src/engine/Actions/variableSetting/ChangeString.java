@@ -20,7 +20,7 @@ public class ChangeString implements Action {
 	private GameObjectOperation object;
 
 	public ChangeString(@VoogaAnnotation(name = "Sprite", type = VoogaType.GAMEOBJECT) GameObjectOperation object,
-			@VoogaAnnotation(name = "Variable Name", type = VoogaType.STRINGNAME) StringOperation varName,
+			@VoogaAnnotation(name = "Variable Name", type = VoogaType.STRING) StringOperation varName,
 			@VoogaAnnotation(name = "New Value", type = VoogaType.STRING) StringOperation newString) {
 		this.object = object;
 		this.varName = varName;

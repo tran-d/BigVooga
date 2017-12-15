@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import authoring.AuthoringEnvironmentManager;
-import authoring.DialogSprite.DialogSequence;
 import authoring_UI.MapManager;
 import authoring_UI.displayable.DisplayableManager;
 import engine.utilities.data.GameDataHandler;

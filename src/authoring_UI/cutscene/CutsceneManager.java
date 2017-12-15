@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import authoring.AuthoringEnvironmentManager;
-import authoring.DialogSprite.DialogSequence;
 import authoring_UI.MapManager;
 import authoring_UI.displayable.DisplayableManager;
 import engine.utilities.data.GameDataHandler;
@@ -98,12 +97,12 @@ public class CutsceneManager extends DisplayableManager {
 	protected void save() {
 		if (currentEditor != null && !currentEditor.getName().trim().equals("")) {
 			if (!currentEditor.getBackgroundIsColor()) {
-				DialogSequence cutsceneSequence = new DialogSequence(currentEditor.getName(), currentEditor.getCutsceneSequence(), currentEditor.getBackgroundImage());
-				AEM.getDialogSpriteController().addNewDialogSequence(cutsceneSequence);
+				//DialogSequence cutsceneSequence = new DialogSequence(currentEditor.getName(), currentEditor.getCutsceneSequence(), currentEditor.getBackgroundImage());
+				//AEM.getDialogSpriteController().addNewDialogSequence(cutsceneSequence);
 			}
 			else if (currentEditor.getBackgroundIsColor()) {
-				DialogSequence cutsceneSequence = new DialogSequence(currentEditor.getName(), currentEditor.getCutsceneSequence(), currentEditor.getBackgroundColor());
-				AEM.getDialogSpriteController().addNewDialogSequence(cutsceneSequence);
+				//DialogSequence cutsceneSequence = new DialogSequence(currentEditor.getName(), currentEditor.getCutsceneSequence(), currentEditor.getBackgroundColor());
+				//AEM.getDialogSpriteController().addNewDialogSequence(cutsceneSequence);
 			}
 			
 			if (editorList.contains(currentEditor)) {

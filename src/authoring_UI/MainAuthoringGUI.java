@@ -2,6 +2,9 @@ package authoring_UI;
 
 import java.util.List;
 
+import authoring.AuthoringEnvironmentManager;
+import authoring.CutScene.SuperlayerSequence;
+import authoring.DialogSprite.AuthoringDialogSequence;
 import authoring_data.SpriteObjectGridToEngineController;
 import controller.authoring.AuthoringController;
 import controller.welcomeScreen.SceneController;
@@ -43,6 +46,7 @@ public class MainAuthoringGUI {
 	private GameDataHandler myGDH;
 	private SpriteObjectGridToEngineController myEngineExporter;
 	private String projectToImportTo;
+	private AuthoringEnvironmentManager myAEM;
 
 	public MainAuthoringGUI(Stage currentStage, SceneController currentSceneController, String projectName) {
 		myProjectName = projectName;
@@ -67,9 +71,11 @@ public class MainAuthoringGUI {
 
 		authoringPane = new Pane();
 		
-
+		myGDH = new GameDataHandler(stage, myProjectName);
+		myAEM = new AuthoringEnvironmentManager(myGDH);
 		myEngineExporter = new SpriteObjectGridToEngineController(myGDH);
-		authoringController = new AuthoringController(scene, stage, authoringPane, myGDH);
+		
+		authoringController = new AuthoringController(scene, stage, authoringPane, myAEM);
 
 		ViewSideBar sideBar = new ViewSideBar(authoringController);
 		authoringController.switchView(AuthoringController.MAP_EDITOR_KEY, sideBar);
@@ -82,6 +88,10 @@ public class MainAuthoringGUI {
 	}
 	
 	public void exportToEngine(){
+//		myEngineExporter.setGameObjectBlueprints(myAEM.getEveryTypeOfSpriteObjectAsList());
+		for (SuperlayerSequence SS: myAEM.getDialogSpriteController().getAllSuperlayerSequences()){
+			myEngineExporter.addAuthoringDialogSequenceToGameObjectFactory((AuthoringDialogSequence)SS);
+		}
 		List<DraggableGrid> allWorlds = authoringController.getExistingWorlds();
 		allWorlds.forEach(DG->{
 		myEngineExporter.createLayerAndAddToEngine(DG);

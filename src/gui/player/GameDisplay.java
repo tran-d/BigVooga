@@ -157,6 +157,7 @@ public class GameDisplay {
 		String c = displayableText.getColor();
 		Pattern p = Pattern.compile("rgb\\((\\d{1,3}), (\\d{1,3}), (\\d{1,3})\\)");
 		Matcher m = p.matcher(c);
+		m.matches();
 		text.setStroke(Color.rgb(Integer.parseInt(m.group(0)), Integer.parseInt(m.group(1)), Integer.parseInt(m.group(2))));
 		HBox box = new HBox(text);
 		Group g = new Group(box);
