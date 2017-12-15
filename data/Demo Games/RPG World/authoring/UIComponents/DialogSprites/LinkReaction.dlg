@@ -1,0 +1,29 @@
+<authoring.DialogSprite.AuthoringDialogSequence>
+  <myName>LinkReaction</myName>
+  <mySuperlayerSprites>
+    <authoring.DialogSprite.SuperlayerSprite>
+      <myFileURL>LinkReactionRed.png</myFileURL>
+      <myTexts>
+        <authoring.DialogSprite.DialogText>
+          <myColor>#000000</myColor>
+          <relativeYCoor>-0.04344726562500001</relativeYCoor>
+          <relativeXCoor>0.02749999999999997</relativeXCoor>
+          <relativeHeight>0.53310546875</relativeHeight>
+          <relativeWidth>0.77</relativeWidth>
+          <absoluteWidth>308.0</absoluteWidth>
+          <absoluteHeight>53.310546875</absoluteHeight>
+          <absoluteCenterX>211.0</absoluteCenterX>
+          <absoluteCenterY>45.6552734375</absoluteCenterY>
+          <paneHeight>100.0</paneHeight>
+          <paneWidth>400.0</paneWidth>
+          <myText>Wow! You dodged the lava. Ready for  bigger challenge?</myText>
+          <myFont>Comic Sans MS</myFont>
+          <myTextSize>16.0</myTextSize>
+        </authoring.DialogSprite.DialogText>
+      </myTexts>
+      <myCSImages/>
+      <cellsWidth>4</cellsWidth>
+      <cellsHeight>2</cellsHeight>
+    </authoring.DialogSprite.SuperlayerSprite>
+  </mySuperlayerSprites>
+</authoring.DialogSprite.AuthoringDialogSequence>
