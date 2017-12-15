@@ -302,10 +302,10 @@ public abstract class AbstractSpriteObject extends ImageView {
 		this.setFitHeight(45);
 	}
 	
-	public void setGameDataHandler(GameDataHandler GDH) {
-		System.out.println("Setting GDH in ASO");
+	public void setGameDataHandler(GameDataHandler newGDH) {
+		System.out.println("Setting GDH in ASO "+ this);
 		
-		this.GDH = GDH;
+		GDH = newGDH;
 		if (myImageURL!=null && myImageURLProperty==null) {
 			System.out.println("About to setup ImageURL FRom GDh->ASO");
 			this.setupImageURLAndView(myImageURL);

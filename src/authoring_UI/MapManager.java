@@ -89,7 +89,6 @@ public class MapManager extends TabPane {
 		setManagerName();
 		gridIsShowing = new SimpleObjectProperty<Boolean>();
 		gridIsShowing.addListener((change, oldValue, newValue) -> {
-			;
 			this.mySpriteGridHandler.setGridIsShown(newValue);
 		});
 		myAEM = AEM;
@@ -108,7 +107,6 @@ public class MapManager extends TabPane {
 				createTab(w);
 			}
 		} else {
-			;
 			createTab(makeDraggableGrid());
 		}
 		this.mySelectModel.select(startTab);
@@ -125,8 +123,6 @@ public class MapManager extends TabPane {
 
 	protected List<DraggableGrid> getListOfDraggableGrids() {
 		List<DraggableGrid> DGs = GDH.loadWorldsFromWorldDirectory();
-		;
-		
 		return DGs;
 	}
 
