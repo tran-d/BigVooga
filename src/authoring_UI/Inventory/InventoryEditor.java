@@ -46,29 +46,11 @@ import tools.DisplayLanguage;
  */
 public class InventoryEditor extends DisplayableEditor {
 
-	private static final String NAME_PROMPT = "Name";
-	private static final String FONT_TYPE_PROMPT = "FontType";
-	private static final String FONT_SIZE_PROMPT = "FontSize";
-	private static final String FONT_COLOR_PROMPT = "FontColor";
 	private static final String BACKGROUND_COLOR_PROMPT = "BackgroundColor";
-	private static final String NUM_PANELS_PROMPT = "NumberOfPanels";
-	private static final String INITIAL_FONT_COLOR = "#47BDFF";
 	private static final String INITIAL_BACKGROUND_COLOR = "#FFFFFF";
 
-	private static final double NAME_PROMPT_WIDTH = 150;
-	private static final double FONT_PROMPT_WIDTH = 50; // change to choicebox
-	private static final double FONT_SIZE_PROMPT_WIDTH = 50;
-	private static final double NUM_PANELS_PROMPT_WIDTH = 50;
-	private static final double PROMPT_HEIGHT = 10;
-	private static final double INPUT_HBOX_HEIGHT = 100;
-
 	private VBox view;
-	private TextField nameTF;
-	private TextField sizeTF;
-	private ChoiceBox<String> fontTypeCB;
-	private ColorPicker fontColorCP;
-	private TextField numPanelsTF;
-	private InventoryTextAreaView dsp;
+	private InventoryTextAreaView isp;
 	private Consumer<String> saveConsumer;
 	private ColorPicker backgroundColorCP;
 	private SVGPath svg;
@@ -90,36 +72,14 @@ public class InventoryEditor extends DisplayableEditor {
 	protected VBox getParent() {
 		return view;
 	}
-
-	protected String getName() {
-		return nameTF.getText();
-	}
-
-	protected String getFontType() {
-		return fontTypeCB.getSelectionModel().getSelectedItem();
-	}
-
-	protected int getFontSize() {
-		if (sizeTF.getText().equals(""))
-			return 16;
-		else
-			return Integer.parseInt(sizeTF.getText());
-	}
-
-	protected Color getFontColor() {
-		return fontColorCP.getValue();
-	}
 	
 	protected List<Pane> getInventorySequence() {
-		return dsp.getInventorySequence();
+		return isp.getInventorySequence();
 	}
 	
 	protected String getBackgroundColor() {
 		return backgroundColorCP.getValue().toString();
 	}
-	
-
-	
 
 	protected VBox getView() {
 		System.out.println(view.getHeight());
@@ -140,33 +100,15 @@ public class InventoryEditor extends DisplayableEditor {
 	@Override
 	protected void makeTemplate() {
 		this.makeInputFields();
-
-		HBox textHBox = new HBox(5);
-		textHBox.setAlignment(Pos.CENTER);
-		textHBox.getChildren().addAll(createAddTextAreaButton(),
-				  createSeparator(),
-				  new HBox(makeEntry(FONT_COLOR_PROMPT, fontColorCP)),
-				  createSeparator(),
-				  new HBox(makeEntry(FONT_TYPE_PROMPT, fontTypeCB)),
-				  createSeparator(),
-				  new HBox(makeEntry(FONT_SIZE_PROMPT, sizeTF)));
 		
 		HBox backgroundHBox = new HBox(5);
 		backgroundHBox.getChildren().addAll(new HBox(makeEntry(BACKGROUND_COLOR_PROMPT, backgroundColorCP)), 
 											createSeparator(), createSetBackgroundButton());
 		
 		VBox inventoryModifiersBox = new VBox(20);
-		inventoryModifiersBox.getChildren().addAll(new HBox(makeEntry(NAME_PROMPT, nameTF)), textHBox, backgroundHBox);
+		inventoryModifiersBox.getChildren().add(backgroundHBox);
 		
-		view.getChildren().addAll(inventoryModifiersBox, dsp);
-	}
-
-	@Override
-	protected Button createAddTextAreaButton() {
-		Button addText = new Button("Add Text");
-		addText.setOnAction(e -> dsp.addTextArea());
-		
-		return addText;
+		view.getChildren().addAll(inventoryModifiersBox, isp);
 	}
 	
 	@Override
@@ -184,7 +126,7 @@ public class InventoryEditor extends DisplayableEditor {
 		if (file != null) {
 			currentFile = file.getName();
 			image =  GDH.getImage(file);
-			dsp.setBackgroundImage(image);
+			isp.setBackgroundImage(image);
 			backgroundColorCP.setValue(null);
 			backgroundIsColor = false;
 		}
@@ -192,67 +134,20 @@ public class InventoryEditor extends DisplayableEditor {
 	
 
 	private void makeInputFields() {
-		nameTF = makeTextField(NAME_PROMPT_WIDTH, PROMPT_HEIGHT);
-		sizeTF = makeTextField(FONT_SIZE_PROMPT_WIDTH, PROMPT_HEIGHT);
-		fontTypeCB = makeChoiceBox(FXCollections.observableList(Font.getFamilies()));
-		fontColorCP = makeColorPallette(INITIAL_FONT_COLOR);
 		backgroundColorCP = makeColorPallette(INITIAL_BACKGROUND_COLOR);
-
-		sizeTF.setOnKeyReleased(e -> changeFontSize());
-		fontColorCP.setOnAction(e -> changeFontColor());
 		backgroundColorCP.setOnAction(e -> changeBackgroundColor());
 
-		numPanelsTF = makeTextField(NUM_PANELS_PROMPT_WIDTH, PROMPT_HEIGHT);
-
-		dsp = new InventoryTextAreaView(() -> saveConsumer.accept(getName()), () -> backgroundColorCP.getValue());
+		isp = new InventoryTextAreaView(() -> saveConsumer.accept("Inventory Template"), () -> backgroundColorCP.getValue());
 		// numPanelsTF.setOnInputMethodTextChanged(e -> checkInput());
 	}
 	
 	@Override
-	protected void changeFontSize() {
-		if (!sizeTF.getText().equals("")) {
-
-			try {
-				int size = Integer.parseInt(sizeTF.getText());
-				saveConsumer.accept(getName());
-				;
-				dsp.setFont(getFontType(), size);
-			} catch (NumberFormatException ex) {
-				sizeTF.clear();
-				makeAlert().show();
-				}
-			}
-		dsp.setFont(getFontType(), getFontSize());
-	}
-	
-	@Override
-	protected void changeFontColor() {
-		dsp.setFontColor(toRGBString(fontColorCP.getValue()));
-    }
-    
-	@Override
 	protected void changeBackgroundColor() {
 		currentFile = null;
-		dsp.setBackgroundColor(backgroundColorCP.getValue());
+		isp.setBackgroundColor(backgroundColorCP.getValue());
 		backgroundIsColor = true;
     }
 
-	@Override
-	protected ChoiceBox<String> makeChoiceBox(ObservableList<String> observableList) {
-		ChoiceBox<String> cb = new ChoiceBox<String>(observableList);
-		cb.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-
-			@Override
-			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-
-				saveConsumer.accept(getName());
-				;
-				dsp.setFont(observableList.get(cb.getSelectionModel().getSelectedIndex()), getFontSize());
-			}
-		});
-		return cb;
-	}
-	
 	protected boolean getBackgroundIsColor () {
 		return backgroundIsColor;
 	}

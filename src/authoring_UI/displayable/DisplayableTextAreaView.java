@@ -45,6 +45,10 @@ public abstract class DisplayableTextAreaView extends VBox {
 		}
 	}
 	
+	protected void setBackgroundColor(Color color, Pane pane) {
+		pane.setBackground(new Background(new BackgroundFill(color, null, null)));
+	}	
+	
 	protected void setTextAreaBackgroundColor(Color color, ArrayList<TextArea> taList) {
 		for (TextArea ta : taList) {
 			ta.setBackground(new Background(new BackgroundFill(
@@ -61,6 +65,14 @@ public abstract class DisplayableTextAreaView extends VBox {
 				    new BackgroundSize(1, 1, true, true, false, false));
 			pane.setBackground(new Background(bgImage));
 		}
+	}
+	
+	protected void setBackgroundImage(Image image, Pane pane) {
+		BackgroundImage bgImage = new BackgroundImage(image, 
+			    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+			    BackgroundPosition.CENTER, 
+			    new BackgroundSize(1, 1, true, true, false, false));
+		pane.setBackground(new Background(bgImage));
 	}
 	
 	protected void removePanel() {

@@ -21,9 +21,9 @@ public class InventoryExtractor {
 	protected void extract(List<InventoryEditor> editorList) {
 		inventoryList = new ArrayList<>();
 
-		for (InventoryEditor ed : editorList) {
+		/*for (InventoryEditor ed : editorList) {
 			inventoryList.add(new Inventory (ed.getName(), ed.getFontType(), ed.getFontColor(), ed.getInventorySequence()));
-		}
+		}*/
 	}
 
 	public List<Inventory> getInventoryList() {

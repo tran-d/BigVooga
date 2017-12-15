@@ -29,8 +29,8 @@ public class CutsceneTextAreaView extends DisplayableTextAreaView {
 	private static final double VBOX_SPACING = 25;
 	private static final double CUTSCENE_PROMPT_WIDTH = WelcomeScreen.WIDTH;
 	private static final double CUTSCENE_PROMPT_HEIGHT = WelcomeScreen.HEIGHT;
-	private static final double CUTSCENE_SCROLLPANE_WIDTH = CUTSCENE_PROMPT_WIDTH/2;
-	private static final double CUTSCENE_SCROLLPANE_HEIGHT = CUTSCENE_PROMPT_HEIGHT/2;
+	private static final double CUTSCENE_SCROLLPANE_WIDTH = (CUTSCENE_PROMPT_WIDTH/3) * 2;
+	private static final double CUTSCENE_SCROLLPANE_HEIGHT = (CUTSCENE_PROMPT_HEIGHT/3) * 2;
 	private static final String NEXT_BUTTON_PROMPT = "Next";
 	private static final String PREV_BUTTON_PROMPT = "Previous";
 	private static final String ADD_PANEL_BUTTON_PROMPT = "AddPanel";
@@ -61,7 +61,6 @@ public class CutsceneTextAreaView extends DisplayableTextAreaView {
 	private Image currentBgImage;
 	private GameDataHandler GDH;
 	private CutsceneEditor csEditor;
-	private ScrollPane myScrollPane;
 
 	protected CutsceneTextAreaView(Runnable save, Supplier <Color> bgColor, GameDataHandler GDH, CutsceneEditor csEditor) {
 		currentBgColor = bgColor;
@@ -160,9 +159,11 @@ public class CutsceneTextAreaView extends DisplayableTextAreaView {
 		if (file != null) {
 			Image image = GDH.getImage(file);
 			ImageView newImage = new ImageView(image);
+			newImage.resize(image.getWidth(), image.getHeight());
 			Pane k = (Pane) cutscenePreview.getContent();
 			k.getChildren().add(newImage);
 			
+			super.makeDraggableAndResizable(newImage);
 		}
 	}
 
