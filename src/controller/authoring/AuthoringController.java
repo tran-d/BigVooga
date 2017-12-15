@@ -18,6 +18,7 @@ import authoring_UI.Inventory.InventoryManager;
 import authoring_UI.Menu.MenuManager;
 import authoring_UI.SpriteCreatorTab.SpriteCreatorManagerSlack;
 import authoring_UI.dialogue.DialogueManager;
+import authoring_UI.cutscene.CutsceneManager;
 import engine.utilities.data.GameDataHandler;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -100,6 +101,9 @@ public class AuthoringController {
 		
 		myInventorySCM = new SpriteCreatorManagerSlack(AEM, scene, "InventoryObject");
 		viewMap.put(INVENTORY_CREATOR_KEY, myInventorySCM.getPane());
+
+		CutsceneManager cm = new CutsceneManager(GDH);
+		viewMap.put(CUTSCENES_KEY, cm.getPane());
 
 		DialogueManager dm = new DialogueManager(GDH);
 		dm.addDialogueListener(mapManager.getDialoguesTab());
