@@ -93,30 +93,47 @@ public class ApplyButtonController {
 	public void updateSpriteObject(ConditionTab<ConditionRow> conditionTab, ActionTab<ActionRow> actionTab,
 			AbstractSpriteObject spriteObject) {
 		try {
-			HashMap<ConditionTreeView, List<Integer>> userCreatedConditions = new HashMap<ConditionTreeView, List<Integer>>();
+			HashMap<ConditionTreeView, List<Integer>> userCreatedConditionsTreeViews = new HashMap<ConditionTreeView, List<Integer>>();
 			List<String> selectedConditionOperations = new LinkedList<String>();
-			for(int i = spriteObject.getConditionDummyTreeViewSize(); i < conditionTab.getActionConditionVBox().getRows().size(); i++) {
-				ConditionRow row = conditionTab.getActionConditionVBox().getRows().get(i - 1);
-				userCreatedConditions.put(row.getTreeView(), row.getSelectedActions());
+			//save dummy condition trees
+			for(int i = 0; i < spriteObject.getConditionDummyTreeViewSize(); i++) {
+				ConditionRow row = conditionTab.getActionConditionVBox().getRows().get(i);
 				selectedConditionOperations.add(row.getTreeView().getSelectedOperation());
 			}
-			List<ActionTreeView> actions = new LinkedList<ActionTreeView>();
+			//save real condition trees
+			for(int i = spriteObject.getConditionDummyTreeViewSize(); i < conditionTab.getActionConditionVBox().getRows().size(); i++) {
+				ConditionRow row = conditionTab.getActionConditionVBox().getRows().get(i);
+				userCreatedConditionsTreeViews.put(row.getTreeView(), row.getSelectedActions());
+			}
+			List<ActionTreeView> userCreatedActionsTreeViews = new LinkedList<ActionTreeView>();
 			List<List<String>> selectedActionOperations = new LinkedList<List<String>>();
 			for(int i = spriteObject.getActionDummyTreeViewSize(); i < actionTab.getActionConditionVBox().getRows().size(); i++) {
 				ActionRow row = actionTab.getActionConditionVBox().getRows().get(i - 1);
-				actions.add(row.getTreeView());
 				List<String> treeViewParams = new LinkedList<String>();
 				treeViewParams.add(row.getTreeView().getCategoryName());
 				treeViewParams.add(row.getTreeView().getActionName());
 				selectedActionOperations.add(treeViewParams);
+			}
+			//save dummy action trees
+			for(int i = 0; i < spriteObject.getActionDummyTreeViewSize(); i++) {
+				ActionRow row = actionTab.getActionConditionVBox().getRows().get(i);
+				List<String> treeViewParams = new LinkedList<String>();
+				treeViewParams.add(row.getTreeView().getCategoryName());
+				treeViewParams.add(row.getTreeView().getActionName());
+				selectedActionOperations.add(treeViewParams);
+			}
+			//save real action trees
+			for(int i = spriteObject.getActionDummyTreeViewSize(); i < actionTab.getActionConditionVBox().getRows().size(); i++) {
+				ActionRow row = actionTab.getActionConditionVBox().getRows().get(i);
+				userCreatedActionsTreeViews.add(row.getTreeView());
 			}
 			spriteObject.setAllConditions(conditionTab.getTopToolBar().getRemoveRowVBoxOptions());
 			spriteObject.setAllActions(actionTab.getTopToolBar().getRemoveRowVBoxOptions());
 			spriteObject.setSelectedConditionOperations(selectedConditionOperations);
 			spriteObject.setSelectedConditionOperations(selectedConditionOperations);
 			spriteObject.setSelectedActionOperations(selectedActionOperations);
-			spriteObject.setConditions(userCreatedConditions);
-			spriteObject.setActions(actions);
+			spriteObject.setConditions(userCreatedConditionsTreeViews);
+			spriteObject.setActions(userCreatedActionsTreeViews);
 		} catch (NullPointerException | NumberFormatException e) {
 			conditionTab.displayRowExceptionMessage(e.getMessage());
 		}

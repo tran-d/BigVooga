@@ -66,7 +66,7 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 		System.out.println("supplier null in 3rd conditionRow constructor " + supplier == null);
 		this.setPrefSize(ROW_WIDTH, COLLAPSED_HEIGHT);
 		
-		
+		System.out.println("selectedActionOptions in row " + selectedActionOptions);
 		actionCheckBoxVBox = new ActionCheckBoxVBox(newActionOptions, selectedActionOptions);
 		operationTreeView = new ConditionTreeView(this, selectedOperation, condition,supplier);
 		treeViewVBox = operationTreeView.getTreeViewVBox();
