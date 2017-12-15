@@ -38,7 +38,7 @@ public class SpriteParameterTabsAndInfo {
 	private Tab currentTab;
 
 	public SpriteParameterTabsAndInfo() {
-		this(new SpriteObject());
+		this(new SpriteObject(false));
 	}
 
 	SpriteParameterTabsAndInfo(AbstractSpriteObject SO) {

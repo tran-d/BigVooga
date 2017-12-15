@@ -30,6 +30,7 @@ import authoring_actionconditions.ActionTreeView;
 import authoring_actionconditions.ConditionTreeView;
 import engine.Action;
 import engine.Condition;
+import engine.utilities.data.GameDataHandler;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -107,6 +108,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 	protected List<String> myTags;
 	protected AuthoringAnimationSequence myAASDefault;
 	protected List<DialogSequence> myDialogSequences;
+	protected GameDataHandler GDH;
 
 
 
@@ -146,34 +148,37 @@ public abstract class AbstractSpriteObject extends ImageView {
 			// Nothing
 		} else {
 			initializeVariables();
+			initializeActionConditions();
 			setUniqueID();
 		}
 	}
 
-	public AbstractSpriteObject(String fileURL) {
+	public AbstractSpriteObject(String fileURL, GameDataHandler GDH) {
 		this();
+		setGameDataHandler(GDH);
 		setupImageURLAndView(fileURL);
 		// myName = fileURL.split("\\.")[0];
 	}
 
-	public AbstractSpriteObject(Image image, String path) {
+	public AbstractSpriteObject(Image image, String path, GameDataHandler GDH) {
 		this();
+		setGameDataHandler(GDH);
 		if (image!=null && path!=null){
 		setupImageURLAndView(image, path);
 		}
 		// myName = fileURL.split("\\.")[0];
 	}
 
-	AbstractSpriteObject(HashMap<String, List<SpriteParameter>> inCategoryMap) {
-		this();
-		categoryMap = new HashMap<String, List<SpriteParameter>>(inCategoryMap);
-	}
+//	AbstractSpriteObject(HashMap<String, List<SpriteParameter>> inCategoryMap, GameDataHandler GDH) {
+//		setGameDataHandler(GDH);
+//		categoryMap = new HashMap<String, List<SpriteParameter>>(inCategoryMap);
+//	}
 
-	AbstractSpriteObject(HashMap<String, List<SpriteParameter>> inCategoryMap, String fileURL) {
-		this();
-		categoryMap = new HashMap<String, List<SpriteParameter>>(inCategoryMap);
-		setupImageURLAndView(fileURL);
-	}
+//	AbstractSpriteObject(HashMap<String, List<SpriteParameter>> inCategoryMap, String fileURL, GameDataHandler GDH) {
+//		setGameDataHandler(GDH);
+//		categoryMap = new HashMap<String, List<SpriteParameter>>(inCategoryMap);
+//		setupImageURLAndView(fileURL);
+//	}
 
 	protected void setUniqueID() {
 		if (myUniqueID == null) {
@@ -272,8 +277,13 @@ public abstract class AbstractSpriteObject extends ImageView {
 //		} catch (FileNotFoundException e) {
 //			im = new Image(fileURL);
 //		}
-		Image im = GDH.getImage(fileURL);
-		setupImageURLAndView(im, fileURL);
+		if (GDH!=null) {
+			Image im = GDH.getImage(fileURL);
+			setupImageURLAndView(im, fileURL);
+		} else {
+			myImageURL = fileURL;
+		}
+
 	}
 
 	public void setupImageURLAndView(Image image, String path) {
@@ -292,9 +302,20 @@ public abstract class AbstractSpriteObject extends ImageView {
 		this.setFitHeight(45);
 	}
 	
+	public void setGameDataHandler(GameDataHandler GDH) {
+		System.out.println("Setting GDH in ASO");
+		
+		this.GDH = GDH;
+		if (myImageURL!=null && myImageURLProperty==null) {
+			System.out.println("About to setup ImageURL FRom GDh->ASO");
+			this.setupImageURLAndView(myImageURL);
+		}
+	
+	}
+	
 	private void setUpImageURLProperty(){
 		myImageURLProperty = new SimpleObjectProperty<String>();
-		myImageURLProperty.addListener((change, oldImagePath, newImagePath)->{
+		myImageURLProperty.addListener((change, oldImagePath, newImagePath)->{System.out.println("HHHEEERRREEE" + myAASDefault);
 			myAASDefault.replacePrimaryAnimationSequenceImage(new AuthoringImageView(newImagePath));
 			myImageURL = newImagePath;
 		});

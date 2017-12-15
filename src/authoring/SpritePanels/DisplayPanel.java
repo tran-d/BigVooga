@@ -80,7 +80,7 @@ public class DisplayPanel extends VBox {
 		multipleCellsActiveProperty = new SimpleObjectProperty<Boolean>();
 		mySParameterTAI = new SpriteParameterTabsAndInfo();
 		mySInventoryTAI = new SpriteInventoryTabAndInfo(myAEM);
-		mySAnimationSequenceTAI = new SpriteAnimationSequenceTabsAndInfo();
+		mySAnimationSequenceTAI = new SpriteAnimationSequenceTabsAndInfo(myAEM.getGameDataHandler());
 		mySUtilityTAI = new SpriteUtilityTabAndInfo();
 		mySTagTAI = new SpriteTagTabAndInfo();
 		mySDialogTAI = new SpriteDialogTabAndInfo(myAEM);

@@ -227,4 +227,6 @@ public class CutsceneManager extends DisplayableManager {
 		dView.removeUserCutsceneButton(id);
 	}
 
+	
+	
 }

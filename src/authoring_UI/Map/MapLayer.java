@@ -161,7 +161,7 @@ public abstract class MapLayer extends GridPane {
 	
 	
 	public void setBackgroundImage(String imagePath){
-		this.setBackgroundImage(()->new SpriteObject(imagePath));
+		this.setBackgroundImage(()->new SpriteObject(false));
 	}
 	
 	public AbstractSpriteObject setBackgroundImage(Supplier<AbstractSpriteObject> spriteSupplier){

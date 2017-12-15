@@ -49,7 +49,7 @@ public class BackgroundGridManager extends SpriteObjectGridManager{
 
 	public void getOnBackgroundChangeFunctionality(File f){
 		Image image = GDH.getImage(f);
-		AbstractSpriteObject ASO = getMapLayer().setBackgroundImage(()->new SpriteObject(image, f.getName()));
+		AbstractSpriteObject ASO = getMapLayer().setBackgroundImage(()->new SpriteObject(f.getName(), GDH));
 		this.populateCell(ASO, new Integer[]{0,0});
 
 	}

@@ -18,11 +18,9 @@ import javafx.stage.Stage;
 public class InventoryManager extends MapManager{
 	
 	private SpriteObjectGridManager InventoryGridBE;
-	private GameDataHandler GDH;
 
 	public InventoryManager(AuthoringEnvironmentManager AEM, Scene currentScene) {
 		super(AEM, currentScene);
-		GDH = AEM.getGameDataHandler();
 	}
 	
 	@Override 

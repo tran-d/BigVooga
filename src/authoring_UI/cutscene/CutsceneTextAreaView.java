@@ -153,7 +153,7 @@ public class CutsceneTextAreaView extends DisplayableTextAreaView {
 	protected void addImage() {
 		File file = csEditor.retrieveFileForImageUpload();
 		if (file != null) {
-			Image image = new Image(GDH.getImageURIAndCopyToResources(file));
+			Image image = GDH.getImage(file);
 			ImageView newImage = new ImageView(image);
 			Pane k = (Pane) cutscenePreview.getContent();
 			k.getChildren().add(newImage);

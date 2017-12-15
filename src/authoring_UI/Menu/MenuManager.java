@@ -18,16 +18,14 @@ import javafx.stage.Stage;
 public class MenuManager extends MapManager{
 	
 	private SpriteObjectGridManager MenuGridBE;
-	private AuthoringEnvironmentManager AEM;
 
 	public MenuManager(AuthoringEnvironmentManager AEM, Scene currentScene) {
 		super(AEM, currentScene);
-		this.AEM = AEM;
 	}
 	
 	@Override 
 	protected DraggableGrid makeDraggableGrid(){
-		DraggableGrid ret = new DraggableGrid(AEM.getGameDataHandler());
+		DraggableGrid ret = new DraggableGrid(GDH);
 		MenuGridBE = new MenuGridManager();
 		BackgroundGridManager BackgroundGrid = new BackgroundGridManager(MenuGridBE.getDefaultRows(), MenuGridBE.getDefaultCols());
 		List<SpriteObjectGridManager> grids = new ArrayList<SpriteObjectGridManager>();
