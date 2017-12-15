@@ -38,21 +38,22 @@ public class BuildActionView {
 
 		try {
 			ACRow.getTreeView().getAction();
-			ACRow.reduceTreeView();
 
 			;
 
-			if (ACVBox.getChildren().size() >= ACRow.getRowID())
-				ACVBox.getChildren().remove(ACRow.getRowID() - 1);
-
-			ACVBox.getChildren().add(ACRow.getRowID() - 1, ACRow);
-
-			stage.close();
-
 		} catch (Exception e) {
 			ConditionTreeView.showError(e.getMessage());
-			stage.close();
-//			event.consume();
+
+			// event.consume();
 		}
+
+		ACRow.reduceTreeView();
+
+		if (ACVBox.getChildren().size() >= ACRow.getRowID())
+			ACVBox.getChildren().remove(ACRow.getRowID() - 1);
+
+		ACVBox.getChildren().add(ACRow.getRowID() - 1, ACRow);
+
+		stage.close();
 	}
 }
