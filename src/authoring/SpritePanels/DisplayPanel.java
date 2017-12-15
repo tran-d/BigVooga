@@ -17,6 +17,7 @@ import authoring.Sprite.SpriteObject;
 import authoring.Sprite.SpriteParameterTabsAndInfo;
 import authoring.Sprite.SpriteTagTabAndInfo;
 import authoring.Sprite.SpriteUtilityTabAndInfo;
+import authoring.Sprite.DialogTab.SpriteDialogTabAndInfo;
 import authoring.Sprite.Parameters.SpriteParameter;
 import authoring.Sprite.Parameters.SpriteParameterI;
 import authoring_UI.MainAuthoringGUI;
@@ -49,6 +50,7 @@ public class DisplayPanel extends VBox {
 	private SpriteParameterTabsAndInfo mySParameterTAI;
 	private SpriteInventoryTabAndInfo mySInventoryTAI;
 	private SpriteUtilityTabAndInfo mySUtilityTAI;
+	private SpriteDialogTabAndInfo mySDialogTAI;
 	private SpriteAnimationSequenceTabsAndInfo mySAnimationSequenceTAI;
 	private SpriteTagTabAndInfo mySTagTAI;
 	private ObjectProperty<Boolean> multipleCellsActiveProperty;
@@ -78,9 +80,10 @@ public class DisplayPanel extends VBox {
 		multipleCellsActiveProperty = new SimpleObjectProperty<Boolean>();
 		mySParameterTAI = new SpriteParameterTabsAndInfo();
 		mySInventoryTAI = new SpriteInventoryTabAndInfo(myAEM);
-		mySAnimationSequenceTAI = new SpriteAnimationSequenceTabsAndInfo();
+		mySAnimationSequenceTAI = new SpriteAnimationSequenceTabsAndInfo(myAEM.getGameDataHandler());
 		mySUtilityTAI = new SpriteUtilityTabAndInfo();
 		mySTagTAI = new SpriteTagTabAndInfo();
+		mySDialogTAI = new SpriteDialogTabAndInfo(myAEM);
 		System.out.println("made SPTAI in MENU");
 		setUpMenu();
 	}
@@ -110,7 +113,7 @@ public class DisplayPanel extends VBox {
 
 
 	protected AbstractSpriteObject getActiveCell() throws Exception {
-		// System.out.println("MYAEMACTIVE: " + myAEM.getActiveCell());
+		// ;
 		return mySPSM.getActiveSprite();
 	}
 
@@ -135,7 +138,7 @@ public class DisplayPanel extends VBox {
 
 	private void createActionConditionTabs() {
 		conditions = new ConditionTab<ConditionRow>(ResourceBundleUtil.getTabTitle("ConditionsTabTitle"));
-		actions = new ActionTab<ActionRow>(ResourceBundleUtil.getTabTitle("ActionsTabTitle"));
+		actions = new ActionTab<ActionRow>(ResourceBundleUtil.getTabTitle("ActionsTabTitle"), mySPSM);
 		controllerConditionActionTabs = new ControllerConditionActionTabs(conditions, actions);
 		applyButtonController = new ApplyButtonController();
 		mySpriteTabs.getTabs().addAll(conditions, actions);
@@ -149,7 +152,9 @@ public class DisplayPanel extends VBox {
 
 	private void createDialogueTab() {
 		Tab dialogue = new Tab("Dialogue");
-		dialogue.setContent(new TextArea("dialogue goes here"));
+		dialogue.setContent(mySDialogTAI.getContainingVBox());
+		
+//		dialogue.setContent(new TextArea("dialogue goes here"));
 		mySpriteTabs.getTabs().addAll(dialogue);
 		multipleCellsActiveProperty.addListener((observable, oldStatus, newStatus) -> {
 			dialogue.setDisable(newStatus);
@@ -304,7 +309,7 @@ public class DisplayPanel extends VBox {
 
 	private void addSpriteEditorErrorMessage() {
 		if (!this.getChildren().contains(myParameterErrorMessage)) {
-			// System.out.println(myParamTabVBox.getChildren().size());
+			// ;
 			int numChildren = this.getChildren().size();
 			this.getChildren().add(numChildren, myParameterErrorMessage);
 		}
@@ -312,11 +317,11 @@ public class DisplayPanel extends VBox {
 
 	public void updateParameterTab() {
 
-		System.out.println("Updating....");
+		;
 		try {
 			AbstractSpriteObject activeCell = getActiveCell();
 			if (activeCell!=null){
-			System.out.println("Did i get here?");
+			;
 
 			checkMultipleCellsActive();
 			clearAllSpriteEditorTabs();
@@ -328,6 +333,7 @@ public class DisplayPanel extends VBox {
 			mySpriteTabs.getTabs().set(CONDITIONTAB_INDEX, conditions);
 			mySpriteTabs.getTabs().set(ACTIONTAB_INDEX, actions);
 			if (!multipleActive()) {
+				mySDialogTAI.setSpriteObject(activeCell);
 				System.out.println("Trying to update not multiple actvie");
 				mySTagTAI.setSpriteObjectAndUpdate(activeCell);
 				mySInventoryTAI.setSpriteObjectAndUpdate(activeCell);
@@ -366,9 +372,10 @@ public class DisplayPanel extends VBox {
 
 	private void apply() throws Exception {
 		mySParameterTAI.apply();
-		System.out.println("SHOULD BE APPLYING");
+		;
 		if (!multipleActive()) {
 			System.out.println("Trying to set ivent etc.");
+			mySDialogTAI.apply();
 			mySTagTAI.apply();
 			mySInventoryTAI.apply();
 			mySAnimationSequenceTAI.apply();

@@ -8,6 +8,13 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import tools.DisplayLanguage;
 
+/**
+ * Creates the sliding side bar that allows the user to toggle between the views, which are the Map Editor, Sprite Creator, Custom Panels, Cutscenes, Dialogues,
+ * Heads Up Display, Inventory, and Menu Creator. The applications of these views are described in detail in the AuthoringController class documentation.
+ * 
+ * @author Samarth Desai
+ *
+ */
 public class ViewSideBar extends VBox {
 
 	private static final String ID_NAME = "sideBar";
@@ -18,6 +25,7 @@ public class ViewSideBar extends VBox {
 	private static final int TRANSLATION_RATE = 1;
 	private static final String MAP_EDITOR = "MapEditor";
 	private static final String SPRITE_CREATOR = "SpriteCreator";
+	private static final String INVENTORY_CREATOR = "InventoryCreator";
 	private static final String CUSTOM_PANEL = "CustomPanel";
 	private static final String CUTSCENES = "Cutscenes";
 	private static final String DIALOGUE = "Dialogue";
@@ -42,6 +50,7 @@ public class ViewSideBar extends VBox {
 	    this.getChildren().addAll(
 	    		mapButton,
 	    		createViewButton(SPRITE_CREATOR, AuthoringController.SPRITE_CREATOR_KEY),
+	    		createViewButton(INVENTORY_CREATOR, AuthoringController.INVENTORY_CREATOR_KEY),
 	    		createViewButton(CUSTOM_PANEL, AuthoringController.CUSTOM_PANEL_KEY),
 	    		createViewButton(CUTSCENES, AuthoringController.CUTSCENES_KEY),
 	    		createViewButton(DIALOGUE, AuthoringController.DIALOGUE_KEY),

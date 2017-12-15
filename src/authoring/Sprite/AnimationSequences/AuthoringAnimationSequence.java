@@ -5,15 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import authoring.Thumbnail;
-import authoring_data.SerializableAuthoringImageView;
 import engine.utilities.data.GameDataHandler;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ObjectPropertyBase;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
+import javafx.scene.control.Tab;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 
@@ -27,7 +28,9 @@ public class AuthoringAnimationSequence {
 	private ObjectProperty<AnimationSequenceImage> myMostRecentlyAddedAnimationSequenceProperty;
 	private boolean showUI;
 	private Button addNewImage;
-
+	private ObjectProperty<Boolean> isEmpty;
+	private Runnable myRunnableOnEmpty;
+	
 	public AuthoringAnimationSequence(String name) {
 		myName = name;
 		initialize();
@@ -44,7 +47,7 @@ public class AuthoringAnimationSequence {
 
 	public AuthoringAnimationSequence(String name, AuthoringImageView AEI) {
 		this(name);
-		addNewAuthoringImageViewToSequence(AEI);
+		addNewAuthoringImageViewToSequence(AEI, true);
 	}
 	
 	public AuthoringAnimationSequence(String name, List<AnimationSequenceImage> images) {
@@ -57,13 +60,31 @@ public class AuthoringAnimationSequence {
 	public AuthoringAnimationSequence(String name, ArrayList<AuthoringImageView> images) {
 		this(name);
 		images.forEach(image -> {
-			addNewAuthoringImageViewToSequence(image);
+			addNewAuthoringImageViewToSequence(image, false);
 		});
 	}
 
 	private void initialize() {
-
+		if (myRunnableOnEmpty==null){
+			setRunnableOnEmpty(()->{});
+		}
+		isEmpty = new SimpleObjectProperty<Boolean>();
+		isEmpty.addListener((change, oldValue, newValue)->{
+			if (newValue){
+				getRunnableOnEmpty().run();
+			}
+		});
 		myImages = new ArrayList<AnimationSequenceImage>();
+	}
+	
+	public void replacePrimaryAnimationSequenceImage(AuthoringImageView AIV){
+		if (myContainerVbox!=null){
+		myContainerVbox.getChildren().remove(0);
+		addNewAuthoringImageViewToSequence(AIV, true);
+		} else {
+			this.myImages.add(0,new AnimationSequenceImage(AIV));
+		}
+		
 	}
 
 	// private void createAnimationImagesProperty(){
@@ -77,16 +98,25 @@ public class AuthoringAnimationSequence {
 	//
 	// });
 	// }
+	
+	public void setRunnableOnEmpty(Runnable r){
+		myRunnableOnEmpty = r;
+	}
+	
+	public Runnable getRunnableOnEmpty(){
+		return myRunnableOnEmpty;
+	}
 
-	public void addNewAuthoringImageViewToSequence(AuthoringImageView AEI) {
+	public void addNewAuthoringImageViewToSequence(AuthoringImageView AEI, Boolean isPrimary) {
 		if (myMostRecentlyAddedAnimationSequenceProperty == null) {
 			myMostRecentlyAddedAnimationSequenceProperty = new SimpleObjectProperty<AnimationSequenceImage>();
 			
 		myMostRecentlyAddedAnimationSequenceProperty.addListener((observable, oldASI, newASI) -> {
 				if (showUI) {
-					this.addNewAnimationSequenceToUI(newASI);
+					this.addNewAnimationSequenceToUI(newASI, isPrimary);
 				}
-				this.myImages.add(newASI);
+				int position = isPrimary ? 0 : myImages.size();
+				this.myImages.add(position, newASI);
 			});
 		
 		}
@@ -110,8 +140,7 @@ public class AuthoringAnimationSequence {
 	}
 	
 	public VBox getUIContent(){
-		showUI();
-		if (this.outMostVbox==null){
+		if (!haveShownUI()){
 			outMostVbox = new VBox();
 			outMostVbox.getChildren().addAll(getScrollPane());
 		}
@@ -119,7 +148,6 @@ public class AuthoringAnimationSequence {
 	}
 
 	public ScrollPane getScrollPane() {
-		
 		if (myScrollPane == null) {
 			createScrollPane();
 			putContainerVBoxIntoScrollPane();
@@ -127,8 +155,13 @@ public class AuthoringAnimationSequence {
 		return myScrollPane;
 	}
 	
-	public void showUI(){
-		showUI = true;
+	public boolean haveShownUI(){
+		if (!showUI){
+			showUI = true;
+			return false;
+		}
+		return true;
+		
 	}
 
 	private void createScrollPane() {
@@ -158,7 +191,7 @@ public class AuthoringAnimationSequence {
 
 	private void addAllAnimationSequenceImageThumbnails() {
 		for (AnimationSequenceImage ASI : this.getImages()) {
-			addNewAnimationSequenceToUI(ASI);
+			addNewAnimationSequenceToUI(ASI, false);
 		}
 //		int counter = 1;
 //		for (AnimationSequenceImage ASI : this.getImages()) {
@@ -180,11 +213,12 @@ public class AuthoringAnimationSequence {
 		myContainerVbox.getChildren().add(th);
 	}
 
-	private void addNewAnimationSequenceToUI(AnimationSequenceImage ASI) {
+	private void addNewAnimationSequenceToUI(AnimationSequenceImage ASI, Boolean isPrimary) {
 		int vboxSize = myContainerVbox.getChildren().size();
-		System.out.println("Adding to AnSeq");
+		;
 		Thumbnail th = new Thumbnail(ASI.getImage(), "Image "+Integer.toString(vboxSize));
 		VBox animationBox = new VBox();
+		
 		animationBox.getChildren().addAll(th, new Separator());
 		th.addSideButton("Remove from animation");
 		th.setSideButtonRunnable(()->{
@@ -192,9 +226,12 @@ public class AuthoringAnimationSequence {
 			myContainerVbox.getChildren().remove(animationBox);
 			this.myImages.remove(ASI);
 			}
+			if (myContainerVbox.getChildren().size()==0){
+				isEmpty.set(true);
+			}
 		});
-		
-		myContainerVbox.getChildren().add(animationBox);
+		int insertionPos = isPrimary ? 0 : myContainerVbox.getChildren().size();
+		myContainerVbox.getChildren().add(insertionPos, animationBox);
 	}
 
 	

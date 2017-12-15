@@ -8,7 +8,7 @@ import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
 import javafx.scene.control.CheckBox;
 
-public class ActionCheckBoxVBox<Integer> extends VBoxList<Integer> implements ActionCheckBoxVBoxI {
+public class ActionCheckBoxVBox extends VBoxList implements ActionCheckBoxVBoxI {
 
 	private ObservableList<CheckBox> checkBoxes;
 	private static final String ASSOCIATED_ACTIONS = "Associated actions";
@@ -20,14 +20,14 @@ public class ActionCheckBoxVBox<Integer> extends VBoxList<Integer> implements Ac
 		setNewOptions(options);
 	}
 	
-	public ActionCheckBoxVBox(ObservableList<Integer> options,List<String> selectedOptions) {
+	public ActionCheckBoxVBox(ObservableList<Integer> options,List<Integer> selectedOptions) {
 		this(options);
-		System.out.println("all options " + options);
-		System.out.println("selected options " + options);
+		;
+		;
 		ObservableList<CheckBox> tempCheckBoxes = FXCollections.observableArrayList(checkBoxes);
-		for(String selectedOption : selectedOptions) {
+		for(Integer selectedOption : selectedOptions) {
 			System.out.println("selected option " + selectedOption);
-			int selInt = Integer.parseInt(selectedOption); 
+			int selInt = (int) selectedOption;
 			tempCheckBoxes.get(selInt - 1).setSelected(true);
 		}
 		checkBoxes.setAll(tempCheckBoxes);

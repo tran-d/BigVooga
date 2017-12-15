@@ -4,6 +4,7 @@ import java.io.File;
 
 import authoring_UI.MainAuthoringGUI;
 import controller.welcomeScreen.SceneController;
+import engine.utilities.data.GameDataHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,6 +19,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * Creates the list of saved games that appears after a user selects 'Create.' Here, the user can choose one of these projects to continue editing
+ * in the authoring environment, or they can name and create a new project to begin working on.
+ * 
+ * @author Samarth Desai and Archana Ahlawat
+ *
+ */
 public class FileSelector extends MenuOptionsTemplate {
 
 	private static final String SQUARICLE_PATH = "Squaricle.gif";
@@ -77,8 +85,8 @@ public class FileSelector extends MenuOptionsTemplate {
 	
 	private void checkInput() {
 		File file = new File(PROJECT_FILE_PATH + "/" + textField.getText());
-		System.out.println(file.toString());
-		System.out.println(textField.getText());
+		;
+		;
 		
 		if (!textField.getText().isEmpty() && textField.getText().charAt(0) != '.' && !file.exists()) {
 			switchScene(textField.getText());
@@ -100,10 +108,10 @@ public class FileSelector extends MenuOptionsTemplate {
 	
 	private VBox createFiles() {
 		VBox fileBox = new VBox();
-		File f = new File(PROJECT_FILE_PATH);
+		File f = new File(new GameDataHandler(stage).getRoot());
 		File[] listOfFiles = f.listFiles();
 		for (File file: listOfFiles) {
-			if (file.getName().charAt(0) != '.') {
+			if (file.getName().charAt(0) != '.' && !file.getName().equals(GameDataHandler.RESOURCES.replace("/", ""))) {
 				Button fileButton = createFileButton(file.getName());
 				fileButton.setMnemonicParsing(false);
 				fileBox.getChildren().add(fileButton);
@@ -137,13 +145,6 @@ public class FileSelector extends MenuOptionsTemplate {
 	}
 
 	public void importWorlds(String fileName) {
-		saveWorlds();
-		System.out.println("make new authoring GUI for PROJECT: " + fileName);
-		myAuthoringGUI = new MainAuthoringGUI(stage, sceneController, fileName);
-		myAuthoringGUI.setProjectToImportTo(myProjectName);
-		myAuthoringGUI.createAuthoringGUI();
-		stage.setScene(myAuthoringGUI.getScene());
-		stage.centerOnScreen();
-		scene = stage.getScene();
+		this.myAuthoringGUI.importWorlds(fileName);
 	}
 }

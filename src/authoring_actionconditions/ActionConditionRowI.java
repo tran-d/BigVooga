@@ -6,7 +6,7 @@ public interface ActionConditionRowI {
 	
 	public Label getLabel();
 	public Label getImplementationSelectorLabel();
-	public String getImplementationSelectorVBoxValue();
+	public Integer getImplementationSelectorVBoxValue();
 	public void decreaseLabelID();
 	public int getRowID();
 

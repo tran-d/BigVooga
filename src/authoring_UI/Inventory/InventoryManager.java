@@ -11,6 +11,7 @@ import authoring.SpritePanels.SpritePanels;
 import authoring_UI.DraggableGrid;
 import authoring_UI.MapManager;
 import authoring_UI.SpriteGridHandler;
+import engine.utilities.data.GameDataHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -24,8 +25,10 @@ public class InventoryManager extends MapManager{
 	
 	@Override 
 	protected DraggableGrid makeDraggableGrid(){
+
 		System.out.println("DG in HUDMANAGER");
-		DraggableGrid ret = new DraggableGrid();
+		DraggableGrid ret = new DraggableGrid(GDH);
+
 		InventoryGridBE = new InventoryGridManager();
 		BackgroundGridManager BackgroundGrid = new BackgroundGridManager(InventoryGridBE.getDefaultRows(), InventoryGridBE.getDefaultCols());
 		List<SpriteObjectGridManager> grids = new ArrayList<SpriteObjectGridManager>();
@@ -37,7 +40,7 @@ public class InventoryManager extends MapManager{
 	
 	@Override
 	protected void setManagerName(){
-		MANAGERNAME = "InventoryManager";
+		MANAGER_NAME = "InventoryManager";
 	}
 	
 	@Override 

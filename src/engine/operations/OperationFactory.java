@@ -37,6 +37,19 @@ public class OperationFactory {
 		populateMaps();
 	}
 
+	/**
+	 * Note the return type of Object is to support Actions as parameters to other
+	 * Actions without requiring more of authoring.
+	 * 
+	 * @param operationName
+	 *            The name of the operation, as given by
+	 *            {@link #getOperations(String)}
+	 * @param parameters
+	 *            Whatever parameters are required by the operation, as described by
+	 *            {@link #getParametersWithNames(String)}
+	 * @return The Operation
+	 * @throws VoogaException
+	 */
 	public Object makeOperation(String operationName, Object... parameters) throws VoogaException {
 		try {
 			return getConstructor(operationName).newInstance(parameters);
@@ -46,6 +59,9 @@ public class OperationFactory {
 		}
 	}
 
+	/**
+	 * @deprecated @see {@link #getParametersWithNames(String)}
+	 */
 	@Deprecated
 	public List<String> getParameters(String operationName) throws VoogaException {
 		List<String> types = new ArrayList<>();
@@ -58,37 +74,50 @@ public class OperationFactory {
 		}
 		return types;
 	}
-	
+
+	/**
+	 * @param operationName
+	 *            The operation whose parameters are needed, an element from
+	 *            {@link #getOperations(VoogaType)}
+	 * @return The parameters with descriptive names and types. 
+	 * @throws VoogaException
+	 */
 	public List<VoogaParameter> getParametersWithNames(String operationName) throws VoogaException {
 		List<VoogaParameter> types = new ArrayList<>();
 		try {
 			for (Parameter parameter : getConstructor(operationName).getParameters()) {
-				types.add(new VoogaParameter(parameter.getAnnotation(VoogaAnnotation.class).name(), parameter.getAnnotation(VoogaAnnotation.class).type()));
+				types.add(new VoogaParameter(parameter.getAnnotation(VoogaAnnotation.class).name(),
+						parameter.getAnnotation(VoogaAnnotation.class).type()));
 			}
 		} catch (ClassNotFoundException e) {
 			throw new VoogaException("ClassNotFoundFor", operationName);
 		}
 		return types;
 	}
-	
-//
-//	private String decamel(String name) {
-//		name = name.replaceAll("([a-z])([A-Z])", "$1 $2");
-//		name = name.substring(0, 1).toUpperCase()+name.substring(1);
-//		return name;
-//	}
+
+	//
+	// private String decamel(String name) {
+	// name = name.replaceAll("([a-z])([A-Z])", "$1 $2");
+	// name = name.substring(0, 1).toUpperCase()+name.substring(1);
+	// return name;
+	// }
 
 	@Deprecated
 	public List<String> getOperations(String operationType) {
 		return operations(operationType);
 	}
-	
+
+	//used to support deprecated code without duplication
 	private List<String> operations(String operationType) {
 		if (operationsByType.containsKey(operationType))
 			return Collections.list(operationsByType.get(operationType).getKeys());
 		return new ArrayList<>();
 	}
-	
+
+	/**
+	 * @param parameter The operations that fit the given type. 
+	 * @return All operations known of the given type, from properties files. 
+	 */
 	public List<String> getOperations(VoogaType parameter) {
 		return operations(parameter.getEngineType());
 	}
@@ -109,25 +138,29 @@ public class OperationFactory {
 		}
 		throw new VoogaException("ClassNotFoundFor", operationName);
 	}
-	
+
+	/**
+	 * @return The 
+	 */
 	public static Map<String, String> getParameterTypeMap() {
-		return getFromBundle((key, properties)->new Pair<String, String>(properties[CLASS_NAME_INDEX], key));
+		return getFromBundle((key, properties) -> new Pair<String, String>(properties[CLASS_NAME_INDEX], key));
 	}
-	
+
 	public static Map<String, ResourceBundle> getOperationsByType() {
-		return getFromBundle((key, properties)->new Pair<>(key, ResourceBundle.getBundle(properties[FILE_LOCATION_INDEX])));
+		return getFromBundle(
+				(key, properties) -> new Pair<>(key, ResourceBundle.getBundle(properties[FILE_LOCATION_INDEX])));
 	}
-	
+
 	public Object wrap(Object value) {
-		if(value instanceof Double)
-			return new Value((Double)value);
-		if(value instanceof Boolean)
-			return new BooleanValue((Boolean)value);
-		if(value instanceof String)
-			return new SelfString((String)value);
+		if (value instanceof Double)
+			return new Value((Double) value);
+		if (value instanceof Boolean)
+			return new BooleanValue((Boolean) value);
+		if (value instanceof String)
+			return new SelfString((String) value);
 		throw new RuntimeException("Cannot wrap " + value + " of type " + value.getClass().getSimpleName());
 	}
-	
+
 	private static <T> Map<String, T> getFromBundle(BiFunction<String, String[], Pair<String, T>> function) {
 		ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_LOCATION);
 		Map<String, T> parTypes = new HashMap<>();

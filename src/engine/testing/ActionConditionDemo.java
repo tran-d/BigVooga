@@ -212,7 +212,7 @@ public class ActionConditionDemo extends Application {
 		vertices2.add(new Point2D(20, 220));
 		BoundingPolygon poly2 = new BoundingPolygon(vertices2);
 		Point2D vec = poly2.checkCollision(poly1);
-		System.out.println(vec);
+		;
 		
 		Group g = new Group();
 		Scene scene = new Scene(g);
@@ -226,7 +226,7 @@ public class ActionConditionDemo extends Application {
 //		long time = System.currentTimeMillis();
 //		for (int i = 0; i < 1000000; i++)
 //			poly1.checkCollision(poly2);
-//		System.out.println(System.currentTimeMillis() - time);
+//		;
 		
 		scene.setOnKeyPressed(e->{
 		g.getChildren().remove(p2);

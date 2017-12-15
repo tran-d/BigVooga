@@ -38,7 +38,7 @@ public class SpriteParameterTabsAndInfo {
 	private Tab currentTab;
 
 	public SpriteParameterTabsAndInfo() {
-		this(new SpriteObject());
+		this(new SpriteObject(false));
 	}
 
 	SpriteParameterTabsAndInfo(AbstractSpriteObject SO) {
@@ -78,7 +78,7 @@ public class SpriteParameterTabsAndInfo {
 		int numTabs = myTabPane.getTabs().size();
 		myTabPane.getTabs().remove(0, numTabs);
 		this.catNames.clear();
-//		System.out.println("Clearing tab pane: " + myTabPane.getTabs().size());
+//		;
 		// .clear();
 	}
 
@@ -86,7 +86,7 @@ public class SpriteParameterTabsAndInfo {
 		clearTabPane();
 		// createAddCategoryTab();
 		createFromSO(mySO);
-//		System.out.println("catNames after create: "+ catNames);
+//		;
 		this.createAddCategoryTab();
 		return getTabPane();
 	}
@@ -99,20 +99,20 @@ public class SpriteParameterTabsAndInfo {
 	public void createFromSO(AbstractSpriteObject SO) {
 		categoryCounter = 1;
 		this.catNames.clear();
-		System.out.println("SO is not nulL "+SO);
+		;
 		Map<String, List<SpriteParameter>> params = SO.getParameters();
-//		System.out.println(params);
+//		;
 		boolean loopedOnce = false;
 		for (Map.Entry<String, List<SpriteParameter>> entry : params.entrySet()) {
-//			System.out.println("Loading entry");
+//			;
 
 			String category = entry.getKey();
-//			System.out.println("Loading entry category: " + category);
+//			;
 			// this.catNames.put(category, category);
 			List<SpriteParameter> newParams = entry.getValue();
-//			System.out.println("Loading entry val: " + newParams);
+//			;
 			FEParameterFactory newFactory = new FEParameterFactory(newParams);
-//			System.out.println("Loading entry");
+//			;
 
 			addCategoryTab(category, newFactory);
 			loopedOnce = true;
@@ -135,15 +135,15 @@ public class SpriteParameterTabsAndInfo {
 		String category = "Category1";
 		currentTab = new Tab();
 		currentTab.setContent(createEmptyCategoryVBox(category, currentTab));
-//		System.out.println("currentTab text in addEmpty: "+currentTab.getText());
+//		;
 		currentTab.setClosable(false);
 		int numtabs = myTabPane.getTabs().size()-1;
 		// numtabs-1 to make sure the 'add tab' tab is the last tab
-//		System.out.println("Addign to num-1");
+//		;
 		numtabs = numtabs<0 ? 0 : numtabs;
 		myTabPane.getTabs().add(numtabs, currentTab);
 		mySelectModel.select(currentTab);
-//		System.out.println("select model changed");
+//		;
 	}
 
 	private void addCategoryTab(String category, VBox vbox) {
@@ -156,7 +156,7 @@ public class SpriteParameterTabsAndInfo {
 	}
 
 	private ScrollPane createStatePane(VBox temp) {
-//		System.out.println("Creating statepane its null");
+//		;
 		ScrollPane myStateSP_dummy = createEmptyScrollPane();
 		formatParametersVBox(temp);
 		myStateSP_dummy.setContent(temp);
@@ -175,21 +175,21 @@ public class SpriteParameterTabsAndInfo {
 		Label cat = new Label ("Category Name");
 		TextField catName = new TextField("");
 		int num = 1;
-//		System.out.println("CATNAMES: " + catNames);
-//		System.out.println("before while, current catNames: "+catNames);
+//		;
+//		;
 		while (catNames.containsValue(category)) {
-//			System.out.println("In while, category: " + category);
+//			;
 			category = String.format("Category%d", num++);
 
 		}
-//		System.out.println("Out of while, category: " + category);
+//		;
 		catName.setText(category);
 		catNames.put(category, category);
 		parentTab.setText(category);
 
 		catName.textProperty().addListener((observable, prev, next) -> {
 			String newText = next;
-//			System.out.println("next cat name: " + next);
+//			;
 			if (catNames.containsValue(next)) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Error");
@@ -313,11 +313,11 @@ public class SpriteParameterTabsAndInfo {
 		newCategory.setClosable(false);
 		myTabPane.getTabs().add(newCategory);
 		for (Tab t : myTabPane.getTabs()) {
-//			System.out.println("Tab t: " + t.getText());
+//			;
 		}
-//		System.out.println("Created add category");
+//		;
 		newCategory.setOnSelectionChanged(e -> {
-//			System.out.println("On change occured");
+//			;
 			addEmptyCategoryTab();
 		});
 
@@ -327,15 +327,15 @@ public class SpriteParameterTabsAndInfo {
 		int categoriesAdded = mySO.acceptPossibleParameters();
 		categoryCounter -= categoriesAdded;
 		ObservableList<Tab> tabs = myTabPane.getTabs();
-//		System.out.println("catNames : " + catNames);
+//		;
 		for (int i = 0; i < tabs.size() - 1; i++) {
-//			System.out.println(i);
+//			;
 			Tab t = tabs.get(i);
-//			System.out.println(t.getText());
+//			;
 			TabContentVBox TCV = (TabContentVBox) t.getContent();
 			// String catName = TCV.getMyCategory();
 			String catName = t.getText();
-//			System.out.println("catName: " + catName);
+//			;
 
 			if (catNames.containsValue(catName)) {
 				for (String key : catNames.keySet()) {
@@ -348,7 +348,7 @@ public class SpriteParameterTabsAndInfo {
 			// if (catNames.containsKey(catName)){
 			//// categoryCounter--;
 			// String newCatName = catNames.get(catName);
-			//// System.out.println("apply, newCatName: "+);
+			//// ;
 			//// t.setText(newCatName);
 			// mySO.updateCategoryName(catName, newCatName);
 			// }
@@ -357,7 +357,7 @@ public class SpriteParameterTabsAndInfo {
 			ScrollPane SP = null;
 			for (Node node : TCV.getChildren()) {
 				if (node instanceof ScrollPane) {
-//					System.out.println("It's a scroll pane");
+//					;
 					SP = (ScrollPane) node;
 				}
 
@@ -365,13 +365,15 @@ public class SpriteParameterTabsAndInfo {
 			VBox paramsVbox = (VBox) SP.getContent();
 			int num = 0;
 			for (Node node : paramsVbox.getChildren()) {
-//				System.out.println("Num: " + num++);
+//				;
 				FEParameter FEP = (FEParameter) node;
-//				System.out.println(FEP);
+//				;
 				FEP.updateParameter();
 			}
 
 		}
+		System.out.println("ParamterTab applying to sprite: "+mySO);
+		mySO.clearPossibleParameters();
 
 	}
 

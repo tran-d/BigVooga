@@ -11,14 +11,6 @@ public class SpriteSetUserDefined extends SpriteSet{
 	@Override
 	protected void setFolderToLoad() {
 		setFolderToLoad(myGDH.getCustomSpriteDirectoryPath());
-		System.out.println("RYAN TEST" + myGDH.getCustomSpriteDirectoryPath());
+		;
 	}
-
-//	@Override
-//	protected void makeSpritePanel(SpriteGridHandler SGH) {
-//		mySSP = new SpriteSelectPanel("USERSPRITES", SGH);
-//		mySSP.setupDefaultSprites(getAllSprites());
-//	}
-
-
 }

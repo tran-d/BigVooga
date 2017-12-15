@@ -1,16 +1,18 @@
 package authoring_UI;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import authoring.Sprite.AbstractSpriteObject;
 import javafx.geometry.Side;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -18,10 +20,12 @@ public class SpriteScrollView extends ScrollPane {
 
 	private VBox containerVBox;
 	private Consumer<Pane> childOnClickAction;
-	private List<AbstractSpriteObject> spriteList;
-
+	private List<ImageView> spriteList;
+	private Map<Image, ImageView> imagesToImageViews;
+	private String myTabPaneName;
+	
 	public SpriteScrollView() {
-		spriteList = new ArrayList<AbstractSpriteObject>();
+		spriteList = new ArrayList<ImageView>();
 		createContainerVBox();
 		putContainerVBoxIntoScrollPane();
 		this.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
@@ -29,6 +33,12 @@ public class SpriteScrollView extends ScrollPane {
 			// Nothing by default
 		});
 	}
+	
+	public SpriteScrollView(String tabPaneName) {
+		this();
+		myTabPaneName = tabPaneName;
+	}
+	
 
 	SpriteScrollView(List<Pane> panes) {
 
@@ -43,11 +53,11 @@ public class SpriteScrollView extends ScrollPane {
 	public void addToVBox(Map<String, List<Pane>> panes) {
 		TabPane tp = new TabPane();
 		tp.setSide(Side.TOP);
-		tp.setId("InventoryTabPane");
+		tp.setId(myTabPaneName);
 
 		panes.forEach((key, value) -> {
 			Tab tab = new Tab(key);
-			SpriteScrollView SSV = new SpriteScrollView();
+			SpriteScrollView SSV = new SpriteScrollView(myTabPaneName);
 			SSV.addToVBox(value);
 			SSV.setChildOnClickAction(this.childOnClickAction);
 			tab.setContent(SSV);
@@ -61,16 +71,42 @@ public class SpriteScrollView extends ScrollPane {
 		// addToVBox(pane);
 		// });
 	}
+	
+	public void addToSpriteList(Image ASO) {
+		ImageView imview = addToImageToImageViewMap(ASO);
+		spriteList.add(imview);
+	}
+	
+	public ImageView getFromImageToImageViewMap(Image im){
+		if (this.imagesToImageViews!=null && this.imagesToImageViews.containsKey(im)){
+		return this.imagesToImageViews.get(im);
+		}
+		return null;
+	}
+	
+	private ImageView addToImageToImageViewMap(Image image){
+		if (this.imagesToImageViews==null){
+			this.imagesToImageViews = new HashMap<Image, ImageView>();
+		}
+		ImageView ret = new ImageView(image);
+		this.imagesToImageViews.put(image, ret);
+		return ret;
+	}
+	
+	public void removeFromSpriteList(Image ASO) {
+		ImageView imview = getFromImageToImageViewMap(ASO);
+		spriteList.remove(imview);
+	}
 
-	public void addToSpriteList(AbstractSpriteObject ASO) {
+	public void addToSpriteList(ImageView ASO) {
 		spriteList.add(ASO);
 	}
 
-	public void removeFromSpriteList(AbstractSpriteObject ASO) {
+	public void removeFromSpriteList(ImageView ASO) {
 		spriteList.remove(ASO);
 	}
 
-	public List<AbstractSpriteObject> getSpriteList() {
+	public List<ImageView> getSpriteList() {
 		return spriteList;
 	}
 

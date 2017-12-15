@@ -3,8 +3,10 @@ package authoring_UI.Map;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Supplier;
 
 import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.SpriteObject;
 import authoring_UI.AuthoringMapStackPane;
 import authoring_UI.SpriteGridHandler;
 import javafx.beans.property.ObjectProperty;
@@ -29,7 +31,7 @@ public abstract class MapLayer extends GridPane {
 
 	private int myRows;
 	private int myColumns;
-	private SpriteGridHandler mySGH;
+	protected SpriteGridHandler mySGH;
 	private Color defaultColor;
 	protected Color fillEmptyCellColor;
 	private String myName;
@@ -85,12 +87,12 @@ public abstract class MapLayer extends GridPane {
 		});
 		
 		numColumnsProperty.addListener((observable, oldNumColumns, newNumColumns)->{
-			System.out.println("Layer num cols: "+newNumColumns);
+			;
 			Integer diff = newNumColumns-oldNumColumns;
 			if (diff<0){
 				for (int i=0;i>diff;i--){
 					for (int row =0;row<numRowsProperty.get();row++){
-						System.out.println("Row: "+row);
+						;
 						AuthoringMapStackPane AMSP = this.getChildAtPosition(row,oldNumColumns-i-1);
 						if (AMSP.isActive()){
 							this.removeActive(AMSP);
@@ -123,19 +125,19 @@ public abstract class MapLayer extends GridPane {
 
 	public MapLayer(int rows, int columns, SpriteGridHandler SGH, Color c, List<AbstractSpriteObject> activeSpriteObjects) {
 		this(rows, columns, SGH, c);
-		System.out.println("ASOs to add in panel: " + activeSpriteObjects.size());
+		;
 		for (AbstractSpriteObject ASO : activeSpriteObjects) {
 			int x = ASO.getPositionOnGrid()[0];
 			int y = ASO.getPositionOnGrid()[1];
-			System.out.println("POSITION X: " + ASO.getPositionOnGrid()[0]);
-			System.out.println("POSITION Y: " + ASO.getPositionOnGrid()[1]);
+			;
+			;
 			AuthoringMapStackPane child = this.getChildAtPosition(x, y);
-			System.out.println(child);
-			System.out.println(child.getChildren().size());
-			System.out.println(child.hasChild()); 
-			System.out.println(child.getChildren());
+			;
+			;
+			; 
+			;
 			//child.removeChild();
-			System.out.println("Were about to chnage background");
+			;
 //			child.setInactiveBackground(Color.AQUA);
 			mySGH.addSpriteDrag(ASO);
 			mySGH.addSpriteMouseClick(ASO);
@@ -159,11 +161,11 @@ public abstract class MapLayer extends GridPane {
 	
 	
 	public void setBackgroundImage(String imagePath){
-		setBackgroundImage(new Image(imagePath), imagePath);
+		this.setBackgroundImage(()->new SpriteObject(false));
 	}
 	
-	public void setBackgroundImage(Image image, String imagePath){
-		// NOTHING ON DEFAULT	
+	public AbstractSpriteObject setBackgroundImage(Supplier<AbstractSpriteObject> spriteSupplier){
+		return null;	
 	}
 	
 	public void addMostRecentActive(AuthoringMapStackPane newMostRecentActive){
@@ -231,10 +233,10 @@ public abstract class MapLayer extends GridPane {
 	
 	public AuthoringMapStackPane getChildAtPosition(int row, int col){
 		AuthoringMapStackPane result = null;
-		if (this.getChildren() == null) System.out.println("ALL THE CHILDREN ARE NULL!");
+		if (this.getChildren() == null) ;
 		ObservableList<Node> childrens = this.getChildren();
 	    for (Node node : childrens) {
-//	    	System.out.println("rowIndex: "+this.getRowIndex(node)+", columnIndex: "+this.getColumnIndex(node));
+//	    	;
 	        if(this.getRowIndex(node) == row && this.getColumnIndex(node) == col) {
 	            result = (AuthoringMapStackPane) node;
 	            break;
@@ -291,7 +293,7 @@ public abstract class MapLayer extends GridPane {
 		this.add(sp, col, row);
 		sp.setColSpan(1);
 		sp.setRowSpan(1);
-//		System.out.println(this.getRowSpan(sp));
+//		;
 		
 		mySGH.addDropHandling(sp);
 		mySGH.addGridMouseClick(sp);

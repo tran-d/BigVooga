@@ -16,6 +16,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Function;
+
+import authoring.Holdable;
+import authoring.DialogSprite.DialogSequence;
 import authoring.Sprite.AnimationSequences.AuthoringAnimationSequence;
 import authoring.Sprite.AnimationSequences.AuthoringImageView;
 import authoring.Sprite.Parameters.BooleanSpriteParameter;
@@ -27,6 +30,7 @@ import authoring_actionconditions.ActionTreeView;
 import authoring_actionconditions.ConditionTreeView;
 import engine.Action;
 import engine.Condition;
+import engine.utilities.data.GameDataHandler;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -62,6 +66,8 @@ public abstract class AbstractSpriteObject extends ImageView {
 
 	@IsLockedUtility(readableName = "Image Path: ", getMethod = "getImageURL")
 	protected String myImageURL;
+	
+	protected ObjectProperty<String> myImageURLProperty;
 
 	@IsUnlockedUtility(readableName = "Position: ", getMethod = "getMyPositionOnGrid", setMethod = "setMyPositionOnGrid")
 	protected Integer[] myPositionOnGrid;
@@ -100,6 +106,11 @@ public abstract class AbstractSpriteObject extends ImageView {
 	protected List<ActionTreeView> actionTreeViews;
 	protected List<AuthoringAnimationSequence> myAnimationSequences;
 	protected List<String> myTags;
+	protected AuthoringAnimationSequence myAASDefault;
+	protected List<DialogSequence> myDialogSequences;
+	protected GameDataHandler GDH;
+
+
 
 	public AbstractSpriteObject() {
 		super();
@@ -118,9 +129,16 @@ public abstract class AbstractSpriteObject extends ImageView {
 	}
 
 	private void initializeVariables() {
+		
+		
 		myTags = new ArrayList<String>();
 		myInventory = new ArrayList<AbstractSpriteObject>();
 		myAnimationSequences = new ArrayList<AuthoringAnimationSequence>();
+		myAASDefault = new AuthoringAnimationSequence("Default");
+		myAnimationSequences.add(myAASDefault);
+		myDialogSequences = new ArrayList<DialogSequence>();
+		setUpImageURLProperty();
+		
 		initializePositionOnGridProperty();
 		initializeHeightWidthProperties();
 	}
@@ -130,37 +148,50 @@ public abstract class AbstractSpriteObject extends ImageView {
 			// Nothing
 		} else {
 			initializeVariables();
+			initializeActionConditions();
 			setUniqueID();
 		}
 	}
 
-	public AbstractSpriteObject(String fileURL) {
+	public AbstractSpriteObject(String fileURL, GameDataHandler GDH) {
 		this();
+		setGameDataHandler(GDH);
 		setupImageURLAndView(fileURL);
 		// myName = fileURL.split("\\.")[0];
 	}
 
-	public AbstractSpriteObject(Image image, String path) {
+	public AbstractSpriteObject(Image image, String path, GameDataHandler GDH) {
 		this();
+		setGameDataHandler(GDH);
+		if (image!=null && path!=null){
 		setupImageURLAndView(image, path);
+		}
 		// myName = fileURL.split("\\.")[0];
 	}
 
-	AbstractSpriteObject(HashMap<String, List<SpriteParameter>> inCategoryMap) {
-		this();
-		categoryMap = new HashMap<String, List<SpriteParameter>>(inCategoryMap);
-	}
+//	AbstractSpriteObject(HashMap<String, List<SpriteParameter>> inCategoryMap, GameDataHandler GDH) {
+//		setGameDataHandler(GDH);
+//		categoryMap = new HashMap<String, List<SpriteParameter>>(inCategoryMap);
+//	}
 
-	AbstractSpriteObject(HashMap<String, List<SpriteParameter>> inCategoryMap, String fileURL) {
-		this();
-		categoryMap = new HashMap<String, List<SpriteParameter>>(inCategoryMap);
-		setupImageURLAndView(fileURL);
-	}
+//	AbstractSpriteObject(HashMap<String, List<SpriteParameter>> inCategoryMap, String fileURL, GameDataHandler GDH) {
+//		setGameDataHandler(GDH);
+//		categoryMap = new HashMap<String, List<SpriteParameter>>(inCategoryMap);
+//		setupImageURLAndView(fileURL);
+//	}
 
 	protected void setUniqueID() {
 		if (myUniqueID == null) {
 			myUniqueID = SpriteIDGenerator.getInstance().getUniqueID();
 		}
+	}
+	
+	private AuthoringAnimationSequence getDefaultAnimationSequence(){
+		return this.myAASDefault;
+	}
+	
+	private void setDefaultAnimationSequence(AuthoringAnimationSequence AASDef){
+		this.myAASDefault = AASDef;
 	}
 
 	public void setUniqueID(String ID) {
@@ -172,6 +203,27 @@ public abstract class AbstractSpriteObject extends ImageView {
 	public String getUniqueID() {
 		return myUniqueID;
 	}
+	
+	public List<DialogSequence> getDialogSequences() {
+		return myDialogSequences;
+	}
+
+	public void setDialogSequences(Collection<DialogSequence> dialogSequences) {
+		myDialogSequences = new ArrayList<DialogSequence>();
+		myDialogSequences.addAll(dialogSequences);
+	}
+	
+	public void addDialogSequence(DialogSequence dialogSequence){
+		myDialogSequences.add(dialogSequence.clone());
+	}
+	
+	public void addDialogSequence(List<DialogSequence> dialogSequences){
+		dialogSequences.forEach(dialogSeq->{
+			addDialogSequence(dialogSeq);
+		});
+	}
+	
+	
 
 	public List<String> getTags() {
 		return this.myTags;
@@ -217,22 +269,56 @@ public abstract class AbstractSpriteObject extends ImageView {
 	}
 
 	protected void setupImageURLAndView(String fileURL) {
-		FileInputStream fis;
-		Image im;
-		try {
-			fis = new FileInputStream(new File(fileURL));
-			im = new Image(fis);
-		} catch (FileNotFoundException e) {
-			im = new Image(fileURL);
+//		FileInputStream fis;
+//		Image im;
+//		try {
+//			fis = new FileInputStream(new File(fileURL));
+//			im = new Image(fis);
+//		} catch (FileNotFoundException e) {
+//			im = new Image(fileURL);
+//		}
+		if (GDH!=null) {
+			Image im = GDH.getImage(fileURL);
+			setupImageURLAndView(im, fileURL);
+		} else {
+			myImageURL = fileURL;
 		}
-		setupImageURLAndView(im, fileURL);
+
 	}
 
 	public void setupImageURLAndView(Image image, String path) {
-		myImageURL = path;
+		if (this.myImageURLProperty==null){
+			setUpImageURLProperty();
+		}
+//		System.out.println("path: "+path);
+//		String [] intermediate = path.split(File.separator);
+//		this.myImageURL = intermediate[intermediate.length-1];
+//		System.out.println(" myImageUrl"+ myImageURL);
+		this.myImageURL = path;
+		this.myImageURLProperty.set(path);
+		
 		this.setImage(image);
 		this.setFitWidth(45);
 		this.setFitHeight(45);
+	}
+	
+	public void setGameDataHandler(GameDataHandler GDH) {
+		System.out.println("Setting GDH in ASO");
+		
+		this.GDH = GDH;
+		if (myImageURL!=null && myImageURLProperty==null) {
+			System.out.println("About to setup ImageURL FRom GDh->ASO");
+			this.setupImageURLAndView(myImageURL);
+		}
+	
+	}
+	
+	private void setUpImageURLProperty(){
+		myImageURLProperty = new SimpleObjectProperty<String>();
+		myImageURLProperty.addListener((change, oldImagePath, newImagePath)->{System.out.println("HHHEEERRREEE" + myAASDefault);
+			myAASDefault.replacePrimaryAnimationSequenceImage(new AuthoringImageView(newImagePath));
+			myImageURL = newImagePath;
+		});
 	}
 
 	private void initializeHeightWidthProperties() {
@@ -422,7 +508,8 @@ public abstract class AbstractSpriteObject extends ImageView {
 		return position;
 	}
 
-	public void setImageURL(String fileLocation) {
+	public void setImageURL(String fileLocation){
+		System.out.println("FILE LOCATION: " + fileLocation);
 		setupImageURLAndView(fileLocation);
 	}
 
@@ -494,13 +581,12 @@ public abstract class AbstractSpriteObject extends ImageView {
 	public void setParameterMap(Map<String, List<SpriteParameter>> newParams) {
 		replaceCategoryMap(newParams);
 	}
-
 	protected void replaceCategoryMap(Map<String, List<SpriteParameter>> newParams) {
 		// System.out.println("Replacing cat map");
 
 		this.categoryMap = getNewCopyOfCategoryMap(newParams);
 		// categoryMap = new HashMap<String, ArrayList<SpriteParameterI>>(newParams);
-		// System.out.println("new hashmap: "+categoryMap.toString());
+		// ;
 	}
 
 	protected Map<String, List<SpriteParameter>> getNewCopyOfCategoryMap(Map<String, List<SpriteParameter>> newParams) {
@@ -640,10 +726,9 @@ public abstract class AbstractSpriteObject extends ImageView {
 
 	public void setAnimationSequences(List<AuthoringAnimationSequence> animations) {
 		myAnimationSequences = animations;
-		// = new ArrayList<AuthoringAnimationSequence>();
-		// animations.forEach(aniseq->{
-		// myAnimationSequences.add(new AuthoringAnimationSequence(aniseq));
-		// });
+		if (animations.size()>0){
+		this.myAASDefault = animations.get(0);
+		}
 		System.out.println("Sprite AnimationSeq set, now is: " + myAnimationSequences);
 		System.out.println("Sprite AnimationSeq set, now size: " + myAnimationSequences.size());
 	}
@@ -762,11 +847,15 @@ public abstract class AbstractSpriteObject extends ImageView {
 		Map<Condition, List<Action>> temp = new HashMap<Condition, List<Action>>();
 		for (Condition c : conditionRows.keySet()) {
 			List<Action> actions = new ArrayList<Action>();
-			for (Integer i : conditionRows.get(c)) {
-				actions.add(actionRows.get(i));
+			List<Integer> i = conditionRows.get(c);
+			System.out.println(i.getClass());
+			System.out.println(i.get(0));
+			System.out.println(i.get(0).toString());
+			
+			for (Integer j : i) {
+				actions.add(actionRows.get(j-1));
 			}
 			temp.put(c, actions);
-
 		}
 
 		return temp;

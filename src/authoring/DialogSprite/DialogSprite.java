@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
@@ -26,6 +28,10 @@ public class DialogSprite {
 		});
 		
 	}
+	
+	public DialogSprite(){
+		
+	}
 
 	private DialogText createDialogText(Pane parent, TextArea ta) {
 		DialogText ret = new DialogText(parent, ta);
@@ -34,6 +40,9 @@ public class DialogSprite {
 	
 	public List<DialogText> getDialogText(){
 		return myTexts;
+	}
+	public void setDialogText(List<DialogText> dialogTexts){
+		myTexts = dialogTexts;
 	}
 	
 //	public String getBackgroundColor(){
@@ -44,6 +53,10 @@ public class DialogSprite {
 		return this.myFileURL;
 	}
 	
+	public void setImageFileURL(String newURL){
+		myFileURL = newURL;
+	}
+	
 	public int getCellsWidth(){
 		return cellsWidth;
 	}
@@ -51,6 +64,10 @@ public class DialogSprite {
 	public int getCellsHeight(){
 		return cellsHeight;
 	}
+	
+//	public ImageView getThumbnail() {
+//		return new DialogImage(this);
+//	}
 	
 	
 	/**
@@ -73,6 +90,17 @@ public class DialogSprite {
      */
     private int to255Int(double d) {
         return (int) (d * 255);
+    }
+    
+    public DialogSprite clone(){
+    	DialogSprite ret = new DialogSprite();
+    	ret.setImageFileURL(new String(this.getImageFileURL()));
+    	List<DialogText> newTexts = new ArrayList<DialogText>();
+    	this.getDialogText().forEach(dialog->{
+    		newTexts.add(dialog.clone());
+    	});
+    	ret.setDialogText(newTexts);
+    	return ret;
     }
 
 	

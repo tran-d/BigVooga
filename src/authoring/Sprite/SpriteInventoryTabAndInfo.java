@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 import authoring.AuthoringEnvironmentManager;
+import authoring.Holdable;
 import authoring_UI.SpriteScrollView;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
@@ -55,7 +56,7 @@ public class SpriteInventoryTabAndInfo {
 		containerVBox.setAlignment(Pos.TOP_CENTER);
 
 //		myInventory = new ArrayList<AbstractSpriteObject>();
-		temporaryInventory = new HashSet<AbstractSpriteObject>();
+		setTemporaryInfo();
 //		removedInventory = new ArrayList<AbstractSpriteObject>();
 		this.setClickEvent(click -> {
 			// Nothing by default
@@ -69,9 +70,14 @@ public class SpriteInventoryTabAndInfo {
 		});
 		containerVBox.getChildren().addAll(myTabPane, makeAddInventoryButton());
 	}
+	
+	protected void setTemporaryInfo(){
+		temporaryInventory = new HashSet<AbstractSpriteObject>();
+	}
+	
 
 	public void setSpriteObjectAndUpdate(AbstractSpriteObject ASO) {
-		System.out.println("Setting sprite"+ASO);
+		;
 		setSpriteObject(ASO);
 		remakeContainingVBoxFromNewInventory();
 	}
@@ -203,7 +209,10 @@ public class SpriteInventoryTabAndInfo {
 		List<AbstractSpriteObject>  ret = new ArrayList<AbstractSpriteObject>();
 		tp.getTabs().forEach((tab)->{
 			SpriteScrollView SSV = (SpriteScrollView) tab.getContent();
-			ret.addAll(SSV.getSpriteList());
+			SSV.getSpriteList().forEach(imageview->{
+				ret.add((AbstractSpriteObject)imageview);
+			});
+			
 		});
 		return ret;
 

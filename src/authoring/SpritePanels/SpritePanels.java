@@ -14,16 +14,21 @@ public class SpritePanels extends VBox {
 	protected DisplayPanel elementSelectorDisplayPanel;
 	protected GameElementSelector gameElementSelector;
 	protected SpriteParameterSidebarManager SPSM;
+	protected String myType;
 //	private SpriteSetHelper mySpriteSetHelper;
 	
 	public SpritePanels(){
 		
 	}
+	
+	public SpritePanels(SpriteGridHandler mySGH, AuthoringEnvironmentManager myAEM){
+		this(mySGH, myAEM, "");
+	}
 
-	public SpritePanels(SpriteGridHandler mySGH, AuthoringEnvironmentManager myAEM) {
+	public SpritePanels(SpriteGridHandler mySGH, AuthoringEnvironmentManager myAEM, String type) {
 //		Map<String, List<Pane>> thumbnailSprites = myAEM.getEveryTypeOfSpriteAsThumbnails();
 //		mySpriteSetHelper = new SpriteSetHelper(thumbnailSprites);
-		System.out.println("CHECK");
+		myType = type;
 		SPSM = new SpriteParameterSidebarManager(mySGH.getDraggableGrid());
 		makeLayerDisplayPanel(myAEM);
 		makeElementSelector(mySGH, myAEM);
@@ -43,7 +48,7 @@ public class SpritePanels extends VBox {
 	}
 	
 	public void makeElementSelectorDisplayPanel(AuthoringEnvironmentManager myAEM){
-		System.out.println("Making el selector display panel");
+		;
 		elementSelectorDisplayPanel = new DisplayPanelForTemplateSprites(myAEM);  
 		((DisplayPanelForTemplateSprites) elementSelectorDisplayPanel).setOnElementSpriteActive(new Consumer<Boolean>(){
 

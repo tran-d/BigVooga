@@ -40,7 +40,7 @@ public class BuildActionView {
 			ACRow.getTreeView().getAction();
 			ACRow.reduceTreeView();
 
-			System.out.println(ACRow.getPrefHeight());
+			;
 
 			if (ACVBox.getChildren().size() >= ACRow.getRowID())
 				ACVBox.getChildren().remove(ACRow.getRowID() - 1);

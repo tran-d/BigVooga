@@ -21,17 +21,22 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class ApplyButtonController {
+	
+	public static AbstractSpriteObject selectedSpriteObject;
 
 	public void updateActionConditionTabs(ConditionTab<ConditionRow> conditionTab, ActionTab<ActionRow> actionTab,
-			AbstractSpriteObject spriteObject) {
-		HashMap<ConditionTreeView, List<Integer>> conditions = spriteObject.getConditionTreeviews();
-		List<ActionTreeView> actions = spriteObject.getActionTreeViews();
-		ObservableList<Integer> allConditions = spriteObject.getAllConditions();
-		ObservableList<Integer> allActions = spriteObject.getAllActions();
-		List<String> selectedConditionOperations = spriteObject.getSelectedConditionOperations();
-		List<List<String>> selectedActionOperations = spriteObject.getSelectedActionOperations();
-		Map<Condition, List<Integer>> spriteConditions = spriteObject.getConditionRows();
-		List<Action> spriteActions = spriteObject.getActionRows();
+			AbstractSpriteObject selectedSpriteObject) {
+		
+		ApplyButtonController.selectedSpriteObject = selectedSpriteObject;
+		
+		HashMap<ConditionTreeView, List<Integer>> conditions = selectedSpriteObject.getConditionTreeviews();
+		List<ActionTreeView> actions = selectedSpriteObject.getActionTreeViews();
+		ObservableList<Integer> allConditions = selectedSpriteObject.getAllConditions();
+		ObservableList<Integer> allActions = selectedSpriteObject.getAllActions();
+		List<String> selectedConditionOperations = selectedSpriteObject.getSelectedConditionOperations();
+		List<List<String>> selectedActionOperations = selectedSpriteObject.getSelectedActionOperations();
+		Map<Condition, List<Integer>> spriteConditions = selectedSpriteObject.getConditionRows();
+		List<Action> spriteActions = selectedSpriteObject.getActionRows();
 		ActionConditionHBox topToolBarConditions = new ActionConditionHBox(
 				ResourceBundleUtil.getTabTitle("ConditionsTabTitle"),
 				createObservableIntegerList(selectedConditionOperations.size()));
@@ -120,6 +125,10 @@ public class ApplyButtonController {
 			ret.add(i);
 		}
 		return ret;
+	}
+	
+	public static AbstractSpriteObject getSelectedSpriteObject() {
+		return selectedSpriteObject;
 	}
 
 }

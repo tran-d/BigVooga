@@ -62,8 +62,13 @@ public class GameElementSelector extends TabPane implements Observer {
 //	private SpriteObjectGridManagerI mySOGM;
 	protected SpriteGridHandler mySpriteGridHandler;
 	private Tab dialoguesTab;
+	protected String myType;
+	
+	protected GameElementSelector(SpriteGridHandler spriteGridHandler, AuthoringEnvironmentManager AEM){
+		this(spriteGridHandler, AEM, "");	}
 
-	protected GameElementSelector(SpriteGridHandler spriteGridHandler, AuthoringEnvironmentManager AEM) {
+	protected GameElementSelector(SpriteGridHandler spriteGridHandler, AuthoringEnvironmentManager AEM, String type) {
+		myType = type;
 		myAEM = AEM;
 		mySpriteGridHandler = spriteGridHandler;
 		this.setPrefHeight(280);
@@ -72,7 +77,6 @@ public class GameElementSelector extends TabPane implements Observer {
 
 	/**
 	 * creates new user sprite
-	 * @author taekwhunchung
 	 * @author Samuel
 	 * @param sp
 	 */
@@ -94,7 +98,7 @@ public class GameElementSelector extends TabPane implements Observer {
 		TabPane spritesTabPane = new TabPane();
 		TabPane dialoguesTabPane = new TabPane();
 		TabPane inventoryTabPane = new TabPane();
-		System.out.println("Def controller: "+myAEM.getDefaultSpriteController());
+		;
 		Tab defaultSpriteTab = createSubTab(DEFAULT, myAEM.getDefaultSpriteController());
 		Tab userSpriteTab = createSubTab(USER, myAEM.getCustomSpriteController());
 		Tab importedSpriteTab = createSubTab(IMPORTED, myAEM.getImportedSpriteController());
@@ -106,18 +110,18 @@ public class GameElementSelector extends TabPane implements Observer {
 		spritesTabPane.getTabs().addAll(defaultSpriteTab, userSpriteTab, importedSpriteTab);
 		spritesTabPane.setSide(Side.RIGHT);
 //		dialoguesTabPane.getTabs().addAll(defaultDialogueTab, userDialogueTab, importedDialogueTab);
-		dialoguesTabPane.setSide(Side.RIGHT);
+//		dialoguesTabPane.setSide(Side.RIGHT);
 		
 		inventoryTabPane.setSide(Side.RIGHT);
 		inventoryTabPane.getTabs().addAll(inventorySpriteTab, importedInventorySpriteTab);
 		
 		Tab spritesTab = createElementTab(SPRITES, spritesTabPane);
 		spritesTab.setClosable(false);
-		dialoguesTab = createElementTab(DIALOGUES, dialoguesTabPane);
-		dialoguesTab.setClosable(false);
+//		dialoguesTab = createElementTab(DIALOGUES, dialoguesTabPane);
+//		dialoguesTab.setClosable(false);
 		Tab inventoryTab = createElementTab(INVENTORY, inventoryTabPane);
 		inventoryTab.setClosable(false);
-		this.getTabs().addAll(spritesTab, dialoguesTab, inventoryTab);
+		this.getTabs().addAll(spritesTab, inventoryTab);
 		
 		this.setSide(Side.TOP);
 	}
@@ -183,8 +187,7 @@ public class GameElementSelector extends TabPane implements Observer {
 				if (counter<sprites.size()) {
 					AbstractSpriteObject toPopulate = sprites.get(counter);
 					System.out.println("Adding " + toPopulate.getImageURL());
-					this.mySpriteGridHandler.addSpriteDrag(toPopulate);
-					this.mySpriteGridHandler.addSpriteMouseClick(toPopulate);
+					addSpriteGridHandlerFunctionality(toPopulate);
 					sp.getChildren().add(toPopulate);
 				counter++;
 				gp.add(sp, j, i);
@@ -196,9 +199,14 @@ public class GameElementSelector extends TabPane implements Observer {
 		return SP;
 	}
 	
+	protected void addSpriteGridHandlerFunctionality(AbstractSpriteObject ASO){
+		mySpriteGridHandler.addSpriteDrag(ASO);
+		mySpriteGridHandler.addSpriteMouseClick(ASO);
+	}
+	
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println(arg);
+		;
 		createUserSprite(arg);
 	}
 	

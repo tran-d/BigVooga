@@ -21,7 +21,7 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 			+ ConditionTreeView.INTEGER_TEXTFIELD_HEIGHT + 2 * ConditionTreeView.VBOX_SPACING;
 	public static final double ROW_WIDTH = ActionConditionRow.ROW_WIDTH + 100;
 	private ConditionTreeView operationTreeView;
-	private ActionCheckBoxVBox<Integer> actionCheckBoxVBox;
+	private ActionCheckBoxVBox actionCheckBoxVBox;
 	private VBox treeViewVBox;
 
 	public ConditionRow(int ID, ObservableList<Integer> newActionOptions, ConditionVBox<ConditionRow> ACVBox) {
@@ -40,7 +40,7 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 			ConditionVBox<ConditionRow> ACVBox, ConditionTreeView tv) {
 		this(ID, newActionOptions, ACVBox);
 		getItems().removeAll(actionCheckBoxVBox, treeViewVBox);
-		actionCheckBoxVBox = new ActionCheckBoxVBox<Integer>(newActionOptions, selectedActionOptions);
+		actionCheckBoxVBox = new ActionCheckBoxVBox(newActionOptions, selectedActionOptions);
 		treeViewVBox = tv.getTreeViewVBox();
 		operationTreeView = tv;
 		getItems().addAll(actionCheckBoxVBox, treeViewVBox);
@@ -51,7 +51,7 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 			ConditionVBox<ConditionRow> ACVBox, String selectedOperation, Condition condition) {
 		this(ID, newActionOptions, ACVBox);
 		getItems().removeAll(actionCheckBoxVBox, treeViewVBox);
-		actionCheckBoxVBox = new ActionCheckBoxVBox<Integer>(newActionOptions, selectedActionOptions);
+		actionCheckBoxVBox = new ActionCheckBoxVBox(newActionOptions, selectedActionOptions);
 		operationTreeView = new ConditionTreeView(this, selectedOperation, condition);
 		treeViewVBox = operationTreeView.getTreeViewVBox();
 		getItems().addAll(actionCheckBoxVBox, treeViewVBox);
@@ -105,7 +105,7 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 	}
 
 	private void addActionCheckBox(ObservableList<Integer> newActionOptions) {
-		actionCheckBoxVBox = new ActionCheckBoxVBox<Integer>(newActionOptions);
+		actionCheckBoxVBox = new ActionCheckBoxVBox(newActionOptions);
 		getItems().add(actionCheckBoxVBox);
 	}
 
