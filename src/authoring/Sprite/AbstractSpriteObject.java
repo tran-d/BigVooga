@@ -280,10 +280,11 @@ public abstract class AbstractSpriteObject extends ImageView {
 		if (this.myImageURLProperty==null){
 			setUpImageURLProperty();
 		}
-		System.out.println("path: "+path);
-		String [] intermediate = path.split(File.separator);
-		this.myImageURL = intermediate[intermediate.length-1];
-		System.out.println(" myImageUrl"+ myImageURL);
+//		System.out.println("path: "+path);
+//		String [] intermediate = path.split(File.separator);
+//		this.myImageURL = intermediate[intermediate.length-1];
+//		System.out.println(" myImageUrl"+ myImageURL);
+		this.myImageURL = path;
 		this.myImageURLProperty.set(path);
 		
 		this.setImage(image);

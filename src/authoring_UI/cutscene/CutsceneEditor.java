@@ -166,7 +166,7 @@ public class CutsceneEditor extends DisplayableEditor {
 	protected void chooseBackgroundImage() {
 		File file = retrieveFileForImageUpload(this.getParent());
 		if (file != null) {
-			image = new Image(GameDataHandler.getImageURIAndCopyToResources(file));
+			image = GDH.getImage(file);
 			cutsceneView.setBackgroundImage(image);
 		}
 	}

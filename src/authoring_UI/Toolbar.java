@@ -112,7 +112,7 @@ public class Toolbar extends ToolBar {
 	 */
 	private List<MenuItem> createImportOptions() {
 		List<MenuItem> importItems = new ArrayList<MenuItem>();
-		File f = new File(GAMES_PATH);
+		File f = new File(GAMES_PATH);//TODO: WHAT THE FUCK DO WE NEED TO CHNAGE THIS?
 		File[] listOfFiles = f.listFiles();
 		for (File file: listOfFiles) {
 			MenuItem tempItem = new MenuItem(file.getName());

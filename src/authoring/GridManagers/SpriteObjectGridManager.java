@@ -11,6 +11,7 @@ import authoring.Sprite.DefaultSpriteObject;
 import authoring.Sprite.SpriteObject;
 import authoring_UI.SpriteGridHandler;
 import authoring_UI.Map.MapLayer;
+import engine.utilities.data.GameDataHandler;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.paint.Color;
@@ -119,9 +120,10 @@ public abstract class SpriteObjectGridManager {
 		// initializeGrid();
 	}
 
-	public SpriteObjectGridManager(int rows, int columns, SpriteGridHandler SGH) {
+	public SpriteObjectGridManager(int rows, int columns, SpriteGridHandler SGH, GameDataHandler GDH) {
 		this(rows, columns);
 
+		
 		setSpriteGridHandler(SGH);
 		createMapLayer();
 		setSizeToMatchDefaults();

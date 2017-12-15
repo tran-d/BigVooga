@@ -13,8 +13,8 @@ public class AuthoringImageView extends ImageView{
 	
 	public AuthoringImageView(String path, Image im){
 		super(im);
-		File f = new File(path);
-		imagePath = f.getName();
+//		File f = new File(path);
+		imagePath = path;
 	}
 	
 	public AuthoringImageView(String path, Image im, BoundedImage bImage){
@@ -23,10 +23,10 @@ public class AuthoringImageView extends ImageView{
 	}
 	
 	public AuthoringImageView(String path){
-		System.out.println("AIV path: "+path);
-		File f = new File(path);
-		Image im = new Image(path);
-		imagePath = f.getName();
+//		System.out.println("AIV path: "+path);
+//		File f = new File(path);
+		Image im = GDH.getImage(path);
+		imagePath = path;
 		setImage(im);
 	}
 	

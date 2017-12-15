@@ -21,6 +21,7 @@ import authoring_UI.SpriteCreatorTab.SpriteCreatorLayer;
 import engine.utilities.data.GameDataHandler;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -55,8 +56,10 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 	private Integer cols;
 	private String savePath;
 	private String myName;
+	private GameDataHandler GDH;
 
-	public DraggableGrid() {
+	public DraggableGrid(GameDataHandler currentGDH) {
+		GDH = currentGDH;
 		rows = 20; // TODO HARDCODED
 		cols = 20;
 	}
@@ -107,7 +110,7 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 	}
 	
 	public DraggableGrid(List<SpriteObjectGridManager> SGMs) {
-		this();
+		
 		allGrids = SGMs;
 	}
 
@@ -126,6 +129,7 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 	private void makeTopInfo() {
 		topHbox = new HBox(10);
 		topHbox.setAlignment(Pos.CENTER);
+		topHbox.setPadding(new Insets(0, 8, 0, 0));
 		this.getChildren().add(topHbox);
 	}
 	
@@ -182,11 +186,13 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 	private void makeLayers(SpriteGridHandler spriteGridHandler){
 		showingGrids = new ArrayList<SpriteObjectGridManager>();
 		if (allGrids.size()==0){
-			;
-		SpriteObjectGridManager background = new BackgroundGridManager(rows, cols, spriteGridHandler);
-		SpriteObjectGridManager terrain = new TerrainObjectGridManager(rows, cols, spriteGridHandler);
-		SpriteObjectGridManagerForSprites sprites = new SpriteObjectGridManagerForSprites(rows, cols, spriteGridHandler);
-		PanelObjectGridManager panels = new PanelObjectGridManager(rows, cols, spriteGridHandler);
+
+			System.out.println("SHOULD NOT BE GOING THROUGH THIS ALERT ALERT ALERT");
+		SpriteObjectGridManager background = new BackgroundGridManager(rows, cols, spriteGridHandler, GDH);
+		SpriteObjectGridManager terrain = new TerrainObjectGridManager(rows, cols, spriteGridHandler, GDH);
+		SpriteObjectGridManagerForSprites sprites = new SpriteObjectGridManagerForSprites(rows, cols, spriteGridHandler, GDH);
+		PanelObjectGridManager panels = new PanelObjectGridManager(rows, cols, spriteGridHandler, GDH);
+		
 		allGrids.add(background);
 		allGrids.add(terrain);
 		allGrids.add(sprites);
@@ -261,10 +267,52 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 			}
 		});
 		hbox.getChildren().addAll(label, checkbox);
+		
 		if (ML instanceof SpriteCreatorGridManager){
-			hbox.getChildren().addAll(((SpriteCreatorGridManager)ML).getExtraUI());
+			HBox nameCategoryBox = ((SpriteCreatorGridManager)ML).getNameCategoryBox();
+			HBox spriteButtonsBox = ((SpriteCreatorGridManager)ML).getSpriteButtonsBox();
+			//ColorPicker
+			ColorPicker cp = new ColorPicker(Color.TRANSPARENT);
+			cp.setOnAction((event)->{
+				ML.setColor(cp.getValue());
+			});
+			
+			//Choose Image
+			
+			Button button = new Button("Load Image");
+			button.setOnAction((event)->{
+				Node parent = ML.getMapLayer().getParent();
+				Scene s = parent.getScene();
+				while (s == null) {
+					parent = parent.getParent();
+					s = parent.getScene();
+				}
+				File file = GDH.chooseFileForImageSave(s.getWindow());
+				if (file != null) {
+					ML.getOnBackgroundChangeFunctionality(file);
+				}
+			});
+	
+			HBox layerBox = new HBox(10);
+			layerBox.setAlignment(Pos.CENTER);
+			layerBox.getChildren().addAll(label, checkbox);
+			
+			Separator separator = new Separator();
+			separator.setOrientation(Orientation.VERTICAL);
+			
+			spriteButtonsBox.getChildren().add(0, cp);
+			spriteButtonsBox.getChildren().add(1, button);
+			spriteButtonsBox.getChildren().addAll(separator, layerBox);
+			
+			VBox spriteCreatorBox = new VBox(10);
+			spriteCreatorBox.getChildren().addAll(nameCategoryBox, spriteButtonsBox);
+			
+			hbox.getChildren().add(spriteCreatorBox);
+			hbox.setAlignment(Pos.CENTER);
 		}
-		if (ML.canFillBackground()){
+			
+		else if (ML.canFillBackground()){
+			
 			//ColorPicker
 			ColorPicker cp = new ColorPicker(Color.TRANSPARENT);
 			cp.setOnAction((event)->{

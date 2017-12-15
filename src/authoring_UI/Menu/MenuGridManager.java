@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import authoring.GridManagers.SpriteObjectGridManager;
 import authoring.Sprite.Parameters.SpriteParameterI;
 import authoring_UI.SpriteGridHandler;
+import engine.utilities.data.GameDataHandler;
 import javafx.scene.image.ImageView;
 
 public class MenuGridManager extends SpriteObjectGridManager {
@@ -13,16 +14,16 @@ public class MenuGridManager extends SpriteObjectGridManager {
 	private static int COLUMNS = 6;
 	
 	
-	public MenuGridManager(SpriteGridHandler SGH){
-		super(ROWS, COLUMNS, SGH);
+	public MenuGridManager(SpriteGridHandler SGH, GameDataHandler GDH){
+		super(ROWS, COLUMNS, SGH, GDH);
 	}
 	
 	public MenuGridManager(){
 		super(ROWS, COLUMNS);
 	}
 
-	protected MenuGridManager(int rows, int columns, SpriteGridHandler SGH) {
-		super(rows, columns, SGH);
+	protected MenuGridManager(int rows, int columns, SpriteGridHandler SGH, GameDataHandler GDH) {
+		super(rows, columns, SGH, GDH);
 	}
 	
 	@Override
