@@ -11,20 +11,23 @@ import authoring.SpritePanels.SpritePanels;
 import authoring_UI.DraggableGrid;
 import authoring_UI.MapManager;
 import authoring_UI.SpriteGridHandler;
+import engine.utilities.data.GameDataHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class MenuManager extends MapManager{
 	
 	private SpriteObjectGridManager MenuGridBE;
+	private AuthoringEnvironmentManager AEM;
 
 	public MenuManager(AuthoringEnvironmentManager AEM, Scene currentScene) {
 		super(AEM, currentScene);
+		this.AEM = AEM;
 	}
 	
 	@Override 
 	protected DraggableGrid makeDraggableGrid(){
-		DraggableGrid ret = new DraggableGrid();
+		DraggableGrid ret = new DraggableGrid(AEM.getGameDataHandler());
 		MenuGridBE = new MenuGridManager();
 		BackgroundGridManager BackgroundGrid = new BackgroundGridManager(MenuGridBE.getDefaultRows(), MenuGridBE.getDefaultCols());
 		List<SpriteObjectGridManager> grids = new ArrayList<SpriteObjectGridManager>();
@@ -36,7 +39,7 @@ public class MenuManager extends MapManager{
 	
 	@Override
 	protected void setManagerName(){
-		MANAGERNAME = "MenuManager";
+		MANAGER_NAME = "MenuManager";
 	}
 	
 	@Override 

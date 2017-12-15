@@ -71,9 +71,13 @@ public class DialogueEditor extends DisplayableEditor {
 	private ColorPicker backgroundColorCP;
 	private SVGPath svg;
 	private Image image;
+	private String currentFile;
+	private Color bgColor;
+	private GameDataHandler GDH;
 
-	public DialogueEditor(Consumer<String> saveCons) {
+	public DialogueEditor(Consumer<String> saveCons, GameDataHandler currentGDH) {
 		this.saveConsumer = saveCons;
+		GDH = currentGDH;
 		view = new VBox(10);
 		view.getStylesheets().add(DialogueManager.class.getResource("dialogue.css").toExternalForm());
 
@@ -107,17 +111,18 @@ public class DialogueEditor extends DisplayableEditor {
 		return dsp.getDialogueSequence();
 	}
 	
-	protected Color getBackgroundColor() {
-		return backgroundColorCP.getValue();
+	protected String getBackgroundColor() {
+		return backgroundColorCP.getValue().toString();
 	}
 	
+
 	protected VBox getView() {
 		System.out.println(view.getHeight());
 		return view;
 	}
 	
-	protected Image getBackgroundImage() {
-		return image;
+	protected String getBackgroundImage() {
+		return currentFile;
 	}
 
 	/*************************** PRIVATE METHODS *********************************/
@@ -171,8 +176,10 @@ public class DialogueEditor extends DisplayableEditor {
 	protected void chooseBackgroundImage() {
 		File file = retrieveFileForImageUpload(this.getParent());
 		if (file != null) {
-			image = new Image(GameDataHandler.getImageURIAndCopyToResources(file));
+			currentFile = GDH.getImageURIAndCopyToResources(file);
+			image = new Image(currentFile);
 			dsp.setBackgroundImage(image);
+			backgroundColorCP.setValue(null);
 		}
 	}
 	
@@ -201,7 +208,7 @@ public class DialogueEditor extends DisplayableEditor {
 			try {
 				int size = Integer.parseInt(sizeTF.getText());
 				saveConsumer.accept(getName());
-				System.out.println("size changed! saving!");
+				;
 				dsp.setFont(getFontType(), size);
 			} catch (NumberFormatException ex) {
 				sizeTF.clear();
@@ -218,7 +225,8 @@ public class DialogueEditor extends DisplayableEditor {
     
 	@Override
 	protected void changeBackgroundColor() {
-    		dsp.setBackgroundColor(backgroundColorCP.getValue());
+		currentFile = null;
+		dsp.setBackgroundColor(backgroundColorCP.getValue());
     }
 
 	@Override
@@ -230,7 +238,7 @@ public class DialogueEditor extends DisplayableEditor {
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 
 				saveConsumer.accept(getName());
-				System.out.println("font changed! saving!");
+				;
 				dsp.setFont(observableList.get(cb.getSelectionModel().getSelectedIndex()), getFontSize());
 			}
 		});

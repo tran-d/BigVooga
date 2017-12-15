@@ -26,6 +26,10 @@ public class DialogSprite {
 		});
 		
 	}
+	
+	public DialogSprite(){
+		
+	}
 
 	private DialogText createDialogText(Pane parent, TextArea ta) {
 		DialogText ret = new DialogText(parent, ta);
@@ -35,6 +39,9 @@ public class DialogSprite {
 	public List<DialogText> getDialogText(){
 		return myTexts;
 	}
+	public void setDialogText(List<DialogText> dialogTexts){
+		myTexts = dialogTexts;
+	}
 	
 //	public String getBackgroundColor(){
 //		return this.myBackgroundColor;
@@ -42,6 +49,10 @@ public class DialogSprite {
 	
 	public String getImageFileURL(){
 		return this.myFileURL;
+	}
+	
+	public void setImageFileURL(String newURL){
+		myFileURL = newURL;
 	}
 	
 	public int getCellsWidth(){
@@ -73,6 +84,17 @@ public class DialogSprite {
      */
     private int to255Int(double d) {
         return (int) (d * 255);
+    }
+    
+    public DialogSprite clone(){
+    	DialogSprite ret = new DialogSprite();
+    	ret.setImageFileURL(new String(this.getImageFileURL()));
+    	List<DialogText> newTexts = new ArrayList<DialogText>();
+    	this.getDialogText().forEach(dialog->{
+    		newTexts.add(dialog.clone());
+    	});
+    	ret.setDialogText(newTexts);
+    	return ret;
     }
 
 	

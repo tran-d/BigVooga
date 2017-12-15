@@ -13,21 +13,24 @@ import authoring.SpritePanels.SpritePanels;
 import authoring_UI.DraggableGrid;
 import authoring_UI.MapManager;
 import authoring_UI.SpriteGridHandler;
+import engine.utilities.data.GameDataHandler;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 
 public class SpriteCreatorManagerSlack extends MapManager{
 	
 	private SpriteObjectGridManager SpriteCreatorGridBE;
+	private GameDataHandler GDH;
 
 	public SpriteCreatorManagerSlack(AuthoringEnvironmentManager AEM, Scene currentScene, String type) {
 		super(AEM, currentScene, type);
+		GDH = AEM.getGameDataHandler();
 		
 	}
 	
 	@Override 
 	protected DraggableGrid makeDraggableGrid(){
-		DraggableGrid ret = new DraggableGrid();
+		DraggableGrid ret = new DraggableGrid(GDH);
 		if (myType.equals("SpriteObject")){
 		SpriteCreatorGridBE = new SpriteCreatorGridManager(myAEM, (Image im, String filePath)->new SpriteObject(im, filePath));
 		} else if (myType.equals("InventoryObject")){
@@ -45,7 +48,7 @@ public class SpriteCreatorManagerSlack extends MapManager{
 	
 	@Override
 	protected void setManagerName(){
-		MANAGERNAME = myType.equals("InventoryObject") ?"InventoryCreator" : "SpriteCreator";
+		MANAGER_NAME = myType.equals("InventoryObject") ?"InventoryCreator" : "SpriteCreator";
 	}
 	
 	@Override 

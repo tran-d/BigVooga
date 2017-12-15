@@ -67,9 +67,11 @@ public class CutsceneEditor extends DisplayableEditor {
 	private ColorPicker backgroundColorCP;
 	private SVGPath svg;
 	private Image image;
+	private GameDataHandler GDH;
 
-	public CutsceneEditor(Consumer<String> saveCons) {
+	public CutsceneEditor(Consumer<String> saveCons, GameDataHandler GDH) {
 		this.saveConsumer = saveCons;
+		this.GDH = GDH;
 		view = new VBox(10);
 		view.getStylesheets().add(DialogueManager.class.getResource("dialogue.css").toExternalForm());
 
@@ -172,13 +174,18 @@ public class CutsceneEditor extends DisplayableEditor {
 	
 	@Override
 	protected void chooseBackgroundImage() {
-		File file = retrieveFileForImageUpload(this.getParent());
+		File file = retrieveFileForImageUpload();
 		if (file != null) {
-			image = new Image(GameDataHandler.getImageURIAndCopyToResources(file));
+			image = new Image(GDH.getImageURIAndCopyToResources(file));
 			cutsceneView.setBackgroundImage(image);
 		}
 	}
 	
+	protected File retrieveFileForImageUpload() {
+		File file = super.retrieveFileForImageUpload(this.getParent());
+		
+		return file;
+	}
 
 	private void makeInputFields() {
 		nameTF = makeTextField(NAME_PROMPT_WIDTH, PROMPT_HEIGHT);
@@ -193,7 +200,7 @@ public class CutsceneEditor extends DisplayableEditor {
 
 		numPanelsTF = makeTextField(NUM_PANELS_PROMPT_WIDTH, PROMPT_HEIGHT);
 
-		cutsceneView = new CutsceneTextAreaView(() -> saveConsumer.accept(getName()), () -> backgroundColorCP.getValue());
+		cutsceneView = new CutsceneTextAreaView(() -> saveConsumer.accept(getName()), () -> backgroundColorCP.getValue(), GDH, this);
 		// numPanelsTF.setOnInputMethodTextChanged(e -> checkInput());
 	}
 	

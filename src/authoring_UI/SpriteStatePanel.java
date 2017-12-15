@@ -39,7 +39,7 @@ public class SpriteStatePanel extends VBox {
 		Tab userTab = makeTab("User");
 		Tab importTab = makeTab("Imported");
 
-		System.out.println(myAEM.getDefaultSpriteController().getAllSprites().size());
+		;
 		ScrollPane defaultSP = new ScrollPane(new SpriteCreatorGrid(myAEM.getDefaultSpriteController().getAllSprites()));
 		defaultTab.setContent(defaultSP);
 

@@ -139,7 +139,7 @@ public class SpriteCreatorSpriteSelector extends TabPane implements Observer {
 				sp.setBorder(new Border(border));
 				if (counter < sprites.size()) {
 					AbstractSpriteObject toPopulate = sprites.get(counter);
-					System.out.println("Adding " + toPopulate);
+					;
 					this.mySpriteGridHandler.addSpriteMouseClick(toPopulate);
 					sp.getChildren().add(toPopulate);
 					counter++;
@@ -162,12 +162,12 @@ public class SpriteCreatorSpriteSelector extends TabPane implements Observer {
 		// spritesTabPane.getTabs().addAll(defaultSpriteTab, userSpriteTab,
 		// importedSpriteTab);
 		// (defaultSpriteTab, userSpriteTab, importedSpriteTab);
-		System.out.println("userspritestab updated");
+		;
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println(arg);
+		;
 		createUserSprite(arg);
 	}
 

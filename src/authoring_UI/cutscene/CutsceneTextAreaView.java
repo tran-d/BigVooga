@@ -1,11 +1,13 @@
 package authoring_UI.cutscene;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 import authoring_UI.displayable.DisplayableTextAreaView;
+import engine.utilities.data.GameDataHandler;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,9 +17,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.control.ScrollPane;
 
 public class CutsceneTextAreaView extends DisplayableTextAreaView {
 
@@ -40,7 +44,7 @@ public class CutsceneTextAreaView extends DisplayableTextAreaView {
 	private Button removePanelButton;
 	private Label currentPane;
 	private Label totalPanes;
-	private HBox dialoguePreview;
+	private ScrollPane cutscenePreview;
 	private int currentPaneIndex;
 
 	private SimpleIntegerProperty current;
@@ -52,14 +56,19 @@ public class CutsceneTextAreaView extends DisplayableTextAreaView {
 	private double oldHeight = 0;
 	private Supplier<Color> currentBgColor;
 	private Image currentBgImage;
+	private GameDataHandler GDH;
+	private CutsceneEditor csEditor;
+	private ScrollPane myScrollPane;
 
-	protected CutsceneTextAreaView(Runnable save, Supplier <Color> bgColor) {
+	protected CutsceneTextAreaView(Runnable save, Supplier <Color> bgColor, GameDataHandler GDH, CutsceneEditor csEditor) {
 		currentBgColor = bgColor;
 		taList = new ArrayList<TextArea>();
 		paneList = new ArrayList<Pane>();
-		dialoguePreview = new HBox();
+		cutscenePreview = new ScrollPane();
 		this.save = save;
 		this.setSpacing(15);
+		this.GDH = GDH;
+		this.csEditor = csEditor;
 
 		currentPaneIndex = -1;
 		current = new SimpleIntegerProperty(0);
@@ -68,7 +77,7 @@ public class CutsceneTextAreaView extends DisplayableTextAreaView {
 		addPanel();
 
 		this.setAlignment(Pos.CENTER);
-		this.getChildren().addAll(dialoguePreview, makeToolPanel());
+		this.getChildren().addAll(cutscenePreview, makeToolPanel());
 
 	}
 	
@@ -134,7 +143,7 @@ public class CutsceneTextAreaView extends DisplayableTextAreaView {
 		TextArea ta = createTextArea(25, 25, paneList.get(0).getBackground());
 		
 		taList.add(ta);
-		Pane k = (Pane) dialoguePreview.getChildren().get(0);
+		Pane k = (Pane) cutscenePreview.getContent();
 		k.getChildren().add(ta);
 		
 		super.makeDraggableAndResizable(ta);	
@@ -142,7 +151,14 @@ public class CutsceneTextAreaView extends DisplayableTextAreaView {
 	}
 	
 	protected void addImage() {
-		
+		File file = csEditor.retrieveFileForImageUpload();
+		if (file != null) {
+			Image image = new Image(GDH.getImageURIAndCopyToResources(file));
+			ImageView newImage = new ImageView(image);
+			Pane k = (Pane) cutscenePreview.getContent();
+			k.getChildren().add(newImage);
+			
+		}
 	}
 
 	@Override
@@ -150,9 +166,9 @@ public class CutsceneTextAreaView extends DisplayableTextAreaView {
 		currentPaneIndex += 1;
 		current.set(current.get()+1);
 		if (!paneList.isEmpty()) {
-			dialoguePreview.getChildren().clear();
+			cutscenePreview.setContent(null);
 		}
-		dialoguePreview.getChildren().add(paneList.get(currentPaneIndex));
+		cutscenePreview.setContent(paneList.get(currentPaneIndex));
 	}
 
 	@Override
@@ -161,8 +177,7 @@ public class CutsceneTextAreaView extends DisplayableTextAreaView {
 			currentPaneIndex -= 1;
 			System.out.println(currentPaneIndex);
 			current.set(current.get()-1);
-			dialoguePreview.getChildren().clear();
-			dialoguePreview.getChildren().add(paneList.get(currentPaneIndex));
+			cutscenePreview.setContent(paneList.get(currentPaneIndex));
 		}
 	}
 
@@ -172,8 +187,7 @@ public class CutsceneTextAreaView extends DisplayableTextAreaView {
 			currentPaneIndex += 1;
 			System.out.println(currentPaneIndex);
 			current.set(current.get()+1);
-			dialoguePreview.getChildren().clear();
-			dialoguePreview.getChildren().add(paneList.get(currentPaneIndex));
+			cutscenePreview.setContent(paneList.get(currentPaneIndex));
 		}
 	}
 

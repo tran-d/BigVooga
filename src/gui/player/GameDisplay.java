@@ -7,9 +7,11 @@ import controller.player.Debugging;
 import controller.player.PlayerManager;
 import controller.welcomeScreen.SceneController;
 import engine.EngineController;
+import engine.VoogaException;
 import engine.sprite.Displayable;
 import engine.sprite.DisplayableImage;
 import engine.sprite.DisplayableText;
+import engine.sprite.Positionable;
 import engine.utilities.data.GameDataHandler;
 import gui.welcomescreen.WelcomeScreen;
 import javafx.scene.Group;
@@ -24,6 +26,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -89,7 +92,6 @@ public class GameDisplay {
 		back.setOnMouseClicked(e -> exitToMenu());
 		rootPane.setTop(back);
 	}
-	
 
 	/**
 	 * Passes the PlayerManager into GameDisplay.
@@ -121,7 +123,7 @@ public class GameDisplay {
 	 */
 	public void setUpdatedDisplayables(List<Displayable> images) {
 		gamePane.getChildren().clear();
-		
+
 		for (Displayable d : images) {
 			d.visit(this);
 		}
@@ -131,10 +133,11 @@ public class GameDisplay {
 		ImageView gameImage = null;
 		try {
 			gameImage = new ImageView(gameDataHandler.getImage(image.getFileName()));
-		} catch (URISyntaxException e) {
+		} catch (VoogaException e) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setContentText(e.getMessage());
 			alert.showAndWait();
+			return;
 		}
 		gameImage.setFitWidth(image.getWidth());
 		gameImage.setFitHeight(image.getHeight());
@@ -143,7 +146,7 @@ public class GameDisplay {
 		gameImage.setY(image.getY() - image.getHeight() / 2);
 		gamePane.getChildren().add(gameImage);
 	}
-	
+
 	public void displayText(DisplayableText displayableText) {
 		Text text = new Text(displayableText.getText());
 		text.setWrappingWidth(displayableText.getWidth());
@@ -153,27 +156,34 @@ public class GameDisplay {
 		HBox box = new HBox(text);
 		Group g = new Group(box);
 		g.applyCss();
-	    g.layout();
-		g.setLayoutX(displayableText.getX()-box.getWidth()/2);
-		g.setLayoutY(displayableText.getY()-box.getHeight()/2);
+		g.layout();
+		g.setLayoutX(displayableText.getX() - box.getWidth() / 2);
+		g.setLayoutY(displayableText.getY() - box.getHeight() / 2);
 		gamePane.getChildren().add(g);
 	}
 
+	public void drawRectangle(Positionable pos, String color) {
+		Rectangle rect = new Rectangle(pos.getX() - pos.getWidth() / 2, pos.getY() - pos.getHeight() / 2,
+				pos.getWidth(), pos.getHeight());
+		rect.setRotate(pos.getHeading());
+		rect.setFill(Color.web(color));
+		gamePane.getChildren().add(rect);
+	}
+	
 	/**
-	 * Gets the scene for initialization in SceneController.
+	 * Gets the scene for initialization in SceneController. 
 	 * 
 	 * @return the game display scene
 	 */
 	public Scene getScene() {
 		return scene;
 	}
-	
-	public void setScene(Scene newScene)
-	{
+
+	public void setScene(Scene newScene) {
 		scene = newScene;
 		stage.setScene(scene);
 	}
-	
+
 	public void debugMenu(EngineController controls) {
 		Debugging debug = new Debugging(this, scene, controls);
 		controls.stop();

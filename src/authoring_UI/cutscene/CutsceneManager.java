@@ -5,6 +5,7 @@ import java.util.List;
 
 import authoring_UI.MapManager;
 import authoring_UI.displayable.DisplayableManager;
+import engine.utilities.data.GameDataHandler;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
@@ -41,9 +42,10 @@ public class CutsceneManager extends DisplayableManager {
 	private CutsceneListView listView;
 
 	private Tab mapDialoguesTab;
+	private GameDataHandler GDH;
 
-	public CutsceneManager() {
-
+	public CutsceneManager(GameDataHandler GDH) {
+		this.GDH = GDH;
 		dView = new CutsceneTabPane();
 		editorList = new ArrayList<>();
 		dExtractor = new CutsceneExtractor();
@@ -106,7 +108,7 @@ public class CutsceneManager extends DisplayableManager {
 	}
 
 	protected void newEditor() {
-		currentEditor = new CutsceneEditor(e -> save());
+		currentEditor = new CutsceneEditor(e -> save(), GDH);
 		currentEditorIndex = editorList.size();
 
 		loadEditor(currentEditorIndex);

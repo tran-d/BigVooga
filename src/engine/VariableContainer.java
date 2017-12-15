@@ -53,9 +53,7 @@ public abstract class VariableContainer {
 	public void addParameter(String name, Object o) throws VoogaException {
 		try {
 			String classType = o.getClass().getSimpleName();
-			System.out.println("class: "+classType);
 			String methodName = ResourceBundle.getBundle("engine.TypeRecovery").getString(classType);
-			System.out.println("meth name: " + methodName);
 			getClass().getMethod(
 					methodName,
 					String.class, o.getClass()).invoke(this, name, o);
