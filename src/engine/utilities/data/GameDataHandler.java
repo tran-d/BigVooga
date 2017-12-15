@@ -274,8 +274,9 @@ public class GameDataHandler {
 	 * @throws URISyntaxException
 	 */
 	public Image getImage(String fileName) {
-		if (cache.containsKey(fileName))
+		if (cache.containsKey(fileName)){
 			return cache.get(fileName);
+		}
 		String path = new File(projectPath + RESOURCES + fileName).toURI().toString();
 		Image i = new Image(path);
 		cache.put(fileName, i);
@@ -422,6 +423,7 @@ public class GameDataHandler {
 		}
 		SpriteDataConverter SDC = (SpriteDataConverter) getObjectFromFile(spriteFile);
 		AbstractSpriteObject ret = SDC.createSprite();
+		ret.setGameDataHandler(this);
 		return ret;
 	}
 
@@ -569,6 +571,7 @@ public class GameDataHandler {
 		if (worldDirFile.exists()) {
 			for (File f : worldDirFile.listFiles()) {
 				MapDataConverter MDC = (MapDataConverter) getObjectFromFile(f);
+				MDC.setGameDataHandler(this);
 				DraggableGrid DG_toAdd = MDC.createDraggableGrid();
 				DG_LIST.add(DG_toAdd);
 			}

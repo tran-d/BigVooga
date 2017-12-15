@@ -96,9 +96,8 @@ public class GameElementSelector extends TabPane implements Observer {
 
 	protected void createSpriteTabs() {
 		TabPane spritesTabPane = new TabPane();
-		TabPane dialoguesTabPane = new TabPane();
+//		TabPane dialoguesTabPane = new TabPane();
 		TabPane inventoryTabPane = new TabPane();
-		;
 		Tab defaultSpriteTab = createSubTab(DEFAULT, myAEM.getDefaultSpriteController());
 		Tab userSpriteTab = createSubTab(USER, myAEM.getCustomSpriteController());
 		Tab importedSpriteTab = createSubTab(IMPORTED, myAEM.getImportedSpriteController());
