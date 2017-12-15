@@ -47,6 +47,7 @@ public class MapDataConverter {
 	
 	public void setGameDataHandler(GameDataHandler GDH){
 		this.GDH = GDH;
+
 	}
 	
 	public DraggableGrid createDraggableGrid() {
@@ -54,6 +55,7 @@ public class MapDataConverter {
 		newMap.setName(this.myName);
 		List<SpriteObjectGridManager> SOGMs = new ArrayList<SpriteObjectGridManager>();
 		this.gridManagers.forEach(LDC->{
+			LDC.setGameDataHandler(GDH);
 			SOGMs.add(LDC.createLayer());
 		});
 		newMap.loadLayers(SOGMs);
