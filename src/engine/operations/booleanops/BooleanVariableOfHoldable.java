@@ -18,7 +18,7 @@ public class BooleanVariableOfHoldable implements BooleanOperation {
 	private HoldableOperation holdable;
 
 	public BooleanVariableOfHoldable(@VoogaAnnotation(name = "Holdable", type = VoogaType.HOLDABLE) HoldableOperation holdable,
-			@VoogaAnnotation(name = "Variable Name", type = VoogaType.BOOLEANNAME) StringOperation varName) {
+			@VoogaAnnotation(name = "Variable Name", type = VoogaType.STRING) StringOperation varName) {
 		this.holdable = holdable;
 		this.varName = varName;
 	}

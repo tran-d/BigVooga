@@ -16,7 +16,7 @@ public class KeyHeld implements BooleanOperation {
 
 	private StringOperation check;
 	
-	public KeyHeld(@VoogaAnnotation(name = "Key", type = VoogaType.KEY) StringOperation check) {
+	public KeyHeld(@VoogaAnnotation(name = "Key", type = VoogaType.STRING) StringOperation check) {
 		this.check = check;
 	}
 

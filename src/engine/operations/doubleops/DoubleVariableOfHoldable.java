@@ -17,7 +17,7 @@ public class DoubleVariableOfHoldable implements DoubleOperation {
 	private HoldableOperation holdable;
 
 	public DoubleVariableOfHoldable(@VoogaAnnotation(name = "Holdable", type = VoogaType.HOLDABLE) HoldableOperation holdable,
-			@VoogaAnnotation(name = "Variable", type = VoogaType.STRINGNAME) StringOperation varName) {
+			@VoogaAnnotation(name = "Variable", type = VoogaType.STRING) StringOperation varName) {
 		this.holdable = holdable;
 		this.varName = varName;
 	}
