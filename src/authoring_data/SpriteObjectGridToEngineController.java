@@ -145,7 +145,9 @@ public class SpriteObjectGridToEngineController {
 	}
 	
 	private BoundedImage convertAnimationSequenceImageToBoundedImage(AnimationSequenceImage ASI){
-		return new BoundedImage(ASI.getImage().getImagePath());/*.replaceAll(".*\\", ""));*/
+		if(ASI.getImage().getBoundedImage() != null)
+			return ASI.getImage().getBoundedImage();
+		return new BoundedImage(ASI.getImage().getImagePath());
 	}
 	
 	private void setPositionAndSizeOfGameObject(SpriteObject SOI, GameObject GO){
