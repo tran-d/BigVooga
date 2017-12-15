@@ -297,8 +297,7 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 			Separator separator = new Separator();
 			separator.setOrientation(Orientation.VERTICAL);
 			
-//			spriteButtonsBox.getChildren().add(0, cp);
-			spriteButtonsBox.getChildren().add(1, button);
+			spriteButtonsBox.getChildren().add(0, button);
 			spriteButtonsBox.getChildren().addAll(separator, layerBox);
 			
 			VBox spriteCreatorBox = new VBox(10);

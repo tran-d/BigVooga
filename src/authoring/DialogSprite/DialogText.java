@@ -3,8 +3,6 @@ package authoring.DialogSprite;
 import javafx.geometry.Bounds;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 
 public class DialogText {
 	
