@@ -14,7 +14,7 @@ public class MoveOnPath implements Action {
 	private DoubleOperation speed;
 
 	public MoveOnPath(@VoogaAnnotation(name = "Sprite", type = VoogaType.GAMEOBJECT) GameObjectOperation object ,
-			@VoogaAnnotation(name = "Speed", type = VoogaType.DOUBLE) DoubleOperation headingIncrement) {
+			@VoogaAnnotation(name = "Speed", type = VoogaType.DOUBLE) DoubleOperation speed) {
 		// TODO Auto-generated constructor stub
 		this.object = object;
 		this.speed = speed;
