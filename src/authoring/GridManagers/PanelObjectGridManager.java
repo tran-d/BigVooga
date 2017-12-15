@@ -20,6 +20,11 @@ public class PanelObjectGridManager extends SpriteObjectGridManager{
 		super(rows, columns);
 		myLayerNum = 3;
 	}
+	
+	public PanelObjectGridManager(int rows, int columns, GameDataHandler GDH) {
+		super(rows, columns, GDH);
+		myLayerNum = 3;
+	}
 
 	public PanelObjectGridManager(int myNumRows, int myNumCols, Color myColor) {
 		super(myNumRows, myNumCols,  myColor);
