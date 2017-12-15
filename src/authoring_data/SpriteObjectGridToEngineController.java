@@ -193,19 +193,16 @@ public class SpriteObjectGridToEngineController {
 		return ret;
 	}
 
-	private BoundedImage convertAnimationSequenceImageToBoundedImage(AnimationSequenceImage ASI) {
-		return new BoundedImage(
-				ASI.getImage().getImagePath());
-	}/* .replaceAll(".*\\", "")); */
-//=======
-//	
-//	private BoundedImage convertAnimationSequenceImageToBoundedImage(AnimationSequenceImage ASI){
-//		return ASI.getImage().getBoundedImage();
-//	}
-
-	private void setPositionAndSizeOfGameObject(SpriteObject SOI, GameObject GO) {
-		GO.setLocation(SOI.getXCenterCoordinate() * CELL_WIDTH, SOI.getYCenterCoordinate() * CELL_HEIGHT);
-		GO.setSize(SOI.getNumCellsWidth() * CELL_WIDTH, SOI.getNumCellsHeight() * CELL_HEIGHT);
+	
+	private BoundedImage convertAnimationSequenceImageToBoundedImage(AnimationSequenceImage ASI){
+		if(ASI.getImage().getBoundedImage() != null)
+			return ASI.getImage().getBoundedImage();
+		return new BoundedImage(ASI.getImage().getImagePath());
+	}
+	
+	private void setPositionAndSizeOfGameObject(SpriteObject SOI, GameObject GO){
+		GO.setLocation(SOI.getXCenterCoordinate()*CELL_WIDTH, SOI.getYCenterCoordinate()*CELL_HEIGHT);
+		GO.setSize(SOI.getNumCellsWidth()*CELL_WIDTH, SOI.getNumCellsHeight()*CELL_HEIGHT);
 		GO.setUniqueID(SOI.getUniqueID());
 	}
 
