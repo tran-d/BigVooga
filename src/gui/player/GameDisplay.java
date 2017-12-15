@@ -155,10 +155,8 @@ public class GameDisplay {
 		text.setRotate(displayableText.getHeading());
 		text.setFont(new Font(displayableText.getFont(), displayableText.getFontSize()));
 		String c = displayableText.getColor();
-		Pattern p = Pattern.compile("rgb\\((\\d{1,3}), (\\d{1,3}), (\\d{1,3})\\)");
-		Matcher m = p.matcher(c);
-		m.matches();
-		text.setStroke(Color.rgb(Integer.parseInt(m.group(0)), Integer.parseInt(m.group(1)), Integer.parseInt(m.group(2))));
+		String[] str = c.split("\\(|,|\\)");
+		text.setStroke(Color.rgb(Integer.parseInt(str[1]), Integer.parseInt(str[2]), Integer.parseInt(str[3])));
 		HBox box = new HBox(text);
 		Group g = new Group(box);
 		g.applyCss();
