@@ -1,7 +1,9 @@
 package authoring_actionconditions;
 
 import java.util.List;
+import java.util.function.Supplier;
 
+import authoring.Sprite.AbstractSpriteObject;
 import engine.Action;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -16,25 +18,27 @@ public class ActionTreeView extends TreeView<HBox> {
 	private static final double TREE_VIEW_WIDTH = ActionConditionRow.TREE_VIEW_WIDTH;
 	private static final double COLLAPSED_HEIGHT = ActionConditionRow.COLLAPSED_HEIGHT;
 	private static final double EXPANDED_HEIGHT = ActionConditionRow.EXPANDED_HEIGHT;
-
 	private ActionCategoryTreeItem categoryAction;
 	private ActionRow actionRow;
-
 	private String categoryName;
 	private String actionName;
 	private Action action;
+	private Supplier<List<AbstractSpriteObject>> supplier;
 
-	public ActionTreeView(ActionRow actionRow) {
+	public ActionTreeView(ActionRow actionRow,Supplier<List<AbstractSpriteObject>> supplier) {
 		super();
+		this.supplier = supplier;
 		this.actionRow = actionRow;
-		categoryAction = new ActionCategoryTreeItem(() -> changeRowTVSize());
+		categoryAction = new ActionCategoryTreeItem(() -> changeRowTVSize(), supplier);
 		setRoot(categoryAction);
 		setPrefSize(TREE_VIEW_WIDTH, EXPANDED_HEIGHT);
+		
 	}
 
-	public ActionTreeView(ActionRow actionRow, List<String> params, Action action) {
-		super();
-		this.actionRow = actionRow;
+	public ActionTreeView(ActionRow actionRow, List<String> params, Action action,Supplier<List<AbstractSpriteObject>> supplier) {
+		this(actionRow,supplier);
+		
+		this.supplier = supplier;
 		this.action = action;
 		this.categoryName = params.get(0);
 		this.actionName = params.get(1);

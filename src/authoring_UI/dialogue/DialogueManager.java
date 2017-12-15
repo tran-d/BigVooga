@@ -3,6 +3,7 @@ package authoring_UI.dialogue;
 import java.util.ArrayList;
 import java.util.List;
 
+import authoring.AuthoringEnvironmentManager;
 import authoring.DialogSprite.DialogSequence;
 import authoring_UI.MapManager;
 import authoring_UI.displayable.DisplayableManager;
@@ -44,9 +45,11 @@ public class DialogueManager extends DisplayableManager {
 
 	private Tab mapDialoguesTab;
 	private GameDataHandler GDH;
+	private AuthoringEnvironmentManager AEM;
 
-	public DialogueManager(GameDataHandler currentGDH) {
-		GDH = currentGDH;
+	public DialogueManager(AuthoringEnvironmentManager currentAEM) {
+		AEM = currentAEM;
+		GDH = AEM.getGameDataHandler();
 		dView = new DialogueTabPane();
 		editorList = new ArrayList<>();
 		dExtractor = new DialogueExtractor();
@@ -66,14 +69,15 @@ public class DialogueManager extends DisplayableManager {
 	}
 
 	@Override
-	protected Separator createShortSeparator() {
-		return super.createShortSeparator();
+	protected Separator createShortSeparator(int height) {
+		return super.createShortSeparator(height);
 	}
 
 	/*************************** PUBLIC METHODS **********************************/
 
 	public void addDialogueListener(Tab dialoguesTab) {
 		mapDialoguesTab = dialoguesTab;
+		System.out.println("YIPPEE");
 		updateListView();
 	}
 
@@ -81,6 +85,8 @@ public class DialogueManager extends DisplayableManager {
 		return hb;
 	}
 
+	static int counter = 0;
+	
 	@Override
 	protected void updateListView() {
 		dExtractor.extract(editorList);
@@ -89,14 +95,17 @@ public class DialogueManager extends DisplayableManager {
 		mapDialoguesTab.setContent(listView);
 	}
 
+
 	@Override
 	protected void save() {
 		if (currentEditor != null && !currentEditor.getName().trim().equals("")) {
-			if (currentEditor.getBackgroundColor() == null && currentEditor.getBackgroundImage() != null) {
+			if (!currentEditor.getBackgroundIsColor()) {
 				DialogSequence dialogSequence = new DialogSequence(currentEditor.getName(), currentEditor.getDialogueSequence(), currentEditor.getBackgroundImage());
+				AEM.getDialogSpriteController().addNewDialogSequence(dialogSequence);
 			}
-			else if (currentEditor.getBackgroundImage() == null && currentEditor.getBackgroundColor() != null) {
+			else if (currentEditor.getBackgroundIsColor()) {
 				DialogSequence dialogSequence = new DialogSequence(currentEditor.getName(), currentEditor.getDialogueSequence(), currentEditor.getBackgroundColor());
+				AEM.getDialogSpriteController().addNewDialogSequence(dialogSequence);
 			}
 			
 			if (editorList.contains(currentEditor)) {
@@ -128,9 +137,9 @@ public class DialogueManager extends DisplayableManager {
 		}
 
 		if (editorList.size() <= index) {
-			hb.getChildren().addAll(createShortSeparator(), currentEditor.getParent());
+			hb.getChildren().addAll(createShortSeparator(300), currentEditor.getParent());
 		} else {
-			hb.getChildren().addAll(createShortSeparator(), editorList.get(index).getParent());
+			hb.getChildren().addAll(createShortSeparator(300), editorList.get(index).getParent());
 			currentEditor = editorList.get(index);
 
 		}
@@ -174,13 +183,14 @@ public class DialogueManager extends DisplayableManager {
 		Button btn = new Button(name);
 		btn.setPrefSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 		dView.addUserDialogueButton(currentEditorIndex, btn);
+		System.out.println(dView);
 		btn.setOnAction(e -> loadEditor(dView.getButtonIndex(btn)));
 	}
 
 	protected void delete() {
 
 		for(int i = 0; i < editorList.size(); i++) {
-		
+			
 		}
 
 

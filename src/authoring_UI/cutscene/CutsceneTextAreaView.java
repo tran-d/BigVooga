@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 import authoring_UI.displayable.DisplayableTextAreaView;
 import engine.utilities.data.GameDataHandler;
+import gui.welcomescreen.WelcomeScreen;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -26,8 +27,10 @@ import javafx.scene.control.ScrollPane;
 public class CutsceneTextAreaView extends DisplayableTextAreaView {
 
 	private static final double VBOX_SPACING = 25;
-	private static final double CUTSCENE_PROMPT_WIDTH = 1000;
-	private static final double CUTSCENE_PROMPT_HEIGHT = 700;
+	private static final double CUTSCENE_PROMPT_WIDTH = WelcomeScreen.WIDTH;
+	private static final double CUTSCENE_PROMPT_HEIGHT = WelcomeScreen.HEIGHT;
+	private static final double CUTSCENE_SCROLLPANE_WIDTH = CUTSCENE_PROMPT_WIDTH/2;
+	private static final double CUTSCENE_SCROLLPANE_HEIGHT = CUTSCENE_PROMPT_HEIGHT/2;
 	private static final String NEXT_BUTTON_PROMPT = "Next";
 	private static final String PREV_BUTTON_PROMPT = "Previous";
 	private static final String ADD_PANEL_BUTTON_PROMPT = "AddPanel";
@@ -65,6 +68,8 @@ public class CutsceneTextAreaView extends DisplayableTextAreaView {
 		taList = new ArrayList<TextArea>();
 		paneList = new ArrayList<Pane>();
 		cutscenePreview = new ScrollPane();
+		cutscenePreview.setPrefSize(CUTSCENE_SCROLLPANE_WIDTH, CUTSCENE_SCROLLPANE_HEIGHT);
+		
 		this.save = save;
 		this.setSpacing(15);
 		this.GDH = GDH;
@@ -196,7 +201,7 @@ public class CutsceneTextAreaView extends DisplayableTextAreaView {
 
 	@Override
 	protected HBox makeToolPanel() {
-		HBox hb = new HBox(55);
+		HBox hb = new HBox(315);
 		currentPane = new Label();
 		currentPane.textProperty().bind(current.asString());
 		Label slash = new Label("/");

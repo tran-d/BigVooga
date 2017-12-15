@@ -109,7 +109,7 @@ public abstract class AbstractSpriteObject extends ImageView {
 	protected AuthoringAnimationSequence myAASDefault;
 	protected List<DialogSequence> myDialogSequences;
 	protected GameDataHandler GDH;
-
+	protected boolean isLoadingFromXML;
 
 
 	public AbstractSpriteObject() {
@@ -302,10 +302,10 @@ public abstract class AbstractSpriteObject extends ImageView {
 		this.setFitHeight(45);
 	}
 	
-	public void setGameDataHandler(GameDataHandler GDH) {
-		System.out.println("Setting GDH in ASO");
+	public void setGameDataHandler(GameDataHandler newGDH) {
+		System.out.println("Setting GDH in ASO "+ this);
 		
-		this.GDH = GDH;
+		GDH = newGDH;
 		if (myImageURL!=null && myImageURLProperty==null) {
 			System.out.println("About to setup ImageURL FRom GDh->ASO");
 			this.setupImageURLAndView(myImageURL);
@@ -794,13 +794,23 @@ public abstract class AbstractSpriteObject extends ImageView {
 
 		if (conditionTreeViews == null) {
 			conditionTreeViews = new HashMap<ConditionTreeView, List<Integer>>();
+			return conditionTreeViews;
 		}
 		return conditionTreeViews;
+	}
+	
+	public boolean getIsLoadingFromXML() {
+		return isLoadingFromXML;
+	}
+	
+	public void setIsLoadingFromXML(boolean set) {
+		isLoadingFromXML = set;
 	}
 
 	public List<ActionTreeView> getActionTreeViews() {
 		if (actionTreeViews == null) {
 			actionTreeViews = new ArrayList<ActionTreeView>();
+			return actionTreeViews;
 		}
 		return actionTreeViews;
 	}
@@ -820,23 +830,21 @@ public abstract class AbstractSpriteObject extends ImageView {
 	public List<Action> getActionRows() {
 		return actionRows;
 	}
-
+	
 	public List<List<String>> getSelectedActionOperations() {
 		return selectedActionOperations;
+	}
+	
+	public void setSelectedConditionOperations(List<String> selectedConditionOperations) {
+		this.selectedConditionOperations = selectedConditionOperations;
+	}
+	
+	public void setSelectedActionOperations(List<List<String>> selectedActionOperations) {
+		this.selectedActionOperations = selectedActionOperations;
 	}
 
 	public List<String> getSelectedConditionOperations() {
 		return selectedConditionOperations;
-	}
-
-	public void setSelectedActionOperations(List<List<String>> selectedActionOperations) {
-		this.selectedActionOperations = selectedActionOperations;
-
-	}
-
-	public void setSelectedConditionOperations(List<String> selectedConditionOperations) {
-		this.selectedConditionOperations = selectedConditionOperations;
-
 	}
 
 	/**

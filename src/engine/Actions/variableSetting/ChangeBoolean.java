@@ -21,7 +21,7 @@ public class ChangeBoolean implements Action {
 	private GameObjectOperation object;
 
 	public ChangeBoolean(@VoogaAnnotation(name = "Sprite", type = VoogaType.GAMEOBJECT) GameObjectOperation object,
-			@VoogaAnnotation(name = "Variable Name", type = VoogaType.BOOLEANNAME) StringOperation varName,
+			@VoogaAnnotation(name = "Variable Name", type = VoogaType.BOOLEAN) StringOperation varName,
 			@VoogaAnnotation(name = "New Value", type = VoogaType.BOOLEAN) BooleanOperation newBooleanOperation) {
 		this.object = object;
 		this.varName = varName;

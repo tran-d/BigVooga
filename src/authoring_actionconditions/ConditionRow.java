@@ -1,9 +1,11 @@
 package authoring_actionconditions;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 import ActionConditionClasses.ActionCheckBoxVBox;
 import ActionConditionClasses.ActionCheckBoxVBoxI;
+import authoring.Sprite.AbstractSpriteObject;
 import engine.Condition;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.VBox;
@@ -23,23 +25,31 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 	private ConditionTreeView operationTreeView;
 	private ActionCheckBoxVBox actionCheckBoxVBox;
 	private VBox treeViewVBox;
+	private Supplier<List<AbstractSpriteObject>> supplier;
 
-	public ConditionRow(int ID, ObservableList<Integer> newActionOptions, ConditionVBox<ConditionRow> ACVBox) {
-		super(ID, ACVBox);
+	// for creating a new row
+	public ConditionRow(int ID, ObservableList<Integer> newActionOptions, ConditionVBox<ConditionRow> ACVBox,Supplier<List<AbstractSpriteObject>> supplier) {
+		super(ID, ACVBox,supplier);
 		addActionCheckBox(newActionOptions);
-
+		System.out.println("supplier null in 1st conditionRow constructor " + supplier == null);
 		this.setPrefSize(ROW_WIDTH, ROW_EXPANDED_HEIGHT);
 
-		operationTreeView = new ConditionTreeView(this);
+		operationTreeView = new ConditionTreeView(this,supplier);
 		treeViewVBox = operationTreeView.getTreeViewVBox();
 		this.getItems().addAll(treeViewVBox);
 
 	}
 
+	// for loading from selected sprite on scene
 	public ConditionRow(int ID, ObservableList<Integer> newActionOptions, List<Integer> selectedActionOptions,
-			ConditionVBox<ConditionRow> ACVBox, ConditionTreeView tv) {
-		this(ID, newActionOptions, ACVBox);
-		getItems().removeAll(actionCheckBoxVBox, treeViewVBox);
+			ConditionVBox<ConditionRow> ACVBox, ConditionTreeView tv,Supplier<List<AbstractSpriteObject>> supplier) {
+//		this(ID, newActionOptions, ACVBox,supplier);
+//		getItems().removeAll(actionCheckBoxVBox, treeViewVBox);
+		super(ID, ACVBox,supplier);
+		System.out.println("supplier null in 2nd conditionRow constructor " + supplier == null);
+
+		this.setPrefSize(ROW_WIDTH, ROW_EXPANDED_HEIGHT);
+		
 		actionCheckBoxVBox = new ActionCheckBoxVBox(newActionOptions, selectedActionOptions);
 		treeViewVBox = tv.getTreeViewVBox();
 		operationTreeView = tv;
@@ -47,12 +57,18 @@ public class ConditionRow extends ActionConditionRow implements ActionCheckBoxVB
 
 	}
 
+	// for loading from XML
 	public ConditionRow(int ID, ObservableList<Integer> newActionOptions, List<Integer> selectedActionOptions,
-			ConditionVBox<ConditionRow> ACVBox, String selectedOperation, Condition condition) {
-		this(ID, newActionOptions, ACVBox);
-		getItems().removeAll(actionCheckBoxVBox, treeViewVBox);
+			ConditionVBox<ConditionRow> ACVBox, String selectedOperation, Condition condition,Supplier<List<AbstractSpriteObject>> supplier) {
+//		this(ID, newActionOptions, ACVBox,supplier);
+//		getItems().removeAll(actionCheckBoxVBox, treeViewVBox);
+		super(ID, ACVBox,supplier);
+		System.out.println("supplier null in 3rd conditionRow constructor " + supplier == null);
+		this.setPrefSize(ROW_WIDTH, COLLAPSED_HEIGHT);
+		
+		
 		actionCheckBoxVBox = new ActionCheckBoxVBox(newActionOptions, selectedActionOptions);
-		operationTreeView = new ConditionTreeView(this, selectedOperation, condition);
+		operationTreeView = new ConditionTreeView(this, selectedOperation, condition,supplier);
 		treeViewVBox = operationTreeView.getTreeViewVBox();
 		getItems().addAll(actionCheckBoxVBox, treeViewVBox);
 	}

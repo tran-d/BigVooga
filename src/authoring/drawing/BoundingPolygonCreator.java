@@ -25,6 +25,7 @@ public class BoundingPolygonCreator extends Pane {
 
 	private static final double PHANTOM_OPACITY = .5;
 	private static final double LINE_WIDTH = 3;
+	private static final double WIDTH = 400;
 	private List<RelativeBoundingPolygon> geometries = new ArrayList<>();
 	private List<Point2D> vertices = new ArrayList<>();
 	private Line phantomLine;
@@ -50,7 +51,12 @@ public class BoundingPolygonCreator extends Pane {
 	}
 
 	public BoundingPolygonCreator(Image image, String imageName, Consumer<BoundedImage> consumer) {
-		getChildren().add(new ImageView(image));
+		ImageView view = new ImageView(image);
+		double scale = WIDTH/image.getWidth();
+		view.setFitWidth(image.getWidth()*scale);
+		view.setFitHeight(image.getHeight()*scale);
+		getChildren().add(view);
+		
 		this.imageName = imageName;
 		this.consumer = consumer;
 		setup();

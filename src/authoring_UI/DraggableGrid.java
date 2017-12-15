@@ -117,7 +117,6 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 	@Override
 	public void construct(SpriteGridHandler spriteGridHandler){
 		if (allGrids == null){
-			;
 			allGrids = new ArrayList<SpriteObjectGridManager>();
 		}
 		mySGH = spriteGridHandler;
@@ -187,7 +186,7 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 		showingGrids = new ArrayList<SpriteObjectGridManager>();
 		if (allGrids.size()==0){
 
-			System.out.println("SHOULD NOT BE GOING THROUGH THIS ALERT ALERT ALERT");
+			System.out.println("ALL GRIDS IS 0");
 		SpriteObjectGridManager background = new BackgroundGridManager(rows, cols, spriteGridHandler, GDH);
 		SpriteObjectGridManager terrain = new TerrainObjectGridManager(rows, cols, spriteGridHandler, GDH);
 		SpriteObjectGridManagerForSprites sprites = new SpriteObjectGridManagerForSprites(rows, cols, spriteGridHandler, GDH);
@@ -298,8 +297,7 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 			Separator separator = new Separator();
 			separator.setOrientation(Orientation.VERTICAL);
 			
-//			spriteButtonsBox.getChildren().add(0, cp);
-			spriteButtonsBox.getChildren().add(1, button);
+			spriteButtonsBox.getChildren().add(0, button);
 			spriteButtonsBox.getChildren().addAll(separator, layerBox);
 			
 			VBox spriteCreatorBox = new VBox(10);

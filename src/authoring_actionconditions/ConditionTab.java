@@ -1,5 +1,9 @@
 package authoring_actionconditions;
 
+import java.util.List;
+import java.util.function.Supplier;
+
+import authoring.Sprite.AbstractSpriteObject;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -9,8 +13,8 @@ public class ConditionTab<T> extends ActionTab<T> implements ConditionTabI {
 	private static final String DIALOG_TYPE = "ERROR";
 	private static final String ERROR_SUMMARY = "Invalid selected actions";
 
-	public ConditionTab(String title) {
-		super(title);
+	public ConditionTab(String title, Supplier<List<AbstractSpriteObject>> supplier) {
+		super(title,supplier);
 	}
 	
 //	public ConditionTab(String title,ConditionVBox<T> actionConditionVBox, ActionConditionHBox topToolBar) {
@@ -27,7 +31,7 @@ public class ConditionTab<T> extends ActionTab<T> implements ConditionTabI {
 
 	@Override
 	public ActionConditionVBox<T> setActionConditionVBox() {
-		return new ConditionVBox<T>();
+		return new ConditionVBox<T>(getSupplier());
 	}
 	
 	@Override

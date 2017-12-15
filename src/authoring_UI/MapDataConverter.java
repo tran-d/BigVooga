@@ -8,6 +8,7 @@ import authoring.GridManagers.SpriteObjectGridManager;
 import engine.utilities.data.GameDataHandler;
 
 public class MapDataConverter {
+
 //	private final XStream SERIALIZER = setupXStream();
 	private String myName;
 //	private String layerPath;
@@ -22,8 +23,8 @@ public class MapDataConverter {
 		return this;
 	}
 	
-	public MapDataConverter(DraggableGrid grids, GameDataHandler currentGDH) {
-		GDH = currentGDH;
+	public MapDataConverter(DraggableGrid grids, GameDataHandler GDH) {
+		this.GDH = GDH;
 		convertToMDC(grids);
 	}
 	
@@ -42,6 +43,12 @@ public class MapDataConverter {
 				grids.getGrids().forEach(grid->{
 					gridManagers.add(new LayerDataConverter(grid));
 				});		
+		GDH = null;
+	}
+	
+	public void setGameDataHandler(GameDataHandler GDH){
+		this.GDH = GDH;
+
 	}
 	
 	public DraggableGrid createDraggableGrid() {
@@ -49,6 +56,7 @@ public class MapDataConverter {
 		newMap.setName(this.myName);
 		List<SpriteObjectGridManager> SOGMs = new ArrayList<SpriteObjectGridManager>();
 		this.gridManagers.forEach(LDC->{
+			LDC.setGameDataHandler(GDH);
 			SOGMs.add(LDC.createLayer());
 		});
 		newMap.loadLayers(SOGMs);

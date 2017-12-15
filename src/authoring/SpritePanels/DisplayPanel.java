@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
 import ActionConditionClasses.ApplyButtonController;
 import ActionConditionClasses.ResourceBundleUtil;
 import authoring.AuthoringEnvironmentManager;
@@ -132,13 +131,13 @@ public class DisplayPanel extends VBox {
 		// createSpriteCreator();
 		this.setPrefSize(DISPLAY_PANEL_WIDTH, DISPLAY_PANEL_HEIGHT);
 		setSpriteInfoAndVBox();
-
+		
 		// createStatePane(new VBox());
 	}
 
 	private void createActionConditionTabs() {
-		conditions = new ConditionTab<ConditionRow>(ResourceBundleUtil.getTabTitle("ConditionsTabTitle"));
-		actions = new ActionTab<ActionRow>(ResourceBundleUtil.getTabTitle("ActionsTabTitle"), mySPSM);
+		conditions = new ConditionTab<ConditionRow>(ResourceBundleUtil.getTabTitle("ConditionsTabTitle"), () -> mySPSM.getAllSpritesFromActiveGrid());
+		actions = new ActionTab<ActionRow>(ResourceBundleUtil.getTabTitle("ActionsTabTitle"), () -> mySPSM.getAllSpritesFromActiveGrid());
 		controllerConditionActionTabs = new ControllerConditionActionTabs(conditions, actions);
 		applyButtonController = new ApplyButtonController();
 		mySpriteTabs.getTabs().addAll(conditions, actions);

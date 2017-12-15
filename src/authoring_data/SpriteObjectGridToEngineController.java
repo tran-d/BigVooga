@@ -127,7 +127,6 @@ public class SpriteObjectGridToEngineController {
 		List<BoundedImage> bimages = new ArrayList<BoundedImage>();
 		AAS.getImages().forEach((ASI)->{
 			BoundedImage converted = convertAnimationSequenceImageToBoundedImage(ASI);
-			;
 			bimages.add(converted);
 		});
 		AnimationSequence ret = new AnimationSequence(AAS.getName(), bimages);
@@ -135,7 +134,7 @@ public class SpriteObjectGridToEngineController {
 	}
 	
 	private BoundedImage convertAnimationSequenceImageToBoundedImage(AnimationSequenceImage ASI){
-		return new BoundedImage(ASI.getImage().getImagePath());/*.replaceAll(".*\\", ""));*/
+		return ASI.getImage().getBoundedImage();
 	}
 	
 	private void setPositionAndSizeOfGameObject(SpriteObject SOI, GameObject GO){

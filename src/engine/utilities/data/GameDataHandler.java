@@ -22,6 +22,8 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.function.Supplier;
 
+import javax.imageio.ImageIO;
+
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.security.NullPermission;
@@ -35,11 +37,15 @@ import authoring_UI.MapDataConverter;
 import authoring_UI.SpriteDataConverter;
 import engine.EngineController;
 import engine.VoogaException;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
+import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -67,6 +73,7 @@ public class GameDataHandler {
 	private static final String CUSTOM_SPRITE_FOLDER = PROJECT_USER_SPRITE_PATH + "CustomSprites/";
 	private static final String INVENTORY_SPRITE_FOLDER = PROJECT_USER_SPRITE_PATH + "InventorySprites/";
 	private static final String DEFAULT_CATEGORY = "General/";
+	private static final String DIALOG_SPRITE_FOLDER = PROJECT_USER_SPRITE_PATH+"Dialogue/";
 
 	private static final String LOCAL = "local";
 
@@ -96,7 +103,7 @@ public class GameDataHandler {
 		xstream.allowTypesByWildcard(new String[] { "engine.**", "java.**" });
 		return xstream;
 	}
-	
+
 	public GameDataHandler(Stage s) {
 		this(() -> selectDirectory(s).getAbsolutePath());
 	}
@@ -145,7 +152,7 @@ public class GameDataHandler {
 
 	private void makeDirectories() {
 		String[] pathsToMake = new String[] { ENGINE_PATH, RESOURCES, PROJECT_WORLD_PATH, PROJECT_WORLD_PATH,
-				PROJECT_LAYER_SPRITE_PATH, DEFAULT_SPRITE_FOLDER, CUSTOM_SPRITE_FOLDER, INVENTORY_SPRITE_FOLDER };
+				PROJECT_LAYER_SPRITE_PATH, DEFAULT_SPRITE_FOLDER, CUSTOM_SPRITE_FOLDER, INVENTORY_SPRITE_FOLDER, DIALOG_SPRITE_FOLDER };
 		for (String s : pathsToMake) {
 			makeDirectory(projectPath + s);
 		}
@@ -271,14 +278,15 @@ public class GameDataHandler {
 	 * @throws URISyntaxException
 	 */
 	public Image getImage(String fileName) {
-		if (cache.containsKey(fileName))
+		if (cache.containsKey(fileName)){
 			return cache.get(fileName);
+		}
 		String path = new File(projectPath + RESOURCES + fileName).toURI().toString();
 		Image i = new Image(path);
 		cache.put(fileName, i);
 		return i;
 	}
-	
+
 	public Image getImage(File file) {
 		addFileToProject(file);
 		Image im = getImage(file.getName());
@@ -313,8 +321,11 @@ public class GameDataHandler {
 	}
 
 	public static File selectDirectory(Stage stage) {
+		Alert alert = new Alert(Alert.AlertType.INFORMATION,
+				"Select an Empty Working Directory for use by the Program");
+		alert.showAndWait();
 		DirectoryChooser chooser = new DirectoryChooser();
-		chooser.setTitle("Select Workspace");
+		chooser.setTitle("Select Empty Working Directory for Workspace");
 		File ret = null;
 		while (ret == null)
 			ret = chooser.showDialog(stage);
@@ -333,17 +344,17 @@ public class GameDataHandler {
 		return fileChooser.showOpenDialog(window);
 	}
 
-//	public String getImageURIAndCopyToResources(File file) {
-//		try {
-//			Files.copy(file.toPath(), Paths.get(root + RESOURCES + file.getName()),
-//					StandardCopyOption.REPLACE_EXISTING);
-//			addFileToProject(file);
-//		} catch (IOException e) {
-//			throw new VoogaException(e);
-//		}
-//		String URI = file.toURI().toString();
-//		return URI;
-//	}
+	// public String getImageURIAndCopyToResources(File file) {
+	// try {
+	// Files.copy(file.toPath(), Paths.get(root + RESOURCES + file.getName()),
+	// StandardCopyOption.REPLACE_EXISTING);
+	// addFileToProject(file);
+	// } catch (IOException e) {
+	// throw new VoogaException(e);
+	// }
+	// String URI = file.toURI().toString();
+	// return URI;
+	// }
 
 	private static void makeDirectory(String path) {
 		File file = new File(path);
@@ -416,6 +427,7 @@ public class GameDataHandler {
 		}
 		SpriteDataConverter SDC = (SpriteDataConverter) getObjectFromFile(spriteFile);
 		AbstractSpriteObject ret = SDC.createSprite();
+		ret.setGameDataHandler(this);
 		return ret;
 	}
 
@@ -454,6 +466,10 @@ public class GameDataHandler {
 
 	public String getCustomSpriteDirectoryPath() {
 		return projectPath + CUSTOM_SPRITE_FOLDER;
+	}
+	
+	public String getDialogSpriteDirectoryPath() {
+		return projectPath + DIALOG_SPRITE_FOLDER;
 	}
 
 	public String getInitializingWorldDirectoryPath(String worldName) {
@@ -498,6 +514,7 @@ public class GameDataHandler {
 
 	}
 
+
 	public List<DraggableGrid> loadWorldsFromWorldDirectory(String importProjectName) { // ONLY CALLED when importing
 		myImportProjectPath = importProjectName;
 		List<DraggableGrid> DG_LIST = new ArrayList<DraggableGrid>();
@@ -530,7 +547,7 @@ public class GameDataHandler {
 	}
 
 	private List<AbstractSpriteObject> loadSpritesFromDirectory(File directory) throws Exception {
-		
+
 		if (!isValidDirectory(directory)) {
 			throw new Exception("Not a directory");
 		}
@@ -563,7 +580,9 @@ public class GameDataHandler {
 		if (worldDirFile.exists()) {
 			for (File f : worldDirFile.listFiles()) {
 				MapDataConverter MDC = (MapDataConverter) getObjectFromFile(f);
+				MDC.setGameDataHandler(this);
 				DraggableGrid DG_toAdd = MDC.createDraggableGrid();
+			
 				DG_LIST.add(DG_toAdd);
 			}
 		}
@@ -607,7 +626,7 @@ public class GameDataHandler {
 		}
 		return ret;
 	}
-	
+
 	public String getImportedInventorySpritesPath() {
 		String path = "";
 		if (myImportProjectPath != null) {
@@ -625,9 +644,21 @@ public class GameDataHandler {
 	}
 
 	public void saveDialogSequence(DialogSequence dS, String folderToSaveTo) {
+		System.out.println("DiaSpriteFolder: "+folderToSaveTo);
 		saveToFile(dS, folderToSaveTo + DIALOG_EXTENSION);
 	}
 
+	public void saveTo(Image image, String fileName) {
+		if (image == null)
+			return;
+		File loc = new File(projectPath+RESOURCES+fileName);
+		try {
+			ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", loc);
+		} catch (IOException e) {
+			throw new VoogaException("IllegalFile", loc.getAbsolutePath());
+		}
+	}
+	
 	public String getRoot() {
 		return root;
 	}

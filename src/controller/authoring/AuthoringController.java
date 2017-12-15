@@ -64,12 +64,13 @@ public class AuthoringController {
 	private GameDataHandler GDH;
 
 	public AuthoringController(Scene currentScene, Stage currentStage, Pane currentAuthoringPane, GameDataHandler currentGDH) {
+		
 		scene = currentScene;
 		authoringPane = currentAuthoringPane;
 		GDH = currentGDH;
 		activeManagerProperty = new SimpleObjectProperty<MapManager>();
 		activeManagerProperty.addListener((change, previousManager, newManager) -> {
-			;
+			
 			if (previousManager != null) {
 				previousManager.gridIsNotShowing();
 			}
@@ -98,10 +99,11 @@ public class AuthoringController {
 		viewMap.put(INVENTORY_CREATOR_KEY, myInventorySCM.getPane());
 
 		CutsceneManager cm = new CutsceneManager(GDH);
+		//cm.addCutsceneListener(mapManager.getDialoguesTab());
 		viewMap.put(CUTSCENES_KEY, cm.getPane());
 
-		DialogueManager dm = new DialogueManager(GDH);
-//		dm.addDialogueListener(mapManager.getDialoguesTab());
+		DialogueManager dm = new DialogueManager(AEM);
+		//dm.addDialogueListener(mapManager.getDialoguesTab());
 		viewMap.put(DIALOGUE_KEY, dm.getPane());
 
 		HUDManager hudManager = new HUDManager(AEM, scene);

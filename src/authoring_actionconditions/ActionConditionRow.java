@@ -1,7 +1,11 @@
 package authoring_actionconditions;
 
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Supplier;
+
 import ActionConditionClasses.ChoiceBoxVBox;
+import authoring.Sprite.AbstractSpriteObject;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
@@ -40,12 +44,14 @@ public class ActionConditionRow extends ToolBar implements ActionConditionRowI {
 	private Label label;
 	private Label IDlabel;
 	private ChoiceBoxVBox implementationSelectorVBox;
+	private Supplier<List<AbstractSpriteObject>> supplier;
 
-	public ActionConditionRow(int ID, ActionConditionVBox<?> ACVBox) {
+	public ActionConditionRow(int ID, ActionConditionVBox<?> ACVBox,Supplier<List<AbstractSpriteObject>> supplier) {
 		super();
 		actionConditionVBoxResources = ResourceBundle.getBundle(ACTIONCONDITION_RESOURCE_PATH);
 		labelInt = ID;
 		IDlabel = new Label(Integer.toString(ID));
+		this.supplier = supplier;
 		Separator separator = ActionConditionTabUtil.makeVerticalSeparator();
 		getItems().addAll(IDlabel, separator);
 	}
@@ -69,6 +75,10 @@ public class ActionConditionRow extends ToolBar implements ActionConditionRowI {
 	// implementationSelectorVBox.setValue(selectedConditionAction);
 	// getItems().addAll(IDlabel, separator, this.label);
 	// }
+	
+	public Supplier<List<AbstractSpriteObject>> getSupplier() {
+		return supplier;
+	}
 
 	@Override
 	public void decreaseLabelID() {
