@@ -43,10 +43,10 @@ public class SpriteDataConverter {
 		return name;
 	}
 
-	public SpriteObject getSprite(File file) {
-
-		return null;
-	}
+//	public SpriteObject getSprite(File file) {
+//
+//		return null;
+//	}
 
 	public SpriteDataConverter getToSerialize() {
 		return this;
@@ -57,7 +57,6 @@ public class SpriteDataConverter {
 	}
 
 	public void convertSprite(AbstractSpriteObject ASO) {
-		;
 		catmap = ASO.getParameters();
 		gridPos = ASO.getPositionOnGrid();
 		name = ASO.getName();
@@ -68,13 +67,9 @@ public class SpriteDataConverter {
 		mySavePath = ASO.getSavePath();
 		tags = ASO.getTags();
 		inventory = new ArrayList<SpriteDataConverter>();
-		;
 //		allConditions = ASO.getAllConditions();
-		;
 //		allActions = ASO.getAllActions();
-		;
 		conditionRows = ASO.getConditionRows();
-		;
 		actionRows = ASO.getActionRows();
 		myAnimationSequences = ASO.getAnimationSequences();
 		spriteConditionOperations = ASO.getSelectedConditionOperations();

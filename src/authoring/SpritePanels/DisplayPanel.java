@@ -333,7 +333,6 @@ public class DisplayPanel extends VBox {
 			mySpriteTabs.getTabs().set(CONDITIONTAB_INDEX, conditions);
 			mySpriteTabs.getTabs().set(ACTIONTAB_INDEX, actions);
 			if (!multipleActive()) {
-
 				mySDialogTAI.setSpriteObject(activeCell);
 				System.out.println("Trying to update not multiple actvie");
 				mySTagTAI.setSpriteObjectAndUpdate(activeCell);

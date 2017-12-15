@@ -121,9 +121,9 @@ public class SpriteAnimationSequenceTabsAndInfo {
 			}
 
 			File file = GameDataHandler.chooseFileForImageLoad(s.getWindow());
-			Image im = new Image(file.toURI().toString());
-			AuthoringImageView AIV = new AuthoringImageView(file.toURI().toString());
-			makeBoundedImagePopup(AIV, im, file.toURI().toString());
+			Image im = GDH.getImage(file);
+			AuthoringImageView AIV = new AuthoringImageView(file.getName());
+			makeBoundedImagePopup(AIV, im, file.getName());
 			addNewAuthoringImageViewToSequence(this.activeAnimationSeqeunce, AIV);
 		});
 	}

@@ -264,15 +264,15 @@ public abstract class AbstractSpriteObject extends ImageView {
 	}
 
 	protected void setupImageURLAndView(String fileURL) {
-		FileInputStream fis;
-		Image im;
-		System.out.println(fileURL);
-		try {
-			fis = new FileInputStream(new File(fileURL));
-			im = new Image(fis);
-		} catch (FileNotFoundException e) {
-			im = new Image(fileURL);
-		}
+//		FileInputStream fis;
+//		Image im;
+//		try {
+//			fis = new FileInputStream(new File(fileURL));
+//			im = new Image(fis);
+//		} catch (FileNotFoundException e) {
+//			im = new Image(fileURL);
+//		}
+		Image im = GDH.getImage(new File(fileURL));
 		setupImageURLAndView(im, fileURL);
 	}
 
@@ -280,6 +280,11 @@ public abstract class AbstractSpriteObject extends ImageView {
 		if (this.myImageURLProperty==null){
 			setUpImageURLProperty();
 		}
+//		System.out.println("path: "+path);
+//		String [] intermediate = path.split(File.separator);
+//		this.myImageURL = intermediate[intermediate.length-1];
+//		System.out.println(" myImageUrl"+ myImageURL);
+		this.myImageURL = path;
 		this.myImageURLProperty.set(path);
 		
 		this.setImage(image);

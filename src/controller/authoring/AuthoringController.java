@@ -107,7 +107,7 @@ public class AuthoringController {
 		viewMap.put(CUTSCENES_KEY, cm.getPane());
 
 		DialogueManager dm = new DialogueManager(GDH);
-		dm.addDialogueListener(mapManager.getDialoguesTab());
+		//dm.addDialogueListener(mapManager.getDialoguesTab());
 		viewMap.put(DIALOGUE_KEY, dm.getPane());
 
 		HUDManager hudManager = new HUDManager(AEM, scene);

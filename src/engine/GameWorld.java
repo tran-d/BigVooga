@@ -51,6 +51,7 @@ public class GameWorld {
 			l.step(environment);
 	}
 
+
 	public List<GameObject> getAllGameObjects() {
 		List<GameObject> obs = new ArrayList<>();
 		for (Layer l : worldLayers) {
