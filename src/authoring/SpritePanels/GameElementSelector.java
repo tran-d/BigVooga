@@ -109,15 +109,15 @@ public class GameElementSelector extends TabPane implements Observer {
 		spritesTabPane.getTabs().addAll(defaultSpriteTab, userSpriteTab, importedSpriteTab);
 		spritesTabPane.setSide(Side.RIGHT);
 //		dialoguesTabPane.getTabs().addAll(defaultDialogueTab, userDialogueTab, importedDialogueTab);
-//		dialoguesTabPane.setSide(Side.RIGHT);
+		//dialoguesTabPane.setSide(Side.RIGHT);
 		
 		inventoryTabPane.setSide(Side.RIGHT);
 		inventoryTabPane.getTabs().addAll(inventorySpriteTab, importedInventorySpriteTab);
 		
 		Tab spritesTab = createElementTab(SPRITES, spritesTabPane);
 		spritesTab.setClosable(false);
-		dialoguesTab = createElementTab(DIALOGUES, dialoguesTabPane);
-		dialoguesTab.setClosable(false);
+		//dialoguesTab = createElementTab(DIALOGUES, dialoguesTabPane);
+		//dialoguesTab.setClosable(false);
 		Tab inventoryTab = createElementTab(INVENTORY, inventoryTabPane);
 		inventoryTab.setClosable(false);
 		this.getTabs().addAll(spritesTab, inventoryTab);
