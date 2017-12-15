@@ -17,15 +17,18 @@ public abstract class DisplayableManager {
 	protected Separator createSeparator() {
 		Separator separator = new Separator();
 		separator.setOrientation(Orientation.VERTICAL);
+		separator.setPrefHeight(660);
+		separator.setMaxHeight(660);
+		separator.setMinHeight(660);
 		return separator;
 	}
 	
-	protected Separator createShortSeparator() {
+	protected Separator createShortSeparator(int height) {
 		Separator separator = new Separator();
 		separator.setOrientation(Orientation.VERTICAL);
-		separator.setPrefHeight(300);
-		separator.setMaxHeight(300);
-		separator.setMinHeight(300);
+		separator.setPrefHeight(height);
+		separator.setMaxHeight(height);
+		separator.setMinHeight(height);
 		return separator;
 	}
 	

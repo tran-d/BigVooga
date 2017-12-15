@@ -66,8 +66,8 @@ public class DialogueManager extends DisplayableManager {
 	}
 
 	@Override
-	protected Separator createShortSeparator() {
-		return super.createShortSeparator();
+	protected Separator createShortSeparator(int height) {
+		return super.createShortSeparator(height);
 	}
 
 	/*************************** PUBLIC METHODS **********************************/
@@ -81,12 +81,14 @@ public class DialogueManager extends DisplayableManager {
 		return hb;
 	}
 
+	static int counter = 0;
+	
 	@Override
 	protected void updateListView() {
 		dExtractor.extract(editorList);
 		listView = new DialogueListView(dExtractor.getDialogueList());
-		;
-
+		counter++;
+		System.out.println("Yieks its broken" + counter);
 		mapDialoguesTab.setContent(listView);
 	}
 
@@ -132,9 +134,9 @@ public class DialogueManager extends DisplayableManager {
 		}
 
 		if (editorList.size() <= index) {
-			hb.getChildren().addAll(createShortSeparator(), currentEditor.getParent());
+			hb.getChildren().addAll(createShortSeparator(300), currentEditor.getParent());
 		} else {
-			hb.getChildren().addAll(createShortSeparator(), editorList.get(index).getParent());
+			hb.getChildren().addAll(createShortSeparator(300), editorList.get(index).getParent());
 			currentEditor = editorList.get(index);
 
 		}

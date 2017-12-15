@@ -22,6 +22,7 @@ public class DialogueTab extends DisplayableTab {
 	public DialogueTab(String name) {
 		super(name);
 		this.setContent(sp);
+		dialogueLister = new VBox();
 	}
 
 	@Override
