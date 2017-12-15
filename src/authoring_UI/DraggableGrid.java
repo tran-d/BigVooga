@@ -272,11 +272,7 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 			HBox nameCategoryBox = ((SpriteCreatorGridManager)ML).getNameCategoryBox();
 			HBox spriteButtonsBox = ((SpriteCreatorGridManager)ML).getSpriteButtonsBox();
 			//ColorPicker
-			ColorPicker cp = new ColorPicker(Color.TRANSPARENT);
-			cp.setOnAction((event)->{
-				ML.setColor(cp.getValue());
-			});
-			
+	
 			//Choose Image
 			
 			Button button = new Button("Load Image");
@@ -287,7 +283,9 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 					parent = parent.getParent();
 					s = parent.getScene();
 				}
+
 				File file = GameDataHandler.chooseFileForImageLoad(s.getWindow());
+
 				if (file != null) {
 					ML.getOnBackgroundChangeFunctionality(file);
 				}
@@ -300,7 +298,7 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 			Separator separator = new Separator();
 			separator.setOrientation(Orientation.VERTICAL);
 			
-			spriteButtonsBox.getChildren().add(0, cp);
+//			spriteButtonsBox.getChildren().add(0, cp);
 			spriteButtonsBox.getChildren().add(1, button);
 			spriteButtonsBox.getChildren().addAll(separator, layerBox);
 			

@@ -20,11 +20,9 @@ import javafx.scene.image.Image;
 public class SpriteCreatorManagerSlack extends MapManager{
 	
 	private SpriteObjectGridManager SpriteCreatorGridBE;
-	private GameDataHandler GDH;
 
 	public SpriteCreatorManagerSlack(AuthoringEnvironmentManager AEM, Scene currentScene, String type) {
 		super(AEM, currentScene, type);
-		GDH = AEM.getGameDataHandler();
 		
 	}
 	
@@ -32,11 +30,11 @@ public class SpriteCreatorManagerSlack extends MapManager{
 	protected DraggableGrid makeDraggableGrid(){
 		DraggableGrid ret = new DraggableGrid(GDH);
 		if (myType.equals("SpriteObject")){
-		SpriteCreatorGridBE = new SpriteCreatorGridManager(myAEM, (Image im, String filePath)->new SpriteObject(im, filePath));
+		SpriteCreatorGridBE = new SpriteCreatorGridManager(myAEM, (Image im, String filePath)->new SpriteObject(filePath, GDH));
 		} else if (myType.equals("InventoryObject")){
-			SpriteCreatorGridBE = new SpriteCreatorGridManager(myAEM, (Image im, String filePath) -> new InventoryObject(im, filePath));
+			SpriteCreatorGridBE = new SpriteCreatorGridManager(myAEM, (Image im, String filePath) -> new InventoryObject(filePath, GDH));
 		} else {
-			SpriteCreatorGridBE = new SpriteCreatorGridManager(myAEM, (Image im, String filePath)->new SpriteObject(im, filePath));
+			SpriteCreatorGridBE = new SpriteCreatorGridManager(myAEM, (Image im, String filePath)->new SpriteObject(filePath, GDH));
 		}
 //		BackgroundGridManager BackgroundGrid = new BackgroundGridManager(SpriteCreatorGridBE.getDefaultRows(), SpriteCreatorGridBE.getDefaultCols());
 		List<SpriteObjectGridManager> grids = new ArrayList<SpriteObjectGridManager>();

@@ -5,18 +5,14 @@ import java.util.List;
 import java.util.Map;
 
 import authoring.AuthoringEnvironmentManager;
-import authoring.SpriteCreatorSpriteManager;
 import authoring_UI.DraggableGrid;
 import authoring_UI.MapManager;
-import authoring_UI.SpriteCreator;
-import authoring_UI.SpriteCreatorGridHandler;
-import authoring_UI.SpriteCreatorImageGrid;
-import authoring_UI.SpriteCreatorManager;
 import authoring_UI.ViewSideBar;
 import authoring_UI.HUD.HUDManager;
 import authoring_UI.Inventory.InventoryManager;
 import authoring_UI.Menu.MenuManager;
 import authoring_UI.SpriteCreatorTab.SpriteCreatorManagerSlack;
+import authoring_UI.cutscene.CutsceneManager;
 import authoring_UI.dialogue.DialogueManager;
 import engine.utilities.data.GameDataHandler;
 import javafx.beans.property.ObjectProperty;
@@ -101,8 +97,11 @@ public class AuthoringController {
 		myInventorySCM = new SpriteCreatorManagerSlack(AEM, scene, "InventoryObject");
 		viewMap.put(INVENTORY_CREATOR_KEY, myInventorySCM.getPane());
 
+		CutsceneManager cm = new CutsceneManager(GDH);
+		viewMap.put(CUTSCENES_KEY, cm.getPane());
+
 		DialogueManager dm = new DialogueManager(GDH);
-		dm.addDialogueListener(mapManager.getDialoguesTab());
+//		dm.addDialogueListener(mapManager.getDialoguesTab());
 		viewMap.put(DIALOGUE_KEY, dm.getPane());
 
 		HUDManager hudManager = new HUDManager(AEM, scene);

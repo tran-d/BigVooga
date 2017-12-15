@@ -17,11 +17,9 @@ public class HUDManager extends MapManager{
 
 	
 	private SpriteObjectGridManager HUDGridBE;
-	private GameDataHandler GDH;
 
 	public HUDManager(AuthoringEnvironmentManager AEM, Scene currentScene) {
 		super(AEM, currentScene);
-		GDH = AEM.getGameDataHandler();
 	}
 	
 	@Override 
