@@ -9,6 +9,7 @@ import authoring.GridManagers.SpriteObjectGridManager;
 import authoring.GridManagers.SpriteObjectGridManagerForSprites;
 import authoring.GridManagers.TerrainObjectGridManager;
 import authoring.Sprite.AbstractSpriteObject;
+import engine.utilities.data.GameDataHandler;
 
 public class LayerDataConverter {
 
@@ -17,7 +18,7 @@ public class LayerDataConverter {
 	private int layerNum;
 	private String myName;
 	private List<SpriteDataConverter> mySprites;
-	
+	private GameDataHandler GDH;
 	
 	public String getName(){
 		return myName;
@@ -31,6 +32,10 @@ public class LayerDataConverter {
 		convertLayer(SOGM);
 	}
 	
+	public void setGameDataHandler(GameDataHandler GDH){
+		this.GDH = GDH;
+	}
+	
 	public void convertLayer(SpriteObjectGridManager SOGM){
 //		myColor = SOGM.getColor();
 		mySprites = new ArrayList<SpriteDataConverter>();
@@ -41,40 +46,30 @@ public class LayerDataConverter {
 		SOGM.getEntireListOfSpriteObjects().forEach(sprite->{
 			mySprites.add(new SpriteDataConverter(sprite));
 		});
+		GDH = null;
 	}
 	
 	public SpriteObjectGridManager createLayer() {
 		SpriteObjectGridManager newLayer = null;
-		;
-		
 		if (myName.equals("Background")) {
-			;
-			newLayer = new BackgroundGridManager(myNumRows, myNumCols);
-			;
+			newLayer = new BackgroundGridManager(myNumRows, myNumCols, GDH);
 		}
 	
 		else if (myName.equals("Terrain")) {
-			;
-			newLayer = new TerrainObjectGridManager(myNumRows, myNumCols);
-			;
+			newLayer = new TerrainObjectGridManager(myNumRows, myNumCols, GDH);
 		}
 		else if (myName.equals("Main View")) {
-			;
-			newLayer = new SpriteObjectGridManagerForSprites(myNumRows, myNumCols);
-			;
+			newLayer = new SpriteObjectGridManagerForSprites(myNumRows, myNumCols, GDH);
 		}
 		else if (myName.equals("Panels")){
-			;
-			newLayer = new PanelObjectGridManager(myNumRows, myNumCols);
-			;
+			newLayer = new PanelObjectGridManager(myNumRows, myNumCols, GDH);
 		}
 		List<AbstractSpriteObject> toStore = new ArrayList<AbstractSpriteObject>();
 		mySprites.forEach(SDC->{
-			System.out.println("sprite url " +SDC.imageURL);
+			SDC.setGameDataHandler(GDH);
 			toStore.add(SDC.createSprite());
 		});
 		newLayer.storeSpriteObjectsToAdd(toStore);
-		;
 		return newLayer;
 	}
 }
