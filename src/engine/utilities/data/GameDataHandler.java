@@ -481,7 +481,7 @@ public class GameDataHandler {
 		makeDirectory(worldPath);
 		worldDraggableGrids.forEach(world -> {
 			String savePath = worldPath + world.getName();
-			MapDataConverter MDC = new MapDataConverter(world);
+			MapDataConverter MDC = new MapDataConverter(world, this);
 			try {
 				saveWorld(MDC, savePath);
 			} catch (Exception e) {
