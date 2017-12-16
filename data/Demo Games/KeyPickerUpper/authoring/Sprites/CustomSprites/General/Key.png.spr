@@ -1,0 +1,37 @@
+<authoring__UI.SpriteDataConverter>
+  <conditionRows/>
+  <actionRows/>
+  <catmap>
+    <entry>
+      <string>Category1</string>
+      <list/>
+    </entry>
+  </catmap>
+  <inventory/>
+  <imageURL>Key.png</imageURL>
+  <gridPos>
+    <int>0</int>
+    <int>0</int>
+  </gridPos>
+  <name>Key.png</name>
+  <width>1</width>
+  <height>1</height>
+  <UUID>3161cbf9-948d-4962-9bef-9628c17e0e21</UUID>
+  <myAnimationSequences>
+    <authoring.Sprite.AnimationSequences.AuthoringAnimationSequence resolves-to="authoring.Sprite.AnimationSequences.SerializableAuthoringAnimationSequence">
+      <myName>Default</myName>
+      <myImages>
+        <authoring.Sprite.AnimationSequences.AnimationSequenceImage>
+          <myImage resolves-to="authoring.Sprite.AnimationSequences.SerializableAuthoringImageView">
+            <imagePath>Key.png</imagePath>
+          </myImage>
+        </authoring.Sprite.AnimationSequences.AnimationSequenceImage>
+      </myImages>
+    </authoring.Sprite.AnimationSequences.AuthoringAnimationSequence>
+  </myAnimationSequences>
+  <spriteConditionOperations class="linked-list"/>
+  <spriteActionOperations class="linked-list"/>
+  <mySavePath>C:\Users\nikbr\Documents\VOOGAgames\KeyPickerUpper/authoring/Sprites/CustomSprites/General/Key.png</mySavePath>
+  <spriteType>SpriteObject</spriteType>
+  <tags/>
+</authoring__UI.SpriteDataConverter>
