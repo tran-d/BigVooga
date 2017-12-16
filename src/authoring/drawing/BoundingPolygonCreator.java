@@ -18,6 +18,19 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 /**
+ * This tool allows users to convert images into BoundedImages by drawing
+ * polygon bounds on them. Because BoundedImages assume the geometries given to
+ * them are convex and CCW in right-handed coordinates (CW in a comp-sci grid),
+ * this utility forces the user to place points under that constraint and shows
+ * a red phantom-line when the point would be illegal.
+ * 
+ * Left clicking places a point, and right clicking closes a shape. Notably,
+ * this utility does not include any save-button/feature, so the public save
+ * method has to be called in order for the new bounded image to be sent to the
+ * consumer.
+ * 
+ * Relies on BoundingPolygon, RelativeBoundingGeometry, and BoundedImage.
+ * 
  * @author Ian Eldridge-Allegra
  *
  */
@@ -32,11 +45,32 @@ public class BoundingPolygonCreator extends Pane {
 	private Consumer<BoundedImage> consumer;
 	private String imageName;
 
+	/**
+	 * This is for convenience -- it merely uses the given function to convert the
+	 * bounded image's name to an actual image, then applies
+	 * {@link #BoundingPolygonCreator(Image, BoundedImage, Consumer)}.
+	 * 
+	 * @param imageLoader
+	 * @param boundedImage
+	 * @param consumer
+	 */
 	public BoundingPolygonCreator(Function<String, Image> imageLoader, BoundedImage boundedImage,
 			Consumer<BoundedImage> consumer) {
 		this(imageLoader.apply(boundedImage.getFileName()), boundedImage, consumer);
 	}
 
+	/**
+	 * Loads in a previous BoundedImage and allows it to be added to then saved
+	 * again.
+	 * 
+	 * @param image
+	 *            The image to display (presumably the one represented by the
+	 *            boundedImage.
+	 * @param boundedImage
+	 *            The BoundedImage whose bounds/image name should be loaded in.
+	 * @param consumer
+	 *            How to save the BoundedImage.
+	 */
 	public BoundingPolygonCreator(Image image, BoundedImage boundedImage, Consumer<BoundedImage> consumer) {
 		this(image, boundedImage.getFileName(), consumer);
 		for (RelativeBoundingPolygon geometry : boundedImage.getRelativeGeometries()) {
@@ -50,20 +84,36 @@ public class BoundingPolygonCreator extends Pane {
 		}
 	}
 
+	/**
+	 * Allows an image to be converted to a BoundedImage with bounds given by the
+	 * user.
+	 * 
+	 * @param image
+	 *            The image to which bounds should be applied by the user.
+	 * @param imageName
+	 *            The short file name (eg 'Duvall.png') that will be stored into the
+	 *            BoundedImage for later use.
+	 * @param consumer
+	 *            How to save the resulting BoundedImage.
+	 */
 	public BoundingPolygonCreator(Image image, String imageName, Consumer<BoundedImage> consumer) {
 		ImageView view = new ImageView(image);
-		double scale = WIDTH/image.getWidth();
-		view.setFitWidth(image.getWidth()*scale);
-		view.setFitHeight(image.getHeight()*scale);
+		double scale = WIDTH / image.getWidth();
+		view.setFitWidth(image.getWidth() * scale);
+		view.setFitHeight(image.getHeight() * scale);
 		getChildren().add(view);
-		
+
 		this.imageName = imageName;
 		this.consumer = consumer;
 		setup();
 	}
-	
+
+	/**
+	 * Saves the current BoundedImage to the consumer. If no geometries have been
+	 * closed, then a default rectangle is sent.
+	 */
 	public void save() {
-		if(geometries.isEmpty())
+		if (geometries.isEmpty())
 			consumer.accept(new BoundedImage(imageName));
 		else
 			consumer.accept(new BoundedImage(imageName, geometries));
@@ -129,7 +179,7 @@ public class BoundingPolygonCreator extends Pane {
 	}
 
 	private void rightClick(MouseEvent event) {
-		if(vertices.isEmpty())
+		if (vertices.isEmpty())
 			return;
 		addLine(generateLine(lastPoint(), vertices.get(0)));
 		changePhantomLine(null);

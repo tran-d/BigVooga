@@ -27,14 +27,15 @@ public class EraserTool extends SmoothDrawer {
 		square.setFill(Color.WHITE);
 		square.setStroke(Color.BLACK);
 		canvas.getChildren().add(square);
-		canvas.eraseLine(newCenter, newCenter.add(new Point2D(1,0)));
+		canvas.eraseLine(newCenter, newCenter);
 	}
 
 	@Override
 	protected void draw(Point2D lastLoc, Point2D point) {
 		if(lastLoc.subtract(point).magnitude()>MIN_MAGNITUDE_RATIO*canvas.getStroke())
-		canvas.eraseLine(lastLoc, point);
-		handleSquare(point);
+			canvas.eraseLine(lastLoc, point);
+		else
+			handleSquare(point);
 	}
 	
 	@Override

@@ -37,7 +37,7 @@ import engine.operations.VoogaParameter;
  * 4b. These constructors only take specific extensions of Operation which are
  * included in the properties for Operations OR other Actions. 
  * 
- * 4c. Each parameter has a VoogaAnnotation. 
+ * 4c. Each parameter has an appropriate VoogaAnnotation. 
  * 
  * @author Ian Eldridge-Allegra
  *
