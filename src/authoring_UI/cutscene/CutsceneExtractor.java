@@ -17,11 +17,11 @@ public class CutsceneExtractor {
 		cutsceneList = new ArrayList<>();
 
 		for (CutsceneEditor ed : editorList) {
-			cutsceneList.add(new Cutscene (ed.getName(), ed.getFontType(), ed.getFontColor(), ed.getDialogueSequence()));
+			cutsceneList.add(new Cutscene (ed.getName(), ed.getFontType(), ed.getFontColor(), ed.getCutsceneSequence()));
 		}
 	}
 
-	public List<Cutscene> getDialogueList() {
+	public List<Cutscene> getCutsceneList() {
 		return cutsceneList;
 	}
 }

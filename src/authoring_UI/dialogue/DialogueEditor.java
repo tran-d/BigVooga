@@ -177,7 +177,8 @@ public class DialogueEditor extends DisplayableEditor {
 	
 	@Override
 	protected void chooseBackgroundImage() {
-		File file = retrieveFileForImageUpload(this.getParent());
+		File file = super.retrieveFileForImageUpload(this.getParent());
+		System.out.println("FILES SUCK" + file);
 		if (file != null) {
 			currentFile = file.getName();
 			image =  GDH.getImage(file);
@@ -212,7 +213,6 @@ public class DialogueEditor extends DisplayableEditor {
 			try {
 				int size = Integer.parseInt(sizeTF.getText());
 				saveConsumer.accept(getName());
-				;
 				dsp.setFont(getFontType(), size);
 			} catch (NumberFormatException ex) {
 				sizeTF.clear();
@@ -243,7 +243,6 @@ public class DialogueEditor extends DisplayableEditor {
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 
 				saveConsumer.accept(getName());
-				;
 				dsp.setFont(observableList.get(cb.getSelectionModel().getSelectedIndex()), getFontSize());
 			}
 		});

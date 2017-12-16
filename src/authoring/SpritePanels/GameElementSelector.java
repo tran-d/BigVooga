@@ -1,30 +1,21 @@
 package authoring.SpritePanels;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
 
-import authoring.GridManagers.*;
-import authoring.Sprite.*;
-import authoring.SpriteManagers.*;
-import authoring.SpritePanels.*;
-import authoring.util.*;
-import authoring_UI.Map.*;
-import authoring_UI.*;
-import authoring.*;
-import authoring_UI.Inventory.*;
-import engine.utilities.data.GameDataHandler;
-import gui.welcomescreen.MenuOptionsTemplate;
+import authoring.AuthoringEnvironmentManager;
+import authoring.ObjectManagers.SpriteManagers.SpriteSet;
+import authoring.Sprite.AbstractSpriteObject;
+import authoring.Sprite.SpriteObject;
+import authoring_UI.DraggableGrid;
+import authoring_UI.SpriteGridHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Side;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -35,14 +26,12 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.stage.Popup;
-import tools.DisplayLanguage;
 
 public class GameElementSelector extends TabPane implements Observer {
 	
 	protected static final String SPRITES = "Sprites";
 	protected static final String DIALOGUES = "Dialogues";
+	protected static final String CUTSCENES = "Cutscenes";
 	protected static final String DEFAULT = "Default";
 	protected static final String USER = "User";
 	protected static final String IMPORTED = "Imported";
@@ -63,6 +52,7 @@ public class GameElementSelector extends TabPane implements Observer {
 	protected SpriteGridHandler mySpriteGridHandler;
 	private Tab dialoguesTab;
 	protected String myType;
+	private Tab cutscenesTab;
 	
 	protected GameElementSelector(SpriteGridHandler spriteGridHandler, AuthoringEnvironmentManager AEM){
 		this(spriteGridHandler, AEM, "");	}
@@ -97,6 +87,7 @@ public class GameElementSelector extends TabPane implements Observer {
 	protected void createSpriteTabs() {
 		TabPane spritesTabPane = new TabPane();
 		TabPane dialoguesTabPane = new TabPane();
+		TabPane cutscenesTabPane = new TabPane();
 		TabPane inventoryTabPane = new TabPane();
 		Tab defaultSpriteTab = createSubTab(DEFAULT, myAEM.getDefaultSpriteController());
 		Tab userSpriteTab = createSubTab(USER, myAEM.getCustomSpriteController());
@@ -116,8 +107,13 @@ public class GameElementSelector extends TabPane implements Observer {
 		
 		Tab spritesTab = createElementTab(SPRITES, spritesTabPane);
 		spritesTab.setClosable(false);
-		//dialoguesTab = createElementTab(DIALOGUES, dialoguesTabPane);
-		//dialoguesTab.setClosable(false);
+		
+		dialoguesTab = createElementTab(DIALOGUES, dialoguesTabPane);
+		dialoguesTab.setClosable(false);
+		
+		cutscenesTab = createElementTab(CUTSCENES, cutscenesTabPane);
+		cutscenesTab.setClosable(false);
+		
 		Tab inventoryTab = createElementTab(INVENTORY, inventoryTabPane);
 		inventoryTab.setClosable(false);
 		this.getTabs().addAll(spritesTab, inventoryTab);
@@ -211,5 +207,9 @@ public class GameElementSelector extends TabPane implements Observer {
 	
 	public Tab getDialoguesTab() {
 		return dialoguesTab;
+	}
+	
+	public Tab getCutscenesTab() {
+		return cutscenesTab;
 	}
 }

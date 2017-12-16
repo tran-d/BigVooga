@@ -28,7 +28,7 @@ public class HUDManager extends MapManager{
 		System.out.println("DG in HUDMANAGER");
 		DraggableGrid ret = new DraggableGrid(GDH);
 		HUDGridBE = new HUDGridManager();
-		BackgroundGridManager BackgroundGrid = new BackgroundGridManager(HUDGridBE.getDefaultRows(), HUDGridBE.getDefaultCols());
+		BackgroundGridManager BackgroundGrid = new BackgroundGridManager(HUDGridBE.getDefaultRows(), HUDGridBE.getDefaultCols(), GDH);
 		List<SpriteObjectGridManager> grids = new ArrayList<SpriteObjectGridManager>();
 		grids.add(BackgroundGrid);
 		grids.add(HUDGridBE);

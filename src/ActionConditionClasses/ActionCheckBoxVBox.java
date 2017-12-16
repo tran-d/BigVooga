@@ -22,8 +22,6 @@ public class ActionCheckBoxVBox extends VBoxList implements ActionCheckBoxVBoxI 
 	
 	public ActionCheckBoxVBox(ObservableList<Integer> options,List<Integer> selectedOptions) {
 		this(options);
-		;
-		;
 		ObservableList<CheckBox> tempCheckBoxes = FXCollections.observableArrayList(checkBoxes);
 		System.out.println("selectedOptions size " + selectedOptions.size());
 		for(Integer selectedOption : selectedOptions) {

@@ -43,12 +43,10 @@ public class SpriteGridHandler {
 		Random rand = new Random();
 		int parent = rand.nextInt();
 		objectFormat = new DataFormat("MyObject" + parent + Integer.toString(mapCount));
-		;
 		myDG = DG;
 	}
 
 	public void setGridIsShown(boolean shown) {
-		;
 		this.gridIsShown = shown;
 
 	}
@@ -69,7 +67,6 @@ public class SpriteGridHandler {
 	
 	public void setElementSelectorDisplayPanel(DisplayPanel dispPanel) {
 		myElementSelectorDP = dispPanel;
-		;
 	}
 
 	public DraggableGrid getDraggableGrid() {
@@ -77,7 +74,6 @@ public class SpriteGridHandler {
 	}
 
 	public void addKeyPress(Scene scene) {
-		;
 		scene.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>(){
 
 			@Override
@@ -113,10 +109,14 @@ public class SpriteGridHandler {
 					}
 					break;
 				case C:
+					if (gridIsShown){
 					deactivateActiveAuthoringMapStackPaneCells();
+					}
 					break;
 				case L:
+					if (gridIsShown){
 					clearLayerOfSprites();
+					}
 					break;
 				case W:
 					onTop();
@@ -151,10 +151,7 @@ public class SpriteGridHandler {
 	}
 
 	private void onBackSpace() {
-		;
 		if (gridIsShown) {
-			;
-			;
 			deleteSelectedSprites();
 		}
 	}
@@ -230,18 +227,14 @@ public class SpriteGridHandler {
 	private void deleteSprites(List<AbstractSpriteObject> toDelete){
 		List<Integer[]> cellsToDelete = new ArrayList<Integer[]>();
 		toDelete.forEach(s -> {
-			;
 			Integer[] row_col = s.getPositionOnGrid();
-			;
 			// ;
 			cellsToDelete.add(row_col);
 		});
-		;
 		myDG.getActiveGrid().clearCells(cellsToDelete);
 	}
 
 private	void resetActiveSprites() {
-	;
 		myDG.getActiveGrid().resetActiveCells();
 	}
 
@@ -297,13 +290,12 @@ private	void resetActiveSprites() {
 					setActiveElementSprite(null);
 					boolean activeStatus;
 					activeStatus = myDG.getActiveGrid().switchCellActiveStatus(s.getPositionOnGrid());
-					;
+					
 					if (activeStatus) {
 						s.setEffect(makeSpriteEffect());
 					} else {
 						s.setEffect(null);
 					}
-					;
 
 						if (myDG.getActiveGrid().getActiveSpriteObjects().size() == 0) {
 							myGridDP.removeSpriteEditorVBox();
@@ -332,8 +324,7 @@ private	void resetActiveSprites() {
 	}
 	
 	private void setActiveElementSprite(AbstractSpriteObject ASO){
-		;
-		;
+		
 		AbstractSpriteObject prevActive = this.myElementSelectorDP.setActiveSprite(ASO);
 		if (ASO!=null){
 			;

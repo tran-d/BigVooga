@@ -1,11 +1,16 @@
 package authoring_UI.displayable;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
@@ -23,9 +28,9 @@ public class DragResizer {
 	private static double orgTranslateX, orgTranslateY;
 	private static double paneLeft, paneRight, paneTop, paneBottom;
 
-    private final Region region;
-    private final Pane pane;
-    private final Rectangle bound;
+    private Region region;
+    private Pane pane;
+    private Rectangle bound;
 
     private double y, x;
 
@@ -44,13 +49,13 @@ public class DragResizer {
         region = aRegion;
         region.applyCss();
         // set clip bound
-        pane = (Pane) region.getParent();
+        pane = (Pane) aRegion.getParent();
         bound = new Rectangle(pane.getWidth(),pane.getHeight());
         pane.setClip(bound);
         
     }
 
-    protected void makeResizable() {
+    protected void makeTextAreaResizable() {
         final DragResizer resizer = new DragResizer(region);
 
         region.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -177,16 +182,8 @@ public class DragResizer {
 
     }
     
-    protected void makeDraggable() {
-    		if (region instanceof TextArea) {
-    			makeTextAreaDraggable();
-    		} else {
-    			makeImageDraggable();
-    		}
-    }
-    
     protected void makeTextAreaDraggable() {
-     	Node textAreaContent = region.lookup(".content");
+    		Node textAreaContent = region.lookup(".content");
 
      	textAreaContent.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
 
@@ -225,41 +222,16 @@ public class DragResizer {
            
     }
     
-    protected void makeImageDraggable() {
-    		region.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+	protected void makeTextAreaDeletable() {
+		Node textAreaContent = region.lookup(".content");
+		
+		textAreaContent.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+			MouseButton button = e.getButton();
+			if (button == MouseButton.SECONDARY) {
+				pane.getChildren().remove(region);
+			}
 
-    			orgSceneX = e.getSceneX();
-    			orgSceneY = e.getSceneY();
-    			orgTranslateX = region.getTranslateX();
-    			orgTranslateY = region.getTranslateY();
-
-    			region.toFront();
-    			region.setCursor(Cursor.MOVE);
-
-    		});
-
-    		region.addEventHandler(MouseEvent.MOUSE_DRAGGED, e -> {
-      		double offsetX = e.getSceneX() - orgSceneX;
-      		double offsetY = e.getSceneY() - orgSceneY;
-      		double newTranslateX = orgTranslateX + offsetX;
-      		double newTranslateY = orgTranslateY + offsetY;
-
-	        if(newTranslateX > 0 &&
-	        		(newTranslateX + region.getWidth()) < bound.getWidth()){
-	             region.setTranslateX(newTranslateX);
-	        	}
-	        if(newTranslateY > 0 &&
-	            (newTranslateY + region.getHeight()) < bound.getHeight()){
-	            region.setTranslateY(newTranslateY);
-	        }
-
-	        region.setCursor(Cursor.HAND);
-
-    		});
-      
-    		region.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> {
-            region.setCursor(Cursor.HAND);
-    		});    
-
-    }
+		});
+	}
+    
 }
