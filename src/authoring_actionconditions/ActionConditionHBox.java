@@ -14,6 +14,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.HBox;
 
+/**
+ * ActionConditionHBox--the HBox at the top of each action and condition tab that contains the add or remove condition or action button and the 
+ * choiceBox for adding or removing an action or condition in the actionConditionVBox in the tab
+ * Dependencies: depends on the removeRowVBox class to tell it which row it should remove should the user desire to remove an action or condition from 
+ * a sprite object
+ * An example of how to use it: pass in the title of the tab to let it know what resource string titles it should be using
+ * @author Owen Smith
+ *
+ */
 public class ActionConditionHBox extends HBox implements ActionConditionHBoxI {
 
 	private ResourceBundle tabResources;
