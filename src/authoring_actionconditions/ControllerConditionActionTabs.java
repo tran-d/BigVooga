@@ -1,5 +1,14 @@
 package authoring_actionconditions;
 
+/**
+ * ControllerConditionActionTabs--controls the flow of information between the condition and action tabs. This information contains which actions are 
+ * defined in the action tab so that the condition tab can adjust its conditions rows according to this new size
+ * Dependencies: depends on the condition and action tabs to get information from 
+ * Example of how to use--create an instance of the controller each time either the action or condition tab is updated, and that it is it. It will 
+ * control all of the button listeners accordingly
+ * @author Owen Smith
+ *
+ */
 public class ControllerConditionActionTabs {
 	
 	private ConditionTab<ConditionRow> conditionTab;
