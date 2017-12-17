@@ -51,7 +51,6 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 	private static final String CREATE_SPRITE = "CreateSprite";
 	private static int ROWS = 3;
 	private static int COLUMNS = 3;
-//	private String fileName;
 	private BiFunction<Image, String, AbstractSpriteObject> getSpriteTypeFunction;
 	private TextField nameField;
 	private TextField categoryField;
@@ -155,15 +154,6 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 	}
 	
 	private HBox addButtons() {
-//		Button loadImageButton = new Button(spriteCreatorResources.getString("LoadImageButton"));
-//		loadImageButton.setOnAction(e -> {
-//			try {
-//				openImage();
-//			} catch (IOException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			}
-//		});
 
 		Button createImageButton = new Button();
 		createImageButton.textProperty().bind(DisplayLanguage.createStringBinding(DRAW_IMAGE));
@@ -201,7 +191,6 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 					}
 
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				
@@ -212,18 +201,7 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 				this.resetActiveCells();
 				this.mySpriteGridHandler.deactivateActiveSprites();
 				((AuthoringMapStackPane)dummySprite.getParent()).removeChild();
-//				myImageGrid.getImageStack().getChildren().remove(0);
-//				mySM.setActiveSprite(null);
-//				myImageGrid.setCurrentSprite(null);
 
-//				mySC.updateSpriteTabs();
-				// this.getChildren().removeAll(newSprite, nameBox);
-				// newSprite = new SpriteObject();
-
-				// this.getChildren().addAll(newSprite, nameBox);
-
-				// this.getChildren().remove(1);
-				// this.getChildren().add(addSpriteTabs());
 				newSprite = this.getSpriteTypeFunction.apply(null, null);
 			} else {
 				Alert alert = new Alert(AlertType.ERROR);
@@ -246,22 +224,6 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 		myAEM.getGameDataHandler().saveTo(s, fileName);
 		newSprite = getMapLayer().setBackgroundImage(()-> getSpriteTypeFunction.apply(s, fileName));
 	}
-	
-//	public String getSpriteName() {
-//		return nameField.getText();
-//	}
-//
-//	public String getSpriteCategory() {
-//		return categoryField.getText();
-//	}
-//
-//	public void setSpriteName(String s) {
-//		nameField.setText(s);
-//	}
-//
-//	public void setSpriteCategory(String s) {
-//		categoryField.setText(s);
-//	}
 
 
 }

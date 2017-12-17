@@ -20,6 +20,12 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 
+/**
+ * Class that displays UI component for a double parameter (text area for name, text area for value)
+ * 
+ * @author Dara Buggay
+ *
+ */
 public class FEDoubleParameter extends FEParameter {
 	SpriteParameterI myParam;
 	FEParameterName myName;
@@ -48,11 +54,6 @@ public class FEDoubleParameter extends FEParameter {
 				displayErrorDialog(newValue, e);
 				newValue = "";
 			}
-			try{
-			myValue.setText(newValue);
-			} catch (Exception e){
-				;
-			}
 		});
 	}
 	
@@ -64,15 +65,6 @@ public class FEDoubleParameter extends FEParameter {
 
 		alert.showAndWait();
 
-//		Optional<String> result = dialog.showAndWait();
-//		result.ifPresent(stringInput -> {
-//			try {
-//				myParam.checkError(stringInput);
-//			} catch (Exception e1) {
-//				// if error here, do nothing
-//			}
-//			myValue.setText(stringInput);
-//		});
 	}
 	
 	protected void handleValueChange() {

@@ -1,7 +1,7 @@
 package authoring_UI.Inventory;
 
 /**
- * Class that represents a tab listing all user created dialogues
+ * Class that represents a tab listing all user created inventories
  * 
  * @author DavidTran
  *

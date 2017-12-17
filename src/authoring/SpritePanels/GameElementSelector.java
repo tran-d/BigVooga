@@ -13,9 +13,11 @@ import authoring_UI.DraggableGrid;
 import authoring_UI.SpriteGridHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Side;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -27,6 +29,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
+/**
+ * Class that handles creating a user sprite and making all the sprite tabs that are displayed upon sprite selection, including inventory, dialogue, cutscenes
+ * 
+ * @author Sam Slack, Dara Buggay
+ *
+ */
 public class GameElementSelector extends TabPane implements Observer {
 	
 	protected static final String SPRITES = "Sprites";
@@ -39,16 +47,8 @@ public class GameElementSelector extends TabPane implements Observer {
 	protected static final String INVENTORY = "Inventory";
 	
 	protected DraggableGrid myGrid;
-//	private SpriteSelectPanel mySprites;
-//	private SpriteSelectPanel myUserSprites;
 	private final int NUM_COLUMNS = 10;
-
 	protected AuthoringEnvironmentManager myAEM;
-//	private SpriteParameterFactory mySPF;
-//	private List<AbstractSpriteObject> mySpriteObjs = new ArrayList<AbstractSpriteObject>();
-//	private List<SpriteObject> myUserSpriteObjs = new ArrayList<SpriteObject>();
-//	private GameDataHandler myGDH;
-//	private SpriteObjectGridManagerI mySOGM;
 	protected SpriteGridHandler mySpriteGridHandler;
 	private Tab dialoguesTab;
 	protected String myType;
@@ -79,10 +79,20 @@ public class GameElementSelector extends TabPane implements Observer {
 		try {
 			this.myAEM.addUserSprite(sp);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			displayErrorMessage(e);
 			e.printStackTrace();
 		}
 	}
+	
+	private void displayErrorMessage(Exception e) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText(e.getMessage());
+		alert.setContentText("Please give sprite an image");
+
+		alert.showAndWait();
+	}
+
 
 	protected void createSpriteTabs() {
 		TabPane spritesTabPane = new TabPane();
@@ -94,13 +104,8 @@ public class GameElementSelector extends TabPane implements Observer {
 		Tab importedSpriteTab = createSubTab(IMPORTED, myAEM.getImportedSpriteController());
 		Tab inventorySpriteTab = createSubTab(INVENTORY, myAEM.getInventoryController());
 		Tab importedInventorySpriteTab = createSubTab(IMPORTEDINVENTORY, myAEM.getImportedInventorySpriteController());
-//		Tab defaultDialogueTab = createSubTab(DEFAULT);
-//		Tab userDialogueTab = createSubTab(USER);
-//		Tab importedDialogueTab = createSubTab(IMPORTED);
 		spritesTabPane.getTabs().addAll(defaultSpriteTab, userSpriteTab, importedSpriteTab);
 		spritesTabPane.setSide(Side.RIGHT);
-//		dialoguesTabPane.getTabs().addAll(defaultDialogueTab, userDialogueTab, importedDialogueTab);
-		//dialoguesTabPane.setSide(Side.RIGHT);
 		
 		inventoryTabPane.setSide(Side.RIGHT);
 		inventoryTabPane.getTabs().addAll(inventorySpriteTab, importedInventorySpriteTab);
@@ -124,8 +129,6 @@ public class GameElementSelector extends TabPane implements Observer {
 	protected Tab createSubTab(String tabName, SpriteSet controller) {
 		Tab subTab = new Tab();
 		subTab.setText(tabName);
-//		subTab.textProperty().bind(DisplayLanguage.createStringBinding(tabName));
-//		defaultSpriteTab.setContent(mySprites);
 		subTab.setContent(makeCategoryTabPane(controller));
 		subTab.setOnSelectionChanged((event)->{
 			if (subTab.isSelected()){
@@ -157,7 +160,6 @@ public class GameElementSelector extends TabPane implements Observer {
 	private Tab createElementTab(String tabName, TabPane tabPane) {
 		Tab elementTab = new Tab();
 		elementTab.setText(tabName);
-//		elementTab.textProperty().bind(DisplayLanguage.createStringBinding(tabName));
 		elementTab.setContent(tabPane);
 		elementTab.setClosable(false);
 		return elementTab;
@@ -201,7 +203,6 @@ public class GameElementSelector extends TabPane implements Observer {
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		;
 		createUserSprite(arg);
 	}
 	

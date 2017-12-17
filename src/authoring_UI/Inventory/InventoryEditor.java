@@ -134,7 +134,6 @@ public class InventoryEditor extends DisplayableEditor {
 		backgroundColorCP.setOnAction(e -> changeBackgroundColor());
 
 		isp = new InventoryTextAreaView(() -> saveConsumer.accept("Inventory Template"), () -> backgroundColorCP.getValue());
-		// numPanelsTF.setOnInputMethodTextChanged(e -> checkInput());
 	}
 	
 	@Override

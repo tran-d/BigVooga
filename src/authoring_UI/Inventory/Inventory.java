@@ -18,8 +18,6 @@ public class Inventory extends Displayable {
 		super(name, fontType, fontColor, inventorySequence);
 	}
 
-	/*************************** PUBLIC METHODS **********************************/
-
 	protected String getName() {
 		return super.getName();
 	}
@@ -35,15 +33,5 @@ public class Inventory extends Displayable {
 	protected Color getFontColor() {
 		return super.getFontColor();
 	}
-
-	/*************************** PRIVATE METHODS **********************************/
-
-//	private void createTextList(List<TextArea> taList) {
-//		textList = new ArrayList<String>();
-//
-//		for (TextArea ta : taList) {
-//			textList.add(ta.getText());
-//		}
-//	}
 
 }

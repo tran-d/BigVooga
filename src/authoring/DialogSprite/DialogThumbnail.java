@@ -22,9 +22,6 @@ public class DialogThumbnail extends Thumbnail{
 	}
 	
 	public AuthoringDialogSequence getSprite(){
-//		if (myASOCopy==null){
-//			myASOCopy = myASO.newCopy();
-//		}
 		return myASO;
 	}
 
