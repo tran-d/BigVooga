@@ -17,6 +17,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import tools.DisplayLanguage;
 
+/**
+ * 
+ * ConditionTreeView--creates a treeview which utilizes boolean operations to create a condition for the user. This treeview is recursive in that the 
+ * user can either choose another boolean operation to define the condition or select a boolean variable/value to terminate the tree
+ * @param conditionRow--the row with which the condition treeview expands with
+ * @param supplier--the lambda expression supplying the information about the sprite objectst that the conditionrow will use
+ * @author Owen Smith, David Tran
+ *
+ */
 public class ConditionTreeView extends TreeView<HBox> {
 
 	public static final double VBOX_SPACING = 10;
@@ -64,15 +73,28 @@ public class ConditionTreeView extends TreeView<HBox> {
 		 
 	}
 
+	/**
+	 * setParameters--sets the tags for the conditionTreeView (ie just the first two levels, in case the user is loading it from XML)
+	 * @param selectedOperation--the operation the user chose
+	 * @param condition--the actual engine condition the user chose
+	 */
 	public void setParameters(String selectedOperation, Condition condition) {
 		this.selectedOperation = selectedOperation;
 		this.condition = condition;
 	}
 
+	/**
+	 * getTreeViewVBox--returns the vBox within which the treeview is contained
+	 * @return
+	 */
 	protected VBox getTreeViewVBox() {
 		return booleanOperationTreeView;
 	}
 
+	/**
+	 * getSelectedOperation--returns the selected condition operation of the tree
+	 * @return
+	 */
 	public String getSelectedOperation() {
 		if (selectedOperation != null)
 			return selectedOperation;
@@ -85,6 +107,11 @@ public class ConditionTreeView extends TreeView<HBox> {
 		}
 	}
 
+	/**
+	 * getCondition--returns the condition that the user has defined from the tree. Assumes the user has selected valid options for the treeview, if 
+	 * not will throw an exception which the tab will catch
+	 * @return
+	 */
 	public Condition getCondition() {
 
 		if (condition != null)
@@ -127,6 +154,10 @@ public class ConditionTreeView extends TreeView<HBox> {
 		return booleanOperationTreeView;
 	}
 
+	/**
+	 * changeRowTVSize--changes the size of the row and treeview to accomodate an expanded or collapsed view. Expanded would be if the user is editing,
+	 * collapsed would be if the user has already created the tree
+	 */
 	protected void changeRowTVSize() {
 		if (operationNameTreeItem.isExpanded()) {
 			this.setPrefHeight(TREE_VIEW_EXPANDED_HEIGHT);
@@ -157,6 +188,10 @@ public class ConditionTreeView extends TreeView<HBox> {
 		return tf;
 	}
 
+	/**
+	 * showError--shows an error if the user has not entered a valid input for some part of the conditionTreeView
+	 * @param content
+	 */
 	protected static void showError(String content) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setHeaderText("Invalid input");

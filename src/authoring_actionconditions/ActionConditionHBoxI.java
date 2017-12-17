@@ -4,6 +4,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
+/**
+ * Just contains the public methods for the actionconditionHBox tab. Not actually necessary or used more than once
+ * @author Owen Smith
+ *
+ */
 public interface ActionConditionHBoxI {
 	
 	public Integer getRemoveValue();

@@ -9,6 +9,10 @@ import java.util.ResourceBundle;
 /**
  * Uses a properties file to generate the known drawing tools for use by the canvas. 
  * 
+ * Assumes all DrawingTools have a constructor with parameters (String, ImageCanvas).
+ * 
+ * Assumes the properties file gives the relative location of the tools.
+ * 
  * @author Ian Eldridge-Allegra
  *
  */

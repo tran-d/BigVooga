@@ -1,5 +1,11 @@
 package authoring.drawing;
 
+/**
+ * A generic runtime exception thrown by the utility.
+ * 
+ * @author Ian Eldridge-Allegra
+ *
+ */
 public class PaintException extends RuntimeException {
 	public PaintException(String string) {
 		super(string);

@@ -118,7 +118,8 @@ public class GameDisplay {
 	}
 
 	/**
-	 * Takes in the updated objects from PlayerManager and displays them.
+	 * Takes in the updated objects from PlayerManager and displays them 
+	 * using the visitor pattern.
 	 * 
 	 * @param imageData
 	 *            - The list of objects for the player to display

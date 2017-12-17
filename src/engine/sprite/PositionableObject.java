@@ -1,5 +1,11 @@
 package engine.sprite;
 
+/**
+ * @see Positionable.
+ * 
+ * @author Ian Eldridge-Allegra
+ *
+ */
 public class PositionableObject implements Positionable {
 
 	private int drawingPriority;

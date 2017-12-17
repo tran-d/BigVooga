@@ -14,6 +14,9 @@ import javafx.scene.paint.Color;
 public class ColorSelector extends ColorPicker {
 	private static final Color DEFAULT_COLOR = Color.BLACK;
 	
+	/**
+	 * @param listener Notified when the color changes.
+	 */
 	public ColorSelector(Consumer<Color> listener) {
 		this(listener, DEFAULT_COLOR);
 	}

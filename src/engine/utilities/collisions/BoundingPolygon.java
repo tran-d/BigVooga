@@ -8,6 +8,10 @@ import javafx.geometry.Point2D;
 
 /**
  * A Polygon subclass of BoundingGeometry
+ * 
+ * This class assumes a convex polygon is given to it, and that the points are
+ * already in clockwise order (on a computer science style grid).
+ * 
  * @see BoundingGeometry
  * 
  * @author Ian Eldridge-Allegra
@@ -18,7 +22,9 @@ public class BoundingPolygon extends BoundingGeometry {
 	private List<Point2D> vertices;
 
 	/**
-	 * @param vertices Given in clockwise order (on a traditional comp-sci grid) and as a convex shape
+	 * @param vertices
+	 *            Given in clockwise order (on a traditional comp-sci grid) and as a
+	 *            convex shape
 	 */
 	public BoundingPolygon(List<Point2D> vertices) {
 		this.vertices = vertices;
@@ -90,8 +96,10 @@ public class BoundingPolygon extends BoundingGeometry {
 	}
 
 	/**
-	 * @param vector The vector to rotate
-	 * @param angle The angle to rotate (CCW in right-handed system)
+	 * @param vector
+	 *            The vector to rotate
+	 * @param angle
+	 *            The angle to rotate (CCW in right-handed system)
 	 * @return rotated vector
 	 */
 	public static Point2D rotateByAngle(Point2D vector, double angle) {
