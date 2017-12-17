@@ -60,6 +60,16 @@ public class DialogueManager extends DisplayableManager {
 		hb.getChildren().addAll(dView, createSeparator(), createButtonPanel());
 
 	}
+	
+	public void addDialogueListener(Tab dialoguesTab) {
+		mapDialoguesTab = dialoguesTab;
+		System.out.println("YIPPEE");
+		updateListView();
+	}
+
+	public HBox getPane() {
+		return hb;
+	}
 
 	@Override
 	protected Separator createSeparator() {
@@ -69,16 +79,6 @@ public class DialogueManager extends DisplayableManager {
 	@Override
 	protected Separator createShortSeparator(int height) {
 		return super.createShortSeparator(height);
-	}
-
-	protected void addDialogueListener(Tab dialoguesTab) {
-		mapDialoguesTab = dialoguesTab;
-		System.out.println("YIPPEE");
-		updateListView();
-	}
-
-	protected HBox getPane() {
-		return hb;
 	}
 	
 	@Override

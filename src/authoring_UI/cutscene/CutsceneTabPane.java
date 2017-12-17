@@ -3,6 +3,12 @@ package authoring_UI.cutscene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TabPane;
 
+/**
+ * Class that holds all cutscene tabs
+ * 
+ * @author Dara Buggay
+ *
+ */
 public class CutsceneTabPane extends TabPane {
 
 	private static final String DEFAULT = "DefaultCutscenes";

@@ -38,6 +38,11 @@ import javafx.scene.text.Font;
 import tools.DisplayLanguage;
 import authoring_UI.dialogue.*;
 
+/**
+ * Class that allows users to edit/save cutscenes
+ * 
+ * @author Dara Buggay
+ */
 public class CutsceneEditor extends DisplayableEditor {
 
 	private static final String NAME_PROMPT = "Name";
@@ -50,7 +55,7 @@ public class CutsceneEditor extends DisplayableEditor {
 	private static final String INITIAL_BACKGROUND_COLOR = "#FFFFFF";
 
 	private static final double NAME_PROMPT_WIDTH = 150;
-	private static final double FONT_PROMPT_WIDTH = 50; // change to choicebox
+	private static final double FONT_PROMPT_WIDTH = 50;
 	private static final double FONT_SIZE_PROMPT_WIDTH = 50;
 	private static final double NUM_PANELS_PROMPT_WIDTH = 50;
 	private static final double PROMPT_HEIGHT = 10;
@@ -201,7 +206,6 @@ public class CutsceneEditor extends DisplayableEditor {
 		numPanelsTF = makeTextField(NUM_PANELS_PROMPT_WIDTH, PROMPT_HEIGHT);
 
 		cutsceneView = new CutsceneTextAreaView(() -> saveConsumer.accept(getName()), () -> backgroundColorCP.getValue(), GDH, this);
-		// numPanelsTF.setOnInputMethodTextChanged(e -> checkInput());
 	}
 	
 	@Override

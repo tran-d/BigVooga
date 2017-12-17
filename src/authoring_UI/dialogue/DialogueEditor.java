@@ -54,7 +54,7 @@ public class DialogueEditor extends DisplayableEditor {
 	private static final String INITIAL_BACKGROUND_COLOR = "#FFFFFF";
 
 	private static final double NAME_PROMPT_WIDTH = 150;
-	private static final double FONT_PROMPT_WIDTH = 50; // change to choicebox
+	private static final double FONT_PROMPT_WIDTH = 50;
 	private static final double FONT_SIZE_PROMPT_WIDTH = 50;
 	private static final double NUM_PANELS_PROMPT_WIDTH = 50;
 	private static final double PROMPT_HEIGHT = 10;
@@ -201,7 +201,6 @@ public class DialogueEditor extends DisplayableEditor {
 		numPanelsTF = makeTextField(NUM_PANELS_PROMPT_WIDTH, PROMPT_HEIGHT);
 
 		dsp = new DialogueTextAreaView(() -> saveConsumer.accept(getName()), () -> backgroundColorCP.getValue());
-		// numPanelsTF.setOnInputMethodTextChanged(e -> checkInput());
 	}
 	
 	@Override

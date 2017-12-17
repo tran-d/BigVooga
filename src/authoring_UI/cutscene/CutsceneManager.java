@@ -21,11 +21,12 @@ import javafx.scene.layout.VBox;
 import tools.DisplayLanguage;
 
 /**
- * Class that represents the pane containing all dialogue authoring components
+ * Class that represents the pane containing all cutscene authoring components
  * 
- * @author DavidTran
+ * @author Dara Buggay
  *
  */
+
 public class CutsceneManager extends DisplayableManager {
 
 	private static final double NODE_SPACING = 20;
@@ -57,10 +58,15 @@ public class CutsceneManager extends DisplayableManager {
 		hb.setLayoutX(10);
 		hb.getChildren().addAll(cView, createSeparator(), createButtonPanel());
 
-		// test
-		// addDefaultDialogueButton();
-		// addUserDialogueButton("blah", -1);
+	}
+	
+	public void addCutsceneListener(Tab cutsceneTab) {
+		mapCutscenesTab = cutsceneTab;
+		updateListView();
+	}
 
+	public HBox getPane() {
+		return hb;
 	}
 
 	@Override
@@ -71,17 +77,6 @@ public class CutsceneManager extends DisplayableManager {
 	@Override
 	protected Separator createShortSeparator(int height) {
 		return super.createShortSeparator(height);
-	}
-
-	/*************************** PUBLIC METHODS **********************************/
-
-	public void addCutsceneListener(Tab cutsceneTab) {
-		mapCutscenesTab = cutsceneTab;
-		updateListView();
-	}
-
-	public HBox getPane() {
-		return hb;
 	}
 
 	@Override
