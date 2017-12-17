@@ -99,7 +99,6 @@ public class AuthoringController {
 		viewMap.put(DIALOGUE_KEY, dm.getPane());
 		
 		InventoryManager inventoryManager = new InventoryManager(AEM);
-		//inventoryManager.;
 		viewMap.put(INVENTORY_KEY, inventoryManager.getPane());
 
 		HUDManager hudManager = new HUDManager(AEM, scene);
