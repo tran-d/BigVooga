@@ -72,36 +72,6 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 		Random rand = new Random();
 		if (allGrids == null) allGrids = new ArrayList<SpriteObjectGridManager>();
 		this.setAllGrids(SOGMList);
-//		mySGH = new SpriteGridHandler(rand.nextInt(), this);
-//		for (SpriteObjectGridManager SOGM : SOGMList) {
-//			SOGM.setSpriteGridHandler(mySGH);
-			
-//			if (SOGM.getLayerNum() == 0) {
-//				;
-//				TerrainObjectGridManager TOGM = new TerrainObjectGridManager(SOGM.getRowsForImport(), SOGM.getColsForImport(), SOGM.getLayerNum(), SOGM.getColor());
-//				TOGM.setSpriteGridHandler(mySGH);
-//				;
-//				TOGM.createMapLayer(SOGM.getStoredSpriteList()); 
-//				allGrids.add(TOGM);
-//			}
-//			if (SOGM.getLayerNum() == 1) {
-//				;
-//				SpriteObjectGridManagerForSprites SOGMS = new SpriteObjectGridManagerForSprites(SOGM.getRowsForImport(), SOGM.getColsForImport(), SOGM.getLayerNum(), SOGM.getColor());
-//				SOGMS.setSpriteGridHandler(mySGH);
-//				;
-//				SOGMS.createMapLayer(SOGM.getStoredSpriteList()); 
-//				allGrids.add(SOGMS);
-//			}
-//			if (SOGM.getLayerNum() == 2) {
-//				;
-//				PanelObjectGridManager POGM = new PanelObjectGridManager(SOGM.getRowsForImport(), SOGM.getColsForImport(), SOGM.getLayerNum(), SOGM.getColor());
-//				POGM.setSpriteGridHandler(mySGH);
-//				;
-//				POGM.createMapLayer(SOGM.getStoredSpriteList());
-//				allGrids.add(POGM);
-//			}
-		
-		;
 	}
 	
 	public DraggableGrid(int row, int col) {
@@ -207,7 +177,6 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 				
 				item.setSizeToMatchDefaults();
 			
-//				item.getMapLayer().setSpriteGridHandler();
 				showingGrids.add(item);
 			});
 		}
@@ -230,7 +199,6 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 	}
 	
 	private void showLayer(SpriteObjectGridManager ML){
-//		;
 		if (!showingGrids.contains(ML)){
 			showingGrids.add(ML);
 		}
@@ -238,8 +206,6 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 	}
 	
 	private void hideLayer(SpriteObjectGridManager ML){
-//		myStackPane.getChildren().remove(ML);
-//		ML.getActiveSpriteObjects()
 		mySGH.deactivateActiveSprites();
 		if (showingGrids.contains(ML)){
 			showingGrids.remove(ML);
@@ -270,10 +236,8 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 		if (ML instanceof SpriteCreatorGridManager){
 			HBox nameCategoryBox = ((SpriteCreatorGridManager)ML).getNameCategoryBox();
 			HBox spriteButtonsBox = ((SpriteCreatorGridManager)ML).getSpriteButtonsBox();
-			//ColorPicker
 	
-			//Choose Image
-			
+			//Choose Image			
 			Button button = new Button("Load Image");
 			button.setOnAction((event)->{
 				Node parent = ML.getMapLayer().getParent();
@@ -316,7 +280,6 @@ public class DraggableGrid extends VBox implements DraggableGridAPI{
 			});
 			
 			//Choose Image
-			
 			Button button = new Button("Set Background Image");
 			button.setOnAction((event)->{
 				Node parent = ML.getMapLayer().getParent();

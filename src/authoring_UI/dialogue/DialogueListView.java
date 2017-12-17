@@ -20,7 +20,6 @@ import javafx.scene.text.Font;
 public class DialogueListView extends ListView<String> {
 
 	private static double HEIGHT = 20;
-	// private List<DialogueListCell> dList = new ArrayList<>();
 	private List<String> dList = new ArrayList<>();
 	private int dialogueCount = 0;
 

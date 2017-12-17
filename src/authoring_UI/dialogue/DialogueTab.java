@@ -14,7 +14,7 @@ import tools.DisplayLanguage;
 /**
  * Class that represents a tab listing dialogues to edit
  * 
- * @author DavidTran
+ * @author DavidTran and Dara Buggay
  *
  */
 public class DialogueTab extends DisplayableTab {
@@ -57,8 +57,6 @@ public class DialogueTab extends DisplayableTab {
 			dialogueLister.getChildren().add(index, btn);
 		} else
 			dialogueLister.getChildren().add(btn);
-		// ;
-
 	}
 
 	@Override

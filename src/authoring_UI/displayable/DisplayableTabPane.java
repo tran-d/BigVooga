@@ -3,6 +3,12 @@ package authoring_UI.displayable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TabPane;
 
+/**
+ * abstract class that holds all displayable tabs. Extended by authoring_ui dialogue, cutscene, and inventory classes
+ * 
+ * @author Dara Buggay
+ *
+ */
 public class DisplayableTabPane extends TabPane {
 
 	public DisplayableTabPane() {

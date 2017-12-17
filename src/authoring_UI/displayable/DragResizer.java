@@ -16,6 +16,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * class that handles functionality for dragging + resizing a text area within bounded pane & deleting the TA upon right click. Used for dialogues + cutscenes
+ * 
+ * @author Dara Buggay
+ *
+ */
+
 public class DragResizer {
 
     /**

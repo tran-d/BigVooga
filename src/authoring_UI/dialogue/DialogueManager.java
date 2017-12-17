@@ -25,7 +25,7 @@ import tools.DisplayLanguage;
 /**
  * Class that represents the pane containing all dialogue authoring components
  * 
- * @author DavidTran
+ * @author DavidTran and Dara Buggay
  *
  */
 public class DialogueManager extends DisplayableManager {
@@ -59,10 +59,6 @@ public class DialogueManager extends DisplayableManager {
 		hb.setLayoutX(10);
 		hb.getChildren().addAll(dView, createSeparator(), createButtonPanel());
 
-		// test
-		// addDefaultDialogueButton();
-		// addUserDialogueButton("blah", -1);
-
 	}
 
 	@Override
@@ -75,15 +71,13 @@ public class DialogueManager extends DisplayableManager {
 		return super.createShortSeparator(height);
 	}
 
-	/*************************** PUBLIC METHODS **********************************/
-
-	public void addDialogueListener(Tab dialoguesTab) {
+	protected void addDialogueListener(Tab dialoguesTab) {
 		mapDialoguesTab = dialoguesTab;
 		System.out.println("YIPPEE");
 		updateListView();
 	}
 
-	public HBox getPane() {
+	protected HBox getPane() {
 		return hb;
 	}
 	
@@ -131,9 +125,7 @@ public class DialogueManager extends DisplayableManager {
 			}
 			editorList.add(currentEditorIndex, currentEditor);
 
-			// editorList.add(currentEditor);
 			addUserDialogueButton(currentEditor.getName());
-			// currentEditor = null;
 		}
 
 		updateListView();
@@ -191,8 +183,6 @@ public class DialogueManager extends DisplayableManager {
 	private void addDefaultDialogueButton() {
 		Button btn = new Button("Default Dialogue #1");
 		btn.setPrefSize(BUTTON_WIDTH, BUTTON_HEIGHT);
-		// btn.setOnAction(e -> loadEditor(currentEditor));
-		// change number
 		dView.addDefaultDialogueButton(0, btn);
 
 	}

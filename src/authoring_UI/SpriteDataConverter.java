@@ -47,11 +47,6 @@ public class SpriteDataConverter {
 		return name;
 	}
 
-//	public SpriteObject getSprite(File file) {
-//
-//		return null;
-//	}
-
 	public SpriteDataConverter getToSerialize() {
 		return this;
 	}
@@ -73,8 +68,6 @@ public class SpriteDataConverter {
 		tags = ASO.getTags();
 		inventory = new ArrayList<SpriteDataConverter>();
 		renderingPreference = ASO.getRenderingPreference();
-//		allConditions = ASO.getAllConditions();
-//		allActions = ASO.getAllActions();
 		conditionRows = ASO.getConditionRows();
 		actionRows = ASO.getActionRows();
 		myAnimationSequences = ASO.getAnimationSequences();
@@ -118,8 +111,6 @@ public class SpriteDataConverter {
 		ret.setName(name);
 		ret.setSavePath(mySavePath);
 		ret.setTags(tags);
-//		ret.setAllConditions(allConditions);
-//		ret.setAllActions(allActions);
 		ret.setConditionRows(conditionRows);
 		ret.setActionRows(actionRows);
 		ret.setSelectedConditionOperations(spriteConditionOperations);
@@ -135,8 +126,4 @@ public class SpriteDataConverter {
 		return ret;
 	}
 	
-//	private Object readResolve() throws java.io.ObjectStreamException{
-//			;
-//	        return createSprite();   
-//	}
 }

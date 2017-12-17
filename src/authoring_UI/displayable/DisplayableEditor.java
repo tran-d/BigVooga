@@ -1,7 +1,6 @@
 package authoring_UI.displayable;
 
 import java.io.File;
-
 import engine.utilities.data.GameDataHandler;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,6 +20,13 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import tools.DisplayLanguage;
+
+/**
+ * abstract class that allows users to edit/save displayables. Extended by authoring_ui dialogue, cutscene, and inventory classes
+ * 
+ * @author Dara Buggay
+ *
+ */
 
 public abstract class DisplayableEditor {
 	

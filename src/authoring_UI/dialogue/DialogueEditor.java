@@ -40,7 +40,7 @@ import tools.DisplayLanguage;
 /**
  * Class that allows users to edit/save dialogues
  * 
- * @author DavidTran
+ * @author DavidTran and Dara Buggay
  */
 public class DialogueEditor extends DisplayableEditor {
 
@@ -127,8 +127,6 @@ public class DialogueEditor extends DisplayableEditor {
 	protected String getBackgroundImage() {
 		return currentFile;
 	}
-
-	/*************************** PRIVATE METHODS *********************************/
 
 	private void save(String name) {
 		if (!name.trim().equals(""))

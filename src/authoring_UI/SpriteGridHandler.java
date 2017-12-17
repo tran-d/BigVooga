@@ -260,23 +260,7 @@ private	void resetActiveSprites() {
 
 	private void changeCellStatus(AuthoringMapStackPane pane) {
 		pane.switchActive();
-		// if(pane.getOpacity() == 1) {
-		// makeCellActive(pane);
-		// } else {
-		// makeCellInactive(pane);
-		// }
 	}
-
-	// private void makeCellActive(AuthoringMapStackPane pane) {
-	// activeGridCells.add(pane);
-	// pane.switch
-	// pane.setOpacity(0.5);
-	// }
-
-	// private void makeCellInactive(StackPane pane) {
-	// activeGridCells.remove(pane);
-	// pane.setOpacity(1);
-	// }
 
 	public void addSpriteMouseClick(AbstractSpriteObject s) {
 		s.setOnMouseClicked(e -> {
@@ -374,13 +358,6 @@ private	void resetActiveSprites() {
 		currentActiveCells.forEach((item) -> {
 			populateIndividualCell(item, s);
 		});
-		// Set<AuthoringMapStackPane> currentActiveCells = new
-		// HashSet<AuthoringMapStackPane>()
-		// while (it.hasNext()){
-		// AuthoringMapStackPane elem = it.next();
-		// if (){
-		// it.remove();
-		// }
 
 		deactivateActiveSprites();
 

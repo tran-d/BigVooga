@@ -24,6 +24,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import tools.DisplayLanguage;
 
+/**
+ * abstract class that creates the components that display and allow for customization of the displayable template and text areas.
+ * The different buttons and options for customization also created in this class include text position, font color, background color, etc.,
+ * as well as the ability to create different dialogue boxes in a sequence and toggle between them.
+ * 
+ * @author Dara Buggay
+ *
+ */
 public abstract class DisplayableTextAreaView extends VBox {
 	
 	protected void setFont(String family, int size, ArrayList<TextArea> taList) {

@@ -198,13 +198,10 @@ public class DialogueTextAreaView extends DisplayableTextAreaView {
 	@Override
 	protected HBox makeButtonPanel() {
 		HBox hb = new HBox(15);
-		//hb.setAlignment(Pos.CENTER_LEFT);
 		nextButton = makeButton(NEXT_BUTTON_PROMPT, e -> next());
 		prevButton = makeButton(PREV_BUTTON_PROMPT, e -> prev());
 		addPaneButton = makeButton(ADD_PANEL_BUTTON_PROMPT, e -> this.addPanel());
 		removePanelButton = makeButton(REMOVE_PANEL_BUTTON_PROMPT, e -> this.removePanel());
-		// change number
-		// saveButton = makeButton(SAVE_BUTTON_PROMPT, e -> save(nameTF.getText()));
 		hb.getChildren().addAll(prevButton, nextButton, addPaneButton, removePanelButton);
 		return hb;
 	}
