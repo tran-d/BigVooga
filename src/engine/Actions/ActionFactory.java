@@ -32,10 +32,10 @@ import engine.operations.VoogaParameter;
  * 
  * 3. All Action names are unique.
  * 
- * 4a. All Actions only one constructor.
+ * 4a. Each Action has only one constructor.
  * 
  * 4b. These constructors only take specific extensions of Operation which are
- * included in the properties for Operations OR other Actions. 
+ * included in the properties for Operations (OR other Actions). 
  * 
  * 4c. Each parameter has an appropriate VoogaAnnotation. 
  * 
