@@ -118,12 +118,12 @@ public class SpriteDataConverter {
 		ret.setName(name);
 		ret.setSavePath(mySavePath);
 		ret.setTags(tags);
-		ret.setSelectedConditionOperations(spriteConditionOperations);
-		ret.setSelectedActionOperations(spriteActionOperations);
 //		ret.setAllConditions(allConditions);
 //		ret.setAllActions(allActions);
 		ret.setConditionRows(conditionRows);
 		ret.setActionRows(actionRows);
+		ret.setSelectedConditionOperations(spriteConditionOperations);
+		ret.setSelectedActionOperations(spriteActionOperations);
 		List<AbstractSpriteObject> newInventory = new ArrayList<AbstractSpriteObject>();
 		inventory.forEach(SDC ->{
 			newInventory.add(SDC.createSprite());
@@ -132,7 +132,6 @@ public class SpriteDataConverter {
 		System.out.println("spriteInventoryinSDC: "+ret.getInventory());
 		System.out.println("Sprite Converter ImageURL: "+imageURL);
 		ret.setImageURL(imageURL);
-		ret.setIsLoadingFromXML(true);
 		return ret;
 	}
 	
