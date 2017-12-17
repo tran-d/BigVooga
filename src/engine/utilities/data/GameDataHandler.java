@@ -51,7 +51,14 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 /**
- * @author Ian Eldridge-Allegra
+ * This class saves and loads all the game data to the local system. The first
+ * time it is used, it gets the directory to be used as the workspace. This is
+ * assumed to be empty. On subsequent runs, it will use this workspace based on
+ * the local.properties file. Unfortunately, eclipse does not update the files
+ * quickly, so to avoid prompting multiple times during the same run there is a
+ * static variable used to access the working directory of the program.
+ * 
+ * @author Ian Eldridge-Allegra and others
  *
  */
 public class GameDataHandler {
@@ -70,22 +77,24 @@ public class GameDataHandler {
 	private static final String PROJECT_USER_SPRITE_PATH = AUTHORING_PATH + "Sprites/";
 	private static final String PROJECT_WORLD_PATH = AUTHORING_PATH + "Worlds/";
 	private static final String PROJECT_LAYER_SPRITE_PATH = AUTHORING_PATH + "Sprites/";
-	private static final String PROJECT_UICOMPONENT_SPRITE_PATH = AUTHORING_PATH+"UIComponents/";
+	private static final String PROJECT_UICOMPONENT_SPRITE_PATH = AUTHORING_PATH + "UIComponents/";
 	private static final String DEFAULT_SPRITE_FOLDER = PROJECT_USER_SPRITE_PATH + "DefaultSprites/";
 	private static final String CUSTOM_SPRITE_FOLDER = PROJECT_USER_SPRITE_PATH + "CustomSprites/";
 	private static final String INVENTORY_SPRITE_FOLDER = PROJECT_USER_SPRITE_PATH + "InventorySprites/";
 	private static final String DEFAULT_CATEGORY = "General/";
-	private static final String CUT_SCENE_SPRITE_FOLDER = PROJECT_UICOMPONENT_SPRITE_PATH+"CutSceneSprites/";
-	private static final String DIALOG_SPRITE_FOLDER = PROJECT_UICOMPONENT_SPRITE_PATH+"DialogSprites/";
-	private static final String INVENTORY_TEMPLATE_SPRITE_FOLDER = PROJECT_UICOMPONENT_SPRITE_PATH+"InventoryTemplates/";
-	
+	private static final String CUT_SCENE_SPRITE_FOLDER = PROJECT_UICOMPONENT_SPRITE_PATH + "CutSceneSprites/";
+	private static final String DIALOG_SPRITE_FOLDER = PROJECT_UICOMPONENT_SPRITE_PATH + "DialogSprites/";
+	private static final String INVENTORY_TEMPLATE_SPRITE_FOLDER = PROJECT_UICOMPONENT_SPRITE_PATH
+			+ "InventoryTemplates/";
+
 	private static final String LOCAL = "local";
 
 	private static final String SELECTOR_TITLE = "Open Resource File";
 
 	private static final ExtensionFilter[] imageFilters = new ExtensionFilter[] {
 			new ExtensionFilter("Image Files (*.png)", "*.png"), new ExtensionFilter("Image Files (*.jpg)", "*.jpg"),
-			new ExtensionFilter("Image Files (*.jpeg)", "*.jpeg"), new ExtensionFilter("Image Files (*.gif)", "*.gif") };
+			new ExtensionFilter("Image Files (*.jpeg)", "*.jpeg"),
+			new ExtensionFilter("Image Files (*.gif)", "*.gif") };
 
 	private static final String SPRITE_EXTENSION = ".spr";
 
@@ -108,18 +117,35 @@ public class GameDataHandler {
 		return xstream;
 	}
 
+	/**
+	 * @param s
+	 *            used to select a directory. This should not be used except when no
+	 *            saving/loading will occur.
+	 */
 	public GameDataHandler(Stage s) {
 		this(() -> selectDirectory(s).getAbsolutePath());
 	}
 
+	/**
+	 * @param s
+	 *            Used to select a directory.
+	 * @param projectName The name of the project to save/load from.
+	 */
 	public GameDataHandler(Stage s, String projectName) {
 		this(() -> selectDirectory(s).getAbsolutePath(), projectName);
 	}
 
+	/**
+	 * @param pathSupplier Supplies path to working directory, if needed.
+	 */
 	public GameDataHandler(Supplier<String> pathSupplier) {
 		this(pathSupplier, "Test Project");
 	}
 
+	/**
+	 * @param pathSupplier supplies path to working directory, if needed.
+	 * @param projectName 
+	 */
 	public GameDataHandler(Supplier<String> pathSupplier, String projectName) {
 		this.projectName = projectName;
 		this.projectPath = getPath(pathSupplier) + projectName + "/";
@@ -157,8 +183,8 @@ public class GameDataHandler {
 	private void makeDirectories() {
 		String[] pathsToMake = new String[] { ENGINE_PATH, RESOURCES, PROJECT_WORLD_PATH, PROJECT_WORLD_PATH,
 				PROJECT_LAYER_SPRITE_PATH, DEFAULT_SPRITE_FOLDER, CUSTOM_SPRITE_FOLDER, INVENTORY_SPRITE_FOLDER,
-				PROJECT_UICOMPONENT_SPRITE_PATH, CUT_SCENE_SPRITE_FOLDER, DIALOG_SPRITE_FOLDER, 
-				INVENTORY_TEMPLATE_SPRITE_FOLDER};
+				PROJECT_UICOMPONENT_SPRITE_PATH, CUT_SCENE_SPRITE_FOLDER, DIALOG_SPRITE_FOLDER,
+				INVENTORY_TEMPLATE_SPRITE_FOLDER };
 		for (String s : pathsToMake) {
 			makeDirectory(projectPath + s);
 		}
@@ -183,6 +209,9 @@ public class GameDataHandler {
 		return root;
 	}
 
+	/**
+	 * @param path The new absolute location of the working directory.
+	 */
 	public void setDirectoryPath(String path) {
 		Properties prop = new Properties();
 		try {
@@ -209,7 +238,6 @@ public class GameDataHandler {
 	/**
 	 * @param controller
 	 *            to serialize
-	 * @throws IOException
 	 */
 	public void saveGame(EngineController controller) {
 		saveGame(controller, CONTROLLER_FILE);
@@ -233,6 +261,9 @@ public class GameDataHandler {
 		bufferedWriter.close();
 	}
 
+	/**
+	 * @return The known exported games.
+	 */
 	public List<String> knownProjects() {
 		List<String> known = new ArrayList<>();
 		try {
@@ -249,6 +280,9 @@ public class GameDataHandler {
 		return known;
 	}
 
+	/**
+	 * @param controller Saves the game under a different file than saveGame.
+	 */
 	public void saveForContinue(EngineController controller) {
 		saveGame(controller, CONTINUE_FILE);
 	}
@@ -259,12 +293,14 @@ public class GameDataHandler {
 
 	/**
 	 * @return The loaded EngineController from the project
-	 * @throws FileNotFoundException
 	 */
 	public EngineController loadGame() {
 		return loadGame(CONTROLLER_FILE);
 	}
 
+	/**
+	 * @return The game to continue, or the original if none are found.
+	 */
 	public EngineController loadContinueGame() {
 		try {
 			return loadGame(CONTINUE_FILE);
@@ -279,12 +315,11 @@ public class GameDataHandler {
 
 	/**
 	 * @param fileName
-	 *            simple file name of file in the project directory
+	 *            simple file name of file in the project's resources directory
 	 * @return The Image
-	 * @throws URISyntaxException
 	 */
 	public Image getImage(String fileName) {
-		if (cache.containsKey(fileName)){
+		if (cache.containsKey(fileName)) {
 			return cache.get(fileName);
 		}
 		String path = new File(projectPath + RESOURCES + fileName).toURI().toString();
@@ -293,6 +328,12 @@ public class GameDataHandler {
 		return i;
 	}
 
+	/**
+	 * Adds the image to the project's resources directory and returns it.
+	 * 
+	 * @param file 
+	 * @return The image from the file
+	 */
 	public Image getImage(File file) {
 		addFileToProject(file);
 		Image im = getImage(file.getName());
@@ -303,7 +344,6 @@ public class GameDataHandler {
 	/**
 	 * @param file
 	 *            Adds the file to the project
-	 * @throws IOException
 	 */
 	public void addFileToProject(File file) {
 		if (file != null) {
@@ -326,6 +366,12 @@ public class GameDataHandler {
 		}
 	}
 
+	/**
+	 * Forces a choice of directory to be made by the user.
+	 * 
+	 * @param stage Context in which to display the chooser.
+	 * @return The selected directory.
+	 */
 	public static File selectDirectory(Stage stage) {
 		Alert alert = new Alert(Alert.AlertType.INFORMATION,
 				"Select an Empty Working Directory for use by the Program");
@@ -462,17 +508,17 @@ public class GameDataHandler {
 	private boolean isValidFile(File in) {
 		return in.exists() && !in.getName().startsWith(".");
 	}
-	
-	public String getDialogSpriteDirectoryPath(){
-		return projectPath+DIALOG_SPRITE_FOLDER;
+
+	public String getDialogSpriteDirectoryPath() {
+		return projectPath + DIALOG_SPRITE_FOLDER;
 	}
-	
-	public String getCutSceneSpriteDirectoryPath(){
-		return projectPath+CUT_SCENE_SPRITE_FOLDER;
+
+	public String getCutSceneSpriteDirectoryPath() {
+		return projectPath + CUT_SCENE_SPRITE_FOLDER;
 	}
-	
-	public String getInventoryTemplateSpriteDirectoryPath(){
-		return projectPath+INVENTORY_TEMPLATE_SPRITE_FOLDER;
+
+	public String getInventoryTemplateSpriteDirectoryPath() {
+		return projectPath + INVENTORY_TEMPLATE_SPRITE_FOLDER;
 	}
 
 	public String getDefaultSpriteDirectoryPath() {
@@ -486,7 +532,7 @@ public class GameDataHandler {
 	public String getCustomSpriteDirectoryPath() {
 		return projectPath + CUSTOM_SPRITE_FOLDER;
 	}
-	
+
 	public String getInitializingWorldDirectoryPath(String worldName) {
 		return projectPath + PROJECT_WORLD_PATH + worldName + "/";
 	}
@@ -528,7 +574,6 @@ public class GameDataHandler {
 		});
 
 	}
-
 
 	public List<DraggableGrid> loadWorldsFromWorldDirectory(String importProjectName) { // ONLY CALLED when importing
 		myImportProjectPath = importProjectName;
@@ -597,7 +642,7 @@ public class GameDataHandler {
 				MapDataConverter MDC = (MapDataConverter) getObjectFromFile(f);
 				MDC.setGameDataHandler(this);
 				DraggableGrid DG_toAdd = MDC.createDraggableGrid();
-			
+
 				DG_LIST.add(DG_toAdd);
 			}
 		}
@@ -662,17 +707,27 @@ public class GameDataHandler {
 		saveToFile(dS, folderToSaveTo + DIALOG_EXTENSION);
 	}
 
+	/**
+	 * Saves the image to the resources directory of the project under the file name 
+	 * supplied.
+	 * 
+	 * @param image
+	 * @param fileName
+	 */
 	public void saveTo(Image image, String fileName) {
 		if (image == null)
 			return;
-		File loc = new File(projectPath+RESOURCES+fileName);
+		File loc = new File(projectPath + RESOURCES + fileName);
 		try {
 			ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", loc);
 		} catch (IOException e) {
 			throw new VoogaException("IllegalFile", loc.getAbsolutePath());
 		}
 	}
-	
+
+	/**
+	 * @return The working directory path.
+	 */
 	public String getRoot() {
 		return root;
 	}

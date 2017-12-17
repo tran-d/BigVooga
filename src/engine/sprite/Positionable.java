@@ -1,5 +1,11 @@
 package engine.sprite;
 
+/**
+ * An object that can be moved/stretched and whose full position can be accessed. 
+ * 
+ * @author Ian Eldridge-Allegra
+ *
+ */
 public interface Positionable {
 
 	public int getDrawingPriority();

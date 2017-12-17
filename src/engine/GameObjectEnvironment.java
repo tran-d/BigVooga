@@ -4,9 +4,16 @@ import java.util.List;
 
 import controller.player.PlayerManager;
 import engine.operations.doubleops.DoubleOperation;
-import engine.operations.stringops.StringOperation;
 import javafx.geometry.Point2D;
 
+/**
+ * This interface is a concession to the amount of information required by the 
+ * actions and operations. It contains all methods that are required by these. 
+ * They are not documented in detail, because they merely give access to identically 
+ * named methods in Layer, GameMaster.
+ * 
+ * @author Ian Eldridge-Allegra
+ */
 public interface GameObjectEnvironment {
 
 	public PlayerManager getPlayerManager();

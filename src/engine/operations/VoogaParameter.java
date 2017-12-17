@@ -1,5 +1,10 @@
 package engine.operations;
 
+/**
+ * A parsed VoogaAnnotation.
+ * 
+ * @author Ian Eldridge-Allegra
+ */
 public class VoogaParameter {
 
 	private VoogaType type;
