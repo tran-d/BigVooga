@@ -11,10 +11,15 @@ import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Font;
 
+/**
+ * Class that displays a list of cutscenes
+ * 
+ * @author Dara Buggay
+ *
+ */
 public class CutsceneListView extends ListView<String> {
 
 		private static double HEIGHT = 20;
-		// private List<DialogueListCell> dList = new ArrayList<>();
 		private List<String> dList = new ArrayList<>();
 		private int dialogueCount = 0;
 

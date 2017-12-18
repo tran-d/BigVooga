@@ -5,6 +5,12 @@ import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
 import tools.DisplayLanguage;
 
+/**
+ * abstract class that represents a tab listing displayables to edit. Extended by authoring_ui dialogue, cutscene, and inventory classes
+ * 
+ * @author Dara Buggay
+ *
+ */
 public abstract class DisplayableTab extends Tab {
 	
 	protected DisplayableTab(String name) {

@@ -29,12 +29,18 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+
 /**
- * Class for getting event handlers for game objects in grid
- * 
- * @author taekwhunchung
- *
- */
+* Class that handles all interaction with layers of the grid. Sprite objects can be dragged and dropped onto any layer within the grid. Multiple cells of the
+
+* grid can be selected and then populated by a sprite object. Selection of a sprite object displays its sprite tabpane information, including tags, parameters,
+* utility, dialogue, animation sequences, etc. A sprite can be deleting by selecting it and then pressing the backspace button. Active cells are tracked. Error 
+* checking is done to ensure only sprites of the same type are selected simultaneously.
+* 
+* @author Dara Buggay + Sam Slack (Primary), taekwhunchung
+*
+*/
+
 public class SpriteGridHandler {
 	private AbstractSpriteObject draggingObject;
 	private DataFormat objectFormat;
@@ -265,23 +271,7 @@ private	void resetActiveSprites() {
 
 	private void changeCellStatus(AuthoringMapStackPane pane) {
 		pane.switchActive();
-		// if(pane.getOpacity() == 1) {
-		// makeCellActive(pane);
-		// } else {
-		// makeCellInactive(pane);
-		// }
 	}
-
-	// private void makeCellActive(AuthoringMapStackPane pane) {
-	// activeGridCells.add(pane);
-	// pane.switch
-	// pane.setOpacity(0.5);
-	// }
-
-	// private void makeCellInactive(StackPane pane) {
-	// activeGridCells.remove(pane);
-	// pane.setOpacity(1);
-	// }
 
 	public void addSpriteMouseClick(AbstractSpriteObject s) {
 		s.setOnMouseClicked(e -> {
@@ -379,13 +369,6 @@ private	void resetActiveSprites() {
 		currentActiveCells.forEach((item) -> {
 			populateIndividualCell(item, s);
 		});
-		// Set<AuthoringMapStackPane> currentActiveCells = new
-		// HashSet<AuthoringMapStackPane>()
-		// while (it.hasNext()){
-		// AuthoringMapStackPane elem = it.next();
-		// if (){
-		// it.remove();
-		// }
 
 		deactivateActiveSprites();
 

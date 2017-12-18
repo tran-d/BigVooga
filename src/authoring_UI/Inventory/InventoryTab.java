@@ -12,9 +12,9 @@ import javafx.scene.layout.VBox;
 import tools.DisplayLanguage;
 
 /**
- * Class that represents a tab listing dialogues to edit
+ * Class that represents a tab listing inventories to edit
  * 
- * @author DavidTran
+ * @author DavidTran, Dara Buggay
  *
  */
 public class InventoryTab extends DisplayableTab {

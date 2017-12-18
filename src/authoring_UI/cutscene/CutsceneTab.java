@@ -11,6 +11,12 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.VBox;
 import tools.DisplayLanguage;
 
+/**
+ * Class that represents a tab listing cutscenes to edit
+ * 
+ * @author Dara Buggay
+ *
+ */
 public class CutsceneTab extends DisplayableTab {
 
 	private static final double CUTSCENE_SPACING = 25;

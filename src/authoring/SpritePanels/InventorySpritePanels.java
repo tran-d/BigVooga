@@ -23,9 +23,5 @@ public class InventorySpritePanels extends SpritePanels{
 	public void makeLayerDisplayPanel(AuthoringEnvironmentManager myAEM){
 		displayPanel = new DisplayPanel(SPSM, myAEM);  
 	}
-	
-//	@Override
-//	public void makeElementSelector(SpriteGridHandler mySGH, AuthoringEnvironmentManager myAEM){
-//		gameElementSelector = new InventoryElementSelector(mySGH, myAEM);
-//	}
+
 }

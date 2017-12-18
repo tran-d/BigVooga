@@ -7,6 +7,13 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
+/**
+ * Class holding cutscene data.
+ * 
+ * @author Dara Buggay
+ *
+ */
+
 public class Cutscene extends Displayable {
 
 	public Cutscene(String name, String fontType, Color fontColor, List<Pane> dialogueSequence) {

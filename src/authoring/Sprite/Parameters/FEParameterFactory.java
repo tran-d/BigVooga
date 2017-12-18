@@ -5,6 +5,12 @@ import java.util.List;
 import authoring.Sprite.Parameters.*;
 import javafx.scene.layout.VBox;
 
+/**
+ * factory class that handles taking all back end sprite parameters and converting them to editable front end UI parameters, displayed in a vbox
+ * 
+ * @author Dara Buggay
+ *
+ */
 public class FEParameterFactory extends VBox {
 
 	public FEParameterFactory(List<SpriteParameter> newParams) {

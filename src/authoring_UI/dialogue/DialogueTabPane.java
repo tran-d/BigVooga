@@ -6,7 +6,7 @@ import javafx.scene.control.TabPane;
 /**
  * Class that holds all dialogue tabs
  * 
- * @author DavidTran
+ * @author DavidTran and Dara Buggay
  *
  */
 public class DialogueTabPane extends TabPane {

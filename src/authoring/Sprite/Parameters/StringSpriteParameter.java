@@ -44,40 +44,6 @@ public class StringSpriteParameter extends SpriteParameter {
 		}
 		return true;
 	}
-
-
-//	@Override
-//	protected void setCloneHandlers() {
-//		myTextArea.textProperty().addListener((observable, oldValue, newValue) -> {
-//			;
-//			;
-//			String errorMessage = "Please enter a valid input:\n";
-////			if (!newValue.equals(errorMessage)|| newValue.startsWith(errorMessage)){
-//			try{
-//				if (newValue.startsWith(errorMessage)&&!newValue.equals(errorMessage)){
-//					;
-//					String newText = newValue.replace(errorMessage, "").trim();
-//					
-//					
-//					Platform.runLater(() -> { 
-//						myTextArea.setText(newText);; 
-//			        }); 
-//				}
-//				else {
-//					;
-//					dummy.updateValue(newValue);
-//				}
-//
-//			} catch (Exception e){
-//				myTextArea.setText(errorMessage);
-//			}
-////			}
-//			;
-//		});
-//
-//		
-//	}
-//
 	
 	@Override
 	public void writeExternal(ObjectOutput out) throws IOException {

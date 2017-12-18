@@ -3,6 +3,12 @@ package authoring.Sprite.Parameters;
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;
 
+/**
+ * Class that displays UI component for the name of any parameter (boolean, double, or string) as an editable text area. 
+ * 
+ * @author Dara Buggay
+ *
+ */
 public class FEParameterName extends TextArea {
 	
 	protected FEParameterName(String name) {

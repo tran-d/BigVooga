@@ -8,6 +8,13 @@ import javafx.scene.control.Separator;
 import javafx.scene.layout.VBox;
 import tools.DisplayLanguage;
 
+/**
+ * abstract class that represents the pane containing all displayable authoring components. Extended by authoring_ui dialogue, cutscene, and inventory classes
+ * 
+ * @author Dara Buggay
+ *
+ */
+
 public abstract class DisplayableManager {
 	
 	public DisplayableManager() {

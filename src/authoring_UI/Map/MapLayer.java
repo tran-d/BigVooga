@@ -115,7 +115,7 @@ public abstract class MapLayer extends GridPane {
 		this.addAuthoringStackPaneToPosition(0,0);
 		this.setNumRows(rows);
 		this.setNumCols(columns);
-//		
+		
 	}
 	
 
@@ -221,7 +221,6 @@ public abstract class MapLayer extends GridPane {
 		if (this.getChildren() == null) ;
 		ObservableList<Node> childrens = this.getChildren();
 	    for (Node node : childrens) {
-//	    	;
 	        if(this.getRowIndex(node) == row && this.getColumnIndex(node) == col) {
 	            result = (AuthoringMapStackPane) node;
 	            break;
@@ -236,27 +235,14 @@ public abstract class MapLayer extends GridPane {
 	
 	protected boolean hasChildAtPosition(int row, int column){
 		AuthoringMapStackPane child = getChildAtPosition(row, column);
-//		if (!(child instanceof AuthoringMapStackPane)){
-//	    	return true;
-//	    } else {
-//	    	AuthoringMapStackPane childStackPane = (AuthoringMapStackPane) child;
 	    	return child.hasChild();
-//	    }
 	}
 
-//	protected void setup() {
-//		for (int i = 0; i < myColumns; i++) {
-//			for (int j = 0; j < myRows; j++) {
-//				addAuthoringStackPaneToPosition(j,i);
-//			}
-//		}
-//	}
 	
 	private AuthoringMapStackPane addAuthoringStackPaneToPosition(int row, int col){
 		AuthoringMapStackPane sp = new AuthoringMapStackPane(this);
 		sp.setOnMouseEntered(e -> style(sp));
 		sp.setOnMouseExited(e -> removeStyle(sp));
-		//sp.setId("StackPane");
 		sp.setMinWidth(CELL_SIZE);
 		sp.setMaxWidth(CELL_SIZE);
 		sp.setPrefWidth(CELL_SIZE);
@@ -264,21 +250,14 @@ public abstract class MapLayer extends GridPane {
 		sp.setPrefHeight(CELL_SIZE);
 		sp.setMaxHeight(CELL_SIZE);
 		
-		// "-fx-background-color: rgba(0, 100, 100, 0.5);
 		sp.setBackground(
 				new Background(new BackgroundFill(getDefaultColor(), CornerRadii.EMPTY, Insets.EMPTY)));
-		// sp.setStyle();
-		//BorderStroke border = new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.DOTTED, CornerRadii.EMPTY,
-				//BorderWidths.DEFAULT);
-		//sp.setBorder(new Border(border));
-//		GridPane.setColumnSpan(sp, 1);
-//		GridPane.setRowSpan(sp, 1);
+
 		GridPane.setHgrow(sp, Priority.NEVER);
 		GridPane.setVgrow(sp, Priority.NEVER);
 		this.add(sp, col, row);
 		sp.setColSpan(1);
 		sp.setRowSpan(1);
-//		;
 		
 		mySGH.addDropHandling(sp);
 		mySGH.addGridMouseClick(sp);

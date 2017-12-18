@@ -97,10 +97,7 @@ public class InventoryTextAreaView extends DisplayableTextAreaView {
 	@Override
 	protected HBox makeButtonPanel() {
 		HBox hb = new HBox(15);
-		//hb.setAlignment(Pos.CENTER_LEFT);
 		clearButton = makeButton(CLEAR_BUTTON_PROMPT, e -> this.removePanel());
-		// change number
-		// saveButton = makeButton(SAVE_BUTTON_PROMPT, e -> save(nameTF.getText()));
 		hb.getChildren().add(clearButton);
 		return hb;
 	}

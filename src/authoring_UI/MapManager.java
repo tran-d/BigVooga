@@ -53,7 +53,7 @@ import tools.DisplayLanguage;
  * Together, all these features create a very flexible and open environment for users to build games of a variety of styles, such as RPG,
  * puzzle, platformer, etc.
  * 
- * @author Samarth Desai, Sam Slack (Primary), and Archana Ahlawat
+ * @author Samarth Desai, Sam Slack & Dara Buggay (Primary), and Archana Ahlawat
  *
  */
 public class MapManager extends TabPane {
@@ -68,7 +68,6 @@ public class MapManager extends TabPane {
 	protected SingleSelectionModel<Tab> mySelectModel;
 	protected Tab addTab;
 	protected ObjectProperty<Boolean> gridIsShowing;
-	// private AuthoringMapEnvironment authMap;
 
 	private ViewSideBar sideBar;
 	private GameElementSelector mySprites;
@@ -184,11 +183,7 @@ public class MapManager extends TabPane {
 
 	private HBox setupFEAuthClasses(DraggableGrid w, Consumer<SpriteGridHandler> mySGHConsumer) {
 		allWorlds.add(w);
-		 SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, w);
-//		mySpriteGridHandler.setGridIsShown(gridIsShowing.get());
-//		gridIsShowing.addListener((change, oldValue, newValue) -> {
-//			mySpriteGridHandler.setGridIsShown(newValue);
-//		});
+		SpriteGridHandler mySpriteGridHandler = new SpriteGridHandler(myTabCount, w);
 		w.construct(mySpriteGridHandler);
 		mySpriteGridHandler.addKeyPress(scene);
 		spritePanels = makeSpritePanels(mySpriteGridHandler);

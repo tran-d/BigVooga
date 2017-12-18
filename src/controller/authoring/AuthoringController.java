@@ -37,7 +37,7 @@ import javafx.stage.Stage;
  * Finally, the Menu Creator allows users to create a template for the main menu that will appear in the game by setting a background and adding appropriate
  * sprite objects to represent different actions (like saving, exiting the game, etc.).
  * 
- * @author Samarth Desai
+ * @author Samarth Desai, Dara Buggay
  *
  */
 public class AuthoringController {
@@ -84,13 +84,6 @@ public class AuthoringController {
 		viewMap.put(MAP_EDITOR_KEY, mapManager.getPane());
 		viewMapKeysToManager.put(MAP_EDITOR_KEY, mapManager);
 
-//		SpriteCreatorImageGrid imageGrid = new SpriteCreatorImageGrid();
-//		mySM = new SpriteCreatorSpriteManager();
-//		SpriteCreatorGridHandler mySCGridHandler = new SpriteCreatorGridHandler(mySM, imageGrid);
-		
-//		mySCM = new SpriteCreatorManager(AEM, imageGrid, mySCGridHandler, mySM);
-//		SpriteCreator sc = new SpriteCreator(AEM, mySCM, imageGrid, mySM, mySCGridHandler);
-		
 		mySCM = new SpriteCreatorManagerSlack(AEM, scene, "SpriteObject");
 		viewMap.put(SPRITE_CREATOR_KEY, mySCM.getPane());
 		
@@ -106,7 +99,6 @@ public class AuthoringController {
 		viewMap.put(DIALOGUE_KEY, dm.getPane());
 		
 		InventoryManager inventoryManager = new InventoryManager(AEM);
-		//inventoryManager.;
 		viewMap.put(INVENTORY_KEY, inventoryManager.getPane());
 
 		HUDManager hudManager = new HUDManager(AEM, scene);

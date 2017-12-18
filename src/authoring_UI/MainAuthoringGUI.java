@@ -25,7 +25,7 @@ import javafx.stage.Stage;
  * with the default scene being the map editor.
  * 
  * 
- * @author Samarth Desai and Sam Slack
+ * @author Samarth Desai, Sam Slack, and Dara Buggay
  *
  */
 public class MainAuthoringGUI {
@@ -88,7 +88,6 @@ public class MainAuthoringGUI {
 	}
 	
 	public void exportToEngine(){
-//		myEngineExporter.setGameObjectBlueprints(myAEM.getEveryTypeOfSpriteObjectAsList());
 		for (SuperlayerSequence SS: myAEM.getDialogSpriteController().getAllSuperlayerSequences()){
 			myEngineExporter.addAuthoringDialogSequenceToGameObjectFactory((AuthoringDialogSequence)SS);
 		}

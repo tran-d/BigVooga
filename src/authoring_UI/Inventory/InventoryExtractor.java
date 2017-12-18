@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Class for extracting all inventory information and converting into inventory objects.
  * 
- * @author DavidTran
+ * @author DavidTran, Dara Buggay
  *
  */
 public class InventoryExtractor {
@@ -21,9 +21,6 @@ public class InventoryExtractor {
 	protected void extract(List<InventoryEditor> editorList) {
 		inventoryList = new ArrayList<>();
 
-		/*for (InventoryEditor ed : editorList) {
-			inventoryList.add(new Inventory (ed.getName(), ed.getFontType(), ed.getFontColor(), ed.getInventorySequence()));
-		}*/
 	}
 
 	public List<Inventory> getInventoryList() {

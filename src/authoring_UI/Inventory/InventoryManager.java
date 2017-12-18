@@ -23,7 +23,7 @@ import tools.DisplayLanguage;
 /**
  * Class that represents the pane containing all inventory authoring components
  * 
- * @author DavidTran
+ * @author DavidTran, Dara Buggay
  *
  */
 public class InventoryManager extends DisplayableManager {
@@ -68,7 +68,6 @@ public class InventoryManager extends DisplayableManager {
 		return super.createShortSeparator(height);
 	}
 
-	/*************************** PUBLIC METHODS **********************************/
 
 	public HBox getPane() {
 		return hb;
@@ -85,8 +84,6 @@ public class InventoryManager extends DisplayableManager {
 				//AEM.getDialogSpriteController().addNewDialogSequence(dialogSequence);
 			}
 
-			// editorList.add(currentEditor);
-			// currentEditor = null;
 
 		updateListView();
 	}
