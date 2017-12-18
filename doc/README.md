@@ -9,7 +9,7 @@
     * Ryan: helped design general layout of GUI, and worked on implementing SpriteCreator.
     * Samarth: Created the Welcome Screen, designed the GUI, worked on the Player and connecting the Player with Engine along with Ian, worked on various Authoring functionalities and Views with Sam, created the language Locale.
     * Ian: Designed and developed collision handling system, drawing utility, and BoundingPolygonCreator; Developed the basic GameDataHandler (excluding the authoring-specific components) and then converted it to save to a directory selected by the user outside the workspace; Handled text display for the engine; designed and implemented factories to give authoring access to all operations and actions along with their parameters (including designing the annotation system used for parameters); implemented many of the actions/operations; assisted in implementing the visitor pattern for Displayables.
-    * Aaron:
+    * Aaron: designed and implemented Actions/Conditions, Inventory and Holdables, and contributed heavily to overall Engine design. Also helped implement camera functionality.
     * Sam:
     * Owen: responsible for managing authoring actions and conditions, loading and saving information about them to spriteObjects, and passing and receiving that information from the data stored in XML files for games.
     * David: Designed the UI for the recursive tree aspect of authoring actions and conditions; Worked with Ian to use the annotation system to store actions/operations; Designed the UI for selecting games to play; Developed the initial stages of dialogue authoring.
