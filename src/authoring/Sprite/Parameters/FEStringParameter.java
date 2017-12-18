@@ -11,6 +11,12 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
+/**
+ * Class that displays UI component for a string parameter (text area for name, text area for value)
+ * 
+ * @author Dara Buggay
+ *
+ */
 public class FEStringParameter extends FEParameter {
 	SpriteParameterI myParam;
 	FEParameterName myName;
@@ -50,21 +56,6 @@ public class FEStringParameter extends FEParameter {
 		alert.setContentText("Please enter value for: " + myName.getText());
 
 		alert.showAndWait();
-//		TextInputDialog dialog = new TextInputDialog(value);
-//		dialog.setTitle("Error");
-//		dialog.setHeaderText(e.getMessage());
-//		dialog.setContentText("Please enter value for: " + myName.getText());
-//		dialog.initStyle(StageStyle.UTILITY);
-//		
-//		Optional<String> result = dialog.showAndWait();
-//		result.ifPresent(stringInput -> {
-//			try {
-//				myParam.checkError(stringInput);
-//			} catch (Exception e1) {
-//				// if error here, do nothing
-//			}
-//			myValue.setText(stringInput);
-//		});
 	}
 	
 	protected void handleValueChange() {

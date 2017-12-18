@@ -43,18 +43,6 @@ protected double paneWidth;
 	protected void setColorFromCSS(String cssRepresentation){
 		myColor = "#000000";
 		return;
-//	String[] css = cssRepresentation.split(":");
-//	for (int i=0; i<css.length;i++){
-//		String curr = css[i];
-//		if (curr.matches("-fx-text-fill")){
-//			myColor = css[i+1];
-//			System.out.println("The text color!!: "+myColor);
-//			break;
-//		}
-//		
-//	}
-//	myColor = "#000000";
-//	System.out.println("No color found!");
 	}
 	
 	 public void setColor(String newColor){

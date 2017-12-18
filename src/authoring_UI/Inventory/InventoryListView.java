@@ -20,7 +20,6 @@ import javafx.scene.text.Font;
 public class InventoryListView extends ListView<String> {
 
 	private static double HEIGHT = 20;
-	// private List<inventoryListCell> dList = new ArrayList<>();
 	private List<String> iList = new ArrayList<>();
 	private int inventoryCount = 0;
 

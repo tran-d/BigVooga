@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 /**
  * Class holding dialogue data.
  * 
- * @author DavidTran
+ * @author DavidTran and Dara Buggay
  *
  */
 public class Dialogue extends Displayable {
@@ -18,9 +18,7 @@ public class Dialogue extends Displayable {
 	public Dialogue(String name, String fontType, Color fontColor, List<Pane> dialogueSequence) {
 		super(name, fontType, fontColor, dialogueSequence);
 	}
-
-	/*************************** PUBLIC METHODS **********************************/
-
+	
 	protected String getName() {
 		return super.getName();
 	}
@@ -36,15 +34,5 @@ public class Dialogue extends Displayable {
 	protected Color getFontColor() {
 		return super.getFontColor();
 	}
-
-	/*************************** PRIVATE METHODS **********************************/
-
-//	private void createTextList(List<TextArea> taList) {
-//		textList = new ArrayList<String>();
-//
-//		for (TextArea ta : taList) {
-//			textList.add(ta.getText());
-//		}
-//	}
 
 }

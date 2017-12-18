@@ -202,7 +202,6 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 					}
 
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 
@@ -212,7 +211,8 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 				categoryField.clear();
 				this.resetActiveCells();
 				this.mySpriteGridHandler.deactivateActiveSprites();
-				((AuthoringMapStackPane) dummySprite.getParent()).removeChild();
+				((AuthoringMapStackPane)dummySprite.getParent()).removeChild();
+
 				newSprite = this.getSpriteTypeFunction.apply(null, null);
 			} else {
 				Alert alert = new Alert(AlertType.ERROR);
@@ -235,5 +235,6 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 		myAEM.getGameDataHandler().saveTo(s, fileName);
 		newSprite = getMapLayer().setBackgroundImage(() -> getSpriteTypeFunction.apply(s, fileName));
 	}
+
 
 }

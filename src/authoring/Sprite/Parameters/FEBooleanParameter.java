@@ -9,6 +9,12 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
+/**
+ * Class that displays UI component for a boolean parameter (text area for name, checkbox for value)
+ * 
+ * @author Dara Buggay
+ *
+ */
 public class FEBooleanParameter extends FEParameter {
 	SpriteParameterI myParam;
 	FEParameterName myName;	

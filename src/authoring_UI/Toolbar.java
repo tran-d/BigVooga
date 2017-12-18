@@ -22,7 +22,7 @@ import tools.DisplayLanguage;
  * as well as importing or exporting any VOOGA projects. It also allows the user to exit back to the main menu. Finally, it has two viewers:
  * the element viewer and map viewer. These allow game builders to see a bigger picture of all their sprites and existing maps in a separate window.
  * 
- * @author Samarth Desai
+ * @author Samarth Desai and Dara Buggay
  *
  */
 public class Toolbar extends ToolBar {

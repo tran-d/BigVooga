@@ -37,13 +37,10 @@ public class SpriteCreatorLayer extends MapLayer {
 			});
 
 			AbstractSpriteObject ASO = givenSprite.get();
-//					new SpriteObject(image, path);
 			
 			ASO.setNumCellsHeightNoException(this.numRowsProperty.get());
 			ASO.setNumCellsWidthNoException(this.numColumnsProperty.get());
 			AMSP.addChild(ASO);
-//			AMSP.setRowSpan(this.numRowsProperty.get());
-//			AMSP.setColSpan(this.numColumnsProperty.get());
 
 			this.mySGH.addSpriteMouseClick(ASO);
 			numColumnsProperty.addListener((observable, oldNumColumns, newNumColumns)->{
@@ -54,13 +51,7 @@ public class SpriteCreatorLayer extends MapLayer {
 				AMSP.setRowSpan(newNumRows);
 				ASO.setNumCellsHeightNoException(newNumRows);
 			});
-//			ASO.getHeightObjectProperty().addListener((change, oldVal, newVal)->{
-//				numRowsProperty.set(newVal);
-//			});
-//			
-//			ASO.getWidthObjectProperty().addListener((change, oldVal, newVal)->{
-//				numColumnsProperty.set(newVal);
-//			});
+
 			return ASO;
 		}
 		

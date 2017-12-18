@@ -3,7 +3,12 @@ package authoring_UI.cutscene;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Class for extracting all cutscene information and converting into Cutscene objects.
+ * 
+ * @author Dara Buggay
+ *
+ */
 public class CutsceneExtractor {
 
 	private List<Cutscene> cutsceneList;

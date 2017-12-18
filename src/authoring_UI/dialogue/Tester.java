@@ -18,6 +18,13 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+/**
+ * class used to test dragging and resizing text areas and images before adding them to dialogues + cutscenes
+ * 
+ * @author Dara Buggay
+ *
+ */
+
 public class Tester extends Application {
 	
 	private static double orgSceneX, orgSceneY;
@@ -63,8 +70,6 @@ public class Tester extends Application {
 	    Node rect = ta.lookup(".content");
 
       rect.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
-
-      		;
 
         	orgSceneX = e.getSceneX();
         	orgSceneY = e.getSceneY();

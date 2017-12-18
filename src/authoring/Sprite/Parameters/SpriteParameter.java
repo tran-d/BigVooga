@@ -13,9 +13,7 @@ import javafx.scene.layout.Pane;
 
 public abstract class SpriteParameter implements SpriteParameterI {
 
-//	Control myNameJavaFXNode;
 	String myName;
-//	Control myJavaFXNode;
 	Object myValue;
 	SpriteParameterI dummy; 
 	boolean isDummy;
@@ -45,32 +43,6 @@ public abstract class SpriteParameter implements SpriteParameterI {
 	public String getName() {
 		return myName;
 	}
-	
-//	protected void setJavaFXNameNode(){
-//		TextArea TA = new TextArea();
-//		TA.setText(myName);
-//		TA.textProperty().addListener((observable, oldValue, newValue) -> {
-//			String newText;
-//			if (newValue.contains("\t")|| newValue.contains(" ")){
-//				;
-////			String newText = newValue.trim();
-////			;
-//			newText= newValue.replaceAll("\\s", "");
-////			;
-//			Platform.runLater(() -> { 
-//				int currentCaretPosition = TA.getCaretPosition();
-//				TA.setText(newText);
-//				TA.positionCaret(currentCaretPosition-1);
-//	        }); 
-//			} else {
-//				newText = newValue;
-//			}
-//			dummy.updateName(newText);
-//		});
-//		myNameJavaFXNode = TA;
-//	}
-	
-
 	
 	protected void setMyValue(Object in){
 		myValue = in;

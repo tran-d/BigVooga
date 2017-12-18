@@ -15,9 +15,7 @@ import javafx.scene.control.TextArea;
 
 public class DoubleSpriteParameter extends SpriteParameter {
 	
-//	String myName;
 	Double myValue; 
-//	TextArea myTextArea;
 	
 	DoubleSpriteParameter(){
 		
@@ -26,12 +24,6 @@ public class DoubleSpriteParameter extends SpriteParameter {
 	DoubleSpriteParameter(String name, Object value){
 		super(name, value);
 		}
-	
-
-//	public IntegerSpriteParameter(String name, Integer value, Boolean isDummy) {
-//		super(name, value, isDummy);
-//	}
-
 
 	@Override
 	public void updateValue(Object value) {
@@ -61,50 +53,7 @@ public class DoubleSpriteParameter extends SpriteParameter {
 		}
 		myValue = (Double) in;
 		myName = name;
-		
-//		myTextArea = new TextArea();
-//		myTextArea.setText(myValue.toString());
-		
-		
-//		boolProp = new SimpleBooleanProperty();
-//		boolProp.set(checkedStatus);
-		
-//		 myCheckBox.setSelected(checkedStatus);
-//		 setJavaFXValueNode(myTextArea);
 	}
-
-
-//	@Override
-//	protected void setCloneHandlers() {
-//		myTextArea.textProperty().addListener((observable, oldValue, newValue) -> {
-//			;
-//			;
-//			String errorMessage = "Please enter a valid input:\n";
-////			if (!newValue.equals(errorMessage)|| newValue.startsWith(errorMessage)){
-//			try{
-//				if (newValue.startsWith(errorMessage)&&!newValue.equals(errorMessage)){
-//					;
-//					String newText = newValue.replace(errorMessage, "").trim();
-//					
-//					
-//					Platform.runLater(() -> { 
-//						myTextArea.setText(newText);; 
-//			        }); 
-//				}
-//				else {
-//					;
-//					dummy.updateValue(newValue);
-//				}
-//
-//			} catch (Exception e){
-//				myTextArea.setText(errorMessage);
-//			}
-////			}
-//			;
-//		});
-//
-//		
-//	}
 
 
 	@Override
@@ -130,29 +79,6 @@ public class DoubleSpriteParameter extends SpriteParameter {
 		} catch (Exception e){
 			throw new Exception(String.format("The input is not a valid double.", valString));
 		}
-		
-//			String errorMessage = "Please enter a valid input:\n";
-//			if (!newValue.equals(errorMessage)|| newValue.startsWith(errorMessage)){
-//			try{
-//				if (newValue.startsWith(errorMessage)&&!newValue.equals(errorMessage)){
-//					;
-//					String newText = newValue.replace(errorMessage, "").trim();
-//					
-//					
-//					Platform.runLater(() -> { 
-//						myTextArea.setText(newText);; 
-//			        }); 
-//				}
-//				else {
-//					;
-//					dummy.updateValue(newValue);
-//				}
-//
-//			} catch (Exception e){
-//				myTextArea.setText(errorMessage);
-//			}
-////			}
-//			;
 		
 		return true;
 	}

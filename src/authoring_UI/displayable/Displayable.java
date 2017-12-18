@@ -1,11 +1,17 @@
 package authoring_UI.displayable;
 
 import java.util.List;
-
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
-public class Displayable {
+/**
+ * abstract class holding displayable data. Extended by authoring_ui dialogue, cutscene, and inventory classes
+ * 
+ * @author Dara Buggay
+ *
+ */
+
+public abstract class Displayable {
 	private String name;
 	private String fontType;
 	private Color fontColor;

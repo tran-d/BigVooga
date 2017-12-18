@@ -9,9 +9,7 @@ import engine.utilities.data.GameDataHandler;
 
 public class MapDataConverter {
 
-//	private final XStream SERIALIZER = setupXStream();
 	private String myName;
-//	private String layerPath;
 	private List<LayerDataConverter> gridManagers;
 	private GameDataHandler GDH;
 	
@@ -28,17 +26,8 @@ public class MapDataConverter {
 		convertToMDC(grids);
 	}
 	
-//	public String getLayerPath() {
-//		return layerPath;
-//	}
-	
-//	public void setLayerPath(String path) {
-//		layerPath = path;
-//	}
-	
 	private void convertToMDC(DraggableGrid grids){
 		this.myName = grids.getName();
-//		List<SpriteObjectGridManager> SOGMs = 
 		gridManagers= new ArrayList<LayerDataConverter>();
 				grids.getGrids().forEach(grid->{
 					gridManagers.add(new LayerDataConverter(grid));

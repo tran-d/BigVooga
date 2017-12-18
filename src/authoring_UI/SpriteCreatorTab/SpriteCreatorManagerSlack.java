@@ -46,11 +46,7 @@ public class SpriteCreatorManagerSlack extends MapManager {
 			SpriteCreatorGridBE = new SpriteCreatorGridManager(myAEM,
 					(Image im, String filePath) -> new SpriteObject(filePath, GDH));
 		}
-		// BackgroundGridManager BackgroundGrid = new
-		// BackgroundGridManager(SpriteCreatorGridBE.getDefaultRows(),
-		// SpriteCreatorGridBE.getDefaultCols());
 		List<SpriteObjectGridManager> grids = new ArrayList<SpriteObjectGridManager>();
-		// grids.add(BackgroundGrid);
 		grids.add(SpriteCreatorGridBE);
 		ret.setAllGrids(grids);
 		return ret;
@@ -75,12 +71,5 @@ public class SpriteCreatorManagerSlack extends MapManager {
 	protected SpritePanels makeSpritePanels(SpriteGridHandler mySpriteGridHandler) {
 		return new SpriteCreatorSpritePanels(mySpriteGridHandler, myAEM, myType);
 	}
-	// @Override
-	// protected AuthoringMapEnvironment makeAuthoringMapEnvironment(SpritePanels
-	// spritePanels, DraggableGrid dg) {
-	// AuthoringMapEnvironment ret = new AuthoringMapEnvironment(spritePanels, dg);
-	// return null;
-	//// ret.addNode();
-	// }
 
 }

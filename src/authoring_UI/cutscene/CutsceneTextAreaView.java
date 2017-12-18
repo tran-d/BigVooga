@@ -24,6 +24,14 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.control.ScrollPane;
 
+/**
+ * Creates the components that display and allow for customization of the cutscene template and text areas.
+ * The different buttons and options for customization also created in this class include text position, font color, background color, etc.,
+ * as well as the ability to create different cutscene boxes in a sequence and toggle between them.
+ * 
+ * @author Dara Buggay
+ *
+ */
 public class CutsceneTextAreaView extends DisplayableTextAreaView {
 
 	private static final double VBOX_SPACING = 25;

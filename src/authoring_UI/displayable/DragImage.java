@@ -7,6 +7,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * class that handles functionality for dragging an image within a bounded pane & deleting an image upon right click. Used for dialogues + cutscenes
+ * 
+ * @author Dara Buggay
+ *
+ */
 public class DragImage {
 	
 	private ImageView myImage;

@@ -6,7 +6,7 @@ import javafx.scene.control.TabPane;
 /**
  * Class that holds all inventory tabs
  * 
- * @author DavidTran
+ * @author DavidTran, Dara Buggay
  *
  */
 public class InventoryTabPane extends TabPane {
