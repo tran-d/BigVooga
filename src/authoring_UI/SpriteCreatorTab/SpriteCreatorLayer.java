@@ -9,7 +9,11 @@ import authoring_UI.SpriteGridHandler;
 import authoring_UI.Map.MapLayer;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-
+/**
+ * 
+ * @author taekwhunchung
+ *
+ */
 public class SpriteCreatorLayer extends MapLayer {
 
 	public SpriteCreatorLayer(int rows, int columns, SpriteGridHandler SGH){
