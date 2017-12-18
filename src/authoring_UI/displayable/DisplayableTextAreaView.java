@@ -105,14 +105,14 @@ public abstract class DisplayableTextAreaView extends VBox {
 		return ta;
 	}
 	
-	protected void makeDraggableAndResizable(Object ok) {
-		if (ok instanceof TextArea) {
-			DragResizer draggable = new DragResizer((Region) ok);
+	protected void makeDraggableAndResizable(Object o) {
+		if (o instanceof TextArea) {
+			DragResizer draggable = new DragResizer((Region) o);
 			draggable.makeTextAreaResizable();
 			draggable.makeTextAreaDraggable();
 			draggable.makeTextAreaDeletable();
 		} else {
-			DragImage draggable = new DragImage((ImageView) ok);
+			DragImage draggable = new DragImage((ImageView) o);
 			draggable.makeImageDraggable();
 			draggable.makeImageDeletable();
 		}

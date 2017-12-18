@@ -41,6 +41,13 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+/**
+ * Class that handles the creation of and interaction with the multi-layered grid. Active layers are tracked. Changing the number of rows + columns dynamically
+ * is supported.
+ * 
+ * @author Sam Slack, Dara Buggay
+ *
+ */
 public class DraggableGrid extends VBox implements DraggableGridAPI{
 	private StackPane myGrids;
 	private ComboBox<String> myTerrain;
