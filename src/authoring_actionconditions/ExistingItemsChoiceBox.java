@@ -18,6 +18,12 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ChoiceBox;
 import sun.security.tools.keytool.Resources;
 
+/**
+ * Class that creates a dropdown of existing variables/objects in the game.
+ * 
+ * @author DavidTran
+ *
+ */
 public class ExistingItemsChoiceBox {
 
 	private static final String PACKAGE_NAME = ExistingItemsChoiceBox.class.getPackage().getName();
@@ -31,6 +37,12 @@ public class ExistingItemsChoiceBox {
 
 	// need current sprites
 
+	/**
+	 * Constructor
+	 * 
+	 * @param type
+	 * @param supplier
+	 */
 	public ExistingItemsChoiceBox(VoogaType type, Supplier<List<AbstractSpriteObject>> supplier) {
 		this.supplier = supplier;
 		keys = Resources.getBundle(KEY_BUNDLE_LOCATION);

@@ -20,6 +20,12 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.layout.HBox;
 import tools.DisplayLanguage;
 
+/**
+ * Class representing operation parameter entry.
+ * 
+ * @author DavidTran
+ *
+ */
 public class OperationParameterTreeItem extends TreeItem<HBox> {
 
 	private static final String INPUT_A_DOUBLE = "Input a Double";
@@ -43,6 +49,12 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 	
 	private Supplier<List<AbstractSpriteObject>> supplier;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param selectedOperation
+	 * @param supplier
+	 */
 	public OperationParameterTreeItem(String selectedOperation, Supplier<List<AbstractSpriteObject>> supplier) {
 		this.supplier = supplier;
 		this.selectedOperation = selectedOperation;
@@ -60,7 +72,11 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 
 		this.makeParameterOperationTreeItem(selectedOperation);
 	}
-
+	
+	/**
+	 * 
+	 * @return parameter of the item.
+	 */
 	public Object getParameter() {
 
 		try {
@@ -88,8 +104,12 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 
 	}
 
-	// removed Operation<?> cast
+	/**
+	 * 
+	 * @return recursively makes an operation if the parameter is an operation with more parameters
+	 */
 	public Object makeOperation() {
+		// removed Operation<?> cast
 		try {
 			List<Object> listOfStringParams = new ArrayList<>();
 			;
@@ -117,6 +137,10 @@ public class OperationParameterTreeItem extends TreeItem<HBox> {
 
 	}
 
+	/**
+	 * 
+	 * @return number of parameters for this parameter (operation)
+	 */
 	public int getNumberOfParameters() {
 		return listOfOperations.size();
 	}

@@ -16,6 +16,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.HBox;
 
+/**
+ * Class that represents a Operation Name TreeItem
+ * 
+ * @author DavidTran
+ *
+ */
 public class OperationNameTreeItem extends TreeItem<HBox> {
 
 	private static final String INPUT_A_DOUBLE = "Input a Double";
@@ -32,18 +38,23 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 	private String voogaParameterGetName;
 	private String actionParameterType;
 	private static List<VoogaType> voogaTypesForExistingItems;
-	
+
 	private Supplier<List<AbstractSpriteObject>> supplier;
 
-	public OperationNameTreeItem(String actionParameterType, String voogaParameterGetName, VoogaType voogaType, Supplier<List<AbstractSpriteObject>> supplier) {
+	/**
+	 * Constructor for creating a new item
+	 * 
+	 * @param actionParameterType
+	 * @param voogaParameterGetName
+	 * @param voogaType
+	 * @param supplier
+	 */
+	public OperationNameTreeItem(String actionParameterType, String voogaParameterGetName, VoogaType voogaType,
+			Supplier<List<AbstractSpriteObject>> supplier) {
 		this.supplier = supplier;
 		this.voogaType = voogaType;
 		this.voogaParameterGetName = voogaParameterGetName;
 		this.actionParameterType = actionParameterType;
-
-		;
-		;
-		;
 
 		voogaTypesForExistingItems = new ArrayList<>();
 		voogaTypesForExistingItems.add(VoogaType.ANIMATIONNAME);
@@ -63,9 +74,18 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 
 	}
 
+	/**
+	 * Constructor that ConditionRow calls
+	 * 
+	 * @param actionParameterType
+	 * @param actionParameterDescription
+	 * @param voogaType
+	 * @param changeSize
+	 * @param supplier
+	 */
 	public OperationNameTreeItem(String actionParameterType, String actionParameterDescription, VoogaType voogaType,
 			Runnable changeSize, Supplier<List<AbstractSpriteObject>> supplier) {
-		
+
 		this(actionParameterType, actionParameterDescription, voogaType, supplier);
 		System.out.print("IS SUPPLIER NULL??????????? ");
 		System.out.println(supplier == null);
@@ -74,6 +94,10 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 
 	}
 
+	/**
+	 * 
+	 * @return Operation in the tree-item
+	 */
 	public Object makeOperation() {
 
 		try {
@@ -96,6 +120,10 @@ public class OperationNameTreeItem extends TreeItem<HBox> {
 
 	}
 
+	/**
+	 * 
+	 * @return choice-box selection
+	 */
 	public String getSelectedOperation() {
 		try {
 			return operationCB.getSelectionModel().getSelectedItem();

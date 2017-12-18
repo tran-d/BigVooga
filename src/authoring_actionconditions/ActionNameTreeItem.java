@@ -18,6 +18,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.HBox;
 
+/**
+ * Class representing the second tree-item for action tree view.
+ * 
+ * @author DavidTran
+ *
+ */
 public class ActionNameTreeItem extends TreeItem<HBox> {
 
 	private static String EMPTY_INPUT = "EmptyInput";
@@ -34,11 +40,21 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 	// private OperationNameTreeItem operationNameTreeItem1;
 	// private OperationNameTreeItem operationNameTreeItem2;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param actionCategory
+	 * @param supplier
+	 */
 	public ActionNameTreeItem(String actionCategory, Supplier<List<AbstractSpriteObject>> supplier) {
 		this.supplier = supplier;
 		this.makeActionTreeItem(actionCategory);
 	}
 
+	/**
+	 * 
+	 * @return action from the operations in the lower tree view tiers
+	 */
 	public Action extract() {
 		operationList = new ArrayList<>();
 		try {
@@ -62,6 +78,10 @@ public class ActionNameTreeItem extends TreeItem<HBox> {
 		// return null;
 	}
 	
+	/**
+	 * 
+	 * @return action name choice-box selections
+	 */
 	public String getSelectedAction() {
 		return selectedAction;
 	}

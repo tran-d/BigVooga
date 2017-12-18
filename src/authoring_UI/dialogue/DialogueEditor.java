@@ -40,7 +40,7 @@ import tools.DisplayLanguage;
 /**
  * Class that allows users to edit/save dialogues
  * 
- * @author DavidTran
+ * @author DavidTran, Samarth, Dara
  */
 public class DialogueEditor extends DisplayableEditor {
 

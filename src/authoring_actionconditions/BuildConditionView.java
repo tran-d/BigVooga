@@ -1,11 +1,16 @@
 package authoring_actionconditions;
 
-import authoring_UI.MainAuthoringGUI;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+/**
+ * Class that opens a window and allows the user to create conditions via a recursive tree-view. 
+ * 
+ * @author DavidTran
+ *
+ */
 public class BuildConditionView {
 	private static final double WIDTH = ConditionRow.ROW_WIDTH;
 	private static final double HEIGHT = ConditionRow.ROW_EXPANDED_HEIGHT;

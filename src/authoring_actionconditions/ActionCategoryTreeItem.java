@@ -18,6 +18,12 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.layout.HBox;
 import tools.DisplayLanguage;
 
+/**
+ * Class representing the first tree-item for building an action.
+ * 
+ * @author DavidTran
+ *
+ */
 public class ActionCategoryTreeItem extends TreeItem<HBox> {
 
 	private static final String ENTER_VALID_INPUT = "EnterValid";
@@ -30,23 +36,46 @@ public class ActionCategoryTreeItem extends TreeItem<HBox> {
 	private String selectedCategory;
 	private Supplier<List<AbstractSpriteObject>> supplier;
 
-	public ActionCategoryTreeItem(Runnable r, Supplier<List<AbstractSpriteObject>> supplier) {
-		changeTreeViewSize = r;
+	/**
+	 * Constructor
+	 * 
+	 * @param runnable
+	 * @param supplier
+	 */
+	public ActionCategoryTreeItem(Runnable runnable, Supplier<List<AbstractSpriteObject>> supplier) {
+		changeTreeViewSize = runnable;
 		this.supplier = supplier;
 		this.makeActionCategoryTreeItem();
 	}
 
+	/**
+	 * 
+	 * @return category Tree Item
+	 */
 	public TreeItem<HBox> getRootTreeItem() {
 		return categoryAction;
 	}
 
+	/**
+	 * 
+	 * @return selected category
+	 */
 	public String getSelectedCategory() {
 		return selectedCategory;
 	}
 	
+	/**
+	 * 
+	 * @return selected action
+	 */
 	public String getSelectedAction() {
 		return actionName.getSelectedAction();
 	}
+	
+	/**
+	 * 
+	 * @return an action from the tree view
+	 */
 	public Action extract() {
 		try {
 			
