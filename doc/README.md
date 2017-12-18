@@ -2,17 +2,17 @@
 
 * Archana Ahlawat, Nik Bramblett, Dara Buggay, Ryan Chung, Samarth Desai, Ian Eldridge-Allegra, Aaron Paskin, Sam Slack, Owen Smith, David Tran
 * Started on October 31st, ended on December 15th, estimated 2,500 hours total amongst all group members spent on the project
-* Each person's role in the project: 
+* Each person's role in the project:
     * Archana:
     * Nik:
     * Dara:
-    * Ryan:
+    * Ryan: helped design general layout of GUI, and worked on implementing SpriteCreator.
     * Samarth: Created the Welcome Screen, designed the GUI, worked on the Player and connecting the Player with Engine along with Ian, worked on various Authoring functionalities and Views with Sam, created the language Locale.
     * Ian: Designed and developed collision handling system, drawing utility, and BoundingPolygonCreator; Developed the basic GameDataHandler (excluding the authoring-specific components) and then converted it to save to a directory selected by the user outside the workspace; Handled text display for the engine; designed and implemented factories to give authoring access to all operations and actions along with their parameters (including designing the annotation system used for parameters); implemented many of the actions/operations; assisted in implementing the visitor pattern for Displayables.
-    * Aaron:
+    * Aaron: designed and implemented Actions/Conditions, Inventory and Holdables, and contributed heavily to overall Engine design. Also helped implement camera functionality.
     * Sam:
     * Owen: responsible for managing authoring actions and conditions, loading and saving information about them to spriteObjects, and passing and receiving that information from the data stored in XML files for games.
-    * David: 
+    * David: Designed the UI for the recursive tree aspect of authoring actions and conditions; Worked with Ian to use the annotation system to store actions/operations; Designed the UI for selecting games to play; Developed the initial stages of dialogue authoring.
 * Resources: Java documentation on list change listeners, lambda expressions, and layout components like HBoxes, VBoxes, TreeViews, and tabs, Program Creek for examples on list change listeners, StackOverflow for researching specific, small algorithms that were useful, and newthinktank.com for an example on MVC.
 * Files used to start the project: default_pkg.Main launches SceneController, which creates the welcome screen from which the user can either play a pre-existing game, build their own game, or view the settings for the game. 
 * Files used to test the project: Most of these are now outdated, and thus have been deleted, but everything in engine.Testing was used to generate games prior to integration with authoring. 

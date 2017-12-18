@@ -40,11 +40,17 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tools.DisplayLanguage;
 
+/**
+ * Class for adding elements such as buttons and Textfields to general layout of sprite creator 
+ * 
+ * @author taekwhunchung
+ *
+ */
 public class SpriteCreatorGridManager extends SpriteObjectGridManager {
-	
+
 	private static final String TOOLSANDNAMES_PATH = "authoring/drawing/drawingTools/drawingTools";
 	private static final String NAME_FIELD = "NameField";
-		private static final int PANE_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH;
+	private static final int PANE_WIDTH = MainAuthoringGUI.AUTHORING_WIDTH - ViewSideBar.VIEW_MENU_HIDDEN_WIDTH;
 	private static final String PATH = "resources/";
 	private static final String CATEGORY_FIELD = "CategoryField";
 	private static final String DRAW_IMAGE = "Draw";
@@ -58,23 +64,25 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 	private AuthoringEnvironmentManager myAEM;
 	private GameDataHandler GDH;
 	private static ResourceBundle paintResources = ResourceBundle.getBundle(TOOLSANDNAMES_PATH);
-	
-	
-	public SpriteCreatorGridManager(SpriteGridHandler SGH, GameDataHandler GDH){
+
+	public SpriteCreatorGridManager(SpriteGridHandler SGH, GameDataHandler GDH) {
 		super(ROWS, COLUMNS, SGH, GDH);
 		this.GDH = GDH;
 	}
-	
-	public SpriteCreatorGridManager(){
+
+	public SpriteCreatorGridManager() {
 		super(ROWS, COLUMNS);
 	}
-	public SpriteCreatorGridManager(SpriteGridHandler SGH, GameDataHandler GDH, AuthoringEnvironmentManager AEM, BiFunction<Image, String, AbstractSpriteObject> getSpriteType){
+
+	public SpriteCreatorGridManager(SpriteGridHandler SGH, GameDataHandler GDH, AuthoringEnvironmentManager AEM,
+			BiFunction<Image, String, AbstractSpriteObject> getSpriteType) {
 		this(SGH, GDH);
-		
+
 		myAEM = AEM;
 	}
-	
-	public SpriteCreatorGridManager(AuthoringEnvironmentManager AEM, BiFunction<Image, String, AbstractSpriteObject> getSpriteType){
+
+	public SpriteCreatorGridManager(AuthoringEnvironmentManager AEM,
+			BiFunction<Image, String, AbstractSpriteObject> getSpriteType) {
 		this();
 		getSpriteTypeFunction = getSpriteType;
 		myAEM = AEM;
@@ -83,10 +91,11 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 	protected SpriteCreatorGridManager(int rows, int columns, SpriteGridHandler SGH, GameDataHandler GDH) {
 		super(rows, columns, SGH, GDH);
 	}
-	
-	protected SpriteCreatorGridManager(int rows, int columns, SpriteGridHandler SGH, SpriteNameManager SNM, GameDataHandler GDH) {
+
+	protected SpriteCreatorGridManager(int rows, int columns, SpriteGridHandler SGH, SpriteNameManager SNM,
+			GameDataHandler GDH) {
 		super(rows, columns, SGH, GDH);
-		
+
 	}
 
 	@Override
@@ -94,52 +103,53 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 		myMapLayer = new SpriteCreatorLayer(getNumRows(), getNumCols(), mySpriteGridHandler);
 		this.setNumCols(defaultColumns);
 		this.setNumRows(defaultRows);
-		
+
 	}
-	
+
 	@Override
-	public void setCanFillBackground(){
+	public void setCanFillBackground() {
 		canFillBackground = false;
 	}
-	
-	public void setSpriteToCoverEntireGrid(AbstractSpriteObject ASO){
+
+	public void setSpriteToCoverEntireGrid(AbstractSpriteObject ASO) {
 		nameField.setText(ASO.getName());
 		categoryField.setText("General");
-		updateNewSpriteAndFillEntireGrid(()-> getMapLayer().setBackgroundImage(()->ASO));
+		updateNewSpriteAndFillEntireGrid(() -> getMapLayer().setBackgroundImage(() -> ASO));
 	}
-	
-	@Override 
-	public void getOnBackgroundChangeFunctionality(File file){
+
+	@Override
+	public void getOnBackgroundChangeFunctionality(File file) {
 		Image image = myAEM.getGameDataHandler().getImage(file);
 		String fileName = file.getName();
 		nameField.setText(file.getName());
 		categoryField.setText("General");
-		updateNewSpriteAndFillEntireGrid(()-> getMapLayer().setBackgroundImage(()-> getSpriteTypeFunction.apply(image, fileName)));
+		updateNewSpriteAndFillEntireGrid(
+				() -> getMapLayer().setBackgroundImage(() -> getSpriteTypeFunction.apply(image, fileName)));
 	}
-	
-	private void updateNewSpriteAndFillEntireGrid(Supplier<AbstractSpriteObject> fillGridSupplier){
+
+	private void updateNewSpriteAndFillEntireGrid(Supplier<AbstractSpriteObject> fillGridSupplier) {
 		newSprite = fillGridSupplier.get();
-		this.populateCell(newSprite, new Integer[]{0,0});
+		this.populateCell(newSprite, new Integer[] { 0, 0 });
 		this.mySpriteGridHandler.setActiveDisplayPanelSprite(newSprite);
 	}
-	
-	private AbstractSpriteObject getNewSprite(){
+
+	private AbstractSpriteObject getNewSprite() {
 		System.out.println("Getting sprite now");
 		return newSprite;
 	}
-	
-	public HBox getNameCategoryBox(){
+
+	public HBox getNameCategoryBox() {
 		HBox nameCategoryBox = new HBox(10);
 		nameCategoryBox.getChildren().addAll(addNameCategoryBox());
 		return nameCategoryBox;
 	}
-	
+
 	public HBox getSpriteButtonsBox() {
-		HBox spriteButtonsBox = new HBox (10);
+		HBox spriteButtonsBox = new HBox(10);
 		spriteButtonsBox.getChildren().addAll(addButtons());
 		return spriteButtonsBox;
 	}
-	
+
 	private HBox addNameCategoryBox() {
 		Label enterName = new Label();
 		enterName.textProperty().bind(DisplayLanguage.createStringBinding(NAME_FIELD));
@@ -152,7 +162,7 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 		nameCategoryBox.setAlignment(Pos.CENTER);
 		return nameCategoryBox;
 	}
-	
+
 	private HBox addButtons() {
 
 		Button createImageButton = new Button();
@@ -160,7 +170,7 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 		createImageButton.setOnAction(e -> {
 			Stage newStage = new Stage();
 			ImageCanvasPane paint = new ImageCanvasPane(500, 500, this::save);
-			
+
 			Scene paintScene = new Scene(paint);
 			newStage.setScene(paintScene);
 			newStage.show();
@@ -175,25 +185,26 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 			if (myAEM.getSpriteNameManager().isNameValidTemplate(spriteName)) {
 				try {
 					dummySprite.setName(spriteName);
-					if (categoryField.getText() == null || categoryField.getText().replaceAll("\\s+", "").length() == 0) {
-						if (dummySprite instanceof SpriteObject){
-							myAEM.addUserSprite((SpriteObject)dummySprite);
-						} else if (dummySprite instanceof InventoryObject){
-							myAEM.addInventorySprite((InventoryObject)dummySprite);
+					if (categoryField.getText() == null
+							|| categoryField.getText().replaceAll("\\s+", "").length() == 0) {
+						if (dummySprite instanceof SpriteObject) {
+							myAEM.addUserSprite((SpriteObject) dummySprite);
+						} else if (dummySprite instanceof InventoryObject) {
+							myAEM.addInventorySprite((InventoryObject) dummySprite);
 						}
-						
+
 					} else {
-						if (dummySprite instanceof SpriteObject){
-							myAEM.addUserSprite(categoryField.getText(), (SpriteObject)dummySprite);
-						} else if (dummySprite instanceof InventoryObject){
-							myAEM.addInventorySprite(categoryField.getText(), (InventoryObject)dummySprite);
+						if (dummySprite instanceof SpriteObject) {
+							myAEM.addUserSprite(categoryField.getText(), (SpriteObject) dummySprite);
+						} else if (dummySprite instanceof InventoryObject) {
+							myAEM.addInventorySprite(categoryField.getText(), (InventoryObject) dummySprite);
 						}
 					}
 
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
-				
+
 				myAEM.getSpriteNameManager().addTemplateName(spriteName);
 
 				nameField.clear();
@@ -219,10 +230,10 @@ public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 	}
 
 	private void save(Image s) {
-		final String fileName = ("UniqueSprite"+Math.random()).replaceAll("\\.", "")+".png";
-		System.out.println("fileName: "+fileName);
+		final String fileName = ("UniqueSprite" + Math.random()).replaceAll("\\.", "") + ".png";
+		System.out.println("fileName: " + fileName);
 		myAEM.getGameDataHandler().saveTo(s, fileName);
-		newSprite = getMapLayer().setBackgroundImage(()-> getSpriteTypeFunction.apply(s, fileName));
+		newSprite = getMapLayer().setBackgroundImage(() -> getSpriteTypeFunction.apply(s, fileName));
 	}
 
 

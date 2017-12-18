@@ -30,14 +30,14 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
-
 /**
 * Class that handles all interaction with layers of the grid. Sprite objects can be dragged and dropped onto any layer within the grid. Multiple cells of the
+
 * grid can be selected and then populated by a sprite object. Selection of a sprite object displays its sprite tabpane information, including tags, parameters,
 * utility, dialogue, animation sequences, etc. A sprite can be deleting by selecting it and then pressing the backspace button. Active cells are tracked. Error 
 * checking is done to ensure only sprites of the same type are selected simultaneously.
 * 
-* @author Dara Buggay, Sam Slack
+* @author Dara Buggay + Sam Slack (Primary), taekwhunchung
 *
 */
 
