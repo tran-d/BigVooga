@@ -12,7 +12,7 @@
     * Aaron:
     * Sam:
     * Owen: responsible for managing authoring actions and conditions, loading and saving information about them to spriteObjects, and passing and receiving that information from the data stored in XML files for games.
-    * David: 
+    * David: Designed the UI for the recursive tree aspect of authoring actions and conditions; Worked with Ian to use the annotation system to store actions/operations; Designed the UI for selecting games to play; Developed the initial stages of dialogue authoring.
 * Resources: Java documentation on list change listeners, lambda expressions, and layout components like HBoxes, VBoxes, TreeViews, and tabs, Program Creek for examples on list change listeners, StackOverflow for researching specific, small algorithms that were useful, and newthinktank.com for an example on MVC.
 * Files used to start the project: default_pkg.Main launches SceneController, which creates the welcome screen from which the user can either play a pre-existing game, build their own game, or view the settings for the game. 
 * Files used to test the project: Most of these are now outdated, and thus have been deleted, but everything in engine.Testing was used to generate games prior to integration with authoring. 
