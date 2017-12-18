@@ -29,7 +29,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-
+/**
+ * Class for getting event handlers for game objects in grid
+ * 
+ * @author taekwhunchung
+ *
+ */
 public class SpriteGridHandler {
 	private AbstractSpriteObject draggingObject;
 	private DataFormat objectFormat;

@@ -40,6 +40,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tools.DisplayLanguage;
 
+/**
+ * Class for adding elements such as buttons and Textfields to general layout of sprite creator 
+ * 
+ * @author taekwhunchung
+ *
+ */
 public class SpriteCreatorGridManager extends SpriteObjectGridManager {
 
 	private static final String TOOLSANDNAMES_PATH = "authoring/drawing/drawingTools/drawingTools";

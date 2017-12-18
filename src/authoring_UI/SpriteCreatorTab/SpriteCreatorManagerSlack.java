@@ -17,58 +17,70 @@ import engine.utilities.data.GameDataHandler;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 
-public class SpriteCreatorManagerSlack extends MapManager{
-	
+/**
+ * Main for sprite creator. AuthoringController creates an instance of this
+ * class. Creates instances of DraggableGrid and SpriteCreatorSpritePanel
+ * 
+ * @author taekwhunchung
+ *
+ */
+public class SpriteCreatorManagerSlack extends MapManager {
+
 	private SpriteObjectGridManager SpriteCreatorGridBE;
 
 	public SpriteCreatorManagerSlack(AuthoringEnvironmentManager AEM, Scene currentScene, String type) {
 		super(AEM, currentScene, type);
-		
+
 	}
-	
-	@Override 
-	protected DraggableGrid makeDraggableGrid(){
+
+	@Override
+	protected DraggableGrid makeDraggableGrid() {
 		DraggableGrid ret = new DraggableGrid(GDH);
-		if (myType.equals("SpriteObject")){
-			SpriteCreatorGridBE = new SpriteCreatorGridManager(myAEM, (Image im, String filePath)->new SpriteObject(filePath, GDH));
-		} else if (myType.equals("InventoryObject")){
-			SpriteCreatorGridBE = new SpriteCreatorGridManager(myAEM, (Image im, String filePath) -> new InventoryObject(filePath, GDH));
+		if (myType.equals("SpriteObject")) {
+			SpriteCreatorGridBE = new SpriteCreatorGridManager(myAEM,
+					(Image im, String filePath) -> new SpriteObject(filePath, GDH));
+		} else if (myType.equals("InventoryObject")) {
+			SpriteCreatorGridBE = new SpriteCreatorGridManager(myAEM,
+					(Image im, String filePath) -> new InventoryObject(filePath, GDH));
 		} else {
-			SpriteCreatorGridBE = new SpriteCreatorGridManager(myAEM, (Image im, String filePath)->new SpriteObject(filePath, GDH));
+			SpriteCreatorGridBE = new SpriteCreatorGridManager(myAEM,
+					(Image im, String filePath) -> new SpriteObject(filePath, GDH));
 		}
-//		BackgroundGridManager BackgroundGrid = new BackgroundGridManager(SpriteCreatorGridBE.getDefaultRows(), SpriteCreatorGridBE.getDefaultCols());
+		// BackgroundGridManager BackgroundGrid = new
+		// BackgroundGridManager(SpriteCreatorGridBE.getDefaultRows(),
+		// SpriteCreatorGridBE.getDefaultCols());
 		List<SpriteObjectGridManager> grids = new ArrayList<SpriteObjectGridManager>();
-//		grids.add(BackgroundGrid);
+		// grids.add(BackgroundGrid);
 		grids.add(SpriteCreatorGridBE);
 		ret.setAllGrids(grids);
 		return ret;
 	}
-	
+
 	@Override
-	protected void setManagerName(){
-		MANAGER_NAME = myType.equals("InventoryObject") ?"InventoryCreator" : "SpriteCreator";
+	protected void setManagerName() {
+		MANAGER_NAME = myType.equals("InventoryObject") ? "InventoryCreator" : "SpriteCreator";
 	}
-	
-	@Override 
-	protected void setTabTag(){
-		TAB_TAG=myType.equals("InventoryObject") ?"InventoryCreator" : "SpriteCreator";
-	}
-	
+
 	@Override
-	protected List<DraggableGrid> getListOfDraggableGrids(){
+	protected void setTabTag() {
+		TAB_TAG = myType.equals("InventoryObject") ? "InventoryCreator" : "SpriteCreator";
+	}
+
+	@Override
+	protected List<DraggableGrid> getListOfDraggableGrids() {
 		return new ArrayList<DraggableGrid>();
 	}
-	
+
 	@Override
-	protected SpritePanels makeSpritePanels(SpriteGridHandler mySpriteGridHandler){
+	protected SpritePanels makeSpritePanels(SpriteGridHandler mySpriteGridHandler) {
 		return new SpriteCreatorSpritePanels(mySpriteGridHandler, myAEM, myType);
 	}
-//	@Override
-//	protected AuthoringMapEnvironment makeAuthoringMapEnvironment(SpritePanels spritePanels, DraggableGrid dg) {
-//		AuthoringMapEnvironment ret = new AuthoringMapEnvironment(spritePanels, dg);
-//		return null;
-////		ret.addNode();
-//	}
-	
+	// @Override
+	// protected AuthoringMapEnvironment makeAuthoringMapEnvironment(SpritePanels
+	// spritePanels, DraggableGrid dg) {
+	// AuthoringMapEnvironment ret = new AuthoringMapEnvironment(spritePanels, dg);
+	// return null;
+	//// ret.addNode();
+	// }
 
 }
