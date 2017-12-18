@@ -27,7 +27,7 @@ public class Range {
 	public double getDifference() {
 		return max - min;
 	}
-	
+
 	public boolean contains(double value) {
 		return value >= min && value <= max;
 	}
@@ -35,16 +35,18 @@ public class Range {
 	/**
 	 * Checks the overlap with another range.
 	 * 
-	 * @param other The other Range to check against
-	 * @return The <it>signed</it> amount this range would need to be translated.
+	 * @param other
+	 *            The other Range to check against
+	 * @return The <it>signed</it> amount this range would need to be translated to
+	 *         separate them.
 	 */
 	public double getOverlap(Range other) {
 		if (!intersects(other))
 			return 0;
-		if(Math.abs(max - other.getMin()) < Math.abs(min - other.getMax()))
-			return other.getMin()-max;
+		if (Math.abs(max - other.getMin()) < Math.abs(min - other.getMax()))
+			return other.getMin() - max;
 		else
-			return other.getMax()-min;
+			return other.getMax() - min;
 	}
 
 	/**

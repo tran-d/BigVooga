@@ -18,7 +18,28 @@ import engine.operations.stringops.SelfString;
 import javafx.util.Pair;
 
 /**
- * Assumes names are unique
+ * 
+ * Responsible for constructing Operations and describing how to do so.
+ * OperationFactories give what operations are available, describe the parameters
+ * required for a particular operation, and construct operations via reflection.
+ * 
+ * This class assumes:
+ * 
+ * 1. All Operation types are included in the Operations.properties file, mapped
+ * to the relative locations of the properties file for that type.
+ * 
+ * 2. Each type has a properties file containing the descriptive name of all
+ * operations of that category mapped to the full class name of their
+ * implementation.
+ * 
+ * 3. All Operation names are unique.
+ * 
+ * 4a. Each Operation has only one constructor.
+ * 
+ * 4b. These constructors only take specific extensions of Operation which are
+ * included in the properties for Operations (OR Actions). 
+ * 
+ * 4c. Each parameter has an appropriate VoogaAnnotation. 
  * 
  * @author Ian Eldridge-Allegra
  *
@@ -79,7 +100,7 @@ public class OperationFactory {
 	 * @param operationName
 	 *            The operation whose parameters are needed, an element from
 	 *            {@link #getOperations(VoogaType)}
-	 * @return The parameters with descriptive names and types. 
+	 * @return The parameters with descriptive names and types.
 	 * @throws VoogaException
 	 */
 	public List<VoogaParameter> getParametersWithNames(String operationName) throws VoogaException {
@@ -95,19 +116,12 @@ public class OperationFactory {
 		return types;
 	}
 
-	//
-	// private String decamel(String name) {
-	// name = name.replaceAll("([a-z])([A-Z])", "$1 $2");
-	// name = name.substring(0, 1).toUpperCase()+name.substring(1);
-	// return name;
-	// }
-
 	@Deprecated
 	public List<String> getOperations(String operationType) {
 		return operations(operationType);
 	}
 
-	//used to support deprecated code without duplication
+	// used to support deprecated code without duplication
 	private List<String> operations(String operationType) {
 		if (operationsByType.containsKey(operationType))
 			return Collections.list(operationsByType.get(operationType).getKeys());
@@ -115,8 +129,9 @@ public class OperationFactory {
 	}
 
 	/**
-	 * @param parameter The operations that fit the given type. 
-	 * @return All operations known of the given type, from properties files. 
+	 * @param parameter
+	 *            The operations that fit the given type.
+	 * @return All operations known of the given type, from properties files.
 	 */
 	public List<String> getOperations(VoogaType parameter) {
 		return operations(parameter.getEngineType());
@@ -140,7 +155,8 @@ public class OperationFactory {
 	}
 
 	/**
-	 * @return The 
+	 * @return Maps class name to engine's VoogaTypes. Now only used for deprecated
+	 *         code.
 	 */
 	public static Map<String, String> getParameterTypeMap() {
 		return getFromBundle((key, properties) -> new Pair<String, String>(properties[CLASS_NAME_INDEX], key));
@@ -151,7 +167,15 @@ public class OperationFactory {
 				(key, properties) -> new Pair<>(key, ResourceBundle.getBundle(properties[FILE_LOCATION_INDEX])));
 	}
 
-	public Object wrap(Object value) {
+	/**
+	 * Turns a double, string, or boolean into an Operation. If this grew more
+	 * complex, it would instead use a properties file to map between java.lang
+	 * classes and operation classes, similarly to the type recovery in GameObject.
+	 * 
+	 * @param value A Double, String, or Boolean
+	 * @return A wrapped version, as an operation.
+	 */
+	public Operation<?> wrap(Object value) {
 		if (value instanceof Double)
 			return new Value((Double) value);
 		if (value instanceof Boolean)

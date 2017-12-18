@@ -4,9 +4,16 @@ import java.util.List;
 
 import controller.player.PlayerManager;
 import engine.operations.doubleops.DoubleOperation;
-import engine.operations.stringops.StringOperation;
 import javafx.geometry.Point2D;
 
+/**
+ * This class provides a wrapper for the master, world, and layer to shield some
+ * of their methods from Actions/Operations, while also allowing for access to 
+ * some methods that are needed.
+ * 
+ * @author Ian Eldridge-Allegra
+ *
+ */
 public class ConcreteGameObjectEnvironment implements GameObjectEnvironment {
 
 	private GameMaster master;
@@ -104,8 +111,6 @@ public class ConcreteGameObjectEnvironment implements GameObjectEnvironment {
 
 	@Override
 	public boolean inBounds(GameObject obj) {
-		// TODO Auto-generated method stub
-
 		return world.inBounds(obj);
 	}
 

@@ -14,19 +14,8 @@ import javafx.scene.control.ToolBar;
 import tools.DisplayLanguage;
 
 /**
- * ActionConditionRow purpose--in each action/condition tab, there is a list of
- * actions or conditions that a user can add. These rows contain all of the
- * information that the user can add for each action or condition.
- * assumptions--an actioncheckboxvbox is added to an action tab, which is
- * shouldn't be. It should only be added to condition tab since conditions
- * select which actions they cause dependencies--depends on the choiceboxvbox
- * class to instantiate itself and present choices to the user an example of how
- * to use it--pass in ID (row #), label (for the label of specific action or
- * condition), selector Label (to further select the action or condition that
- * the user wants), if it is a conditionRow, and the new potential list of
- * actionOptions any other details users should know--condition and action rows
- * only differ between in that condition rows have an actioncheckboxvbox
- * 
+ * ActionConditionRow--a super class that both action and conditions rows implement since they both have features in common. One feature common amongst
+ * them is having a number label corresponding to the number action or condition. This number can be decreased if a row from the HBox is removed
  * @author Owen Smith
  *
  */
@@ -76,31 +65,50 @@ public class ActionConditionRow extends ToolBar implements ActionConditionRowI {
 	// getItems().addAll(IDlabel, separator, this.label);
 	// }
 	
+	/**
+	 * getSupplier--
+	 * @return
+	 */
 	public Supplier<List<AbstractSpriteObject>> getSupplier() {
 		return supplier;
 	}
 
+	/**
+	 * decreaseLabelID--decreases the label ID by one if another row below it is removed
+	 */
 	@Override
 	public void decreaseLabelID() {
 		labelInt--;
 		IDlabel.setText(Integer.toString(labelInt));
 	}
 
+	/**
+	 * getImplementationSelectorVBoxValue--returns the value of the choiceBox for removing a row
+	 */
 	@Override
 	public Integer getImplementationSelectorVBoxValue() {
 		return implementationSelectorVBox.getCurrentValue();
 	}
 
+	/**
+	 * getLabel--returns the label of the action or condition row, which is its number
+	 */
 	@Override
 	public Label getLabel() {
 		return label;
 	}
 
+	/**
+	 * getImplementationSelectorLabel--this method did not get used in the program
+	 */
 	@Override
 	public Label getImplementationSelectorLabel() {
 		return implementationSelectorVBox.getLabel();
 	}
 
+	/**
+	 * getRowID--same thing as getLabel, there should not be two methods for this
+	 */
 	@Override
 	public int getRowID() {
 		return labelInt;

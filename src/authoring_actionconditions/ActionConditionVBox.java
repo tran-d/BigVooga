@@ -11,6 +11,15 @@ import javafx.collections.ListChangeListener.Change;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 
+/**
+ * actionConditionVBox--a vbox a part of each action and condition tab that contains the list of action or condition rows. 
+ * Purpose: to manage the actions and conditions of each spriteObject
+ * Dependencies: on VBox, and an observable list of rows and interface
+ * Example of how to use: create one with a pre-determined list of rows, or not if only a new one is desired
+ * @author Owen Smith
+ *
+ * @param <T>--the list of action or condition rows
+ */
 public abstract class ActionConditionVBox<T> extends VBox implements ActionConditionVBoxI<T> {
 
 	private ObservableList<T> rows;
@@ -26,6 +35,9 @@ public abstract class ActionConditionVBox<T> extends VBox implements ActionCondi
 		this.rows.setAll(FXCollections.observableArrayList(rows));
 	}
 	
+	/**
+	 * getRows--returns a list of action or condition rows 
+	 */
 	@Override
 	public List<T> getRows() {
 		return rows;
@@ -40,6 +52,10 @@ public abstract class ActionConditionVBox<T> extends VBox implements ActionCondi
 //			getChildren().add(actionConditionRow);
 	//}
 
+	/**
+	 * removeConditionAction--removes a condition or action given a row number 
+	 * row--an integer
+	 */
 	@Override
 	public void removeConditionAction(int row) {
 		rows.remove(row);
@@ -47,6 +63,9 @@ public abstract class ActionConditionVBox<T> extends VBox implements ActionCondi
 			((ActionConditionRow) rows.get(i)).decreaseLabelID();
 	}
 	
+	/**
+	 * addToRows--adds a condition/action row to the list at the end
+	 */
 	@Override
 	public void addToRows(ActionConditionRow actionConditionRow) {
 		rows.add((T) actionConditionRow);

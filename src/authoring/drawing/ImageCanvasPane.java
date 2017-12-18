@@ -30,6 +30,21 @@ import javafx.scene.paint.Color;
  * This is the primary class for use, and by default holds everything necessary
  * to simulate paint as a javafx component.
  * 
+ * There is a tradeoff of including all selectors in this class -- it makes the
+ * class much easier to use, since outside classes merely need to instantiate
+ * it, but it becomes slightly less extensible, since adding a new selector
+ * would require either: a) modifying this class to add it in b) extending this
+ * class to add to/modify the constructor
+ * 
+ * If this were being used only in our program, I would have considered using a
+ * plugin model, but since this is being used by other teams, I made it more
+ * "plug and play." This class is effectively a plugin anyway, so it's
+ * reasonable to leave the selectors used in this class.
+ * 
+ * The location of the properties file, for similar reasons, is included here,
+ * but is relative to the package location, so will continue working even if the
+ * package is moved between projects.
+ * 
  * @author Ian Eldridge-Allegra
  *
  */
