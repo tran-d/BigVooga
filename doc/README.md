@@ -1,11 +1,11 @@
 # voogasalad
 
 * Archana Ahlawat, Nik Bramblett, Dara Buggay, Ryan Chung, Samarth Desai, Ian Eldridge-Allegra, Aaron Paskin, Sam Slack, Owen Smith, David Tran
-* Started on October 31st, ended on December 15th, estimated 2,500 hours total amongst all group members spent on the project
+* Started on October 31st, ended on December 15th, estimated 1,500 hours total amongst all group members spent on the project
 * Each person's role in the project:
     * Archana:
     * Nik:
-    * Dara:
+    * Dara: Implemented UI interaction with sprites and the grid. Created editable UI components for parameters that are displayed upon sprite selection. Created Displayable abstract hierarchy which is extended by Dialogues, Cutscenes, and Inventories. Added most of the functionality in creating and editing dialogues & cutscenes. Helped debug and refactor the authoring environment. Also helped format most all of the auth env UI, including the different views.
     * Ryan: helped design general layout of GUI, and worked on implementing SpriteCreator.
     * Samarth: Created the Welcome Screen, designed the GUI, worked on the Player and connecting the Player with Engine along with Ian, worked on various Authoring functionalities and Views with Sam, created the language Locale.
     * Ian: Designed and developed collision handling system, drawing utility, and BoundingPolygonCreator; Developed the basic GameDataHandler (excluding the authoring-specific components) and then converted it to save to a directory selected by the user outside the workspace; Handled text display for the engine; designed and implemented factories to give authoring access to all operations and actions along with their parameters (including designing the annotation system used for parameters); implemented many of the actions/operations; assisted in implementing the visitor pattern for Displayables.
