@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 /**
  * Class holding inventory data.
  * 
- * @author DavidTran
+ * @author DavidTran, Dara Buggay
  *
  */
 public class Inventory extends Displayable {

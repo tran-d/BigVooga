@@ -42,7 +42,7 @@ import tools.DisplayLanguage;
 /**
  * Class that allows users to edit/save inventories
  * 
- * @author DavidTran
+ * @author DavidTran, Dara Buggay
  */
 public class InventoryEditor extends DisplayableEditor {
 

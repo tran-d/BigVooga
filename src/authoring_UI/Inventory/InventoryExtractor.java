@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Class for extracting all inventory information and converting into inventory objects.
  * 
- * @author DavidTran
+ * @author DavidTran, Dara Buggay
  *
  */
 public class InventoryExtractor {

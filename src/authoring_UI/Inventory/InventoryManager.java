@@ -23,7 +23,7 @@ import tools.DisplayLanguage;
 /**
  * Class that represents the pane containing all inventory authoring components
  * 
- * @author DavidTran
+ * @author DavidTran, Dara Buggay
  *
  */
 public class InventoryManager extends DisplayableManager {
