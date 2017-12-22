@@ -1,0 +1,30 @@
+<authoring__UI.SpriteDataConverter>
+  <catmap>
+    <entry>
+      <string>General</string>
+      <list>
+        <authoring.Sprite.Parameters.BooleanSpriteParameter>
+          <string>canFight</string>
+          <boolean>true</boolean>
+        </authoring.Sprite.Parameters.BooleanSpriteParameter>
+        <authoring.Sprite.Parameters.DoubleSpriteParameter>
+          <string>health</string>
+          <double>10.0</double>
+        </authoring.Sprite.Parameters.DoubleSpriteParameter>
+        <authoring.Sprite.Parameters.StringSpriteParameter>
+          <string>name</string>
+          <string>hello</string>
+        </authoring.Sprite.Parameters.StringSpriteParameter>
+      </list>
+    </entry>
+  </catmap>
+  <inventory/>
+  <name>pikachu</name>
+  <width>1</width>
+  <height>1</height>
+  <tags></tags>
+  <UUID>1a70e311-d0d6-4193-8c42-1521d1f5024d</UUID>
+  <imageURL>/pikachu.png</imageURL>
+  <mySavePath>data/UserCreatedGames/TestProject/Sprites/DefaultSprites/General/pikachu</mySavePath>
+  <spriteType>SpriteObject</spriteType>
+</authoring__UI.SpriteDataConverter>

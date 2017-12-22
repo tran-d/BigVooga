@@ -1,5 +1,6 @@
 package gui.welcomescreen;
 
+import controller.welcomeScreen.SceneController;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,13 +14,16 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 /**
+ * The superclass that creates the framework for three of the four options in the welcome screen: Play, Learn, and Settings.
+ * Specifically, this sets the color scheme, heading, back button, and ScrollPane of information for these three options.
  * 
- * @author Samarth
+ * @author Samarth Desai
  *
  */
 public class MenuOptionsTemplate {
 
-	protected static final int CONTENT_INSET_SIZE = 10;
+	public static final int CONTENT_INSET_SIZE = 10;
+	public static final String SCROLLPANE_CSS = "ScrollPane.css";
 	private static final int BACK_WIDTH = 50;
 	private static final int BACK_HEIGHT = 50;
 	private static final String BACK_STATIC_PATH = "Back_Static.png";
@@ -27,27 +31,36 @@ public class MenuOptionsTemplate {
 	private static final Insets CONTENT_PADDING = new Insets(0, CONTENT_INSET_SIZE, CONTENT_INSET_SIZE, CONTENT_INSET_SIZE);
 	
 	private Stage stage;
+	private Scene scene;
+	private SceneController sceneController;
 	private BorderPane rootPane;
 	private ScrollPane contentPane;
 	
 	private Image backStaticImage;
 	private Image backImage;
 	private ImageView back;
+	private Insets contentPadding;	
 
-	public MenuOptionsTemplate(Stage currentStage) {
+	/**
+	 * 
+	 * 
+	 * @param currentStage - Stage instance that is being passed
+	 * @param currentSceneController - Allows the correct scene to be applied, which is the settings scene
+	 */
+	public MenuOptionsTemplate(Stage currentStage, SceneController currentSceneController) {
 		stage = currentStage;
+		sceneController = currentSceneController;
 		rootPane = new BorderPane();
-		Scene scene = new Scene(rootPane, WelcomeScreen.WIDTH, WelcomeScreen.HEIGHT);
-		scene.getStylesheets().add(MenuOptionsTemplate.class.getResource("MenuOptionsStyle.css").toExternalForm());
-
-		stage.setScene(scene);
+		scene = new Scene(rootPane, WelcomeScreen.WIDTH, WelcomeScreen.HEIGHT);
+		scene.getStylesheets().add(MenuOptionsTemplate.class.getResource(SCROLLPANE_CSS).toExternalForm());
 	}
 
-	public void createOptionScreen(String titleLogoPath, int titleLogoWidth, int titleLogoHeight, int topAndBottomPadding) {
+	public void createOptionScreen(String titleLogoPath, int titleLogoWidth, int titleLogoHeight,
+			int topAndBottomPadding, int rightAndLeftPadding, int contentPaneHeight) {
+		contentPadding = new Insets(0, rightAndLeftPadding, rightAndLeftPadding, rightAndLeftPadding);
 		rootPane.setStyle(WelcomeScreen.SET_BACKGROUND_COLOR + WelcomeScreen.BACKGROUND_COLOR);
 		rootPane.setTop(createHeading(titleLogoPath, titleLogoWidth, titleLogoHeight, topAndBottomPadding));
-		rootPane.setCenter(createContentBox());
-
+		rootPane.setBottom(createContentBox(contentPaneHeight));
 	}
 	
 	private HBox createHeading(String titleLogoPath, int titleLogoWidth, int titleLogoHeight, int topAndBottomPadding) {
@@ -89,8 +102,7 @@ public class MenuOptionsTemplate {
 	
 	private void handleBackSelection() {
 		
-		WelcomeScreen welcome = new WelcomeScreen(stage);
-		welcome.createWelcomeScreen();
+		sceneController.switchScene(SceneController.WELCOME_SCREEN_KEY);
 		
 	}
 
@@ -105,17 +117,25 @@ public class MenuOptionsTemplate {
 
 	}
 	
-	private ScrollPane createContentBox() {		
+	private ScrollPane createContentBox(int contentPaneHeight) {		
 		contentPane = new ScrollPane();
 		contentPane.setPrefWidth(WelcomeScreen.WIDTH);
-		contentPane.setPrefHeight(WelcomeScreen.HEIGHT);
+		contentPane.setPrefHeight(contentPaneHeight);
 		contentPane.setStyle(GUITools.styleBox(WelcomeScreen.BORDER_COLOR));
-		contentPane.setPadding(CONTENT_PADDING);
+		contentPane.setPadding(contentPadding);
 		BorderPane.setMargin(contentPane, CONTENT_PADDING);
 		return contentPane;
 	}
 	
 	protected ScrollPane getScrollPane() {
 		return contentPane;
+	}
+	
+	public Scene getScene() {
+		return scene;
+	}
+	
+	public BorderPane getBorderPane() {
+		return rootPane;
 	}
 }

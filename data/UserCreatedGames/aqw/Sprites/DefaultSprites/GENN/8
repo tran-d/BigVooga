@@ -1,0 +1,56 @@
+<authoring__UI.SpriteDataConverter>
+  <catmap>
+    <entry>
+      <string>General</string>
+      <list>
+        <authoring.Sprite.Parameters.BooleanSpriteParameter>
+          <string>canFight</string>
+          <boolean>true</boolean>
+        </authoring.Sprite.Parameters.BooleanSpriteParameter>
+        <authoring.Sprite.Parameters.DoubleSpriteParameter>
+          <string>health</string>
+          <double>10.0</double>
+        </authoring.Sprite.Parameters.DoubleSpriteParameter>
+        <authoring.Sprite.Parameters.StringSpriteParameter>
+          <string>name</string>
+          <string>hello</string>
+        </authoring.Sprite.Parameters.StringSpriteParameter>
+      </list>
+    </entry>
+  </catmap>
+  <inventory/>
+  <imageURL>/pikachu.png</imageURL>
+  <gridPos>
+    <int>6</int>
+    <int>5</int>
+  </gridPos>
+  <name>pikachu</name>
+  <width>1</width>
+  <height>1</height>
+  <UUID>39fca710-9df1-4237-bf95-70e5bf8c9770</UUID>
+  <myAnimationSequences>
+    <authoring.Sprite.AnimationSequences.AuthoringAnimationSequence resolves-to="authoring.Sprite.AnimationSequences.SerializableAuthoringAnimationSequence">
+      <myName>Default</myName>
+      <myImages>
+        <authoring.Sprite.AnimationSequences.AnimationSequenceImage>
+          <myImage resolves-to="authoring_data.SerializableAuthoringImageView">
+            <imagePath>Link.png</imagePath>
+          </myImage>
+        </authoring.Sprite.AnimationSequences.AnimationSequenceImage>
+      </myImages>
+    </authoring.Sprite.AnimationSequences.AuthoringAnimationSequence>
+<authoring.Sprite.AnimationSequences.AuthoringAnimationSequence resolves-to="authoring.Sprite.AnimationSequences.SerializableAuthoringAnimationSequence">
+      <myName>Link</myName>
+      <myImages>
+        <authoring.Sprite.AnimationSequences.AnimationSequenceImage>
+          <myImage resolves-to="authoring_data.SerializableAuthoringImageView">
+            <imagePath>Build_Static.png</imagePath>
+          </myImage>
+        </authoring.Sprite.AnimationSequences.AnimationSequenceImage>
+      </myImages>
+     </authoring.Sprite.AnimationSequences.AuthoringAnimationSequence>
+  </myAnimationSequences>
+  <mySavePath>data/UserCreatedGames/Terraria-ish/Sprites/DefaultSprites/General/8</mySavePath>
+  <spriteType>SpriteObject</spriteType>
+  <tags/>
+</authoring__UI.SpriteDataConverter>
